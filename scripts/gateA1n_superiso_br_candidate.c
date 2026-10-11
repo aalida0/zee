@@ -122,6 +122,19 @@ static double evaluate(const char *label,
             return NAN;
         }
     }
+    /* Diagnostic only: for identical Zee matching vectors, expose every
+       post-RG coefficient to locate any hidden residual-mass dependence.
+       Does not modify matching, RGE, Cprime, or BR input. */
+    if (strcmp(label,"ZEE_300_700")==0 ||
+        strcmp(label,"ZEE_SAME_WC_ALT_MASS_700")==0) {
+        for (int i=1;i<=10;i++) {
+            printf("RGEDETAIL %s i=%d C0re=%.17g C0im=%.17g "
+                   "C1re=%.17g C1im=%.17g C2re=%.17g C2im=%.17g scale=%d\n",
+                   label,i,creal(c0b[i]),cimag(c0b[i]),
+                   creal(c1b[i]),cimag(c1b[i]),
+                   creal(c2b[i]),cimag(c2b[i]),scan_scale);
+        }
+    }
     Cprime_calculator(2,cp,cqp,muW,mub,&point);
     /* SM chirality-flipped coefficients need not vanish. They are
        small but finite in SuperIso v5 even for its pure SM baseline.
