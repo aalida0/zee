@@ -148,6 +148,13 @@ static double evaluate(const char *label,
         }
         cp_norm=fmax(cp_norm,cabs(cp[i]));
     }
+    if (strcmp(label,"ZEE_300_700")==0 ||
+        strcmp(label,"ZEE_SAME_WC_ALT_MASS_700")==0) {
+        for (int i=1;i<=10;i++) {
+            printf("CPALL %s i=%d re=%.17g im=%.17g scale=%d\n",
+                   label,i,creal(cp[i]),cimag(cp[i]),scan_scale);
+        }
+    }
     double br=bsgamma(c0b,c1b,c2b,cp,mub,muW,&point);
     if (!isfinite(br) || br<=0. || br>=1. || !isfinite(cp_norm)) {
         fprintf(stderr,"FAILED BSGAMMA driver %s: BR=%g Cp_max=%g mass_H=%.17g muW=%.17g mub=%.17g THDM_model=%d SM=%d C0b7=%.17g C0b8=%.17g C1b7=%.17g C1b8=%.17g C2b7=%.17g C2b8=%.17g\n",label,br,cp_norm,point.mass_H,muW,mub,point.THDM_model,point.SM,creal(c0b[7]),creal(c0b[8]),creal(c1b[7]),creal(c1b[8]),creal(c2b[7]),creal(c2b[8]));
