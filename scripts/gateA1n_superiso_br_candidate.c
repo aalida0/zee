@@ -104,10 +104,34 @@ static double evaluate(const char *label,
         fprintf(stderr,"Invalid charged-mass context for %s: %.17g\n",label,point.mass_H);
         return NAN;
     }
-    C_calculator_base1((double complex *)wc->C0,
-                       (double complex *)wc->C1,
-                       (double complex *)wc->C2,
+    /* CRITICAL: vendor API takes mutable arrays. Never cast away const
+       and pass the shared matched Zee vector directly; every evaluation
+       must receive a fresh independent copy to rule out call-order effects. */
+    double complex c0w[NWC],c1w[NWC],c2w[NWC];
+    memcpy(c0w,wc->C0,sizeof(c0w));
+    memcpy(c1w,wc->C1,sizeof(c1w));
+    memcpy(c2w,wc->C2,sizeof(c2w));
+    C_calculator_base1(c0w,c1w,c2w,
                        muW,c0b,c1b,c2b,mub,&point);
+    double highscale_mutation=0.;
+    for(int i=1;i<=10;i++) {
+        highscale_mutation=fmax(highscale_mutation,cabs(c0w[i]-wc->C0[i]));
+        highscale_mutation=fmax(highscale_mutation,cabs(c1w[i]-wc->C1[i]));
+        highscale_mutation=fmax(highscale_mutation,cabs(c2w[i]-wc->C2[i]));
+    }
+    if(!isfinite(highscale_mutation)) {
+        fprintf(stderr,"High-scale array overwritten nonfinite for %s\\n",label);
+        return NAN;
+    }
+    if(strcmp(label,"ZEE_300_700")==0 ||
+       strcmp(label,"ZEE_SAME_WC_ALT_MASS_700")==0 ||
+        strcmp(label,"ZEE_REPEAT_MASS_300")==0 ||
+        strcmp(label,"ZEE_REPEAT_MASS_700")==0 ||
+       strcmp(label,"ZEE_REPEAT_MASS_300")==0 ||
+       strcmp(label,"ZEE_REPEAT_MASS_700")==0) {
+        printf("INPUTMUTATION %s max_abs=%.17g scale=%d\\n",
+               label,highscale_mutation,scan_scale);
+    }
     /* Fail at the first invalid QCD-evolved Wilson coefficient, not at BR. */
     for (int i=1;i<=10;i++) {
         if(!isfinite(creal(c0b[i])) || !isfinite(cimag(c0b[i])) ||
@@ -126,7 +150,9 @@ static double evaluate(const char *label,
        post-RG coefficient to locate any hidden residual-mass dependence.
        Does not modify matching, RGE, Cprime, or BR input. */
     if (strcmp(label,"ZEE_300_700")==0 ||
-        strcmp(label,"ZEE_SAME_WC_ALT_MASS_700")==0) {
+        strcmp(label,"ZEE_SAME_WC_ALT_MASS_700")==0 ||
+        strcmp(label,"ZEE_REPEAT_MASS_300")==0 ||
+        strcmp(label,"ZEE_REPEAT_MASS_700")==0) {
         for (int i=1;i<=10;i++) {
             printf("RGEDETAIL %s i=%d C0re=%.17g C0im=%.17g "
                    "C1re=%.17g C1im=%.17g C2re=%.17g C2im=%.17g scale=%d\n",
@@ -149,7 +175,9 @@ static double evaluate(const char *label,
         cp_norm=fmax(cp_norm,cabs(cp[i]));
     }
     if (strcmp(label,"ZEE_300_700")==0 ||
-        strcmp(label,"ZEE_SAME_WC_ALT_MASS_700")==0) {
+        strcmp(label,"ZEE_SAME_WC_ALT_MASS_700")==0 ||
+        strcmp(label,"ZEE_REPEAT_MASS_300")==0 ||
+        strcmp(label,"ZEE_REPEAT_MASS_700")==0) {
         for (int i=1;i<=10;i++) {
             printf("CPALL %s i=%d re=%.17g im=%.17g scale=%d\n",
                    label,i,creal(cp[i]),cimag(cp[i]),scan_scale);
@@ -196,6 +224,10 @@ static int run_suite(struct parameters *p,double muW,double mub,int scale_index)
         /* Identical WCs but a different residual param.mass_H:
            if bsgamma/Cprime depends on it, our Zee interface is incomplete. */
         {"ZEE_SAME_WC_ALT_MASS_700",&zee,0,M2},
+        /* Order-dependence control. These are exactly identical
+           source/mass cases repeated in the same running process. */
+        {"ZEE_REPEAT_MASS_300",&zee,0,M1},
+        {"ZEE_REPEAT_MASS_700",&zee,0,M2},
         {"ENDPOINT_H1",&endpoint1,0,M1},
         {"ENDPOINT_H2",&endpoint2,0,M2},
     };
