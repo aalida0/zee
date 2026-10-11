@@ -195,8 +195,28 @@ def main():
     for name in ("vendor","isolated","reference_sm","output"):
         p.add_argument("--"+name,type=Path,required=True)
     a=p.parse_args()
-    result=verify(parse_output(a.vendor),parse_output(a.isolated),
-                  official_sm(a.reference_sm))
+    try:
+        result=verify(parse_output(a.vendor),parse_output(a.isolated),
+                      official_sm(a.reference_sm))
+    except ValueError as exc:
+        # An explicit BLOCKED result is preferable to a missing result.json.
+        # Keep the nonzero process status so failed physics gates cannot
+        # accidentally pass in higher-level scripts.
+        blocked={
+            "status":"BR_CANDIDATE_BLOCKED_VALIDATION_FAILURE",
+            "blocked_reason":str(exc),
+            "scope":"Numerical and source checks; NOT a physical Zee BR",
+            "mass_context_diagnostic_path":
+                str(a.output.parent/"mass_context_diagnostic.json"),
+            "Zee_benchmark_allowed":None,
+            "Zee_benchmark_excluded":None,
+        }
+        a.output.parent.mkdir(parents=True,exist_ok=True)
+        a.output.write_text(json.dumps(blocked,indent=2)+"\n")
+        print("STATUS:",blocked["status"])
+        print("REASON:",blocked["blocked_reason"])
+        print("Wrote",a.output)
+        raise SystemExit(1)
     a.output.parent.mkdir(parents=True,exist_ok=True)
     a.output.write_text(json.dumps(result,indent=2)+"\n")
     print("Wrote",a.output)
