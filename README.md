@@ -238,3 +238,24 @@ and Higgs/direct search constraints. Do not substitute
 [the Zee–Babu FeynRules UFO](https://cp3.irmp.ucl.ac.be/projects/feynrules/wiki/ZeeBabu):
 it has a different field content (singly and doubly charged singlets,
 not two Higgs doublets plus a singly charged singlet).
+
+
+### Existing original Zee UFO found (2026-10-11)
+
+**We located a real, public Zee UFO**, so a gauge-sector implementation
+need not start from scratch: [YangPhy/Zee-Model]
+(https://github.com/YangPhy/Zee-Model), with
+`ZEE_UFO` and `ZEE_NLO` and original FeynRules source.
+The source UFO has two charged Higgs fields (`H±` PDG 227 and `h±`
+PDG 228), **including off-diagonal `Z H h` vertices**.
+
+**Critical:** the published UFO has no physical `tb H±` or
+`tb h±` vertices, because its quark Yukawas only involve
+the vev-carrying Higgs-basis doublet. It therefore
+cannot implement our Type-II-driven associated-production
+`tbH2` channel or the signal decay `H1→tb` as-is.
+We can first test the real Z-mediated mixed-pair channel,
+then extend the *FeynRules Lagrangian* with correct quark Yukawas.
+
+Read the [direct UFO vertex/particle audit and safe MG5 smoke test]
+(docs/gate7_existing_zee_ufo_audit.md).
