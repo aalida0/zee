@@ -159,6 +159,14 @@ class TestCandidateValidation(unittest.TestCase):
         repeat_fields=rows[repeat_ix].split()
         repeat_fields[2]=fields[2]
         rows[repeat_ix]=" ".join(repeat_fields)
+        clone_ix=next(i for i,row in enumerate(rows)
+                 if row.startswith("BRCLONE ZEE_SAME_WC_ALT_MASS_700 ")
+                 and row.endswith("scale=0"))
+        clone_fields=rows[clone_ix].split()
+        for j in (2,3,4):
+            key=clone_fields[j].split("=")[0]
+            clone_fields[j]=f"{key}={fields[2]}"
+        rows[clone_ix]=" ".join(clone_fields)
         self.native.write_text("\n".join(rows)+"\n")
         stage=diagnostic(self.native,self.patched,self.root)
         self.assertEqual(stage["libraries"]["vendor"]["stage_diagnosis"],
