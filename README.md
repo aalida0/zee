@@ -366,3 +366,24 @@ See [Gate7D width closure and remaining physics gates]
 `scripts/gate7_ew_scheme_audit.py` independent input-card-driven
 EW calculation (regression test included). These results **do not**
 validate physical Zee lepton/neutrino constraints or NLO QCD.
+
+
+### Gate 7D EW scheme: confirmed PASS; Gate 8A flavor LO pilot
+
+AF user-confirmed Gate7D EW input audit: the (H_2^\pm\to W^\pm h_{580.7}\)
+MadWidth-versus-analytic partial-width discrepancy falls to
+`−3.76e−5` once Yang/Wu's on-shell EW input scheme is used.
+**Numerical LO five-width benchmark closure is complete.**
+
+Before any detector simulation, the 300/700 GeV charged pair needs
+a **full two-state flavor and oblique parameter** analysis.
+New `scripts/gate8a_bsgamma_lo_screen.py` plus
+`tests/test_gate8a_bsgamma_lo_screen.py` compute
+the mixed-charged-state LO ΔC7/ΔC8 contributions at matching.
+See [Gate 8A initial LO flavor diagnosis and caveats]
+(docs/gate8a_bsgamma_pilot_roadmap.md).
+
+Gate 8A **does NOT calculate BR(B→Xsγ)** and cannot be used
+to claim exclusion or viability. Required next: proper NLO/NNLO
+flavor, S/T/U, Higgs/direct searches, and (for a full original
+Zee model) a neutrino mass/LFV fit.
