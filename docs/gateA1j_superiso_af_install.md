@@ -69,6 +69,46 @@ grep -i -E 'b.*s.*gamma|b.*x.*gamma|BR.*s|BR.*gamma' \
 
 If the core build fails, copy `result.json` and the last 50 lines of the first failing `make_*.log`. First ensure the SM output convention (including the photon-energy cut) is documented.
 
+## 2a. SuperIso v5 SM executable intentionally returns exit code 1
+
+At the verified official v5.0 source, `sm.c` ends in `return 1;` even
+when the program has printed its full Standard Model prediction table.
+On the AF the correctly executing driver gave:
+
+```text
+BR(b->s gamma)  3.382e-04
+```
+
+**Do not patch `sm.c`, do not add `|| true`, and do not hide all error
+codes.** Gate A1J now uses `gateA1j_sm_exit_audit.py` to accept exit
+code 1 **only** when:
+
+1. The official `sm.c` ends in the verified `return 1;` statement.
+2. The output contains the SuperIso v5.0 and SM-prediction headers.
+3. The numerical SM `BR(b->s gamma)` is finite and plausible.
+4. The final printed `Br(KL->pi0mumu)_dest-interf.` observable is present.
+
+The raw exit code (1), audit verdict, numerical SM rate and completeness
+checks are written to `sm_exit_audit.json` and `result.json`. Missing
+or truncated output, an unverified exit-1 source, or exit-2 remain failures.
+
+After updating the A1J branch, rerun:
+
+```bash
+cd /home/aalida/zee
+git fetch origin gateA1j-superiso-af-bootstrap
+git switch gateA1j-superiso-af-bootstrap
+git pull --ff-only
+python3 -m unittest discover -s tests -p 'test_gateA1j_build_superiso.py' -v
+bash scripts/gateA1j_build_superiso.sh \
+  /home/aalida/opt/zee_tools/SuperIso_v5.0 \
+  work/gateA1j_superiso_build 1
+cat work/gateA1j_superiso_build/result.json
+```
+
+**This validates the SM toolchain only; not the two-mixed-charged-scalar
+Zee (B\to X_s\gamma) prediction.**
+
 ## 3. Next: model-level matching, not averaging BRs
 
 SuperIso's standard 2HDM driver assumes **one** charged-Higgs mass and may require a separate 2HDMC installation. Our Zee model has *two* charged mass eigenstates, with distinct doublet projections and perturbative Wilson matching. Validate the SuperIso **SM**, then its **single-charged Type-II** limits, before adding both charged states at the LO/NLO/NNLO matching and RG-evolution level.
