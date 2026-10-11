@@ -232,6 +232,75 @@ pass but two mass choices still yield distinct evolved WCs,
 audit explicit and indirect parameter dependencies in
 `C_calculator_base1` and child functions before changing any physics.
 
+## AF result: defensive evolution buffers fixed the apparent RG difference
+
+The AF experiment with independent, mutable input buffers for
+`C_calculator_base1` demonstrated that earlier large differences
+between evolved Wilson vectors were **aliasing/call-order artefacts**:
+
+- Native and isolated libraries: all 30 evolved Wilson entries
+  agree between both charged-mass contexts to machine precision.
+- Every primed Wilson coefficient agrees.
+- Each identical-mass repeated call gives exactly the same BR.
+- The vendor mutates its incoming high-scale coefficient buffers;
+  maximum change is about 10.46/10.50 for the two library builds.
+  This behavior requires private input copies to keep matched
+  Zee Wilson data invariant across evaluations.
+- A **0.18%** candidate BR residual remains, independently of the
+  NLO bugfix, **even when final evolved and primed Wilson vectors
+  agree**.
+- The previous automated largest-difference location
+  (index=10,order=2,imaginary) had no meaning with a maximum
+  difference of zero; new reports give `null` in that case.
+
+The next diagnostic is a controlled isolated replay of `bsgamma`
+with identical snapshots of the evolved and primed Wilson-coefficient
+arrays, identical full parameter context except for explicitly
+switching `point.mass_H=300` or `700` GeV. Separate copies are
+supplied each time to prevent mutation contamination.
+
+```bash
+cd /home/aalida/zee
+git switch gateA1n-superiso-br-candidate-controls
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_gateA1n_br_candidate_controls.py' -v
+bash scripts/gateA1n_run_br_candidate.sh \
+  /home/aalida/opt/zee_tools/SuperIso_v5.0 \
+  /home/aalida/zee/work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  work/gateA1n_br_candidate
+python3 - <<'PY'
+import json
+p="work/gateA1n_br_candidate/mass_context_diagnostic.json"
+r=json.load(open(p))
+for name,entry in r["libraries"].items():
+  row=entry["scales"][0]
+  print(name,entry["stage_diagnosis"])
+  print("fixed-WC bsgamma 300/700:",
+        row["bsgamma_clone_with_original_mass300"])
+  print("max BR replay discrepancy:",
+        row["max_original_vs_replayed_bsgamma_same_mass_difference"])
+PY
+```
+
+**Interpretation:**
+
+- If switching only `mass_H` inside `bsgamma` with frozen inputs
+  reproduces the BR difference, inspect its **indirect** helper calls
+  and mass-dependent `struct parameters` access; the absence of
+  literal `mass_H` in `src/bsgamma.c` does not rule out calls
+  into other source files.
+- If the two cloned `bsgamma` results coincide but contexts
+  propagated through evolution yield distinct BRs, audit changes
+  to **other fields of the parameter struct** during earlier stages.
+- If the cloned result differs from the original even with the
+  same residual mass, investigate mutation by the `bsgamma`
+  routine or non-reentrant auxiliary state before interpreting it.
+- Until these distinctions are established, **both the original
+  and isolated Zee BR candidates are unvalidated.**
+
+No experimental comparison or exclusion decision is made.
+
 ## Remaining required gates
 
 1. Obtain a known Type-II NNLO reference **prediction curve**
