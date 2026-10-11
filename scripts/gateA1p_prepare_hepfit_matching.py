@@ -125,7 +125,10 @@ def generate(source:Path,destination:Path,manifest:Path,expected_blob=HEPFIT_BLO
     # Preserve the original HEPfit copyright notice in the generated
     # temporary translation unit; the original full GPL source
     # is kept alongside the extracted shim under work/.
-    copyright_notice=text[:text.find("#include")]
+    include_pos=text.find("#include")
+    if include_pos<0:
+        raise ValueError("Missing HEPfit upstream include marker")
+    copyright_notice=text[:include_pos]
     if "HEPfit Collaboration" not in copyright_notice:
         raise ValueError("Missing original upstream HEPfit copyright notice")
     destination.parent.mkdir(parents=True,exist_ok=True)
