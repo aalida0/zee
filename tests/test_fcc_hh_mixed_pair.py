@@ -11,7 +11,7 @@ from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 from fcc_hh_mixed_pair_dy import (
     GEV2_TO_FB, lambda_kallen, rate_pp_mixed_pair,
-    sigmahat_qqbar_to_h1h2, zee_g12
+    sigmahat_qqbar_to_h1h2, zee_g12, g12_scaled_to_gamma, G12_P2_PILOT
 )
 
 
@@ -26,6 +26,15 @@ class MixedPairTest(unittest.TestCase):
     def test_threshold(self):
         self.assertEqual(sigmahat_qqbar_to_h1h2(1000**2,300,700,2),0)
         self.assertEqual(lambda_kallen(1000**2,300,700),0)
+
+    def test_legacy_benchmark_g12_unchanged(self):
+        self.assertAlmostEqual(g12_scaled_to_gamma(1.089), G12_P2_PILOT, places=13)
+
+    def test_gamma_scan_scaling(self):
+        a = g12_scaled_to_gamma(.4)
+        b = g12_scaled_to_gamma(.8)
+        self.assertAlmostEqual(a/b, math.sin(.8)/math.sin(1.6), places=12)
+        self.assertEqual(g12_scaled_to_gamma(0), 0)
 
     def test_mixing_zero(self):
         self.assertEqual(zee_g12(0),0)
