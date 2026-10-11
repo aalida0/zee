@@ -12,6 +12,7 @@ import unittest
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/"scripts"))
 
 from gateA1p_prepare_hepfit_matching import extract,git_blob_sha,generate
+from gateA1p_audit_running_top import audit as audit_mt_source
 from gateA1p_compare_hepfit_matching import (
     read_hepfit,compare_mass,report,TOLERANCES
 )
@@ -91,6 +92,21 @@ class TestGateA1P(unittest.TestCase):
     def test_duplicate_function_is_rejected(self):
         with self.assertRaises(ValueError):
             extract(example_hepfit_source()*2)
+
+    def test_audit_top_mass_source_accepts_pinned_A1M_contents(self):
+        path=self.root/"wilson.c"
+        content="double mass_top_muW = running_mass(param->mass_top_pole, muW);\n"
+        path.write_text(content)
+        digest=hashlib.sha256(content.encode()).hexdigest()
+        item=audit_mt_source(path,expected_sha=digest)
+        self.assertIn("SOURCE_AUDIT",item["status"])
+        self.assertFalse(item["mt_muW_source_value_directly_evaluated"])
+
+    def test_audit_top_mass_source_rejects_wrong_hash(self):
+        path=self.root/"wilson.c"
+        path.write_text("double mass_top_muW = 163.0;\n")
+        with self.assertRaises(ValueError):
+            audit_mt_source(path,expected_sha="x"*64)
 
     def test_unknown_source_revision_rejected(self):
         source=self.root/"source.cpp"
