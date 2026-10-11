@@ -82,6 +82,41 @@ call the benchmark excluded/allowed or use them for publication,
 even if the output passes. A pure Type-II numerical *control* is
 not an independent reference calculation.
 
+## AF runtime diagnostic: nonfinite TYPEII_300 (October 2026)
+
+The first AF integration run passed all six synthetic tests and
+verified the A1M source hashes. Its independent SM prediction was
+`3.38246e-4`, reproducing official `sm.x` to printed precision.
+The Type-II 300 GeV BR then returned NaN. **This was not a physics
+exclusion**.
+
+Code review identified a driver parameter-propagation defect:
+`run_typeII()` sets `mass_H=300` (or another mass) in a local
+matching parameter structure, but the original `evaluate()`
+used a fresh copy with **mass_H=0** when invoking
+`C_calculator_base1`, `Cprime_calculator` and `bsgamma`.
+The revised driver restores the corresponding charged mass in
+the low-scale parameter context. The failure was not traced
+all the way to its originating elementary operation; a new AF
+run is therefore needed to determine whether this is sufficient.
+
+The revised driver also:
+- checks low-scale Wilson coefficients explicitly for nonfinite
+  numbers before running the BR calculation and prints affected
+  order, index, scale and residual charged mass;
+- evaluates the **same** Zee Wilson vector twice, first with a
+  residual `mass_H=300`, then with `mass_H=700`. If the results or
+  chirality-flipped coefficients depend on this arbitrary single
+  mass, the candidate is **blocked** until all such dependence is
+  mapped to the actual two-state model;
+- preserves the SM and original-vs-isolated comparisons.
+
+**Do not paper over NaN**, force `Cprime=0`, or silently
+replace the Type-II mass with an arbitrary value. If the
+updated code still fails, capture
+`work/gateA1n_br_candidate/vendor.txt` plus the terminal
+error and inspect `bsgamma_Ecut` in the installed SuperIso.
+
 ## Remaining required gates
 
 1. Obtain a known Type-II NNLO reference **prediction curve**
