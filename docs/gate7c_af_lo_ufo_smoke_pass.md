@@ -128,3 +128,61 @@ Expected `ZEELAMS`: `(2.39677936, 2.71011596, −0.37353220,
 and partial widths (not merely static diagrams) to Gate-6 analytical
 results; handle the six-diagram mixed pair properly, then run
 EW/CKM matching and gauge tests before physical cross sections.
+
+
+## Gate 7D: user ran parameter mapping and diagnostic card on AF
+
+On 2026-10-11 the user ran both scripts successfully:
+
+- `gate7_map_p2_to_yangwu.py`: scalar external inputs
+  `ZEEINPUTS=(1.394,1.398,0.004,0.4817963267948966)`;
+  `ZEELAMS=(2.396779362019555,2.7101159644251087,
+   -0.3735321954718115,0.03776437207458772,
+   1.0482156279254127,-0.187830901992651,4.473)`.
+- Higgs-basis internal quartics:
+  `(Z1,Z4,Z5,Z6)=(0.25782059008508423,
+  -1.145521910262999,-1.0617613842555145,
+  -0.021218226720188617)`.
+- Potential/mass identity residuals:
+  Z1=0, Z4=-8.88e-16, Z5=-4.44e-16, Z6=2.78e-16,
+  μzee=-1.14e-13 GeV.
+- `gate7_make_diagnostic_param_card.py` produced
+  `work/gate7_typeii_diagnostic_param_card.dat`;
+  Zee singlet antisymmetric lepton Yukawas f_ab=0
+  (no neutrino masses); charged lepton Yukawas Type-II.
+- Existing DECAY widths in generated diagnostic card are
+  deliberately stale and MUST be recomputed.
+
+**Status:** analytical parameter map PASS, input-card write PASS.
+Not yet a MadGraph numerical amplitude/width match or a physical point.
+
+## Run Gate 7D MadWidth benchmark test (new scripts)
+
+MadWidth command syntax from Alwall et al.
+`arXiv:1402.1178`: `compute_widths [particle] --path= --output=`
+and `--body_decay=2` limits calculations to 2-body modes.
+
+```bash
+cd ~/zee
+git pull --ff-only
+python3 -m unittest discover -s tests -v
+source ~/fccee_zh/scripts/setup_key4hep.sh
+bash scripts/gate7_run_madwidth.sh \
+   2>&1 | tee work/gate7_madwidth_wrapper.log
+```
+
+Output `work/gate7_madwidth/madwidth_output_param_card.dat`
+is written separately from the original diagnostic input card.
+`work/gate7_madwidth/width_comparison.json` contains the five
+independent LO tree-level partial-width comparisons:
+1. heavy→light+Z (~9.411 GeV analytic Gate6 reference)
+2. heavy→tb (~1.558 GeV)
+3. heavy→W+neutral heavy (~1.071 GeV)
+4. heavy→light+h125 (~0.267 GeV)
+5. light→tb (~0.09095 GeV).
+
+Default gate threshold |ΔΓ/Γ|<20% is deliberately loose to flag
+major normalization/sign/kinematics inconsistencies; it is NOT
+a theory uncertainty estimate or proof of physical validity.
+Any failure (including a MadWidth parser/compatibility failure)
+must be examined rather than loosening this threshold blindly.
