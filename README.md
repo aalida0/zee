@@ -178,3 +178,47 @@ The Zee–Babu UFO does not supply this theory. For the full signal
 we still need an exact potential point obeying vacuum/EW/Higgs/flavour
 constraints plus neutrino/LFV consistency, and a complete Zee UFO.
 Do not launch expensive Delphes samples before those checks.
+
+
+## Gate 6: original Zee scalar-sector benchmark screen
+
+**Latest finding:** the initial beta=alpha=1.398 point is INVALID:
+lambda1≈−1.609 violates necessary BFB. The slightly shifted
+beta=1.394 point passes conservative BFB and scalar tree-level
+unitarity (max |Λ|≈18.137<8π) but is **NOT yet a validated model point**.
+Reconstructing the scalar potential uses P2 m12²=57700 GeV² and
+k12=−0.001266 (corrected from an earlier transcription).
+
+At shifted beta, included two-body tree-level partial widths (GeV):
+H2→H1Z 9.4113; H2→Whheavy 1.0710; H2→H1h125 0.2670;
+H2→tb 1.5581; H2→tauν 0.0357. The fraction H1Z/sum(included)
+≈0.7624 **is not a physical Zee branching ratio**. Full antisymmetric
+lepton Yukawas and LFV/neutrino constraints are not yet specified.
+
+All running is under $HOME/zee, NOT /data:
+
+```bash
+cd ~/zee
+git pull --ff-only
+source ~/fccee_zh/scripts/setup_key4hep.sh
+python3 -m unittest discover -s tests -v
+
+python3 scripts/gate6_benchmark.py --beta 1.398 \
+  --output work/gate6_beta_equals_alpha.json
+python3 scripts/gate6_benchmark.py --beta 1.394 \
+  --output work/gate6_beta_shifted.json
+python3 scripts/gate6_width_inventory.py --beta 1.394 \
+  --output work/gate6_partial_widths.json
+python3 scripts/gate6_beta_scan.py \
+  --output work/gate6_beta_scan.csv
+python3 scripts/gate6_vacuum_search.py --beta 1.394 \
+  --nstarts 80 --seed 20261011 \
+  --output work/gate6_vacuum_search.json
+```
+
+Read the [Gate 6 benchmark audit](docs/gate6_benchmark_validation.md)
+and the [requirements for a **full**, gauge-complete Zee UFO]
+(docs/zee_full_ufo_implementation_contract.md).
+The repository **does not yet contain** that full UFO, a lepton-sector fit,
+electroweak/flavour constraints or a certified global vacuum. This stage
+is a theory-only filter before committing to a gauge-complete event model.
