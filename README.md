@@ -120,3 +120,61 @@ H2/H1 widths (including bosonic channels), recheck flavour/Higgs/electroweak
 constraints and the untested Zee neutrino/LFV sector. Then assess acceptance
 versus `ttZ+bb` and other irreducible backgrounds. Do not infer discovery from
 the inclusive cross section alone.
+
+## Gate 5A: FCC-hh 80–100 TeV LO rate screen
+
+Two complementary channels: (A) tbH2± (Type-II 2HDM Yukawa-production proxy, scaled by sin²γ),
+and (B) pp→Z*→H1+H2- + H1-H2+ (off-diagonal Z-coupling Drell–Yan).
+The photon coupling of differently-massed charged scalars is diagonal; the mixed channel is Z-mediated.
+These are NOT full constrained Zee-model predictions: neither the illustrative P2 masses
+nor total widths and branching fractions have been validated.
+
+Start under /home/aalida/zee; do not run MG5 in /data.
+```bash
+cd ~/zee
+git pull --ff-only
+source ~/fccee_zh/scripts/setup_key4hep.sh
+python3 -m unittest discover -s tests -v
+python3 -c 'import lhapdf; print(lhapdf.availablePDFSets()[:40])'
+```
+
+The analytic mixed-pair calculator needs an installed five-flavor LO LHAPDF set.
+If NNPDF31_lo_as_0130 is not listed, supply an installed suitable LO set explicitly.
+```bash
+cd ~/zee
+python3 scripts/fcc_hh_mixed_pair_dy.py \
+ --energy-tev 80 100 --m1 300 --m2 700 \
+ --pdf-set NNPDF31_lo_as_0130 --nodes-tau 60 --nodes-y 40 \
+ --output work/fcc_hh_mixed_pair_lo.json
+python3 scripts/fcc_hh_mixed_pair_dy.py \
+ --energy-tev 100 --m1 300 --m2 700 \
+ --pdf-set NNPDF31_lo_as_0130 --nodes-tau 90 --nodes-y 60 \
+ --output work/fcc_hh_mixed_pair_lo_highres.json
+```
+
+The JSON sigma_both_charges_fb is a parton-level inclusive rate before
+decays, b-tagging, and backgrounds. Check integration convergence.
+The calculation implements ONLY the s-channel Z* component, with
+g12 = 0.1520746183 from the previous analytic pilot.
+
+To generate the 100 TeV associated-production 4FS MG5 proxy:
+```bash
+cd ~/zee
+MG5_BIN=/cvmfs/sw.hsf.org/key4hep/releases/2026-04-08/x86_64-almalinux9-gcc14.2.0-opt/madgraph5amc/3.5.9-3xnfke/bin/mg5_aMC \
+ bash scripts/setup_fcc_hh_4fs_proxy.sh 100
+cd ~/zee/work/ZeeProductionProxy_4FS_100TeV
+grep -E 'ebeam[12]|pdlabel|maxjetflavor' Cards/run_card.dat
+grep -A6 -i 'block frblock' Cards/param_card.dat
+./bin/generate_events run_01 -f 2>&1 | tee ~/zee/work/gate5_fcc_100tev.log
+```
+
+Apply sin²(1.089)=0.7852866098 to the 100 TeV 2HDM LO production rate.
+Internal nn23lo1 is ONLY a preliminary screening choice, not an nf=4 precision PDF.
+PDF/scale/scheme uncertainties and NLO effects must be evaluated later.
+
+**Important physical limitations:** The real Zee model needs 2HDM+charged singlet,
+two physically distinct charged mass eigenstates, and a validated ZH1H2 vertex.
+The Zee–Babu UFO does not supply this theory. For the full signal
+we still need an exact potential point obeying vacuum/EW/Higgs/flavour
+constraints plus neutrino/LFV consistency, and a complete Zee UFO.
+Do not launch expensive Delphes samples before those checks.
