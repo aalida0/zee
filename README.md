@@ -347,3 +347,22 @@ Run `bash scripts/gate7_run_madwidth.sh` after
 `python3 -m unittest discover -s tests -v`.
 Results are **diagnostic only** with Zee lepton f_ab=0
 (neutrino masses vanish) and no NLO counterterms.
+
+
+### Gate 7D: MadWidth LO partial widths close numerically (2026-10-11)
+
+AF MadWidth two-body calculation passed five diagnostic width checks
+for the parameter-mapped 300/700 GeV charged Zee-Type-II point.
+`Γ(heavy)=12.36727 GeV`, `Γ(light)=0.09520432 GeV`
+for **neutrino-unfitted** f_ab=0 / Type-II leptons.
+Four widths agree with the independent Gate6 formulas to better
+than 0.01%. The W+hheavy width initially differs by +2.0886%
+because Gate6 fixed MW=80.379/sin²θW=0.23122 while Yang/Wu derives
+MW=79.82436, sin²θW=0.233699 from its alpha, GF, MZ input scheme.
+After matching EW inputs the W+hheavy discrepancy is ~0.0038%.
+
+See [Gate7D width closure and remaining physics gates]
+(docs/gate7d_madwidth_closure_pass.md) and run the
+`scripts/gate7_ew_scheme_audit.py` independent input-card-driven
+EW calculation (regression test included). These results **do not**
+validate physical Zee lepton/neutrino constraints or NLO QCD.
