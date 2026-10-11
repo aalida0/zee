@@ -1,0 +1,70 @@
+# Zee-type charged-Higgs discovery pilot
+
+This repository is for a **14 TeV HL-LHC feasibility study** of the Zee-type scalar-sector cascade
+
+```
+pp -> tbar b H2+  (+ charge conjugate)
+                  H2+ -> H1+ Z
+                         H1+ -> t bbar
+```
+
+The characteristic final state is `ttbar + bbbar + Z` (four b quarks before acceptance). Candidate channels include `Z -> ee/mumu`, with one top decaying leptonically, and a **3-lepton + at least 3 b-tags** signal region.
+
+Reference: Florentino, Romão, Silva, *Off diagonal charged scalar couplings with the Z boson: Zee-type models as an example*, EPJC 81 (2021) 1148, [arXiv:2106.08332](https://arxiv.org/abs/2106.08332), [DOI](https://doi.org/10.1140/epjc/s10052-021-09956-2).
+
+## Why a 2HDM UFO appears in a two-charged-Higgs study
+
+A **standard 2HDM** has one charged mass-eigenstate pair `H+`/`H-`: these are antiparticles of **one** species. The official FeynRules `2HDMtII_NLO` UFO represents it with `h+` and `h-` (PDG ±37).
+
+A **Zee-type 2HDM plus charged singlet** has **two different physical charged-Higgs pairs** `H1+`/`H1-` and `H2+`/`H2-`. They arise because the charged doublet scalar mixes with the charged singlet, with angle gamma:
+
+```
+H1+ =  cos(gamma)*H_D+ + sin(gamma)*chi+
+H2+ = -sin(gamma)*H_D+ + cos(gamma)*chi+
+```
+
+For the paper's Type-II-like **quark sector**, only `H_D+` couples directly to `tb`. At *leading order*, a 2HDM **production-only proxy** of mass `mH2` and matching `tanbeta` can be converted as
+
+```
+sigma(pp -> tb H2±) ≈ sin(gamma)^2 * sigma_2HDM(pp -> tb h±)
+```
+
+provided the Born amplitudes are governed by those same Yukawas. This factor is **not a full Zee-model calculation** and does not provide its decay kinematics, widths, or validated branching ratios. It is only an economical first **rate-screening gate**.
+
+In MadGraph,
+
+```
+generate p p > t~ b h+
+add process p p > t b~ h-
+```
+
+are the positive and negative charge-conjugate production channels of the **single** 2HDM `h±` species. They are **not** `H1` and `H2`! The full cascade requires a distinct Zee-model UFO that contains both charged states and the `Z H1 H2` interaction.
+
+## Illustrative input (not a validated point)
+
+The source's P2 benchmark region contains `alpha=1.398`, `gamma=1.089`, `mH1=250–360 GeV`, and `mH2=635–800 GeV`. The *selected illustrative pair* `mH1=300`, `mH2=700 GeV`, `beta=alpha` gives `tanbeta=5.7294463`, `sin(gamma)^2=0.7852866`. This mass pair has **not been shown simultaneously viable**, and the reference does **not** fully fit neutrino masses or charged-lepton flavour violation.
+
+**Stop conditions:** No full event simulation or claimed discovery sensitivity until (i) a viable exact Zee parameter point is established; (ii) the 14 TeV production rate is calculated and its scheme/PDF/scale uncertainty assessed; (iii) a two-state Zee UFO is validated including `H2 -> H1 Z`; and (iv) event acceptance and the dominant `ttZ+heavy-flavour` background are quantified.
+
+## Workflow on AF (Key4hep, home software, /data storage)
+
+```bash
+cd /data/aalida
+git clone https://github.com/aalida0/zee.git
+cd zee
+# The official 2HDMtII_NLO UFO downloaded in the previous pilot can be copied:
+mkdir -p models
+cp -a /data/aalida/zee_charged_higgs_pilot/models/2HDMtII_NLO models/
+source ~/fccee_zh/scripts/setup_key4hep.sh
+# Discover MG5; it may be installed in your home or on Key4hep PATH:
+command -v mg5_aMC || find "$HOME" -maxdepth 7 -name mg5_aMC -type f
+# Choose a valid executable and create the 4FS process:
+MG5_BIN=/path/to/mg5_aMC bash scripts/setup_4fs.sh
+# The script creates/validates cards; it does NOT generate events.
+cd work/ZeeProductionProxy_4FS_14TeV
+./bin/generate_events run_01 -f
+```
+
+Review `Cards/param_card.dat` and `Cards/run_card.dat` before launching. The initial `pdlabel=nn23lo1` is a **screening PDF**, not a publication-quality nf=4 uncertainty prediction. Never add 4FS and 5FS cross sections together.
+
+The `models/`, `work/`, and `results/` directories hold locally downloaded model files and generated outputs and are ignored by Git.
