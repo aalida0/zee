@@ -50,9 +50,11 @@ implementation, not an independent RG or inclusive decay-rate code.
 - Pilot comparison tolerances: LO abs 1e-7 / rel 1e-6;
   NLO abs 0.002 / rel 0.5%; NNLO abs 0.35 / rel 3%.
   **These exploratory tolerances are not publication-level
-  precision standards**. Any discrepancy must be audited for
-  scheme and NNLO expansion differences, and tolerances tightened
-  before final validation.
+  precision standards**. Every NNLO residual exceeding 1% relative
+  (when its coefficient magnitude exceeds 1e-3) is separately
+  recorded as a precision-review flag, even if the broad pilot
+  tolerance technically passes. Any discrepancy must be audited
+  for scheme and NNLO expansion differences before final validation.
 
 ## AF run
 
