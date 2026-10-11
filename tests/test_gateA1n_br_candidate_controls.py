@@ -34,6 +34,7 @@ class TestCandidateValidation(unittest.TestCase):
                 "TYPEII_300":.00012,"TYPEII_700":.00004,
                 "TYPEII_1000":.00002,"TYPEII_2000":.000005,
                 "ZEE_300_700":.00005,
+                "ZEE_SAME_WC_ALT_MASS_700":.00005,
                 "ENDPOINT_H1":.00012,"ENDPOINT_H2":.00004
             }
             for name in sorted(NAMES):
@@ -106,6 +107,19 @@ class TestCandidateValidation(unittest.TestCase):
         contents[idx]=" ".join(parts)
         self.patched.write_text("\n".join(contents)+"\n")
         with self.assertRaises(ValueError):
+            verify(parse_output(self.native),parse_output(self.patched),
+                   official_sm(self.ref))
+
+    def test_zee_residual_mass_context_dependence_rejected(self):
+        rows=self.patched.read_text().splitlines()
+        ix=next(i for i,row in enumerate(rows)
+                if row.startswith("RESULT ZEE_SAME_WC_ALT_MASS_700 ")
+                and row.endswith("scale=0"))
+        parts=rows[ix].split()
+        parts[2]=str(float(parts[2])+1e-6)
+        rows[ix]=" ".join(parts)
+        self.patched.write_text("\n".join(rows)+"\n")
+        with self.assertRaisesRegex(ValueError,"residual point.mass_H"):
             verify(parse_output(self.native),parse_output(self.patched),
                    official_sm(self.ref))
 
