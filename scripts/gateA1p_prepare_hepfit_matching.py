@@ -122,8 +122,14 @@ def generate(source:Path,destination:Path,manifest:Path,expected_blob=HEPFIT_BLO
         raise ValueError(f"Unrecognized independent HEPfit source blob {actual}; expected {expected_blob}")
     text=raw.decode("utf-8")
     function=extract(text)
+    # Preserve the original HEPfit copyright notice in the generated
+    # temporary translation unit; the original full GPL source
+    # is kept alongside the extracted shim under work/.
+    copyright_notice=text[:text.find("#include")]
+    if "HEPfit Collaboration" not in copyright_notice:
+        raise ValueError("Missing original upstream HEPfit copyright notice")
     destination.parent.mkdir(parents=True,exist_ok=True)
-    destination.write_text(HEADER+function+"\n"+MAIN)
+    destination.write_text(copyright_notice+HEADER+function+"\n"+MAIN)
     details={
         "status":"HEPFIT_INDEPENDENT_REFERENCE_SHIM_GENERATED_NOT_PHYSICAL_BR",
         "upstream_repo":HEPFIT_REPOSITORY,"upstream_file":HEPFIT_FILE,
