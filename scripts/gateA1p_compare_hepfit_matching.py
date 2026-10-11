@@ -105,11 +105,23 @@ def report(pairs,beta,source_manifest):
     failed=[r for r in rows if not r["numerically_consistent"]]
     maxerr=max(r["absolute_error"] for r in rows)
     primary_fail=[r for r in failed if r["operator"] in ("C7","C8")]
+    # A broad coefficient-level NNLO pilot tolerance is not an
+    # accuracy assessment. Surface residuals >1% even when they fit
+    # inside the exploratory absolute tolerance.
+    precision_flags=[
+        r for r in rows if r["order"]==2
+        and max(abs(r["independent_HEPfit_delta"]),
+                abs(r["superiso_isolated_delta"]))>1e-3
+        and r["relative_error"]>0.01
+    ]
+    if failed:
+        stage="INDEPENDENT_HEPFIT_MATCHING_DISCREPANCY_REQUIRES_CONVENTION_AUDIT"
+    elif precision_flags:
+        stage="INDEPENDENT_HEPFIT_MATCHING_PILOT_WITH_NNLO_PRECISION_FLAGS"
+    else:
+        stage="INDEPENDENT_HEPFIT_TYPEII_MATCHING_PILOT_CONSISTENT"
     return {
-        "status":(
-            "INDEPENDENT_HEPFIT_TYPEII_MATCHING_PILOT_CONSISTENT"
-            if not failed else
-            "INDEPENDENT_HEPFIT_MATCHING_DISCREPANCY_REQUIRES_CONVENTION_AUDIT"),
+        "status":stage,
         "source":"HEPfit THDMMatching::setWCbsg independent of SuperIso",
         "upstream_git_blob":manifest["upstream_git_blob"],
         "masses_GeV":[x[0] for x in pairs],
@@ -128,6 +140,10 @@ def report(pairs,beta,source_manifest):
         "failed_count":len(failed),
         "failed_primary_C7_C8_count":len(primary_fail),
         "largest_absolute_residual":maxerr,
+        "largest_relative_residual":max(r["relative_error"] for r in rows),
+        "NNLO_above_one_percent_relative_count":len(precision_flags),
+        "NNLO_precision_review_flags":precision_flags,
+        "NNLO_publication_precision_validated":False,
         "mismatches":failed,
         "full_bsgamma_independently_validated":False,
         "Zee_benchmark_allowed":None,
@@ -160,6 +176,9 @@ def main():
     print("Wrote",a.output,"STATUS:",result["status"])
     if "compared_count" in result:
         print("Rows",result["compared_count"],"failures",result["failed_count"])
+        for row in result["NNLO_precision_review_flags"][:15]:
+            print("NNLO PRECISION REVIEW",row["mass_GeV"],row["operator"],
+                  "relative_error=",row["relative_error"])
         for row in result["mismatches"][:15]:
             print("MISMATCH",row["mass_GeV"],row["order"],
                   row["operator"],"SuperIso=",row["superiso_isolated_delta"],
