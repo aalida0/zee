@@ -294,3 +294,21 @@ vertex tests. Read [the LO UFO export instructions]
 (docs/gate7_typeii_lo_ufo_export.md).
 Mathematica and FeynRules may need to run on a separate licensed
 machine if not available on ATLAS AF; do not invent a local path.
+
+
+### Gate 7C: new Zee-Type-II LO UFO validated in MG5 (2026-10-11)
+
+AF MG5 3.5.9 import of the *user-exported modified* LO UFO succeeded.
+Static vertex checks found 517 vertices, both ZH+h- and tbH±
+charged-conjugate interactions, and no mixed photon scalar three-point.
+MG5 generated 8 diagrams per gg→tbH± charge channel, 6 per
+uubar→H+h− channel, and 1 for H+→Z h+.
+
+This is a **diagram gate PASS**, not a model-physics validation.
+See [the AF evidence and next mapping gate]
+(docs/gate7c_af_lo_ufo_smoke_pass.md). New
+`scripts/gate7_map_p2_to_yangwu.py` and
+`tests/test_gate7_yangwu_mapping.py` implement exact Higgs-basis
+quartic/charged-angle matching to the Gate-6 benchmark.
+Critical: raw original Zee lepton Yukawa defaults must not be used
+to claim physical branching fractions. NLO UV/R2 still missing.
