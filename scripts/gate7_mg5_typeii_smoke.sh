@@ -13,7 +13,7 @@ UFO="$(cd "$UFO" && pwd)"
 python3 "$ROOT/scripts/gate7_validate_typeii_ufo.py" "$UFO" \
     --output "$ROOT/work/gate7_typeii_ufo_static.json"
 
-if [[ -z "$MG5_BIN" ]]; then
+if [[ -z "$(printenv MG5_BIN 2>/dev/null || true)" ]]; then
   MG5_BIN="/cvmfs/sw.hsf.org/key4hep/releases/2026-04-08/x86_64-almalinux9-gcc14.2.0-opt/madgraph5amc/3.5.9-3xnfke/bin/mg5_aMC"
 fi
 [[ -f "$MG5_BIN" ]] || { echo "ABORT: MG5 executable missing: $MG5_BIN" >&2; exit 2; }
