@@ -259,3 +259,21 @@ then extend the *FeynRules Lagrangian* with correct quark Yukawas.
 
 Read the [direct UFO vertex/particle audit and safe MG5 smoke test]
 (docs/gate7_existing_zee_ufo_audit.md).
+
+
+### Gate 7: existing Zee UFO import succeeded; Type-II adaptation started
+
+The user's 2026-10-11 MG5_aMC 3.5.9 import of
+`external/Zee-Model/ZEE_UFO` passed: `u u~ > H+ h-`
+and `u u~ > H- h+` generated 3 diagrams each.
+The Yang/Wu implementation has the Z mixed-charge vertices,
+but **no physical tbH± Yukawas**. It is therefore only a starting
+point for our Type-II associated-production analysis.
+
+See [Florentino-vs-Yang/Wu convention audit, source patch and NLO plan]
+(docs/gate7_florentino_vs_yangwu_typeii_nlo_plan.md).
+Run `python3 scripts/gate7_prepare_typeii_feynrules.py`
+after checking out the upstream repository under `external/Zee-Model`.
+The script creates *FeynRules source only*, never an MG5 UFO.
+Old `ZEE_NLO` UV/R2 counterterms **must not be reused** after
+changing the quark Yukawas.
