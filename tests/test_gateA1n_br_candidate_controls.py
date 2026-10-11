@@ -147,6 +147,12 @@ class TestCandidateValidation(unittest.TestCase):
         fields=rows[ix].split()
         fields[2]=str(float(fields[2])-7.3e-7)
         rows[ix]=" ".join(fields)
+        repeat_ix=next(i for i,row in enumerate(rows)
+                  if row.startswith("RESULT ZEE_REPEAT_MASS_700 ")
+                  and row.endswith("scale=0"))
+        repeat_fields=rows[repeat_ix].split()
+        repeat_fields[2]=fields[2]
+        rows[repeat_ix]=" ".join(repeat_fields)
         self.native.write_text("\n".join(rows)+"\n")
         stage=diagnostic(self.native,self.patched,self.root)
         self.assertEqual(stage["libraries"]["vendor"]["stage_diagnosis"],
@@ -159,6 +165,9 @@ class TestCandidateValidation(unittest.TestCase):
         content=content.replace(
             "RGEDETAIL ZEE_SAME_WC_ALT_MASS_700 i=7 C0re=0.7",
             "RGEDETAIL ZEE_SAME_WC_ALT_MASS_700 i=7 C0re=0.6",1)
+        content=content.replace(
+            "RGEDETAIL ZEE_REPEAT_MASS_700 i=7 C0re=0.7",
+            "RGEDETAIL ZEE_REPEAT_MASS_700 i=7 C0re=0.6",1)
         self.native.write_text(content)
         stage=diagnostic(self.native,self.patched,self.root)
         self.assertEqual(stage["libraries"]["vendor"]["stage_diagnosis"],
@@ -169,6 +178,9 @@ class TestCandidateValidation(unittest.TestCase):
         content=content.replace(
             "CPALL ZEE_SAME_WC_ALT_MASS_700 i=7 re=0.007",
             "CPALL ZEE_SAME_WC_ALT_MASS_700 i=7 re=0.006",1)
+        content=content.replace(
+            "CPALL ZEE_REPEAT_MASS_700 i=7 re=0.007",
+            "CPALL ZEE_REPEAT_MASS_700 i=7 re=0.006",1)
         self.native.write_text(content)
         stage=diagnostic(self.native,self.patched,self.root)
         self.assertEqual(stage["libraries"]["vendor"]["stage_diagnosis"],
