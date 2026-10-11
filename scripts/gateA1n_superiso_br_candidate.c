@@ -181,7 +181,44 @@ static double evaluate(const char *label,
                    label,i,creal(cp[i]),cimag(cp[i]),scan_scale);
         }
     }
+    /* Save all inputs before bsgamma: test the inclusive routine ALONE
+       with identical evolved and primed coefficient vectors, changing
+       only point.mass_H. Reinitialize the struct and arrays separately
+       for each clone to prevent bsgamma mutation/call-order artefacts. */
+    double complex br_c0_snapshot[NWC],br_c1_snapshot[NWC],
+                   br_c2_snapshot[NWC],br_cp_snapshot[NWC];
+    struct parameters pre_br_context=point;
+    if(strcmp(label,"ZEE_300_700")==0 ||
+       strcmp(label,"ZEE_SAME_WC_ALT_MASS_700")==0) {
+        memcpy(br_c0_snapshot,c0b,sizeof(c0b));
+        memcpy(br_c1_snapshot,c1b,sizeof(c1b));
+        memcpy(br_c2_snapshot,c2b,sizeof(c2b));
+        memcpy(br_cp_snapshot,cp,sizeof(cp));
+    }
     double br=bsgamma(c0b,c1b,c2b,cp,mub,muW,&point);
+    if(strcmp(label,"ZEE_300_700")==0 ||
+       strcmp(label,"ZEE_SAME_WC_ALT_MASS_700")==0) {
+        double cloned_br[2]={NAN,NAN};
+        const double masses[2]={M1,M2};
+        for(int run=0;run<2;run++) {
+            double complex cc0[NWC],cc1[NWC],cc2[NWC],ccp[NWC];
+            struct parameters cl=pre_br_context;
+            cl.mass_H=masses[run];
+            memcpy(cc0,br_c0_snapshot,sizeof(cc0));
+            memcpy(cc1,br_c1_snapshot,sizeof(cc1));
+            memcpy(cc2,br_c2_snapshot,sizeof(cc2));
+            memcpy(ccp,br_cp_snapshot,sizeof(ccp));
+            cloned_br[run]=bsgamma(cc0,cc1,cc2,ccp,mub,muW,&cl);
+        }
+        if(!isfinite(cloned_br[0]) || !isfinite(cloned_br[1])) {
+            fprintf(stderr,"BRCLONE_NONFINITE label=%s scale=%d\\n",
+                    label,scan_scale);
+            return NAN;
+        }
+        printf("BRCLONE %s br_mass300=%.17g br_mass700=%.17g "
+               "br_original=%.17g scale=%d\\n",
+               label,cloned_br[0],cloned_br[1],br,scan_scale);
+    }
     if (!isfinite(br) || br<=0. || br>=1. || !isfinite(cp_norm)) {
         fprintf(stderr,"FAILED BSGAMMA driver %s: BR=%g Cp_max=%g mass_H=%.17g muW=%.17g mub=%.17g THDM_model=%d SM=%d C0b7=%.17g C0b8=%.17g C1b7=%.17g C1b8=%.17g C2b7=%.17g C2b8=%.17g\n",label,br,cp_norm,point.mass_H,muW,mub,point.THDM_model,point.SM,creal(c0b[7]),creal(c0b[8]),creal(c1b[7]),creal(c1b[8]),creal(c2b[7]),creal(c2b[8]));
         return NAN;
