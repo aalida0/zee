@@ -8,6 +8,7 @@ import unittest
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 from gateA1n_check_br_candidate import NAMES, parse_output, official_sm,verify
+from gateA1n_trace_mass_context import diagnostic, load_stages
 
 
 class TestCandidateValidation(unittest.TestCase):
@@ -38,6 +39,17 @@ class TestCandidateValidation(unittest.TestCase):
                 "ENDPOINT_H1":.00012,"ENDPOINT_H2":.00004
             }
             for name in sorted(NAMES):
+                if name in ("ZEE_300_700","ZEE_SAME_WC_ALT_MASS_700"):
+                    for op in range(1,11):
+                        # Same evolved WCs and primed coefficients across
+                        # residual-mass choices; only BR may depend on it.
+                        lines.append(
+                            f"RGEDETAIL {name} i={op} C0re={op/10.} "
+                            f"C0im=0 C1re={op/20.} C1im=0 "
+                            f"C2re={op/30.} C2im=0 scale={scale}")
+                        lines.append(
+                            f"CPALL {name} i={op} re={op/1000.} "
+                            f"im=0 scale={scale}")
                 br=sm+diffs[name]*(1.03 if isolated else 1.)*(1+.01*scale)
                 lines.append(f"RESULT {name} {br:.17g} muW=160.7384 "
                              f"mub=2.4 cpmax=0.00333156 scale={scale}")
@@ -122,6 +134,51 @@ class TestCandidateValidation(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"residual point.mass_H"):
             verify(parse_output(self.native),parse_output(self.patched),
                    official_sm(self.ref))
+
+    def test_mass_stage_diagnostic_finds_bsgamma_level_dependence(self):
+        rows=self.native.read_text().splitlines()
+        ix=next(i for i,row in enumerate(rows)
+                if row.startswith("RESULT ZEE_SAME_WC_ALT_MASS_700 ")
+                and row.endswith("scale=0"))
+        fields=rows[ix].split()
+        fields[2]=str(float(fields[2])-7.3e-7)
+        rows[ix]=" ".join(fields)
+        self.native.write_text("\n".join(rows)+"\n")
+        stage=diagnostic(self.native,self.patched,self.root)
+        self.assertEqual(stage["libraries"]["vendor"]["stage_diagnosis"],
+                         "IDENTICAL_POST_RG_AND_PRIMED_WCS_BUT_BSGAMMA_USES_MASS_CONTEXT")
+        self.assertEqual(stage["libraries"]["vendor"]["scales"][0]
+                         ["maximum_post_RG_WC_difference"],0.)
+
+    def test_mass_stage_diagnostic_finds_rg_difference(self):
+        content=self.native.read_text()
+        content=content.replace(
+            "RGEDETAIL ZEE_SAME_WC_ALT_MASS_700 i=7 C0re=0.7",
+            "RGEDETAIL ZEE_SAME_WC_ALT_MASS_700 i=7 C0re=0.6",1)
+        self.native.write_text(content)
+        stage=diagnostic(self.native,self.patched,self.root)
+        self.assertEqual(stage["libraries"]["vendor"]["stage_diagnosis"],
+                         "RESIDUAL_MASS_DEPENDENCE_ALREADY_IN_RG")
+
+    def test_mass_stage_diagnostic_finds_primed_difference(self):
+        content=self.native.read_text()
+        content=content.replace(
+            "CPALL ZEE_SAME_WC_ALT_MASS_700 i=7 re=0.007",
+            "CPALL ZEE_SAME_WC_ALT_MASS_700 i=7 re=0.006",1)
+        self.native.write_text(content)
+        stage=diagnostic(self.native,self.patched,self.root)
+        self.assertEqual(stage["libraries"]["vendor"]["stage_diagnosis"],
+                         "RESIDUAL_MASS_DEPENDENCE_IN_CPRIME")
+
+    def test_mass_stage_missing_rows_rejected(self):
+        contents=self.native.read_text()
+        self.native.write_text("\n".join(
+            line for line in contents.splitlines()
+            if not (line.startswith("RGEDETAIL ZEE_SAME_WC_ALT_MASS_700 i=4 ")
+                    and line.endswith("scale=0"))
+        )+"\n")
+        with self.assertRaises(ValueError):
+            load_stages(self.native)
 
     def test_truncated_footer_rejected(self):
         self.native.write_text(self.native.read_text().replace(
