@@ -49,6 +49,7 @@ predict:
         j = json.loads((self.output/'result.json').read_text())
         self.assertEqual(j['status'],'SUPERISO_SM_BASELINE_BUILT_AND_RUN')
         self.assertEqual(j['sm_run'],'PASS')
+        self.assertEqual(j['sm_exit_code'],0)
         self.assertFalse(j['physical_BR_B_to_Xs_gamma_calculated'])
         self.assertFalse(j['confirmed_Zee_two_charged_NLO_NNLO_matching'])
         self.assertEqual(j['optional_targets']['scan_coeffs'],'PASS')
@@ -63,6 +64,24 @@ predict:
         j = json.loads((self.output/'result.json').read_text())
         self.assertEqual(j['optional_targets']['predict'],'UNAVAILABLE_OR_FAILED')
         self.assertEqual(j['status'],'SUPERISO_SM_BASELINE_BUILT_AND_RUN')
+
+    def test_nonzero_exit_with_output_is_reported_separately(self):
+        mk = self.vendor/'Makefile'
+        mk.write_text(mk.read_text().replace(
+            '@printf \'echo "BR(B->Xs gamma): TEST_FIXTURE_ONLY"\\\\n\' >> sm.x',
+            '@printf \'echo "BR(B->Xs gamma): TEST_FIXTURE_ONLY"\\\\n\' >> sm.x'
+        ))
+        p = self.run_build(self.vendor, self.output, 1)
+        self.assertEqual(p.returncode,0, p.stdout+'\\n'+p.stderr)
+        # Force a nonzero exit without modifying the built source or its output.
+        with (self.vendor/'sm.x').open('a') as stream:
+            stream.write('exit 1\\n')
+        p = self.run_build(self.vendor,self.output,1)
+        self.assertNotEqual(p.returncode,0)
+        j=json.loads((self.output/'result.json').read_text())
+        self.assertEqual(j['sm_exit_code'],1)
+        self.assertTrue(j['sm_output_contains_b_to_s_gamma'])
+        self.assertEqual(j['sm_run'],'FAIL')
 
     def test_unsafe_parallel_jobs_rejected(self):
         p = self.run_build(self.vendor, self.output, 12)
