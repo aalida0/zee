@@ -45,21 +45,99 @@ def render_card(template:str,values:dict):
         if re.match(r"^\s*(decay|qnumbers)\b",line,re.I):
             block=None
             result.append(line);continue
-        candidate=VALUE_RE.match(line) if block else None
+        # Important: regex '
+
+def main():
+    ap=argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--template",type=Path,required=True)
+    ap.add_argument("--output",type=Path,required=True)
+    ap.add_argument("--beta",type=float,default=1.394)
+    ap.add_argument("--mH1",type=float,default=300.)
+    ap.add_argument("--mH2",type=float,default=700.)
+    ap.add_argument("--acknowledge-unfitted-neutrino-sector",
+        action="store_true",required=True,
+        help="Required acknowledgment: f_ab=0 yields massless neutrinos")
+    args=ap.parse_args()
+    if args.template.resolve()==args.output.resolve():
+        ap.error("Refuse to overwrite original parameter card")
+    if args.output.exists():
+        ap.error("Output exists: refuse overwrite")
+    vals=replacements(args.beta,args.mH1,args.mH2)
+    content=render_card(args.template.read_text(),vals)
+    args.output.parent.mkdir(parents=True,exist_ok=True)
+    args.output.write_text(content)
+    # Independent physical readback before advertising successful write.
+    validate_card_values(args.output.read_text(),vals)
+    print("PASS: independent SLHA readback verified all required entries including MASS[225]")
+    print("Wrote diagnostic card:",args.output)
+    print("Mapped scalar parameters:",len(vals)-12,
+          "; leptonic Yukawas: Type-II y_e,y_mu,y_tau; f_ab=0.")
+    print("CAUTION: DECAY widths remain STALE. Do NOT use for physical BRs.")
+    print("CAUTION: Zee neutrino masses and LFV NOT fitted; not a physical benchmark.")
+
+
+if __name__=="__main__":
+    main()
+ matches BEFORE the final newline; the captured
+        # comment/suffix does not include it. Keep the original EOL explicitly.
+        # The old writer dropped EOLs and joined MASS entries after '#' comments.
+        linebody = line.rstrip("\r\n")
+        eol = line[len(linebody):]
+        candidate=VALUE_RE.match(linebody) if block else None
         if candidate:
             a,code,ws,num,end=candidate.groups()
             key=(block,int(code))
             if key in values:
                 if key in seen:raise ValueError(f"Duplicate LHA parameter {key}")
-                line=f"{a}{code}{ws}{values[key]:.12e}{end}"
+                line=f"{a}{code}{ws}{values[key]:.12e}{end}{eol}"
                 seen.add(key)
         result.append(line)
     missing=set(values).difference(seen)
     if missing:
         raise ValueError("Template does not define required entries: "+repr(sorted(missing)))
     result="".join(result)
+    if len(result.splitlines()) != len(template.splitlines()):
+        raise ValueError("Refusing malformed parameter card: physical line count changed")
+    validate_card_values(result,values)
     # Don't modify DECAY widths: they must be recomputed independently.
     return result
+
+
+def parse_card_values(card:str)->dict:
+    """Strict 1-index SLHA card parser for values this writer is responsible for."""
+    out={}
+    block=None
+    for line in card.splitlines():
+        match=BLOCK_RE.match(line)
+        if match:
+            block=match.group(1).upper()
+            continue
+        if re.match(r"^\s*(?:decay|qnumbers)\b",line,re.I):
+            block=None
+            continue
+        # Strip SLHA inline comments before parsing numerical entries.
+        clean=line.split("#",1)[0]
+        match=VALUE_RE.match(clean) if block else None
+        if not match:
+            continue
+        key=(block,int(match.group(2)))
+        if key in out:
+            raise ValueError(f"Duplicate parsed SLHA entry {key}")
+        out[key]=float(match.group(4).replace("D","E").replace("d","e"))
+    return out
+
+
+def validate_card_values(card:str,expected:dict):
+    values=parse_card_values(card)
+    for key,value in expected.items():
+        if key not in values:
+            raise ValueError(f"Malformed SLHA card: missing {key}")
+        if not math.isclose(values[key],value,rel_tol=3e-12,abs_tol=1e-12):
+            raise ValueError(f"Malformed SLHA card: wrong {key}: {values[key]} != {value}")
+    for pdg in (25,225,226,227,228):
+        if ("MASS",pdg) not in values:
+            raise ValueError(f"Malformed SLHA card: MASS[{pdg}] missing")
+    return True
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
