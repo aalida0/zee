@@ -58,11 +58,16 @@ predict:
     def test_optional_target_failures_do_not_hide_sm_success(self):
         mk = self.vendor/'Makefile'
         mk.write_text(mk.read_text().replace('@echo fake predict build', '@false'))
-        p = self.run_build(self.vendor, self.output, 2)
+        p = self.run_build(self.vendor, self.output, 1)
         self.assertEqual(p.returncode, 0, p.stderr)
         j = json.loads((self.output/'result.json').read_text())
         self.assertEqual(j['optional_targets']['predict'],'UNAVAILABLE_OR_FAILED')
         self.assertEqual(j['status'],'SUPERISO_SM_BASELINE_BUILT_AND_RUN')
+
+    def test_unsafe_parallel_jobs_rejected(self):
+        p = self.run_build(self.vendor, self.output, 12)
+        self.assertNotEqual(p.returncode, 0)
+        self.assertIn('JOBS must be 1', p.stderr)
 
     def test_core_build_failure_is_not_pass(self):
         (self.vendor/'Makefile').write_text('all:\n\t@false\nsm:\n\t@false\n')
