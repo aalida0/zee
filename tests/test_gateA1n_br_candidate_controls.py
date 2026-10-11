@@ -43,6 +43,12 @@ class TestCandidateValidation(unittest.TestCase):
             for name in sorted(NAMES):
                 if name in ("ZEE_300_700","ZEE_SAME_WC_ALT_MASS_700",
                             "ZEE_REPEAT_MASS_300","ZEE_REPEAT_MASS_700"):
+                    if name in ("ZEE_300_700","ZEE_SAME_WC_ALT_MASS_700"):
+                        value=sm+diffs[name]*(1.03 if isolated else 1.)*(1+.01*scale)
+                        lines.append(
+                            f"BRCLONE {name} br_mass300={value:.17g} "
+                            f"br_mass700={value:.17g} "
+                            f"br_original={value:.17g} scale={scale}")
                     lines.append(f"INPUTMUTATION {name} max_abs=0 scale={scale}")
                     for op in range(1,11):
                         # Same evolved WCs and primed coefficients across
@@ -156,9 +162,35 @@ class TestCandidateValidation(unittest.TestCase):
         self.native.write_text("\n".join(rows)+"\n")
         stage=diagnostic(self.native,self.patched,self.root)
         self.assertEqual(stage["libraries"]["vendor"]["stage_diagnosis"],
-                         "BR_DIFFERENCE_WITH_IDENTICAL_POST_RG_AND_PRIMED_WCS")
+                         "UPSTREAM_PARAMETER_CONTEXT_DIFFERS_DESPITE_IDENTICAL_WCS")
         self.assertEqual(stage["libraries"]["vendor"]["scales"][0]
                          ["maximum_post_RG_WC_difference"],0.)
+
+    def test_frozen_wilsons_isolate_bsgamma_mass_effect(self):
+        lines=self.native.read_text().splitlines()
+        ix=next(i for i,line in enumerate(lines)
+                if line.startswith("BRCLONE ZEE_300_700 ")
+                and line.endswith("scale=0"))
+        # Pretend the final routine alone depends on arbitrary mass_H,
+        # while the RGE and primed coefficients remain strictly fixed.
+        fields=lines[ix].split()
+        fields[3]=f"br_mass700={float(fields[2].split('=')[1])-7.3e-7:.17g}"
+        lines[ix]=" ".join(fields)
+        self.native.write_text("\n".join(lines)+"\n")
+        stage=diagnostic(self.native,self.patched,self.root)
+        self.assertEqual(stage["libraries"]["vendor"]["stage_diagnosis"],
+                         "FROZEN_WCS_BSGAMMA_DEPENDS_ON_RESIDUAL_HIGGS_MASS")
+        self.assertGreater(stage["libraries"]["vendor"]["scales"][0]
+                           ["max_bsgamma_only_frozen_WC_mass_switch_difference"],0)
+
+    def test_bsgamma_clone_missing_rejected(self):
+        lines=self.native.read_text().splitlines()
+        self.native.write_text("\n".join(
+            x for x in lines
+            if not (x.startswith("BRCLONE ZEE_300_700 ")
+                    and x.endswith("scale=0"))) + "\n")
+        with self.assertRaisesRegex(ValueError,"bsgamma-only"):
+            load_stages(self.native)
 
     def test_mass_stage_diagnostic_finds_rg_difference(self):
         content=self.native.read_text()
