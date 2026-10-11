@@ -101,7 +101,7 @@ static double evaluate(const char *label,
        here for Cprime and bsgamma; otherwise point.mass_H defaults to 0. */
     point.mass_H=charged_mass;
     if (!(isfinite(point.mass_H) && point.mass_H>0.)) {
-        fprintf(stderr,"Invalid charged-mass context for %s: %.17g\\n",label,point.mass_H);
+        fprintf(stderr,"Invalid charged-mass context for %s: %.17g\n",label,point.mass_H);
         return NAN;
     }
     C_calculator_base1((double complex *)wc->C0,
@@ -115,7 +115,7 @@ static double evaluate(const char *label,
            !isfinite(creal(c2b[i])) || !isfinite(cimag(c2b[i]))) {
             fprintf(stderr,"INVALID_RG_WC label=%s i=%d "
                     "C0=(%.17g,%.17g) C1=(%.17g,%.17g) "
-                    "C2=(%.17g,%.17g) mass_H=%.17g muW=%.17g mub=%.17g\\n",
+                    "C2=(%.17g,%.17g) mass_H=%.17g muW=%.17g mub=%.17g\n",
                     label,i,creal(c0b[i]),cimag(c0b[i]),
                     creal(c1b[i]),cimag(c1b[i]),
                     creal(c2b[i]),cimag(c2b[i]),point.mass_H,muW,mub);
