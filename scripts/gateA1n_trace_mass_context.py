@@ -27,7 +27,7 @@ RGE=re.compile(
     r"C1im=([+\-0-9.eE]+) C2re=([+\-0-9.eE]+) "
     r"C2im=([+\-0-9.eE]+) scale=(\d+)$")
 MUTATION=re.compile(
-    r"^INPUTMUTATION (\\S+) max_abs=([+\\-0-9.eE]+) scale=(\\d+)$")
+    r"^INPUTMUTATION (\S+) max_abs=([+\-0-9.eE]+) scale=(\d+)$")
 PRIME=re.compile(
     r"^CPALL (\S+) i=(\d+) re=([+\-0-9.eE]+) "
     r"im=([+\-0-9.eE]+) scale=(\d+)$")
