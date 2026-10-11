@@ -8,6 +8,8 @@ writing, and refuses to operate on a process stored under /data.
 
 from __future__ import annotations
 
+import argparse
+import math
 import pathlib
 import re
 import sys
@@ -75,7 +77,13 @@ def update_param_card(text: str) -> str:
     return result
 
 
-def update_run_card(text: str) -> str:
+def update_run_card(text: str, sqrt_s_tev: float = 14.0) -> str:
+    """Keep original MG5 card schema, but allow 14, 80, or 100 TeV beams."""
+    if not math.isfinite(sqrt_s_tev) or sqrt_s_tev <= 0:
+        raise ValueError("sqrt_s_tev must be finite and positive")
+    updates = dict(RUN_VALUES)
+    updates["ebeam1"] = f"{sqrt_s_tev*500.0:.12g}"
+    updates["ebeam2"] = f"{sqrt_s_tev*500.0:.12g}"
     out: list[str] = []
     seen: set[str] = set()
     for raw in text.splitlines(keepends=True):
@@ -83,12 +91,12 @@ def update_run_card(text: str) -> str:
         item = re.match(r"^(\s*)([^!=#]*?)(\s*=\s*)([A-Za-z_]\w*)(\b.*)$", body)
         if item:
             key = item.group(4).lower()
-            if key in RUN_VALUES:
+            if key in updates:
                 if key in seen:
                     raise ValueError(f"Duplicate run-card entry {key}")
                 seen.add(key)
                 body = (
-                    f"{item.group(1)}{RUN_VALUES[key]}{item.group(3)}"
+                    f"{item.group(1)}{updates[key]}{item.group(3)}"
                     f"{item.group(4)}{item.group(5)}"
                 )
         out.append(body + eol)
@@ -103,9 +111,11 @@ def update_run_card(text: str) -> str:
 
 
 def main() -> None:
-    if len(sys.argv) != 2:
-        sys.exit("Usage: set_proxy_cards.py /path/to/MG5/process")
-    root = pathlib.Path(sys.argv[1]).resolve()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("process_directory", type=pathlib.Path)
+    parser.add_argument("--sqrt-s-tev", type=float, default=14.0)
+    args = parser.parse_args()
+    root = args.process_directory.resolve()
     if root == pathlib.Path("/data") or pathlib.Path("/data") in root.parents:
         sys.exit("ABORT: Do not run MG5 from /data; relocate repository to $HOME/zee")
     pc = root / "Cards" / "param_card.dat"
@@ -114,7 +124,7 @@ def main() -> None:
         sys.exit("ABORT: Missing MG5 parameter/run card")
     try:
         param_text = update_param_card(pc.read_text())
-        run_text = update_run_card(rc.read_text())
+        run_text = update_run_card(rc.read_text(), sqrt_s_tev=args.sqrt_s_tev)
     except (ValueError, AssertionError) as exc:
         sys.exit(f"ABORT: {exc}; regenerate a clean MG5 process before retrying")
     # Both cards were checked before either was modified.
