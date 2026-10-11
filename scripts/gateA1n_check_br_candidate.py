@@ -22,7 +22,8 @@ CPDETAIL=re.compile(
     r"C8p_re=([0-9.eE+-]+) C8p_im=([0-9.eE+-]+) scale=(\d+)$")
 NAMES={
     "SM","TYPEII_300","TYPEII_700","TYPEII_1000","TYPEII_2000",
-    "ZEE_300_700","ZEE_SAME_WC_ALT_MASS_700","ENDPOINT_H1","ENDPOINT_H2"
+    "ZEE_300_700","ZEE_SAME_WC_ALT_MASS_700",
+    "ZEE_REPEAT_MASS_300","ZEE_REPEAT_MASS_700","ENDPOINT_H1","ENDPOINT_H2"
 }
 
 def parse_output(path):
@@ -108,6 +109,21 @@ def verify(original,patched,reference):
                     f"residual point.mass_H is changed at scale {scale}: "
                     f"{zee_base['br']} vs {zee_alt['br']}; "
                     "a single-mass parameter context is insufficient")
+            # Repeated identical mass/physics context must be invariant
+            # even if vendor functions contain hidden mutable state.
+            for original_mode,repeat_mode in (
+                ("ZEE_300_700","ZEE_REPEAT_MASS_300"),
+                ("ZEE_SAME_WC_ALT_MASS_700","ZEE_REPEAT_MASS_700")
+            ):
+                for field in ("br","C7prime_re","C7prime_im",
+                              "C8prime_re","C8prime_im","cpmax"):
+                    a=rs[scale,original_mode][field]
+                    b=rs[scale,repeat_mode][field]
+                    if abs(a-b)>2e-12:
+                        raise ValueError(
+                            f"{label}: identical repeated {original_mode} "
+                            f"changes {field}: {a} vs {b}; "
+                            "call-order/statefulness is not under control")
             for x in ("C7prime_re","C7prime_im","C8prime_re","C8prime_im","cpmax"):
                 if abs(zee_base[x]-zee_alt[x])>2e-12:
                     raise ValueError(
