@@ -68,7 +68,7 @@ predict:
     def test_nonzero_exit_with_output_is_reported_separately(self):
         mk = self.vendor/'Makefile'
         mk.write_text(mk.read_text().replace(
-            'scan_coeffs:\\n', "\\t@echo 'exit 1' >> sm.x\\nscan_coeffs:\\n"
+            'scan_coeffs:\n', "\t@echo 'exit 1' >> sm.x\nscan_coeffs:\n"
         ))
         p = self.run_build(self.vendor,self.output,1)
         self.assertNotEqual(p.returncode,0)
