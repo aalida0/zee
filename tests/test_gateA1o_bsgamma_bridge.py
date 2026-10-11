@@ -29,7 +29,11 @@ def fixture_br(path,bridged,alter_zee=False,alter_control=False):
                 br=(.00040375 if bridged else
                     (.00040415 if name in ("ZEE_300_700","ZEE_REPEAT_MASS_300")
                      else .000403416))
-                if alter_zee and name=="ZEE_SAME_WC_ALT_MASS_700":
+                # Perturb both 700-GeV-context evaluations together:
+                # preserve identical-mass repeat closure so the intended
+                # cross-mass invariance check is reached.
+                if alter_zee and name in ("ZEE_SAME_WC_ALT_MASS_700",
+                                          "ZEE_REPEAT_MASS_700"):
                     br+=1e-6
             if scale and name!="SM": br+=scale*1e-7
             if alter_control and name=="TYPEII_700" and bridged: br+=1e-6
@@ -88,6 +92,21 @@ class TestGateA1O(unittest.TestCase):
     def test_reject_zee_arbitrary_mass_dependence(self):
         fixture_br(self.bridged,True,alter_zee=True)
         with self.assertRaisesRegex(ValueError,"still depends"):
+            compare(self.orig,self.bridged,self.sm)
+
+    def test_reject_inconsistent_same_mass_repeat(self):
+        fixture_br(self.bridged,True)
+        lines=self.bridged.read_text().splitlines()
+        for index,line in enumerate(lines):
+            if line.startswith("RESULT ZEE_REPEAT_MASS_700 ") and line.endswith("scale=0"):
+                fields=line.split()
+                fields[2]=str(float(fields[2])+1e-6)
+                lines[index]=" ".join(fields)
+                break
+        else:
+            self.fail("Could not find synthetic repeated-mass result")
+        self.bridged.write_text("\n".join(lines)+"\n")
+        with self.assertRaisesRegex(ValueError,"Same-mass replay failure"):
             compare(self.orig,self.bridged,self.sm)
 
     def test_reject_sm_reference_mismatch(self):
