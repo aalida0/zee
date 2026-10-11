@@ -277,3 +277,20 @@ after checking out the upstream repository under `external/Zee-Model`.
 The script creates *FeynRules source only*, never an MG5 UFO.
 Old `ZEE_NLO` UV/R2 counterterms **must not be reused** after
 changing the quark Yukawas.
+
+
+### Gate 7: patched Type-II quark source confirmed on AF
+
+The FeynRules source patch was executed successfully on AF and both
+`Tan[beta]` (down) and `Cot[beta]` (up) terms were observed in
+`models/Zee_TypeII_FR/Lagrangian.fr`. An LO UFO must still be
+**exported and validated** before signal simulations.
+
+New export/validation tools:
+`scripts/gate7_export_typeii_ufo.m`,
+`scripts/gate7_validate_typeii_ufo.py`,
+`scripts/gate7_mg5_typeii_smoke.sh`, with accompanying static
+vertex tests. Read [the LO UFO export instructions]
+(docs/gate7_typeii_lo_ufo_export.md).
+Mathematica and FeynRules may need to run on a separate licensed
+machine if not available on ATLAS AF; do not invent a local path.
