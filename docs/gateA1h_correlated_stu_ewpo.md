@@ -36,11 +36,11 @@ phenomenology/global-fit acceptance. This draft PR is stacked on Gate A1G.
 | mh, mH, mA | 125, 580.7, 633.7 GeV |
 | alpha, beta, gamma | 1.398, 1.394, 1.089 rad |
 
-\`\`\`
+```
 S = +0.004440433
 T = -0.004902178
 U = +0.000057337
-\`\`\`
+```
 
 ## Documented published correlated fits
 
@@ -71,7 +71,7 @@ not independent measurements to combine.
 
 ## Reproducibility on AF
 
-\`\`bash
+```bash
 cd /home/aalida/zee
 git fetch origin gateA1h-correlated-stu-ewpo
 git switch gateA1h-correlated-stu-ewpo
@@ -81,7 +81,7 @@ python3 -m unittest discover -s tests \
 
 python3 scripts/gateA1h_correlated_stu_ewpo.py \
   --output work/gateA1h_correlated_stu_ewpo.json
-\`\`
+```
 
 Regression suite includes (i) independent analytic C2 numerical
 cross-check, (ii) large-mass Ghat asymptotic, (iii) integration
