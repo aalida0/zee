@@ -56,6 +56,14 @@ for variant in vendor isolated; do
   (cd "$root" && "$out/gateA1n_$variant") > "$out/$variant.txt"
 done
 
+# Preserve a stage-by-stage scientific diagnostic even if the strict
+# candidate validator (below) deliberately fails on residual mass_H.
+python3 "$script_dir/gateA1n_trace_mass_context.py" \
+  --vendor-log "$out/vendor.txt" \
+  --isolated-log "$out/isolated.txt" \
+  --vendor-source "$vendor" \
+  --output "$out/mass_context_diagnostic.json"
+
 python3 "$script_dir/gateA1n_check_br_candidate.py" \
   --vendor "$out/vendor.txt" \
   --isolated "$out/isolated.txt" \
