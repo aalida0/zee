@@ -1,0 +1,88 @@
+# Gate 7C: modified Zee-Type-II LO UFO imported and diagrams generated on AF
+
+**Status: LO_IMPORT_AND_DIAGRAM_GATE_PASS; numerical physics matching PENDING.**
+
+## User-provided AF log (2026-10-11)
+
+`bash scripts/gate7_mg5_typeii_smoke.sh ~/zee/work/Zee_TypeII_LO_UFO`
+completed using MG5_aMC v3.5.9 on login01:
+
+| Test | Result |
+|---|---|
+| UFO static vertex count | 517 |
+| Z H+ h- and conjugate | V_406, V_408 |
+| tb H± and conjugate | V_288, V_309 |
+| tb h± and conjugate | V_297, V_318 |
+| Off-diagonal photon-H-h 3-point | none |
+| `gg -> t~ b H+` and conjugate | 8 diagrams each |
+| `u u~ -> H+ h-` and conjugate | 6 diagrams each |
+| `H+ -> z h+` | 1 diagram |
+
+MG5 automatically converted the freshly exported model on first import;
+subsequent import/reconstructed process definitions succeeded.
+The lepton-number-violation information message is consistent with
+charged-singlet Zee Yukawas, not an error.
+
+**Clarification:** Original Yang/Wu UFO earlier produced 3 diagrams
+for each `u u~ -> H+ h-`; Type-II Yukawa extension now produces 6.
+The additional diagrams must be examined: a raw all-diagram
+cross section is **not** automatically equal to the pure
+`Z* -> H+ h-` analytic result. For the DY comparison, isolate
+the Z-mediated contribution or compare a sufficiently light-quark
+Yukawa-suppressed limit and explicitly verify interference.
+
+## Necessary physical parameter mapping
+
+Yang/Wu's source uses the Higgs basis (`Hv`, `HH`), while
+Florentino et al. use the original vev-split 2HDM fields.
+With `Phi1=cosβ Hv−sinβ HH` and
+`Phi2=sinβ Hv+cosβ HH` the doublet quartics must transform.
+New script `scripts/gate7_map_p2_to_yangwu.py` computes
+`ZEEINPUTS[1..4]` and `ZEELAMS[1..7]` from
+our existing Gate-6 benchmark and checks five independent
+mass/potential identities. New unit tests check exact
+quartic polynomial equality for arbitrary **complex** doublets.
+
+For beta=1.394 and gamma=1.089, charged mixing is
+`phi=pi/2−gamma=0.48179632679 rad`. Up to a sign rephasing,
+Yang/Wu heavy `H+` (PDG 227) is Florentino `H2+`,
+while light `h+` (PDG 228) is Florentino `H1+`.
+
+Example numerically derived (dimensionless) external quartics:
+
+`ZEELAMS[1]=2.39677936`, `ZEELAMS[2]=2.71011596`,
+`ZEELAMS[3]=-0.37353220`, `ZEELAMS[4]=0.03776437`,
+`ZEELAMS[5]=1.04821563`, `ZEELAMS[6]=-0.18783090`,
+`ZEELAMS[7]=4.473`.
+
+Doublet Higgs-basis internal quartics are
+`Z1=0.25782059`, `Z4=-1.14552191`,
+`Z5=-1.06176138`, `Z6=-0.02121823`.
+
+Run on AF:
+
+```bash
+cd ~/zee && git pull --ff-only
+python3 -m unittest discover -s tests -v
+python3 scripts/gate7_map_p2_to_yangwu.py \
+  --output work/gate7_yangwu_p2_mapping.json
+```
+
+## Physics validation still required
+
+1. **Build an MG5 parameter card** with the transformed quartics
+   and masses—not raw Florentino λ_i in `ZEELAMS`!
+2. Match EW input scheme, CKM, charged and neutral mixing signs.
+3. Test numerical `ZH+h-`, tbH±, h125 H+h- trilinears
+   against independent analytic couplings/widths.
+4. Check pure Z-mediated mixed-pair amplitude vs analytic DY
+   (not blindly the 6-diagram all-orders tree sum).
+5. **Lepton sector:** Yang/Wu UFO has independent `ZEEYUKAWAF`
+   and `ZEEYUKAWAY`. Their raw defaults (often 1) are NOT
+   neutrino/LFV-calibrated and are not Type-II charged lepton
+   couplings. Use explicit controlled lepton parameters,
+   not defaults, before interpreting H1/H2 branching ratios.
+6. Gauge/Ward tests, complete widths, EW/flavor/direct-search
+   constraints, and new NLO QCD UV/R2 counterterms remain pending.
+
+**Do not start large MG5 event generation or Delphes yet.**
