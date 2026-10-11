@@ -77,3 +77,50 @@ the approved **oblique S/T/U** formulae for mixtures of charged
 doublet and singlet must also be evaluated.
 Next add Higgs signal/direct searches and optional full neutrino/LFV
 fit; the default f_ab=0 diagnostic makes neutrino masses vanish.
+
+
+## User-run Gate 8A numerical result: 2026-10-11
+
+The user executed `gate8a_bsgamma_lo_screen.py` on AF and supplied the
+result `work/gate8a_bsgamma_lo_screen.json`: LO charged-scalar
+`DeltaC7=-0.06296082441633362`, `DeltaC8=-0.06612190677250937`.
+The beta, charged masses, and mixing weights match the intended point:
+`tanbeta=5.597170833`, `mH1=300`, `mH2=700`,
+`cos²gamma=0.21471339019`, `sin²gamma=0.78528660981`.
+Relative to a single Type-II 580 GeV charged state in the **same
+LO matching convention**, the contributions are `1.06365651`
+and `1.03171185` times the reference values.
+
+**Status:** numerical LO matching implementation ran successfully;
+**no numerical flavor exclusion/viability verdict is justified**.
+
+### Critical input-dependence: 2024 HFLAV experimental update
+
+Florentino et al. (2021) used the historical experimental average
+BR(B→Xsγ)=(3.32±0.15)e−4 and old single-H+ 580 GeV Type-II
+95% bound for context (see Sect. 4.3, Appendix C).
+
+More recent [HFLAV (arXiv:2411.18639)]
+(https://arxiv.org/abs/2411.18639) supplies
+`BR(B→Xsγ)=(3.49±0.19)e−4` as quoted and utilized by
+[EPJC 2025 96 GeV scalar phenomenology]
+(https://doi.org/10.1140/epjc/s10052-025-14630-y).
+The latter paper finds *approximately* 500 GeV rather than
+580–800 GeV in one Type-II-SINGLE charged state treatment with
+SuperIso v4.1 and its 2σ error prescription.
+This is NOT a validated 500 GeV bound for our two-state Zee model.
+Any claimed bound MUST specify flavor theory order, photon cut,
+experimental average, uncertainty prescription and whether
+R_gamma is included. Avoid importing the 580 GeV threshold as a
+hard cut or inferring status from 6% matching differences.
+
+### Next physics gate
+
+Implement or validate the **two-state NLO-compatible matching**
+for C7/C8 (plus C4) and evolve to the low scale using an
+independent trusted scheme (e.g. a verified customized SuperIso
+implementation). Demonstrate reproduction of the exact
+single charged-scalar Type-II result for gamma=0 and gamma=pi/2,
+compare to Florentino Appendix C and evaluate current HFLAV
+measurement at an explicit CL/theory-uncertainty prescription.
+Then test the full charged-singlet contribution to oblique S/T/U.
