@@ -18,7 +18,7 @@ from gateA1p_compare_hepfit_matching import (
 
 def example_hepfit_source():
     return (
-        "/* GPL upstream source fixture */\n"
+        "/* Copyright (C) HEPfit Collaboration; GPL upstream test fixture */\n"
         "double THDMMatching::setWCbsg(int i,double tan,double mt,"
         "double mhp,double mu,orders order) {\n"
         " double Li2=gsl_sf_dilog(1.-1./x);\n"
