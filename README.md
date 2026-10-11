@@ -312,3 +312,21 @@ See [the AF evidence and next mapping gate]
 quartic/charged-angle matching to the Gate-6 benchmark.
 Critical: raw original Zee lepton Yukawa defaults must not be used
 to claim physical branching fractions. NLO UV/R2 still missing.
+
+
+### Gate 7C: AF modified UFO smoke tests PASS (2026-10-11)
+
+The user-run 3-process MG5 smoke tests passed with the new
+Yang–Wu-derived Type-II LO UFO: 517 static vertices; both
+`ZH+h−` and both charged tbYukawa vertices present;
+8 associated 4FS diagrams per charge, 6 mixed-pair diagrams
+per charge, 1 heavy→Z light diagram.
+[Evidence and next steps](docs/gate7c_af_lo_ufo_smoke_pass.md).
+
+New `scripts/gate7_map_p2_to_yangwu.py` maps our Gate-6
+Florentino scalar parameters into Yang/Wu `ZEEINPUTS` and
+`ZEELAMS`, including independent mass-reconstruction closure.
+New `scripts/gate7_make_diagnostic_param_card.py` writes an
+explicit **unfitted** neutrino-sector Type-II diagnostic card.
+It never silently updates `DECAY` widths, which remain stale.
+Neither tool establishes an experimentally allowed model point.
