@@ -68,17 +68,11 @@ predict:
     def test_nonzero_exit_with_output_is_reported_separately(self):
         mk = self.vendor/'Makefile'
         mk.write_text(mk.read_text().replace(
-            '@printf \'echo "BR(B->Xs gamma): TEST_FIXTURE_ONLY"\\\\n\' >> sm.x',
-            '@printf \'echo "BR(B->Xs gamma): TEST_FIXTURE_ONLY"\\\\n\' >> sm.x'
+            'scan_coeffs:\\n', "\\t@echo 'exit 1' >> sm.x\\nscan_coeffs:\\n"
         ))
-        p = self.run_build(self.vendor, self.output, 1)
-        self.assertEqual(p.returncode,0, p.stdout+'\\n'+p.stderr)
-        # Force a nonzero exit without modifying the built source or its output.
-        with (self.vendor/'sm.x').open('a') as stream:
-            stream.write('exit 1\\n')
         p = self.run_build(self.vendor,self.output,1)
         self.assertNotEqual(p.returncode,0)
-        j=json.loads((self.output/'result.json').read_text())
+        j = json.loads((self.output/'result.json').read_text())
         self.assertEqual(j['sm_exit_code'],1)
         self.assertTrue(j['sm_output_contains_b_to_s_gamma'])
         self.assertEqual(j['sm_run'],'FAIL')
