@@ -91,16 +91,37 @@ static void compose(Wilson *out,const Wilson *sm,
 static double evaluate(const char *label,
                        const Wilson *wc, struct parameters *p,
                        double muW,double mub,int pureSM,
-                       int scan_scale) {
+                       double charged_mass,int scan_scale) {
     double complex c0b[NWC]={0},c1b[NWC]={0},c2b[NWC]={0};
     double complex cp[NWC]={0},cqp[3]={0};
     struct parameters point=*p;
     point.SM=pureSM?1:0;
     point.THDM_model=pureSM?0:2;
+    /* Matching runs in temporary structs. Restore the same charged mass
+       here for Cprime and bsgamma; otherwise point.mass_H defaults to 0. */
+    point.mass_H=charged_mass;
+    if (!(isfinite(point.mass_H) && point.mass_H>0.)) {
+        fprintf(stderr,"Invalid charged-mass context for %s: %.17g\\n",label,point.mass_H);
+        return NAN;
+    }
     C_calculator_base1((double complex *)wc->C0,
                        (double complex *)wc->C1,
                        (double complex *)wc->C2,
                        muW,c0b,c1b,c2b,mub,&point);
+    /* Fail at the first invalid QCD-evolved Wilson coefficient, not at BR. */
+    for (int i=1;i<=10;i++) {
+        if(!isfinite(creal(c0b[i])) || !isfinite(cimag(c0b[i])) ||
+           !isfinite(creal(c1b[i])) || !isfinite(cimag(c1b[i])) ||
+           !isfinite(creal(c2b[i])) || !isfinite(cimag(c2b[i]))) {
+            fprintf(stderr,"INVALID_RG_WC label=%s i=%d "
+                    "C0=(%.17g,%.17g) C1=(%.17g,%.17g) "
+                    "C2=(%.17g,%.17g) mass_H=%.17g muW=%.17g mub=%.17g\\n",
+                    label,i,creal(c0b[i]),cimag(c0b[i]),
+                    creal(c1b[i]),cimag(c1b[i]),
+                    creal(c2b[i]),cimag(c2b[i]),point.mass_H,muW,mub);
+            return NAN;
+        }
+    }
     Cprime_calculator(2,cp,cqp,muW,mub,&point);
     /* SM chirality-flipped coefficients need not vanish. They are
        small but finite in SuperIso v5 even for its pure SM baseline.
@@ -116,7 +137,7 @@ static double evaluate(const char *label,
     }
     double br=bsgamma(c0b,c1b,c2b,cp,mub,muW,&point);
     if (!isfinite(br) || br<=0. || br>=1. || !isfinite(cp_norm)) {
-        fprintf(stderr,"FAILED BSGAMMA driver %s: BR=%g Cp_max=%g\n",label,br,cp_norm);
+        fprintf(stderr,"FAILED BSGAMMA driver %s: BR=%g Cp_max=%g mass_H=%.17g muW=%.17g mub=%.17g THDM_model=%d SM=%d C0b7=%.17g C0b8=%.17g C1b7=%.17g C1b8=%.17g C2b7=%.17g C2b8=%.17g\n",label,br,cp_norm,point.mass_H,muW,mub,point.THDM_model,point.SM,creal(c0b[7]),creal(c0b[8]),creal(c1b[7]),creal(c1b[8]),creal(c2b[7]),creal(c2b[8]));
         return NAN;
     }
     printf("RESULT %s %.17g muW=%.17g mub=%.17g cpmax=%.17g scale=%d\n",
@@ -145,21 +166,24 @@ static int run_suite(struct parameters *p,double muW,double mub,int scale_index)
     compose(&endpoint1,&sm,&h1,&h2,1.,0.);
     compose(&endpoint2,&sm,&h1,&h2,0.,1.);
 
-    struct { const char *name; const Wilson *wc; int sm; } cases[]={
-        {"SM",&sm,1},
-        {"TYPEII_300",&h1,0},
-        {"TYPEII_700",&h2,0},
-        {"TYPEII_1000",&h1000,0},
-        {"TYPEII_2000",&h2000,0},
-        {"ZEE_300_700",&zee,0},
-        {"ENDPOINT_H1",&endpoint1,0},
-        {"ENDPOINT_H2",&endpoint2,0},
+    struct { const char *name; const Wilson *wc; int sm; double mass; } cases[]={
+        {"SM",&sm,1,M1},
+        {"TYPEII_300",&h1,0,M1},
+        {"TYPEII_700",&h2,0,M2},
+        {"TYPEII_1000",&h1000,0,1000.},
+        {"TYPEII_2000",&h2000,0,2000.},
+        {"ZEE_300_700",&zee,0,M1},
+        /* Identical WCs but a different residual param.mass_H:
+           if bsgamma/Cprime depends on it, our Zee interface is incomplete. */
+        {"ZEE_SAME_WC_ALT_MASS_700",&zee,0,M2},
+        {"ENDPOINT_H1",&endpoint1,0,M1},
+        {"ENDPOINT_H2",&endpoint2,0,M2},
     };
     printf("RUN scale=%d muW=%.17g mub=%.17g w1=%.17g w2=%.17g\n",
            scale_index,muW,mub,w1,w2);
     for(size_t i=0;i<sizeof(cases)/sizeof(cases[0]);i++) {
         if (!isfinite(evaluate(cases[i].name,cases[i].wc,p,muW,mub,
-                               cases[i].sm,scale_index))) return 1;
+                               cases[i].sm,cases[i].mass,scale_index))) return 1;
     }
     return 0;
 }
