@@ -14,6 +14,9 @@ if [[ ! -f "$UFO/vertices.py" || ! -f "$CARD" || ! -f "$MG5_EXEC" ]]; then
     echo "ERROR: required UFO, param card or MG5 executable missing." >&2
     exit 2
 fi
+# Validate every expected MASS/ZEELAMS entry in the actual SLHA card
+# before allowing MadWidth to read it. Detects old EOL-corrupted Gate7 cards.
+python3 "$ROOT/scripts/gate7_preflight_card.py" "$CARD"
 if [[ -e "$WORK" ]]; then
     echo "ERROR: $WORK exists. Keep evidence; rename it before rerunning." >&2
     exit 2
