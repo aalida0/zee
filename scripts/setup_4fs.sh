@@ -2,6 +2,10 @@
 # Production-rate-only proxy. This is NOT a two-charged-Higgs Zee UFO.
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# User requirement: do not compile/integrate on the /data mount.
+case "$ROOT" in
+  /data/*) echo "ERROR: Move this repository to \$HOME/zee; no MG5 jobs under /data." >&2; exit 2 ;;
+esac
 MODEL="$ROOT/models/2HDMtII_NLO"
 OUT="$ROOT/work/ZeeProductionProxy_4FS_14TeV"
 if [[ ! -f "$MODEL/particles.py" ]]; then
