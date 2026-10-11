@@ -181,10 +181,11 @@ def diagnostic(vendor_file,isolated_file,vendor_root):
                 "BR_absolute_difference":b1-b2,
                 "BR_fractional_difference":(b1-b2)/b1,
                 "maximum_post_RG_WC_difference":rg_delta,
-                "post_RG_largest_difference_location":{
-                    "operator_index":index_max,"perturbative_order":order_max,
-                    "component":("real" if part_max==0 else "imag")
-                },
+                "post_RG_largest_difference_location":(
+                    {"operator_index":index_max,"perturbative_order":order_max,
+                     "component":("real" if part_max==0 else "imag")}
+                    if rg_delta>1e-13 else None
+                ),
                 "maximum_primed_WC_difference":primed_delta,
                 "max_high_scale_WC_mutation":max(
                     mutation[scale,label] for label in LABELS),
