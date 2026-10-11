@@ -41,10 +41,19 @@ def audit(path,expected_sha=None):
 def main():
     a=argparse.ArgumentParser(description=__doc__)
     a.add_argument("--source",type=Path,required=True)
+    a.add_argument("--a1m-provenance",type=Path,required=True)
     a.add_argument("--output",type=Path,required=True)
     args=a.parse_args()
-    result=audit(args.source,expected_sha=
-      "b3679eec2244917bf062420e69730f91e2bb32a679febd5d0d28db6af5b707bd")
+    manifest=json.loads(args.a1m_provenance.read_text())
+    expected="b3679eec2244917bf062420e69730f91e2bb32a679febd5d0d28db6af5b707bd"
+    if manifest.get("vendor_wilson_sha256")!=expected:
+        raise ValueError("A1M source provenance is not tied to audited original v5.0 source")
+    if Path(manifest.get("isolated_dir","")).resolve()!=args.source.resolve().parent.parent:
+        raise ValueError("A1M source path differs from official A1M provenance")
+    pinned=manifest.get("patched_wilson_sha256")
+    if not isinstance(pinned,str) or len(pinned)!=64:
+        raise ValueError("A1M provenance has no valid patched Wilson SHA")
+    result=audit(args.source,expected_sha=pinned)
     args.output.parent.mkdir(parents=True,exist_ok=True)
     args.output.write_text(json.dumps(result,indent=2)+"\n")
     print("Wrote",args.output)
