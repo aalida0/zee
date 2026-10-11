@@ -8,9 +8,12 @@ usage() {
 Usage: bash scripts/gateA1j_build_superiso.sh SOURCE_DIR [OUTPUT_DIR] [JOBS]
   SOURCE_DIR: directory containing an official SuperIso Makefile and src/
   OUTPUT_DIR: provenance and logs directory (default: work/gateA1j_superiso_build)
-  JOBS: positive integer (default 2; modest AF login-node load)
+  JOBS: must be 1 (default 1): SuperIso v5 archive recipe is NOT parallel-safe
 
-Builds the library via make, then sm.x via make sm; runs the SM executable.
+Builds the library sequentially via make -j1, then sm.x via make sm; runs the SM executable.
+IMPORTANT: SuperIso v5 src/Makefile invokes multiple ar rcsU writes to
+libsuperiso.a and deletes .o files, so parallel make can break the archive.
+After a failed parallel build, run make clean before invoking this script.
 Attempts 'make scan_coeffs' and 'make predict' separately. Their failure
 is recorded but does not invalidate a successful core+SM build.
 Does not build thdm.x: legacy 2HDM path may require 2HDMC.
@@ -20,9 +23,9 @@ if [[ ${1:-} == '-h' || ${1:-} == '--help' ]]; then usage; exit 0; fi
 if (( $# < 1 || $# > 3 )); then usage >&2; exit 2; fi
 src=$(realpath "$1")
 out=$(realpath -m "${2:-work/gateA1j_superiso_build}")
-jobs=${3:-2}
-[[ "$jobs" =~ ^[0-9]+$ ]] && (( jobs > 0 && jobs <= 8 )) || {
-  echo "JOBS must be 1..8" >&2; exit 2;
+jobs=${3:-1}
+[[ "$jobs" == "1" ]] || {
+  echo "SuperIso v5 uses concurrent ar rcsU writes to a shared archive; JOBS must be 1." >&2; exit 2;
 }
 [[ -d "$src/src" && -f "$src/Makefile" ]] || {
   echo "Source must contain Makefile and src/: $src" >&2; exit 2;
@@ -37,7 +40,7 @@ printf 'SOURCE_DIR=%s\nOUTPUT_DIR=%s\nJOBS=%s\n' "$src" "$out" "$jobs" | tee "$o
 ( cd "$src" && { gcc --version | head -n1; make --version | head -n1; } ) > "$out/toolchain.txt"
 ( cd "$src" && find . -maxdepth 2 -type f \( -name '*.c' -o -name '*.h' -o -name 'Makefile' -o -name 'README*' \) -print0 | sort -z | xargs -0 -r sha256sum ) > "$out/source_sha256.txt"
 
-if ( cd "$src" && make -j "$jobs" ) > "$out/make_library.log" 2>&1; then
+if ( cd "$src" && make -j1 ) > "$out/make_library.log" 2>&1; then
   lib_status=PASS
 else
   lib_status=FAIL
