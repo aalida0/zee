@@ -71,7 +71,10 @@ def compare_mass(superiso_file,hepfit_file,expected_mass,beta):
         ops=sorted(set(PRIMARY)|set(SECONDARY.get(order,())))
         for op in ops:
             expected=reference[order,op]
-            observed=si["entries"][order,op][1]
+            sm,observed,_other,zee=si["entries"][order,op]
+            if not math.isclose(zee,sm+observed,abs_tol=1e-10,rel_tol=1e-10):
+                raise ValueError(f"SuperIso gamma=0 matching closure failed "
+                                 f"order={order} op={op}")
             diff=observed-expected
             t=TOLERANCES[order]
             tolerance=t["atol"]+t["rtol"]*max(abs(expected),abs(observed))
