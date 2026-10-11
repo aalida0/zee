@@ -18,8 +18,8 @@ RESULT=re.compile(
     r"muW=([0-9.eE+-]+) mub=([0-9.eE+-]+) "
     r"cpmax=([0-9.eE+-]+) scale=(\d+)$")
 CPDETAIL=re.compile(
-    r"^CPDETAIL (\\S+) C7p_re=([0-9.eE+-]+) C7p_im=([0-9.eE+-]+) "
-    r"C8p_re=([0-9.eE+-]+) C8p_im=([0-9.eE+-]+) scale=(\\d+)$")
+    r"^CPDETAIL (\S+) C7p_re=([0-9.eE+-]+) C7p_im=([0-9.eE+-]+) "
+    r"C8p_re=([0-9.eE+-]+) C8p_im=([0-9.eE+-]+) scale=(\d+)$")
 NAMES={
     "SM","TYPEII_300","TYPEII_700","TYPEII_1000","TYPEII_2000",
     "ZEE_300_700","ENDPOINT_H1","ENDPOINT_H2"
