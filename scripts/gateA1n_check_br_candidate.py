@@ -22,7 +22,7 @@ CPDETAIL=re.compile(
     r"C8p_re=([0-9.eE+-]+) C8p_im=([0-9.eE+-]+) scale=(\d+)$")
 NAMES={
     "SM","TYPEII_300","TYPEII_700","TYPEII_1000","TYPEII_2000",
-    "ZEE_300_700","ENDPOINT_H1","ENDPOINT_H2"
+    "ZEE_300_700","ZEE_SAME_WC_ALT_MASS_700","ENDPOINT_H1","ENDPOINT_H2"
 }
 
 def parse_output(path):
@@ -96,6 +96,23 @@ def verify(original,patched,reference):
                 f"official sm.x output {reference:.12g}; do not trust downstream BR")
         max_endpoints=0.
         for scale in range(5):
+            # The matched Zee coefficients must completely encode the
+            # charged-sector input for this generic low-scale BR path.
+            # If a leftover mass_H in the parameter struct changes the
+            # result, further model-specific handling is mandatory.
+            zee_base=rs[scale,"ZEE_300_700"]
+            zee_alt=rs[scale,"ZEE_SAME_WC_ALT_MASS_700"]
+            if abs(zee_base["br"]-zee_alt["br"])>2e-12:
+                raise ValueError(
+                    f"{label}: identical Zee WCs give different BR when "
+                    f"residual point.mass_H is changed at scale {scale}: "
+                    f"{zee_base['br']} vs {zee_alt['br']}; "
+                    "a single-mass parameter context is insufficient")
+            for x in ("C7prime_re","C7prime_im","C8prime_re","C8prime_im","cpmax"):
+                if abs(zee_base[x]-zee_alt[x])>2e-12:
+                    raise ValueError(
+                        f"{label}: Zee {x} depends on arbitrary residual mass_H "
+                        f"at scale {scale}: {zee_base[x]} vs {zee_alt[x]}")
             for state,end in (("TYPEII_300","ENDPOINT_H1"),("TYPEII_700","ENDPOINT_H2")):
                 diff=abs(rs[scale,state]["br"]-rs[scale,end]["br"])
                 max_endpoints=max(max_endpoints,diff)
@@ -111,6 +128,7 @@ def verify(original,patched,reference):
             "typeII_1000_br":b1000,"typeII_2000_br":b2000,
             "zee_br_candidate":rs[0,"ZEE_300_700"]["br"],
             "zee_to_sm_ratio":rs[0,"ZEE_300_700"]["br"]/base,
+            "zee_residual_mass_context_independent":True,
             "typeII_2000_closer_to_sm_than_1000":
                 abs(b2000-base)<abs(b1000-base),
             "endpoint_br_max_abs_difference":max_endpoints,
