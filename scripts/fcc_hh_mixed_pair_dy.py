@@ -26,6 +26,16 @@ GAMMA_Z = 2.4952
 SW2 = 0.23122
 ALPHA_MZ = 1/127.95
 G12_P2_PILOT = 0.1520746183402528
+GAMMA_P2_PILOT = 1.089
+
+
+def g12_scaled_to_gamma(gamma: float) -> float:
+    """Preserve the Gate-5 P2 EW-input convention and vary sin(gamma)cos(gamma)."""
+    if not math.isfinite(gamma):
+        raise ValueError("Non-finite gamma")
+    return G12_P2_PILOT * (
+        math.sin(2*gamma) / math.sin(2*GAMMA_P2_PILOT)
+    )
 FLAVORS = (1, 2, 3, 4, 5)
 
 
@@ -131,7 +141,8 @@ def main() -> None:
     p.add_argument("--m1",type=float,default=300.)
     p.add_argument("--m2",type=float,default=700.)
     p.add_argument("--gamma",type=float,default=1.089)
-    p.add_argument("--g12",type=float,default=G12_P2_PILOT)
+    p.add_argument("--g12",type=float,default=None,
+                   help="Override g12 explicitly; otherwise scale nominal g12 with sin(2*gamma)")
     p.add_argument("--pdf-set",default="NNPDF31_lo_as_0130")
     p.add_argument("--pdf-member",type=int,default=0)
     p.add_argument("--pdf-q-gev",type=float)
@@ -148,16 +159,21 @@ def main() -> None:
             "python3 -c 'import lhapdf; print(lhapdf.availablePDFSets())'. "
             f"Details: {e}"
         ) from e
+    chosen_g12 = args.g12 if args.g12 is not None else g12_scaled_to_gamma(args.gamma)
+    if not math.isfinite(chosen_g12):
+        raise SystemExit("ERROR: non-finite g12")
     summary={
         "model":"off-diagonal Z-only Drell-Yan screening; NOT full Zee UFO",
         "pdf_set":args.pdf_set,"pdf_member":args.pdf_member,
         "gamma_rad":args.gamma,
+        "g12_used":chosen_g12,
+        "g12_reference_legacy_pilot":G12_P2_PILOT,
         "g12_from_alpha_mz_convention":zee_g12(args.gamma),
         "rates":[]
     }
     for energy in args.energy_tev:
         summary["rates"].append(rate_pp_mixed_pair(
-            pdf,sqrt_s_tev=energy,m1=args.m1,m2=args.m2,g12=args.g12,
+            pdf,sqrt_s_tev=energy,m1=args.m1,m2=args.m2,g12=chosen_g12,
             q_gev=args.pdf_q_gev,nodes_tau=args.nodes_tau,
             nodes_y=args.nodes_y))
     data=json.dumps(summary,indent=2)+"\n"
