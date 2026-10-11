@@ -330,3 +330,20 @@ New `scripts/gate7_make_diagnostic_param_card.py` writes an
 explicit **unfitted** neutrino-sector Type-II diagnostic card.
 It never silently updates `DECAY` widths, which remain stale.
 Neither tool establishes an experimentally allowed model point.
+
+
+### Gate 7D: analytic parameter map on AF PASS; MadWidth diagnostic ready
+
+User-confirmed `gate7_map_p2_to_yangwu.py` scalar closure is exact
+(residuals <1e−12); `gate7_make_diagnostic_param_card.py`
+successfully wrote a benchmark-matched test card.
+**Decay widths are still stale in that input card.**
+
+New `scripts/gate7_run_madwidth.sh` computes 2-body widths with
+MadWidth from a copied input card, and
+`scripts/gate7_check_madwidth.py` compares the five central
+charged-Higgs partial widths against Gate6 independent formulas.
+Run `bash scripts/gate7_run_madwidth.sh` after
+`python3 -m unittest discover -s tests -v`.
+Results are **diagnostic only** with Zee lepton f_ab=0
+(neutrino masses vanish) and no NLO counterterms.
