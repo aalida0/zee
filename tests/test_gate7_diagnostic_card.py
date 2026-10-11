@@ -4,7 +4,7 @@ import sys
 import unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
-from gate7_make_diagnostic_param_card import replacements, render_card
+from gate7_make_diagnostic_param_card import replacements, render_card, parse_card_values, validate_card_values
 
 
 class LhaTests(unittest.TestCase):
@@ -41,6 +41,32 @@ class LhaTests(unittest.TestCase):
         # Refuse template that silently dropped one required entry
         with self.assertRaises(ValueError):
             render_card(content.replace("Block MASS","Block BOGUS"),vals)
+
+    def test_preserve_newlines_and_independent_slha_readback(self):
+        values = replacements()
+        blocks = {}
+        for block, code in values:
+            blocks.setdefault(block, []).append(code)
+        lines = ["# reproduce original Gate7 silent lost-newline bug\\n"]
+        for name in sorted(blocks):
+            lines.append("BLOCK " + name + "\\n")
+            for code in sorted(blocks[name]):
+                lines.append(f"   {code}  1.000000e+00  # comment for entry {code}\\n")
+        template = "".join(lines)
+        updated = render_card(template, values)
+        self.assertEqual(updated.count("\\n"), template.count("\\n"))
+        self.assertTrue(validate_card_values(updated,values))
+        parsed=parse_card_values(updated)
+        self.assertAlmostEqual(parsed["MASS",225],580.7)
+        self.assertAlmostEqual(parsed["MASS",227],700.)
+        self.assertAlmostEqual(parsed["MASS",228],300.)
+        self.assertIn("comment for entry 225\\n",updated)
+
+    def test_detect_corrupt_card_with_joined_lines(self):
+        vals={("MASS",225):580.7,("MASS",227):700.}
+        broken="BLOCK MASS\\n   225 5.807e+02 # hHeavy   227 7.000e+02 # Hcharged\\n"
+        with self.assertRaisesRegex(ValueError,"missing"):
+            validate_card_values(broken,vals)
 
     def test_duplicate_block_entry_rejected(self):
         data=replacements()
