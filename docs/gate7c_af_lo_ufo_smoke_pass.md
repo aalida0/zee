@@ -86,3 +86,45 @@ python3 scripts/gate7_map_p2_to_yangwu.py \
    constraints, and new NLO QCD UV/R2 counterterms remain pending.
 
 **Do not start large MG5 event generation or Delphes yet.**
+
+
+## Gate 7C next: parameter-matched diagnostic card
+
+New utility `scripts/gate7_make_diagnostic_param_card.py` takes
+the MG5-produced `Cards/param_card.dat` as a template and replaces
+the model's own `ZEEINPUTS`, `ZEELAMS`, `MASS`, `ZEEYUKAWAF`,
+and `ZEEYUKAWAY` entries using the Higgs-basis mapping.
+
+To isolate the Type-II **scalar/quark/lepton** test limit, it sets
+the antisymmetric Zee lepton Yukawas `f_ab=0` and the extra doublet
+charged-lepton Yukawas to `−tanβ √2 m_l/v` on diagonal, off-diagonal
+zero. As a result **radiative neutrino masses vanish**, so it is
+**NOT a realistic full Zee neutrino model**. Treat this solely as
+an internally controlled tree-level amplitude/width diagnostic.
+
+The script deliberately leaves all existing `DECAY` widths in the
+MG5 template unchanged. They are **stale defaults** and MUST NOT
+be interpreted as physical widths or used in resonance studies.
+
+```bash
+cd ~/zee
+git pull --ff-only
+python3 -m unittest discover -s tests -v
+python3 scripts/gate7_map_p2_to_yangwu.py \
+    --output work/gate7_yangwu_p2_mapping.json
+python3 scripts/gate7_make_diagnostic_param_card.py \
+    --template work/gate7_mg5_typeii_smoke/Associated_4FS/Cards/param_card.dat \
+    --output work/gate7_typeii_diagnostic_param_card.dat \
+    --acknowledge-unfitted-neutrino-sector
+```
+
+Expected charged masses: `MASS[227]=700`, `MASS[228]=300`.
+Expected mixing: `ZEEINPUTS[1]=1.394`,
+`ZEEINPUTS[3]=0.004`, `ZEEINPUTS[4]≈0.48179632679`.
+Expected `ZEELAMS`: `(2.39677936, 2.71011596, −0.37353220,
+0.03776437, 1.04821563, −0.18783090, 4.473)`.
+
+**Next after card generation:** compare numerical LO couplings
+and partial widths (not merely static diagrams) to Gate-6 analytical
+results; handle the six-diagram mixed pair properly, then run
+EW/CKM matching and gauge tests before physical cross sections.
