@@ -36,10 +36,14 @@ class TestCandidateValidation(unittest.TestCase):
                 "TYPEII_1000":.00002,"TYPEII_2000":.000005,
                 "ZEE_300_700":.00005,
                 "ZEE_SAME_WC_ALT_MASS_700":.00005,
+                "ZEE_REPEAT_MASS_300":.00005,
+                "ZEE_REPEAT_MASS_700":.00005,
                 "ENDPOINT_H1":.00012,"ENDPOINT_H2":.00004
             }
             for name in sorted(NAMES):
-                if name in ("ZEE_300_700","ZEE_SAME_WC_ALT_MASS_700"):
+                if name in ("ZEE_300_700","ZEE_SAME_WC_ALT_MASS_700",
+                            "ZEE_REPEAT_MASS_300","ZEE_REPEAT_MASS_700"):
+                    lines.append(f"INPUTMUTATION {name} max_abs=0 scale={scale}")
                     for op in range(1,11):
                         # Same evolved WCs and primed coefficients across
                         # residual-mass choices; only BR may depend on it.
