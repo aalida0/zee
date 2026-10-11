@@ -27,6 +27,13 @@ for command in python3 curl g++ gcc sha256sum; do
   }
 done
 mkdir -p "$out"
+# Direct source audit of the SuperIso running-top prescription. The
+# numerical mt used below is a provisional input from A1L LO inversion,
+# not claimed independently verified by this source-only report.
+python3 "$script_dir/gateA1p_audit_running_top.py" \
+  --source "$a1m/src/wilson.c" \
+  --output "$out/superiso_running_top_source_audit.json"
+
 source_url="https://raw.githubusercontent.com/silvest/HEPfit/master/THDM/src/THDMMatching.cpp"
 curl --fail --location --retry 2 --silent --show-error \
   "$source_url" -o "$out/HEPfit_THDMMatching.cpp"
