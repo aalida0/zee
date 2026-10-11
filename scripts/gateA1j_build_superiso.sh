@@ -53,13 +53,18 @@ else
     echo 'Skipped: library build failed' > "$out/make_sm.log"
   fi
 fi
-if [[ "$sm_build_status" == PASS && -x "$src/sm.x" ]] && (cd "$src" && ./sm.x) > "$out/sm_output.log" 2>&1; then
-  sm_run_status=PASS
+sm_exit_code=NOT_EXECUTED
+if [[ "$sm_build_status" == PASS && -x "$src/sm.x" ]]; then
+  if (cd "$src" && ./sm.x) > "$out/sm_output.log" 2>&1; then
+    sm_exit_code=0
+    sm_run_status=PASS
+  else
+    sm_exit_code=$?
+    sm_run_status=FAIL
+  fi
 else
   sm_run_status=FAIL
-  if [[ ! -f "$out/sm_output.log" ]]; then
-    echo 'Skipped: sm.x not built or not executable' > "$out/sm_output.log"
-  fi
+  echo 'Skipped: sm.x not built or not executable' > "$out/sm_output.log"
 fi
 
 for program in scan_coeffs predict; do
@@ -71,9 +76,9 @@ for program in scan_coeffs predict; do
   fi
 done
 
-python3 - "$src" "$out" "$lib_status" "$sm_build_status" "$sm_run_status" <<'PY'
+python3 - "$src" "$out" "$lib_status" "$sm_build_status" "$sm_run_status" "$sm_exit_code" <<'PY'
 import hashlib, json, pathlib, sys
-src, out = map(pathlib.Path, sys.argv[1:3]); lib, bld, run = sys.argv[3:]
+src, out = map(pathlib.Path, sys.argv[1:3]); lib, bld, run, exit_code = sys.argv[3:]
 manifest = out/'source_sha256.txt'
 r = {
  'status': ('SUPERISO_SM_BASELINE_BUILT_AND_RUN' if lib==bld==run=='PASS'
@@ -81,6 +86,10 @@ r = {
  'scope':'Toolchain/source provenance and SuperIso SM smoke only; NOT two-Higgs Zee b->s gamma',
  'source_dir':str(src), 'logs_dir':str(out),
  'library_build':lib, 'sm_build':bld,'sm_run':run,
+ 'sm_exit_code': int(exit_code) if exit_code.isdigit() else None,
+ 'sm_output_contains_b_to_s_gamma':
+    'BR(b->s gamma)' in (out/'sm_output.log').read_text()
+    or 'BR(B->Xs gamma)' in (out/'sm_output.log').read_text(),
  'manifest_sha256':hashlib.sha256(manifest.read_bytes()).hexdigest(),
  'source_manifest_entries':len(manifest.read_text().splitlines()),
  'optional_targets':{t:(out/(t+'.status')).read_text().strip() for t in ('scan_coeffs','predict')},
