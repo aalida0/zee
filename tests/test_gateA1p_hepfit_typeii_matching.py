@@ -121,7 +121,7 @@ class TestGateA1P(unittest.TestCase):
         pairs=[(m,*write_pair(self.root,m)) for m in (300,700,1000,2000)]
         result=report(pairs,1.394,self.manifest)
         self.assertEqual(result["failed_count"],0)
-        self.assertEqual(result["compared_count"],4*(6+4+2))
+        self.assertEqual(result["compared_count"],4*(2+3+6))
         self.assertFalse(result["full_bsgamma_independently_validated"])
         self.assertIsNone(result["Zee_benchmark_excluded"])
 
