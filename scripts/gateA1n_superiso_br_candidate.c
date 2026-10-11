@@ -211,12 +211,12 @@ static double evaluate(const char *label,
             cloned_br[run]=bsgamma(cc0,cc1,cc2,ccp,mub,muW,&cl);
         }
         if(!isfinite(cloned_br[0]) || !isfinite(cloned_br[1])) {
-            fprintf(stderr,"BRCLONE_NONFINITE label=%s scale=%d\\n",
+            fprintf(stderr,"BRCLONE_NONFINITE label=%s scale=%d\n",
                     label,scan_scale);
             return NAN;
         }
         printf("BRCLONE %s br_mass300=%.17g br_mass700=%.17g "
-               "br_original=%.17g scale=%d\\n",
+               "br_original=%.17g scale=%d\n",
                label,cloned_br[0],cloned_br[1],br,scan_scale);
     }
     if (!isfinite(br) || br<=0. || br>=1. || !isfinite(cp_norm)) {
