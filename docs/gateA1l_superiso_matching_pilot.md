@@ -17,7 +17,7 @@ In the vendor `src/wilson.c` `CW_calculator`:
    `abs(C7H_1)*alpha_s/(4*pi) > abs(C0w[7])`, and when true
    multiplies `C7H_1` by `abs(C0w[7])/abs(C7H_1)`.
 3. The first assignment `C0w[7]=C7SM_0+C7H_0` occurs
-   **only after this check**, near lines 2059-2085.
+   **only after this check**, later in `CW_calculator`, after the limiter.
    Thus for nonzero `C7H_1`, the limiter forces it to zero.
    Analogous limiter expressions apply to `C8H_1`,
    `C9H_1` and `C10H_1`.
