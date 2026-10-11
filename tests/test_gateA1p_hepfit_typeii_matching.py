@@ -154,6 +154,22 @@ class TestGateA1P(unittest.TestCase):
         self.assertFalse(next(x for x in rows
             if x["order"]==2 and x["operator"]=="C8")["numerically_consistent"])
 
+    def test_nnlo_precision_warning_even_when_pilot_tolerance_passes(self):
+        si,hf=write_pair(self.root,300)
+        rows=si.read_text().splitlines()
+        for i,row in enumerate(rows):
+            if row.startswith("COEFF order=2 i=8 "):
+                rows[i]=row.replace("delta1=-1.2 ","delta1=-1.1800000000000002 ")
+                break
+        else:
+            self.fail("Missing NNLO synthetic C8 row")
+        si.write_text("\n".join(rows)+"\n")
+        result=report([(300,si,hf)],1.394,self.manifest)
+        self.assertEqual(result["failed_count"],0)
+        self.assertGreater(result["NNLO_above_one_percent_relative_count"],0)
+        self.assertIn("PRECISION_FLAGS",result["status"])
+        self.assertFalse(result["NNLO_publication_precision_validated"])
+
     def test_matching_scale_difference_rejected(self):
         si,hf=write_pair(self.root,300)
         hf.write_text(hf.read_text().replace("muW=160.7384","muW=165.0"))
