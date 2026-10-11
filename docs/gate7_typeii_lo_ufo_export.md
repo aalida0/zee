@@ -104,3 +104,31 @@ matching to P2, gauge/Ward tests, and a complete widths/BR inventory.
    finiteness and reduced scale dependence.
 4. A directory named `ZEE_NLO` is not proof of NLO correctness for
    Type-II Yukawas introduced after the original NLO export.
+
+
+## LOCAL ACTUAL EXPORT: PASS (2026-10-11, user-supplied log)
+
+On a separate Linux workstation with Mathematica 15,
+FeynRules **2.3.49**, and the modified `Zee_TypeII_FR` source:
+
+- FeynRules and Yang/Wu `ZEE.fr` loaded successfully.
+- `WriteUFO[LZEE, Output -> ... , AddDecays -> False]` completed.
+- Reported 336 possible nonzero vertices; 327 calculated vertices.
+- Output contains `particles.py`, `parameters.py`, `vertices.py`,
+  `couplings.py`, `lorentz.py`, etc.
+- `QN::NonConserv` LeptonNumber warnings appeared as expected for
+  the source's Zee lepton-sector couplings; no fatal export error.
+- A small `CT_couplings.py` file is present but no regenerated
+  UV/R2 counterterm validation exists. **Not NLO-capable yet.**
+
+**Observed path on local machine:**
+`/home/amine/zee-local/work/Zee_TypeII_LO_UFO`.
+
+**NOT YET TESTED:** our UFO vertex-inventory checker, AF MG5
+3.5.9 import/diagram test, exact Florentino parameter mapping,
+charged mass/trilinear identities, LO cross sections/widths and Ward checks.
+
+Next: locally download `scripts/gate7_validate_typeii_ufo.py`
+and run it against the exported UFO; if it passes, `scp -r`
+the UFO directory to `/home/aalida/zee/work/` on AF.
+Then run `scripts/gate7_mg5_typeii_smoke.sh` there.
