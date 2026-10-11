@@ -301,6 +301,53 @@ PY
 
 No experimental comparison or exclusion decision is made.
 
+## Frozen-WC replay: final SuperIso `bsgamma()` rematching hypothesis
+
+The latest AF replay confirms conclusively that when all evolved and
+primed Wilson coefficients are **frozen**, switching only the residual
+`param.mass_H` inside `bsgamma()` changes its output by exactly
+`7.32944489362404e-7`, for both vendor and NLO-patched libraries.
+The result is reproducible; the different residual masses do not
+change the post-RG or primed Wilson vectors.
+
+The historical SuperIso 3.3 source publicly available at
+`andrewfowlie/superpy/superiso_v3.3/src/bsgamma.c` contains **an
+internal call to CW_calculator** within the inclusive BR routine.
+The internally obtained high-scale `C0w[7]` and `C0w[8]` enter
+nonperturbative and electromagnetic terms `N_E0`, `P_em`.
+This architecture would produce exactly the observed single-state
+mass-context leakage if retained in SuperIso v5.
+
+**Do not assume the v5 code has the same internal structure before
+auditing it.** The direct-token source scan saw no `mass_H` inside
+v5 `bsgamma.c`, which is compatible with indirect matching
+through `CW_calculator`.
+
+Run source-only audit on AF (no rebuild or source patch):
+
+```bash
+cd /home/aalida/zee
+git switch gateA1n-superiso-br-candidate-controls
+git pull --ff-only
+python3 scripts/gateA1n_audit_bsgamma_hidden_matching.py \
+  --superiso-dir /home/aalida/opt/zee_tools/SuperIso_v5.0 \
+  --output work/gateA1n_bsgamma_hidden_matching_audit.txt
+cat work/gateA1n_bsgamma_hidden_matching_audit.txt
+```
+
+The audit returns every internal matching/C0w occurrence and
+line-numbered context for `N_E0`, `P_em`, and `Cem`.
+On confirmation, a **correct** Zee implementation must thread the
+coherent high-scale vector `C0w_Zee` through those pieces *as well
+as* through RGE. It must not simulate the effect with an arbitrary
+single `mass_H`, average final rates, or ignore an internally
+recomputed NP contribution.
+
+Any subsequent source-level adaptation should be made in a distinct,
+version-pinned SuperIso copy and reproduce the native SM and both
+single-Type-II endpoints before reporting a candidate Zee branching
+ratio. An independent NLO/NNLO Type-II check remains a separate gate.
+
 ## Remaining required gates
 
 1. Obtain a known Type-II NNLO reference **prediction curve**
