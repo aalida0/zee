@@ -159,7 +159,8 @@ class TestGateA1P(unittest.TestCase):
         rows=si.read_text().splitlines()
         for i,row in enumerate(rows):
             if row.startswith("COEFF order=2 i=8 "):
-                rows[i]=row.replace("delta1=-1.2 ","delta1=-1.1800000000000002 ")
+                rows[i]=(row.replace("delta1=-1.2 ","delta1=-1.1800000000000002 ")
+                         .replace("zee=-1.2","zee=-1.1800000000000002"))
                 break
         else:
             self.fail("Missing NNLO synthetic C8 row")
