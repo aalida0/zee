@@ -88,3 +88,35 @@ pdlabel=nn23lo1 is for an initial rate screen, not a production-quality nf=4 PDF
 Never add four-flavour and five-flavour cross sections.
 
 The `models/`, `work/`, and `results/` directories hold locally downloaded model files and generated outputs and are ignored by Git.
+
+## Gate 4: first actual LO production rate
+
+MG5 4FS Type-II proxy at 14 TeV, m(h±)=700 GeV, tanβ=5.729446:
+`σ_2HDM^LO = (0.008737 ± 0.00004079) pb`, both charges.
+Scaling by sin²γ = 0.7852866098 yields `σ_Zee^LO,proxy = 6.86105 fb`.
+The quoted error is **only integration uncertainty**, not PDF/scale/4FS theory uncertainty.
+
+Reproduce the rate and **assumption-dependent** yields with the new calculator:
+
+```bash
+cd ~/zee
+git pull --ff-only
+python3 -m unittest discover -s tests -v
+python3 scripts/gate4_rate_summary.py --mg5-log work/gate3_run01.log \
+  --output work/gate4_rate_summary.json
+```
+
+At 3 ab−1 with **illustrative** BR(H2→H1Z)=0.70 and BR(H1→tb)=0.95:
+the direct-e/μ 3-lepton mode has `2×0.216×0.674 = 0.291168` top branching fraction,
+and `N≈268` before detector selection. An assumed 5% (10%) selection
+efficiency would leave ≈13 (27) signal events. The old 0.338 top branching
+factor was incorrect for direct e/μ and has been corrected. No real
+acceptance, model completeness or background significance is established.
+
+**Next gate before full detector simulation:** construct an exact simultaneously
+allowed P2-like Zee scalar potential point (the illustrative 300/700 GeV
+masses are not validated), include all open competing decays in the total
+H2/H1 widths (including bosonic channels), recheck flavour/Higgs/electroweak
+constraints and the untested Zee neutrino/LFV sector. Then assess acceptance
+versus `ttZ+bb` and other irreducible backgrounds. Do not infer discovery from
+the inclusive cross section alone.
