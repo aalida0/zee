@@ -11,6 +11,8 @@ Usage: bash scripts/gateA1j_build_superiso.sh SOURCE_DIR [OUTPUT_DIR] [JOBS]
   JOBS: must be 1 (default 1): SuperIso v5 archive recipe is NOT parallel-safe
 
 Builds the library sequentially via make -j1, then sm.x via make sm; runs the SM executable.
+SuperIso v5 SM driver ends with return 1; its exit 1 is only accepted when
+sm.c and the complete numerical output are both verified by the audit.
 IMPORTANT: SuperIso v5 src/Makefile invokes multiple ar rcsU writes to
 libsuperiso.a and deletes .o files, so parallel make can break the archive.
 After a failed parallel build, run make clean before invoking this script.
@@ -67,6 +69,20 @@ else
   echo 'Skipped: sm.x not built or not executable' > "$out/sm_output.log"
 fi
 
+# Accept upstream SuperIso v5 sm.c's final 'return 1;' only when a
+# separate source-and-output audit proves that the SM driver completed.
+# Never broadly ignore nonzero process exits.
+sm_audit_status=FAIL
+if python3 "$(dirname "${BASH_SOURCE[0]}")/gateA1j_sm_exit_audit.py" \
+    "$src/sm.c" "$out/sm_output.log" \
+    "${sm_exit_code/NOT_EXECUTED/-1}" \
+    --output "$out/sm_exit_audit.json" >> "$out/sm_audit.log" 2>&1; then
+  sm_audit_status=PASS
+  sm_run_status=PASS
+else
+  sm_run_status=FAIL
+fi
+
 for program in scan_coeffs predict; do
   if [[ "$lib_status" == PASS ]] && ( cd "$src" && make "$program" ) > "$out/make_${program}.log" 2>&1; then
     printf 'PASS\n' > "$out/${program}.status"
@@ -86,6 +102,8 @@ r = {
  'scope':'Toolchain/source provenance and SuperIso SM smoke only; NOT two-Higgs Zee b->s gamma',
  'source_dir':str(src), 'logs_dir':str(out),
  'library_build':lib, 'sm_build':bld,'sm_run':run,
+ 'sm_exit_audit': json.loads((out/'sm_exit_audit.json').read_text()),
+ 'sm_exit_audit_status': 'PASS' if run=='PASS' else 'FAIL',
  'sm_exit_code': int(exit_code) if exit_code.isdigit() else None,
  'sm_output_contains_b_to_s_gamma':
     'BR(b->s gamma)' in (out/'sm_output.log').read_text()
