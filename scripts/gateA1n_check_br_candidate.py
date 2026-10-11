@@ -17,6 +17,9 @@ RESULT=re.compile(
     r"^RESULT (\S+) ([0-9]+(?:\.[0-9]*)?(?:[eE][+-]?[0-9]+)?) "
     r"muW=([0-9.eE+-]+) mub=([0-9.eE+-]+) "
     r"cpmax=([0-9.eE+-]+) scale=(\d+)$")
+CPDETAIL=re.compile(
+    r"^CPDETAIL (\\S+) C7p_re=([0-9.eE+-]+) C7p_im=([0-9.eE+-]+) "
+    r"C8p_re=([0-9.eE+-]+) C8p_im=([0-9.eE+-]+) scale=(\\d+)$")
 NAMES={
     "SM","TYPEII_300","TYPEII_700","TYPEII_1000","TYPEII_2000",
     "ZEE_300_700","ENDPOINT_H1","ENDPOINT_H2"
@@ -29,7 +32,20 @@ def parse_output(path):
     if "STATUS_END GATE_A1N_BR_CANDIDATE_NO_EXCLUSION" not in lines:
         raise ValueError(f"Missing completion footer in {path}")
     observations={}
+    primed={}
     for line in lines:
+        mprime=CPDETAIL.fullmatch(line)
+        if mprime:
+            name,c7re,c7im,c8re,c8im,scale=mprime.groups()
+            key=int(scale),name
+            if key in primed or name not in NAMES:
+                raise ValueError(f"Duplicate or unrecognized primed row {key}")
+            values=dict(C7prime_re=float(c7re), C7prime_im=float(c7im),
+                        C8prime_re=float(c8re), C8prime_im=float(c8im))
+            if not all(math.isfinite(v) for v in values.values()):
+                raise ValueError(f"Nonfinite primed coefficients for {key}")
+            primed[key]=values
+
         m=RESULT.fullmatch(line)
         if not m:
             continue
@@ -41,12 +57,19 @@ def parse_output(path):
                   cpmax=float(cp))
         if name not in NAMES or not all(math.isfinite(x) for x in vals.values()):
             raise ValueError(f"Invalid row: {line}")
-        if not (0<vals["br"]<1 and vals["cpmax"]<=1e-8):
-            raise ValueError(f"Nonphysical or unexpected primed coefficients: {line}")
+        if not (0<vals["br"]<1 and vals["cpmax"]>=0):
+            raise ValueError(f"Nonphysical BR or invalid primed norm: {line}")
         observations[key]=vals
     expected={(scale,name) for scale in range(5) for name in NAMES}
     if set(observations)!=expected:
         raise ValueError(f"Incomplete modes/scales: missing={sorted(expected-set(observations))}")
+    if set(primed)!=expected:
+        raise ValueError(f"Incomplete Cprime modes/scales: missing={sorted(expected-set(primed))}")
+    for key,values in primed.items():
+        observations[key].update(values)
+        # Magnitudes must not exceed the total Cprime norm.
+        if any(abs(v)>observations[key]["cpmax"]+1e-12 for v in values.values()):
+            raise ValueError(f"Cprime[7,8] exceed reported norm for {key}")
     for scale in range(5):
         rows=[observations[scale,n] for n in NAMES]
         if len({x["muW"] for x in rows})!=1 or len({x["mub"] for x in rows})!=1:
@@ -98,9 +121,18 @@ def verify(original,patched,reference):
                 "half":rs[3,"ZEE_300_700"]["br"],
                 "double":rs[4,"ZEE_300_700"]["br"]},
         }
+    primed_change_max=0.
     for scale in range(5):
         if abs(original[scale,"SM"]["br"]-patched[scale,"SM"]["br"])>5e-13:
             raise ValueError("Isolated NLO-only patch changed the SM inclusive BR")
+        # A1M only changes four NLO charged-Higgs unprimed coefficients
+        # in CW_calculator; Cprime calculation must remain identical.
+        for mode in NAMES:
+            for op in ("C7prime_re","C7prime_im","C8prime_re","C8prime_im","cpmax"):
+                diff=abs(original[scale,mode][op]-patched[scale,mode][op])
+                primed_change_max=max(primed_change_max,diff)
+                if diff>1e-12:
+                    raise ValueError(f"NLO patch unexpectedly changed {mode} {op} at scale {scale}")
     for mode in ("TYPEII_300","TYPEII_700","ZEE_300_700"):
         if abs(original[0,mode]["br"]-patched[0,mode]["br"])<1e-10:
             raise ValueError(f"NLO repair has no impact on {mode} BR; inspect code")
@@ -110,6 +142,16 @@ def verify(original,patched,reference):
                 "common-scale two-charged matching and native vs isolated variant",
         "official_sm_reference":reference,
         "per_library":details,
+        "primed_coefficients_unchanged_by_nlo_patch": True,
+        "max_primed_coefficient_native_vs_isolated_difference": primed_change_max,
+        "nominal_primed_diagnostics":{
+            library:{
+                mode:{key:float(data[0,mode][key]) for key in
+                      ("C7prime_re","C7prime_im","C8prime_re","C8prime_im","cpmax")}
+                for mode in ("SM","TYPEII_300","TYPEII_700","ZEE_300_700")
+            }
+            for library,data in (("vendor",original),("isolated",patched))
+        },
         "native_minus_isolated_zee_br":
             original[0,"ZEE_300_700"]["br"]-patched[0,"ZEE_300_700"]["br"],
         "SM_native_vs_isolated_same_all_scales":True,
@@ -120,8 +162,10 @@ def verify(original,patched,reference):
             "and independent Type-II calculation are not yet validated",
             "No full experimental-theory covariance, scale or perturbative "
             "uncertainty assigned",
+            "Cprime values are recorded; physical type-II and Zee primed "
+            "matching remains to be independently audited",
             "Stock THDM ignores flavour-violating Zee Yukawas beyond chosen "
-            "Type-II quark projection and checks no new chirality-flipped terms",
+            "Type-II quark projection",
             "Does not establish exclusion or permission to publish the benchmark"
         ],
         "Zee_benchmark_allowed":None,
