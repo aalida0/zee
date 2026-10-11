@@ -222,3 +222,19 @@ and the [requirements for a **full**, gauge-complete Zee UFO]
 The repository **does not yet contain** that full UFO, a lepton-sector fit,
 electroweak/flavour constraints or a certified global vacuum. This stage
 is a theory-only filter before committing to a gauge-complete event model.
+
+
+### Gate 6 AF replication (2026-10-11)
+
+Independent AF execution of `gate6_benchmark.py`, `gate6_width_inventory.py`,
+`gate6_beta_scan.py`, and `gate6_vacuum_search.py` succeeded.
+Scalar-only necessary/sufficient gates pass at beta=1.394 and the 82-start
+vacuum search found no deeper minimum. This **does not prove a physical Zee point**.
+See [exact AF results and hard blockers](docs/gate6_af_validation_20261011.md).
+
+The next mandatory gate is the **physical full-model implementation plus
+lepton-flavor/neutrino fit**, electroweak oblique S/T/U, B→Xs gamma
+and Higgs/direct search constraints. Do not substitute
+[the Zee–Babu FeynRules UFO](https://cp3.irmp.ucl.ac.be/projects/feynrules/wiki/ZeeBabu):
+it has a different field content (singly and doubly charged singlets,
+not two Higgs doublets plus a singly charged singlet).
