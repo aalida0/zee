@@ -120,16 +120,14 @@ static double evaluate(const char *label,
         highscale_mutation=fmax(highscale_mutation,cabs(c2w[i]-wc->C2[i]));
     }
     if(!isfinite(highscale_mutation)) {
-        fprintf(stderr,"High-scale array overwritten nonfinite for %s\\n",label);
+        fprintf(stderr,"High-scale array overwritten nonfinite for %s\n",label);
         return NAN;
     }
     if(strcmp(label,"ZEE_300_700")==0 ||
        strcmp(label,"ZEE_SAME_WC_ALT_MASS_700")==0 ||
         strcmp(label,"ZEE_REPEAT_MASS_300")==0 ||
-        strcmp(label,"ZEE_REPEAT_MASS_700")==0 ||
-       strcmp(label,"ZEE_REPEAT_MASS_300")==0 ||
-       strcmp(label,"ZEE_REPEAT_MASS_700")==0) {
-        printf("INPUTMUTATION %s max_abs=%.17g scale=%d\\n",
+        strcmp(label,"ZEE_REPEAT_MASS_700")==0) {
+        printf("INPUTMUTATION %s max_abs=%.17g scale=%d\n",
                label,highscale_mutation,scan_scale);
     }
     /* Fail at the first invalid QCD-evolved Wilson coefficient, not at BR. */
