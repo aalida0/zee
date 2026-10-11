@@ -57,7 +57,7 @@ cd "$HOME"
 git clone https://github.com/aalida0/zee.git  # if not already cloned
 cd "$HOME/zee"
 mkdir -p models
-cp -a /data/aalida/zee_charged_higgs_pilot/models/2HDMtII_NLO models/
+cp -a /data/aalida/zee/models/2HDMtII_NLO models/
 
 source ~/fccee_zh/scripts/setup_key4hep.sh
 python3 -m unittest discover -s tests -v
