@@ -21,7 +21,7 @@ def _without_comments(source: str) -> str:
     return re.sub(r"//[^\n]*", "", source)
 
 
-def audit_sm_exit(source: Path, log: Path, exit_code: int | None) -> dict:
+def audit_sm_exit(source: Path, log: Path, exit_code: int) -> dict:
     c_source = source.read_text(errors="replace") if source.is_file() else ""
     output = log.read_text(errors="replace") if log.is_file() else ""
     # The final statement must be literally return 1; at the end of main.
