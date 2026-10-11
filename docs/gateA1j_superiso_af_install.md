@@ -47,10 +47,10 @@ python3 -m unittest discover -s tests \
 
 bash scripts/gateA1j_build_superiso.sh \
   /home/aalida/opt/zee_tools/<EXTRACTED_DIRECTORY> \
-  work/gateA1j_superiso_build 2
+  work/gateA1j_superiso_build 1
 ```
 
-The wrapper invokes `make -j 2`, `make sm`, and `./sm.x`, and **optionally** attempts to build `scan_coeffs` and `predict`. Source files are not patched, no external site is contacted, and no root privileges are required. Optional target failures are reported without masking a successful SM baseline.
+CAUTION: **Do not use parallel make (e.g. -j12) on SuperIso 5.0.** Its build writes concurrently into libsuperiso.a using `ar rcsU`, which can lead to missing library members and `undefined reference` link errors. If you already ran a parallel build, first run `cd /home/aalida/opt/zee_tools/SuperIso_v5.0 && make clean`; the bootstrap then rebuilds sequentially.\n\nThe wrapper invokes `make -j1`, `make sm`, and `./sm.x`, and **optionally** attempts to build `scan_coeffs` and `predict`. Source files are not patched, no external site is contacted, and no root privileges are required. Optional target failures are reported without masking a successful SM baseline.
 
 It records:
 
