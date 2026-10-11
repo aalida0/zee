@@ -32,6 +32,7 @@ mkdir -p "$out"
 # not claimed independently verified by this source-only report.
 python3 "$script_dir/gateA1p_audit_running_top.py" \
   --source "$a1m/src/wilson.c" \
+  --a1m-provenance "$(dirname "$a1m")/source_patch_provenance.json" \
   --output "$out/superiso_running_top_source_audit.json"
 
 source_url="https://raw.githubusercontent.com/silvest/HEPfit/master/THDM/src/THDMMatching.cpp"
