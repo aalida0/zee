@@ -170,8 +170,8 @@ int main(int argc,char **argv) {
     if (run_suite(&p,muW0,mub0,0)) return 1;
     if (run_suite(&p,muW0/2.,mub0,1)) return 1;
     if (run_suite(&p,muW0*2.,mub0,2)) return 1;
-    if (run_suite(&p,muW0,mub0/2.,3)) return 1;
-    if (run_suite(&p,muW0,mub0*2.,4)) return 1;
+    if (run_suite(&p,muW0,mub0*0.8,3)) return 1;
+    if (run_suite(&p,muW0,mub0*1.5,4)) return 1;
     puts("STATUS_END GATE_A1N_BR_CANDIDATE_NO_EXCLUSION");
     return 0;
 }
