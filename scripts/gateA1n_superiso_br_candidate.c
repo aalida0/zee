@@ -19,6 +19,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifdef GATE_A1O_MATCHED_C0W
+/* Only the freshly built Gate A1O source copy defines these symbols. */
+extern void gateA1o_set_internal_C0w78(double complex, double complex);
+extern void gateA1o_clear_internal_C0w78(void);
+#endif
+
 #define NWC 11
 #define M1 300.
 #define M2 700.
@@ -195,7 +201,15 @@ static double evaluate(const char *label,
         memcpy(br_c2_snapshot,c2b,sizeof(c2b));
         memcpy(br_cp_snapshot,cp,sizeof(cp));
     }
+#ifdef GATE_A1O_MATCHED_C0W
+    /* The *same* high-scale vector already passed through QCD RG must
+       also feed the hidden C0w[7,8] terms of the final rate. */
+    gateA1o_set_internal_C0w78(wc->C0[7],wc->C0[8]);
+#endif
     double br=bsgamma(c0b,c1b,c2b,cp,mub,muW,&point);
+#ifdef GATE_A1O_MATCHED_C0W
+    gateA1o_clear_internal_C0w78();
+#endif
     if(strcmp(label,"ZEE_300_700")==0 ||
        strcmp(label,"ZEE_SAME_WC_ALT_MASS_700")==0) {
         double cloned_br[2]={NAN,NAN};
@@ -208,7 +222,13 @@ static double evaluate(const char *label,
             memcpy(cc1,br_c1_snapshot,sizeof(cc1));
             memcpy(cc2,br_c2_snapshot,sizeof(cc2));
             memcpy(ccp,br_cp_snapshot,sizeof(ccp));
+#ifdef GATE_A1O_MATCHED_C0W
+            gateA1o_set_internal_C0w78(wc->C0[7],wc->C0[8]);
+#endif
             cloned_br[run]=bsgamma(cc0,cc1,cc2,ccp,mub,muW,&cl);
+#ifdef GATE_A1O_MATCHED_C0W
+            gateA1o_clear_internal_C0w78();
+#endif
         }
         if(!isfinite(cloned_br[0]) || !isfinite(cloned_br[1])) {
             fprintf(stderr,"BRCLONE_NONFINITE label=%s scale=%d\n",
