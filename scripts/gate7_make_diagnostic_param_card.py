@@ -117,9 +117,15 @@ def parse_card_values(card:str)->dict:
             continue
         # Strip SLHA inline comments before parsing numerical entries.
         clean=line.split("#",1)[0]
-        match=VALUE_RE.match(clean) if block else None
-        if not match:
+        if block not in ONE_INDEX_BLOCKS:
             continue
+        match=VALUE_RE.match(clean)
+        if not match:
+            if clean.strip():
+                raise ValueError(f"Malformed scalar SLHA data in {block}: {line!r}")
+            continue
+        if match.group(5).strip():
+            raise ValueError(f"Unexpected trailing numerical tokens in {block}: {line!r}")
         key=(block,int(match.group(2)))
         if key in out:
             raise ValueError(f"Duplicate parsed SLHA entry {key}")
