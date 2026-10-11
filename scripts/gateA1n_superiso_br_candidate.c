@@ -102,16 +102,29 @@ static double evaluate(const char *label,
                        (double complex *)wc->C2,
                        muW,c0b,c1b,c2b,mub,&point);
     Cprime_calculator(2,cp,cqp,muW,mub,&point);
+    /* SM chirality-flipped coefficients need not vanish. They are
+       small but finite in SuperIso v5 even for its pure SM baseline.
+       Never reject Cprime just because its norm is nonzero; instead
+       record values and check their finiteness and consistency. */
     double cp_norm=0.;
-    for (int i=1;i<=10;i++) cp_norm=fmax(cp_norm,cabs(cp[i]));
+    for (int i=1;i<=10;i++) {
+        if(!isfinite(creal(cp[i])) || !isfinite(cimag(cp[i]))){
+            fprintf(stderr,"Nonfinite Cprime[%d] for %s\n",i,label);
+            return NAN;
+        }
+        cp_norm=fmax(cp_norm,cabs(cp[i]));
+    }
     double br=bsgamma(c0b,c1b,c2b,cp,mub,muW,&point);
-    if (!isfinite(br) || br<=0. || br>=1. ||
-        !isfinite(cp_norm) || cp_norm>1e-8) {
+    if (!isfinite(br) || br<=0. || br>=1. || !isfinite(cp_norm)) {
         fprintf(stderr,"FAILED BSGAMMA driver %s: BR=%g Cp_max=%g\n",label,br,cp_norm);
         return NAN;
     }
     printf("RESULT %s %.17g muW=%.17g mub=%.17g cpmax=%.17g scale=%d\n",
            label,br,muW,mub,cp_norm,scan_scale);
+    printf("CPDETAIL %s C7p_re=%.17g C7p_im=%.17g "
+           "C8p_re=%.17g C8p_im=%.17g scale=%d\n",
+           label,creal(cp[7]),cimag(cp[7]),creal(cp[8]),cimag(cp[8]),
+           scan_scale);
     return br;
 }
 
