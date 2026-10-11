@@ -46,25 +46,45 @@ The source's P2 benchmark region contains `alpha=1.398`, `gamma=1.089`, `mH1=250
 
 **Stop conditions:** No full event simulation or claimed discovery sensitivity until (i) a viable exact Zee parameter point is established; (ii) the 14 TeV production rate is calculated and its scheme/PDF/scale uncertainty assessed; (iii) a two-state Zee UFO is validated including `H2 -> H1 Z`; and (iv) event acceptance and the dominant `ttZ+heavy-flavour` background are quantified.
 
-## Workflow on AF (Key4hep, home software, /data storage)
+## Workflow on AF — run and store the pilot under /home/aalida
+
+**Do not reuse the /data MG5 process directory.** Its cards were corrupted by an earlier
+line-ending bug. The repaired editor preserves all line breaks and has regression tests.
+MG5 setup now refuses to run when the repository is under /data.
 
 ```bash
-cd /data/aalida
-git clone https://github.com/aalida0/zee.git
-cd zee
-# The official 2HDMtII_NLO UFO downloaded in the previous pilot can be copied:
+cd "$HOME"
+git clone https://github.com/aalida0/zee.git  # if not already cloned
+cd "$HOME/zee"
 mkdir -p models
 cp -a /data/aalida/zee_charged_higgs_pilot/models/2HDMtII_NLO models/
+
 source ~/fccee_zh/scripts/setup_key4hep.sh
-# Discover MG5; it may be installed in your home or on Key4hep PATH:
-command -v mg5_aMC || find "$HOME" -maxdepth 7 -name mg5_aMC -type f
-# Choose a valid executable and create the 4FS process:
-MG5_BIN=/path/to/mg5_aMC bash scripts/setup_4fs.sh
-# The script creates/validates cards; it does NOT generate events.
-cd work/ZeeProductionProxy_4FS_14TeV
-./bin/generate_events run_01 -f
+python3 -m unittest discover -s tests -v
+
+MG5_BIN=/cvmfs/sw.hsf.org/key4hep/releases/2026-04-08/x86_64-almalinux9-gcc14.2.0-opt/madgraph5amc/3.5.9-3xnfke/bin/mg5_aMC \
+  bash scripts/setup_4fs.sh
+
+cd "$HOME/zee/work/ZeeProductionProxy_4FS_14TeV"
+grep -A12 -i 'block mass' Cards/param_card.dat | head -15
+grep -A4 -i 'block frblock' Cards/param_card.dat
+./bin/generate_events run_01 -f 2>&1 | tee "$HOME/zee/work/gate3_run01.log"
 ```
 
-Review `Cards/param_card.dat` and `Cards/run_card.dat` before launching. The initial `pdlabel=nn23lo1` is a **screening PDF**, not a publication-quality nf=4 uncertainty prediction. Never add 4FS and 5FS cross sections together.
+If $HOME/zee already exists, do not clone twice: run
+```bash
+cd "$HOME/zee"
+git pull --ff-only
+```
+
+Do **not** copy the corrupted process output from /data into $HOME.
+Copy **only** the original extracted UFO from the prior model directory.
+The proxy uses m(h±)=700 GeV, tanbeta=5.7294463, sin(beta-alpha)=1 at 14 TeV.
+Convert its LO cross section to the Zee heavy charged state with sin(1.089)^2 = 0.7852866.
+This is production-only and cannot model H2± -> H1± Z.
+
+Review Cards/param_card.dat and Cards/run_card.dat before launching. Internal
+pdlabel=nn23lo1 is for an initial rate screen, not a production-quality nf=4 PDF.
+Never add four-flavour and five-flavour cross sections.
 
 The `models/`, `work/`, and `results/` directories hold locally downloaded model files and generated outputs and are ignored by Git.
