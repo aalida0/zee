@@ -150,7 +150,7 @@ class TestCandidateValidation(unittest.TestCase):
         self.native.write_text("\n".join(rows)+"\n")
         stage=diagnostic(self.native,self.patched,self.root)
         self.assertEqual(stage["libraries"]["vendor"]["stage_diagnosis"],
-                         "IDENTICAL_POST_RG_AND_PRIMED_WCS_BUT_BSGAMMA_USES_MASS_CONTEXT")
+                         "BR_DIFFERENCE_WITH_IDENTICAL_POST_RG_AND_PRIMED_WCS")
         self.assertEqual(stage["libraries"]["vendor"]["scales"][0]
                          ["maximum_post_RG_WC_difference"],0.)
 
@@ -162,7 +162,7 @@ class TestCandidateValidation(unittest.TestCase):
         self.native.write_text(content)
         stage=diagnostic(self.native,self.patched,self.root)
         self.assertEqual(stage["libraries"]["vendor"]["stage_diagnosis"],
-                         "RESIDUAL_MASS_DEPENDENCE_ALREADY_IN_RG")
+                         "POST_RG_DIFFERENCE_BETWEEN_MASS_CONTEXTS_CAUSE_NOT_ESTABLISHED")
 
     def test_mass_stage_diagnostic_finds_primed_difference(self):
         content=self.native.read_text()
@@ -172,7 +172,31 @@ class TestCandidateValidation(unittest.TestCase):
         self.native.write_text(content)
         stage=diagnostic(self.native,self.patched,self.root)
         self.assertEqual(stage["libraries"]["vendor"]["stage_diagnosis"],
-                         "RESIDUAL_MASS_DEPENDENCE_IN_CPRIME")
+                         "PRIMED_WC_DIFFERENCE_BETWEEN_MASS_CONTEXTS")
+
+    def test_mass_stage_detects_repeat_non_determinism(self):
+        lines=self.native.read_text().splitlines()
+        ix=next(i for i,line in enumerate(lines)
+                if line.startswith("RGEDETAIL ZEE_REPEAT_MASS_300 i=7 ")
+                and line.endswith("scale=0"))
+        lines[ix]=lines[ix].replace("C0re=0.7","C0re=0.6")
+        self.native.write_text("\n".join(lines)+"\n")
+        stage=diagnostic(self.native,self.patched,self.root)
+        self.assertEqual(stage["libraries"]["vendor"]["stage_diagnosis"],
+                         "SAME_MASS_REPEAT_IS_NONDETERMINISTIC_CHECK_STATE_OR_MEMORY")
+
+    def test_strict_validation_rejects_repeat_call_drift(self):
+        lines=self.patched.read_text().splitlines()
+        ix=next(i for i,line in enumerate(lines)
+                if line.startswith("RESULT ZEE_REPEAT_MASS_300 ")
+                and line.endswith("scale=0"))
+        parts=lines[ix].split()
+        parts[2]=str(float(parts[2])+8e-7)
+        lines[ix]=" ".join(parts)
+        self.patched.write_text("\n".join(lines)+"\n")
+        with self.assertRaisesRegex(ValueError,"call-order/statefulness"):
+            verify(parse_output(self.native),parse_output(self.patched),
+                   official_sm(self.ref))
 
     def test_mass_stage_missing_rows_rejected(self):
         contents=self.native.read_text()
