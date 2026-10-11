@@ -50,22 +50,14 @@ for variant in native patched; do
     > "$out/${variant}_gamma90.txt"
 done
 
+python3 "$script_dir/gateA1l_superiso_nlo_audit.py" \
+  --superiso-dir "$vendor" --output "$out/native_nlo_audit.json"
 python3 "$script_dir/gateA1l_check_matching_pilot.py" \
   --gamma0 "$out/native_gamma0.txt" \
   --gamma90 "$out/native_gamma90.txt" \
   --benchmark "$out/native.txt" \
-  --audit "$out/../gateA1l_superiso_pilot/vendor_nlo_audit.json" \
-  --output "$out/native_closure.json" 2> "$out/native_closure.err" || {
-    # Gate A1L source audit may not exist if invoked standalone; use it here.
-    python3 "$script_dir/gateA1l_superiso_nlo_audit.py" \
-      --superiso-dir "$vendor" --output "$out/native_nlo_audit.json"
-    python3 "$script_dir/gateA1l_check_matching_pilot.py" \
-      --gamma0 "$out/native_gamma0.txt" \
-      --gamma90 "$out/native_gamma90.txt" \
-      --benchmark "$out/native.txt" \
-      --audit "$out/native_nlo_audit.json" \
-      --output "$out/native_closure.json"
-  }
+  --audit "$out/native_nlo_audit.json" \
+  --output "$out/native_closure.json"
 # Patched native bug predicate is intentionally false; manually evaluate
 # endpoint closure with matching identities in A1M comparison.
 python3 "$script_dir/gateA1m_compare_matching.py" \
