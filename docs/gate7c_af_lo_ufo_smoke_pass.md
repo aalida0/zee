@@ -186,3 +186,57 @@ major normalization/sign/kinematics inconsistencies; it is NOT
 a theory uncertainty estimate or proof of physical validity.
 Any failure (including a MadWidth parser/compatibility failure)
 must be examined rather than loosening this threshold blindly.
+
+
+## Gate 7D incident — MadWidth `mass (225,) not define` (2026-10-11)
+
+AF user ran MadWidth with the first-version diagnostic parameter card
+and MG5 v3.5.9 rejected it before computing widths:
+
+`str : mass (225,) not define`.
+
+**Root cause located in our own Python SLHA writer**:
+the version of `gate7_make_diagnostic_param_card.py` that wrote
+the card used a regex with trailing `(.*)$` to match each value line;
+`$` matched *before* the final newline, so the replacement dropped
+the newline after each edited row. Consecutive MASS entries then
+concatenated on a single line, frequently inside `#` comments.
+
+This is a **corrupt card error, not a calculated-width disagreement
+or model UFO failure.** The writer has now been rewritten to retain
+exact CRLF/LF line endings and independently parse/read back **all**
+expected masses and scalar/flavor values before declaring success.
+`scripts/gate7_preflight_card.py` is now also called by
+`scripts/gate7_run_madwidth.sh` to reject malformed cards before MG5.
+Regression tests now reproduce a missing MASS[225] from EOL loss.
+
+On AF preserve failure evidence and regenerate against the untouched
+MG5 original `Associated_4FS/Cards/param_card.dat` template:
+
+```bash
+cd ~/zee
+git pull --ff-only
+python3 -m unittest discover -s tests -v
+
+mv work/gate7_typeii_diagnostic_param_card.dat \
+   work/gate7_typeii_diagnostic_param_card_bad_eol_20261011.dat
+mv work/gate7_madwidth work/gate7_madwidth_bad_eol_20261011
+
+python3 scripts/gate7_make_diagnostic_param_card.py \
+ --template work/gate7_mg5_typeii_smoke/Associated_4FS/Cards/param_card.dat \
+ --output work/gate7_typeii_diagnostic_param_card.dat \
+ --acknowledge-unfitted-neutrino-sector
+
+python3 scripts/gate7_preflight_card.py \
+ work/gate7_typeii_diagnostic_param_card.dat
+
+source ~/fccee_zh/scripts/setup_key4hep.sh
+set -o pipefail
+bash scripts/gate7_run_madwidth.sh \
+  2>&1 | tee work/gate7_madwidth_wrapper_retry.log
+```
+
+The preflight must explicitly print `MASS[225] = 580.7 GeV`
+before the MadWidth computation. Do not patch one mass entry manually,
+and do not edit the original production UFO. No decay results have
+yet been obtained from this failed run.
