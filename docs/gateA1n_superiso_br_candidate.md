@@ -176,6 +176,62 @@ must be generalized coherently to both charged scalar masses or
 excluded only with an explicit justified approximation. The
 current source excerpt is not sufficient to assert which.
 
+## A1N source-log evidence: post-RG drift is not yet identified as physics
+
+In the user's uploaded A1N stage report:
+
+- Native SuperIso: max differences in **post-RG** Wilson vectors 4.0925351;
+  isolated version: 4.1108845, at nominal scales.
+- Complete primed Wilson vectors have maximum difference **exactly 0**.
+- The same nominal residual context BR difference, 7.32944489e-7,
+  occurs in both native and isolated libraries (~0.18%).
+- The automatic direct-token search found zero occurrences of
+  `mass_H` or `THDM_model` in `src/bsgamma.c`, and the reported
+  `src/wilson.c` occurrences of `mass_H` lie outside
+  `C_calculator_base1`; neither fact rules out indirect dependencies.
+
+**Correction to previous interpretation:** the current diagnostic says
+only that two *sequential evaluations* produce different evolved
+vectors. It cannot yet show that the difference is caused by
+`mass_H`; mutable high-scale arrays or hidden per-call state would
+produce the same observation.
+
+The latest A1N update explicitly copies `C0w,C1w,C2w` to local,
+mutable buffers before calling `C_calculator_base1` (no cast of
+shared `const` memory), measures modifications to those buffers,
+runs independent repeat cases with the **same mass** in the same
+process, and reports the operator index and perturbative order of the
+largest returned RGE mismatch.
+
+Use the unchanged strict validation criteria and run on AF:
+
+```bash
+cd /home/aalida/zee
+git switch gateA1n-superiso-br-candidate-controls
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_gateA1n_br_candidate_controls.py' -v
+bash scripts/gateA1n_run_br_candidate.sh \
+  /home/aalida/opt/zee_tools/SuperIso_v5.0 \
+  /home/aalida/zee/work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  work/gateA1n_br_candidate
+python3 - <<'PY'
+import json
+r=json.load(open("work/gateA1n_br_candidate/mass_context_diagnostic.json"))
+for name,lib in r["libraries"].items():
+    print(name,lib["stage_diagnosis"])
+    print(json.dumps(lib["scales"][0],indent=2))
+PY
+cat work/gateA1n_br_candidate/result.json
+```
+
+If the same-mass repeat changes, **do not** infer a physical
+mass-dependent anomalous dimension. Investigate array mutation,
+uninitialized variables and call order first. If repeat closures
+pass but two mass choices still yield distinct evolved WCs,
+audit explicit and indirect parameter dependencies in
+`C_calculator_base1` and child functions before changing any physics.
+
 ## Remaining required gates
 
 1. Obtain a known Type-II NNLO reference **prediction curve**
