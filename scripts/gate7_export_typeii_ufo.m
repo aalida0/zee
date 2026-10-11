@@ -28,6 +28,7 @@ Print["GATE7 input FeynRules: " <> frPath];
 Print["GATE7 model source: " <> modelPath];
 Print["GATE7 LO UFO output: " <> outPath];
 oldDirectory = Directory[];
+$FeynRulesPath = frPath;
 SetDirectory[frPath];
 Get["FeynRules.m"];
 SetDirectory[modelPath];
