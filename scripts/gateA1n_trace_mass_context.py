@@ -28,6 +28,10 @@ RGE=re.compile(
     r"C2im=([+\-0-9.eE]+) scale=(\d+)$")
 MUTATION=re.compile(
     r"^INPUTMUTATION (\S+) max_abs=([+\-0-9.eE]+) scale=(\d+)$")
+BRCLONE=re.compile(
+    r"^BRCLONE (\S+) br_mass300=([+\-0-9.eE]+) "
+    r"br_mass700=([+\-0-9.eE]+) "
+    r"br_original=([+\-0-9.eE]+) scale=(\d+)$")
 PRIME=re.compile(
     r"^CPALL (\S+) i=(\d+) re=([+\-0-9.eE]+) "
     r"im=([+\-0-9.eE]+) scale=(\d+)$")
@@ -39,7 +43,19 @@ def load_stages(file_path):
     rge={}
     prime={}
     input_mutations={}
+    clone={}
     for line in lines:
+        cl=BRCLONE.fullmatch(line)
+        if cl:
+            label,br300,br700,br_orig,scale=cl.groups()
+            key=int(scale),label
+            vals=tuple(float(x) for x in (br300,br700,br_orig))
+            if key in clone or label not in LABELS[:2] or not all(
+                math.isfinite(x) and x>0 for x in vals
+            ):
+                raise ValueError(f"Invalid/repeated BR clone row: {key}")
+            clone[key]=vals
+            continue
         mut=MUTATION.fullmatch(line)
         if mut:
             name,val,scale=mut.groups()
@@ -77,6 +93,10 @@ def load_stages(file_path):
             for label in LABELS for index in range(1,11)}
     mutation_expected={(scale,label) for scale in range(5)
                        for label in LABELS}
+    clone_expected={(scale,label) for scale in range(5)
+                    for label in LABELS[:2]}
+    if set(clone)!=clone_expected:
+        raise ValueError("Missing bsgamma-only frozen-WC clone rows")
     if set(input_mutations)!=mutation_expected:
         raise ValueError("Missing high-scale mutation rows")
     if set(rge)!=wanted or set(prime)!=wanted:
@@ -84,7 +104,7 @@ def load_stages(file_path):
             f"Incomplete stage diagnostics: "
             f"RGE missing={len(wanted-set(rge))}; "
             f"prime missing={len(wanted-set(prime))}")
-    return result,rge,prime,input_mutations
+    return result,rge,prime,input_mutations,clone
 
 
 def source_scan(root):
@@ -111,7 +131,7 @@ def source_scan(root):
 def diagnostic(vendor_file,isolated_file,vendor_root):
     status={}
     for name,file in (("vendor",vendor_file),("isolated",isolated_file)):
-        br,rge,prime,mutation=load_stages(file)
+        br,rge,prime,mutation,clone=load_stages(file)
         per_scale=[]
         for scale in range(5):
             diff_entries=[
@@ -145,6 +165,13 @@ def diagnostic(vendor_file,isolated_file,vendor_root):
                 abs(br[scale,pair[0]]["br"]-br[scale,pair[1]]["br"])
                 for pair in ((LABELS[0],LABELS[2]),(LABELS[1],LABELS[3]))
             )
+            clones300=clone[scale,LABELS[0]]
+            clones700=clone[scale,LABELS[1]]
+            clone_mass_diff=max(abs(x[0]-x[1]) for x in
+                                (clones300,clones700))
+            clone_origin_diff=max(abs(x[2]-x[0]) if j==0
+                                 else abs(x[2]-x[1])
+                                 for j,x in enumerate((clones300,clones700)))
             b1=br[scale,LABELS[0]]["br"]
             b2=br[scale,LABELS[1]]["br"]
             per_scale.append({
@@ -164,6 +191,12 @@ def diagnostic(vendor_file,isolated_file,vendor_root):
                 "maximum_repeat_same_mass_post_RG_difference":repeat_rg_delta,
                 "maximum_repeat_same_mass_primed_difference":repeat_primed_delta,
                 "maximum_repeat_same_mass_BR_difference":repeat_BR_delta,
+                "max_bsgamma_only_frozen_WC_mass_switch_difference":clone_mass_diff,
+                "max_original_vs_replayed_bsgamma_same_mass_difference":clone_origin_diff,
+                "bsgamma_clone_with_original_mass300":{
+                    "mass300":clones300[0],"mass700":clones300[1]},
+                "bsgamma_clone_with_original_mass700":{
+                    "mass300":clones700[0],"mass700":clones700[1]},
             })
         if any(x["maximum_repeat_same_mass_post_RG_difference"]>1e-13
                or x["maximum_repeat_same_mass_BR_difference"]>2e-12
@@ -175,9 +208,15 @@ def diagnostic(vendor_file,isolated_file,vendor_root):
         elif any(x["maximum_primed_WC_difference"]>1e-13
                  for x in per_scale):
             cause="PRIMED_WC_DIFFERENCE_BETWEEN_MASS_CONTEXTS"
+        elif any(x["max_original_vs_replayed_bsgamma_same_mass_difference"]>2e-12
+                 for x in per_scale):
+            cause="BSGAMMA_CALL_ORDER_OR_INPUT_MUTATION_REPLAY_DIFFERS"
+        elif any(x["max_bsgamma_only_frozen_WC_mass_switch_difference"]>2e-12
+                 for x in per_scale):
+            cause="FROZEN_WCS_BSGAMMA_DEPENDS_ON_RESIDUAL_HIGGS_MASS"
         elif any(abs(x["BR_absolute_difference"])>2e-12
                  for x in per_scale):
-            cause="BR_DIFFERENCE_WITH_IDENTICAL_POST_RG_AND_PRIMED_WCS"
+            cause="UPSTREAM_PARAMETER_CONTEXT_DIFFERS_DESPITE_IDENTICAL_WCS"
         else:
             cause="NO_RESIDUAL_MASS_DIFFERENCE_DETECTED"
         status[name]={"stage_diagnosis":cause,"scales":per_scale}
@@ -218,6 +257,8 @@ def main():
         print("  max input mutation =",row["max_high_scale_WC_mutation"])
         print("  max same-mass repeat RG diff =",row["maximum_repeat_same_mass_post_RG_difference"])
         print("  max same-mass repeat BR diff =",row["maximum_repeat_same_mass_BR_difference"])
+        print("  bsgamma-only mass switch diff =",row["max_bsgamma_only_frozen_WC_mass_switch_difference"])
+        print("  original vs bsgamma-only replay same-mass diff =",row["max_original_vs_replayed_bsgamma_same_mass_difference"])
     for name,entry in result["source_references"].items():
         print("SOURCE",name,"mass_H/THDM refs:",
               entry.get("total_mass_H_or_THDM_references","MISSING"))
