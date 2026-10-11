@@ -117,6 +117,65 @@ updated code still fails, capture
 `work/gateA1n_br_candidate/vendor.txt` plus the terminal
 error and inspect `bsgamma_Ecut` in the installed SuperIso.
 
+## AF residual-mass blocker: matched Zee vector is not sufficient
+
+An updated AF run (October 2026) completed every candidate BR. The
+strict validator properly rejected the two-state Zee prediction:
+the **identical** matched high-scale Zee Wilson-coefficient vector
+gave different inclusive BRs depending on whether the remaining
+`point.mass_H` was assigned 300 or 700 GeV:
+
+```text
+vendor, nominal:
+residual mass_H 300: 4.04149861020259e-4
+residual mass_H 700: 4.034169165308966e-4
+relative difference: about 0.181 percent
+```
+
+The printed `C7prime` and `C8prime` values were the same,
+so the origin must be traced. **Neither is a physical Zee rate
+or an exclusion.** Do not choose either residual mass or
+replace the two Higgses with an effective mass.
+
+Revised Gate A1N performs stage-by-stage debugging without
+altering any physics formula:
+
+- It prints **all** complex Wilson coefficients at `mu_b`
+  from `C_calculator_base1` for both Zee residual mass contexts.
+- It prints the complete primed vector from `Cprime_calculator`
+  for both.
+- The new `gateA1n_trace_mass_context.py` reports whether
+  the first difference arises in evolved coefficients, primed
+  coefficients, or the `bsgamma` call/its parameter structure,
+  and inventories exact `mass_H`/`THDM_model` references in
+  the installed `src/bsgamma.c` and `src/wilson.c` with SHA256.
+- It writes `mass_context_diagnostic.json` **before** the strict
+  candidate validation.
+- The validator still **exits nonzero** and writes an explicit
+  `result.json` with `BR_CANDIDATE_BLOCKED_VALIDATION_FAILURE`
+  if any essential condition fails.
+
+```bash
+cd /home/aalida/zee
+git switch gateA1n-superiso-br-candidate-controls
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_gateA1n_br_candidate_controls.py' -v
+bash scripts/gateA1n_run_br_candidate.sh \
+  /home/aalida/opt/zee_tools/SuperIso_v5.0 \
+  /home/aalida/zee/work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  work/gateA1n_br_candidate
+cat work/gateA1n_br_candidate/mass_context_diagnostic.json
+cat work/gateA1n_br_candidate/result.json
+```
+
+The key immediate question is whether `mass_H` appears in
+`bsgamma_Ecut` outside the Wilson-vector interface (for example,
+as a power-suppressed term). If so, it is **model-dependent** and
+must be generalized coherently to both charged scalar masses or
+excluded only with an explicit justified approximation. The
+current source excerpt is not sufficient to assert which.
+
 ## Remaining required gates
 
 1. Obtain a known Type-II NNLO reference **prediction curve**
