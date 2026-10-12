@@ -67,8 +67,13 @@ def verify_sources(superiso_source,superiso_provenance,
     # Require original formula provenance, not merely a convention claim
     # imported from an unrelated SuperIso release.
     require={
-        "SuperIso_C3_delta_negative":r"double\s+Delta3H\s*\([^)]*\)\s*\{\s*return\s*-\s*lu\s*\*\s*lu",
-        "SuperIso_C4_delta_negative":r"double\s+Delta4H\s*\([^)]*\)\s*\{\s*return\s*-\s*lu\s*\*\s*lu",
+        # SuperIso versions may express the SAME algebraic function as
+        # -lu*lu*(...) or lu*lu*(-...), or using pow(lu,2.).
+        # The coefficient's sign is tested *numerically against the
+        # compiled, pinned A1M library* by verify_helper_output below,
+        # not by fragile source-format regexes.
+        "SuperIso_C3_delta_definition":r"double\s+Delta3H\s*\([^)]*\)\s*\{\s*return\s+[^;]*;",
+        "SuperIso_C4_delta_definition":r"double\s+Delta4H\s*\([^)]*\)\s*\{\s*return\s+[^;]*;",
         "SuperIso_C3_log_mH":r"C3H_2\s*=\s*G3H\s*\(\s*yt\s*,\s*lu\s*\)\s*\+\s*Delta3H\s*\(\s*yt\s*,\s*lu\s*\)\s*\*\s*log\s*\(\s*pow\s*\(\s*mu_W\s*/\s*param->mass_H\s*,\s*2\.\s*\)\s*\)",
         "SuperIso_C4_log_mH":r"C4H_2\s*=\s*G4H\s*\(\s*yt\s*,\s*lu\s*\)\s*\+\s*Delta4H\s*\(\s*yt\s*,\s*lu\s*\)\s*\*\s*log\s*\(\s*pow\s*\(\s*mu_W\s*/\s*param->mass_H\s*,\s*2\.\s*\)\s*\)",
         "HEPfit_cd32ct":r"double\s+cd32ct\s*=",
@@ -89,11 +94,75 @@ def verify_sources(superiso_source,superiso_provenance,
         "status":"ACTUAL_SUPERISO5_A1M_AND_HEPFIT_LOG_STRUCTURE_CONFIRMED",
         "superiso_A1M_sha256":hashlib.sha256(superiso).hexdigest(),
         "HEPfit_blob":git_blob_sha(hepfit),
-        "all_source_sign_and_log_contracts_found":True,
+        "all_source_log_and_helper_definition_contracts_found":True,
+        "source_text_does_not_prove_analytic_sign":True,
+        "sign_verified_by_compiled_helper_probes_only":True,
         "source_checks":found,
     }
 
-def evaluate(existing_result,mass_input,source_checks):
+HELPER_ROW=re.compile(
+    r"^HELPER mass=([0-9.eE+\\-]+) op=([34]) value=([0-9.eE+\\-]+)$")
+HELPER_INPUT=re.compile(
+    r"^INPUT mt_muW=([0-9.eE+\\-]+) tanbeta=([0-9.eE+\\-]+)$")
+
+def verify_helper_output(helper_output, mass_input, result_json):
+    """Check the physical sign using the ACTUAL compiled A1M helper.
+
+    A string regex on 'return -lu*lu' cannot establish a function's
+    algebraic sign; different source versions use different but
+    equivalent factorizations. The independently compiled Delta3H,
+    Delta4H values must satisfy the HEPfit coefficient identities.
+    """
+    data=json.loads(result_json.read_text())
+    mi=json.loads(mass_input.read_text())
+    mt=float(mi["mt_muW_GeV"])
+    tanbeta=float(data["tanbeta"])
+    lines=helper_output.read_text().splitlines()
+    if "STATUS GATE_A1P_ACTUAL_SUPERISO_HELPER_VALUES_NOT_BR" not in lines:
+        raise ValueError("Missing actual SuperIso helper executable marker")
+    inp=[HELPER_INPUT.fullmatch(x) for x in lines]
+    inp=[x for x in inp if x is not None]
+    if len(inp)!=1 or not math.isclose(float(inp[0][1]),mt,rel_tol=0,abs_tol=1e-10) or not math.isclose(float(inp[0][2]),tanbeta,rel_tol=0,abs_tol=1e-12):
+        raise ValueError("Helper probe mass/tanbeta not identical to A1P inputs")
+    actual={}
+    for line in lines:
+        m=HELPER_ROW.fullmatch(line)
+        if m:
+            key=(float(m[1]),int(m[2]))
+            if key in actual:
+                raise ValueError(f"Duplicate helper probe: {key}")
+            actual[key]=float(m[3])
+    expected_keys={(mass,op) for mass in MASSES for op in PRIMARY}
+    if set(actual)!=expected_keys:
+        raise ValueError(f"Helper probe incomplete/unexpected rows: {set(actual)^expected_keys}")
+    rows=[]
+    for mass in MASSES:
+        x=(mt/mass)**2
+        for op,formula in ((3,d3),(4,d4)):
+            independent=-formula(x)/(tanbeta**2)
+            observed=actual[mass,op]
+            if not math.isfinite(observed):
+                raise ValueError(f"Nonfinite SuperIso helper result at m={mass}, C{op}")
+            residual=observed-independent
+            tolerance=2e-11+2e-9*abs(independent)
+            if abs(residual)>tolerance:
+                raise ValueError(
+                    f"Actual SuperIso Delta{op}H sign/formula differs from "
+                    f"-HEPfit cd{op}(x)/tanbeta^2 at mH={mass}: "
+                    f"observed={observed:.17g}, expected={independent:.17g}, "
+                    f"residual={residual:.17g}")
+            rows.append({"mH_GeV":mass,"operator":f"C{op}",
+                         "actual_compiled_SuperIso_Delta":observed,
+                         "independent_negative_HEPfit_cd":independent,
+                         "absolute_difference":abs(residual)})
+    return {
+        "status":"PINNED_COMPILED_SUPERISO_HELPER_SIGN_NUMERICALLY_CONFIRMED",
+        "number_of_points":len(rows),
+        "max_absolute_helper_residual":max(r["absolute_difference"] for r in rows),
+        "rows":rows,
+    }
+
+def evaluate(existing_result,mass_input,source_checks,helper_verification):
     data=json.loads(existing_result.read_text())
     mi=json.loads(mass_input.read_text())
     if data.get("compared_count")!=44:
@@ -140,6 +209,7 @@ def evaluate(existing_result,mass_input,source_checks):
         "status":"GATE_A1P_C3_C4_NNLO_LOG_DISCREPANCY_EXACTLY_REPRODUCED",
         "scope":"C3/C4 mismatch attribution only, not a corrected Wilson vector",
         "source_contract":source_checks,
+        "actual_compiled_SuperIso_helper_sign_check":helper_verification,
         "mt_running_GeV":mt,"matching_scale_GeV":mu,"tanbeta":tanbeta,
         "prediction":"deltaCi=-(cd_i(x)/tanbeta^2) * "
                      "[ln(muW^2/mH^2)+ln(muW^2/mt(muW)^2)]",
@@ -159,13 +229,16 @@ def evaluate(existing_result,mass_input,source_checks):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     for arg in ("existing-result","mass-provenance","superiso-source",
-                "a1m-provenance","hepfit-source","hepfit-provenance","output"):
+                "a1m-provenance","hepfit-source","hepfit-provenance",
+                "superiso-helper-output","output"):
         p.add_argument("--"+arg,required=True,type=Path)
     a=p.parse_args()
     source_checks=verify_sources(
         a.superiso_source,a.a1m_provenance,
         a.hepfit_source,a.hepfit_provenance)
-    result=evaluate(a.existing_result,a.mass_provenance,source_checks)
+    helper=verify_helper_output(
+        a.superiso_helper_output,a.mass_provenance,a.existing_result)
+    result=evaluate(a.existing_result,a.mass_provenance,source_checks,helper)
     a.output.parent.mkdir(parents=True,exist_ok=True)
     a.output.write_text(json.dumps(result,indent=2)+"\n")
     print("STATUS:",result["status"])
