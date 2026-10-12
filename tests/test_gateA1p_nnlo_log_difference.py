@@ -1,11 +1,14 @@
 """Gate A1P: regression tests for analytically diagnosed C3/C4 logs."""
 import math
+import json
 from pathlib import Path
 import sys
+import tempfile
 import unittest
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
-from gateA1p_verify_nnlo_log_difference import d3,d4,predicted_shift
+from gateA1p_verify_nnlo_log_difference import (
+    d3,d4,predicted_shift,verify_helper_output)
 
 MT=163.10709645657508
 MU=160.7384
@@ -43,6 +46,71 @@ class TestGateA1PNNLOLog(unittest.TestCase):
                 self.assertAlmostEqual(
                     derivative,-2*dd/TANB**2,
                     delta=2e-7,msg=f"mass={mass} C{order}")
+
+    def test_compiled_helper_probe_agrees_with_hepfit_coefficients(self):
+        # Fixture is not an AF result: it proves our parser and sign
+        # enforcement accept mathematically equivalent source layouts.
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d)
+            mass=root/"mass.json"
+            results=root/"result.json"
+            probe=root/"helper.log"
+            mass.write_text(json.dumps({"mt_muW_GeV":MT}))
+            results.write_text(json.dumps({"tanbeta":TANB}))
+            rows=["STATUS GATE_A1P_ACTUAL_SUPERISO_HELPER_VALUES_NOT_BR",
+                  f"INPUT mt_muW={MT:.17g} tanbeta={TANB:.17g}"]
+            for m in OBSERVED:
+                for op,formula in ((3,d3),(4,d4)):
+                    val=-formula((MT/m)**2)/TANB**2
+                    rows.append(
+                        f"HELPER mass={m:.17g} op={op} value={val:.17g}")
+            probe.write_text("\n".join(rows)+"\n")
+            report=verify_helper_output(probe,mass,results)
+            self.assertEqual(report["number_of_points"],8)
+            self.assertLess(report["max_absolute_helper_residual"],1e-13)
+
+    def test_wrong_compiled_helper_sign_blocks(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d)
+            mass=root/"mass.json"
+            results=root/"result.json"
+            probe=root/"helper.log"
+            mass.write_text(json.dumps({"mt_muW_GeV":MT}))
+            results.write_text(json.dumps({"tanbeta":TANB}))
+            rows=["STATUS GATE_A1P_ACTUAL_SUPERISO_HELPER_VALUES_NOT_BR",
+                  f"INPUT mt_muW={MT:.17g} tanbeta={TANB:.17g}"]
+            for m in OBSERVED:
+                for op,formula in ((3,d3),(4,d4)):
+                    val=-formula((MT/m)**2)/TANB**2
+                    if m==300. and op==3:
+                        val=-val
+                    rows.append(
+                        f"HELPER mass={m:.17g} op={op} value={val:.17g}")
+            probe.write_text("\n".join(rows)+"\n")
+            with self.assertRaisesRegex(ValueError,
+                                         "Actual SuperIso Delta3H sign/formula"):
+                verify_helper_output(probe,mass,results)
+
+    def test_missing_compiled_helper_row_blocks(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d)
+            mass=root/"mass.json"
+            results=root/"result.json"
+            probe=root/"helper.log"
+            mass.write_text(json.dumps({"mt_muW_GeV":MT}))
+            results.write_text(json.dumps({"tanbeta":TANB}))
+            rows=["STATUS GATE_A1P_ACTUAL_SUPERISO_HELPER_VALUES_NOT_BR",
+                  f"INPUT mt_muW={MT:.17g} tanbeta={TANB:.17g}"]
+            for m in OBSERVED:
+                for op,formula in ((3,d3),(4,d4)):
+                    if m==2000. and op==4:
+                        continue
+                    val=-formula((MT/m)**2)/TANB**2
+                    rows.append(
+                        f"HELPER mass={m:.17g} op={op} value={val:.17g}")
+            probe.write_text("\n".join(rows)+"\n")
+            with self.assertRaisesRegex(ValueError,"Helper probe incomplete"):
+                verify_helper_output(probe,mass,results)
 
     def test_reject_mass_below_running_top_for_this_audit(self):
         with self.assertRaisesRegex(ValueError,"masses > running top"):
