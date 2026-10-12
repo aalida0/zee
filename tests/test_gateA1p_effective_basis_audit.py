@@ -86,7 +86,8 @@ class TestA1PEffectiveBasis(unittest.TestCase):
             check_hepfit_nnlo_c8_basis("CWbsgArrayNNLO[6] = 1;")
 
     def test_hepfit_wrong_c5_sign_rejected(self):
-        source=("CWbsgArrayNNLO[7] = x + CWbsgArrayNNLO[2]"
+        source=("CWbsgArrayNNLO[7] = (n82ct + cd82ct * lstmu)"
+                " + CWbsgArrayNNLO[2]"
                 " -1./6.*CWbsgArrayNNLO[3]"
                 " +20.*CWbsgArrayNNLO[4]"
                 " -10./3.*CWbsgArrayNNLO[5];")
@@ -94,8 +95,8 @@ class TestA1PEffectiveBasis(unittest.TestCase):
             check_hepfit_nnlo_c8_basis(source)
 
     def test_hepfit_duplicate_c8_definition_rejected(self):
-        source=("CWbsgArrayNNLO[7] = x; "
-                "CWbsgArrayNNLO[7] = y;")
+        source=("CWbsgArrayNNLO[7] = (x);\n"
+                "CWbsgArrayNNLO[7] = (y);")
         with self.assertRaisesRegex(ValueError,"found 2"):
             check_hepfit_nnlo_c8_basis(source)
 
