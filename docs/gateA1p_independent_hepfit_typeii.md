@@ -1,3 +1,81 @@
+## Gate A1P FINITE NNLO diagnostic: isolate three-loop piecewise functions
+
+**AF independent-basis result CONFIRMED**: the corrected HEPfit C8
+`z5=-20` source correction and SuperIso `z5=+20` standard-basis
+conversion passed. The true matched **direct** C7/C8 NNLO
+differences SuperIso−HEPfit are:
+
+    mH [GeV]      ΔC7 direct       ΔC8 direct
+      300        −0.0026287964     −0.0003217374
+      700        +0.0140677050     −0.0130040227
+     1000        +0.0106373538     −0.0095816452
+     2000        +0.0052280297     −0.0041116269
+
+The 2012 original authors [arXiv:1208.2788](https://arxiv.org/abs/1208.2788)
+compute three-loop finite dipole functions using **piecewise
+small/intermediate/large charged-mass expansions**. Their official
+[c2HDM.m README](https://www.ttp.kit.edu/Progdata/ttp12/ttp12-029/readme.pdf)
+lists the expansion families. At the four tested masses the HEPfit
+and SuperIso finite-function approximations may differ due to rounded
+coefficients and expansion truncation, but this hypothesis must be
+tested rather than asserted as an NNLO correctness result.
+
+**New isolated test (no source modifications):**
+
+1. Use the *existing* compiled HEPfit `setWCbsg` executable with
+   `muW = mt_running=163.10709645657508 GeV`, **holding the numerical
+   mt input fixed** so its matching logarithm
+   `lstmu=2*ln(muW/mt)=0`. This is an algebraic isolation, **not**
+   a physical matching-scale variation; mt is not rerun.
+2. Compute HEPfit's direct finite (C_{7,8}^{(2)}) using
+   `C7_eff − y·C3…6` and
+   `C8_code − z_HEPfit·C3…6`, where HEPfit uses `z5=-20`.
+3. Repeat HEPfit at both baseline `tanbeta` and
+   `2*tanbeta`, solving exactly for the independent finite
+   `cot²beta` and cross-coupling components.
+4. Compare those components to **actual compiled SuperIso A1M v5**
+   finite helpers `C7H2lulumt, C7H2ldlumt, C8H2lulumt,
+   C8H2ldlumt` at identical `mt²/mH²`; Type-II
+   `lambda_d*lambda_u=-1`.
+5. Emit each `cot²beta` and mixed contribution separately and
+   test closure. Original HEPfit source and A1M SuperIso
+   source SHA provenance checked before the test; no external
+   code patched or recompiled.
+
+**AF commands (reuse all earlier results):**
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+
+python3 -m unittest discover -s tests \
+  -p 'test_gateA1p_nnlo_finite_functions.py' -v
+
+bash scripts/gateA1p_run_nnlo_finite_audit.sh \
+  /home/aalida/zee/work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  work/gateA1p_hepfit_typeii_v1
+
+cat work/gateA1p_hepfit_typeii_v1/nnlo_finite_function_audit.json
+```
+
+Expected **diagnostic-only** status
+`GATE_A1P_C7_C8_FINITE_THREE_LOOP_DISCREPANCY_DECOMPOSED_NOT_NNLO_VALIDATED`.
+The program records all original inputs and the two independent
+Yukawa-structure components at 300/700/1000/2000 GeV. The optional
+`hepfit_runtime_library_paths.txt` created by the A1P resume runner
+supplies the previously resolved Key4hep GSL/OpenBLAS runtime paths.
+If absent and the HEPfit executable cannot run, restore that
+environment and rerun the same finite audit.
+
+**Strict scientific limitation:** Agreement in any of these
+components at four masses does not prove the original 2012
+piecewise approximation precision, the theoretically correct
+C3/C4 logarithmic prescription, physical BR or a Zee exclusion.
+The original authors' `c2HDM.m` predictions and full observable
+comparison must still be validated. A disagreement is documented,
+not silently patched.
+
 ## Critical erratum: HEPfit uses z5=-20 in its NNLO C8 source
 
 **The prior Gate A1P “matched direct/effective” C8 table was not
