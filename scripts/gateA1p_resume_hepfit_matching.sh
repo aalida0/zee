@@ -41,7 +41,7 @@ PY
 # Probe the package configuration, compiler-selected library directory,
 # and any explicitly supplied path, but do not silently swap SONAMEs.
 # A pinned original HEPfit reference must stay linked to the actual GSL.
-need_gsl=$(ldd "$out/hepfit_matching" | awk '/^[[:space:]]*libgsl\\.so/{print $1;exit}')
+need_gsl=$(ldd "$out/hepfit_matching" | awk '/^[[:space:]]*libgsl\.so/{print $1;exit}')
 [[ -n "$need_gsl" ]] || { echo "No GSL dependency found in HEPfit executable" >&2; exit 2; }
 declare -a candidates=()
 [[ -z "${GATE_A1P_GSL_LIBDIR:-}" ]] || candidates+=("$GATE_A1P_GSL_LIBDIR")
