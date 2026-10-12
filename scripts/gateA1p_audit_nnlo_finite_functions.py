@@ -85,7 +85,7 @@ def source_hash_contract(superiso_source,a1m_provenance,
         raise ValueError("HEPfit independent source not pinned")
     text=si.decode()
     for name in ("C7H2lulumt","C7H2ldlumt","C8H2lulumt","C8H2ldlumt"):
-        if not re.search(r"\\bdouble\\s+"+name+r"\\s*\\(double\\s+r\\)",text):
+        if not re.search(r"\bdouble\s+"+name+r"\s*\(double\s+r\)",text):
             raise ValueError(f"Original A1M SuperIso helper not found in source: {name}")
     return {
         "status":"PINNED_SUPERISO_THREE_LOOP_HELPERS_AND_HEPFIT_REFERENCE",
