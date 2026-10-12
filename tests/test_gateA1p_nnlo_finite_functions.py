@@ -34,15 +34,15 @@ class TestA1PFiniteMatching(unittest.TestCase):
             binary.write_text("fixture not executed")
             log=root/"saved_paths.txt"
             stale=str(root/"stale_lib")
-            log.write_text(f"LD_LIBRARY_PATH={stale}:{working}\\n")
+            log.write_text(f"LD_LIBRARY_PATH={stale}:{working}\n")
             ldd=subprocess.CompletedProcess(
                 args=["ldd",str(binary)],returncode=0,
-                stdout="libgsl.so.28 => /valid/libgsl.so.28\\n"
-                       "libopenblas.so.0 => /valid/libopenblas.so.0\\n",
+                stdout="libgsl.so.28 => /valid/libgsl.so.28\n"
+                       "libopenblas.so.0 => /valid/libopenblas.so.0\n",
                 stderr="")
             with patch.dict(os.environ,{
                     "LD_LIBRARY_PATH":"",
-                    "GATE_A1P_KEY4HEP_ROOT":str(root/"absent_release")}), \\
+                    "GATE_A1P_KEY4HEP_ROOT":str(root/"absent_release")}), \
                  patch("gateA1p_audit_nnlo_finite_functions.subprocess.run",
                        return_value=ldd) as check:
                 env=recover_hepfit_runtime(binary,log,root)
@@ -61,18 +61,18 @@ class TestA1PFiniteMatching(unittest.TestCase):
             binary=root/"reference"
             binary.write_text("fixture")
             saved=root/"saved.txt"
-            saved.write_text(f"LD_LIBRARY_PATH={root/'stale'}:{lib}\\n")
+            saved.write_text(f"LD_LIBRARY_PATH={root/'stale'}:{lib}\n")
             ldd=subprocess.CompletedProcess(
                 args=["ldd",str(binary)],returncode=0,
-                stdout="libgsl.so.28 => not found\\n",
+                stdout="libgsl.so.28 => not found\n",
                 stderr="")
             with patch.dict(os.environ,{
                     "LD_LIBRARY_PATH":"",
-                    "GATE_A1P_KEY4HEP_ROOT":str(root/"absent_release")}), \\
+                    "GATE_A1P_KEY4HEP_ROOT":str(root/"absent_release")}), \
                  patch("gateA1p_audit_nnlo_finite_functions.subprocess.run",
                        return_value=ldd):
                 with self.assertRaisesRegex(
-                    ValueError,"unresolved=\\['libgsl.so.28'\\]"):
+                    ValueError,r"unresolved=\['libgsl.so.28'\]"):
                     recover_hepfit_runtime(binary,saved,root)
             self.assertTrue((root/"hepfit_finite_runtime_ldd.log").is_file())
 
@@ -89,15 +89,15 @@ class TestA1PFiniteMatching(unittest.TestCase):
             binary=root/"reference"
             binary.write_text("fixture")
             saved=root/"saved.txt"
-            saved.write_text(f"LD_LIBRARY_PATH={root/'stale'}\\n")
+            saved.write_text(f"LD_LIBRARY_PATH={root/'stale'}\n")
             ldd=subprocess.CompletedProcess(
                 args=["ldd",str(binary)],returncode=0,
-                stdout=(f"libgsl.so.28 => {gsl}/libgsl.so.28\\n"
-                        f"libopenblas.so.0 => {openblas}/libopenblas.so.0\\n"),
+                stdout=(f"libgsl.so.28 => {gsl}/libgsl.so.28\n"
+                        f"libopenblas.so.0 => {openblas}/libopenblas.so.0\n"),
                 stderr="")
             with patch.dict(os.environ,{
                     "LD_LIBRARY_PATH":"",
-                    "GATE_A1P_KEY4HEP_ROOT":str(prefix)},clear=True), \\
+                    "GATE_A1P_KEY4HEP_ROOT":str(prefix)},clear=True), \
                  patch("gateA1p_audit_nnlo_finite_functions.subprocess.run",
                        return_value=ldd):
                 env=recover_hepfit_runtime(binary,saved,root)
@@ -112,7 +112,7 @@ class TestA1PFiniteMatching(unittest.TestCase):
             binary=root/"reference"
             binary.write_text("fixture")
             with patch.dict(os.environ,{
-                "GATE_A1P_GSL_LIBDIR":str(root/"missing_gsl")}), \\
+                "GATE_A1P_GSL_LIBDIR":str(root/"missing_gsl")}), \
                  self.assertRaisesRegex(ValueError,"does not contain libgsl.so.28"):
                 recover_hepfit_runtime(binary,None,root)
 
