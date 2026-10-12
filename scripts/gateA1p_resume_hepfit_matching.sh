@@ -82,6 +82,8 @@ if [[ -z "$found_libdir" ]]; then
 fi
 export LD_LIBRARY_PATH="$found_libdir${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 echo "Resolved $need_gsl via $found_libdir"
+# Shared Key4hep release/architecture root for matching GSL/OpenBLAS.
+key4hep_arch_prefix=$(dirname "$(dirname "$(dirname "$found_libdir")")")
 
 # GSL from the Key4hep 2026 release may require OpenBLAS from that SAME
 # release; the compiler linked successfully but its transitive runtime
@@ -102,7 +104,6 @@ if (( ${#missing_sonames[@]} > 0 )); then
     fi
 
     # Prefix: KEY4HEP_RELEASE/ARCH/gsl/INSTALLATION/lib -> KEY4HEP_RELEASE/ARCH
-    key4hep_arch_prefix=$(dirname "$(dirname "$(dirname "$found_libdir")")")
     declare -a blas_candidates=()
     [[ -z "${GATE_A1P_OPENBLAS_LIBDIR:-}" ]] ||
       blas_candidates+=("$GATE_A1P_OPENBLAS_LIBDIR")
