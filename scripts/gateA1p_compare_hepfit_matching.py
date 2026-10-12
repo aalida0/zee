@@ -133,8 +133,10 @@ def report(pairs,beta,source_manifest):
         "masses_GeV":[x[0] for x in pairs],
         "muW_GeV":refs[0]["muW"],
         "running_mt_muW_GeV":refs[0]["mt_muW"],
-        "mt_input_provenance":"Derived once from matching-level LO consistency; "
-                              "must be checked independently against SuperIso running_mass",
+        "mt_input_provenance":"A1P resume runner evaluates SuperIso "
+                              "running_mass() directly. See the separate "
+                              "mass_input_provenance.json; a standalone "
+                              "comparison file does not establish mass provenance.",
         "tanbeta":math.tan(beta),
         "model":"One physical Type-II charged Higgs in each control",
         "basis":"HEPfit Misiak basis op i maps to SuperIso Ci via i+1; "
