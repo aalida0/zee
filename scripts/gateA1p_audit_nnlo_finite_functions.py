@@ -199,7 +199,7 @@ def recover_hepfit_runtime(binary,library_paths,output_dir=None):
         (output_dir/"hepfit_finite_runtime_ldd.log").write_text(report)
         (output_dir/"hepfit_finite_runtime_paths.json").write_text(
             json.dumps({
-                "status":"GATE_A1P_FINITE_HERMITIC_RUNTIME_RECOVERED_NOT_PHYSICS",
+                "status":"GATE_A1P_FINITE_RUNTIME_LOADER_AUDITED_NOT_PHYSICS",
                 "retained_library_directories":existing,
                 "ignored_stale_LD_LIBRARY_PATH_entries":stale,
                 "key4hep_root_searched":str(root),
