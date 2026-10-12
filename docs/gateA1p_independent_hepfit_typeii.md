@@ -166,6 +166,48 @@ The code requires the matching **real** GSL SONAME and does not
 substitute a symlink to a mismatched ABI. The upstream HEPfit matching
 formulas are not modified.
 
+## AF GSL -> OpenBLAS loader follow-up (19:05)
+
+The AF runtime check resolved the exact GSL SONAME:
+`libgsl.so.28` from the Key4hep 2026-02-01 GCC 14.2.0 build.
+The next missing transitive library is `libopenblas.so.0`, even
+though the loader output identifies its real installation:
+
+```text
+/cvmfs/sw.hsf.org/key4hep/releases/2026-02-01/x86_64-almalinux9-gcc14.2.0-opt/openblas/0.3.30-fvauzm/lib/libopenblas.so.0
+```
+
+The continuation runner now resolves **both** exact libraries
+from the same architecture/release build, checks all remaining
+shared-library dependencies, and writes
+`hepfit_runtime_library_paths.txt` and
+`hepfit_runtime_ldd.log`. It does not relink or alter the
+original HEPfit formulas. The previous run stopped before writing
+the top mass or coefficient-comparison JSON.
+
+Use the **same** existing source/executable output directory
+(no re-download or A1M rebuild):
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+
+GATE_A1P_OPENBLAS_LIBDIR=/cvmfs/sw.hsf.org/key4hep/releases/2026-02-01/x86_64-almalinux9-gcc14.2.0-opt/openblas/0.3.30-fvauzm/lib \
+bash scripts/gateA1p_resume_hepfit_matching.sh \
+  /home/aalida/zee/work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  work/gateA1p_hepfit_typeii_v1
+
+cat work/gateA1p_hepfit_typeii_v1/mass_input_provenance.json
+cat work/gateA1p_hepfit_typeii_v1/result.json
+```
+
+The explicit OpenBLAS path is optional if automatic discovery
+succeeds; it is recommended in this AF environment because the
+path was established by the actual loader report. If the loader
+still fails, inspect the saved final ldd log before changing
+any scientific settings.
+
 ## Independent external physics validation STILL necessary
 
 1. Check exact top-mass scheme and scale, basis and perturbative
