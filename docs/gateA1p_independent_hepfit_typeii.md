@@ -1,3 +1,70 @@
+## Critical erratum: HEPfit uses z5=-20 in its NNLO C8 source
+
+**The prior Gate A1P “matched direct/effective” C8 table was not
+actually like-for-like.** Our own audit assumed HEPfit's
+NNLO returned C8 used the authors' standard effective-basis
+coefficient z5=+20. The pinned HEPfit source in fact contains:
+
+    CWbsgArrayNNLO[7] = ... + C3 - C4/6 - 20*C5 - 10*C6/3;
+
+while the original 2012 authors' [c2HDM.m supplementary
+readme](https://www.ttp.kit.edu/Progdata/ttp12/ttp12-029/readme.pdf)
+defines the effective-operator coefficient vector as
+
+    z=(0,0,1,-1/6,+20,-10/3).
+
+The same authors' C5 term is constructed from C3 and NLO C4
+using the conventional relation in both HEPfit and SuperIso.
+Therefore the HEPfit program's C8 coefficient is **not in
+the original paper's stated standard effective basis**. This
+is an apparent inconsistency in HEPfit's THDMMatching implementation,
+potentially a sign mistake; before reporting this upstream
+it still deserves a complete convention/normalization audit.
+
+At NNLO (within the source's own perturbative normalization):
+
+    C8eff_paper = C8code_HEPfit + 40 * C5_HEPfit.
+
+To compare *raw* coefficients, undo HEPfit's **actual** shift
+with z5=-20; to compare author's standard effective coefficients,
+apply z5=+20 to the recovered raw HEPfit C8. The previous audit
+undid the **wrong** shift (z5=+20) and therefore reported
+misleading C8 discrepancies. Corrected program:
+
+    scripts/gateA1p_audit_effective_operator_basis.py
+
+The program now explicitly verifies the pinned HEPfit source
+uses z5=-20 and the A1M SuperIso uses z5=+20, then outputs
+both reconstructed direct and standard-effective coefficients.
+It keeps original, now-labeled INVALID, C8 differences for
+traceability and adds a **40*C5_HEPfit** closure assertion.
+It does not edit SuperIso or HEPfit.
+
+Preliminary analytic expectations using the published A1P residuals
+and HEPfit's independent C3/C4/C5 formulas:
+
+    mH[GeV]  old_C8_direct   corrected_C8_direct  old_C8_eff    corrected_C8_eff
+       300    -0.045329      -0.000322             -0.045566     -0.000558
+       700    -0.038827      -0.013004             -0.039874     -0.014051
+      1000    -0.028097      -0.009582             -0.029138     -0.010622
+      2000    -0.012609      -0.004112             -0.013305     -0.004808
+
+These are **expected** recalculations, not yet independently
+executed by the corrected script on AF. In particular, the
+newly visible 700–2000 GeV residuals may reflect a distinct
+NNLO scale prescription, finite three-loop interpolation, or
+another implementation problem. The 300 GeV discrepancy
+mostly originates from the HEPfit z5 sign difference.
+
+AF: rerun the existing dipole-basis audit command below, in a
+fresh pull of the same branch. Run the updated 10-test suite.
+The output status must be
+`GATE_A1P_HEPFIT_C8_Z5_SIGN_MISMATCH_AUDITED_NOT_NNLO_PASS`.
+
+**Never modify the original HEPfit code to force agreement.
+No NNLO physics validation, model exclusion or branching-ratio
+accuracy claim follows from this diagnosis.**
+
 # Gate A1P — independent HEPfit Type-II LO/NLO/NNLO matching benchmark
 
 **Scope:** Independent matching-level comparison for the Type-II charged-Higgs
@@ -465,9 +532,10 @@ python3 scripts/gateA1p_audit_effective_operator_basis.py \
 cat work/gateA1p_hepfit_typeii_v1/dipole_basis_audit.json
 ```
 
-A numerical transform from the existing uploaded A1P data already
-indicates that these matched-basis comparisons retain nonzero
-differences at NNLO — the basis issue is **not the entire solution**.
+A preliminary conversion from A1P data indicated NNLO differences,
+but its C8 values were **incorrect because the HEPfit implementation
+uses z5=-20 at NNLO**. Refer to the critical erratum at the top and
+rerun the corrected source-verified comparator.
 The independent original supplementary result and the full
 basis/scheme evolution remain necessary before trusting physical
 NNLO predictions.
