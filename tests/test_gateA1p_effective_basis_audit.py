@@ -4,7 +4,8 @@ import sys
 import unittest
 
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/"scripts"))
-from gateA1p_audit_effective_operator_basis import audit,Y,Z
+from gateA1p_audit_effective_operator_basis import (audit,Y,Z,
+    check_superiso_effective_assignments)
 
 def rows():
     out=[]
@@ -22,6 +23,47 @@ def rows():
     return {"compared_count":44,"compared_coefficients":out}
 
 class TestA1PEffectiveBasis(unittest.TestCase):
+    def setUp(self):
+        self.effective_rhs_7=(
+            "C2w[7]-1./3.*C2w[3]-4./9.*C2w[4]"
+            "-20./3.*C2w[5]-80./9.*C2w[6]"
+        )
+        self.effective_rhs_8=(
+            "C2w[8]+C2w[3]-1./6.*C2w[4]"
+            "+20.*C2w[5]-10./3.*C2w[6]"
+        )
+
+    def test_real_and_complex_superiso_source_declarations(self):
+        for declaration in ("double", "double complex"):
+            src=(f"{declaration} C2w7= {self.effective_rhs_7};\n"
+                 f"{declaration} C2w8= {self.effective_rhs_8};\n")
+            flags=check_superiso_effective_assignments(src)
+            self.assertEqual(flags,{
+                "SuperIso_RG_effective_C7":True,
+                "SuperIso_RG_effective_C8":True})
+
+    def test_reject_altered_C7_coefficient(self):
+        src=("double complex C2w7="+
+             self.effective_rhs_7.replace("-4./9.", "+4./9.")+";\n"
+             "double complex C2w8="+self.effective_rhs_8+";\n")
+        with self.assertRaisesRegex(ValueError,"C2w7.*coefficients/signs"):
+            check_superiso_effective_assignments(src)
+
+    def test_reject_altered_C8_sign(self):
+        src=("double complex C2w7="+self.effective_rhs_7+";\n"
+             "double complex C2w8="+
+             self.effective_rhs_8.replace("+20.", "-20.")+";\n")
+        with self.assertRaisesRegex(ValueError,"C2w8.*coefficients/signs"):
+            check_superiso_effective_assignments(src)
+
+    def test_reject_duplicate_or_missing_source_transform(self):
+        s7="double complex C2w7="+self.effective_rhs_7+";\n"
+        s8="double complex C2w8="+self.effective_rhs_8+";\n"
+        with self.assertRaisesRegex(ValueError,"exactly one.*C2w7"):
+            check_superiso_effective_assignments(s7+s7+s8)
+        with self.assertRaisesRegex(ValueError,"exactly one.*C2w8"):
+            check_superiso_effective_assignments(s7)
+
     def test_basis_recombination_closure(self):
         source={"status":"fixture"}
         result=audit(rows(),source)
