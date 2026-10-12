@@ -1,12 +1,16 @@
 """Read-only A1P finite-three-loop probe arithmetic and parser tests."""
 from pathlib import Path
+import os
+import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 from gateA1p_audit_nnlo_finite_functions import (
-    read_finite,decompose,raw_hepfit,MASSES)
+    read_finite,decompose,raw_hepfit,MASSES,
+    select_existing_library_dirs,recover_hepfit_runtime)
 from gateA1p_audit_effective_operator_basis import HEPFIT_CODE_Z,Y
 
 def fixture():
@@ -21,6 +25,77 @@ def fixture():
     return rows
 
 class TestA1PFiniteMatching(unittest.TestCase):
+    def test_stale_saved_runtime_directory_does_not_block(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            working=root/"workinglib"
+            working.mkdir()
+            binary=root/"reference"
+            binary.write_text("fixture not executed")
+            log=root/"saved_paths.txt"
+            stale=str(root/"stale_lib")
+            log.write_text(f"LD_LIBRARY_PATH={stale}:{working}\\n")
+            ldd=subprocess.CompletedProcess(
+                args=["ldd",str(binary)],returncode=0,
+                stdout="libgsl.so.28 => /valid/libgsl.so.28\\n"
+                       "libopenblas.so.0 => /valid/libopenblas.so.0\\n",
+                stderr="")
+            with patch.dict(os.environ,{
+                    "LD_LIBRARY_PATH":"",
+                    "GATE_A1P_KEY4HEP_ROOT":str(root/"absent_release")}), \\
+                 patch("gateA1p_audit_nnlo_finite_functions.subprocess.run",
+                       return_value=ldd) as check:
+                env=recover_hepfit_runtime(binary,log,root)
+            self.assertEqual(env["LD_LIBRARY_PATH"],str(working))
+            self.assertIn(stale,
+                __import__("json").loads(
+                    (root/"hepfit_finite_runtime_paths.json").read_text()
+                )["ignored_stale_LD_LIBRARY_PATH_entries"])
+            self.assertEqual(check.call_count,1)
+
+    def test_stale_runtime_is_rejected_only_when_ldd_dependency_missing(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            lib=root/"available"
+            lib.mkdir()
+            binary=root/"reference"
+            binary.write_text("fixture")
+            saved=root/"saved.txt"
+            saved.write_text(f"LD_LIBRARY_PATH={root/'stale'}:{lib}\\n")
+            ldd=subprocess.CompletedProcess(
+                args=["ldd",str(binary)],returncode=0,
+                stdout="libgsl.so.28 => not found\\n",
+                stderr="")
+            with patch.dict(os.environ,{
+                    "LD_LIBRARY_PATH":"",
+                    "GATE_A1P_KEY4HEP_ROOT":str(root/"absent_release")}), \\
+                 patch("gateA1p_audit_nnlo_finite_functions.subprocess.run",
+                       return_value=ldd):
+                with self.assertRaisesRegex(
+                    ValueError,"unresolved=\\['libgsl.so.28'\\]"):
+                    recover_hepfit_runtime(binary,saved,root)
+            self.assertTrue((root/"hepfit_finite_runtime_ldd.log").is_file())
+
+    def test_reject_bad_explicit_library_override(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            binary=root/"reference"
+            binary.write_text("fixture")
+            with patch.dict(os.environ,{
+                "GATE_A1P_GSL_LIBDIR":str(root/"missing_gsl")}), \\
+                 self.assertRaisesRegex(ValueError,"does not contain libgsl.so.28"):
+                recover_hepfit_runtime(binary,None,root)
+
+    def test_filter_runtime_paths_preserves_order_and_deduplicates(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            valid=root/"good"
+            valid.mkdir()
+            active,missing=select_existing_library_dirs(
+                [str(root/"stale"),str(valid),str(valid),"",str(root/"stale")])
+            self.assertEqual(active,[str(valid)])
+            self.assertEqual(missing,[str(root/"stale")])
+
     def test_direct_cot2_and_cross_term_decomposition(self):
         cot_part,fr_part=5.72,-1.333
         t1,t2=5.597170833164245,2*5.597170833164245
