@@ -4,7 +4,7 @@ import sys
 import unittest
 
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/"scripts"))
-from gateA1p_audit_effective_operator_basis import (audit,Y,Z,
+from gateA1p_audit_effective_operator_basis import (audit,Y,Z,HEPFIT_CODE_Z,
     check_superiso_effective_assignments)
 
 def rows():
@@ -71,11 +71,16 @@ class TestA1PEffectiveBasis(unittest.TestCase):
         for entry in result["masses"]:
             for name,coeff in entry["dipole_comparisons"].items():
                 self.assertAlmostEqual(
-                    coeff["superiso_raw"]+coeff["superiso_fourquark_basis_shift"],
-                    coeff["superiso_effective"],places=12)
+                    coeff["superiso_raw"]+coeff["superiso_standard_fourquark_shift"],
+                    coeff["superiso_author_standard_effective"],places=12)
                 self.assertAlmostEqual(
-                    coeff["HEPfit_effective"]-coeff["HEPfit_fourquark_basis_shift"],
-                    coeff["HEPfit_direct"],places=12)
+                    coeff["HEPfit_actual_returned_code_basis"]-
+                    coeff["HEPfit_actual_code_fourquark_shift"],
+                    coeff["HEPfit_raw_recovered_from_actual_source"],places=12)
+                self.assertAlmostEqual(
+                    coeff["HEPfit_raw_recovered_from_actual_source"]+
+                    coeff["HEPfit_author_standard_fourquark_shift"],
+                    coeff["HEPfit_author_standard_effective_reconstructed"],places=12)
                 self.assertAlmostEqual(
                     coeff["difference_between_direct_and_effective_discrepancies"],
                     coeff["fourquark_relative_convention_spread"],places=12)
@@ -85,8 +90,37 @@ class TestA1PEffectiveBasis(unittest.TestCase):
     def test_raw_effective_mixing_detected(self):
         item=audit(rows(),{"status":"fixture"})["masses"][0]["dipole_comparisons"]["C7"]
         self.assertNotAlmostEqual(
-            item["SuperIso_raw_minus_HEPfit_effective_INVALID_MIXED_BASIS"],
+            item["previous_A1P_mixed_raw_vs_code"],
             item["matched_direct_SuperIso_minus_HEPfit"],places=6)
+
+
+    def test_hepfit_c8_wrong_sign_shift_is_40_times_C5(self):
+        # The original author standard has +20*C5, but the HEPfit
+        # source actually contains -20*C5. It matters at NNLO.
+        self.assertEqual(Z[5],20.)
+        self.assertEqual(HEPFIT_CODE_Z[5],-20.)
+        result=audit(rows(),{"status":"fixture"})
+        for mass in result["masses"]:
+            c8=mass["dipole_comparisons"]["C8"]
+            correction=c8["HEPfit_code_to_author_effective_correction"]
+            self.assertAlmostEqual(correction,40*c8["HEPfit_C5_NNLO"],places=12)
+            self.assertAlmostEqual(
+                c8["previous_A1P_direct_difference_WITH_WRONG_HEPFIT_Z5"]-
+                c8["matched_direct_SuperIso_minus_HEPfit"],
+                correction,places=12)
+            self.assertAlmostEqual(
+                c8["previous_A1P_effective_difference_WITH_WRONG_HEPFIT_Z5"]-
+                c8["matched_effective_SuperIso_minus_HEPfit"],
+                correction,places=12)
+
+    def test_hepfit_c7_unaffected_by_c8_sign_inconsistency(self):
+        result=audit(rows(),{"status":"fixture"})
+        for mass in result["masses"]:
+            c7=mass["dipole_comparisons"]["C7"]
+            self.assertEqual(c7["HEPfit_code_to_author_effective_correction"],0)
+            self.assertAlmostEqual(
+                c7["previous_A1P_direct_difference_WITH_WRONG_HEPFIT_Z5"],
+                c7["matched_direct_SuperIso_minus_HEPfit"],places=12)
 
     def test_missing_independent_row_blocks(self):
         fake=rows()
