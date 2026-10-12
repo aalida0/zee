@@ -120,7 +120,10 @@ def report(pairs,beta,source_manifest):
     if failed:
         stage="INDEPENDENT_HEPFIT_MATCHING_DISCREPANCY_REQUIRES_CONVENTION_AUDIT"
     elif precision_flags:
-        stage="INDEPENDENT_HEPFIT_MATCHING_PILOT_WITH_NNLO_PRECISION_FLAGS"
+        # Pilot tolerance is NOT an acceptance gate. In particular, an
+        # NNLO absolute tolerance of 0.35 can hide a >100% coefficient
+        # discrepancy. Block further physics interpretation on >1% flags.
+        stage="INDEPENDENT_HEPFIT_NNLO_DISCREPANCIES_BLOCK_PHYSICS_VALIDATION"
     else:
         stage="INDEPENDENT_HEPFIT_TYPEII_MATCHING_PILOT_CONSISTENT"
     return {
@@ -147,6 +150,14 @@ def report(pairs,beta,source_manifest):
         "NNLO_above_one_percent_relative_count":len(precision_flags),
         "NNLO_precision_review_flags":precision_flags,
         "NNLO_publication_precision_validated":False,
+        "physics_validation_blocked":bool(failed or precision_flags),
+        "physics_validation_blocking_reason":(
+            f"{len(failed)} exploratory-tolerance mismatches; "
+            f"{len(precision_flags)} NNLO coefficients exceed 1% "
+            "relative discrepancy. Matching conventions/source-level "
+            "formula review required." if failed or precision_flags else
+            "Independent full BR, uncertainty and model checks still required."
+        ),
         "mismatches":failed,
         "full_bsgamma_independently_validated":False,
         "Zee_benchmark_allowed":None,
@@ -164,7 +175,10 @@ def main():
     pairs=[(float(m),Path(si),Path(hf)) for m,si,hf in a.pair]
     try:
         result=report(pairs,a.beta,a.hepfit_provenance)
-        status=0 if result["failed_count"]==0 else 1
+        # A zero exploratory failed_count is not sufficient; source
+        # comparison must not report success when significant NNLO
+        # disagreements are present.
+        status=1 if result["physics_validation_blocked"] else 0
     except (ValueError,KeyError) as exc:
         result={
             "status":"INDEPENDENT_HEPFIT_COMPARISON_BLOCKED_INVALID_INPUT",
@@ -178,7 +192,11 @@ def main():
     a.output.write_text(json.dumps(result,indent=2)+"\n")
     print("Wrote",a.output,"STATUS:",result["status"])
     if "compared_count" in result:
-        print("Rows",result["compared_count"],"failures",result["failed_count"])
+        print("Rows",result["compared_count"],"exploratory-tolerance failures",
+              result["failed_count"])
+        print("Physics validation BLOCKED:",result["physics_validation_blocked"])
+        if result["physics_validation_blocked"]:
+            print(result["physics_validation_blocking_reason"])
         for row in result["NNLO_precision_review_flags"][:15]:
             print("NNLO PRECISION REVIEW",row["mass_GeV"],row["operator"],
                   "relative_error=",row["relative_error"])
