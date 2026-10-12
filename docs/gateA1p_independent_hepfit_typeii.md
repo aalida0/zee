@@ -208,6 +208,81 @@ path was established by the actual loader report. If the loader
 still fails, inspect the saved final ldd log before changing
 any scientific settings.
 
+## AF independent comparison: 44 rows, genuine NNLO discrepancies
+
+The independent AF run now reaches all 44 comparisons. The exact
+running top from SuperIso is `163.10709645657508 GeV`, differing
+from the previous LO-inferred value by `5.68e-14 GeV`. The LO and
+NLO charged-Higgs Wilson coefficients reproduce independent HEPfit
+to machine precision at 300, 700, 1000, and 2000 GeV.
+
+However, the old output `INDEPENDENT_HEPFIT_MATCHING_PILOT_WITH_NNLO_PRECISION_FLAGS`
+had **13 serious NNLO precision flags but zero failures**, solely
+because its NNLO pilot absolute tolerance was an excessive 0.35.
+This could be misread as a successful NNLO physics validation.
+
+Observed NNLO differences (SuperIso minus HEPfit):
+- 300 GeV: C3=-0.00748607, C4=+0.01826369,
+  C7=-0.02254191, C8=-0.04409420 (4.66% relative C8).
+- 700 GeV: C3=-0.00733374, C4=+0.02278235,
+  C7=+0.00047316, C8=-0.03832802 (1.29% relative C8).
+- 1000 GeV: C3=-0.00580022, C4=+0.01929193,
+  C7=+0.00025675, C8=-0.02784503.
+- 2000 GeV: C3=-0.00299341, C4=+0.01091455,
+  C7=-0.00004363, C8=-0.01259418.
+
+At **all four masses** we independently verified:
+
+    ΔC5^(2) = -ΔC3^(2)/10
+    ΔC6^(2) = -3 ΔC3^(2)/16
+
+(to numerical precision, where Δ means SuperIso minus HEPfit).
+The C5 and C6 differences are thus downstream algebraic
+consequences of the C3 difference. The independent discrepancies
+to audit are C3, C4, and the dipole remainders at NNLO.
+
+The A1P checker now reports
+`INDEPENDENT_HEPFIT_NNLO_DISCREPANCIES_BLOCK_PHYSICS_VALIDATION`
+with **nonzero** exit status for any >1% flagged NNLO
+coefficient, even when the exploratory tolerance count is zero.
+It does **not** rescale/patch any physical coefficient. A new
+source-only postprocessor reads the already completed A1P
+`result.json`, displays the C3->C5/C6 identities and source
+lines in both source files, verifies hashes, and writes
+`nnlo_diagnostic.json` and `nnlo_matching_source_excerpts.txt`.
+
+No library rebuild or HEPfit rerun is needed:
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_gateA1p_nnlo_discrepancy_diagnosis.py' -v
+python3 scripts/gateA1p_diagnose_nnlo_discrepancies.py \
+  --existing-result work/gateA1p_hepfit_typeii_v1/result.json \
+  --superiso-a1m-source work/gateA1m_isolated_nlo_v1/isolated_superiso/src/wilson.c \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --hepfit-source work/gateA1p_hepfit_typeii_v1/HEPfit_THDMMatching.cpp \
+  --hepfit-provenance work/gateA1p_hepfit_typeii_v1/hepfit_provenance.json \
+  --output work/gateA1p_hepfit_typeii_v1/nnlo_diagnostic.json \
+  --source-excerpts work/gateA1p_hepfit_typeii_v1/nnlo_matching_source_excerpts.txt
+
+cat work/gateA1p_hepfit_typeii_v1/nnlo_diagnostic.json
+cat work/gateA1p_hepfit_typeii_v1/nnlo_matching_source_excerpts.txt
+```
+
+The excerpts allow checking exact v5 C3/C4 terms and
+HEPfit's independent analytic expressions without changing
+either vendor source. Relative mismatch alone does not imply
+a large change in the final observable: all coefficients are
+defined at their perturbative order and their contributions
+carry powers of alpha_s/(4 pi). Conversely, small absolute
+numbers do not excuse lack of matching validation.
+
+**Status: NNLO matching unresolved; physical BR and Zee
+allowed/excluded decisions remain blocked.**
+
 ## Independent external physics validation STILL necessary
 
 1. Check exact top-mass scheme and scale, basis and perturbative
