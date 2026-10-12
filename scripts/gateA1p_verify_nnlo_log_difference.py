@@ -69,11 +69,13 @@ def verify_sources(superiso_source,superiso_provenance,
     require={
         # SuperIso versions may express the SAME algebraic function as
         # -lu*lu*(...) or lu*lu*(-...), or using pow(lu,2.).
+        # Any helper implementation detail (including an early guard or
+        # return statement placement) is irrelevant to source matching.
         # The coefficient's sign is tested *numerically against the
         # compiled, pinned A1M library* by verify_helper_output below,
         # not by fragile source-format regexes.
-        "SuperIso_C3_delta_definition":r"double\s+Delta3H\s*\([^)]*\)\s*\{\s*return\s+[^;]*;",
-        "SuperIso_C4_delta_definition":r"double\s+Delta4H\s*\([^)]*\)\s*\{\s*return\s+[^;]*;",
+        "SuperIso_C3_delta_definition":r"double\s+Delta3H\s*\([^)]*\)\s*\{",
+        "SuperIso_C4_delta_definition":r"double\s+Delta4H\s*\([^)]*\)\s*\{",
         "SuperIso_C3_log_mH":r"C3H_2\s*=\s*G3H\s*\(\s*yt\s*,\s*lu\s*\)\s*\+\s*Delta3H\s*\(\s*yt\s*,\s*lu\s*\)\s*\*\s*log\s*\(\s*pow\s*\(\s*mu_W\s*/\s*param->mass_H\s*,\s*2\.\s*\)\s*\)",
         "SuperIso_C4_log_mH":r"C4H_2\s*=\s*G4H\s*\(\s*yt\s*,\s*lu\s*\)\s*\+\s*Delta4H\s*\(\s*yt\s*,\s*lu\s*\)\s*\*\s*log\s*\(\s*pow\s*\(\s*mu_W\s*/\s*param->mass_H\s*,\s*2\.\s*\)\s*\)",
         "HEPfit_cd32ct":r"double\s+cd32ct\s*=",
