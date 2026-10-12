@@ -82,12 +82,75 @@ if [[ -z "$found_libdir" ]]; then
 fi
 export LD_LIBRARY_PATH="$found_libdir${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 echo "Resolved $need_gsl via $found_libdir"
+
+# GSL from the Key4hep 2026 release may require OpenBLAS from that SAME
+# release; the compiler linked successfully but its transitive runtime
+# dependency libopenblas.so.0 was absent from LD_LIBRARY_PATH.
+# Resolve by exact SONAME and a real file (no ABI-unsafe symlinks).
+ldd "$out/hepfit_matching" > "$out/hepfit_runtime_ldd_before_openblas.log"
+mapfile -t missing_sonames < <(
+  awk '$2=="=>" && $3=="not" && $4=="found" {print $1}' \
+      "$out/hepfit_runtime_ldd_before_openblas.log" | sort -u
+)
+
+if (( ${#missing_sonames[@]} > 0 )); then
+  declare -a missing_after=()
+  for soname in "${missing_sonames[@]}"; do
+    if [[ "$soname" != "libopenblas.so.0" ]]; then
+      missing_after+=("$soname")
+      continue
+    fi
+
+    # Prefix: KEY4HEP_RELEASE/ARCH/gsl/INSTALLATION/lib -> KEY4HEP_RELEASE/ARCH
+    key4hep_arch_prefix=$(dirname "$(dirname "$(dirname "$found_libdir")")")
+    declare -a blas_candidates=()
+    [[ -z "${GATE_A1P_OPENBLAS_LIBDIR:-}" ]] ||
+      blas_candidates+=("$GATE_A1P_OPENBLAS_LIBDIR")
+    if command -v pkg-config >/dev/null 2>&1 &&
+       pkg-config --exists openblas; then
+      blas_candidates+=("$(pkg-config --variable=libdir openblas)")
+    fi
+    # Glob under the exact build's release and ABI prefix. No global
+    # filesystem crawl and no arbitrary incompatible OpenBLAS fallback.
+    shopt -s nullglob
+    for libpath in "$key4hep_arch_prefix"/openblas/*/lib/"$soname" \
+                   "$key4hep_arch_prefix"/openblas/*/lib64/"$soname"; do
+      blas_candidates+=("$(dirname "$libpath")")
+    done
+    shopt -u nullglob
+
+    blasdir=""
+    for d in "${blas_candidates[@]}"; do
+      if [[ -d "$d" && -f "$d/$soname" ]]; then
+        blasdir=$(realpath "$d")
+        break
+      fi
+    done
+    if [[ -z "$blasdir" ]]; then
+      missing_after+=("$soname")
+      continue
+    fi
+    export LD_LIBRARY_PATH="$blasdir:$LD_LIBRARY_PATH"
+    echo "Resolved $soname via $blasdir"
+  done
+  if (( ${#missing_after[@]} > 0 )); then
+    echo "Unresolved shared library dependencies: ${missing_after[*]}" >&2
+  fi
+fi
+
+# Always check the final loader state; later transitive dependencies
+# can become visible only after OpenBLAS is supplied.
 ldd "$out/hepfit_matching" > "$out/hepfit_runtime_ldd.log"
-if grep -q 'not found' "$out/hepfit_runtime_ldd.log"; then
+if grep -Eq '=> not found' "$out/hepfit_runtime_ldd.log"; then
   echo "Additional shared libraries missing; inspect $out/hepfit_runtime_ldd.log" >&2
   cat "$out/hepfit_runtime_ldd.log" >&2
+  echo "For the reported Key4hep release the OpenBLAS library should be under:" >&2
+  echo "  $key4hep_arch_prefix/openblas/*/lib/libopenblas.so.0" >&2
+  echo "Set GATE_A1P_OPENBLAS_LIBDIR to the exact real library directory if needed." >&2
   exit 1
 fi
+printf 'LD_LIBRARY_PATH=%s\n' "$LD_LIBRARY_PATH" \
+  > "$out/hepfit_runtime_library_paths.txt"
 
 # Evaluate the *actual* running top in SuperIso at the identical
 # muW, using the exact expression found in src/wilson.c:1599.
