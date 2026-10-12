@@ -94,6 +94,78 @@ The comparator writes a result JSON and returns a nonzero status
 when matching differences exceed the tolerances. Do not silence
 mismatches with an undocumented common scale factor.
 
+## AF recovery: reference compiled, runtime GSL missing
+
+The first AF attempt successfully downloaded and SHA-validated the
+HEPfit source and compiled the C++ reference, but execution stopped
+with:
+
+    ./hepfit_matching: error while loading shared libraries:
+    libgsl.so.28: cannot open shared object file
+
+This is a missing **runtime loader search path** for the linked GSL
+SONAME, not a physics result. The generated matching executable and
+source are already present, so do **not** rerun source preparation
+into the original output directory.
+
+The repair is in
+`scripts/gateA1p_resume_hepfit_matching.sh`: it checks the same
+pinned HEPfit source/provenance, detects the exact GSL SONAME,
+searches the GSL pkg-config package location, gsl-config prefix,
+compiler paths and inherited library paths, then sets an
+environment-scoped LD_LIBRARY_PATH. It refuses missing dependencies
+rather than replacing the GSL formula with a different implementation.
+
+The new runner also compiles
+`gateA1p_superiso_top_mass.c` against the same A1M SuperIso library,
+evaluating **the actual function from wilson.c:1599**:
+
+    running_mass(param->mtmt, param->mtmt, mu_W,
+                 param->mass_top_pole, param->mass_b, param)
+
+This measured value replaces the provisional LO-inferred
+163.10709645657502 GeV value in the independent HEPfit matching
+program. The old and new values are compared in a separate
+`mass_input_provenance.json` file.
+
+Run on the **existing AF directory**:
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+
+bash scripts/gateA1p_resume_hepfit_matching.sh \
+  /home/aalida/zee/work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  work/gateA1p_hepfit_typeii_v1
+
+cat work/gateA1p_hepfit_typeii_v1/mass_input_provenance.json
+cat work/gateA1p_hepfit_typeii_v1/result.json
+```
+
+If the required exact SONAME remains missing in the configured
+library roots, first inspect:
+
+```bash
+ldd work/gateA1p_hepfit_typeii_v1/hepfit_matching
+pkg-config --variable=libdir gsl
+pkg-config --libs gsl
+```
+
+Find the directory containing the required `libgsl.so.28` and
+pass it to the same resume command as:
+
+```bash
+GATE_A1P_GSL_LIBDIR=/absolute/directory/containing/libgsl.so.28 \
+  bash scripts/gateA1p_resume_hepfit_matching.sh \
+  /home/aalida/zee/work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  work/gateA1p_hepfit_typeii_v1
+```
+
+The code requires the matching **real** GSL SONAME and does not
+substitute a symlink to a mismatched ABI. The upstream HEPfit matching
+formulas are not modified.
+
 ## Independent external physics validation STILL necessary
 
 1. Check exact top-mass scheme and scale, basis and perturbative
