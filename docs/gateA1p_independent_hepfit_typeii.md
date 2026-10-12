@@ -1,3 +1,59 @@
+## Gate A1P — finite three-loop terms: measured and rounding discrepancy explained
+
+**AF finite-function audit PASS:** all 13 regression tests and actual SuperIso
+helper evaluations passed. HEPfit loader recovered 30 accessible directories
+with two stale historical directories ignored; no shared library unresolved.
+Source-hash pinned HEPfit finite terms were evaluated independently at
+fixed mt(muW)=163.10709645657508 GeV, matching log artificially set to
+zero, and two tanbeta values for decomposition.
+
+    mH [GeV]  op    cot² contribution    mixed Yukawa         total finite
+      300     C7      +0.0000143637     -0.0026431601        -0.0026287964
+      300     C8      +0.0000026436     -0.0003243810        -0.0003217374
+      700     C7      +0.0000396244     +0.0140280806        +0.0140677050
+      700     C8      -0.0000006258     -0.0130033970        -0.0130040227
+     1000     C7      +0.0000146454     +0.0106227084        +0.0106373538
+     1000     C8      -0.0000008648     -0.0095807804        -0.0095816452
+     2000     C7      +0.0000017013     +0.0052263284        +0.0052280297
+     2000     C8      +0.0000001849     -0.0041118118        -0.0041116269
+
+**Source cause:** the actual SuperIso and pinned HEPfit Type-II finite
+mixed-Yukawa functions use the same 16th-order (near-degenerate mass)
+and 5th-order (heavy charged scalar) power/log expansion structures,
+but source constants have different significant figures. At 300 GeV
+the HEPfit C7 mixed polynomial begins 12.82 + 1.663*ubar +
+0.7780*ubar²; SuperIso begins 12.8225 + 1.66323*ubar +
+0.77799*ubar². For heavy charged masses HEPfit C7 uses -572.2*r
+and -870.3*r²*log(r); SuperIso uses -572.224*r and
+-870.291*r²*log(r). The same pattern occurs in C8.
+
+Direct evaluation of the HEPfit source's *rounded* mixed-Yukawa
+polynomial expressions, subtracted from the actual compiled SuperIso
+helper outputs, reproduces all eight AF residuals:
+
+    mH      C7 mixed residual        C8 mixed residual
+    300     -0.00264316012223276    -0.00032438100372356
+    700     +0.01402808057135196    -0.01300339697481423
+    1000    +0.01062270837581281    -0.00958078042383459
+    2000    +0.00522632842056225    -0.00411181180847553
+
+The differences are small compared with the magnitudes of their
+respective SuperIso finite mixed-Yukawa terms:
+C7 0.018–0.101%, C8 0.038–0.455% across the four masses.
+
+**Conclusion:** finite-loop matching differences are quantitatively
+consistent with coefficient-rounding precision of the same published
+piecewise expansion families. No finite-loop source patch is justified
+merely to force machine-level agreement. This is not independent
+validation of the physical NNLO prediction; the original 2012
+author Mathematica supplement remains the reference for exact
+reported expansion coefficients. Outstanding issues remain the
+C3/C4 matching logarithm prescription, HEPfit NNLO C8 -20*C5
+versus authors' standard effective +20*C5, and an independent
+full Type-II branching-ratio computation with uncertainty treatment.
+
+**No physical Zee exclusion is authorized.**
+
 ## AF finite-function audit: stale Key4hep LD_LIBRARY_PATH recovery
 
 The AF compiled SuperIso v5 finite NNLO helper probe **completed**
