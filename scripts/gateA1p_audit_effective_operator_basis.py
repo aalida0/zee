@@ -19,7 +19,13 @@ import re
 from gateA1p_prepare_hepfit_matching import HEPFIT_BLOB,git_blob_sha
 
 Y={3:-1./3.,4:-4./9.,5:-20./3.,6:-80./9.}
+# Author-supplement standard effective-operator coefficients:
+# Hermann-Misiak-Steinhauser (2012) c2HDM.m readme, z5 = +20.
 Z={3:1.,4:-1./6.,5:20.,6:-10./3.}
+# The pinned HEPfit THDMMatching::setWCbsg has -20*C5, not +20*C5
+# in its NNLO C8 return expression. Treat that as a CODE/CONVENTION
+# discrepancy and undo the ACTUAL code shift, never the assumed one.
+HEPFIT_CODE_Z={3:1.,4:-1./6.,5:-20.,6:-10./3.}
 MASSES=(300.,700.,1000.,2000.)
 
 # Check the entire effective-operator rotation. Older SuperIso
@@ -73,13 +79,32 @@ def assert_source_contract(si_source,si_manifest,hf_source,hf_manifest):
         k:bool(re.search(pattern,hf_txt,re.S))
         for k,pattern in checks.items()
     })
+    # The previously published A1P audit implicitly assumed that
+    # HEPfit used the standard +20*C5 shift at NNLO. Its pinned source
+    # actually uses -20*C5. Check this discrepancy explicitly and
+    # reconstruct HEPfit direct coefficients using *its actual code*
+    # rather than a convention assumed from the paper.
+    match8=re.findall(r"CWbsgArrayNNLO\\[7\\]\\s*=\\s*([^;]+);",hf_txt,re.S)
+    if len(match8)!=1:
+        raise ValueError(f"Expected one HEPfit NNLO C8 assignment; found {len(match8)}")
+    rhs8=re.sub(r"\\s+","",match8[0])
+    present["HEPfit_NNLO_C8_minus20_C5_confirmed"]=(
+        "-20.*CWbsgArrayNNLO[4]" in rhs8 and
+        "+CWbsgArrayNNLO[2]" in rhs8 and
+        "-1./6.*CWbsgArrayNNLO[3]" in rhs8 and
+        "-10./3.*CWbsgArrayNNLO[5]" in rhs8
+    )
     if not all(present.values()):
         raise ValueError(f"Source-basis check failed: {[k for k,v in present.items() if not v]}")
     return {
         "status":"PINNED_SOURCE_OPERATOR_BASIS_ROTATIONS_PRESENT",
         "SuperIso_A1M_wilson_SHA256":hashlib.sha256(si).hexdigest(),
         "HEPfit_git_blob":git_blob_sha(hf),
-        "source_checks":present
+        "source_checks":present,
+        "HEPfit_actual_NNLO_C8_C5_sign":-1,
+        "authors_2012_standard_NNLO_C8_C5_sign":+1,
+        "HEPfit_vs_author_z5_sign_disagrees":True,
+        "author_reference":"https://www.ttp.kit.edu/Progdata/ttp12/ttp12-029/readme.pdf",
     }
 
 def audit(data,contract):
@@ -92,49 +117,72 @@ def audit(data,contract):
     output=[]
     for mass in MASSES:
         obj={"mass_GeV":mass,"dipole_comparisons":{}}
-        for op,weights in ((7,Y),(8,Z)):
+        for op,standard_weights in ((7,Y),(8,Z)):
+            code_weights=Y if op==7 else HEPFIT_CODE_Z
             def get(name,n):
                 return float(ref[mass,2,f"C{n}"][name])
             si_raw=get("superiso_isolated_delta",op)
-            hf_eff=get("independent_HEPfit_delta",op)
-            si_4q=sum(w*get("superiso_isolated_delta",i)
-                      for i,w in weights.items())
-            hf_4q=sum(w*get("independent_HEPfit_delta",i)
-                      for i,w in weights.items())
-            si_eff=si_raw+si_4q
-            hf_direct=hf_eff-hf_4q
+            hf_returned=get("independent_HEPfit_delta",op)
+            si_std_shift=sum(w*get("superiso_isolated_delta",i)
+                             for i,w in standard_weights.items())
+            hf_std_shift=sum(w*get("independent_HEPfit_delta",i)
+                             for i,w in standard_weights.items())
+            hf_code_shift=sum(w*get("independent_HEPfit_delta",i)
+                              for i,w in code_weights.items())
+            si_eff=si_raw+si_std_shift
+            hf_direct=hf_returned-hf_code_shift
+            hf_author_eff=hf_direct+hf_std_shift
+            correction=hf_std_shift-hf_code_shift
+            direct_difference=si_raw-hf_direct
+            effective_difference=si_eff-hf_author_eff
+            old_direct=si_raw-(hf_returned-hf_std_shift)
+            old_eff=si_eff-hf_returned
             obj["dipole_comparisons"][f"C{op}"]={
                 "superiso_raw":si_raw,
-                "superiso_fourquark_basis_shift":si_4q,
-                "superiso_effective":si_eff,
-                "HEPfit_effective":hf_eff,
-                "HEPfit_fourquark_basis_shift":hf_4q,
-                "HEPfit_direct":hf_direct,
-                "SuperIso_raw_minus_HEPfit_effective_INVALID_MIXED_BASIS":si_raw-hf_eff,
-                "matched_direct_SuperIso_minus_HEPfit":si_raw-hf_direct,
-                "matched_effective_SuperIso_minus_HEPfit":si_eff-hf_eff,
+                "superiso_standard_fourquark_shift":si_std_shift,
+                "superiso_author_standard_effective":si_eff,
+                "HEPfit_actual_returned_code_basis":hf_returned,
+                "HEPfit_actual_code_fourquark_shift":hf_code_shift,
+                "HEPfit_author_standard_fourquark_shift":hf_std_shift,
+                "HEPfit_raw_recovered_from_actual_source":hf_direct,
+                "HEPfit_author_standard_effective_reconstructed":hf_author_eff,
+                "HEPfit_code_to_author_effective_correction":correction,
+                "HEPfit_C5_NNLO":get("independent_HEPfit_delta",5),
+                "previous_A1P_mixed_raw_vs_code":si_raw-hf_returned,
+                "previous_A1P_direct_difference_WITH_WRONG_HEPFIT_Z5":old_direct,
+                "previous_A1P_effective_difference_WITH_WRONG_HEPFIT_Z5":old_eff,
+                "matched_direct_SuperIso_minus_HEPfit":direct_difference,
+                "matched_effective_SuperIso_minus_HEPfit":effective_difference,
                 "difference_between_direct_and_effective_discrepancies":
-                    (si_eff-hf_eff)-(si_raw-hf_direct),
-                "fourquark_relative_convention_spread":si_4q-hf_4q,
+                    effective_difference-direct_difference,
+                "fourquark_relative_convention_spread":si_std_shift-hf_std_shift,
             }
-            # Algebraic closure, including for any deviations already
-            # traced to NNLO C3/C4 scale logarithms.
             q=obj["dipole_comparisons"][f"C{op}"]
-            assert abs(q["difference_between_direct_and_effective_discrepancies"]-
-                       q["fourquark_relative_convention_spread"])<2e-12
+            if abs(q["difference_between_direct_and_effective_discrepancies"]-
+                   q["fourquark_relative_convention_spread"])>2e-12:
+                raise ValueError(f"Matched direct/effective closure failed for {mass} C{op}")
+            if abs(correction-(40.*get("independent_HEPfit_delta",5)
+                               if op==8 else 0.))>2e-12:
+                raise ValueError(f"Expected isolated HEPfit C8 sign correction not reproduced {mass}")
         output.append(obj)
     return {
-        "status":"GATE_A1P_EFFECTIVE_OPERATOR_BASIS_CONSISTENCY_AUDIT_NOT_NNLO_PASS",
+        "status":"GATE_A1P_HEPFIT_C8_Z5_SIGN_MISMATCH_AUDITED_NOT_NNLO_PASS",
         "scope":"Dipole basis transformation only; original NNLO disagreements remain",
         "source_contract":contract,
         "reference":"Hermann-Misiak-Steinhauser 2012 ancillary readme defines "
                     "C7eff=C7+y_j Cj and C8eff=C8+z_j Cj",
-        "basis_weights_C7":Y,"basis_weights_C8":Z,
+        "basis_weights_C7":Y,
+        "author_standard_basis_weights_C8":Z,
+        "HEPfit_actual_code_basis_weights_C8":HEPFIT_CODE_Z,
+        "HEPfit_C8_z5_disagrees_with_2012_author_reference":True,
+        "HEPfit_source_corrected":False,
         "masses":output,
-        "warning":"Do not compare SuperIso raw C7/C8 with HEPfit effective "
-                  "C7/C8; display matched direct and matched effective "
-                  "differences separately. Basis transformations do not "
-                  "fix the known C3/C4 matching-log prescription mismatch.",
+        "warning":"Previous Gate A1P C8 matched-basis differences were INVALID "
+                  "because HEPfit source has z5=-20 whereas the 2012 author "
+                  "supplement and SuperIso use z5=+20. The new audit first "
+                  "undoes the ACTUAL HEPfit code shift, then reconstructs "
+                  "the author-standard effective combination. The resulting "
+                  "differences do not certify physical NNLO correctness.",
         "theoretical_NNLO_matching_validated":False,
         "complete_BtoXs_gamma_BR_validated":False,
         "Zee_benchmark_allowed":None,
@@ -158,7 +206,8 @@ def main():
         for op,coeffs in record["dipole_comparisons"].items():
             print("mH",record["mass_GeV"],op,
                   "direct_difference",coeffs["matched_direct_SuperIso_minus_HEPfit"],
-                  "effective_difference",coeffs["matched_effective_SuperIso_minus_HEPfit"])
+                  "effective_difference",coeffs["matched_effective_SuperIso_minus_HEPfit"],
+                  "HEPfit_code_C8_correction",coeffs["HEPfit_code_to_author_effective_correction"])
     print("SOURCE_PROVENANCE_CONFIRMED, NO NNLO OR BR PHYSICS CLAIM")
     print("Wrote",a.output)
 
