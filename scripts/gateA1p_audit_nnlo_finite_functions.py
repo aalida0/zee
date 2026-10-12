@@ -185,12 +185,9 @@ def recover_hepfit_runtime(binary,library_paths,output_dir=None):
                 if p.is_file()
             )
     existing,stale=select_existing_library_dirs(candidates)
-    if not existing:
-        raise ValueError(
-            "No accessible shared-library directories; activate the "
-            "original Key4hep environment or set "
-            "GATE_A1P_GSL_LIBDIR and GATE_A1P_OPENBLAS_LIBDIR")
-
+    # An executable may already resolve every dependency via system
+    # loader defaults or its own RPATH, even if none of the archived
+    # LD_LIBRARY_PATH directories remain. Only ldd decides success.
     env=os.environ.copy()
     env["LD_LIBRARY_PATH"]=":".join(existing)
     check=subprocess.run(
