@@ -349,6 +349,55 @@ direct three-loop functions, four-quark recombination, and
 interpolation/truncation schemes. Full observable-level
 comparison and theory errors remain pending.
 
+## AF source-regex regression: compiled-helper sign gate (latest)
+
+The synthetic three-test log for `test_gateA1p_nnlo_log_difference.py`
+passed, but the source-only verifier stopped on
+`SuperIso_C3_delta_negative` and `SuperIso_C4_delta_negative`.
+These two checks **incorrectly assumed** that every SuperIso v5
+`Delta3H/Delta4H` definition literally begins
+`return -lu*lu`. Equivalent functions can distribute their
+overall sign into the parenthesized rational expressions, or
+use a different multiplication/power notation. Source-text
+factorization is not a reliable proof of the mathematical sign.
+
+The updated verifier now requires the provenance-pinned v5.0
+source **definitions** plus their actual C3/C4 matching call
+structure, and additionally requires numerical values from
+`Delta3H(x,cot(beta))` and `Delta4H(x,cot(beta))`
+compiled directly against the existing A1M SuperIso library.
+For every mass, those values must equal
+`-cd32ct(x)/tanbeta**2` and `-cd42ct(x)/tanbeta**2`
+from independently sourced HEPfit at strict floating-point
+tolerances. Eight published matching differences must *still*
+be reproduced; no formula is silently changed.
+
+Run a **single read-only audit** in the existing A1P directory
+(no GSL, HEPfit recompile or SuperIso source changes):
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+
+python3 -m unittest discover -s tests \
+  -p 'test_gateA1p_nnlo_log_difference.py' -v
+
+bash scripts/gateA1p_run_nnlo_log_audit.sh \
+  /home/aalida/zee/work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  work/gateA1p_hepfit_typeii_v1
+
+cat work/gateA1p_hepfit_typeii_v1/nnlo_log_difference.json
+```
+
+**Do not** infer a source-sign identity merely from
+`test_gateA1p_nnlo_log_difference.py` passing. Those are
+synthetic numerical controls. Only the actual pinned compiled
+SuperIso helper check, the real source contract and the AF
+matching residuals together constitute a diagnosis. If any
+helper disagrees, the audit deliberately aborts: do not accept
+the previous claimed analytic source explanation.
+
 ## Independent external physics validation STILL necessary
 
 1. Check exact top-mass scheme and scale, basis and perturbative
