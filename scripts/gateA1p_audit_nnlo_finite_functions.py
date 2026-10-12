@@ -116,6 +116,116 @@ def raw_hepfit(vec,op):
     weights=Y if op==7 else HEPFIT_CODE_Z
     return vec[2,op]-sum(w*vec[2,j] for j,w in weights.items())
 
+# The 2026-02-01 Key4hep release used by the original AF reference.
+# Search it only as a fallback if old/current LD_LIBRARY_PATH is incomplete.
+# A local GATE_A1P_KEY4HEP_ROOT override can replace this release prefix.
+DEFAULT_KEY4HEP_ROOT=Path(
+    "/cvmfs/sw.hsf.org/key4hep/releases/2026-02-01/"
+    "x86_64-almalinux9-gcc14.2.0-opt"
+)
+
+def select_existing_library_dirs(paths):
+    """Return surviving real directories and missing/stale entries.
+
+    Do NOT require all entries from the prior shell to still exist.
+    The executable loader check, not existence of irrelevant directories,
+    determines if an archived environment can be reused.
+    """
+    existing=[]
+    stale=[]
+    seen=set()
+    for item in paths:
+        name=str(item).strip()
+        if not name or name in seen:
+            continue
+        seen.add(name)
+        if Path(name).is_dir():
+            existing.append(name)
+        else:
+            stale.append(name)
+    return existing,stale
+
+def recover_hepfit_runtime(binary,library_paths,output_dir=None):
+    """Recover minimal GSL/OpenBLAS runtime without rebuilding HEPfit.
+
+    Keep existing directories from the original logged LD_LIBRARY_PATH
+    and the present shell. Ignore stale unrelated paths. Discover actual
+    GSL/OpenBLAS SONAME files in the SAME Key4hep architecture/release
+    if needed; never manufacture ABI-unsafe library symlinks.
+    A final ldd run must show zero missing shared libraries.
+    """
+    candidates=[]
+    # Explicit per-library overrides receive first priority.
+    for key,soname in (("GATE_A1P_GSL_LIBDIR","libgsl.so.28"),
+                       ("GATE_A1P_OPENBLAS_LIBDIR","libopenblas.so.0")):
+        raw=os.environ.get(key,"").strip()
+        if raw:
+            d=Path(raw)
+            if not d.is_dir() or not (d/soname).is_file():
+                raise ValueError(f"{key}={raw} does not contain {soname}")
+            candidates.append(raw)
+
+    current=os.environ.get("LD_LIBRARY_PATH","")
+    candidates.extend(current.split(":"))
+
+    if library_paths is not None and library_paths.is_file():
+        content=library_paths.read_text().strip()
+        if not content.startswith("LD_LIBRARY_PATH=") or "\n" in content:
+            raise ValueError("Unrecognized A1P logged LD_LIBRARY_PATH format")
+        candidates.extend(content[len("LD_LIBRARY_PATH="):].split(":"))
+
+    # Discover GSL and the matching OpenBLAS in the *same* release.
+    root=Path(os.environ.get("GATE_A1P_KEY4HEP_ROOT",str(DEFAULT_KEY4HEP_ROOT)))
+    if root.is_dir():
+        for pkg,soname in (("gsl","libgsl.so.28"),
+                           ("openblas","libopenblas.so.0")):
+            candidates.extend(
+                str(p.parent) for libdir in ("lib","lib64")
+                for p in sorted(root.glob(f"{pkg}/*/{libdir}/{soname}"))
+                if p.is_file()
+            )
+    existing,stale=select_existing_library_dirs(candidates)
+    if not existing:
+        raise ValueError(
+            "No accessible shared-library directories; activate the "
+            "original Key4hep environment or set "
+            "GATE_A1P_GSL_LIBDIR and GATE_A1P_OPENBLAS_LIBDIR")
+
+    env=os.environ.copy()
+    env["LD_LIBRARY_PATH"]=":".join(existing)
+    check=subprocess.run(
+        ["ldd",str(binary.resolve())],
+        env=env,text=True,capture_output=True,timeout=30,check=False)
+    report=(check.stdout or "")+(check.stderr or "")
+    if output_dir is not None:
+        output_dir.mkdir(parents=True,exist_ok=True)
+        (output_dir/"hepfit_finite_runtime_ldd.log").write_text(report)
+        (output_dir/"hepfit_finite_runtime_paths.json").write_text(
+            json.dumps({
+                "status":"GATE_A1P_FINITE_HERMITIC_RUNTIME_RECOVERED_NOT_PHYSICS",
+                "retained_library_directories":existing,
+                "ignored_stale_LD_LIBRARY_PATH_entries":stale,
+                "key4hep_root_searched":str(root),
+                "ldd_exit_code":check.returncode,
+                "ldd_missing_dependencies":(
+                    re.findall(r"^\s*(\S+)\s+=>\s+not found\s*$",
+                               report,re.M)),
+            },indent=2)+"\n"
+        )
+    missing=re.findall(r"^\s*(\S+)\s+=>\s+not found\s*$",report,re.M)
+    if check.returncode!=0 or missing:
+        raise ValueError(
+            "HEPfit runtime shared-library check failed "
+            f"(ldd exit={check.returncode}, unresolved={missing}). "
+            "Inspect hepfit_finite_runtime_ldd.log. Supply exact real "
+            "GSL/OpenBLAS library dirs using GATE_A1P_GSL_LIBDIR / "
+            "GATE_A1P_OPENBLAS_LIBDIR if necessary.")
+    print("HEPFIT_RUNTIME_SHARED_LIBRARIES_RESOLVED",
+          f"existing_dirs={len(existing)}",f"stale_ignored={len(stale)}")
+    if stale:
+        print("Ignored stale LD_LIBRARY_PATH entries:",len(stale))
+    return env
+
 def run_audit(result_path,mass_path,finite_file,binary,source_contract,library_paths):
     data=json.loads(result_path.read_text())
     inp=json.loads(mass_path.read_text())
@@ -132,15 +242,9 @@ def run_audit(result_path,mass_path,finite_file,binary,source_contract,library_p
     finite=read_finite(finite_file,mt)
     if not binary.is_file():
         raise ValueError("Cannot locate original independently compiled HEPfit reference")
-    env=os.environ.copy()
-    if library_paths and library_paths.is_file():
-        content=library_paths.read_text().strip()
-        if not content.startswith("LD_LIBRARY_PATH="):
-            raise ValueError("Unrecognized A1P logged library environment")
-        entries=content[len("LD_LIBRARY_PATH="):].split(":")
-        if any(not Path(p).is_dir() for p in entries if p):
-            raise ValueError("A1P original runtime paths disappeared")
-        env["LD_LIBRARY_PATH"]=content[len("LD_LIBRARY_PATH="):]
+    # Runtime paths from another AF login session may include stale,
+    # unrelated entries. Require ldd closure, not 100% old-path survival.
+    env=recover_hepfit_runtime(binary,library_paths,binary.parent)
     original={(float(item["mass_GeV"]),int(item["order"]),item["operator"]):item
              for item in data["compared_coefficients"]}
     if len(original)!=44:
