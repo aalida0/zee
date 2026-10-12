@@ -56,6 +56,33 @@ def check_superiso_effective_assignments(source):
         found[f"SuperIso_RG_effective_C{name[-1]}"]=True
     return found
 
+
+def check_hepfit_nnlo_c8_basis(source):
+    """Match the actual pinned HEPfit NNLO C8 expression.
+
+    Use single backslashes in Python raw regexes: r"\[" represents
+    a literal array bracket; r"\\[" does NOT. Require exactly one
+    source assignment and check all four quark-operator coefficients
+    in HEPfit's implementation, including its -20*C5 term.
+    """
+    assignments=re.findall(
+        r"\bCWbsgArrayNNLO\[7\]\s*=\s*([^;]+);", source, re.S)
+    if len(assignments)!=1:
+        raise ValueError(
+            f"Expected one HEPfit NNLO C8 assignment; found {len(assignments)}")
+    rhs=re.sub(r"\s+","",assignments[0])
+    terms=(
+        "+CWbsgArrayNNLO[2]",
+        "-1./6.*CWbsgArrayNNLO[3]",
+        "-20.*CWbsgArrayNNLO[4]",
+        "-10./3.*CWbsgArrayNNLO[5]",
+    )
+    if not all(term in rhs for term in terms):
+        raise ValueError(
+            "HEPfit NNLO C8 effective-basis source terms differ "
+            "from pinned -20*C5 implementation")
+    return True
+
 def assert_source_contract(si_source,si_manifest,hf_source,hf_manifest):
     si=si_source.read_bytes()
     hf=hf_source.read_bytes()
@@ -84,15 +111,8 @@ def assert_source_contract(si_source,si_manifest,hf_source,hf_manifest):
     # actually uses -20*C5. Check this discrepancy explicitly and
     # reconstruct HEPfit direct coefficients using *its actual code*
     # rather than a convention assumed from the paper.
-    match8=re.findall(r"CWbsgArrayNNLO\\[7\\]\\s*=\\s*([^;]+);",hf_txt,re.S)
-    if len(match8)!=1:
-        raise ValueError(f"Expected one HEPfit NNLO C8 assignment; found {len(match8)}")
-    rhs8=re.sub(r"\\s+","",match8[0])
     present["HEPfit_NNLO_C8_minus20_C5_confirmed"]=(
-        "-20.*CWbsgArrayNNLO[4]" in rhs8 and
-        "+CWbsgArrayNNLO[2]" in rhs8 and
-        "-1./6.*CWbsgArrayNNLO[3]" in rhs8 and
-        "-10./3.*CWbsgArrayNNLO[5]" in rhs8
+        check_hepfit_nnlo_c8_basis(hf_txt)
     )
     if not all(present.values()):
         raise ValueError(f"Source-basis check failed: {[k for k,v in present.items() if not v]}")
