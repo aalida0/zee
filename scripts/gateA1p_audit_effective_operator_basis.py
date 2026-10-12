@@ -22,6 +22,34 @@ Y={3:-1./3.,4:-4./9.,5:-20./3.,6:-80./9.}
 Z={3:1.,4:-1./6.,5:20.,6:-10./3.}
 MASSES=(300.,700.,1000.,2000.)
 
+# Check the entire effective-operator rotation. Older SuperIso
+# releases use 'double'; installed SuperIso v5 uses 'double complex'.
+# No coefficient/sign change is acceptable in either representation.
+EXPECTED_SUPERISO_EFFECTIVE={
+    "C2w7":"C2w[7]-1./3.*C2w[3]-4./9.*C2w[4]"
+            "-20./3.*C2w[5]-80./9.*C2w[6]",
+    "C2w8":"C2w[8]+C2w[3]-1./6.*C2w[4]"
+            "+20.*C2w[5]-10./3.*C2w[6]",
+}
+
+def check_superiso_effective_assignments(source):
+    """Check all C2w7/C2w8 source terms; ignore C type and whitespace only."""
+    found={}
+    for name,expected in EXPECTED_SUPERISO_EFFECTIVE.items():
+        pattern=rf"\bdouble\s+(?:complex\s+)?{name}\s*=\s*([^;]+);"
+        matches=re.findall(pattern,source,re.S)
+        if len(matches)!=1:
+            raise ValueError(
+                f"Expected exactly one SuperIso {name} definition "
+                f"(double or double complex), found {len(matches)}")
+        actual=re.sub(r"\s+","",matches[0])
+        if actual!=expected:
+            raise ValueError(
+                f"SuperIso {name} effective-basis coefficients/signs differ: "
+                f"observed={actual!r} expected={expected!r}")
+        found[f"SuperIso_RG_effective_C{name[-1]}"]=True
+    return found
+
 def assert_source_contract(si_source,si_manifest,hf_source,hf_manifest):
     si=si_source.read_bytes()
     hf=hf_source.read_bytes()
@@ -33,18 +61,18 @@ def assert_source_contract(si_source,si_manifest,hf_source,hf_manifest):
         raise ValueError("HEPfit source is not pinned")
     si_txt=si.decode()
     hf_txt=hf.decode()
-    # Guard the exact two distinct locations of the effective
-    # transformation; regex checks are structure, not full proof.
+    # The exact SuperIso NNLO effective combinations are validated
+    # above, accepting the installed version's 'double complex' type.
+    # Keep the independent HEPfit basis signatures checked as before.
     checks={
-        "SuperIso_RG_effective_C7":r"double\s+C2w7\s*=\s*C2w\[7\]\s*-\s*1\./3\.\*C2w\[3\]",
-        "SuperIso_RG_effective_C8":r"double\s+C2w8\s*=\s*C2w\[8\]\s*\+\s*C2w\[3\]",
         "HEPfit_NNLO_effective_C7":r"CWbsgArrayNNLO\[6\]\s*=\s*[^;]*-\s*1\./3\.\*CWbsgArrayNNLO\[2\]",
         "HEPfit_NNLO_effective_C8":r"CWbsgArrayNNLO\[7\]\s*=\s*[^;]*\+\s*CWbsgArrayNNLO\[2\]",
     }
-    present={
-        k:bool(re.search(pattern,si_txt if k.startswith("SuperIso") else hf_txt,re.S))
+    present=check_superiso_effective_assignments(si_txt)
+    present.update({
+        k:bool(re.search(pattern,hf_txt,re.S))
         for k,pattern in checks.items()
-    }
+    })
     if not all(present.values()):
         raise ValueError(f"Source-basis check failed: {[k for k,v in present.items() if not v]}")
     return {
