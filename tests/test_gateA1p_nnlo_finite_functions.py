@@ -76,6 +76,36 @@ class TestA1PFiniteMatching(unittest.TestCase):
                     recover_hepfit_runtime(binary,saved,root)
             self.assertTrue((root/"hepfit_finite_runtime_ldd.log").is_file())
 
+    def test_key4hep_matching_gsl_openblas_discovery(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            prefix=root/"key4hep_release"
+            gsl=prefix/"gsl"/"2.8-test"/"lib"
+            openblas=prefix/"openblas"/"0.3-test"/"lib"
+            gsl.mkdir(parents=True)
+            openblas.mkdir(parents=True)
+            (gsl/"libgsl.so.28").write_text("fixture soname")
+            (openblas/"libopenblas.so.0").write_text("fixture soname")
+            binary=root/"reference"
+            binary.write_text("fixture")
+            saved=root/"saved.txt"
+            saved.write_text(f"LD_LIBRARY_PATH={root/'stale'}\\n")
+            ldd=subprocess.CompletedProcess(
+                args=["ldd",str(binary)],returncode=0,
+                stdout=(f"libgsl.so.28 => {gsl}/libgsl.so.28\\n"
+                        f"libopenblas.so.0 => {openblas}/libopenblas.so.0\\n"),
+                stderr="")
+            with patch.dict(os.environ,{
+                    "LD_LIBRARY_PATH":"",
+                    "GATE_A1P_KEY4HEP_ROOT":str(prefix)},clear=True), \\
+                 patch("gateA1p_audit_nnlo_finite_functions.subprocess.run",
+                       return_value=ldd):
+                env=recover_hepfit_runtime(binary,saved,root)
+            chosen=env["LD_LIBRARY_PATH"].split(":")
+            self.assertIn(str(gsl),chosen)
+            self.assertIn(str(openblas),chosen)
+            self.assertEqual(len(chosen),2)
+
     def test_reject_bad_explicit_library_override(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp)
