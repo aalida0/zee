@@ -5,7 +5,7 @@ import unittest
 
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/"scripts"))
 from gateA1p_audit_effective_operator_basis import (audit,Y,Z,HEPFIT_CODE_Z,
-    check_superiso_effective_assignments)
+    check_superiso_effective_assignments,check_hepfit_nnlo_c8_basis)
 
 def rows():
     out=[]
@@ -32,6 +32,38 @@ class TestA1PEffectiveBasis(unittest.TestCase):
             "C2w[8]+C2w[3]-1./6.*C2w[4]"
             "+20.*C2w[5]-10./3.*C2w[6]"
         )
+
+    def test_pinned_hepfit_nnlo_c8_assignment_parses(self):
+        # Real source excerpt from HEPfit THDMMatching::setWCbsg,
+        # including line breaks and the unconventional -20*C5.
+        source="""
+            CWbsgArrayNNLO[7] = ( n82ct + cd82ct * lstmu
+                + ce82ct * lstmu * lstmu)/tan2 +
+                n82fr + cd82fr * lstmu + ce82fr * lstmu * lstmu
+                + CWbsgArrayNNLO[2]
+                - 1./6.*CWbsgArrayNNLO[3]
+                - 20.*CWbsgArrayNNLO[4]
+                - 10./3.*CWbsgArrayNNLO[5];
+        """
+        self.assertTrue(check_hepfit_nnlo_c8_basis(source))
+
+    def test_hepfit_missing_c8_assignment_rejected(self):
+        with self.assertRaisesRegex(ValueError,"found 0"):
+            check_hepfit_nnlo_c8_basis("CWbsgArrayNNLO[6] = 1;")
+
+    def test_hepfit_wrong_c5_sign_rejected(self):
+        source=("CWbsgArrayNNLO[7] = x + CWbsgArrayNNLO[2]"
+                " -1./6.*CWbsgArrayNNLO[3]"
+                " +20.*CWbsgArrayNNLO[4]"
+                " -10./3.*CWbsgArrayNNLO[5];")
+        with self.assertRaisesRegex(ValueError,"source terms differ"):
+            check_hepfit_nnlo_c8_basis(source)
+
+    def test_hepfit_duplicate_c8_definition_rejected(self):
+        source=("CWbsgArrayNNLO[7] = x; "
+                "CWbsgArrayNNLO[7] = y;")
+        with self.assertRaisesRegex(ValueError,"found 2"):
+            check_hepfit_nnlo_c8_basis(source)
 
     def test_real_and_complex_superiso_source_declarations(self):
         for declaration in ("double", "double complex"):
