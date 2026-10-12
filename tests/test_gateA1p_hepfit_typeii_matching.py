@@ -168,7 +168,9 @@ class TestGateA1P(unittest.TestCase):
         result=report([(300,si,hf)],1.394,self.manifest)
         self.assertEqual(result["failed_count"],0)
         self.assertGreater(result["NNLO_above_one_percent_relative_count"],0)
-        self.assertIn("PRECISION_FLAGS",result["status"])
+        self.assertIn("NNLO_DISCREPANCIES_BLOCK_PHYSICS_VALIDATION",
+                      result["status"])
+        self.assertTrue(result["physics_validation_blocked"])
         self.assertFalse(result["NNLO_publication_precision_validated"])
 
     def test_matching_scale_difference_rejected(self):
