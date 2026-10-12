@@ -96,14 +96,14 @@ def verify_sources(superiso_source,superiso_provenance,
         "HEPfit_blob":git_blob_sha(hepfit),
         "all_source_log_and_helper_definition_contracts_found":True,
         "source_text_does_not_prove_analytic_sign":True,
-        "sign_verified_by_compiled_helper_probes_only":True,
+        "sign_requires_compiled_helper_probes":True,
         "source_checks":found,
     }
 
 HELPER_ROW=re.compile(
-    r"^HELPER mass=([0-9.eE+\\-]+) op=([34]) value=([0-9.eE+\\-]+)$")
+    r"^HELPER mass=([-+0-9.eE]+) op=([34]) value=([-+0-9.eE]+)$")
 HELPER_INPUT=re.compile(
-    r"^INPUT mt_muW=([0-9.eE+\\-]+) tanbeta=([0-9.eE+\\-]+)$")
+    r"^INPUT mt_muW=([-+0-9.eE]+) tanbeta=([-+0-9.eE]+)$")
 
 def verify_helper_output(helper_output, mass_input, result_json):
     """Check the physical sign using the ACTUAL compiled A1M helper.
