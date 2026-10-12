@@ -47,6 +47,40 @@ class TestA1PEffectiveBasis(unittest.TestCase):
         """
         self.assertTrue(check_hepfit_nnlo_c8_basis(source))
 
+    def test_hepfit_commented_debug_echo_is_not_second_assignment(self):
+        # Regression for the actual upstream source: the correct NNLO
+        # assignment is followed by a commented-out std::cout that
+        # prints the text "CWbsgArrayNNLO[7] = ". It is not an
+        # additional executable assignment.
+        source="""
+        switch (order) {
+            case NNLO:
+                CWbsgArrayNNLO[7] = (n82ct + cd82ct * lstmu
+                    + ce82ct * lstmu * lstmu)/tan2 +
+                    n82fr + cd82fr * lstmu + ce82fr * lstmu * lstmu
+                    + CWbsgArrayNNLO[2]
+                    - 1./6.*CWbsgArrayNNLO[3]
+                    - 20.*CWbsgArrayNNLO[4]
+                    - 10./3.*CWbsgArrayNNLO[5];
+        }
+        /*std::cout << "CWbsgArrayNNLO[7] = "
+              << CWbsgArrayNNLO[7] << std::endl << std::endl;*/
+        """
+        self.assertTrue(check_hepfit_nnlo_c8_basis(source))
+
+    def test_hepfit_nonparenthesized_second_active_assignment_rejected(self):
+        # Do not overstate the source check as a general C++ parser:
+        # our pinned upstream source has a parenthesized primary RHS.
+        # A second parenthesized assignment must still be rejected.
+        source=(
+            "CWbsgArrayNNLO[7] = (n82ct)"
+            " + CWbsgArrayNNLO[2] - 1./6.*CWbsgArrayNNLO[3]"
+            " - 20.*CWbsgArrayNNLO[4]"
+            " - 10./3.*CWbsgArrayNNLO[5];"
+        )
+        with self.assertRaisesRegex(ValueError,"found 2"):
+            check_hepfit_nnlo_c8_basis(source+"\n"+source)
+
     def test_hepfit_missing_c8_assignment_rejected(self):
         with self.assertRaisesRegex(ValueError,"found 0"):
             check_hepfit_nnlo_c8_basis("CWbsgArrayNNLO[6] = 1;")
