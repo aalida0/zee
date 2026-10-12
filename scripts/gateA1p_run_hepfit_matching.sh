@@ -65,42 +65,8 @@ gcc -std=gnu11 -O2 -Wall -Wextra \
   "$a1m/src/libsuperiso.a" -lm -o "$out/superiso_a1m" \
   > "$out/build_superiso.log" 2>&1
 
-mt_muW="${GATE_A1P_MT_MUW_GEV:-163.10709645657502}"
-# This reference was inferred by inverting SuperIso LO C7 at mHp=300.
-# We compare DIFFERENT, independently implemented NLO/NNLO formulas
-# but have NOT independently verified the exact mt-running convention.
-# The output flags this limitation and never declares a physics exclusion.
-tanbeta=$(python3 - <<'PY'
-import math
-print(f"{math.tan(1.394):.17g}")
-PY
-)
-muW="160.7384"
-beta="1.394"
-masses=(300 700 1000 2000)
-pairs=()
-for mass in "${masses[@]}"; do
-  m2=$((mass+1))
-  (cd "$a1m" && "$out/superiso_a1m" \
-    "$mass" "$m2" 0 "$beta") \
-    > "$out/superiso_${mass}.txt"
-  (cd "$out" && ./hepfit_matching "$tanbeta" "$mt_muW" \
-     "$muW" "$mass") > "$out/hepfit_${mass}.txt"
-  pairs+=(--pair "$mass" "$out/superiso_${mass}.txt" "$out/hepfit_${mass}.txt")
-done
-
-set +e
-python3 "$script_dir/gateA1p_compare_hepfit_matching.py" \
-  "${pairs[@]}" --beta "$beta" \
-  --hepfit-provenance "$out/hepfit_provenance.json" \
-  --output "$out/result.json"
-result=$?
-set -e
-{
-  sha256sum "$a1m/src/wilson.c" "$a1m/src/libsuperiso.a"
-  sha256sum "$out/HEPfit_THDMMatching.cpp" "$out/hepfit_matching.cpp"
-  sha256sum "$out/hepfit_matching" "$out/superiso_a1m"
-} > "$out/source_binaries_sha256.txt"
-echo "RESULTS: $out/result.json"
-echo "STATUS: A1P_INDEPENDENT_TYPEII_MATCHING_PILOT_NOT_PHYSICAL_BR"
-exit "$result"
+# The same continuation path handles both fresh builds and runs that
+# previously stopped at the GSL shared-library loader. This derives the
+# actual running top mass from SuperIso and compares the pinned HEPfit
+# reference without re-downloading or modifying the source.
+bash "$script_dir/gateA1p_resume_hepfit_matching.sh" "$a1m" "$out"
