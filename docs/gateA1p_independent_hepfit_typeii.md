@@ -1,3 +1,77 @@
+## AF finite-function audit: stale Key4hep LD_LIBRARY_PATH recovery
+
+The AF compiled SuperIso v5 finite NNLO helper probe **completed**
+at `mt_fixed=163.10709645657508 GeV`, emitting all 16 helper
+components (four masses × C7/C8 × cot²beta/cross term). The
+independent HEPfit finite comparator then stopped **before evaluating
+a single HEPfit finite coefficient**, because a saved
+`hepfit_runtime_library_paths.txt` from a previous AF shell
+contained at least one now-inaccessible directory. This was
+an **overly strict infrastructure guard**, not a physics
+discrepancy or an incorrectly compiled SuperIso helper.
+
+The fixed `gateA1p_audit_nnlo_finite_functions.py`:
+- retains valid directories from current and saved
+  `LD_LIBRARY_PATH` (ignoring only expired paths);
+- discovers the actual `libgsl.so.28` and
+  `libopenblas.so.0` under the same previously verified
+  Key4hep 2026-02-01 architecture/release, if accessible;
+- permits explicit, real SONAME directories through
+  `GATE_A1P_GSL_LIBDIR`/`GATE_A1P_OPENBLAS_LIBDIR`;
+- checks the HEPfit executable's **actual** dependencies
+  with `ldd` before trying any numerical matching;
+- records the retained/stale runtime paths in
+  `hepfit_finite_runtime_paths.json` and the loader
+  output in `hepfit_finite_runtime_ldd.log`;
+- refuses unresolved dependencies; does **not** relink,
+  copy, symlink, rebuild, edit physics or alter source hashes.
+
+The runtime gate now has five new synthetic tests; the
+original eight algebraic/parser checks remain, so
+`test_gateA1p_nnlo_finite_functions.py` contains **13 tests**.
+The revised audit is committed but **has not yet been
+rerun on the AF**.
+
+**Resume with the saved 16 SuperIso finite values, no recompile:**
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+
+python3 -m unittest discover -s tests \
+  -p 'test_gateA1p_nnlo_finite_functions.py' -v
+
+python3 scripts/gateA1p_audit_nnlo_finite_functions.py \
+  --existing-result work/gateA1p_hepfit_typeii_v1/result.json \
+  --mass-input work/gateA1p_hepfit_typeii_v1/mass_input_provenance.json \
+  --superiso-finite work/gateA1p_hepfit_typeii_v1/nnlo_superiso_finite_helpers.txt \
+  --hepfit-binary work/gateA1p_hepfit_typeii_v1/hepfit_matching \
+  --superiso-source work/gateA1m_isolated_nlo_v1/isolated_superiso/src/wilson.c \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --hepfit-source work/gateA1p_hepfit_typeii_v1/HEPfit_THDMMatching.cpp \
+  --hepfit-provenance work/gateA1p_hepfit_typeii_v1/hepfit_provenance.json \
+  --library-paths work/gateA1p_hepfit_typeii_v1/hepfit_runtime_library_paths.txt \
+  --output work/gateA1p_hepfit_typeii_v1/nnlo_finite_function_audit.json
+```
+
+If the binary still cannot resolve GSL/OpenBLAS,
+inspect `hepfit_finite_runtime_ldd.log`.
+For the original AF Key4hep release, the known real library dirs were:
+
+```text
+/cvmfs/sw.hsf.org/key4hep/releases/2026-02-01/x86_64-almalinux9-gcc14.2.0-opt/gsl/2.8-rqwj7y/lib
+/cvmfs/sw.hsf.org/key4hep/releases/2026-02-01/x86_64-almalinux9-gcc14.2.0-opt/openblas/0.3.30-fvauzm/lib
+```
+
+Those are a **previously observed runtime**, not guaranteed
+available in every AF session; explicit override variables
+can select them when they are actually mounted.
+
+The finite C7/C8 NNLO decomposition, original-author
+`c2HDM.m` validation, complete Type-II BR and any Zee
+physical exclusion remain pending.
+
 ## Gate A1P FINITE NNLO diagnostic: isolate three-loop piecewise functions
 
 **AF independent-basis result CONFIRMED**: the corrected HEPfit C8
