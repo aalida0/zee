@@ -283,6 +283,72 @@ numbers do not excuse lack of matching validation.
 **Status: NNLO matching unresolved; physical BR and Zee
 allowed/excluded decisions remain blocked.**
 
+## Analytic follow-up: C3/C4 residual is entirely from matching logarithms
+
+Using the directly evaluated `mt(muW)=163.10709645657508` GeV,
+`muW=160.7384` GeV and the four exact charged masses, an independent
+analytic calculation reproduces every observed NNLO C3 and C4
+SuperIso-minus-HEPfit difference to better than 1e-12. This uses the
+explicit rational functions `cd32ct(x)` and `cd42ct(x)` in HEPfit.
+
+**Observed structural distinction (still requires auditing EXACT v5 source):**
+
+    HEPfit:   Ci^(2) = [ n_i(x) + d_i(x) ln(muW^2/mt(muW)^2) ] / tanbeta^2
+    SuperIso: Ci^(2) = [ n_i(x) - d_i(x) ln(muW^2/mH^2) ] / tanbeta^2
+
+where i=3,4, x=mt(muW)^2/mH^2. This implies
+
+    SuperIso - HEPfit =
+      -(d_i(x)/tanbeta^2) *
+       [ln(muW^2/mH^2) + ln(muW^2/mt(muW)^2)].
+
+Independent numerical check of this equation at the four masses:
+
+    mass_GeV    observed ΔC3       predicted ΔC3     observed ΔC4       predicted ΔC4
+       300     -0.00748606876     -0.00748606876     +0.01826369180     +0.01826369180
+       700     -0.00733374263     -0.00733374263     +0.02278235277     +0.02278235277
+      1000     -0.00580022110     -0.00580022110     +0.01929192874     +0.01929192874
+      2000     -0.00299341441     -0.00299341441     +0.01091454519     +0.01091454519
+
+The public SuperIso mirror (older version) has the indicated
+`C3H_2 = G3H + Delta3H * ln(muW^2/mH^2)` and analogous C4,
+with the opposite sign for the HEPfit `cd32ct/cd42ct` terms.
+The *actual patched 5.0 source* must be checked before asserting
+that the old mirror remains identical. The new script verifies
+both precise log/sign contracts and independent source hashes.
+
+Run against the **already produced AF results**:
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+
+python3 -m unittest discover -s tests \
+  -p 'test_gateA1p_nnlo_log_difference.py' -v
+
+python3 scripts/gateA1p_verify_nnlo_log_difference.py \
+  --existing-result work/gateA1p_hepfit_typeii_v1/result.json \
+  --mass-provenance work/gateA1p_hepfit_typeii_v1/mass_input_provenance.json \
+  --superiso-source work/gateA1m_isolated_nlo_v1/isolated_superiso/src/wilson.c \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --hepfit-source work/gateA1p_hepfit_typeii_v1/HEPfit_THDMMatching.cpp \
+  --hepfit-provenance work/gateA1p_hepfit_typeii_v1/hepfit_provenance.json \
+  --output work/gateA1p_hepfit_typeii_v1/nnlo_log_difference.json
+
+cat work/gateA1p_hepfit_typeii_v1/nnlo_log_difference.json
+```
+
+This does **not** establish that HEPfit's or SuperIso's
+prescription is the theoretically correct NNLO expression;
+the matching scale/log derivative must be checked against the
+original 2HDM NNLO theory and operator definitions. **No
+automatic Wilson replacement is permitted.** In particular,
+the remaining C7/C8 residuals need separate analysis of the
+direct three-loop functions, four-quark recombination, and
+interpolation/truncation schemes. Full observable-level
+comparison and theory errors remain pending.
+
 ## Independent external physics validation STILL necessary
 
 1. Check exact top-mass scheme and scale, basis and perturbative
