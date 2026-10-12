@@ -472,6 +472,48 @@ The independent original supplementary result and the full
 basis/scheme evolution remain necessary before trusting physical
 NNLO predictions.
 
+## AF regression: installed SuperIso 5 uses complex Wilson coefficients
+
+The first dipole basis source audit passed its four algebraic
+unit tests but stopped at two source-format guards:
+`SuperIso_RG_effective_C7` and `SuperIso_RG_effective_C8`.
+The verifier expected a literal `double C2w7`/`double C2w8`
+declaration. The SuperIso 5-compatible source uses
+`double complex C2w7`/`double complex C2w8`. This is a
+source-code **type-declaration mismatch** in our regex, not
+evidence that the operator transformation is absent.
+
+The corrected verifier accepts both `double` and
+`double complex`, but now checks every term in the complete
+NNLO effective-basis assignments (not only the leading C3 term).
+It will **still reject** changes of the signs or coefficients
+in front of C3, C4, C5 or C6. Four new synthetic tests exercise
+both accepted declarations, sign changes, coefficient changes
+and missing/duplicate definitions.
+
+Rerun, without rebuilding SuperIso/HEPfit:
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+
+python3 -m unittest discover -s tests \
+    -p 'test_gateA1p_effective_basis_audit.py' -v
+
+python3 scripts/gateA1p_audit_effective_operator_basis.py \
+    --existing-result work/gateA1p_hepfit_typeii_v1/result.json \
+    --superiso-source work/gateA1m_isolated_nlo_v1/isolated_superiso/src/wilson.c \
+    --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+    --hepfit-source work/gateA1p_hepfit_typeii_v1/HEPfit_THDMMatching.cpp \
+    --hepfit-provenance work/gateA1p_hepfit_typeii_v1/hepfit_provenance.json \
+    --output work/gateA1p_hepfit_typeii_v1/dipole_basis_audit.json
+```
+
+An unchanged output status
+`GATE_A1P_EFFECTIVE_OPERATOR_BASIS_CONSISTENCY_AUDIT_NOT_NNLO_PASS`
+must **not** be interpreted as theory validation.
+
 ## Independent external physics validation STILL necessary
 
 1. Check exact top-mass scheme and scale, basis and perturbative
