@@ -58,15 +58,20 @@ def check_superiso_effective_assignments(source):
 
 
 def check_hepfit_nnlo_c8_basis(source):
-    """Match the actual pinned HEPfit NNLO C8 expression.
+    """Match the active HEPfit NNLO C8 assignment, not debug text.
 
-    Use single backslashes in Python raw regexes: r"\[" represents
-    a literal array bracket; r"\\[" does NOT. Require exactly one
-    source assignment and check all four quark-operator coefficients
-    in HEPfit's implementation, including its -20*C5 term.
+    Anchor the expression at the beginning of a C++ statement and
+    require its right-hand side to start with an opening parenthesis.
+    The pinned HEPfit source includes a commented-out std::cout
+    containing the text CWbsgArrayNNLO[7] =, which must be ignored.
+    Exactly one active assignment must pass all four basis-term checks.
     """
+    # Full-line C++ assignment: the real RHS begins "( n82ct ...".
+    # The duplicate literal in a commented std::cout begins '" <<'
+    # and is not a standalone assignment statement.
     assignments=re.findall(
-        r"\bCWbsgArrayNNLO\[7\]\s*=\s*([^;]+);", source, re.S)
+        r"^[ \t]*CWbsgArrayNNLO\[7\][ \t]*=[ \t]*(\([^;]+);",
+        source, re.M)
     if len(assignments)!=1:
         raise ValueError(
             f"Expected one HEPfit NNLO C8 assignment; found {len(assignments)}")
