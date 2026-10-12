@@ -398,6 +398,80 @@ matching residuals together constitute a diagnosis. If any
 helper disagrees, the audit deliberately aborts: do not accept
 the previous claimed analytic source explanation.
 
+## Primary literature cross-check and dipole operator basis (October 12, 2026)
+
+The original paper by Hermann, Misiak and Steinhauser
+([arXiv:1208.2788](https://arxiv.org/abs/1208.2788);
+JHEP 11 (2012) 036), Sec. 2.3 explicitly states that its
+two-loop C3-C6 charged-Higgs results reproduce the independent
+calculation of Bobeth, Buras and Ewerth (Nucl. Phys. B 713
+(2005) 522), and that all lower-order functions use the running
+top mass `mt(mu0)`. The three-loop C7/C8 scale terms are
+defined as logarithms `ln(mu0^2/mt(mu0)^2)` in Eqs. (14)-(17).
+
+The authors also released **the original computer-readable results**:
+[original supplementary readme](https://www.ttp.kit.edu/Progdata/ttp12/ttp12-029/readme.pdf)
+refers to `c2HDM.m`, and explicitly defines both raw and
+effective Wilson coefficient conventions. This is the preferred
+authoritative next cross-check for C3/C4 correctness and C7/C8
+matching. We have NOT yet evaluated `c2HDM.m` or proven one
+implementation correct for C3/C4 — even though the observed
+difference is fully attributed to the different explicit logs.
+
+**Important basis mismatch in initial A1P raw-C7/C8 comparisons:**
+HEPfit's `THDMMatching::setWCbsg` at NNLO constructs its dipole
+results with the four-quark effective basis shift included, while
+SuperIso's `CW_calculator` returns raw C7/C8 and its
+`C_calculator_base1` applies the shift *during RG evolution*.
+The same transformations, documented by the 2012 author
+supplement, are:
+
+    C7_eff = C7 - C3/3 - 4*C4/9 - 20*C5/3 - 80*C6/9
+    C8_eff = C8 + C3 - C4/6 + 20*C5 - 10*C6/3
+
+Thus, comparing A1P's SuperIso raw C7/C8 directly to HEPfit
+effective C7/C8 is a **mixed-basis comparison**. Its reported
+C7/C8 NNLO residuals are genuine arithmetic but must not
+be interpreted as like-for-like coefficient mismatches.
+
+The source-hashed read-only diagnostic
+`gateA1p_audit_effective_operator_basis.py` uses existing
+A1P results and source provenance to compute BOTH common-basis
+comparisons:
+
+    direct:    SuperIso raw - [HEPfit effective - shift(HEPfit C3-C6)]
+    effective: [SuperIso raw + shift(SuperIso C3-C6)] - HEPfit effective
+
+The two residuals differ *precisely* by the already-confirmed
+C3/C4 NNLO mismatch acting through the basis shift.
+They must not be conflated. No matching source or numeric
+Wilson vector is modified.
+
+Run on the AF, using existing data (no build):
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_gateA1p_effective_basis_audit.py' -v
+python3 scripts/gateA1p_audit_effective_operator_basis.py \
+  --existing-result work/gateA1p_hepfit_typeii_v1/result.json \
+  --superiso-source work/gateA1m_isolated_nlo_v1/isolated_superiso/src/wilson.c \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --hepfit-source work/gateA1p_hepfit_typeii_v1/HEPfit_THDMMatching.cpp \
+  --hepfit-provenance work/gateA1p_hepfit_typeii_v1/hepfit_provenance.json \
+  --output work/gateA1p_hepfit_typeii_v1/dipole_basis_audit.json
+cat work/gateA1p_hepfit_typeii_v1/dipole_basis_audit.json
+```
+
+A numerical transform from the existing uploaded A1P data already
+indicates that these matched-basis comparisons retain nonzero
+differences at NNLO — the basis issue is **not the entire solution**.
+The independent original supplementary result and the full
+basis/scheme evolution remain necessary before trusting physical
+NNLO predictions.
+
 ## Independent external physics validation STILL necessary
 
 1. Check exact top-mass scheme and scale, basis and perturbative
