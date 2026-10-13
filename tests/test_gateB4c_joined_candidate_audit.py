@@ -96,6 +96,12 @@ class TestGateB4C(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"Mismatch lfv"):
             make_join(p,b2,b3,a1v)
 
+    def test_neutrino_closure_mismatch_rejected_at_ev_scale(self):
+        p,b2,b3,a1v=mock_data()
+        b3[0]["neutrino_matrix_closure_eV"]=3e-16
+        with self.assertRaisesRegex(ValueError,"Mismatch closure"):
+            make_join(p,b2,b3,a1v)
+
     def test_no_double_counted_ranks(self):
         p,b2,b3,a1v=mock_data()
         b3[1]["b2_solution_rank"]="1"
