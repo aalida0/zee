@@ -106,6 +106,36 @@ class TestZeeBarrZeePhotonFermion(unittest.TestCase):
                 "barr_zee_fermion_photon_only_BR"]>=0)
             self.assertIn("NO_FULL_LFV_EXCLUSION",row["status"])
 
+    def test_complex_diagonal_tau_uses_both_scalar_and_pseudo_kernels(self):
+        # Y_tau,tau complex is permitted in our general Zee scan.
+        # H couples with Y, A with iY; both fields then have mixed
+        # scalar/pseudoscalar tau vertices, not pure f or pure g.
+        Y=np.zeros((3,3),complex)
+        Y[0,1]=.001
+        Y[2,2]=.003+.004j
+        p=dict(self.p)
+        p["alpha"]=p["beta"]
+        _,_,parts=flav_bz_amplitudes(
+            p,Y,parent=1,daughter=0)
+        tau_H=next(r for r in parts if r["fermion"]=="tau"
+                   and r["boson"]=="H")
+        tau_A=next(r for r in parts if r["fermion"]=="tau"
+                   and r["boson"]=="A")
+        eff_H=complex(*tau_H["fermion_chiral_effective"])
+        eff_A=complex(*tau_A["fermion_chiral_effective"])
+        self.assertAlmostEqual(
+            eff_H.real,.003*tau_H["loop_function_scalar_f"],
+            delta=1e-15)
+        self.assertAlmostEqual(
+            eff_H.imag,.004*tau_H["loop_function_pseudoscalar_g"],
+            delta=1e-15)
+        self.assertAlmostEqual(
+            eff_A.real,-.004*tau_A["loop_function_scalar_f"],
+            delta=1e-15)
+        self.assertAlmostEqual(
+            eff_A.imag,.003*tau_A["loop_function_pseudoscalar_g"],
+            delta=1e-15)
+
     def test_heavy_H_A_top_add_and_bottom_cancel_relative_signs(self):
         # Davidson EPJC 76 (2016) 258 Eq.(21)-(23):
         # top H/A add for mH≈mA; bottom H/A cancel at leading
