@@ -260,18 +260,23 @@ def scan(seeds,*,steps,chains,quad,adaptive_block,rng,
                     np.linalg.LinAlgError):
                 reject["numerical"]+=1
         if success:
-            accepted+=1;per_block+=1
-            states[k]=x
             cell=coarse_bin(p)
+            new_record=None
             if cell not in seen:
                 try:
-                    row=make_record(p,th,ew,it,"B4_"+str(it).zfill(7),
-                                    provenance[k])
+                    new_record=make_record(
+                        p,th,ew,it,"B4_"+str(it).zfill(7),provenance[k])
                 except (ValueError,ArithmeticError,FloatingPointError,
                         np.linalg.LinAlgError):
+                    # A proposal is accepted only when its required
+                    # recorded observables can also be calculated.
                     reject["numerical"]+=1
-                else:
-                    records.append(row);seen.add(cell)
+                    success=False
+            if success:
+                accepted+=1;per_block+=1
+                states[k]=x
+                if new_record is not None:
+                    records.append(new_record);seen.add(cell)
         if it%adaptive_block==0:
             rate=per_block/adaptive_block
             if rate>.43:scale=min(6.,scale*1.22)
