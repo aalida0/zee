@@ -1,3 +1,63 @@
+## AF ORIGINAL c2HDM.m FETCH SUCCESS — authenticate and inspect formulas
+
+**KIT authoritative source was obtained on the AF**, reported:
+
+    STATUS GATE_A1Q_KIT_ORIGINAL_SOURCE_FETCHED_NOT_EVALUATED
+    AUTHOR_SOURCE_URL https://www.ttp.kit.edu/Progdata/ttp12/ttp12-029/c2HDM.m
+    C2HDM_SHA256 cb2d1328bc2542a6324e73efe6f89c43381efdc93db5e3b0ca8348db980645d8
+
+This fully clears **source acquisition**, NOT Mathematica evaluation or
+NNLO matching/physical BR verification. The original source must remain
+on the AF in the uncommitted work/ directory.
+
+The new read-only inspector, introduced after AF source acquisition,
+pins the EXACT original SHA256 above, checks the original KIT URL
+against kit_source_provenance.json and extracts source assignments for
+
+    cH[2,3], cH[2,4], cHeff[2,7], cHeff[2,8], cH[3,8].
+
+It carefully removes nested Mathematica comments/strings before finding
+literal assignments, records source locations and short unmodified
+formula excerpts, and lists occurrences of Log, mu, mt, r, ubar,
+and three-loop expansion functions. A literal-assignment match is
+static *source evidence*, not a proof of mathematical equivalence.
+If the source uses general rules rather than literal assignments,
+the missing-expression flag must not be interpreted as missing physics.
+
+**Run on AF using the source ALREADY downloaded; no refetch/build:**
+
+~~~bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+
+python3 -m unittest discover -s tests \
+  -p 'test_gateA1q_inspect_original_mathematica.py' -v
+
+python3 scripts/gateA1q_inspect_original_mathematica.py \
+  --authors-source work/gateA1q_original_nnlo_v1/c2HDM.m \
+  --kit-provenance work/gateA1q_original_nnlo_v1/kit_source_provenance.json \
+  --output work/gateA1q_original_nnlo_v1/source_formula_inspection.json
+~~~
+
+Expected result:
+
+    GATE_A1Q_ORIGINAL_SOURCE_AUTHENTICATED_STATIC_INSPECTION_NO_NNLO_PASS
+
+The inspector prints the relevant source line numbers and first 220
+characters of definitions, with complete excerpts (capped at 1300
+characters per assignment) in source_formula_inspection.json.
+Share the console output and, if needed, relevant source excerpts
+for an exact Wolfram numerical cross-check. It intentionally does
+not copy the complete external Mathematica implementation into git.
+
+**Next hard physics gate:** Independently numerically evaluate the
+*original* c2HDM.m Wilson coefficients, including exact mapping
+of original P7/P8 inverse-alpha_s normalization to the coefficients
+used by HEPfit and SuperIso. Compare C3/C4 logs and C8 +20*C5
+with absolute benchmark values and controlled scale variation.
+No matching patch/exclusion until this gate is passed.
+
 # Gate A1Q — original 2012 NNLO theory reference
 
 ## Purpose / current status
