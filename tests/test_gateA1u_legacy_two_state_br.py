@@ -18,12 +18,13 @@ R2=.00037793429732
 
 def fake_raw(m1=300.,m2=700.,g=1.089,b0=.000390,b1=.000393,
              b2=.000391,d1_7=-.10,d2_7=-.05,
-             d1_8=-.08,d2_8=-.04):
+             d1_8=-.08,d2_8=-.04, mode="reload"):
     w1=math.cos(g)**2
     w2=math.sin(g)**2
-    br=b0+w1*(b1-b0)+w2*(b2-b0)
+    br=b0+w1*(b1-b0)+w2*(b2-b0) if mode=="reload" else b0
     return (
         "STATUS "+STATUS+"\n"
+        f"INTERNAL_CW_MODE={mode}\n"
         f"INPUT mH1_GeV={m1:.17g} mH2_GeV={m2:.17g} "
         f"gamma_rad={g:.17g} tanbeta={TAN:.17g} "
         "muW_GeV=160.7384 mu_b_GeV=2.4\n"
@@ -106,6 +107,53 @@ class TestGateA1ULegacyTwoState(unittest.TestCase):
             (p/"bsgamma.c").write_text(SOURCE_SAMPLE.replace(
                 "return N_E0+Cem[7];","return N_E0+Cem[7]+param->mass_H;"))
             with self.assertRaisesRegex(ValueError,"mass/SM"):
+                audit_affine_internal_matching(t)
+
+    def test_real_v5_no_reload_source_mode_is_accepted_safely(self):
+        source=(
+            "double bsgamma(double complex C0[],double complex C1[],"
+            " double complex C2[],double complex Cp[], double mu,"
+            " double muW,struct parameters* param) {"
+            " double Kt0=C0[7] +2*C0[8];"
+            " double Cem[9]; Cem[7]=C0[7]+C0[8];"
+            " return Kt0+Cem[7];"
+            " }\n"
+            "double bsgamma_calculator(char* name) {"
+            " CW_calculator(2,a,b,c,muW,param); return 0.;}\n"
+        )
+        with tempfile.TemporaryDirectory() as t:
+            p=Path(t)/"src"
+            p.mkdir()
+            (p/"bsgamma.c").write_text(source)
+            report=audit_affine_internal_matching(t)
+            self.assertEqual(report["internal_CW_mode"],"none")
+            self.assertEqual(report["internal_CW_call_count"],0)
+            self.assertFalse(report["affine_interpolation_needed"])
+            self.assertTrue(report["numerical_fixed_low_context_test_required"])
+        parsed=parse_driver(fake_raw(b1=.000390,b2=.000390,mode="none"),
+                            300.,700.,1.089,TAN,expected_mode="none")
+        self.assertTrue(parsed["fixed_low_context_invariance_verified"])
+        self.assertAlmostEqual(parsed["full_legacy_Zee_BR"],.000390)
+
+    def test_no_reload_context_mismatch_is_hard_failure(self):
+        with self.assertRaisesRegex(ValueError,"context"):
+            parse_driver(fake_raw(mode="none"),300.,700.,1.089,TAN)
+        with self.assertRaisesRegex(ValueError,"mode differs"):
+            parse_driver(fake_raw(mode="reload"),300.,700.,1.089,TAN,
+                         expected_mode="none")
+
+    def test_no_reload_source_unknown_high_scale_reference_is_blocked(self):
+        source=(
+            "double bsgamma(double C0[],double C1[],double C2[],"
+            " double Cp[],double mu,double muW,struct parameters* param)"
+            " { double C0w[11]; return C0w[7]+C0[7];}\n"
+            "double bsgamma_calculator(char* filename) {return 0.;}\n"
+        )
+        with tempfile.TemporaryDirectory() as t:
+            p=Path(t)/"src"
+            p.mkdir()
+            (p/"bsgamma.c").write_text(source)
+            with self.assertRaisesRegex(ValueError,"without CW reload"):
                 audit_affine_internal_matching(t)
 
     def test_strict_parse_and_affine_internal_math(self):
