@@ -52,8 +52,13 @@ class TestGateB3(unittest.TestCase):
         x1=v["H1"]["e"]/300./math.sin(g)**2
         x2=v["H2"]["e"]/700./math.cos(g)**2
         self.assertAlmostEqual(x1,x2,places=16)
-        y1=v["H1"]["tau"]/300./math.cos(g)**2
-        y2=v["H2"]["tau"]/700./math.sin(g)**2
+        # Unlike electrons, a tau is not massless: H1 and H2 have
+        # different exact two-body phase-space suppressions at 300 and
+        # 700 GeV. Remove them before testing the mixing-angle weights.
+        ps1=(1-(MTAU/300.)**2)**2
+        ps2=(1-(MTAU/700.)**2)**2
+        y1=v["H1"]["tau"]/(300.*math.cos(g)**2*ps1)
+        y2=v["H2"]["tau"]/(700.*math.sin(g)**2*ps2)
         self.assertAlmostEqual(y1,y2,places=16)
 
     def test_real_neutrino_seed_and_lepton_replacement(self):
@@ -96,7 +101,13 @@ class TestGateB3(unittest.TestCase):
             rows=run(b1,b2,1)
             self.assertEqual(len(rows),1)
             self.assertEqual(rows[0]["candidate_id"],"0")
-            self.assertIn("NOT_ALLOWED",STATUS)
+            # The top-level status explicitly states both that this
+            # is not a physical BR and that no point is certified.
+            self.assertEqual(
+                STATUS,
+                "GATE_B3_LEPTON_WIDTH_REPLACEMENT_ONLY_NOT_PHYSICAL_BR_OR_ALLOWED",
+            )
+            self.assertIn("NOT_ALLOWED", rows[0]["status"])
 
 if __name__=="__main__":
     unittest.main()
