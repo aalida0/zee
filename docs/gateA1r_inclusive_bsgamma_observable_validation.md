@@ -48,10 +48,14 @@ Cases:
 LO and NLO matching, all SM input parameters, physical SuperIso kernel,
 and full single Type-II charged state remain IDENTICAL between V and A.
 No author coefficient is converted into effective basis before injection;
-the original vendor RG function does that itself. The bsgamma kernel
-internally calls CW_calculator to obtain LO charged-Higgs matching for
-nonperturbative Kt0; our single-state param still has the same charged
-state, so that internal call includes it consistently at LO.
+the original vendor RG function does that itself. Depending on the exact pinned vendor version, bsgamma() may itself
+recompute high-scale matching for a nonperturbative term. Gate A1R
+now explicitly records whether an internal CW_calculator() call is
+found INSIDE the bsgamma() body, rather than assuming an exact
+call signature. Our single-state SM/Type-II controls still use the
+same original vendor observable. Before constructing a *two-state*
+Zee observable, the corresponding nonperturbative LO dependence
+must be checked in the actual version.
 
 User already evaluated original c2HDM.m with Mathematica, and the
 runner uses the resulting exact-SHA256 original numerical data. It
@@ -109,11 +113,38 @@ regenerating the original Mathematica inputs, not bypassing a guard.
   and define the statistical treatment for the HFLAV measurement.
 - Only then extend to 2-state Zee-type scalar sector via SUM OF
   COEFFICIENTS, not a weighted average of branching ratios.
-- The bsgamma() internal high-scale recalculation for the
-  nonperturbative Kt0 term must be made LO-consistent with the two-state
-  matching before even a provisional Zee 2-state BR calculation.
+- Determine from the actual pinned bsgamma() implementation whether
+  its nonperturbative contribution recomputes a high-scale Wilson
+  coefficient internally; if so, make that contribution LO-consistent
+  with BOTH charged Higgs states before even a provisional Zee
+  two-state branching-ratio calculation.
 - A full Zee neutrino-mass-model claim additionally needs neutrino
   oscillation and lepton-flavor-violation checks. Type-II QUARK
   couplings alone do not force the excluded Zee-Wolfenstein lepton texture.
 
 No physical allowed/excluded Zee point can be inferred from the pilot.
+
+## Fix after initial AF preflight failures (2026-10-13)
+
+The first A1R trial had 6/7 tests pass. The remaining regression
+compared the literal serialized string 'MUW 160.7384' with
+' MUW 160.73840000000001' (excluding the illustrative leading
+space). Both values parse to the same Python binary64 number; that
+is not a scientific discrepancy. The test now compares numeric
+values and retains 17-digit round-trip serialization.
+
+The preflight also required a very specific literal invocation of
+CW_calculator(C0w,C1w,C2w,mu_W,param) within bsgamma.c and thus
+incorrectly failed without measuring the observable. This was an
+overspecified source-text assumption, not proof that the physics
+routine omits matching. The revised check identifies the actual
+bsgamma() body, records any CW_calculator() call found there, and
+explains the implication for the future two-state case. The photon
+cut, original source fingerprints, driver outputs and lack of
+full-NNLO/exclusion claims remain hard guards. Two tests explicitly
+cover both the presence and absence of an internal call and altered
+photon cuts.
+
+These fixes are new GitHub commits and have not yet been retested
+on the AF. Do not interpret a future A1R source preflight PASS as
+an independently validated NNLO branching ratio.
