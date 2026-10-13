@@ -34,6 +34,11 @@ WEIGHTS=re.compile(rf"^WEIGHTS w1={FNUM} w2={FNUM}$")
 MATCH=re.compile(rf"^MATCH op=(7|8) sm_LO={FNUM} "
                  rf"delta1_LO={FNUM} delta2_LO={FNUM} zee_LO={FNUM}$")
 MODE=re.compile(r"^INTERNAL_CW_MODE=(none|reload)$")
+DIAGNOSTIC=re.compile(
+    rf"^A1U_CONTEXT_DIAGNOSTIC RG_MAX_ABS_DELTA_H1={FNUM} "
+    rf"RG_MAX_ABS_DELTA_H2={FNUM} "
+    rf"FIXED_LOW_BR_SM={FNUM} FIXED_LOW_BR_H1={FNUM} "
+    rf"FIXED_LOW_BR_H2={FNUM}$")
 INTERNAL=re.compile(
     rf"^INTERNAL_FIXED_LOW BR_SM_CONTEXT={FNUM} "
     rf"BR_H1_CONTEXT={FNUM} BR_H2_CONTEXT={FNUM}$")
@@ -160,8 +165,14 @@ def parse_driver(raw,expected_m1,expected_m2,expected_gamma,tanbeta,expected_mod
     mode=one(MODE)[1]
     if expected_mode is not None and mode!=expected_mode:
         raise ValueError("A1U C-driver internal matching mode differs from audited source")
+    diag=one(DIAGNOSTIC)
+    rg1,rg2,db0,db1,db2=[finite(v) for v in diag.groups()]
+    if not (0.<=rg1<=1.e-10 and 0.<=rg2<=1.e-10):
+        raise ValueError("A1U fixed-high-scale RG context invariance FAILED")
     internal=one(INTERNAL)
     b0,b1,b2=[finite(x) for x in internal.groups()]
+    if max(abs(db0-b0),abs(db1-b1),abs(db2-b2))>1.e-15:
+        raise ValueError("A1U C-driver fixed-low diagnostics disagree with final output")
     if mode=="none" and max(abs(b0-b1),abs(b0-b2))>2e-12:
         raise ValueError(
             "No-reload bsgamma() changed with SM/H1/H2 context "
@@ -185,6 +196,11 @@ def parse_driver(raw,expected_m1,expected_m2,expected_gamma,tanbeta,expected_mod
         "full_legacy_Zee_BR":br,
         "internal_CW_mode":mode,
         "fixed_low_context_invariance_verified":mode=="none",
+        "high_scale_fixed_RG_context_max_abs_delta_H1":rg1,
+        "high_scale_fixed_RG_context_max_abs_delta_H2":rg2,
+        "fixed_low_context_numeric_separation":{
+            "SM_minus_H1":b0-b1,"SM_minus_H2":b0-b2,
+        },
         "internal_high_scale_eval_fixed_low":{
             "SM":b0,"H1":b1,"H2":b2,
         },
