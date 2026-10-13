@@ -24,7 +24,7 @@ import math
 from pathlib import Path
 from scipy.integrate import quad
 
-STATUS="ZEE_BARR_ZEE_PHOTON_FERMION_LOOP_KERNELS_VALIDATED_MATH_ONLY_NOT_LFV_EXCLUSION"
+STATUS="ZEE_BARR_ZEE_PHOTON_FERMION_KERNELS_MATH_ONLY_NOT_LFV_EXCLUSION"
 FERMION_MASSES_GEV={
     "top_nominal":172.5,
     "bottom_nominal":4.18,
