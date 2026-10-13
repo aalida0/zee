@@ -99,42 +99,87 @@ static void mix_wc(struct wc *out,const struct wc *sm,
                               +w2*(h2->Cp[i]-sm->Cp[i]);
     }
 }
-static double real_br(const struct wc *high,
-                      const struct parameters *base,
-                      double inner_mass,int inner_is_sm,
-                      double muW,double mub)
+struct low_wc {
+    double complex C0[NWC],C1[NWC],C2[NWC];
+};
+
+static int evolve(const struct wc *high,
+                  const struct parameters *base,
+                  double context_mass,int context_is_sm,
+                  double muW,double mub,struct low_wc *low)
 {
-    double complex C0b[NWC]={0},C1b[NWC]={0},C2b[NWC]={0};
     double complex C0w[NWC]={0},C1w[NWC]={0},C2w[NWC]={0};
-    double complex Cp[NWC]={0};
     struct parameters p;
     int i;
-    at_state(&p,base,inner_mass,inner_is_sm);
-    /* SuperIso APIs do not expose const for input coefficient
-     * pointers. Copy them to fresh arrays for every internal
-     * context so a vendor routine cannot mutate the shared
-     * MIXED matching vectors between successive calls. */
+    at_state(&p,base,context_mass,context_is_sm);
     memcpy(C0w,high->C0,sizeof(C0w));
     memcpy(C1w,high->C1,sizeof(C1w));
     memcpy(C2w,high->C2,sizeof(C2w));
-    memcpy(Cp,high->Cp,sizeof(Cp));
+    memset(low,0,sizeof(*low));
     C_calculator_base1(C0w,C1w,C2w,
-        muW,C0b,C1b,C2b,mub,&p);
+        muW,low->C0,low->C1,low->C2,mub,&p);
     for(i=1;i<=10;i++) {
-        if(!is_real_finite(C0b[i])||
-           !is_real_finite(C1b[i])||
-           !is_real_finite(C2b[i])) {
-            fprintf(stderr,"A1U_NONREAL_LOW_WILSON op=%d\n",i);
-            return -1.;
+        if(!is_real_finite(low->C0[i])||
+           !is_real_finite(low->C1[i])||
+           !is_real_finite(low->C2[i])) {
+            fprintf(stderr,"A1U_NONREAL_RG_WILSON op=%d\n",i);
+            return 0;
         }
     }
+    return 1;
+}
+static double maximum_low_diff(const struct low_wc *a,
+                               const struct low_wc *b)
+{
+    double maxerr=0.;
+    int i;
+    for(i=1;i<=10;i++) {
+        double v=cabs(a->C0[i]-b->C0[i]);
+        if(v>maxerr)maxerr=v;
+        v=cabs(a->C1[i]-b->C1[i]);
+        if(v>maxerr)maxerr=v;
+        v=cabs(a->C2[i]-b->C2[i]);
+        if(v>maxerr)maxerr=v;
+    }
+    return maxerr;
+}
+static double observable_at_fixed_low(const struct low_wc *low,
+                                      const struct wc *high,
+                                      const struct parameters *base,
+                                      double context_mass,int context_is_sm,
+                                      double muW,double mub)
+{
+    double complex C0b[NWC],C1b[NWC],C2b[NWC],Cp[NWC];
+    struct parameters p;
+    at_state(&p,base,context_mass,context_is_sm);
+    /* Work from fresh COPIES, even if vendor bsgamma mutates inputs.
+     * The three calls now receive *identical* low-scale Wilsons.
+     */
+    memcpy(C0b,low->C0,sizeof(C0b));
+    memcpy(C1b,low->C1,sizeof(C1b));
+    memcpy(C2b,low->C2,sizeof(C2b));
+    memcpy(Cp,high->Cp,sizeof(Cp));
     return bsgamma(C0b,C1b,C2b,Cp,mub,muW,&p);
 }
+static double real_br(const struct wc *high,
+                      const struct parameters *base,
+                      double context_mass,int context_is_sm,
+                      double muW,double mub)
+{
+    struct low_wc low;
+    if(!evolve(high,base,context_mass,context_is_sm,muW,mub,&low))
+        return -1.;
+    return observable_at_fixed_low(&low,high,base,
+                                   context_mass,context_is_sm,muW,mub);
+}
+
 int main(int argc,char **argv)
 {
     double m1,m2,gamma,tanbeta,muW,mub,c,s,w1,w2;
     double bsm_low,b1_low,b2_low,mixBR;
     double ref1,ref2,refdeg;
+    double rgdiff_H1,rgdiff_H2;
+    struct low_wc lowSM,lowH1,lowH2;
     struct parameters p;
     struct wc sm={0},h1={0},h2={0},mixed={0};
     int i;
@@ -186,33 +231,58 @@ int main(int argc,char **argv)
             return 3;
         }
     }
-    /* Same MIXED low-scale WC input each time; only the internal
-     * LO matching reloaded by bsgamma differs SM/H1/H2.
-     * This is affine interpolation of the nuisance term, not an
-     * average of single-Higgs physical branching ratios.
+    /* Diagnostic 1: does the pinned vendor RG depend on the context
+     * beyond the supplied fixed HIGH-scale Wilson coefficients?
+     * Compare the FULL low-scale C0/C1/C2 vectors, not only the BR.
      */
-    bsm_low=real_br(&mixed,&p,m1,1,muW,mub);
-    b1_low=real_br(&mixed,&p,m1,0,muW,mub);
-    b2_low=real_br(&mixed,&p,m2,0,muW,mub);
+    if(!evolve(&mixed,&p,m1,1,muW,mub,&lowSM) ||
+       !evolve(&mixed,&p,m1,0,muW,mub,&lowH1) ||
+       !evolve(&mixed,&p,m2,0,muW,mub,&lowH2))
+        return 3;
+    rgdiff_H1=maximum_low_diff(&lowSM,&lowH1);
+    rgdiff_H2=maximum_low_diff(&lowSM,&lowH2);
+
+    /* Diagnostic 2: use the SAME RG-evolved Wilson vectors in each
+     * call to the unchanged bsgamma(). This separates genuine model
+     * dependence inside the observable from context differences
+     * created earlier by C_calculator_base1().
+     */
+    bsm_low=observable_at_fixed_low(&lowSM,&mixed,&p,m1,1,muW,mub);
+    b1_low=observable_at_fixed_low(&lowSM,&mixed,&p,m1,0,muW,mub);
+    b2_low=observable_at_fixed_low(&lowSM,&mixed,&p,m2,0,muW,mub);
+    printf("A1U_CONTEXT_DIAGNOSTIC RG_MAX_ABS_DELTA_H1=%.17g "
+           "RG_MAX_ABS_DELTA_H2=%.17g "
+           "FIXED_LOW_BR_SM=%.17g FIXED_LOW_BR_H1=%.17g "
+           "FIXED_LOW_BR_H2=%.17g\n",
+           rgdiff_H1,rgdiff_H2,bsm_low,b1_low,b2_low);
+    fflush(stdout);
+    /* Never silently choose the SM or a Higgs context if the
+     * pinned vendor RG acts differently on identical high-scale
+     * coefficients. This would require model-aware treatment.
+     */
+    if(!isfinite(rgdiff_H1)||!isfinite(rgdiff_H2)||
+       rgdiff_H1>1.e-10 || rgdiff_H2>1.e-10) {
+        fprintf(stderr,
+          "A1U_FIXED_HIGH_RG_CONTEXT_DEPENDENCE_NEEDS_SOURCE_AUDIT "
+          "maxH1=%.17g maxH2=%.17g\n",
+          rgdiff_H1,rgdiff_H2);
+        return 3;
+    }
     if(!internal_reload) {
-        /* SuperIso v5 with NO internal matching reload: context
-         * independence must hold directly and numerically. The
-         * same mixed low-scale matching vectors are passed to each
-         * observable call. Any model-context dependence invalidates
-         * this branch and must NOT be silently reweighted. */
-        if(!isfinite(bsm_low) || !isfinite(b1_low) || !isfinite(b2_low) ||
+        if(!isfinite(bsm_low)||!isfinite(b1_low)||!isfinite(b2_low)||
            fabs(bsm_low-b1_low)>2.e-12 ||
            fabs(bsm_low-b2_low)>2.e-12) {
             fprintf(stderr,
-                    "A1U_NO_RELOAD_CONTEXT_INVARIANCE_FAILED "
-                    "SM=%.17g H1=%.17g H2=%.17g\n",
-                    bsm_low,b1_low,b2_low);
+               "A1U_FIXED_LOW_BSGAMMA_CONTEXT_DEPENDENCE_NEEDS_SOURCE_AUDIT "
+               "SM=%.17g H1=%.17g H2=%.17g\n",
+               bsm_low,b1_low,b2_low);
             return 3;
         }
         mixBR=bsm_low;
     } else {
-        /* Only the internally reloaded part may be interpolated,
-         * after source-provenance and affine-dependence checks. */
+        /* For verified affine bsgamma() reloaded C7/C8 dependence,
+         * interpolation applies ONLY to the internal observable
+         * contribution, while fixed-low inputs are identical. */
         mixBR=bsm_low+w1*(b1_low-bsm_low)+w2*(b2_low-bsm_low);
     }
 
