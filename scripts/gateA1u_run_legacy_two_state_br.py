@@ -33,6 +33,7 @@ INPUT=re.compile(
 WEIGHTS=re.compile(rf"^WEIGHTS w1={FNUM} w2={FNUM}$")
 MATCH=re.compile(rf"^MATCH op=(7|8) sm_LO={FNUM} "
                  rf"delta1_LO={FNUM} delta2_LO={FNUM} zee_LO={FNUM}$")
+MODE=re.compile(r"^INTERNAL_CW_MODE=(none|reload)$")
 INTERNAL=re.compile(
     rf"^INTERNAL_FIXED_LOW BR_SM_CONTEXT={FNUM} "
     rf"BR_H1_CONTEXT={FNUM} BR_H2_CONTEXT={FNUM}$")
@@ -47,11 +48,15 @@ def finite(s):
     return x
 
 def audit_affine_internal_matching(vendor_root):
-    """Fail closed on source patterns inconsistent with affine internal use.
+    """Classify *actual pinned* bsgamma() internal matching dependence.
 
-    A static scan is a necessary preliminary guard and not a formal C
-    semantic proof. An independent exact endpoint and degeneracy closure
-    is also required before output can be used.
+    This must not assume the v3-era implementation is present in the
+    isolated SuperIso v5 tree. If there is NO internal CW_calculator()
+    reload, no affine interpolation is needed; require actual numerical
+    independence under three model-parameter contexts with *identical*
+    mixed low-scale coefficients. If an internal reload exists, require
+    the documented affine C7/C8 source pattern before interpolating.
+    Both cases are subject to A1R physical endpoint closure.
     """
     path=Path(vendor_root)/"src"/"bsgamma.c"
     raw=path.read_bytes()
@@ -63,51 +68,59 @@ def audit_affine_internal_matching(vendor_root):
         raise ValueError("Cannot locate source-pinned bsgamma body")
     body=clean[a.end():b.start()]
     calls=re.findall(r"\bCW_calculator\s*\(",body)
-    if len(calls)!=1:
+    if len(calls)>1:
+        raise ValueError("More than one internal CW_calculator() call: unsupported")
+    if re.search(r"param\s*->\s*(?:SM|mass_H)\b",body):
         raise ValueError(
-            "bsgamma internal high-scale reload count changed; "
-            f"expected 1 actual call, saw {len(calls)}")
-    # C0w[11] (or C0w[9]) in the local array DECLARATION is
-    # not a physical operator reference; remove that declaration
-    # before checking the actual expression-level C0w indices.
+            "Direct model mass/SM dependence inside bsgamma outside reload; "
+            "internal-context independence/affinity is unsafe")
+    # Local array declarations are NOT indexed operator uses.
     expressions=re.sub(
         r"\b(?:double\s+complex|double)\s+[^;]*"
         r"\bC0w\s*\[\s*\d+\s*\][^;]*;",
         " ",body)
     refs=re.findall(r"\bC0w\s*\[\s*([^\]]+)\s*\]",expressions)
-    allowed={"7","8"}
-    if not refs or set(refs)-allowed:
-        raise ValueError(f"Unsupported bsgamma reloaded C0w index set {set(refs)}")
+    refs=[r.strip() for r in refs]
+    common={
+        "superiso_v5_bsgamma_sha256":hashlib.sha256(raw).hexdigest(),
+        "internal_CW_call_count":len(calls),
+        "source_scan_not_formal_semantic_proof":True,
+        "two_state_modern_2026_BR_validated":False,
+        "numerical_fixed_low_context_test_required":True,
+    }
+    if not calls:
+        if refs or re.search(r"\bC0w\b",expressions):
+            raise ValueError(
+                "bsgamma uses internal C0w without CW reload: manual source review required")
+        return {
+            **common,
+            "status":"A1U_SUPERISO_BSGAMMA_NO_INTERNAL_CW_RELOAD_REQUIRES_CONTEXT_INVARIANCE",
+            "internal_CW_mode":"none",
+            "reloaded_indices":[],
+            "affine_interpolation_needed":False,
+        }
+    if not refs or set(refs)!={"7","8"}:
+        raise ValueError(f"Unsupported bsgamma reloaded C0w indices {set(refs)}")
     if "Kt0" not in body or "Cem" not in body:
         raise ValueError("Cannot identify legacy nonperturbative/EM terms")
-    if re.search(r"param\s*->\s*(?:SM|mass_H)\b",body):
-        raise ValueError(
-            "Direct model mass/SM dependence inside bsgamma outside reload; "
-            "affine interpolation unsafe")
     if re.search(r"pow\s*\(\s*C0w\s*\[",body):
         raise ValueError("Nonlinear power of internal high-scale Wilson")
-    if re.search(
-        r"C0w\s*\[[78]\]\s*\*\s*C0w\s*\[[78]\]",body):
+    if re.search(r"C0w\s*\[[78]\]\s*\*\s*C0w\s*\[[78]\]",body):
         raise ValueError("Product of internal high-scale Wilson coefficients")
     if not re.search(r"\bKt0\s*=",body):
         raise ValueError("Missing Kt0 definition in pinned bsgamma")
-    # The nonperturbative Kt0 enters at linear order and the C0w-dependent
-    # EM term is also linear when LOW-scale inputs stay fixed. Any
-    # changes to these source expressions require manual re-review.
     return {
+        **common,
         "status":"A1U_PINNED_SUPERISO_BSGAMMA_INTERNAL_AFFINE_PREFLIGHT",
-        "superiso_v5_bsgamma_sha256":hashlib.sha256(raw).hexdigest(),
-        "internal_CW_call_count":len(calls),
+        "internal_CW_mode":"reload",
         "reloaded_indices":sorted(set(refs)),
+        "affine_interpolation_needed":True,
         "nonperturbative_Kt0_seen":True,
         "electromagnetic_Cem_seen":True,
-        "no_direct_model_mass_or_SM_access_outside_reloaded_matching":True,
         "no_obvious_quadratic_reloaded_LO_terms":True,
-        "source_scan_not_formal_semantic_proof":True,
-        "two_state_modern_2026_BR_validated":False,
     }
 
-def parse_driver(raw,expected_m1,expected_m2,expected_gamma,tanbeta):
+def parse_driver(raw,expected_m1,expected_m2,expected_gamma,tanbeta,expected_mode=None):
     lines=raw.splitlines()
     if lines.count("STATUS "+STATUS)!=1:
         raise ValueError("Missing exact A1U executable status")
@@ -144,14 +157,21 @@ def parse_driver(raw,expected_m1,expected_m2,expected_gamma,tanbeta):
             match[op]={"SM":sm,"delta_light":d1,"delta_heavy":d2,"Zee":z}
     if set(match)!={7,8}:
         raise ValueError("Missing C7/C8 high-scale matching")
+    mode=one(MODE)[1]
+    if expected_mode is not None and mode!=expected_mode:
+        raise ValueError("A1U C-driver internal matching mode differs from audited source")
     internal=one(INTERNAL)
     b0,b1,b2=[finite(x) for x in internal.groups()]
+    if mode=="none" and max(abs(b0-b1),abs(b0-b2))>2e-12:
+        raise ValueError(
+            "No-reload bsgamma() changed with SM/H1/H2 context "
+            "despite identical mixed low-scale Wilson vectors")
     singles=one(SINGLE)
     r1,r2,rsm=[finite(x) for x in singles.groups()]
     br=finite(one(COMBINED)[1])
     if not all(0.<v<.01 for v in (b0,b1,b2,r1,r2,rsm,br)):
         raise ValueError("Unphysical A1U full BR")
-    should=b0+w1*(b1-b0)+w2*(b2-b0)
+    should=(b0+w1*(b1-b0)+w2*(b2-b0) if mode=="reload" else b0)
     if abs(br-should)>1e-13:
         raise ValueError("Internal high-scale affine combination did not close")
     for key in ("EXPERIMENTAL_LIKELIHOOD_VALIDATED false",
@@ -163,6 +183,8 @@ def parse_driver(raw,expected_m1,expected_m2,expected_gamma,tanbeta):
         "tanbeta":t,"muW_GeV":mu,"mu_b_GeV":mub,
         "w_light":w1,"w_heavy":w2,
         "full_legacy_Zee_BR":br,
+        "internal_CW_mode":mode,
+        "fixed_low_context_invariance_verified":mode=="none",
         "internal_high_scale_eval_fixed_low":{
             "SM":b0,"H1":b1,"H2":b2,
         },
@@ -258,9 +280,10 @@ def main():
         .25<=t<=100.):
         raise SystemExit("A1U invalid ordered physical mass/mixing/Yukawa input")
     src_checks=check_superiso_source(args.vendor_root,args.a1m_provenance)
-    if not src_checks["bsgamma_internal_CW_reload_detected"]:
-        raise ValueError("A1U expects internal CW reload; source audit must be redone")
     affine=audit_affine_internal_matching(args.vendor_root)
+    mode=affine["internal_CW_mode"]
+    if src_checks["bsgamma_internal_CW_reload_detected"] != (mode=="reload"):
+        raise ValueError("Conflicting independent source audits of internal CW reload")
     args.output_dir.mkdir(parents=True,exist_ok=True)
     exe=args.output_dir/"gateA1u_legacy_two_state_br"
     built=compile_pilot(
@@ -277,13 +300,13 @@ def main():
     for label,(a,b,gg) in controls.items():
         proc=subprocess.run(
             [str(exe.resolve()),f"{a:.17g}",f"{b:.17g}",
-             f"{gg:.17g}",f"{t:.17g}"],
+             f"{gg:.17g}",f"{t:.17g}",mode],
             capture_output=True,text=True,timeout=90,check=False)
         if proc.returncode:
             raise ValueError(
                 f"A1U {label} vendor observable failed code={proc.returncode} "
                 f"stdout={proc.stdout[-1400:]} stderr={proc.stderr[-1400:]}")
-        parsed[label]=parse_driver(proc.stdout,a,b,gg,t)
+        parsed[label]=parse_driver(proc.stdout,a,b,gg,t,expected_mode=mode)
         logs.append("CASE "+label+"\n"+proc.stdout)
         if proc.stderr:logs.append("STDERR "+label+"\n"+proc.stderr)
     log=args.output_dir/"a1u_raw_vendor_output.log"
