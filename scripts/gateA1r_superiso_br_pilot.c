@@ -176,7 +176,7 @@ int main(int argc,char **argv)
            fabs(cimag(C0w[i]))>1.e-10 ||
            fabs(cimag(C1w[i]))>1.e-10 ||
            fabs(cimag(C2w[i]))>1.e-10) {
-            fprintf(stderr,"A1R_UNEXPECTED_COMPLEX_MATCHING op=%d\\n",i);
+            fprintf(stderr,"A1R_UNEXPECTED_COMPLEX_MATCHING op=%d\n",i);
             return 3;
         }
     }
