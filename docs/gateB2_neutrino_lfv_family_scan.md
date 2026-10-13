@@ -1,3 +1,44 @@
+## AF follow-up results (13 October 2026, user-supplied)
+
+**B2 completed successfully on AF** for 300 Yukawa trials per B1 scalar
+candidate:
+
+| point | neutrino-matrix-closed trials | best max(partial LFV / limit) |
+|---|---:|---:|
+| candidate 32 | 300/300 | 1.987722609197542e-7 |
+| candidate 0 (deliberate seed) | 300/300 | 3.1814728638734276e-9 |
+
+Both results have the explicit B2 marker
+`GATE_B2_NEUTRINO_ALGEBRA_AND_PARTIAL_LFV_ONLY_NOT_ALLOWED`;
+`COMPLETE_LFV_CALCULATED False`, and
+`FULL_ZEE_ALLOWED_POINTS unknown`. Small ratios of **partial** rates
+to published limits are NOT full-model likelihood passes. These 300
+trials explore f,Y solutions of the *same selected* neutrino target
+at each scalar point, not oscillation likelihood sampling.
+
+**A1V source-pinned SuperIso legacy** values for the same two B1
+candidate charged spectra, from the executed AF grid:
+- ID 32 (208.76954,681.85192 GeV): BR(B->Xs gamma)=4.00992159e-4.
+- ID 0 (300,700 GeV): BR(B->Xs gamma)=3.93119541e-4.
+
+For comparison the modern Misiak et al. 2026 SM prediction is
+(3.54 +- 0.14)e-4 and its cited experimental average
+(3.49 +- 0.19)e-4, at E_gamma > 1.6 GeV; see
+[arXiv:2608.29863](https://arxiv.org/abs/2608.29863).
+**Do NOT** compare modern SM directly to the legacy full BSM totals
+as a calibrated exclusion, and do NOT add a legacy shift to the
+modern SM as a physics prediction. Their central values suggest
+potential flavor tension, making a source-consistent 2026 NNLO
+two-state calculation an urgent go/no-go question.
+
+**Next action priority:** independent model-complete charged-lepton
+LFV amplitudes (including Barr-Zee), charged leptonic widths and
+HiggsTools once all physical predictions exist; separately,
+establish a scheme-consistent B->Xs gamma likelihood. Do not run
+thousands more algebraic neutrino-closure samples as an
+experimental-viability substitute.
+
+---
 # Gate B2 — neutrino-compatible Zee Yukawa families for B1 candidates
 
 **Status: implementation committed; AF regression and numerical run pending.**
