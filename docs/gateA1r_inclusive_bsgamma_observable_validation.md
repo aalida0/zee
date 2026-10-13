@@ -1,8 +1,30 @@
+## AF completion result (confirmed by user, October 2026)
+
+STATUS GATE_A1R_SINGLE_TYPEII_OBSERVABLE_BR_PILOT_AWAITING_INDEPENDENT_ERROR_BUDGET
+
+SM BR: 3.382457724e-4.
+
+At mH=300/700/1000/2000 GeV, vendor full BR values were
+4.5115303105, 3.7793429732, 3.6207866737, 3.4638266593
+in units of 1e-4. With author-original NNLO charged-Higgs matching,
+the results were 4.5115104112, 3.7793243506, 3.6207719938,
+3.4638190480 in the same units. Absolute BR shifts are at most
+1.99e-9, or less than 0.0005% of the corresponding BR.
+
+The NEW August 2026 reference is Misiak et al. arXiv:2608.29863,
+with SM (3.54 +/- 0.14)e-4 and full-TypeII 95% lower bound 670 GeV.
+Legacy A1R SM is 4.450% below the new central SM prediction. No
+complete 2026 uncertainty or two-state Zee exclusion follows.
+
+The separate modern leading-order Wilson-coefficient comparison is
+implemented in scripts/gateA1s_run_modern_2026_screen.py and documented
+in docs/gateA1s_modern_2026_bsgamma_LO_screen.md.
+
 # Gate A1R: physical inclusive Bbar -> Xs gamma pilot
 
-Status: IMPLEMENTED, NOT YET EXECUTED on AF. This is a physical
-branching-ratio pilot through the original SuperIso v5 observable
-routine, not an extracted Zee exclusion.
+Status: COMPLETED ON AF, but no full observable uncertainty or
+Zee 95% CL exclusion is calibrated. The pilot used the existing
+SuperIso v5 physical inclusive branching-ratio routine.
 
 ## Published reference observables
 
