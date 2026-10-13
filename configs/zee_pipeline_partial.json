@@ -32,5 +32,14 @@
       "three-body dipole/penguin/box and interference",
       "full Y-dependent lepton universality"
     ]
+  },
+  "barr_zee_kernel_diagnostic": {
+    "enabled": true,
+    "computed": "Haber fermionic photon scalar/pseudoscalar dimensionless f(z),g(z) only",
+    "not_computed": [
+      "Barr-Zee CL/CR amplitudes",
+      "W/charged scalar loops and Z exchange",
+      "LFV exclusions"
+    ]
   }
 }
