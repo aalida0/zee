@@ -108,7 +108,7 @@ def audit_affine_internal_matching(vendor_root):
             if not re.search(
                 r"CW_calculator\s*\(\s*2\s*,\s*C0w\s*,\s*C1w\s*,\s*C2w\s*,\s*mu_W\s*,\s*param\s*\)",hbody):
                 raise ValueError("Unsupported nested helper CW_calculator signature")
-            if re.search(r"\bC1w\s*\[|\bC2w\s*\[",hbody):
+            if re.search(r"\bC1w\s*\[|\bC2w\s*\[",expressions):
                 raise ValueError("Unexpected nested helper higher-order WC use")
             return {
                 "superiso_v5_bsgamma_sha256":hashlib.sha256(raw).hexdigest(),
