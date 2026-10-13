@@ -10,15 +10,13 @@
  * C^Zee = C^SM + cos^2(gamma)*(C^H1-C^SM)
  *              + sin^2(gamma)*(C^H2-C^SM).
  *
- * The Python source audit determines whether the pinned version of
- * bsgamma() has an internal high-scale CW_calculator() reload.
- * In "none" mode, the three calls with IDENTICAL mixed low-scale
- * inputs MUST have identical output regardless of SM/H1/H2 context;
- * the mixed observable is the SM-context result itself.
- * In "reload" mode, source-verified affine dependence of the
- * internal high-scale C7/C8 is mixed only while the same low-scale
- * inputs are held fixed. Endpoint closure against real A1R is
- * mandatory for both modes.
+ * In SuperIso v5 bsgamma() delegates to bsgamma_Ecut(), which may
+ * reload high-scale C7/C8 with CW_calculator(). A source-verified
+ * helper_reload mode uses the linker --wrap feature to inject the
+ * SAME mixed high-scale vector into that helper call, while passing
+ * mixed low-scale vectors to the unchanged physical observable.
+ * No physical BR averaging or linear BR interpolation is performed.
+ * Endpoint closure against real A1R is mandatory.
  *
  * The above is NOT the weighted average of the PHYSICAL single-state
  * BRs, which includes different low-scale Wilson coefficients!
@@ -39,6 +37,41 @@
 struct wc {
     double complex C0[NWC], C1[NWC], C2[NWC], Cp[NWC];
 };
+
+/* Link-time interposition is scoped to one mixed observable call.
+ * No upstream/vendor source is modified. During reference and matching
+ * calculations the genuine CW_calculator is always called.
+ */
+static const struct wc *a1u_mixed_high_override=NULL;
+static double a1u_expected_muW=0.;
+static int a1u_wrap_hits=0;
+static int a1u_wrap_error=0;
+
+void __real_CW_calculator(int gen,double complex C0w[],
+                          double complex C1w[],double complex C2w[],
+                          double muW,struct parameters *p);
+void __wrap_CW_calculator(int gen,double complex C0w[],
+                          double complex C1w[],double complex C2w[],
+                          double muW,struct parameters *p)
+{
+    if(a1u_mixed_high_override==NULL) {
+        __real_CW_calculator(gen,C0w,C1w,C2w,muW,p);
+        return;
+    }
+    a1u_wrap_hits++;
+    if(gen!=2 || fabs(muW-a1u_expected_muW)>1.e-8 ||
+       a1u_wrap_hits!=1) {
+        a1u_wrap_error=1;
+        memset(C0w,0,NWC*sizeof(*C0w));
+        memset(C1w,0,NWC*sizeof(*C1w));
+        memset(C2w,0,NWC*sizeof(*C2w));
+        return;
+    }
+    memcpy(C0w,a1u_mixed_high_override->C0,NWC*sizeof(*C0w));
+    memcpy(C1w,a1u_mixed_high_override->C1,NWC*sizeof(*C1w));
+    memcpy(C2w,a1u_mixed_high_override->C2,NWC*sizeof(*C2w));
+}
+
 
 static int parse_input(const char *s,double *v)
 {
@@ -147,7 +180,7 @@ static double observable_at_fixed_low(const struct low_wc *low,
                                       const struct wc *high,
                                       const struct parameters *base,
                                       double context_mass,int context_is_sm,
-                                      double muW,double mub)
+                                      double muW,double mub,int helper_reload)
 {
     double complex C0b[NWC],C1b[NWC],C2b[NWC],Cp[NWC];
     struct parameters p;
@@ -159,7 +192,25 @@ static double observable_at_fixed_low(const struct low_wc *low,
     memcpy(C1b,low->C1,sizeof(C1b));
     memcpy(C2b,low->C2,sizeof(C2b));
     memcpy(Cp,high->Cp,sizeof(Cp));
-    return bsgamma(C0b,C1b,C2b,Cp,mub,muW,&p);
+    if(a1u_mixed_high_override!=NULL) {
+        fprintf(stderr,"A1U_NESTED_OVERRIDE_UNSAFE\n");
+        return -1.;
+    }
+    a1u_wrap_hits=0;
+    a1u_wrap_error=0;
+    a1u_expected_muW=muW;
+    if(helper_reload) a1u_mixed_high_override=high;
+    {
+        double result=bsgamma(C0b,C1b,C2b,Cp,mub,muW,&p);
+        a1u_mixed_high_override=NULL;
+        if(a1u_wrap_error || a1u_wrap_hits!=(helper_reload?1:0)) {
+            fprintf(stderr,
+               "A1U_CW_WRAP_CALL_CONTRACT_FAILED hits=%d error=%d expected=%d\n",
+               a1u_wrap_hits,a1u_wrap_error,helper_reload?1:0);
+            return -1.;
+        }
+        return result;
+    }
 }
 static double real_br(const struct wc *high,
                       const struct parameters *base,
@@ -170,13 +221,14 @@ static double real_br(const struct wc *high,
     if(!evolve(high,base,context_mass,context_is_sm,muW,mub,&low))
         return -1.;
     return observable_at_fixed_low(&low,high,base,
-                                   context_mass,context_is_sm,muW,mub);
+                                   context_mass,context_is_sm,muW,mub,0);
 }
 
 int main(int argc,char **argv)
 {
     double m1,m2,gamma,tanbeta,muW,mub,c,s,w1,w2;
     double bsm_low,b1_low,b2_low,mixBR;
+    double rawsm=0.,raw1=0.,raw2=0.;
     double ref1,ref2,refdeg;
     double rgdiff_H1,rgdiff_H2;
     struct low_wc lowSM,lowH1,lowH2;
@@ -185,7 +237,7 @@ int main(int argc,char **argv)
     int i;
     int internal_reload;
     if(argc!=6 ||
-       !(strcmp(argv[5],"none")==0 || strcmp(argv[5],"reload")==0) ||
+       !(strcmp(argv[5],"none")==0 || strcmp(argv[5],"helper_reload")==0) ||
        !parse_input(argv[1],&m1)||
        !parse_input(argv[2],&m2)||
        !parse_input(argv[3],&gamma)||
@@ -198,7 +250,7 @@ int main(int argc,char **argv)
             " with 200<=mH1<=mH2<=10000 and 0<=gamma<=pi/2\n");
         return 2;
     }
-    internal_reload=(strcmp(argv[5],"reload")==0);
+    internal_reload=(strcmp(argv[5],"helper_reload")==0);
     c=cos(gamma); s=sin(gamma);
     w1=c*c; w2=s*s;
     if(fabs(w1+w2-1.)>2.e-14) {
@@ -247,9 +299,19 @@ int main(int argc,char **argv)
      * dependence inside the observable from context differences
      * created earlier by C_calculator_base1().
      */
-    bsm_low=observable_at_fixed_low(&lowSM,&mixed,&p,m1,1,muW,mub);
-    b1_low=observable_at_fixed_low(&lowSM,&mixed,&p,m1,0,muW,mub);
-    b2_low=observable_at_fixed_low(&lowSM,&mixed,&p,m2,0,muW,mub);
+    if(internal_reload) {
+        /* Pre-fix reproduction: identical low-scale input but the
+         * vendor helper recalculates context-specific HIGH-scale WC. */
+        rawsm=observable_at_fixed_low(&lowSM,&mixed,&p,m1,1,muW,mub,0);
+        raw1=observable_at_fixed_low(&lowSM,&mixed,&p,m1,0,muW,mub,0);
+        raw2=observable_at_fixed_low(&lowSM,&mixed,&p,m2,0,muW,mub,0);
+        printf("A1U_UNWRAPPED_CONTEXT_DIAGNOSTIC BR_SM=%.17g "
+               "BR_H1=%.17g BR_H2=%.17g\n",rawsm,raw1,raw2);
+        fflush(stdout);
+    }
+    bsm_low=observable_at_fixed_low(&lowSM,&mixed,&p,m1,1,muW,mub,internal_reload);
+    b1_low=observable_at_fixed_low(&lowSM,&mixed,&p,m1,0,muW,mub,internal_reload);
+    b2_low=observable_at_fixed_low(&lowSM,&mixed,&p,m2,0,muW,mub,internal_reload);
     printf("A1U_CONTEXT_DIAGNOSTIC RG_MAX_ABS_DELTA_H1=%.17g "
            "RG_MAX_ABS_DELTA_H2=%.17g "
            "FIXED_LOW_BR_SM=%.17g FIXED_LOW_BR_H1=%.17g "
@@ -268,23 +330,18 @@ int main(int argc,char **argv)
           rgdiff_H1,rgdiff_H2);
         return 3;
     }
-    if(!internal_reload) {
-        if(!isfinite(bsm_low)||!isfinite(b1_low)||!isfinite(b2_low)||
-           fabs(bsm_low-b1_low)>2.e-12 ||
-           fabs(bsm_low-b2_low)>2.e-12) {
-            fprintf(stderr,
-               "A1U_FIXED_LOW_BSGAMMA_CONTEXT_DEPENDENCE_NEEDS_SOURCE_AUDIT "
-               "SM=%.17g H1=%.17g H2=%.17g\n",
-               bsm_low,b1_low,b2_low);
-            return 3;
-        }
-        mixBR=bsm_low;
-    } else {
-        /* For verified affine bsgamma() reloaded C7/C8 dependence,
-         * interpolation applies ONLY to the internal observable
-         * contribution, while fixed-low inputs are identical. */
-        mixBR=bsm_low+w1*(b1_low-bsm_low)+w2*(b2_low-bsm_low);
+    if(!isfinite(bsm_low)||!isfinite(b1_low)||!isfinite(b2_low)||
+       fabs(bsm_low-b1_low)>2.e-12 ||
+       fabs(bsm_low-b2_low)>2.e-12) {
+        fprintf(stderr,
+           "A1U_FIXED_LOW_BSGAMMA_CONTEXT_DEPENDENCE_NEEDS_SOURCE_AUDIT "
+           "SM=%.17g H1=%.17g H2=%.17g\n",
+           bsm_low,b1_low,b2_low);
+        return 3;
     }
+    /* With explicit mixed high-scale matching, all contexts now use the
+     * SAME physical inputs; do not interpolate full branching ratios. */
+    mixBR=bsm_low;
 
     /* Independently compute full one-state reference observables
      * using that state's OWN matching and low-scale RG input.
@@ -300,7 +357,7 @@ int main(int argc,char **argv)
         return 3;
     }
     printf("STATUS GATE_A1U_LEGACY_TWO_STATE_BR_PILOT_NOT_2026_EXCLUSION\n");
-    printf("INTERNAL_CW_MODE=%s\n", internal_reload?"reload":"none");
+    printf("INTERNAL_CW_MODE=%s\n", internal_reload?"helper_reload":"none");
     printf("INPUT mH1_GeV=%.17g mH2_GeV=%.17g "
            "gamma_rad=%.17g tanbeta=%.17g muW_GeV=%.17g "
            "mu_b_GeV=%.17g\n",m1,m2,gamma,tanbeta,muW,mub);
