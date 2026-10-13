@@ -61,12 +61,17 @@ def original_reference_presence(path,expected_sha256=None):
     digest=hashlib.sha256(raw).hexdigest()
     if expected_sha256 and expected_sha256.lower()!=digest:
         raise ValueError("Original reference expected SHA256 mismatch")
-    return {"status":("ORIGINAL_SOURCE_HASH_PINNED_CONTENT_INTAKE_NOT_EVALUATED"
+    # A checksum supplied by the user verifies byte identity ONLY.
+    # It does not authenticate the source's historical origin. The
+    # official KIT Source artifact must be independently retrieved
+    # before declaring that this is the authors' original implementation.
+    return {"status":("CANDIDATE_SOURCE_BYTES_CHECKSUM_MATCH_NOT_AUTHENTICATED"
                       if expected_sha256 else
                       "AUTHOR_SOURCE_CANDIDATE_NOT_INDEPENDENTLY_PINNED"),
             "source_sha256":digest,"source_size_bytes":len(raw),
             "symbol_coverage":present,
-            "originality_verified":bool(expected_sha256),
+            "expected_hash_matches":bool(expected_sha256),
+            "originality_verified":False,
             "Mathematica_expressions_evaluated":False}
 
 def source_conventions(superiso_path,a1m_prov,hepfit_path,hepfit_prov):
@@ -115,11 +120,10 @@ def source_conventions(superiso_path,a1m_prov,hepfit_path,hepfit_prov):
     }
 
 def make_report(conventions,authors,origin_url):
-    reference_ready=authors["originality_verified"]
     return {
-        "status":("GATE_A1Q_AUTHORS_SOURCE_INTAKE_PINNED_COMPARISON_BLOCKED"
-                  if reference_ready else
-                  "GATE_A1Q_BLOCKED_ORIGINAL_AUTHOR_SOURCE_NOT_PINNED"),
+        "status":("GATE_A1Q_CANDIDATE_SOURCE_INTAKE_NOT_AUTHENTICATED"
+                  if authors["source_sha256"] else
+                  "GATE_A1Q_BLOCKED_ORIGINAL_AUTHOR_SOURCE_NOT_SUPPLIED"),
         "publication":PUBLICATION,
         "original_paper":PAPER,
         "official_readme":AUTHOR_README,
