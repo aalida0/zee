@@ -87,7 +87,8 @@ class TestModern2026LinearizedScreen(unittest.TestCase):
         x=parse_probe(raw_output(),700.,5.597170833164245)
         self.assertAlmostEqual(x["delta_C7_LO"],-.04)
         with self.assertRaisesRegex(ValueError,"Nonfinite"):
-            parse_probe(raw_output(c7=float("nan")),700.,
+            parse_probe(raw_output().replace("DELTA_C7_LO=-0.040000000000000001",
+                                              "DELTA_C7_LO=1e999"),700.,
                         5.597170833164245)
         with self.assertRaisesRegex(ValueError,"Missing/duplicate"):
             parse_probe(raw_output()+ "DELTA_C8_LO=-.02\n",
