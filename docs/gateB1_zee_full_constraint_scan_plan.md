@@ -30,7 +30,7 @@ and does not constitute an exclusion or pass.
 - **Use a Zee-specific scalar potential as the primary engine**
   (Gate 6 generalized to arbitrary physical inputs), including
   singlet-dependent quartics, full Zee charged mass matrix,
-  conservative BFB and 19 scalar-scattering eigenvalue constraints.
+  conservative BFB and all four scalar-scattering matrix sectors.
 - The B1 CSV `doublet_subsector_2HDMC_INPUT_ONLY.csv` exports
   `lambda1..lambda5,lambda6=lambda7=0,m12sq,tanbeta` and the
   **UNMIXED doublet charged entry**
@@ -75,7 +75,7 @@ References:
    amplitudes. These values are labeled `NOT_FULL`; missing
    two-loop Barr-Zee and other diagrams may interfere.
 6. Rank survivors by the **partial-width conditional fraction**
-   `Gamma(H2->H1Z)/sum_of_INLCUDED_two_body_widths`.
+   `Gamma(H2->H1Z)/sum_of_INCLUDED_two_body_widths`.
    This is generally an **upper-bound proxy** for the full BR when
    further positive channels are added (within the LO width
    approximation), not a predicted full physical BR.
