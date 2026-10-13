@@ -1,6 +1,7 @@
 """A1R pilot regression: no fake full NNLO/experimental exclusion claim."""
 from __future__ import annotations
 import hashlib
+import json
 import math
 import sys
 from pathlib import Path
@@ -10,7 +11,7 @@ import unittest
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 from gateA1r_run_br_pilot import (
     MASSES,MODELS,REFERENCE_SM,make_author_reference_control,
-    read_br_output,audit_points,finite,
+    read_br_output,audit_points,finite,check_superiso_source,
 )
 
 def result_values():
@@ -44,7 +45,13 @@ class TestA1ROBS(unittest.TestCase):
             example=out[700].read_text().splitlines()
             self.assertEqual(example[0],"A1R_AUTHOR_NNLO 1")
             self.assertEqual(example[2],"MASS 700")
-            self.assertEqual(example[3],"MUW 160.7384")
+            self.assertEqual(example[3].split()[0],"MUW")
+            self.assertEqual(float(example[3].split()[1]),inputs["mu_GeV"])
+            # %.17g preserves the exact round-trippable binary64 input;
+            # its serialized spelling need not be the shortest decimal.
+            self.assertEqual(example[4].split()[0],"MT")
+            self.assertEqual(float(example[4].split()[1]),inputs["mt_GeV"])
+            self.assertEqual(float(example[5].split()[1]),inputs["tanbeta"])
             vals=example[6].split(" ")
             self.assertEqual(vals[0],"C2")
             self.assertEqual(len(vals),7)
@@ -52,6 +59,46 @@ class TestA1ROBS(unittest.TestCase):
             self.assertAlmostEqual(float(vals[1]),ref[700,2,3])
             self.assertAlmostEqual(float(vals[5]),ref[700,3,7])
             self.assertAlmostEqual(float(vals[6]),ref[700,3,8])
+
+    def test_vendor_nonperturbative_reload_is_recorded_not_assumed(self):
+        for has_reload in (False,True):
+            with self.subTest(has_reload=has_reload), TemporaryDirectory() as tmp:
+                root=Path(tmp)
+                (root/"src").mkdir()
+                wilson=b"/* fixture Wilson source */"
+                (root/"src"/"wilson.c").write_bytes(wilson)
+                call="CW_calculator(x0, x1, x2, scale, p);" if has_reload else ""
+                # An identically named call in the separate wrapper must
+                # never be classified as internal bsgamma() behavior.
+                source=(
+                    "double bsgamma(double C0[], double C1[], double C2[],"
+                    " double Cp[], double mu, double mu_W, struct parameters* param)"
+                    " { double E0=1.6; "+call+" return E0*0.0002; }\n"
+                    "double bsgamma_calculator(char* name)"
+                    " { CW_calculator(C0w,C1w,C2w,mu_W,param); return 0.; }\n"
+                )
+                (root/"src"/"bsgamma.c").write_text(source)
+                manifest=root/"manifest.json"
+                manifest.write_text(json.dumps({
+                    "patched_wilson_sha256":hashlib.sha256(wilson).hexdigest()}))
+                audit=check_superiso_source(root,manifest)
+                self.assertEqual(
+                    audit["bsgamma_internal_CW_reload_detected"],has_reload)
+                self.assertTrue(audit["uses_unmodified_bsgamma_kernel"])
+
+    def test_bsgamma_source_cut_change_still_fails(self):
+        with TemporaryDirectory() as tmp:
+            root=Path(tmp); (root/"src").mkdir()
+            wilson=b"/* fixture */"
+            (root/"src"/"wilson.c").write_bytes(wilson)
+            (root/"src"/"bsgamma.c").write_text(
+                "double bsgamma() {double E0=1.9;return 0.0004;}\n"
+                "double bsgamma_calculator() {return 0.0004;}\n")
+            manifest=root/"manifest.json"
+            manifest.write_text(json.dumps({
+                "patched_wilson_sha256":hashlib.sha256(wilson).hexdigest()}))
+            with self.assertRaisesRegex(ValueError,"photon energy cut"):
+                check_superiso_source(root,manifest)
 
     def test_real_tagged_superiso_driver_output(self):
         raw=(
