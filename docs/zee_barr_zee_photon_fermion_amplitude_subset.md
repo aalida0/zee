@@ -25,8 +25,15 @@ Therefore Davidson's Eq.(21) becomes
 
 C_X(f,phi) =
  -alpha/(8*pi³ m_parent m_f) * Nc * Q_f²
- * F_X(daughter,parent,phi) * F_X(f,f,phi)
- * [f(z) for h,H; g(z) for A].
+ * F_X(daughter,parent,phi)
+ * [Re(F_X(f,f,phi)) f(z) + i Im(F_X(f,f,phi)) g(z)].
+
+This reduces to Davidson's stated h/H f(z) and A g(z)
+structure for the real CP-conserving Type-II-like quark Yukawas.
+For a complex diagonal general-Zee charged-lepton Yukawa,
+the internal tau loop needs BOTH form factors, independent of the
+neutral scalar's CP label. The regression explicitly checks this
+mixed scalar/pseudoscalar tau decomposition.
 
 In the established general Zee neutral lepton convention from
 gateA1d_neutral_tree_lfv.py:
@@ -89,7 +96,8 @@ and 450 radiative partial-amplitude diagnostic rows.
 
 The following new tests are committed but not yet run on AF:
 - Davidson Eq.21 to Herrero Eq.3.12 dipole prefactor conversion.
-- Correct complex chirality and a vanishing flavor-diagonal limit.
+- Correct complex chirality, a vanishing flavor-diagonal limit and
+  the mixed f/g functions for complex diagonal tau Yukawas.
 - Heavy H/A constructive top and destructive bottom signs.
 - B2 independent one-loop rate closure.
 - Strict fail-closed inputs and output naming.
