@@ -126,15 +126,27 @@ def check_superiso_source(root,source_manifest):
 
 def compile_pilot(root,output,driver_source,make_if_missing=False):
     root=Path(root)
-    lib=root/"libisospin.a"
+    # SuperIso v5 uses src/libsuperiso.a (not the old SuperIso
+    # v3-era root/libisospin.a). Gate A1P already compiled/runs
+    # against this exact isolated A1M archive.
+    lib=root/"src"/"libsuperiso.a"
     if not lib.is_file() and make_if_missing:
-        subprocess.run(["make","-C",str(root),"libisospin.a"],
-                       check=True,timeout=180)
+        vendor_makefile=root/"src"/"Makefile"
+        if vendor_makefile.is_file():
+            try:
+                subprocess.run(["make","-C",str(root/"src"),"libsuperiso.a"],
+                               check=True,timeout=180)
+            except subprocess.CalledProcessError as exc:
+                raise ValueError(
+                    "The isolated A1M SuperIso v5 src/Makefile could not "
+                    "rebuild src/libsuperiso.a; preserve the existing "
+                    "pinned A1M library and inspect the build error"
+                ) from exc
     if not lib.is_file():
         raise ValueError(
-            f"SuperIso vendor library absent: {lib}. "
-            "Build your already isolated A1M SuperIso vendor libisospin.a first; "
-            "never copy another SuperIso version's library.")
+            f"SuperIso v5 isolated A1M library absent: {lib}. "
+            "A1P uses src/libsuperiso.a; verify the existing A1M build "
+            "instead of substituting a different SuperIso version.")
     # The archive hash is recorded, and obvious stale builds are
     # rejected before linking. An archive SHA alone is not a proof that
     # it was rebuilt from the pinned current source.
@@ -143,7 +155,7 @@ def compile_pilot(root,output,driver_source,make_if_missing=False):
     if lib.stat().st_mtime_ns < newest_source:
         raise ValueError(
             "SuperIso libisospin.a is older than pinned Wilson/BR source; "
-            "rebuild the isolated A1M library first (make -C ROOT -B libisospin.a)")
+            "rebuild the pinned isolated A1M src/libsuperiso.a first using its original src/Makefile")
     cc=shutil.which("gcc")
     if cc is None:
         raise ValueError("C compiler gcc unavailable")
