@@ -8,7 +8,7 @@ It does **not** reimplement HiggsTools, SuperIso or theoretical widths.
 
 ## Implemented today
 
-\`\`\`text
+```text
 Input parameter points (previous B1/B4 theory+EWPO screened CSV)
                   |
                   v
@@ -26,10 +26,10 @@ Input parameter points (previous B1/B4 theory+EWPO screened CSV)
                   |
        manifest.json + one joined CSV
        physical_allowed_points = null
-\`\`\`
+```
 
 The pipeline invokes existing internal project modules via
-\`subprocess\`. All calculations keep their existing unit tests.
+`subprocess`. All calculations keep their existing unit tests.
 This avoids introducing a second implementation of neutrino-mass
 reconstruction, charged scalar widths, or Wilson coefficients.
 
@@ -42,7 +42,7 @@ the new orchestrator yet.
 
 ### Run from the existing AF repository
 
-\`\`\`bash
+```bash
 cd /home/aalida/zee
 git switch gateA1p-independent-hepfit-typeii-matching
 git pull --ff-only
@@ -63,16 +63,16 @@ python3 scripts/zee_pipeline.py \
   --points work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
   --settings configs/zee_pipeline_partial.json \
   --output-dir work/zee_pipeline_b4pilot_v1
-\`\`\`
+```
 
 The output directory must be new or empty to prevent mixing outputs
 from different points/settings. The script validates ID uniqueness,
 finite inputs, positive masses, charged-mixing ranges and
-\`tanbeta = tan(beta)\` consistency; it fingerprints CSV, settings,
+`tanbeta = tan(beta)` consistency; it fingerprints CSV, settings,
 commands and output artifacts and writes each backend's terminal
 output into a stage-named log.
 
-\`\`\`text
+```text
 work/zee_pipeline_b4pilot_v1/
   manifest.json
   neutrino_and_partial_LFV.log
@@ -85,19 +85,19 @@ work/zee_pipeline_b4pilot_v1/
   B4C_joint_audit/
     joint_scalar_neutrino_width_flavour_NOT_ALLOWED.csv
     summary.json
-\`\`\`
+```
 
 Every calculation is tagged **PARTIAL_DIAGNOSTICS**;
-\`full_model_allowed_points:null\` is deliberate. We do not have
+`full_model_allowed_points:null` is deliberate. We do not have
 a full Zee experimental likelihood.
 
-The JSON file \`configs/zee_pipeline_partial.json\` contains
+The JSON file `configs/zee_pipeline_partial.json` contains
 pinned relative paths to the audited local SuperIso source tree
 and A1M/A1U source-and-validation reports, so the user does not
 have to retype the lengthy commands.
 
-To use a new parameter-point CSV, only change \`--points\` and
-use a NEW \`--output-dir\`.
+To use a new parameter-point CSV, only change `--points` and
+use a NEW `--output-dir`.
 
 ## Future adapter interface (physics still required)
 
@@ -116,9 +116,9 @@ adapter must use a perturbatively consistent full BSM treatment
 and independent validation before contributing to a global fit.
 
 **HiggsTools:** According to official documentation,
-\`Higgs.predictions.Predictions\` allows arbitrary BSM scalar
-predictions, while \`Higgs.bounds.Bounds\` and
-\`Higgs.signals.Signals\` compare those predictions to direct
+`Higgs.predictions.Predictions` allows arbitrary BSM scalar
+predictions, while `Higgs.bounds.Bounds` and
+`Higgs.signals.Signals` compare those predictions to direct
 searches and Higgs signal-rate measurements. HiggsTools does
 **not** supply the general-Zee model implementation.
 We must build and validate the model-to-HiggsPredictions adapter:
@@ -170,7 +170,7 @@ The orchestrator is infrastructure, NOT the main paper result.
 ## Version pinning
 
 Each production-quality scan must retain:
-- source commit hash of this \`zee\` repository,
+- source commit hash of this `zee` repository,
 - checked vendor versions and source patches for SuperIso,
 - HiggsTools release and data-set versions,
 - neutrino global-fit version and nuisance input,
