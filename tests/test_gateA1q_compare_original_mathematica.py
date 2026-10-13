@@ -34,8 +34,8 @@ def author_reference():
 class TestA1QNumeric(unittest.TestCase):
     def test_input_decomposes_to_exact_rationals(self):
         c=make_inputs(original_rows())
-        self.assertEqual(c["mt_numerator"],"16310709645657508")
-        self.assertEqual(c["mt_denominator"],"100000000000000")
+        self.assertEqual(c["mt_numerator"],"4077677411414377")
+        self.assertEqual(c["mt_denominator"],"25000000000000")
         self.assertEqual(c["masses_GeV"],[300,700,1000,2000])
         self.assertEqual(c["Yukawa_convention"]["Ad"],"-tanbeta")
 
