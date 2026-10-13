@@ -1,3 +1,96 @@
+## User-executed A1S result and post-run assessment (13 October 2026)
+
+Gate A1S actually ran on AF:
+
+    STATUS GATE_A1S_2026_MODERN_EQ4_LO_LINEARIZED_ZEE_SCREEN_NOT_EXCLUSION
+
+    mH      dC7_LO              dC8_LO              Eq4 BR *1e4
+    300    -0.116249118178    -0.112989421480       4.77333714609
+    670    -0.0461729790719   -0.0514806431451      4.04413024110
+    700    -0.0436165310583   -0.0489292812783      4.01686392687
+    1000   -0.0268581378129   -0.0315087201513      3.83662158831
+    2000   -0.00958410462722  -0.0119866333575      3.64745185843
+
+    mH1=300, mH2=700, gamma=1.089
+    w_light=0.2147133902; w_heavy=0.7852866098
+    Zee dC7=-0.0592117200769; dC8=-0.0626838511569
+    Zee Eq4 predicted BR=4.17928885635e-4
+
+This is 0.68928885635e-4 above the new experimental
+3.49e-4 average. If and ONLY IF we pretend that the
+0.14e-4 SM theory error and 0.19e-4 experimental error
+are independent, fully applicable to the linearized BSM
+approximation, and Gaussian, the discrepancy would be
+
+    z_naive = (4.17928885635-3.49)/sqrt(0.14^2+0.19^2)
+            = 2.92061.
+
+This is NOT a model exclusion significance. In fact, the
+SAME naive diagnostic gives z=2.3479 at mH=670 and
+z=2.2324 at mH=700 for pure Type-II, despite the 2026
+authors' FULL 2HDM analysis quoting a 670-GeV 95% CL
+lower mass limit. This is a direct warning that the
+generic LO-linearized Eq4, NP higher-order differences
+and/or statistical prescription MUST NOT be treated as
+their actual model-specific 95% CL likelihood.
+
+**Non-commensurate perturbative comparison, NOT an error model:**
+
+For reference only, compare the A1S linearized Eq4 NP shift
+relative to the 2026 SM constant with the A1R full legacy
+vendor single-TypeII BR shift relative to the legacy SM.
+These are from different perturbative schemes and hadronic
+input implementations, so the relative differences cannot
+be converted into a theoretical uncertainty or correction
+factor:
+
+    mH       legacy NP shift*1e4     2026 Eq4 LO shift*1e4    difference
+    300      1.1290725865           1.2333371461             +9.23%
+    700      0.3968852492           0.4768639269            +20.15%
+    1000     0.2383289497           0.2966215883            +24.46%
+    2000     0.0813689353           0.1074518584            +32.06%
+
+DO NOT obtain the 2026 full Zee BR by adding the weighted
+legacy single-state BR shifts to the new 2026 SM value:
+nonlinear terms in the full rate and newer charm-mass
+matrix elements make this scientifically uncontrolled.
+Likewise, DO NOT average full BRs of two charged states.
+
+**Machine-checkable sensitivity diagnostic committed after user A1S run:**
+
+    scripts/gateA1t_check_2026_screen_vs_legacy_shifts.py
+    tests/test_gateA1t_check_2026_screen_vs_legacy_shifts.py
+
+Runs only on already-produced JSON files; NO new AF physics
+generation, Mathematica, or SuperIso calculation:
+
+    cd /home/aalida/zee
+    git switch gateA1p-independent-hepfit-typeii-matching
+    git pull --ff-only
+    python3 -m unittest discover -s tests \
+      -p 'test_gateA1t_check_2026_screen_vs_legacy_shifts.py' -v
+    python3 scripts/gateA1t_check_2026_screen_vs_legacy_shifts.py \
+      --legacy-A1R work/gateA1r_observable_v1/gateA1r_br_pilot.json \
+      --modern-A1S work/gateA1s_modern_2026_v1/modern_2026_LO_Zee_screen.json \
+      --output work/gateA1s_modern_2026_v1/legacy_vs_modern_shift_diagnostic.json
+
+Expected status:
+
+    GATE_A1T_LO_VS_LEGACY_NP_SHIFT_DIAGNOSTIC_NOT_PRECISION_OR_EXCLUSION
+
+The comparison script checks matching scale mu0=160,
+source mass grids, Type-II tanbeta, 2026 Eq4 coefficients,
+mixing unitarity and predicted mixed-state Eq4 closure.
+It never produces a physical 95% CL allowed/excluded label.
+
+**Next full-physics milestone:** obtain or reproduce updated 2026
+full-TypeII BR(mH) as a function of charged mass and a matched
+flavour likelihood. Then compute BOTH mixed charged-Higgs contributions
+with consistent NLO/NNLO matching, RG, nonperturbative and quadratic
+new-physics effects. The known full-TypeII 670-GeV 95% CL
+threshold is not enough to assign a two-state bound. Existing
+A1S indicates 300+700, gamma=1.089 requires close scrutiny.
+
 # Gate A1S — updated 2026 B -> Xs gamma LO screen for Zee-type scalar sector
 
 ## Modern benchmark: authoritative primary reference
