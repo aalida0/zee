@@ -1,3 +1,44 @@
+## A1U AF source preflight fix (13 October 2026)
+
+On AF, the 8 existing Python tests all passed. The physical driver
+did NOT start because the runner unconditionally required an
+internal CW_calculator() call inside pinned SuperIso v5 bsgamma().
+The PREVIOUS A1R source audit reported
+bsgamma_internal_CW_reload_detected=false.
+
+This was another inherited v3-style source assumption, NOT a
+numerical mismatch and NOT evidence that SuperIso omits NP
+matching. Two modes are now supported and explicitly recorded:
+
+- **INTERNAL_CW_MODE=none**: If the actual v5 bsgamma() contains no
+  internal CW_calculator() reload and no unresolved C0w index uses
+  or direct param->SM/mass_H access, compute the mixed LO/NLO/NNLO
+  Wilson arrays and evolve them normally. Evaluate the unchanged
+  physical bsgamma() with the IDENTICAL mixed low-scale vectors under
+  three SM/H1/H2 source-parameter contexts. Require
+  |BR_SMcontext−BR_H1context| <= 2e−12 and likewise H2context,
+  then take the SM-context mixed BR DIRECTLY (no interpolation).
+  Any context dependence causes HARD failure.
+- **INTERNAL_CW_MODE=reload**: If the pinned source contains one
+  internal CW_calculator() call and the source guard identifies
+  affine LO C7/C8 dependence, interpolate ONLY the internal
+  reload contribution at fixed MIXED low-scale coefficients,
+  as specified below. This branch retains the original
+  strict source preflight.
+
+A1U additionally checks that the preceding A1R source audit's
+detected reload boolean agrees with the independent A1U source
+classification. The C program requires the audited mode as an
+explicit positional input, prints INTERNAL_CW_MODE=..., and the
+Python parser checks it before accepting the observable.
+Numerical gamma=0, gamma=pi/2, equal-mass, SM and independent
+single-state closure to AF A1R is MANDATORY for either mode.
+
+No project/vendor source was modified, only the A1U driver
+and its audit/test harness. Three new tests exercise no-reload
+source semantics, strict numerical context invariance, and
+fail-closed mismatches. **This fix has not yet been run on AF.**
+
 # Gate A1U: FULL LEGACY SuperIso v5 two-charged-Higgs observable
 
 ## Motivation and status
@@ -30,7 +71,9 @@ legacy SuperIso-v5 observable kernel and BOTH new-physics
 matching vectors at LO/NLO/NNLO. Do not create a weighted
 average of two individual FULL branching ratios.
 
-**Gate A1U is implemented in GitHub but has NOT YET run on AF.**
+**Gate A1U's existing 8 tests passed on AF; the actual observable
+run stopped at its mistaken mandatory internal-CW-reload source guard.
+Conditional no-reload treatment is now committed but NOT YET AF-tested.**
 When executed, it will calculate the real legacy SuperIso
 physical two-state BR with three mandatory independent closure
 checks. It CANNOT be interpreted as a 2026-compatible NNLO
@@ -63,12 +106,12 @@ isolated SuperIso-v5 archive and NLO clipping fix.
 
 ## Important nonperturbative / electromagnetic issue
 
-The legacy SuperIso bsgamma() implementation uses its OWN
-CW_calculator() call inside the observable to reconstruct
-LO C7/C8 for non-perturbative Kt0 and electromagnetic Cem terms.
-Those internal contributions cannot simply be left in SM mode
-for a two-state Zee calculation; that would introduce a
-spurious inconsistency even with correct low-scale Wilsons.
+Some SuperIso versions implement a direct CW_calculator() reload
+inside bsgamma() for LO C7/C8 used in Kt0 and Cem, but the pinned
+v5 A1R source audit does NOT detect such a call. The implementation
+MUST branch according to the authenticated ACTUAL source, and
+verify numerical parameter-context invariance when no reload exists.
+The treatment below applies ONLY to source-verified reload mode.
 
 The source-guarded A1U treatment keeps IDENTICAL mixed LOW-scale
 Wilson arrays in THREE bsgamma evaluations with different internal
