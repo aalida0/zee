@@ -67,6 +67,18 @@ def ensure_close(a,b,k):
         raise ValueError(f"Mismatch {k}: {x} versus {y}")
 
 
+def ensure_diagnostic_close(a,b,k):
+    """Smaller absolute tolerance for 1e-8 LFV scores and 1e-17 closures.
+
+    The general spectrum tolerance of 1e-8 would be far too loose here.
+    B2 and B3 serialize the *same* underlying diagnostic in different
+    files, so they must agree to near round-trip precision.
+    """
+    x=finite_value(a,k);y=finite_value(b,k)
+    if not math.isclose(x,y,rel_tol=1e-10,abs_tol=1e-22):
+        raise ValueError(f"Mismatch {k}: {x} versus {y}")
+
+
 def ensure_identical_ids(rows,key,what):
     ids=[r.get(key) for r in rows]
     if any(not x for x in ids) or len(set(ids))!=len(ids):
@@ -132,12 +144,14 @@ def make_join(spectra,b2,b3,flavor):
                 raise ValueError("Mismatched B2 candidate rank")
             for k in B3_MATCH_FIELDS:
                 ensure_close(row,sol,k)
-            ensure_close({"lfv":row["b2_partial_LFV_score_NOT_EXCLUSION"]},
-                         {"lfv":sol["partial_LFV_score_NOT_EXCLUSION"]},
-                         "lfv")
-            ensure_close({"closure":row["neutrino_matrix_closure_eV"]},
-                         {"closure":sol["neutrino_matrix_closure_eV"]},
-                         "closure")
+            ensure_diagnostic_close(
+                {"lfv":row["b2_partial_LFV_score_NOT_EXCLUSION"]},
+                {"lfv":sol["partial_LFV_score_NOT_EXCLUSION"]},
+                "lfv")
+            ensure_diagnostic_close(
+                {"closure":row["neutrino_matrix_closure_eV"]},
+                {"closure":sol["neutrino_matrix_closure_eV"]},
+                "closure")
             if not all(0<=finite_value(row,k)<=1 for k in B3_FIELDS):
                 raise ValueError("B3 fractions outside [0,1]")
             if "NOT_ALLOWED" not in str(sol["status"]):
