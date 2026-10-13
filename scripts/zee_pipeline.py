@@ -30,6 +30,7 @@ FOUR=("mH1","mH2","gamma","tanbeta")
 STAGES=(
     "neutrino_and_partial_LFV","general_Zee_leptonic_widths",
     "extended_partial_LFV_3lepton_universality",
+    "barr_zee_fermion_loop_kernels_NO_amplitudes",
     "SuperIso_legacy_two_charged","joint_provenance_audit")
 
 
@@ -109,6 +110,9 @@ def settings(path):
     b5=cfg.get("extended_partial_LFV",{})
     if not isinstance(b5,dict) or not isinstance(b5.get("enabled",True),bool):
         raise ValueError("extended_partial_LFV.enabled must be boolean")
+    bz=cfg.get("barr_zee_kernel_diagnostic",{})
+    if not isinstance(bz,dict) or not isinstance(bz.get("enabled",True),bool):
+        raise ValueError("barr_zee_kernel_diagnostic.enabled must be boolean")
     legacy=cfg.get("legacy_superiso",{})
     if not isinstance(legacy,dict):raise ValueError("Invalid legacy SuperIso config")
     if legacy.get("enabled"):
@@ -203,12 +207,16 @@ def main():
     print("LEGACY_SUPERISO_ENABLED",bool(legacy.get("enabled")))
     print("EXTENDED_PARTIAL_LFV_ENABLED",cfg.get(
         "extended_partial_LFV",{}).get("enabled",True))
+    print("BARR_ZEE_LOOP_KERNELS_ONLY_ENABLED",cfg.get(
+        "barr_zee_kernel_diagnostic",{}).get("enabled",True))
     if a.dry_run:
         stages=list(STAGES[:2])
         if cfg.get("extended_partial_LFV",{}).get("enabled",True):
             stages.append(STAGES[2])
+        if cfg.get("barr_zee_kernel_diagnostic",{}).get("enabled",True):
+            stages.append(STAGES[3])
         if legacy.get("enabled"):
-            stages+=list(STAGES[3:])
+            stages+=list(STAGES[4:])
         print("DRY_RUN True")
         print("DRY_RUN_ORDER",",".join(stages))
         return
@@ -247,6 +255,17 @@ def main():
                 "status":"NOT_RUN_DISABLED_BY_CONFIG",
                 "not_a_full_lfv_exclusion":True,
             }
+        if cfg.get("barr_zee_kernel_diagnostic",{}).get("enabled",True):
+            barr_dir=out/"barr_zee_kernel_diagnostics"
+            barr_csv=barr_dir/"barr_zee_fermion_photon_kernels_NO_LFV_EXCLUSION.csv"
+            cmd=[sys.executable,str(SOURCE/"zee_barr_zee_kernels.py"),
+                 "--points",str(points),"--output-dir",str(barr_dir)]
+            run_stage(STAGES[3],cmd,barr_csv,out,manifest)
+        else:
+            manifest["stages"][STAGES[3]]={
+                "status":"NOT_RUN_DISABLED_BY_CONFIG",
+                "Barr_Zee_dipoles_computed":False,
+            }
         if legacy.get("enabled"):
             flavor_inputs=out/"flavour_inputs.csv"
             with flavor_inputs.open("w",newline="") as handle:
@@ -264,17 +283,17 @@ def main():
                  "--max-points",str(len(rows)),
                  "--skip-scale-diagnostic",
                  "--output-dir",str(super_dir)]
-            run_stage(STAGES[3],cmd,super_csv,out,manifest)
+            run_stage(STAGES[4],cmd,super_csv,out,manifest)
             joint_dir=out/"B4C_joint_audit"
             joint_csv=joint_dir/"joint_scalar_neutrino_width_flavour_NOT_ALLOWED.csv"
             cmd=[sys.executable,str(SOURCE/"gateB4c_joined_candidate_audit.py"),
                  "--b4-csv",str(points),"--b2-json",str(b2_json),
                  "--b3-csv",str(b3_csv),"--a1v-csv",str(super_csv),
                  "--output-dir",str(joint_dir)]
-            run_stage(STAGES[4],cmd,joint_csv,out,manifest)
+            run_stage(STAGES[5],cmd,joint_csv,out,manifest)
             manifest["joint_candidate_table"]=str(joint_csv)
         else:
-            for stage in STAGES[3:]:
+            for stage in STAGES[4:]:
                 manifest["stages"][stage]={
                     "status":"NOT_RUN_MISSING_LEGACY_SUPERISO_CONFIG"}
         manifest["status"]="PARTIAL_DIAGNOSTICS_COMPLETE_NOT_ALLOWED"
