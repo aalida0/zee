@@ -16,9 +16,13 @@ Input parameter points (previous B1/B4 theory+EWPO screened CSV)
                   |
      +------------+-------------+
      |            |             |
-  B2 neutrino    B3 widths     A1V legacy patched SuperIso
-  matrix and     from exact    source-checked two-charged B->Xs gamma,
-  partial LFV    B2 f/Y       NOT 2026 calibrated exclusion
+  B2 neutrino    B3 widths       B5 partial LFV
+  matrix and     from exact      mu->3e, tau->3l trees
+  partial LFV    B2 f/Y         and f-only universality
+                  |
+              A1V legacy patched SuperIso
+              source-checked two-state B->Xs gamma,
+              NOT 2026 calibrated exclusion
      |            |             |
      +------------+-------------+
                   |
@@ -29,7 +33,8 @@ Input parameter points (previous B1/B4 theory+EWPO screened CSV)
 ```
 
 The pipeline invokes existing internal project modules via
-`subprocess`. All calculations keep their existing unit tests.
+`subprocess`, including the B5 extension whenever
+`extended_partial_LFV.enabled=true` in the settings JSON. All calculations keep their existing unit tests.
 This avoids introducing a second implementation of neutrino-mass
 reconstruction, charged scalar widths, or Wilson coefficients.
 
@@ -81,6 +86,9 @@ work/zee_pipeline_b4pilot_v1/
   joint_provenance_audit.log
   B2_neutrino/
   B3_widths/
+  B5_partial_LFV/
+    lfv_partial_3lepton_universality_NOT_ALLOWED.csv
+    summary.json
   A1V_legacy_superiso/
   B4C_joint_audit/
     joint_scalar_neutrino_width_flavour_NOT_ALLOWED.csv
@@ -103,6 +111,9 @@ use a NEW `--output-dir`.
 
 **Neutrino/LFV:** Today's B2 does algebraic exact reconstruction
 for *one fixed* neutrino mass matrix, plus partial one-loop LFV.
+B5 extends it to neutral-scalar tree-level mu->3e/tau->3lepton
+and leading charged-singlet f-only universality shifts. These are
+not full physical rates or experimentally validated likelihoods.
 A complete external or internal Zee LFV calculator will need both
 neutrino mass orderings, oscillation likelihoods, phases,
 Barr-Zee dipoles, mu->3e and mu-e conversion, charged-current
