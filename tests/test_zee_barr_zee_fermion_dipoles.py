@@ -106,6 +106,30 @@ class TestZeeBarrZeePhotonFermion(unittest.TestCase):
                 "barr_zee_fermion_photon_only_BR"]>=0)
             self.assertIn("NO_FULL_LFV_EXCLUSION",row["status"])
 
+    def test_heavy_H_A_top_add_and_bottom_cancel_relative_signs(self):
+        # Davidson EPJC 76 (2016) 258 Eq.(21)-(23):
+        # top H/A add for mH≈mA; bottom H/A cancel at leading
+        # order when f(z)≈g(z), for aligned h and real Type-II Yukawas.
+        Y=np.zeros((3,3),complex)
+        Y[0,1]=.001
+        p=dict(self.p)
+        p["alpha"]=p["beta"]
+        p["mh2"]=600.
+        p["ma"]=600.
+        _,_,parts=flav_bz_amplitudes(
+            p,Y,parent=1,daughter=0)
+        d={(x["fermion"],x["boson"]):
+            complex(*x["CL"]) for x in parts}
+        tH=d[("top","H")]
+        tA=d[("top","A")]
+        bH=d[("bottom","H")]
+        bA=d[("bottom","A")]
+        # Same phase for top; opposite phase for bottom.
+        self.assertGreater((tH*tA.conjugate()).real,0.)
+        self.assertLess((bH*bA.conjugate()).real,0.)
+        self.assertGreater(abs(tH+tA),max(abs(tH),abs(tA)))
+        self.assertLess(abs(bH+bA),max(abs(bH),abs(bA)))
+
     def test_invalid_parent_index_fails(self):
         with self.assertRaisesRegex(ValueError,"Invalid radiative"):
             flav_bz_amplitudes(self.p,np.zeros((3,3)),
