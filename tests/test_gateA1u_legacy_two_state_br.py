@@ -208,7 +208,7 @@ class TestGateA1ULegacyTwoState(unittest.TestCase):
 
     def test_bsgamma_diagnostic_disagreement_not_silenced(self):
         raw=fake_raw().replace(
-            "FIXED_LOW_BR_H2=0.00039100000000000001",
+            "FIXED_LOW_BR_H2=0.00039100000000000002",
             "FIXED_LOW_BR_H2=0.00040000000000000002")
         self.assertNotEqual(raw,fake_raw())
         with self.assertRaisesRegex(ValueError,
