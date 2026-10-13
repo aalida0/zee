@@ -10,14 +10,15 @@
  * C^Zee = C^SM + cos^2(gamma)*(C^H1-C^SM)
  *              + sin^2(gamma)*(C^H2-C^SM).
  *
- * The pinned SuperIso bsgamma() calculates small internal terms
- * by reloading LO high-scale Wilson coefficients with CW_calculator.
- * Because the source-audited internal dependence is AFFINE in the
- * reloaded LO C7/C8 for fixed LOW-SCALE inputs, that component
- * can be mixed by holding the combined LOW-SCALE arrays fixed,
- * evaluating bsgamma() with internal SM,H1,H2 parameters, and
- * forming BRint=BRint_SM+w1*(BRint_H1-BRint_SM)
- *                  +w2*(BRint_H2-BRint_SM).
+ * The Python source audit determines whether the pinned version of
+ * bsgamma() has an internal high-scale CW_calculator() reload.
+ * In "none" mode, the three calls with IDENTICAL mixed low-scale
+ * inputs MUST have identical output regardless of SM/H1/H2 context;
+ * the mixed observable is the SM-context result itself.
+ * In "reload" mode, source-verified affine dependence of the
+ * internal high-scale C7/C8 is mixed only while the same low-scale
+ * inputs are held fixed. Endpoint closure against real A1R is
+ * mandatory for both modes.
  *
  * The above is NOT the weighted average of the PHYSICAL single-state
  * BRs, which includes different low-scale Wilson coefficients!
@@ -137,8 +138,9 @@ int main(int argc,char **argv)
     struct parameters p;
     struct wc sm={0},h1={0},h2={0},mixed={0};
     int i;
-
-    if(argc!=5 ||
+    int internal_reload;
+    if(argc!=6 ||
+       !(strcmp(argv[5],"none")==0 || strcmp(argv[5],"reload")==0) ||
        !parse_input(argv[1],&m1)||
        !parse_input(argv[2],&m2)||
        !parse_input(argv[3],&gamma)||
@@ -147,10 +149,11 @@ int main(int argc,char **argv)
        !(0.<=gamma && gamma<=1.57079632679489662)||
        !(0.25<=tanbeta && tanbeta<=100.)) {
         fprintf(stderr,
-            "A1U_INPUT_ERROR usage: a1u_two_state mH1 mH2 gamma tanbeta"
+            "A1U_INPUT_ERROR usage: a1u_two_state mH1 mH2 gamma tanbeta none|reload"
             " with 200<=mH1<=mH2<=10000 and 0<=gamma<=pi/2\n");
         return 2;
     }
+    internal_reload=(strcmp(argv[5],"reload")==0);
     c=cos(gamma); s=sin(gamma);
     w1=c*c; w2=s*s;
     if(fabs(w1+w2-1.)>2.e-14) {
@@ -191,7 +194,27 @@ int main(int argc,char **argv)
     bsm_low=real_br(&mixed,&p,m1,1,muW,mub);
     b1_low=real_br(&mixed,&p,m1,0,muW,mub);
     b2_low=real_br(&mixed,&p,m2,0,muW,mub);
-    mixBR=bsm_low+w1*(b1_low-bsm_low)+w2*(b2_low-bsm_low);
+    if(!internal_reload) {
+        /* SuperIso v5 with NO internal matching reload: context
+         * independence must hold directly and numerically. The
+         * same mixed low-scale matching vectors are passed to each
+         * observable call. Any model-context dependence invalidates
+         * this branch and must NOT be silently reweighted. */
+        if(!isfinite(bsm_low) || !isfinite(b1_low) || !isfinite(b2_low) ||
+           fabs(bsm_low-b1_low)>2.e-12 ||
+           fabs(bsm_low-b2_low)>2.e-12) {
+            fprintf(stderr,
+                    "A1U_NO_RELOAD_CONTEXT_INVARIANCE_FAILED "
+                    "SM=%.17g H1=%.17g H2=%.17g\n",
+                    bsm_low,b1_low,b2_low);
+            return 3;
+        }
+        mixBR=bsm_low;
+    } else {
+        /* Only the internally reloaded part may be interpolated,
+         * after source-provenance and affine-dependence checks. */
+        mixBR=bsm_low+w1*(b1_low-bsm_low)+w2*(b2_low-bsm_low);
+    }
 
     /* Independently compute full one-state reference observables
      * using that state's OWN matching and low-scale RG input.
@@ -207,6 +230,7 @@ int main(int argc,char **argv)
         return 3;
     }
     printf("STATUS GATE_A1U_LEGACY_TWO_STATE_BR_PILOT_NOT_2026_EXCLUSION\n");
+    printf("INTERNAL_CW_MODE=%s\n", internal_reload?"reload":"none");
     printf("INPUT mH1_GeV=%.17g mH2_GeV=%.17g "
            "gamma_rad=%.17g tanbeta=%.17g muW_GeV=%.17g "
            "mu_b_GeV=%.17g\n",m1,m2,gamma,tanbeta,muW,mub);
