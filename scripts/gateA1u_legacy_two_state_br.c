@@ -66,7 +66,7 @@ static int high_wc(struct wc *out,
                    double muW,double mub)
 {
     struct parameters p;
-    double complex CQprime[3];
+    double complex CQprime[3]={0};
     int i;
     at_state(&p,base,mass,is_sm);
     CW_calculator(2,out->C0,out->C1,out->C2,muW,&p);
@@ -127,7 +127,7 @@ int main(int argc,char **argv)
     double bsm_low,b1_low,b2_low,mixBR;
     double ref1,ref2,refdeg;
     struct parameters p;
-    struct wc sm,h1,h2,mixed;
+    struct wc sm={0},h1={0},h2={0},mixed={0};
     int i;
 
     if(argc!=5 ||
