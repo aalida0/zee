@@ -1,8 +1,43 @@
 # Gate B3 — Physical leptonic-width consistency in the general Zee model
 
-**STATUS: implementation committed, AF tests and B3 output not yet executed.**
+**STATUS: actual AF B3 width evaluation completed (20 Yukawa solutions),
+regression test assertions corrected, revised 6-test suite pending AF rerun.**
 This is a prerequisite for the *constraint-only* first paper. It does NOT
 imply any allowed benchmark or complete collider branching fraction.
+
+### AF execution evidence — 13 October 2026
+
+User-reported 300/700-GeV and 208.77/681.85-GeV candidate run:
+
+```text
+STATUS GATE_B3_LEPTON_WIDTH_REPLACEMENT_ONLY_NOT_PHYSICAL_BR_OR_ALLOWED
+CHARGED_LEPTON_TYPEII_WIDTH_REPLACED True
+FULL_LEPTON_FLAVOUR_FIT False
+HIGGSTOOLS_VALIDATED False
+FULL_ZEE_PHYSICAL_BR_VALIDATED False
+ALLOWED_BENCHMARKS False
+N_YUKAWA_SOLUTIONS 20
+Wrote work/gateB3_zee_leptonic_widths/cascade_width_corrected_NOT_ALLOWED.csv
+```
+
+The first AF six-test suite had four passes and two **test-assertion**
+failures, not exceptions from the physical evaluator:
+- The mixing-weight test divided out the scalar masses and charged
+  mixing weights but omitted the slightly different
+  `(1-m_tau²/m_Hi²)²` phase space at the two physical masses.
+  The revised assertion removes that factor at **each** mass, with
+  unchanged strict `places=16` equality.
+- The integration test searched for `NOT_ALLOWED` in the top-level
+  status, whose unchanged documented value is
+  `...NOT_PHYSICAL_BR_OR_ALLOWED`. The revised test asserts the exact
+  top-level status and verifies the individual candidate record
+  contains `NOT_ALLOWED`.
+
+**No decay-width formula, numerical tolerance, or Gate B3 generated
+result was changed in this test-only correction.**
+Rerun the six B3 tests on AF and inspect the actual B3 CSV before
+drawing conclusions about the corrected cascade fractions. The
+physical calculations remain *partial-channel leading-order* results.
 
 ## Why Gate B3 is necessary
 
