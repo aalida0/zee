@@ -176,6 +176,28 @@ class TestZeePipeline(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,"must be boolean"):
                 settings(path)
 
+    def test_preliminary_Barr_Zee_amplitudes_opt_in_still_not_full_LFV(self):
+        with tempfile.TemporaryDirectory() as root:
+            path=Path(root)/"settings.json"
+            body=create_settings(path)
+            body["barr_zee_fermion_photon_subset"]={"enabled":True}
+            path.write_text(json.dumps(body))
+            self.assertTrue(settings(path)[
+                "barr_zee_fermion_photon_subset"]["enabled"])
+            body["full_LFV"]={"enabled":True}
+            path.write_text(json.dumps(body))
+            with self.assertRaisesRegex(ValueError,"partial"):
+                settings(path)
+
+    def test_preliminary_Barr_Zee_switch_must_be_boolean(self):
+        with tempfile.TemporaryDirectory() as root:
+            path=Path(root)/"settings.json"
+            body=create_settings(path)
+            body["barr_zee_fermion_photon_subset"]={"enabled":"true"}
+            path.write_text(json.dumps(body))
+            with self.assertRaisesRegex(ValueError,"must be boolean"):
+                settings(path)
+
     def test_status_blocks_allowed_claim(self):
         self.assertIn("NOT_ALLOWED",STATUS)
         self.assertIn("PARTIAL",STATUS)
