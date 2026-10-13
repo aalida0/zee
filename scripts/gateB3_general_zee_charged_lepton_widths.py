@@ -173,11 +173,12 @@ def read_b1(path):
                 p[k]=float(row[k])
             for k,d in (("lc",4.473),("k1",1.082),
                         ("k2",0.00398),("k12",-0.001266)):
-                # B1 first pilot kept these fixed; missing explicit
-                # columns are safe ONLY for that pinned version.
-                p[k]=d
-            if not all(math.isfinite(p[k]) for k in needed if k!="id"):
-                raise ValueError("Nonfinite B1 input")
+                # B1 fixed these values; B4 varies and SERIALIZES them.
+                # Never overwrite an explicitly scanned Zee quartic.
+                supplied=row.get(k)
+                p[k]=float(supplied) if supplied not in (None,"") else d
+            if not all(math.isfinite(v) for k,v in p.items() if k!="id"):
+                raise ValueError("Nonfinite scalar or Zee singlet input")
             if p["id"] in result:raise ValueError("Duplicate B1 ID")
             result[p["id"]]=p
     if not result:raise ValueError("B1 CSV empty")
