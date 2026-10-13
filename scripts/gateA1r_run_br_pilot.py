@@ -120,13 +120,24 @@ def compile_pilot(root,output,driver_source,make_if_missing=False):
             f"SuperIso vendor library absent: {lib}. "
             "Build your already isolated A1M SuperIso vendor libisospin.a first; "
             "never copy another SuperIso version's library.")
+    # The archive hash is recorded, and obvious stale builds are
+    # rejected before linking. An archive SHA alone is not a proof that
+    # it was rebuilt from the pinned current source.
+    newest_source=max((root/"src"/"wilson.c").stat().st_mtime_ns,
+                      (root/"src"/"bsgamma.c").stat().st_mtime_ns)
+    if lib.stat().st_mtime_ns < newest_source:
+        raise ValueError(
+            "SuperIso libisospin.a is older than pinned Wilson/BR source; "
+            "rebuild the isolated A1M library first (make -C ROOT -B libisospin.a)")
     cc=shutil.which("gcc")
     if cc is None:
         raise ValueError("C compiler gcc unavailable")
     output.parent.mkdir(parents=True,exist_ok=True)
+    # Link the EXACT checked archive rather than relying on the
+    # linker's shared-vs-static -lisospin selection.
     cmd=[cc,"-O2","-std=gnu99","-Wall","-Wextra",
          "-I"+str(root/"src"),str(driver_source),
-         "-L"+str(root),"-lisospin","-lm","-o",str(output)]
+         str(lib),"-lm","-o",str(output)]
     proc=subprocess.run(cmd,capture_output=True,text=True,timeout=90,
                         check=False)
     if proc.returncode:
