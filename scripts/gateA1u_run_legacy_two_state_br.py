@@ -67,7 +67,14 @@ def audit_affine_internal_matching(vendor_root):
         raise ValueError(
             "bsgamma internal high-scale reload count changed; "
             f"expected 1 actual call, saw {len(calls)}")
-    refs=re.findall(r"\bC0w\s*\[\s*([^\]]+)\s*\]",body)
+    # C0w[11] (or C0w[9]) in the local array DECLARATION is
+    # not a physical operator reference; remove that declaration
+    # before checking the actual expression-level C0w indices.
+    expressions=re.sub(
+        r"\b(?:double\s+complex|double)\s+[^;]*"
+        r"\bC0w\s*\[\s*\d+\s*\][^;]*;",
+        " ",body)
+    refs=re.findall(r"\bC0w\s*\[\s*([^\]]+)\s*\]",expressions)
     allowed={"7","8"}
     if not refs or set(refs)-allowed:
         raise ValueError(f"Unsupported bsgamma reloaded C0w index set {set(refs)}")
