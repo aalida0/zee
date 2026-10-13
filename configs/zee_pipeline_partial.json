@@ -41,5 +41,15 @@
       "W/charged scalar loops and Z exchange",
       "LFV exclusions"
     ]
+  },
+  "barr_zee_fermion_photon_subset": {
+    "enabled": false,
+    "computed": "PRELIMINARY top,bottom,tau photon-exchange Barr-Zee C_L,C_R and coherent combination with existing 1-loop amplitudes",
+    "blocking_caveats": [
+      "full published 2HDM amplitude benchmark not independently validated",
+      "W and charged scalar and Z diagrams absent",
+      "Type-II-like quark-Yukawa ansatz not symmetry-protected",
+      "not a physical LFV exclusion"
+    ]
   }
 }
