@@ -63,9 +63,11 @@ class TestGateB2(unittest.TestCase):
     def test_csv_requires_exact_scalar_context(self):
         with tempfile.TemporaryDirectory() as d:
             path=Path(d)/"B1.csv"
-            path.write_text("id,mH1,mH2,mh2,ma,beta,alpha,gamma\\n"
-                            "0,300,700,580.7,633.7,1.394,1.398,1.089\\n"
-                            "32,208.7695,681.8519,597.7198,635.226,1.394,1.398,1.12012\\n".replace("\\n","\n"))
+            path.write_text("\n".join((
+                "id,mH1,mH2,mh2,ma,beta,alpha,gamma",
+                "0,300,700,580.7,633.7,1.394,1.398,1.089",
+                "32,208.7695,681.8519,597.7198,635.226,1.394,1.398,1.12012",
+            ))+"\n")
             rows=read_candidates(path)
             self.assertEqual(len(rows),2)
             self.assertEqual([p["id"] for p in rows],["0","32"])
