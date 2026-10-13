@@ -94,6 +94,59 @@ class TestGateA1ULegacyTwoState(unittest.TestCase):
             self.assertEqual(report["reloaded_indices"],["7","8"])
             self.assertFalse(report["two_state_modern_2026_BR_validated"])
 
+    def test_v5_helper_reloading_is_detected(self):
+        source=(
+            "double bsgamma_Ecut(double complex C0[],double complex C1[],"
+            "double complex C2[],double complex Cp[],double mu,"
+            "double mu_W,double E0,struct parameters* param)"
+            "{double complex C0w[11],C1w[11],C2w[11];"
+            "CW_calculator(2,C0w,C1w,C2w,mu_W,param);"
+            "double Kt0=creal(C0w[7]);"
+            "double Cem=creal(C0w[8]); return Kt0+Cem;}\n"
+            "double bsgamma(double complex C0[],double complex C1[],"
+            "double complex C2[],double complex Cp[],double mu,"
+            "double muW,struct parameters* param)"
+            "{return bsgamma_Ecut(C0,C1,C2,Cp,mu,muW,1.6,param);}\n"
+            "double bsgamma_calculator(char* file){return 0.;}\n"
+        )
+        with tempfile.TemporaryDirectory() as t:
+            p=Path(t)/"src";p.mkdir()
+            (p/"bsgamma.c").write_text(source)
+            report=audit_affine_internal_matching(t)
+            self.assertEqual(report["internal_CW_mode"],"helper_reload")
+            self.assertEqual(report["internal_CW_call_count"],1)
+            self.assertEqual(report["reloaded_indices"],[7,8])
+
+    def test_v5_helper_unknown_matching_argument_blocks(self):
+        source=(
+            "double bsgamma_Ecut(double C0[],double C1[],double C2[],"
+            "double Cp[],double mu,double mu_W,double E0,struct parameters* param)"
+            "{double C0w[11],C1w[11],C2w[11];"
+            "CW_calculator(1,C0w,C1w,C2w,mu_W,param);"
+            "return C0w[7]+C0w[8];}\n"
+            "double bsgamma(double C0[],double C1[],double C2[],"
+            "double Cp[],double mu,double muW,struct parameters* param)"
+            "{return bsgamma_Ecut(C0,C1,C2,Cp,mu,muW,1.6,param);}\n"
+            "double bsgamma_calculator(char* file){return 0.;}\n"
+        )
+        with tempfile.TemporaryDirectory() as t:
+            p=Path(t)/"src";p.mkdir()
+            (p/"bsgamma.c").write_text(source)
+            with self.assertRaisesRegex(ValueError,"signature"):
+                audit_affine_internal_matching(t)
+
+    def test_helper_mode_rejects_branching_ratio_interpolation(self):
+        raw=fake_raw(mode="none",b1=.000390,b2=.000390)
+        raw=raw.replace("INTERNAL_CW_MODE=none",
+                        "INTERNAL_CW_MODE=helper_reload")
+        result=parse_driver(raw,300.,700.,1.089,TAN,
+                            expected_mode="helper_reload")
+        self.assertEqual(result["full_legacy_Zee_BR"],.000390)
+        with self.assertRaisesRegex(ValueError,"context"):
+            parse_driver(fake_raw(mode="reload").replace(
+                "INTERNAL_CW_MODE=reload",
+                "INTERNAL_CW_MODE=helper_reload"),300.,700.,1.089,TAN)
+
     def test_source_nonlinear_internal_reload_blocks(self):
         with tempfile.TemporaryDirectory() as t:
             p=Path(t)/"src"
