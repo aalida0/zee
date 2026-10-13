@@ -1,3 +1,87 @@
+## AUTHOR-SOURCE GATE A1Q: C3/C4 logarithm and C8 sign decided in original code
+
+The user executed the exact official KIT c2HDM.m source inspector on AF:
+
+    OK
+    ORIGINAL_KIT_SHA256_CONFIRMED cb2d1328bc2542a6324e73efe6f89c43381efdc93db5e3b0ca8348db980645d8
+    SOURCE_EXPRESSION C3_NNLO found 1 lines 168
+    SOURCE_EXPRESSION C4_NNLO found 1 lines 178
+    SOURCE_EXPRESSION C7_NNLO_effective found 1 lines 756
+    SOURCE_EXPRESSION C8_NNLO_effective found 1 lines 757
+    SOURCE_EXPRESSION C8_NNLO_raw found 1 lines 742
+    FULL_NNLO_MATCHING_VALIDATED False
+
+**Important original-source evidence:**
+
+- cH[2,3] (line 168) and cH[2,4] (line 178) contain literal
+  Mathematica logarithms Log[mu^2/mt^2]. HEPfit's source uses
+  lstmu=2*log(mu/mt), while SuperIso A1M instead writes the
+  NNLO C3/C4 coefficient multiplying log((mu_W/mass_H)^2),
+  with the previously measured sign relation. Therefore the
+  **scale-log argument** in HEPfit agrees with the original author,
+  but the numerical sign/normalization of the complete coefficients
+  still requires an actual Mathematica evaluation and basis check.
+
+- cHeff[2,8] at line 757, **verbatim**:
+
+      cHeff[2,8] = ( cH[3,8] + cH[2,3] - 1/6*cH[2,4] + 20*cH[2,5] - 10/3*cH[2,6] ) ;
+
+  The original author thus unambiguously applies +20*cH[2,5]
+  in its effective chromomagnetic combination. This agrees with
+  the effective basis in SuperIso A1M and disagrees with the
+  **-20*C5 term** in the corresponding HEPfit NNLO source
+  assignment. This is a concrete **source-level implementation
+  inconsistency** in HEPfit that should be independently numerically
+  tested before making an upstream bug report or modifying its code.
+
+- cHeff[2,7] at line 756 uses the standard vector
+  -1/3*C3 -4/9*C4 -20/3*C5 -80/9*C6, consistent in both
+  libraries after basis mapping.
+
+- The original cH[3,8] at line 742 contains piecewise three-loop
+  expansions with mass ratio r. A static symbolic listing is not a
+  numerical validation of the expansion or physical branching ratio.
+
+**NEW fail-closed static source adjudicator:**
+
+~~~bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_gateA1q_adjudicate_original_source.py' -v
+
+python3 scripts/gateA1q_adjudicate_original_source.py \
+  --authors-source work/gateA1q_original_nnlo_v1/c2HDM.m \
+  --kit-provenance work/gateA1q_original_nnlo_v1/kit_source_provenance.json \
+  --superiso-source work/gateA1m_isolated_nlo_v1/isolated_superiso/src/wilson.c \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --hepfit-source work/gateA1p_hepfit_typeii_v1/HEPfit_THDMMatching.cpp \
+  --hepfit-provenance work/gateA1p_hepfit_typeii_v1/hepfit_provenance.json \
+  --output work/gateA1q_original_nnlo_v1/original_vs_implementations_static.json
+~~~
+
+Expected:
+
+    STATUS GATE_A1Q_ORIGINAL_C3_C4_LOG_ARGUMENT_AND_C8_SIGN_STATIC_MATCH_CONFIRMED
+    ORIGINAL_C3_C4_LOG Log[mu^2/mt^2]
+    ORIGINAL_C8_C5_SIGN 20
+    HEPFIT_C8_C5_SIGN -20
+    NNLO_VALIDATED False
+
+Seven new tests verify both original logarithms, +20 sign,
+comment/duplicate robustness, opposite-sign rejection and
+mandatory source provenance. **The test suite has not yet run
+on AF.**
+
+**Next:** Independent numerical Wolfram evaluation of original
+c2HDM.m at fixed mass/scale and Type-II quark Yukawas. Original
+symbolic functions use Au, AuC, Ad, r, mu and mt; evaluate with
+documented parameter replacements, check output reality, and
+match loop/order normalization to original paper Eq. (3).
+Only after numerical closure can Gate A1Q be called a full
+NNLO matching pass or used for observable-level validation.
+
 ## AF ORIGINAL c2HDM.m FETCH SUCCESS — authenticate and inspect formulas
 
 **KIT authoritative source was obtained on the AF**, reported:
