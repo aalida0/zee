@@ -22,5 +22,15 @@
   "modern_b_to_s_gamma": {
     "enabled": false,
     "blocking_reason": "Two-state modern NNLO-matched calculation and likelihood not calibrated"
+  },
+  "extended_partial_LFV": {
+    "enabled": true,
+    "computed": "mu->3e, tau 3lepton neutral tree, coherent radiative one loop (B2), charged singlet f-only universality",
+    "not_computed": [
+      "two-loop Barr-Zee",
+      "mu-e conversion",
+      "three-body dipole/penguin/box and interference",
+      "full Y-dependent lepton universality"
+    ]
   }
 }
