@@ -48,7 +48,7 @@ from gateB3_general_zee_charged_lepton_widths import (
 from gateA1b_hierarchical_no_seed import target_neutrino_matrix
 from zee_barr_zee_kernels import f as scalar_f,g as pseudoscalar_g
 
-STATUS="ZEE_BARR_ZEE_FERMION_PHOTON_AMPLITUDES_PRELIMINARY_NOT_FULL_LFV_ALLOWED"
+STATUS="ZEE_BARR_ZEE_FERMION_PHOTON_AMPLITUDES_PRELIMINARY_NOT_FULL_LFV_NOT_ALLOWED"
 VEV=246.21965
 # Mass convention is explicitly nominal and not matched to running Yukawa.
 FERMIONS={"top":(172.5,3,2./3.),
