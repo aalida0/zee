@@ -1,7 +1,7 @@
 /*
  * Gate A1R: source-pinned SuperIso v5 inclusive B -> X_s gamma BR pilot.
  *
- * Build against the ALREADY isolated A1M SuperIso source + libisospin.a.
+ * Build against the ALREADY isolated SuperIso v5 src/libsuperiso.a.
  * Do NOT change upstream SuperIso's bsgamma.c, wilson.c, RG or default
  * SM inputs. THDM_model=1 bypasses MSSM epsilon corrections.
  *
@@ -71,13 +71,13 @@ static int same_number(double a,double b,double atol,double rtol)
     return fabs(a-b)<=atol+rtol*fmax(fabs(a),fabs(b));
 }
 
-static void print_matching(const double C0w[],const double C1w[],
-                           const double C2w[])
+static void print_matching(const double complex C0w[],const double complex C1w[],
+                           const double complex C2w[])
 {
     int i;
     for(i=1;i<=8;i++)
         printf("MATCH op=%d LO=%.17g NLO=%.17g NNLO=%.17g\n",
-               i,C0w[i],C1w[i],C2w[i]);
+               i,creal(C0w[i]),creal(C1w[i]),creal(C2w[i]));
 }
 
 int main(int argc,char **argv)
@@ -85,8 +85,8 @@ int main(int argc,char **argv)
     struct parameters param;
     struct authors_control orig;
     double mH,tanbeta,muW,mub,mt,br;
-    double C0w[11],C1w[11],C2w[11],SM0w[11],SM1w[11],SM2w[11];
-    double C0b[11],C1b[11],C2b[11],Cp[11];
+    double complex C0w[11],C1w[11],C2w[11],SM0w[11],SM1w[11],SM2w[11];
+    double complex C0b[11],C1b[11],C2b[11],Cp[11];
     double complex CQp[3];
     char *end;
     char mode;
@@ -119,8 +119,8 @@ int main(int argc,char **argv)
     Init_param(&param);
     slha_adjust(&param);
     param.SM=(mode=='S')?1:0;
-    /* THDM_model!=0 uses explicit lambda Yukawas and skips MSSM loops. */
-    param.THDM_model=1;
+    /* SuperIso v5: THDM_model=2 with explicit Type-II quark lambdas. */
+    param.THDM_model=2;
     param.mass_H=mH;
     param.tan_beta=tanbeta;
     for(i=1;i<=3;i++) {
@@ -130,7 +130,7 @@ int main(int argc,char **argv)
     }
     muW=2.*param.mass_W;
     mub=param.mass_b_pole/2.;
-    mt=running_mass(param.mass_top,param.mass_top,muW,
+    mt=running_mass(param.mtmt,param.mtmt,muW,
                     param.mass_top_pole,param.mass_b_pole,&param);
     if(!finite_positive(muW) || !finite_positive(mub) ||
        !finite_positive(mt) || !finite_positive(param.mass_b_pole) ||
@@ -151,23 +151,37 @@ int main(int argc,char **argv)
             return 3;
         }
         param.SM=1;
-        CW_calculator(SM0w,SM1w,SM2w,muW,&param);
+        CW_calculator(2,SM0w,SM1w,SM2w,muW,&param);
         param.SM=0;
     }
-    CW_calculator(C0w,C1w,C2w,muW,&param);
+    CW_calculator(2,C0w,C1w,C2w,muW,&param);
     if(mode=='A') {
         for(i=3;i<=8;i++) {
             /* Original c2HDM.m author C2[7/8] come from cH[3,7/8].
              * They are RAW dipole coefficients, not cHeff[2,7/8].
              * C_calculator_base1 applies effective rotation itself. */
-            double old=C2w[i];
+            double complex old=C2w[i];
             C2w[i]=SM2w[i]+orig.c2[i];
             printf("AUTHOR_C2_OVERWRITE op=%d vendor=%.17g original_total=%.17g\n",
-                   i,old,C2w[i]);
+                   i,creal(old),creal(C2w[i]));
+        }
+    }
+    /* The Type-II scalar benchmark is CP conserving. Abort on
+     * any complex coefficient rather than silently dropping Im(C_i).
+     * The SM/charged matching and primed vectors are expected real. */
+    for(i=1;i<=10;i++) {
+        if(!isfinite(creal(C0w[i]))||!isfinite(cimag(C0w[i]))||
+           !isfinite(creal(C1w[i]))||!isfinite(cimag(C1w[i]))||
+           !isfinite(creal(C2w[i]))||!isfinite(cimag(C2w[i]))||
+           fabs(cimag(C0w[i]))>1.e-10 ||
+           fabs(cimag(C1w[i]))>1.e-10 ||
+           fabs(cimag(C2w[i]))>1.e-10) {
+            fprintf(stderr,"A1R_UNEXPECTED_COMPLEX_MATCHING op=%d\\n",i);
+            return 3;
         }
     }
     C_calculator_base1(C0w,C1w,C2w,muW,C0b,C1b,C2b,mub,&param);
-    Cprime_calculator(Cp,CQp,muW,mub,&param);
+    Cprime_calculator(2,Cp,CQp,muW,mub,&param);
     br=bsgamma(C0b,C1b,C2b,Cp,mub,muW,&param);
     if(!isfinite(br) || br<=0. || br>0.01) {
         fprintf(stderr,"A1R_UNPHYSICAL_BR_CALCULATION %.17g\n",br);
@@ -180,7 +194,8 @@ int main(int argc,char **argv)
     print_matching(C0w,C1w,C2w);
     printf("LOW_SCALE C0_7=%.17g C1_7=%.17g C2_7=%.17g "
            "C0_8=%.17g C1_8=%.17g C2_8=%.17g\n",
-           C0b[7],C1b[7],C2b[7],C0b[8],C1b[8],C2b[8]);
+           creal(C0b[7]),creal(C1b[7]),creal(C2b[7]),
+           creal(C0b[8]),creal(C1b[8]),creal(C2b[8]));
     printf("BR_B_TO_XS_GAMMA=%.17g\n",br);
     printf("OBSERVABLE_PHYSICAL_PRECISION_VALIDATED false\n");
     printf("ZEE_ALLOWED_OR_EXCLUDED undetermined\n");
