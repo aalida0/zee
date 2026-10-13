@@ -1,3 +1,61 @@
+## A1U AF physical context diagnostic (13 October 2026): revised two-stage check
+
+The user reran the 11 synthetic A1U tests: **11/11 PASS**.
+The first physical run in the no-reload branch then printed
+
+    A1U_NO_RELOAD_CONTEXT_INVARIANCE_FAILED
+    SM=0.00039250054453230092
+    H1=0.00039369511227532023
+    H2=0.00039296216778595783
+
+This mismatch is **real, at observable/numerical level** but does
+NOT establish an intrinsic model-context dependence inside
+bsgamma(). The previous A1U code claimed these BR evaluations used
+identical mixed *low-scale* Wilson vectors; inspection of the actual
+C driver showed that was FALSE. The routine real_br() always
+re-ran C_calculator_base1() in the context-specific parameters, so
+these were only identical *high-scale* coefficients. Thus, either
+parameter dependence in the RG routine, or in the observable
+function, or both could cause the 1.2e-6 difference.
+
+The corrected physical diagnostic is now staged:
+
+**Stage 1 (RG):** Use exactly identical MIXED high-scale C0/C1/C2
+vectors. Evolve them three times under param.SM and charged-Higgs
+mass contexts SM/H1/H2. Compare ALL 1..10 low-scale LO/NLO/NNLO
+coefficient arrays and log
+
+    RG_MAX_ABS_DELTA_H1, RG_MAX_ABS_DELTA_H2.
+
+If either maximum exceeds 1e-10, hard stop with
+A1U_FIXED_HIGH_RG_CONTEXT_DEPENDENCE_NEEDS_SOURCE_AUDIT. This
+identifies the RG/context stage, not an alleged internal
+bsgamma bug.
+
+**Stage 2 (physical bsgamma):** Independently hold *identical*
+low-scale LO/NLO/NNLO arrays AND Cp fixed, and evaluate the
+original unchanged bsgamma() under SM/H1/H2 parameter contexts.
+Log
+
+    FIXED_LOW_BR_SM, FIXED_LOW_BR_H1, FIXED_LOW_BR_H2.
+
+In no-reload mode, differences larger than 2e-12 hard-stop with
+A1U_FIXED_LOW_BSGAMMA_CONTEXT_DEPENDENCE_NEEDS_SOURCE_AUDIT.
+In verified affine reload mode, only the internal term is
+interpolated while all low-scale coefficients stay fixed.
+
+All diagnostic numbers are printed BEFORE a stage failure; the
+full A1R physical endpoint checks remain mandatory after both
+stages pass. The Python parser also requires/stores diagnostic
+values and rejects inconsistent RG or observable-stage records.
+No change to pinned SuperIso vendor physics source or library.
+This is new GitHub code and has NOT YET run on the AF.
+
+IMPORTANT: Do NOT respond to the failed numerical audit by
+loosening tolerances or interpolating physical single-state BRs.
+Determine the source of dependence, then validate the correct
+model-consistent evolution/observable against A1R endpoints.
+
 ## A1U AF source preflight fix (13 October 2026)
 
 On AF, the 8 existing Python tests all passed. The physical driver
