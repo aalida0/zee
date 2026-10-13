@@ -138,8 +138,7 @@ def make_join(spectra,b2,b3,flavor):
             ensure_close({"closure":row["neutrino_matrix_closure_eV"]},
                          {"closure":sol["neutrino_matrix_closure_eV"]},
                          "closure")
-            if "NOT_ALLOWED" not in row.get("candidate_id","") and (
-                not all(0<=finite_value(row,k)<=1 for k in B3_FIELDS)):
+            if not all(0<=finite_value(row,k)<=1 for k in B3_FIELDS):
                 raise ValueError("B3 fractions outside [0,1]")
             if "NOT_ALLOWED" not in str(sol["status"]):
                 raise ValueError("B2 solution not explicitly unclassified")
