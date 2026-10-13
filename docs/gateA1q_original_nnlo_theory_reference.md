@@ -1,3 +1,115 @@
+## NEXT GATE: independent NUMERICAL original Mathematica comparison
+
+The static source adjudication on AF passed:
+
+    STATUS GATE_A1Q_ORIGINAL_C3_C4_LOG_ARGUMENT_AND_C8_SIGN_STATIC_MATCH_CONFIRMED
+    AUTHOR_FORMULA cH[2,3] line 168
+    AUTHOR_FORMULA cH[2,4] line 178
+    AUTHOR_FORMULA cHeff[2,7] line 756
+    AUTHOR_FORMULA cHeff[2,8] line 757
+    ORIGINAL_C3_C4_LOG Log[mu^2/mt^2]
+    ORIGINAL_C8_C5_SIGN 20
+    HEPFIT_C8_C5_SIGN -20
+    NNLO_VALIDATED False
+
+This settles the source-level *log argument* and C8 effective
+rotation coefficient, NOT the full numerical matching.
+
+**NEW numeric comparator** added to this branch, with
+scripts/gateA1q_eval_authors.wls (original Mathematica evaluator),
+scripts/gateA1q_compare_original_mathematica.py (source-provenance,
+original-input and basis checks, runnable on AF), and eight offline
+regression tests.
+
+The Wolfram evaluator loads the ORIGINAL exact SHA256 c2HDM.m with
+Get[] and uses independent input values from the existing 44-row
+A1P matching comparison, rather than copying library formulas.
+It uses exact decimal-rational inputs and
+
+    Au = AuC = cot(beta)
+    Ad = AdC = -tan(beta)
+    r = mt(muW)^2 / mH^2
+    u = 1 - 1/r
+    ubar = 1 - r
+
+with unchanged muW and running mt(muW). It evaluates at
+mH = 300, 700, 1000, 2000 GeV:
+
+    LO:   cHeff[0,7/8]
+    NLO:  cHeff[1,7/8]
+    NNLO: cH[2,3/4/5/6], cHeff[2,7/8]
+    raw NNLO dipoles: cH[3,7/8]
+
+Thus 12 original-source coefficients per mass, 48 total.
+The original authors' effective basis is compared with
+
+    SI_C7eff = SI_raw_C7 + y_j SI_Cj
+    SI_C8eff = SI_raw_C8 + z_j SI_Cj
+    HF_C7eff = HF_C7_returned
+    HF_C8eff = HF_C8_returned + 40*HF_C5 at NNLO
+
+because HEPfit's actual C8 source rotation uses
+z5=-20, while the authors and SuperIso use z5=+20.
+The HEPfit direct dipole checks undo the appropriate actual
+source rotation. The authors' original inverse-QCD-coupling
+dipole operator normalization is accounted for by comparing
+only the README-defined effective coefficients of the SAME
+perturbative order (and treating raw three-loop dipoles
+separately, with their explicit loop-index mapping).
+
+**Run now on the AF:**
+
+~~~bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+
+python3 -m unittest discover -s tests \
+  -p 'test_gateA1q_compare_original_mathematica.py' -v
+
+python3 scripts/gateA1q_compare_original_mathematica.py \
+  --authors-source work/gateA1q_original_nnlo_v1/c2HDM.m \
+  --kit-provenance work/gateA1q_original_nnlo_v1/kit_source_provenance.json \
+  --existing-result work/gateA1p_hepfit_typeii_v1/result.json \
+  --output-dir work/gateA1q_original_nnlo_v1
+~~~
+
+If the AF has a working wolframscript executable, this
+creates original_mathematica_values.txt and
+original_vs_A1P_NNLO_numeric.json. Otherwise the runner
+explicitly reports A1Q_WOLFRAMSCRIPT_UNAVAILABLE.
+To prepare a portable exact input set without evaluation:
+
+~~~bash
+python3 scripts/gateA1q_compare_original_mathematica.py \
+  --authors-source work/gateA1q_original_nnlo_v1/c2HDM.m \
+  --kit-provenance work/gateA1q_original_nnlo_v1/kit_source_provenance.json \
+  --existing-result work/gateA1p_hepfit_typeii_v1/result.json \
+  --output-dir work/gateA1q_original_nnlo_v1 --prepare-only
+~~~
+
+Transfer source c2HDM.m, exact JSON input and the project
+Wolfram .wls file to a machine with licensed Mathematica 15.
+Run the printed wolframscript -file ... command there, then
+copy only original_mathematica_values.txt to AF and run
+the normal command with
+
+    --authors-values work/gateA1q_original_nnlo_v1/original_mathematica_values.txt
+
+If Wolfram evaluation errors or unresolved symbols appear,
+preserve them; do NOT relabel them as matching discrepancies.
+The raw numeric output contains strictly tagged records
+and the Python comparison refuses missing, duplicate, extra
+or nonfinite author values.
+
+The result status
+GATE_A1Q_ORIGINAL_MATHEMATICA_NUMERICALLY_COMPARED_NOT_BR_VALIDATED
+means a numerical comparison was completed; it does NOT
+prejudge whether implementations agree. Source tests and
+the numerical run must be checked before assigning a stricter
+matching pass/fail verdict. Publication-grade flavour
+constraints still require calibrated complete BR and uncertainty.
+
 ## AUTHOR-SOURCE GATE A1Q: C3/C4 logarithm and C8 sign decided in original code
 
 The user executed the exact official KIT c2HDM.m source inspector on AF:
