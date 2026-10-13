@@ -1,3 +1,103 @@
+## Gate A1Q — FINAL user-confirmed numerical author's-reference comparison
+
+The user executed original KIT SHA256-pinned Mathematica 15 source
+c2HDM.m at exactly four A1P benchmark masses (300,700,1000,2000 GeV),
+exported 48 numbers and ran the complete A1P comparator on AF. Its
+reported status was:
+
+    GATE_A1Q_ORIGINAL_MATHEMATICA_NUMERICALLY_COMPARED_NOT_BR_VALIDATED
+
+**Numerical scientific conclusions (raw data, units are matching
+coefficient units, not physical observable / branching ratio):**
+
+    mH    op    original source NNLO    SuperIso - original     HEPfit - original
+    300   C3      +0.014768384446        -0.007486068758       +3.5e-18
+    300   C4      +0.0031910514383       +0.01826369180        -5.1e-17
+    700   C3      +0.007936401495        -0.007333742627        0
+    700   C4      -0.0026472511834       +0.02278235277       +3.5e-18
+   1000   C3      +0.005573313044        -0.005800221095      -1.7e-18
+   1000   C4      -0.0032342944139       +0.01929192874       +1.3e-18
+   2000   C3      +0.0024784106598       -0.002993414409      +8.7e-19
+   2000   C4      -0.0025676503742       +0.01091454519       -1.7e-18
+
+C5/C6 show the same numerical pattern: HEPfit agrees with the
+original to machine precision at all masses, while SuperIso differs.
+
+The **original raw dipoles** are cH[3,7] and cH[3,8] at NNLO,
+not the standard-effective cHeff[2,7/8]. Comparing in the original
+raw basis at each mass:
+
+    mH    C7: SI-original / HF-original    C8: SI-original / HF-original
+     300    -0.000026574 / +0.002602223    +0.000002227 / +0.000323964
+     700    +0.000201554 / -0.013866151    +0.000156458 / +0.013160481
+    1000    +0.000143606 / -0.010493748    +0.000112041 / +0.009693687
+    2000    +0.000060757 / -0.005167273    +0.000048357 / +0.004159983
+
+Relative to the absolute original raw dipole values, these residuals
+span C7: SI 0.00018–0.00142%, HEPfit 0.017–0.098%;
+C8: SI 0.00024–0.00525%, HEPfit 0.034–0.441%.
+This is consistent with the much coarser HEPfit finite-function
+decimal-polynomial rounding in A1P, and with SuperIso approximating
+the author's original expansion much more closely in raw C7/C8.
+
+**Crucial reconciliation:** the SuperIso standard-effective dipole
+residuals are NOT evidence for an additional independent C7/C8
+three-loop problem. They can be reconstructed from the raw dipole
+residuals plus the already identified four-quark residuals:
+
+    ΔC7eff = ΔC7raw - (1/3)ΔC3 - (4/9)ΔC4 -
+              (20/3)ΔC5 - (80/9)ΔC6
+    ΔC8eff = ΔC8raw + ΔC3 - (1/6)ΔC4 +
+              20 ΔC5 - (10/3)ΔC6.
+
+For SuperIso:
+
+    mH    ΔC7raw      y*ΔC3...6     ΔC7eff       ΔC8raw       z*ΔC3...6     ΔC8eff
+     300  -0.00002657  -0.02308933   -0.02311591   +0.00000223   -0.00023667   -0.00023445
+     700  +0.00020155  -0.02479298   -0.02459142   +0.00015646   -0.00104691   -0.00089045
+    1000  +0.00014361  -0.02017463   -0.02003103   +0.00011204   -0.00104024   -0.00092820
+    2000  +0.00006076  -0.01083774   -0.01077698   +0.00004836   -0.00069656   -0.00064820
+
+The printed source-data rounding reproduces all eight effective
+dipole mismatches; exact full-precision JSON data should give a much
+tighter closure.
+
+**Automated fail-closed residual audit** committed as
+scripts/gateA1q_audit_numeric_author_residuals.py, with six tests in
+tests/test_gateA1q_audit_numeric_author_residuals.py.
+It reads the EXISTING 48-row numerical comparison JSON and checks
+the exact four-quark-to-dipole closure. No new Mathematica run and
+NO further source sampling from the user is necessary:
+
+~~~bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+python3 -m unittest discover -s tests \
+    -p 'test_gateA1q_audit_numeric_author_residuals.py' -v
+
+python3 scripts/gateA1q_audit_numeric_author_residuals.py \
+  --original-comparison work/gateA1q_original_nnlo_v1/original_vs_A1P_NNLO_numeric.json \
+  --output work/gateA1q_original_nnlo_v1/author_residual_decomposition.json
+~~~
+
+**Result:** Original-source *numerical four-quark* validation for
+HEPfit, plus *numerical residual characterization* of original raw
+NNLO dipoles for both libraries, now achieved. Full NNLO coefficient
+agreement for either implementation is NOT established; importantly
+neither the complete inclusive BR nor theoretical error has been
+independently validated. **Do not patch published source coefficients
+to force agreement. Do not exclude Zee benchmarks yet.**
+
+**Suggested next physics milestone (Gate A1R):** calibrate the
+complete inclusive BR(B->Xs gamma) at a standard Type-II benchmark,
+explicitly specifying photon energy cut, SM baseline, QCD RG matrix
+evolution, NNLO matching prescription and correlated theory /
+experimental uncertainties. Then compute the Zee two-state
+contributions at the matching scale and propagate them to ONE
+combined branching ratio, rather than mixing branching ratios
+with squared charged-state weights.
+
 ## NEXT GATE: independent NUMERICAL original Mathematica comparison
 
 The static source adjudication on AF passed:
