@@ -1,6 +1,7 @@
 """Offline regression tests for official KIT TTP12-029 source intake."""
 from __future__ import annotations
 from io import BytesIO
+from urllib.error import HTTPError
 import hashlib
 import json
 from pathlib import Path
@@ -13,7 +14,7 @@ import zipfile
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 from gateA1q_fetch_kit_source import (
-    CATALOGUE,discover_from_directory,find_named_source,
+    CATALOGUE,OFFICIAL_DIRECTORY,discover_from_directory,find_named_source,
     require_official_url,resolve_catalogue_source,retrieve
 )
 from gateA1q_author_reference_intake import SYMBOLS
@@ -95,6 +96,27 @@ class TestA1QSourceDownload(unittest.TestCase):
             self.assertEqual(json.loads(
                 (Path(d)/"kit_source_provenance.json").read_text()
             )["status"],"GATE_A1Q_KIT_ORIGINAL_SOURCE_FETCHED_NOT_EVALUATED")
+    def test_catalogue_403_falls_back_to_verified_kit_directory(self):
+        data=fixture_bytes()
+        directory_html='<a href="c2HDM.m">c2HDM.m</a>'
+        def fake_download(url):
+            if url==CATALOGUE:
+                raise HTTPError(url,403,"Forbidden",{},None)
+            if url==OFFICIAL_DIRECTORY:
+                return directory_html.encode(),OFFICIAL_DIRECTORY,"text/html"
+            if url==KIT_SOURCE:
+                return data,KIT_SOURCE,"text/plain"
+            raise ValueError("Unexpected URL "+url)
+        with tempfile.TemporaryDirectory() as d:
+            with patch("gateA1q_fetch_kit_source.download_official",
+                       side_effect=fake_download):
+                result=retrieve(CATALOGUE,Path(d))
+            self.assertEqual(result["source_resolution_route"],
+                "KIT_OFFICIAL_TTP12_029_DIRECTORY_INDEX")
+            self.assertIn("403",result["catalogue_fallback_reason"])
+            self.assertEqual((Path(d)/"c2HDM.m").read_bytes(),data)
+            self.assertFalse(result["NNLO_matching_validated"])
+
     def test_existing_different_file_not_overwritten(self):
         def fake_download(url):
             if url==CATALOGUE:
