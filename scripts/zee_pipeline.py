@@ -15,7 +15,6 @@ import csv
 import hashlib
 import json
 import math
-import os
 from pathlib import Path
 import subprocess
 import sys
@@ -172,8 +171,12 @@ def main():
     if out.exists() and any(out.iterdir()):
         raise ValueError("Use a NEW empty output directory to prevent "
                          "cross-run artifact reuse")
+    git=subprocess.run(["git","rev-parse","HEAD"],cwd=BASE,
+                       text=True,capture_output=True,check=False)
+    code_revision=(git.stdout.strip() if git.returncode==0 else None)
     manifest={
         "status":"RUN_PLAN_PARTIAL_NOT_ALLOWED",
+        "zee_code_revision":code_revision,
         "started_utc":datetime.now(timezone.utc).isoformat(),
         "input_candidate_count":len(rows),
         "input_points_path":str(points),"input_sha256":digest(points),
