@@ -10,7 +10,11 @@ our existing coherent scalar ONE LOOP backend is algebraically:
   C_{L,R} = (4 sqrt(2) GF/e) conjugate(A_{L,R}^{Davidson}),
   assuming the conjugate external-field ordering. For one f gamma loop,
   C_X = -alpha/(8 pi^3 m_parent m_f) * Nc Q_f^2
-        * F_X(e,parent) * F_X(f,f) * [f(z) for h,H; g(z) for A].
+        * F_X(e,parent) *
+          [Re(F_X(f,f)) f(z) + i Im(F_X(f,f)) g(z)].
+For real Type-II-like quark Yukawas, this reduces exactly to
+Davidson's Eq.(21) [h,H: f(z); A: g(z)]. For COMPLEX diagonal
+general-Zee tau Yukawa couplings, both kernels are required.
 The Davidson conjugation is explicit and tested both ways.
 
 CAUTION: the general-Zee lepton Yukawa scalar basis of A1D uses
@@ -123,21 +127,32 @@ def flav_bz_amplitudes(p,Y,*,parent,daughter):
     for fermion,(mf,nc,q) in FERMIONS.items():
         for boson,mphi in masses.items():
             z=(mf/mphi)**2
-            kernel=(pseudoscalar_g(z)[0] if boson=="A"
-                    else scalar_f(z)[0])
+            scalar_kernel=scalar_f(z)[0]
+            pseudoscalar_kernel=pseudoscalar_g(z)[0]
             c=C_mats[boson]
             left=c[daughter,parent]
             right=np.conj(c[parent,daughter])
             f_left=cp[fermion][boson]
-            f_right=np.conj(f_left)
+            # Complex diagonal general-Zee Y_tau,tau can contain both
+            # scalar and pseudoscalar fermion couplings for any phi:
+            #   F^L_ff = scalar_component + i*pseudoscalar_component.
+            # These multiply DIFFERENT loop functions, f and g.
+            # For real Type-II quarks this exactly reduces to
+            # Davidson Eq.(21) [h,H -> f(z), A -> g(z)].
+            effective_left=(f_left.real*scalar_kernel+
+                            1j*f_left.imag*pseudoscalar_kernel)
+            effective_right=np.conj(effective_left)
             # Eq.(21) after complex conjugation and C/A conversion.
-            factor=-ALPHA_EM/(8.*math.pi**3*mi*mf)*nc*q*q*kernel
-            aL=factor*left*f_left
-            aR=factor*right*f_right
+            factor=-ALPHA_EM/(8.*math.pi**3*mi*mf)*nc*q*q
+            aL=factor*left*effective_left
+            aR=factor*right*effective_right
             CL+=aL; CR+=aR
             rows.append({
                 "fermion":fermion,"boson":boson,"z":z,
-                "loop_function":kernel,
+                "loop_function_scalar_f":scalar_kernel,
+                "loop_function_pseudoscalar_g":pseudoscalar_kernel,
+                "fermion_chiral_effective":[effective_left.real,
+                                             effective_left.imag],
                 "CL":[aL.real,aL.imag],"CR":[aR.real,aR.imag]})
     if not all(math.isfinite(v) for v in (
             CL.real,CL.imag,CR.real,CR.imag)):
