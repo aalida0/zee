@@ -5,7 +5,8 @@ Runs validated project modules as subprocesses, records inputs, logs and
 provenance. It DOES NOT implement physical calculations itself.
 
 Currently wired: B2 algebraic neutrino+partial LFV, B3 general Zee
-leptonic widths, A1V legacy audited SuperIso, B4C strict results join.
+leptonic widths, B5 mu->3e/tau->3lepton neutral trees and f-only
+universality, A1V audited legacy SuperIso and B4C strict results join.
 Not wired: full LFV likelihood, 2026 NNLO B->Xs gamma exclusion,
 complete Zee HiggsTools prediction adapter, true hadronic cross sections.
 """
@@ -28,6 +29,7 @@ REQUIRED=("id","mH1","mH2","mh2","ma","alpha","beta",
 FOUR=("mH1","mH2","gamma","tanbeta")
 STAGES=(
     "neutrino_and_partial_LFV","general_Zee_leptonic_widths",
+    "extended_partial_LFV_3lepton_universality",
     "SuperIso_legacy_two_charged","joint_provenance_audit")
 
 
@@ -104,6 +106,9 @@ def settings(path):
         raise ValueError(
             "Modern NNLO-matched two-charged B->Xs gamma "
             "likelihood is not validated. Fail closed.")
+    b5=cfg.get("extended_partial_LFV",{})
+    if not isinstance(b5,dict) or not isinstance(b5.get("enabled",True),bool):
+        raise ValueError("extended_partial_LFV.enabled must be boolean")
     legacy=cfg.get("legacy_superiso",{})
     if not isinstance(legacy,dict):raise ValueError("Invalid legacy SuperIso config")
     if legacy.get("enabled"):
@@ -196,10 +201,16 @@ def main():
     print("COMPLETE_LFV_CONSTRAINT blocked_not_implemented")
     print("MODERN_FLAVOUR_CONSTRAINT blocked_not_validated")
     print("LEGACY_SUPERISO_ENABLED",bool(legacy.get("enabled")))
+    print("EXTENDED_PARTIAL_LFV_ENABLED",cfg.get(
+        "extended_partial_LFV",{}).get("enabled",True))
     if a.dry_run:
+        stages=list(STAGES[:2])
+        if cfg.get("extended_partial_LFV",{}).get("enabled",True):
+            stages.append(STAGES[2])
+        if legacy.get("enabled"):
+            stages+=list(STAGES[3:])
         print("DRY_RUN True")
-        print("DRY_RUN_ORDER",",".join(STAGES if legacy.get("enabled")
-                                      else STAGES[:2]))
+        print("DRY_RUN_ORDER",",".join(stages))
         return
     out.mkdir(parents=True,exist_ok=True)
     write_json(out/"manifest.json",manifest)
@@ -224,6 +235,18 @@ def main():
              "--b1-csv",str(points),"--b2-json",str(b2_json),
              "--top",str(top),"--output-dir",str(b3_dir)]
         run_stage(STAGES[1],cmd,b3_csv,out,manifest)
+        if cfg.get("extended_partial_LFV",{}).get("enabled",True):
+            b5_dir=out/"B5_partial_LFV"
+            b5_csv=b5_dir/"lfv_partial_3lepton_universality_NOT_ALLOWED.csv"
+            cmd=[sys.executable,str(SOURCE/"zee_lfv_backend.py"),
+                 "--points",str(points),"--b2-json",str(b2_json),
+                 "--output-dir",str(b5_dir)]
+            run_stage(STAGES[2],cmd,b5_csv,out,manifest)
+        else:
+            manifest["stages"][STAGES[2]]={
+                "status":"NOT_RUN_DISABLED_BY_CONFIG",
+                "not_a_full_lfv_exclusion":True,
+            }
         if legacy.get("enabled"):
             flavor_inputs=out/"flavour_inputs.csv"
             with flavor_inputs.open("w",newline="") as handle:
@@ -241,17 +264,17 @@ def main():
                  "--max-points",str(len(rows)),
                  "--skip-scale-diagnostic",
                  "--output-dir",str(super_dir)]
-            run_stage(STAGES[2],cmd,super_csv,out,manifest)
+            run_stage(STAGES[3],cmd,super_csv,out,manifest)
             joint_dir=out/"B4C_joint_audit"
             joint_csv=joint_dir/"joint_scalar_neutrino_width_flavour_NOT_ALLOWED.csv"
             cmd=[sys.executable,str(SOURCE/"gateB4c_joined_candidate_audit.py"),
                  "--b4-csv",str(points),"--b2-json",str(b2_json),
                  "--b3-csv",str(b3_csv),"--a1v-csv",str(super_csv),
                  "--output-dir",str(joint_dir)]
-            run_stage(STAGES[3],cmd,joint_csv,out,manifest)
+            run_stage(STAGES[4],cmd,joint_csv,out,manifest)
             manifest["joint_candidate_table"]=str(joint_csv)
         else:
-            for stage in STAGES[2:]:
+            for stage in STAGES[3:]:
                 manifest["stages"][stage]={
                     "status":"NOT_RUN_MISSING_LEGACY_SUPERISO_CONFIG"}
         manifest["status"]="PARTIAL_DIAGNOSTICS_COMPLETE_NOT_ALLOWED"
