@@ -84,14 +84,18 @@ official KIT TTP domain, processes TAR/ZIP/GZIP/Mathematica bytes in
 memory without extracting arbitrary archive paths, checks the expected
 original Mathematica symbol names, and writes the source alongside
 an archive/original-file SHA256 provenance manifest. It does NOT
-claim numerical NNLO matching verification. There are nine offline
+claim numerical NNLO matching verification. There are ten offline
 retrieval/parser regression tests (not yet run on AF).
 
-If the official catalogue responds with HTTP 403/404 or the Source
-link cannot be resolved, preserve the diagnostic output and do not
-replace the reference with a third-party transcription. For manual
-inspection only, open the official catalogue in a browser and follow
-its Source hyperlink.
+If the new official catalogue responds with HTTP 403 or cannot
+identify the source hyperlink, the retrieval script falls back to
+the **official TTP12-029 supplementary directory** documented by
+the public README location. It enumerates the actual directory
+hyperlinks to find c2HDM.m, without fabricating a filename.
+If the old directory also denies access, preserve both errors and
+do not replace the original with a third-party transcription.
+The fallback route and original catalogue error are recorded in the
+resulting provenance manifest when retrieval succeeds.
 
 Obtain the source from KIT's **TTP12-029 -> Source** listing; if it
 downloads an archive, extract the original `c2HDM.m` to
