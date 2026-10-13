@@ -61,9 +61,40 @@ adjudicate the correct log scale and sign.**
 
 The author `c2HDM.m` file is **not yet available in this repository
 or via the present retrieval interface**. No code reconstructed from
-a third-party library is an acceptable substitute. Obtain the source
-from KIT's **TTP12-029 -> Source** listing; if it downloads an archive,
-extract the original `c2HDM.m` to
+a third-party library is an acceptable substitute. The official
+[KIT catalogue](https://www.ttp.kit.edu/progdata) lists
+**TTP12-029 -> Source**. Direct retrieval was blocked in the chat-side
+web interface, but the AF can independently resolve and download the
+actual official link using the NEW vetted intake tool:
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+python3 -m unittest discover -s tests \
+    -p 'test_gateA1q_fetch_kit_source.py' -v
+python3 scripts/gateA1q_fetch_kit_source.py \
+    --output-dir work/gateA1q_original_nnlo_v1
+cat work/gateA1q_original_nnlo_v1/kit_source_provenance.json
+```
+
+The script parses the Source hyperlink specifically under TTP12-029
+rather than guessing filenames, follows ONLY HTTPS URLs on the
+official KIT TTP domain, processes TAR/ZIP/GZIP/Mathematica bytes in
+memory without extracting arbitrary archive paths, checks the expected
+original Mathematica symbol names, and writes the source alongside
+an archive/original-file SHA256 provenance manifest. It does NOT
+claim numerical NNLO matching verification. There are nine offline
+retrieval/parser regression tests (not yet run on AF).
+
+If the official catalogue responds with HTTP 403/404 or the Source
+link cannot be resolved, preserve the diagnostic output and do not
+replace the reference with a third-party transcription. For manual
+inspection only, open the official catalogue in a browser and follow
+its Source hyperlink.
+
+Obtain the source from KIT's **TTP12-029 -> Source** listing; if it
+downloads an archive, extract the original `c2HDM.m` to
 
     work/gateA1q_original_nnlo_v1/c2HDM.m
 
