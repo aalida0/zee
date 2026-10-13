@@ -104,11 +104,20 @@ static double real_br(const struct wc *high,
                       double muW,double mub)
 {
     double complex C0b[NWC]={0},C1b[NWC]={0},C2b[NWC]={0};
+    double complex C0w[NWC]={0},C1w[NWC]={0},C2w[NWC]={0};
+    double complex Cp[NWC]={0};
     struct parameters p;
     int i;
     at_state(&p,base,inner_mass,inner_is_sm);
-    C_calculator_base1((double complex*)high->C0,
-        (double complex*)high->C1,(double complex*)high->C2,
+    /* SuperIso APIs do not expose const for input coefficient
+     * pointers. Copy them to fresh arrays for every internal
+     * context so a vendor routine cannot mutate the shared
+     * MIXED matching vectors between successive calls. */
+    memcpy(C0w,high->C0,sizeof(C0w));
+    memcpy(C1w,high->C1,sizeof(C1w));
+    memcpy(C2w,high->C2,sizeof(C2w));
+    memcpy(Cp,high->Cp,sizeof(Cp));
+    C_calculator_base1(C0w,C1w,C2w,
         muW,C0b,C1b,C2b,mub,&p);
     for(i=1;i<=10;i++) {
         if(!is_real_finite(C0b[i])||
@@ -118,8 +127,7 @@ static double real_br(const struct wc *high,
             return -1.;
         }
     }
-    return bsgamma(C0b,C1b,C2b,
-                   (double complex*)high->Cp,mub,muW,&p);
+    return bsgamma(C0b,C1b,C2b,Cp,mub,muW,&p);
 }
 int main(int argc,char **argv)
 {
