@@ -103,11 +103,18 @@ def audit_affine_internal_matching(vendor_root):
         refs=set(x.strip() for x in re.findall(
             r"\bC0w\s*\[\s*([^\]]+)\s*\]",expressions))
         if hc:
-            if len(hc)!=1 or refs!={"7","8"}:
-                raise ValueError("Unexpected nested helper matching contract")
+            # Reject an incompatible signature *before* any expression
+            # checks, so an intentionally wrong 'gen' is reported as
+            # the specific safety violation rather than a generic
+            # coefficient-use mismatch.
+            if len(hc)!=1:
+                raise ValueError("Unexpected nested helper matching call count")
             if not re.search(
                 r"CW_calculator\s*\(\s*2\s*,\s*C0w\s*,\s*C1w\s*,\s*C2w\s*,\s*mu_W\s*,\s*param\s*\)",hbody):
                 raise ValueError("Unsupported nested helper CW_calculator signature")
+            if refs!={"7","8"}:
+                raise ValueError(
+                    f"Unexpected nested helper C0w coefficient uses: {sorted(refs)}")
             if re.search(r"\bC1w\s*\[|\bC2w\s*\[",expressions):
                 raise ValueError("Unexpected nested helper higher-order WC use")
             return {
