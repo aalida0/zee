@@ -132,6 +132,28 @@ class TestZeePipeline(unittest.TestCase):
             self.assertEqual(manifest["stages"]["fake_fail"]["status"],
                              "ERROR")
 
+    def test_extended_partial_lfv_gate_is_not_full_lfv(self):
+        with tempfile.TemporaryDirectory() as root:
+            path=Path(root)/"settings.json"
+            body=create_settings(path)
+            body["extended_partial_LFV"]={"enabled":True}
+            path.write_text(json.dumps(body))
+            self.assertTrue(settings(path)["extended_partial_LFV"]["enabled"])
+            # Explicit full LFV flag must still be rejected.
+            body["full_LFV"]={"enabled":True}
+            path.write_text(json.dumps(body))
+            with self.assertRaisesRegex(ValueError,"partial"):
+                settings(path)
+
+    def test_extended_partial_lfv_requires_boolean_switch(self):
+        with tempfile.TemporaryDirectory() as root:
+            path=Path(root)/"settings.json"
+            body=create_settings(path)
+            body["extended_partial_LFV"]={"enabled":"yes"}
+            path.write_text(json.dumps(body))
+            with self.assertRaisesRegex(ValueError,"must be boolean"):
+                settings(path)
+
     def test_status_blocks_allowed_claim(self):
         self.assertIn("NOT_ALLOWED",STATUS)
         self.assertIn("PARTIAL",STATUS)
