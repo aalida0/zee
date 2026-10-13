@@ -1,3 +1,94 @@
+## Gate A1Q — independent original 2012 theory reference
+
+Scientific motivation: our **Type-II quark sector** defines the
+doublet-like charged Higgs Yukawa interactions. Adding an SU(2)L-singlet
+charged scalar and mixing it with the doublet charged state creates two
+physical charged scalars. Their Type-II quark-flavor Wilson
+contributions are proportional to the respective squared doublet
+fractions. The **full Zee model** additionally needs the antisymmetric
+singlet-lepton Yukawas and a neutrino-mass and lepton-flavor-sector
+validation; this does not automatically follow from a charged-scalar
+model scan.
+
+**Published original sources:**
+- Hermann, Misiak, Steinhauser,
+  https://arxiv.org/abs/1208.2788 (Section 2, 2012);
+- official TTP12-029 2-page original author README,
+  https://www.ttp.kit.edu/Progdata/ttp12/ttp12-029/readme.pdf;
+- official https://www.ttp.kit.edu/progdata ("TTP12-029" [Source]).
+
+The original author README specifies:
+1. c2HDM.m contains raw and effective C7/C8 and two-loop four-quark
+   matching expressions C3..C6.
+2. Original dipole operator normalization:
+   C7eff=(4π/αs)*C7+sum(yj Cj),
+   C8eff=(4π/αs)*C8+sum(zj Cj).
+   **Never apply the 4π/αs factor twice** when comparing to
+   conventional dipole Wilson coefficients.
+3. y=(0,0,-1/3,-4/9,-20/3,-80/9)
+   and z=(0,0,+1,-1/6,+20,-10/3).
+   The pinned HEPfit THDMMatching::setWCbsg() instead contains
+   **-20*C5** in its NNLO effective C8 combination.
+4. The original source includes the NNLO cH[2,i] (i=3..6),
+   cHeff[2,i] (i=7,8), and finite dipole three-loop functions
+   corresponding to Eq. (14)-(35) of the paper.
+5. r = mt²(mu0)/MH² and the mass mt is the *running* top
+   mass evaluated at the matching scale, not mt_pole.
+
+**We do not have an independently retrieved and inspected
+copy of the original c2HDM.m bytes in this PR.**
+Do not claim the original C3/C4 logarithmic prescription has
+been adjudicated: the original paper and README specify the
+notation but are not a substitute for numerically evaluating
+the complete Mathematica source.
+
+A1Q adds a **read-only provenance and source-acquisition preflight**
+(scripts/gateA1q_original_theory_preflight.py; corresponding tests)
+that verifies the exact pinned SuperIso A1M and HEPfit source hashes
+and basis structure, attempts to obtain the actual author file
+from its published archive directory, and fingerprint-checks
+Mathematica symbols before advancing to independent formula
+evaluation. **Its status deliberately remains BLOCKED**
+even if a plausible source was obtained, until the original
+expressions are independently evaluated with matching
+operator normalization. A hash of user-provided bytes alone
+is not proof of original-author authenticity.
+
+Run the preflight on AF:
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_gateA1q_original_theory_preflight.py' -v
+bash scripts/gateA1q_try_original_author_source.sh
+cat work/gateA1q_original_nnlo_theory_v1/theory_preflight.json
+```
+
+The source fetch URL in the shell is a **candidate relative to the
+known official README directory, not independently confirmed**.
+If the remote endpoint rejects it, open the official KIT
+Programs and Data site, locate TTP12-029 [Source], save the
+original c2HDM.m as
+work/gateA1q_original_nnlo_theory_v1/c2HDM.m,
+and rerun the same preflight. Never substitute a HEPfit-derived
+or SuperIso-derived replacement. Do not patch source to
+manufacture agreement.
+
+**Completion criteria still outstanding for A1Q:**
+(A) authenticate original source retrieval/provenance;
+(B) evaluate original Mathematica C3/C4 at 300,700,1000,2000 GeV
+for two matching scales, checking derivatives/log signs;
+(C) compare raw/effective C7/C8 with paper's inverse-gs²
+operator normalization and z5=+20;
+(D) record tolerance/approximation errors and fail on any
+unresolved basis or logarithmic discrepancy.
+Only then consider A1R observable-level NLO/NNLO validation.
+
+**No physical B→Xsγ exclusion or allowed Zee parameter point
+has been established in A1Q.**
+
 ## Gate A1P — finite three-loop terms: measured and rounding discrepancy explained
 
 **AF finite-function audit PASS:** all 13 regression tests and actual SuperIso
