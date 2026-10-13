@@ -1,3 +1,60 @@
+# Gate A1U nested helper reload correction — 13 October 2026
+
+**STATUS: CODE COMMITTED; AF PHYSICAL VALIDATION PENDING.**
+Do not interpret any A1U two-state BR as validated until the actual pinned
+AF SuperIso v5 source, linker, and A1R endpoint closure gates pass.
+
+Investigation of the public SuperIso v5.0 mirror
+[YancyW/SuperISO_GPU_Batch, src/bsgamma.c](https://github.com/YancyW/SuperISO_GPU_Batch/blob/main/src/bsgamma.c)
+identified a false negative in the previous source audit:
+`bsgamma()` is a wrapper around `bsgamma_Ecut()`. The latter calls
+`CW_calculator(2,C0w,C1w,C2w,mu_W,param)` and uses the resulting
+high-scale `C0w[7],C0w[8]` in `Kt0`, `N_E0`, and `Cem[7]` /
+`P_em`. With fixed low-scale Wilson coefficients, this path still
+depends on the SM/Type-II context; this explains the observed A1U
+context discrepancy as a source-level hypothesis requiring an AF proof.
+
+The A1U source audit now detects the helper reload, source-checks its
+call signature and uses, and switches to `helper_reload` mode. A GNU
+linker `--wrap=CW_calculator` interposition replaces the nested
+high-scale matching result by the *same mixed high-scale coefficient
+vector* used in the low-scale evolution. It activates only during
+the mixed BR evaluation, and must see exactly one wrapped invocation.
+Standalone SM and Type-II control evaluations still use genuine
+SuperIso matching. No upstream source or numerical tolerance is
+altered, and no weighted-average / interpolated physical BR is used.
+
+In this mode, first record the unwrapped fixed-low SM/H1/H2 context
+BRs, then record all three corrected BRs with identical low-scale and
+high-scale inputs. They must agree within 2e-12, followed by the
+independent A1R `gamma=0`, `gamma=pi/2`, degenerate and SM closures.
+This is a source-scanned but **not yet AF-executed** correction, not a
+formal proof of independence from all model auxiliary quantities.
+
+## AF commands
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+python3 -m unittest discover -s tests -p 'test_gateA1u_legacy_two_state_br.py' -v
+python3 scripts/gateA1u_run_legacy_two_state_br.py \
+  --vendor-root work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --a1r-result work/gateA1r_observable_v1/gateA1r_br_pilot.json \
+  --output-dir work/gateA1u_legacy_zee_br_v1 \
+  --mH1 300 --mH2 700 --gamma 1.089 \
+  --tanbeta 5.597170833164245
+```
+
+Expected diagnostics include `A1U_UNWRAPPED_CONTEXT_DIAGNOSTIC`
+and `A1U_CONTEXT_DIAGNOSTIC`; only a **successful AF run** may emit
+the validated legacy two-state BR and closure JSON. Current status:
+`MODERN_2026_full_NNLO_two_state_BR_validated = False`;
+`Zee_model_allowed = Zee_model_excluded = None`.
+
+---
+
 ## A1U AF physical context diagnostic (13 October 2026): revised two-stage check
 
 The user reran the 11 synthetic A1U tests: **11/11 PASS**.
