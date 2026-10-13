@@ -22,8 +22,9 @@ import math
 from pathlib import Path
 import re
 import subprocess
+import shutil
 
-from gateA1r_run_br_pilot import check_superiso_source,compile_pilot
+from gateA1r_run_br_pilot import check_superiso_source
 
 STATUS="GATE_A1U_LEGACY_TWO_STATE_BR_PILOT_NOT_2026_EXCLUSION"
 FNUM=r"([-+0-9.eE]+)"
@@ -33,7 +34,7 @@ INPUT=re.compile(
 WEIGHTS=re.compile(rf"^WEIGHTS w1={FNUM} w2={FNUM}$")
 MATCH=re.compile(rf"^MATCH op=(7|8) sm_LO={FNUM} "
                  rf"delta1_LO={FNUM} delta2_LO={FNUM} zee_LO={FNUM}$")
-MODE=re.compile(r"^INTERNAL_CW_MODE=(none|reload)$")
+MODE=re.compile(r"^INTERNAL_CW_MODE=(none|helper_reload)$")
 DIAGNOSTIC=re.compile(
     rf"^A1U_CONTEXT_DIAGNOSTIC RG_MAX_ABS_DELTA_H1={FNUM} "
     rf"RG_MAX_ABS_DELTA_H2={FNUM} "
@@ -72,6 +73,45 @@ def audit_affine_internal_matching(vendor_root):
     if a is None or b is None or a.end()>=b.start():
         raise ValueError("Cannot locate source-pinned bsgamma body")
     body=clean[a.end():b.start()]
+    # SuperIso 5.0 bsgamma() is only a wrapper. Audit its actual
+    # callee bsgamma_Ecut() rather than falsely declaring no reload.
+    helper=re.search(r"\bdouble\s+bsgamma_Ecut\s*\(",clean)
+    if helper:
+        cut=clean.find("{",helper.end())
+        depth=0
+        end=-1
+        for k in range(cut,len(clean)):
+            if clean[k]=="{": depth+=1
+            elif clean[k]=="}":
+                depth-=1
+                if depth==0:
+                    end=k+1
+                    break
+        if end<0: raise ValueError("Unbalanced bsgamma_Ecut source")
+        hbody=clean[cut:end]
+        hc=re.findall(r"\bCW_calculator\s*\(",hbody)
+        # Source contract for the internal reloaded high-scale WC.
+        refs=set(x.strip() for x in re.findall(
+            r"\bC0w\s*\[\s*([^\]]+)\s*\]",hbody))
+        if hc:
+            if len(hc)!=1 or refs!={"7","8"}:
+                raise ValueError("Unexpected nested helper matching contract")
+            if not re.search(
+                r"CW_calculator\s*\(\s*2\s*,\s*C0w\s*,\s*C1w\s*,\s*C2w\s*,\s*mu_W\s*,\s*param\s*\)",hbody):
+                raise ValueError("Unsupported nested helper CW_calculator signature")
+            if re.search(r"\bC1w\s*\[|\bC2w\s*\[",hbody):
+                raise ValueError("Unexpected nested helper higher-order WC use")
+            return {
+                "superiso_v5_bsgamma_sha256":hashlib.sha256(raw).hexdigest(),
+                "status":"A1U_SUPERISO_V5_HELPER_HIGH_SCALE_RELOAD_INTERPOSITION_REQUIRED",
+                "internal_CW_mode":"helper_reload",
+                "internal_CW_call_count":len(hc),
+                "reloaded_indices":[7,8],
+                "source_scan_not_formal_semantic_proof":True,
+                "numerical_fixed_low_context_test_required":True,
+                "two_state_modern_2026_BR_validated":False,
+                "interposition_requires_exactly_one_helper_call":True,
+            }
     calls=re.findall(r"\bCW_calculator\s*\(",body)
     if len(calls)>1:
         raise ValueError("More than one internal CW_calculator() call: unsupported")
@@ -173,7 +213,7 @@ def parse_driver(raw,expected_m1,expected_m2,expected_gamma,tanbeta,expected_mod
     b0,b1,b2=[finite(x) for x in internal.groups()]
     if max(abs(db0-b0),abs(db1-b1),abs(db2-b2))>1.e-15:
         raise ValueError("A1U C-driver fixed-low diagnostics disagree with final output")
-    if mode=="none" and max(abs(b0-b1),abs(b0-b2))>2e-12:
+    if max(abs(b0-b1),abs(b0-b2))>2e-12:
         raise ValueError(
             "No-reload bsgamma() changed with SM/H1/H2 context "
             "despite identical mixed low-scale Wilson vectors")
@@ -182,7 +222,7 @@ def parse_driver(raw,expected_m1,expected_m2,expected_gamma,tanbeta,expected_mod
     br=finite(one(COMBINED)[1])
     if not all(0.<v<.01 for v in (b0,b1,b2,r1,r2,rsm,br)):
         raise ValueError("Unphysical A1U full BR")
-    should=(b0+w1*(b1-b0)+w2*(b2-b0) if mode=="reload" else b0)
+    should=b0
     if abs(br-should)>1e-13:
         raise ValueError("Internal high-scale affine combination did not close")
     for key in ("EXPERIMENTAL_LIKELIHOOD_VALIDATED false",
@@ -195,7 +235,7 @@ def parse_driver(raw,expected_m1,expected_m2,expected_gamma,tanbeta,expected_mod
         "w_light":w1,"w_heavy":w2,
         "full_legacy_Zee_BR":br,
         "internal_CW_mode":mode,
-        "fixed_low_context_invariance_verified":mode=="none",
+        "fixed_low_context_invariance_verified":True,
         "high_scale_fixed_RG_context_max_abs_delta_H1":rg1,
         "high_scale_fixed_RG_context_max_abs_delta_H2":rg2,
         "fixed_low_context_numeric_separation":{
@@ -298,13 +338,35 @@ def main():
     src_checks=check_superiso_source(args.vendor_root,args.a1m_provenance)
     affine=audit_affine_internal_matching(args.vendor_root)
     mode=affine["internal_CW_mode"]
-    if src_checks["bsgamma_internal_CW_reload_detected"] != (mode=="reload"):
+    if mode=="helper_reload":
+        if src_checks["bsgamma_internal_CW_reload_detected"]:
+            raise ValueError("Unexpected direct bsgamma reload alongside helper")
+    elif src_checks["bsgamma_internal_CW_reload_detected"] != (mode=="reload"):
         raise ValueError("Conflicting independent source audits of internal CW reload")
     args.output_dir.mkdir(parents=True,exist_ok=True)
     exe=args.output_dir/"gateA1u_legacy_two_state_br"
-    built=compile_pilot(
-        args.vendor_root,exe,
-        Path(__file__).with_name("gateA1u_legacy_two_state_br.c"),False)
+    lib=args.vendor_root/"src"/"libsuperiso.a"
+    source=Path(__file__).with_name("gateA1u_legacy_two_state_br.c")
+    if not lib.is_file(): raise ValueError("Missing source-pinned libsuperiso.a")
+    if lib.stat().st_mtime_ns < max(
+        (args.vendor_root/"src"/"wilson.c").stat().st_mtime_ns,
+        (args.vendor_root/"src"/"bsgamma.c").stat().st_mtime_ns):
+        raise ValueError("Stale source-pinned SuperIso archive")
+    cc=shutil.which("gcc")
+    if not cc: raise ValueError("gcc missing")
+    cmd=[cc,"-O2","-std=gnu99","-Wall","-Wextra",
+         "-I"+str(args.vendor_root/"src"),str(source),
+         "-Wl,--wrap=CW_calculator",str(lib),"-lm","-o",str(exe)]
+    proc=subprocess.run(cmd,capture_output=True,text=True,timeout=90)
+    if proc.returncode:
+        raise ValueError("A1U source-pinned wrap-link failed: "+
+                         proc.stderr[-3000:])
+    built={
+        "library_SHA256":hashlib.sha256(lib.read_bytes()).hexdigest(),
+        "driver_SHA256":hashlib.sha256(source.read_bytes()).hexdigest(),
+        "compiler_command":cmd,
+        "compiler_stdout_stderr_excerpt":(proc.stdout+proc.stderr)[-2500:],
+    }
     controls={
         "zee":(m1,m2,g),
         "gamma0":(m1,m2,0.),
