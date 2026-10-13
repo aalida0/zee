@@ -4,6 +4,8 @@ import hashlib
 import json
 import math
 import sys
+from types import SimpleNamespace
+from unittest.mock import patch
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
@@ -11,7 +13,7 @@ import unittest
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 from gateA1r_run_br_pilot import (
     MASSES,MODELS,REFERENCE_SM,make_author_reference_control,
-    read_br_output,audit_points,finite,check_superiso_source,
+    read_br_output,audit_points,finite,check_superiso_source,compile_pilot,
 )
 
 def result_values():
@@ -148,6 +150,34 @@ class TestA1ROBS(unittest.TestCase):
         data.pop("Original1000")
         with self.assertRaisesRegex(ValueError,"Missing"):
             audit_points(data,{},{},"fake.log")
+
+    def test_v5_archive_path_is_source_tree_not_obsolete_root(self):
+        with TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            (root/"src").mkdir()
+            (root/"src"/"wilson.c").write_text("/* pinned source */")
+            (root/"src"/"bsgamma.c").write_text("/* pinned source */")
+            driver=root/"pilot.c"
+            driver.write_text("int main(void){return 0;}")
+            # Old v3 lib at root must never be accepted.
+            (root/"libisospin.a").write_bytes(b"wrong SuperIso v3")
+            with self.assertRaisesRegex(ValueError,"src/libsuperiso.a"):
+                compile_pilot(root,root/"run",driver)
+            lib=root/"src"/"libsuperiso.a"
+            lib.write_bytes(b"pinned SuperIso v5 archive")
+            executed=[]
+            def compile_stub(cmd,**kwargs):
+                executed.append(cmd)
+                return SimpleNamespace(returncode=0,stdout="",stderr="")
+            with patch("gateA1r_run_br_pilot.shutil.which",return_value="/usr/bin/gcc"), \
+                 patch("gateA1r_run_br_pilot.subprocess.run",side_effect=compile_stub):
+                # The archive was just written after the source files.
+                p=compile_pilot(root,root/"run",driver)
+            self.assertEqual(len(executed),1)
+            self.assertIn(str(lib),executed[0])
+            self.assertNotIn("-lisospin",executed[0])
+            self.assertEqual(p["library_SHA256"],
+                             hashlib.sha256(lib.read_bytes()).hexdigest())
 
     def test_cut_value_is_explicit(self):
         self.assertEqual(REFERENCE_SM["photon_cut_GeV"],1.6)
