@@ -1,6 +1,6 @@
 # Gate B4C — joined B4/B2/B3/A1V evidence audit
 
-**Status:** implementation and 9 pure data-integrity regression tests
+**Status:** implementation and 10 pure data-integrity regression tests
 committed, **not executed on AF**. Report is not an exclusion or
 fully allowed-point classification.
 
