@@ -35,6 +35,10 @@ def fake_raw(m1=300.,m2=700.,g=1.089,b0=.000390,b1=.000393,
         f"MATCH op=8 sm_LO=-0.10000000000000001 "
         f"delta1_LO={d1_8:.17g} delta2_LO={d2_8:.17g} "
         f"zee_LO={-.1+w1*d1_8+w2*d2_8:.17g}\n"
+        f"A1U_CONTEXT_DIAGNOSTIC RG_MAX_ABS_DELTA_H1=0 "
+        f"RG_MAX_ABS_DELTA_H2=0 "
+        f"FIXED_LOW_BR_SM={b0:.17g} "
+        f"FIXED_LOW_BR_H1={b1:.17g} FIXED_LOW_BR_H2={b2:.17g}\n"
         f"INTERNAL_FIXED_LOW BR_SM_CONTEXT={b0:.17g} "
         f"BR_H1_CONTEXT={b1:.17g} BR_H2_CONTEXT={b2:.17g}\n"
         f"FULL_SINGLE_REFERENCE br_H1={R1:.17g} "
@@ -191,6 +195,32 @@ class TestGateA1ULegacyTwoState(unittest.TestCase):
         obj["TypeII_control_points"]["TypeII700"]["BR_B_to_Xs_gamma"]+=1e-5
         with self.assertRaisesRegex(ValueError,"closure failure"):
             finalize(p,l,r,d,obj,{},{},"output.log")
+
+    def test_rg_context_stage_failure_is_not_misclassified_as_bsgamma(self):
+        # If the same high-scale Wilson vector evolves differently under
+        # H1/H2 contexts, we cannot claim that the problem arises inside
+        # bsgamma(); physical single-state checks have not yet run.
+        raw=fake_raw().replace(
+            "RG_MAX_ABS_DELTA_H1=0",
+            "RG_MAX_ABS_DELTA_H1=0.001")
+        with self.assertRaisesRegex(ValueError,"RG context invariance"):
+            parse_driver(raw,300.,700.,1.089,TAN)
+
+    def test_bsgamma_diagnostic_disagreement_not_silenced(self):
+        raw=fake_raw().replace(
+            "FIXED_LOW_BR_H2=0.00039100000000000001",
+            "FIXED_LOW_BR_H2=0.00040000000000000002")
+        self.assertNotEqual(raw,fake_raw())
+        with self.assertRaisesRegex(ValueError,
+                                    "fixed-low diagnostics disagree"):
+            parse_driver(raw,300.,700.,1.089,TAN)
+
+    def test_missing_stage_is_not_accepted(self):
+        raw=fake_raw()
+        raw="\n".join(line for line in raw.splitlines()
+                      if not line.startswith("A1U_CONTEXT_DIAGNOSTIC "))
+        with self.assertRaisesRegex(ValueError,"Missing/duplicate A1U field"):
+            parse_driver(raw,300.,700.,1.089,TAN)
 
     def test_malformed_missing_marker_does_not_fake_BR(self):
         raw=fake_raw().replace(
