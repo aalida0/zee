@@ -265,6 +265,29 @@ def main():
         w.writeheader()
         for p in candidates:
             w.writerow({k:p[k] for k in COLUMNS})
+    # A 2HDMC cross-check can use the same 2HDM quartics and soft
+    # mixing, but the *unmixed doublet* charged-mass parameter is NOT
+    # either physical Zee charged-Higgs mass. Never use 2HDMC's
+    # single-charged-Higgs signal predictions as a Zee exclusion.
+    sub=a.output_dir/"doublet_subsector_2HDMC_INPUT_ONLY.csv"
+    subcols=("id","tanbeta","m12sq","lambda1","lambda2","lambda3",
+             "lambda4","lambda5","lambda6","lambda7",
+             "mHD_unmixed_GeV","meaning")
+    with sub.open("w",newline="") as ff:
+        ww=csv.DictWriter(ff,fieldnames=subcols)
+        ww.writeheader()
+        for row in candidates:
+            g=row["gamma"]
+            md=(row["mH1"]**2*math.cos(g)**2+
+                row["mH2"]**2*math.sin(g)**2)**0.5
+            ww.writerow({
+                **{k:row[k] for k in
+                   ("id","tanbeta","m12sq","lambda1","lambda2",
+                    "lambda3","lambda4","lambda5")},
+                "lambda6":0.,"lambda7":0.,
+                "mHD_unmixed_GeV":md,
+                "meaning":"2HDM_DOUBLETS_ONLY_NOT_PHYSICAL_ZEE_HCHARGED",
+            })
     summary={
         "status":STATUS, "seed":a.seed,
         "attempted":a.points,"counts":counts,
@@ -286,7 +309,8 @@ def main():
         "paths":{
             "ranked_candidates":str(dest),
             "all_candidates":str(full),
-            "flavour_inputs_for_A1V":str(flavor)},
+            "flavour_inputs_for_A1V":str(flavor),
+            "2hdmc_doublet_subsector_only":str(sub)},
     }
     (a.output_dir/"summary.json").write_text(json.dumps(summary,indent=2)+"\n")
     print("STATUS",STATUS)
