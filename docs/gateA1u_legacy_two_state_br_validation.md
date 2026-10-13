@@ -1,3 +1,43 @@
+# AF results — 13 October 2026 (user-reported)
+
+The AF implementation ran to completion against the source-pinned isolated
+SuperIso v5 library with the nested-helper matching correction. The runner
+emitted:
+
+```text
+STATUS GATE_A1U_FULL_LEGACY_SUPERISO_TWO_STATE_BR_ENDPOINT_CLOSED_NOT_2026_EXCLUSION
+ZEE_LEGACY_FULL_BR 0.0003931195407821
+GAMMA_0_ENDPOINT 0.0004511530310543
+GAMMA_PI2_ENDPOINT 0.0003779342973212
+DEGENERATE_MASSES 0.0003779342973212
+FULL_2026_NNLO_BR_VALIDATED False
+ZEE_EXCLUSION_CALCULATED False
+```
+
+This is an **actual AF output**, rather than a predicted outcome. It
+establishes runner-enforced legacy A1R endpoint / equal-mass and SM
+closure for the 300/700 GeV, gamma=1.089, tanbeta=5.597170833164245
+benchmark. Raw provenance is kept on AF at
+`work/gateA1u_legacy_zee_br_v1/legacy_two_state_br.json` and
+`work/gateA1u_legacy_zee_br_v1/a1u_raw_vendor_output.log` and was
+not independently ingested into the repository here.
+
+The first AF Python unit-test suite had **16 PASS and 1 FAIL** out of
+17 tests. The failing synthetic test expected the error phrase
+`signature` from an intentionally malformed helper call
+`CW_calculator(1,...)`; the source audit correctly rejected it with
+the broader message `Unexpected nested helper matching contract`.
+A subsequent commit changes only the audit's rejection ordering so
+the more precise signature error is emitted first. **The revised
+17-test suite still requires an AF rerun.** No physical C kernel or
+validated endpoint result changed in that commit.
+
+These results validate the **legacy SuperIso-v5** observable calculation
+and its required numerical controls, not an independent 2026 NNLO
+prediction, a theoretical error budget, or a flavour exclusion.
+
+---
+
 # Gate A1U nested helper reload correction — 13 October 2026
 
 **STATUS: CODE COMMITTED; AF PHYSICAL VALIDATION PENDING.**
