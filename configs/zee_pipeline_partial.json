@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "neutrino_partial_LFV": {
+    "trials_per_candidate": 100,
+    "top": 5,
+    "random_seed": 20261014
+  },
+  "legacy_superiso": {
+    "enabled": true,
+    "vendor_root": "work/gateA1m_isolated_nlo_v1/isolated_superiso",
+    "a1m_provenance": "work/gateA1m_isolated_nlo_v1/source_patch_provenance.json",
+    "a1u_result": "work/gateA1u_legacy_zee_br_v1/legacy_two_state_br.json"
+  },
+  "higgstools": {
+    "enabled": false,
+    "blocking_reason": "Zee-specific complete HiggsPredictions input not yet validated"
+  },
+  "full_LFV": {
+    "enabled": false,
+    "blocking_reason": "Barr-Zee, mu to 3e, mu-e conversion and other channels missing"
+  },
+  "modern_b_to_s_gamma": {
+    "enabled": false,
+    "blocking_reason": "Two-state modern NNLO-matched calculation and likelihood not calibrated"
+  }
+}
