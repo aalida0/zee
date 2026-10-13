@@ -17,10 +17,12 @@ from pathlib import Path
 import re
 import tarfile
 from urllib.parse import urljoin, urlparse
+from urllib.error import HTTPError,URLError
 from urllib.request import Request, urlopen
 import zipfile
 
 CATALOGUE="https://www.ttp.kit.edu/progdata"
+OFFICIAL_DIRECTORY="https://www.ttp.kit.edu/Progdata/ttp12/ttp12-029/"
 OFFICIAL_HOSTS=("www.ttp.kit.edu","ttp.kit.edu")
 EXPECTED_NAME="c2HDM.m"
 MAX_ARTIFACT_BYTES=30_000_000
@@ -135,8 +137,20 @@ def discover_from_directory(html,base):
     return hits[0]
 
 def retrieve(catalogue,output):
-    html,final_catalogue,_=download_official(catalogue)
-    source=resolve_catalogue_source(html.decode("utf-8"),final_catalogue)
+    # The new KIT catalogue may deny scripted access (HTTP 403).
+    # Fallback to the known official supplementary directory
+    # documented by its public readme URL; inspect its index for the
+    # actual c2HDM.m link rather than guessing an archive name.
+    fallback_reason=None
+    resolution="KIT_CATALOGUE_TTP12_029_SOURCE_LINK"
+    try:
+        html,final_catalogue,_=download_official(catalogue)
+        source=resolve_catalogue_source(html.decode("utf-8"),final_catalogue)
+    except (HTTPError,URLError,ValueError,UnicodeDecodeError) as exc:
+        fallback_reason=str(exc)
+        resolution="KIT_OFFICIAL_TTP12_029_DIRECTORY_INDEX"
+        html,final_catalogue,_=download_official(OFFICIAL_DIRECTORY)
+        source=discover_from_directory(html.decode("utf-8"),final_catalogue)
     raw,resolved,typ=download_official(source)
     file_raw,archive_entry,format_type=find_named_source(raw,resolved)
     if file_raw is None:
@@ -162,8 +176,10 @@ def retrieve(catalogue,output):
     dest.write_bytes(file_raw)
     manifest={
         "status":"GATE_A1Q_KIT_ORIGINAL_SOURCE_FETCHED_NOT_EVALUATED",
-        "catalogue_url":final_catalogue,
+        "catalogue_url":catalogue,
         "resolved_source_url":resolved,
+        "source_resolution_route":resolution,
+        "catalogue_fallback_reason":fallback_reason,
         "downloaded_artifact_sha256":hashlib.sha256(raw).hexdigest(),
         "downloaded_artifact_size_bytes":len(raw),
         "format":format_type,
