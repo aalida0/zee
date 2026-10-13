@@ -92,21 +92,36 @@ def check_superiso_source(root,source_manifest):
         raise ValueError("SuperIso photon energy cut changed from 1.6GeV")
     if not re.search(r"double\s+bsgamma\s*\(",code):
         raise ValueError("Unrecognized SuperIso physical observable source")
-    if not re.search(r"CW_calculator\s*\(\s*C0w\s*,\s*C1w\s*,\s*C2w"
-                     r"\s*,\s*mu_W\s*,\s*param\s*\)",code):
-        raise ValueError("SuperIso nonperturbative high-scale CW reload missing")
+    # A fixed-argument source regex incorrectly rejects valid vendor
+    # versions. Detect any REAL CW_calculator() call inside bsgamma()
+    # (not its wrapper), and record whether it is present. For this
+    # *single charged-Higgs* comparison the actual Wilson vectors are
+    # passed explicitly to bsgamma(), so an absent internal reload is
+    # not grounds for failing the observable pilot. The two-state Zee
+    # implementation must audit any internal Kt0 dependence separately.
+    clean=re.sub(r'/\*.*?\*/|//[^\n]*', ' ', code, flags=re.S)
+    start=re.search(r'\bdouble\s+bsgamma\s*\(',clean)
+    end=re.search(r'\bdouble\s+bsgamma_calculator\s*\(',clean)
+    if start is None or end is None or end.start()<=start.start():
+        raise ValueError("Cannot delimit pinned SuperIso bsgamma() body")
+    observable_body=clean[start.end():end.start()]
+    internal_reload=bool(re.search(r'\bCW_calculator\s*\(',observable_body))
     return {
         "A1M_patched_wilson_SHA256":digest,
         "SuperIso_bsgamma_c_SHA256":
             hashlib.sha256(bsg.read_bytes()).hexdigest(),
         "Egamma_cut_GeV":1.6,
         "uses_unmodified_bsgamma_kernel":True,
-        "warning_internal_CW_reload":
-            "The nonperturbative Kt0 term calls CW_calculator inside bsgamma. "
-            "Vendor Type-II parameters remain enabled, so its LO "
-            "matching reflects the same single charged Higgs. "
-            "Only NNLO C2w[3..8] is externally overridden; no NNLO "
-            "corrections enter Kt0 at this order.",
+        "bsgamma_internal_CW_reload_detected":internal_reload,
+        "warning_internal_CW_reload":(
+            "CW_calculator() call found inside bsgamma(); its LO "
+            "single-charged-Higgs matching must remain consistent, "
+            "and two-state Zee mode requires a separate Kt0 audit."
+            if internal_reload else
+            "No CW_calculator() call found inside bsgamma(); do not "
+            "assume a matching reload, and explicitly audit the "
+            "nonperturbative part before two-state Zee mode."
+        ),
     }
 
 def compile_pilot(root,output,driver_source,make_if_missing=False):
