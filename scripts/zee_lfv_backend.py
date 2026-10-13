@@ -21,9 +21,8 @@ import csv
 import json
 import math
 from pathlib import Path
-from collections import Counter
 import numpy as np
-from gateA1d_neutral_tree_lfv import scalar_couplings, tau_tree_br, GF
+from gateA1d_neutral_tree_lfv import scalar_couplings, GF
 from gateA1c_charged_singlet_lfv import singlet_propagator_sum
 from gateB3_general_zee_charged_lepton_widths import (
     read_b1,complex_matrix,ensure_neutrino_closure,
@@ -135,10 +134,14 @@ def f_only_universality(f,m1,m2,gamma):
     e_mu=abs(f[0,1])**2
     e_tau=abs(f[0,2])**2
     mu_tau=abs(f[1,2])**2
+    # Herrero Eqs. (3.31)-(3.33) take f_e_mu=0. Our B2 solves
+    # GENERAL antisymmetric f, so restore the muon-decay denominator:
+    # delta(g_tau/g_mu)^2 = delta(tau->e) - delta(mu->e).
+    # delta(g_tau/g_e)^2  = delta(tau->mu) - delta(mu->e).
     return {
         "GF_mu_over_GF_SM_squared_minus1_f_only":float(k*e_mu),
-        "g_tau_over_mu_squared_minus1_f_only":float(k*e_tau),
-        "g_tau_over_e_squared_minus1_f_only":float(k*mu_tau),
+        "g_tau_over_mu_squared_minus1_f_only":float(k*(e_tau-e_mu)),
+        "g_tau_over_e_squared_minus1_f_only":float(k*(mu_tau-e_mu)),
         "g_mu_over_e_squared_minus1_f_only":float(k*(mu_tau-e_tau)),
     }
 
