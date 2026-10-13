@@ -34,7 +34,7 @@ INPUT=re.compile(
 WEIGHTS=re.compile(rf"^WEIGHTS w1={FNUM} w2={FNUM}$")
 MATCH=re.compile(rf"^MATCH op=(7|8) sm_LO={FNUM} "
                  rf"delta1_LO={FNUM} delta2_LO={FNUM} zee_LO={FNUM}$")
-MODE=re.compile(r"^INTERNAL_CW_MODE=(none|helper_reload)$")
+MODE=re.compile(r"^INTERNAL_CW_MODE=(none|reload|helper_reload)$")
 DIAGNOSTIC=re.compile(
     rf"^A1U_CONTEXT_DIAGNOSTIC RG_MAX_ABS_DELTA_H1={FNUM} "
     rf"RG_MAX_ABS_DELTA_H2={FNUM} "
@@ -91,8 +91,17 @@ def audit_affine_internal_matching(vendor_root):
         hbody=clean[cut:end]
         hc=re.findall(r"\bCW_calculator\s*\(",hbody)
         # Source contract for the internal reloaded high-scale WC.
+        expressions=re.sub(
+            r"\bdouble\s+complex\s+Cem\s*\[\s*\d+\s*\]\s*,"
+            r"\s*C0w\s*\[\s*\d+\s*\]\s*,"
+            r"\s*C1w\s*\[\s*\d+\s*\]\s*,"
+            r"\s*C2w\s*\[\s*\d+\s*\]\s*;", " ", hbody)
+        expressions=re.sub(
+            r"\bdouble\s+complex\s+C0w\s*\[\s*\d+\s*\]\s*,"
+            r"\s*C1w\s*\[\s*\d+\s*\]\s*,"
+            r"\s*C2w\s*\[\s*\d+\s*\]\s*;", " ", expressions)
         refs=set(x.strip() for x in re.findall(
-            r"\bC0w\s*\[\s*([^\]]+)\s*\]",hbody))
+            r"\bC0w\s*\[\s*([^\]]+)\s*\]",expressions))
         if hc:
             if len(hc)!=1 or refs!={"7","8"}:
                 raise ValueError("Unexpected nested helper matching contract")
@@ -213,7 +222,7 @@ def parse_driver(raw,expected_m1,expected_m2,expected_gamma,tanbeta,expected_mod
     b0,b1,b2=[finite(x) for x in internal.groups()]
     if max(abs(db0-b0),abs(db1-b1),abs(db2-b2))>1.e-15:
         raise ValueError("A1U C-driver fixed-low diagnostics disagree with final output")
-    if max(abs(b0-b1),abs(b0-b2))>2e-12:
+    if mode!="reload" and max(abs(b0-b1),abs(b0-b2))>2e-12:
         raise ValueError(
             "No-reload bsgamma() changed with SM/H1/H2 context "
             "despite identical mixed low-scale Wilson vectors")
@@ -222,7 +231,7 @@ def parse_driver(raw,expected_m1,expected_m2,expected_gamma,tanbeta,expected_mod
     br=finite(one(COMBINED)[1])
     if not all(0.<v<.01 for v in (b0,b1,b2,r1,r2,rsm,br)):
         raise ValueError("Unphysical A1U full BR")
-    should=b0
+    should=(b0+w1*(b1-b0)+w2*(b2-b0) if mode=="reload" else b0)
     if abs(br-should)>1e-13:
         raise ValueError("Internal high-scale affine combination did not close")
     for key in ("EXPERIMENTAL_LIKELIHOOD_VALIDATED false",
@@ -235,7 +244,7 @@ def parse_driver(raw,expected_m1,expected_m2,expected_gamma,tanbeta,expected_mod
         "w_light":w1,"w_heavy":w2,
         "full_legacy_Zee_BR":br,
         "internal_CW_mode":mode,
-        "fixed_low_context_invariance_verified":True,
+        "fixed_low_context_invariance_verified":mode!="reload",
         "high_scale_fixed_RG_context_max_abs_delta_H1":rg1,
         "high_scale_fixed_RG_context_max_abs_delta_H2":rg2,
         "fixed_low_context_numeric_separation":{
