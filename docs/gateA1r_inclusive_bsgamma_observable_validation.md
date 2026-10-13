@@ -26,7 +26,7 @@ Python: scripts/gateA1r_run_br_pilot.py
 Tests: tests/test_gateA1r_run_br_pilot.py
 
 The driver links against the PROVENANCE-PINNED isolated A1M SuperIso-v5
-library (libisospin.a) and runs actual:
+library (src/libsuperiso.a) and runs actual:
 
   Init_param -> slha_adjust -> CW_calculator(muW)
   -> C_calculator_base1(muW,mub) -> Cprime_calculator(muW,mub)
@@ -83,9 +83,16 @@ Additional 580-GeV V-only historical control. SM case too.
       --existing-result work/gateA1p_hepfit_typeii_v1/result.json \
       --output-dir work/gateA1r_observable_v1 --make-if-missing
 
-If the pinned library is absent, only the already isolated SuperIso
-tree is built. If the compiler fails, provide the compiler stderr;
-do not replace the library with another SuperIso version.
+Gate A1P already links the isolated SuperIso **v5** library at
+work/gateA1m_isolated_nlo_v1/isolated_superiso/src/libsuperiso.a,
+and the v5 C API uses COMPLEX Wilson arrays, CW_calculator(2,...),
+Cprime_calculator(2,...), and running_mass(param.mtmt,param.mtmt,...).
+Do not use obsolete root/libisospin.a (v3.x-era archive).
+
+If the pinned src/libsuperiso.a is absent, the runner may invoke
+make in the src directory only if src/Makefile exists; otherwise it
+fails with a diagnostic. If compile fails, provide compiler stderr
+and do not substitute a different SuperIso version.
 
 To prepare the four original NNLO reference text files with NO
 compiler or observable evaluation, append --prepare-only.
@@ -148,3 +155,25 @@ photon cuts.
 These fixes are new GitHub commits and have not yet been retested
 on the AF. Do not interpret a future A1R source preflight PASS as
 an independently validated NNLO branching ratio.
+
+## AF build failure diagnosis — 2026-10-13
+
+All original seven plus two additional A1R Python regressions PASSED
+(9/9). The first observable run then failed BEFORE compilation at
+make -C isolated_superiso libisospin.a: 'No rule to make target'.
+This was a Gate A1R build-driver error: its library path and C API
+were accidentally copied from old SuperIso v3.4 instead of the
+pinned SuperIso v5.0 already compiled in Gate A1M/A1P.
+
+The corrected A1R runner links the EXISTING A1M archive
+isolated_superiso/src/libsuperiso.a and uses exact archive path,
+not a guessed root Makefile or generic -l resolution. The C driver
+now uses the same v5 source API as the passed A1L/A1P pilots:
+complex Wilson arrays, CW_calculator(2,...), Cprime_calculator(2,...),
+THDM_model=2, and mtmt as input for running_mass. New regression test
+asserts v3 root library cannot be linked in place of v5.
+
+IMPORTANT: these fixes are committed but HAVE NOT YET BEEN COMPILED
+on AF with the genuine pinned vendor v5 header/library. A future
+compiler error must be resolved against the v5 include.h ABI;
+never rewrite the physics kernel or bypass original-source checks.
