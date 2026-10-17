@@ -1,3 +1,74 @@
+## Model choice frozen — restricted Florentino–Romão–Silva 2021 baseline
+
+**User decision 2026-10-18:** work ONLY with the restricted
+CP-conserving 2HDM plus charged singlet of Florentino et al.,
+EPJC 81 1148, Eq. (17). Keep the 2HDM scalar
+`lambda_6=lambda_7=0`, singlet interactions
+`lambda_c,k1,k2,k12,mu4`, real scalar parameters,
+Type-II-like quark Yukawas, and general complex
+antisymmetric `f` and general `Y` for the Zee neutrino
+mass calculation. Do not silently switch to generic
+quark Type-III or hard-Z2-breaking lambda6/lambda7.
+
+**Critical model-theory caveat:** an exact Type-II Z2
+symmetry with unrestricted general Zee leptonic
+Yukawas is not automatically a complete symmetry
+assignment. Florentino Sec. 8 explicitly notes that
+the full quark + lepton flavor problem was left open.
+Until an alignment mechanism/UV or controlled
+effective quark-Yukawa ansatz is justified, call it a
+`restricted_Zee_scalar_and_TypeII_like_quark_phenomenology`,
+not a fully UV-protected exact-Z2 model.
+
+**FIRST verification, BEFORE flavor or HiggsTools:**
+extract publication's *final version* Table 2 P1–P4
+into `data/florentino2021_table2_regions.json`;
+those are **benchmark REGIONS**, with mH1 and mH2
+ranges and beta only specified as approximately
+alpha within ~1%, not unique, fixed fully numerical points.
+Published alpha/gamma for P3/P4 include negative signs;
+existing Gate6 signed-angle convention accepts only
+0<gamma<pi/2; NEVER convert to absolute value silently.
+Start with positive-angle P2, then P1, before signed-angle
+source reconciliation for P3/P4. A chosen mH1=300,
+mH2=700, beta=1.398 is a **representative region
+member**, not a published exact allowed P2 point.
+
+Publication Table2 singlet quartic rows are scaled:
+`100*lambda_c`, `100*k2`, `100*k12`.
+P2 correct unscaled source values in the final article
+are `lambda_c=4.473,k1=1.082,k2=0.00398,
+k12=+0.01267`, and `m12sq=58000 GeV²`.
+Our older `gate6_benchmark.py` defaults instead
+use `k12=-0.001266,m12sq=57700 GeV²`;
+they are **not exact Table 2 P2 inputs** and must not
+be silently used for paper reproduction. Verify
+singlet coupling sign and source-table scaling
+against the PDF before treating this as an independent
+Lagrangian check. The table-source JSON and P2
+driver explicitly correct these source values;
+existing defaults are untouched to preserve old tests.
+
+**AF first command:**
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_reproduce_florentino_2021_regions.py' -v
+python3 scripts/zee_reproduce_florentino_2021_regions.py \
+  --benchmark P2 --mH1 300 --mH2 700 --beta 1.398 \
+  --output work/florentino2021_P2_scalar_region_pilot_v1.json
+```
+
+Read the resulting charged/neutral mass closure, sufficient
+BFB, tree unitarity, and **included-channel-only**
+H2->H1Z and H1->tb fractions. No claims of recreating
+their full HiggsBounds/charge-breaking/bsgamma exclusions,
+nor of 2026 compatibility or complete Zee lepton BR.
+Source https://doi.org/10.1140/epjc/s10052-021-09956-2 .
+
+
 # HL-LHC Zee H2+- -> H1+- Z: complete-constraint and benchmark roadmap (17 October 2026)
 
 **Scope.** General Zee model with two Higgs doublets and one charged singlet, mixed charged states H1+-, H2+-, heavy production pp -> t(b)H2+- at sqrt(s)=14 TeV, H2+- -> H1+- Z, H1+- -> tb. Run both charge conjugates. HL-LHC illustrative luminosity 3 ab^-1 and high-pileup O(200). Distinguish a *model-independent collider reach projection* from a *physically viable full Zee-model interpretation*. The former can begin while the latter remains incomplete.
