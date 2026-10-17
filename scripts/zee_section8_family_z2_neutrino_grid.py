@@ -141,7 +141,7 @@ def main():
                           "is_quasidegenerate_mlight_over_mheavy_ge_0p5"],
                       flush=True)
     check_results(rows,betas,orders,seeds)
-    out=args.output_dir;out.mkdir(parents=True,exist_ok=False)
+    out=args.output_dir;out.mkdir(parents=True,exist_ok=True)
     with (out/"grid_NOT_NUFIT.csv").open("w",newline="") as h:
         w=csv.DictWriter(h,fieldnames=FIELDNAMES)
         w.writeheader();w.writerows(rows)
