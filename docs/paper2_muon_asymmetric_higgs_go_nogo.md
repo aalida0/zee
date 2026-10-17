@@ -589,3 +589,85 @@ optimistic grid points are allowed. Independent MadGraph
 cross-section checks at additional chosen physical candidates
 are useful only once that parameter mapping can pass the
 implemented scalar consistency gates.
+
+
+## Step I — actual 314-point B4 scan and targeted correlated lighter-mass feasibility
+
+User-reported result for `scripts/zee_muon_rank_B4_scalar_points.py`
+(2026-10-17):
+
+- 314 scalar BFB/unitarity + correlated STU-screened spectra; 942
+  energy-scenario rows.
+- Mass ranges mH1=201.128–371.712 GeV, mH2=593.040–725.033 GeV,
+  gamma=1.02486–1.36850 rad. **The B4 scan did not reach
+  the 250/500 or 300/500 region**; this is a limitation of
+  that benchmark-seeded search, NOT an exclusion.
+- Maximum gauge-only s-channel cross section:
+  1.5 TeV **0.937342 fb**,
+  3 TeV **0.445928 fb**,
+  10 TeV **0.0472829 fb**.
+- Maximum B4 *included-channel conditional*
+  truth Z->e+e-/mu+mu-, H1->tb twice:
+  **26.682, 25.7834, 27.373** events for the illustrative
+  0.5, 1 and 10 ab^-1 luminosities.
+- `B4_0000822`: (m1,m2)=(220.93,690.99) GeV, gamma=1.025,
+  sigma(1.5 TeV)=0.92179 fb, conditional truth Zll=26.68,
+  and b momentum in H1 rest frame about 43 GeV.
+- `B4_0001150`: (255.95,691.49) GeV, gamma=1.05,
+  sigma(1.5 TeV)=0.83088 fb, conditional truth Zll=23.11,
+  and harder b momentum ~70 GeV, potentially better reconstruction.
+
+The **high-rate 1.78 fb** mass-grid case at (200,500) GeV and
+gamma=pi/4 remains an *arbitrary* gauge-kinematic hypothesis,
+not even B4-screened. The main next physics question is whether
+a nearby scalar spectrum at light mH2 can satisfy our implemented
+potential and precision tests at all.
+
+### New targeted correlated potential/oblique search
+
+`scripts/zee_muon_targeted_light_scalar_scan.py` reuses
+`gateB4_adaptive_zee_scalar_scan.scalar_screen`,
+`ewpo_screen` and `make_record` with no cut changes.
+It starts from the 314 B4-screened points and moves *together*:
+- mH1 and mH2 toward selected 250/500,300/500,250/550,300/550;
+- heavy neutral mH and pseudoscalar mA correlated with the charged scale;
+- soft M² proportional to the squared charged scale;
+- beta, alpha-beta, gamma (including a near-pi/4 proposal family);
+- singlet lc, k1, k2 and k12 retaining their original sufficient BFB domain.
+
+The experiment is stochastic and local to deformed B4 seeds;
+**zero survivors does not exclude that mass region**. It records
+counts for failed proposal-domain, scalar-theory, STU ellipsoid,
+and numerical/partial-width gates separately. Accepted rows
+have the complete original B4 CSV columns for provenance plus
+muon collider gauge-only rate and **conditional** Zll truth counts.
+
+Pilot:
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_muon_targeted_light_scalar_scan.py' -v
+
+python3 scripts/zee_muon_targeted_light_scalar_scan.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/all_screened_candidates_NOT_ALLOWED.csv \
+  --targets 250:500,300:500,250:550,300:550 \
+  --trials-per-target 750 \
+  --sources 32 \
+  --quadrature-nodes 64 \
+  --seed 20261017 \
+  --output-dir work/zee_muon_P2_light_scalar_target_pilot_v1
+```
+
+Only if this has useful accepted scalar/EWPO spectra, increase
+`--trials-per-target` to 3000 (new empty output directory).
+If no samples pass, inspect rejection-stage fractions before
+trying a correlated continuation/optimizer; do not loosen BFB,
+unitarity or STU fits to force a benchmark.
+
+**Scientific go/no-go:** Even with more scalar/EWPO survivors,
+the physical published Paper 2 reach requires full neutrino/LFV,
+Type-II-like quark flavor, HiggsTools direct search constraints,
+complete Zee widths and SM backgrounds with muon BIB effects.
+A high s-channel rate alone is not a muon-specific paper.
