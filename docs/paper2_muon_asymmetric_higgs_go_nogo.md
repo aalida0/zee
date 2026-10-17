@@ -671,3 +671,86 @@ the physical published Paper 2 reach requires full neutrino/LFV,
 Type-II-like quark flavor, HiggsTools direct search constraints,
 complete Zee widths and SM backgrounds with muon BIB effects.
 A high s-channel rate alone is not a muon-specific paper.
+
+
+## Step J — user 43 successful targeted scalar+EWPO solutions and urgent Type-II flavor gate
+
+User executed the `zee_muon_targeted_light_scalar_scan.py`
+3,000-point correlated proposal pilot:
+
+- 55/3000 passed the implemented Zee sufficient BFB/tree unitarity.
+- 43/55 scalar survivors also passed BOTH correlated published
+  3D S,T,U 95%-ellipsoid screens (43 distinct candidates, about
+  1.43% of all **targeted nonuniform** proposals).
+- Rejected: scalar 2904, outside original B4 proposal domain 35,
+  mass/decay domain 5, EWPO 12, numerical or width 1.
+  These rejection fractions are *proposal-specific* and not
+  exclusion probabilities or parameter-space posterior volumes.
+- Top conditional Z->e/mu event ceilings at sqrt(s)=1.5 TeV,
+  0.5 ab^-1 (NO detector and NOT complete widths):
+  - `P2L_0000563`: (225.5,527.7) GeV; gamma=0.832;
+    gauge sigma=1.64516 fb; 44.29 Z->ee/mumu conditional events;
+    b rest momentum 46.6 GeV.
+  - `P2L_0001019`: (284.5,534.7) GeV; gamma=0.901;
+    sigma=1.45745 fb; 35.26 conditional Zll events;
+    b rest momentum 89.9 GeV.
+  - `P2L_0001913`: (255.3,541.6) GeV; gamma=0.935;
+    sigma=1.43450 fb; 37.67 conditional Zll events;
+    b rest momentum 69.3 GeV.
+  - `P2L_0002555`: (292.6,546.9) GeV; gamma=0.821;
+    sigma=1.48001 fb; 40.05 conditional Zll events;
+    b rest momentum 95.4 GeV.
+
+**Urgent physics qualification:** Florentino, Romão and Silva,
+EPJC 81 (2021) 1148, Sec.4.3.2, explicitly report that under
+their historical two-charged Zee-Type-II `B->Xs gamma` treatment
+points with **both charged Higgs masses below the standalone
+Type-II ~580 GeV threshold are excluded** by their implemented
+flavor cut; only one can be substantially lighter with the
+other above that threshold. See:
+https://link.springer.com/article/10.1140/epjc/s10052-021-09956-2
+Sec.4.3.2 paragraphs under Fig.2 and Appendix C. All FOUR top
+light-mass candidates have mH2=528-547 GeV, below 580 GeV,
+so these collider-optimized mass points are HIGH RISK for
+historical Type-II flavor rejection. A **modern 2026 two-state
+NNLO theoretical/experimental likelihood has NOT been validated**,
+and that historical threshold MUST NOT be copied as a current
+hard statistical bound. The complete charged-Higgs flavor
+observable must be evaluated pointwise.
+
+### Next practical step: A1V diagnostic scan of all 43
+
+The existing A1V source-audited two-state SuperIso backend can
+scan the *original* P2L input CSV directly: it has all four
+required columns `mH1,mH2,gamma,tanbeta`. No model rewrite,
+standalone new gating layer or MG5 generation needed.
+
+```bash
+cd /home/aalida/zee
+python3 scripts/gateA1v_run_legacy_response.py \
+  --vendor-root work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --a1u-result work/gateA1u_legacy_zee_br_v1/legacy_two_state_br.json \
+  --grid-csv work/zee_muon_P2_light_scalar_target_pilot_v1/all_screened_candidates_NOT_ALLOWED.csv \
+  --max-points 1000 --skip-scale-diagnostic \
+  --output-dir work/zee_muon_P2_light_A1V_flavour_v1
+```
+
+Output `scan_flavour_only.csv` with all 43 B->Xs gamma
+legacy predictions. **Do not report experimental accepted or
+excluded points**: A1V is a source-validated *legacy diagnostic*,
+not the NNLO-matched full likelihood. Comparison to the Florentino
+2021 **historical** window
+2.78e-4 < BR(B->Xs gamma) < 3.77e-4 is a qualitative
+source-era stress test ONLY, not a current physical constraint.
+
+If all 43 strongly overshoot that historical band, deprioritize
+the lighter 500–550 GeV region and target mH2 >= 600–800 GeV with
+larger mixed charged overlap and a heavier mH1 for reconstruction.
+If some are close to the band, mark for independent modern
+calibrated flavor check before expensive MG5/Delphes work.
+
+Even if a modern two-state flavor calculation passes, we still
+need neutrino-compatible general f/Y and fully predicted widths,
+HiggsTools direct bounds, background/BIB and a muon-specific
+novelty or reconstruction result.
