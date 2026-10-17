@@ -455,3 +455,69 @@ either reframe as a *lepton-collider* mixed-pair reconstruction
 study conditional on background-rejection novelty or prioritize
 Paper 1 instead. No cross section has been calculated from
 the 150 B2 f,Y complex solutions.
+
+
+## Step G — expand beyond one benchmark (2026-10-17)
+
+The validated numerical MG5 Z-only closure pertains ONLY to
+`B4_0000318` (m1≈207, m2≈686, gamma≈1.185). The B2 low-partial-LFV
+Yukawa screen covered 30 scalar spectra in a NARROW mass slice
+(mH1≈203–351 GeV, mH2≈637–722 GeV) and is not a global Zee no-go.
+
+The new `scripts/zee_muon_mass_mixing_grid.py` varies mH1, mH2,
+gamma and energy using the already MG5-validated analytic Z-only
+formula; all rows are marked kinematic-only, NOT allowed models.
+It uses the matched Yang/Wu alpha/G_F/MZ derived sW²=0.2336991334,
+not the former approximate fixed 0.23122 scheme. It includes both
+charge-conjugate final states; reported luminosity-weighted counts
+are **produced stable pairs before decay**, not final-state yields.
+Kinematic flags require H1->tb open and H2->H1Z open; no
+potential/stability/LFV/HiggsTools validity is inferred.
+
+On AF:
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_muon_mass_mixing_grid.py' -v
+
+python3 scripts/zee_muon_mass_mixing_grid.py \
+  --mH1-GeV 200,250,300,400,600,800 \
+  --mH2-GeV 500,700,1000,1200,1500,2000 \
+  --gamma-rad 0.4,0.7853981633974483,1.1845311184933986 \
+  --energies-GeV 1500,3000,10000 \
+  --luminosities-ab-inverse 0.5,1,10 \
+  --output-dir work/zee_muon_P2_broad_mass_grid_v1
+```
+
+Outputs:
+`mixed_pair_Z_only_mass_mixing_grid_NOT_ALLOWED.csv` and
+`summary.json` with highest cross sections by energy
+subject to kinematic H1->tb and H2->H1Z opening.
+
+Examples at gamma=1.18453 (fb; Z-only, charge summed):
+
+| mH1,mH2 GeV | 1.5 TeV | 3 TeV | 10 TeV |
+|---|---:|---:|---:|
+| (200,500) | 0.8655 | 0.2995 | 0.02945 |
+| (200,700) | 0.5707 | 0.2752 | 0.02924 |
+| (300,700) | 0.4931 | 0.2698 | 0.02920 |
+| (300,1000) | 0.1143 | 0.2226 | 0.02875 |
+| (400,800) | 0.2572 | 0.2478 | 0.02900 |
+| (400,1200) | closed | 0.1792 | 0.02830 |
+| (600,1200) | closed | 0.1592 | 0.02813 |
+
+These are NOT independent MG5 validations at every mass/mixing
+point. The full general-Zee allowed space may correlate masses and
+gamma strongly via the scalar potential and EW precision constraints.
+
+**Go/no-go amendment:** Do not declare Paper2 no-go from one
+benchmark or the 150 low-partial-LFV Yukawa solutions.
+Use the grid to select two additional distinct MASS benchmarks
+and one near-maximal-mixing benchmark, then validate the mapped
+UFO against the analytic Z result. Separately investigate whether
+a physically viable choice of complex neutrino-compatible f,Y
+can enhance muon t-channel production (requiring full LFV and
+complex Yukawa UFO support). Still postpone Delphes until this
+physics pilot justifies it.
