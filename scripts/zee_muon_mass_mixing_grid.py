@@ -23,10 +23,16 @@ from pathlib import Path
 
 from zee_muon_asymmetric_pair_pilot import (
     sigma_both_charges_fb,beta_pair,rest_frame_b_momentum,MT,MB,MZ,
-    ALPHA_EM,SW2
 )
 
 STATUS="PAPER2_ZEE_MUON_MASS_MIXING_GRID_GAUGE_ONLY_NOT_ALLOWED"
+# MATCH EXACTLY the Yang/Wu alpha/G_F/M_Z input scheme used in
+# the successful B4_0000318 MadGraph Z-only numerical validation.
+ALPHA_YW=1/127.9
+GF_YW=1.16637e-5
+MW_YW=math.sqrt(MZ**2/2+math.sqrt(
+    MZ**4/4-math.pi/math.sqrt(2)*ALPHA_YW/GF_YW*MZ**2))
+SW2_YW=1-(MW_YW/MZ)**2
 DEFAULT_M1="200,250,300,400,600,800"
 DEFAULT_M2="500,700,1000,1200,1500,2000"
 DEFAULT_GAMMAS="0.4,0.7853981633974483,1.1845311184933986"
@@ -64,7 +70,8 @@ def point(m1,m2,gamma,E,L):
             and E>0 and L>0):
         raise ValueError("Invalid grid point")
     open_pair=(E>m1+m2)
-    sigma=sigma_both_charges_fb(E,m1,m2,gamma)
+    sigma=sigma_both_charges_fb(E,m1,m2,gamma,
+                                alpha=ALPHA_YW,sw2=SW2_YW)
     # Avoid floating-point artifacts around exactly zero.
     if sigma<0 or not math.isfinite(sigma):
         raise ArithmeticError("Invalid analytical cross section")
@@ -148,7 +155,8 @@ def main():
         "input_mass_1_GeV":m1s,"input_mass_2_GeV":m2s,
         "input_charged_mixings_rad":gs,
         "input_energies_GeV":Es,"input_luminosities_ab_inverse":Ls,
-        "alpha_fixed":ALPHA_EM,"sin2thetaW_fixed":SW2,
+        "alpha_fixed":ALPHA_YW,"GF_fixed":GF_YW,
+        "sin2thetaW_derived_YangWu":SW2_YW,
         "same_EW_scheme_as_prior_one_benchmark_analytic":True,
         "independent_MG5_validation_all_grid_points":False,
         "t_channel_muon_yukawa_contribution":False,
