@@ -166,8 +166,7 @@ def main():
     print("ALTERNATIVE_ANALYTIC_BFB_SUFFICIENT",
           result["alternative_analytic_quartic_BFB"][
               "alternative_global_quartic_BFB_sufficient"])
-    print("LAMBDA1",result["alternative_analytic_quartic_BFB"]["lambda1"] if False else
-          result["alternative_analytic_quartic_BFB"]["lambda1"])
+    print("LAMBDA1",result["alternative_analytic_quartic_BFB"]["lambda1"])
     print("TREE_UNITARITY",result["scalar_tree_unitarity"])
     print("MAX_UNITARITY_EIGENVALUE",
           result["scalar_max_unitarity_eigenvalue"])
