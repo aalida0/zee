@@ -12,8 +12,19 @@ from pathlib import Path
 
 from gate6_benchmark import benchmark
 
-def map_point(beta=1.394,mH1=300.,mH2=700.):
-    g=benchmark(beta,mH1,mH2)
+def map_point(beta=1.394,mH1=300.,mH2=700.,**benchmark_overrides):
+    """Map a full screened B4 scalar spectrum, preserving all scanned inputs.
+
+    Allowed overrides are exactly gate6_benchmark.benchmark keyword
+    inputs except beta,mH1,mH2. Never reset B4 scalar quartics/angles
+    to frozen benchmark values when generating the MG5 UFO card.
+    """
+    allowed=frozenset(("alpha","gamma","m12sq","mh2","ma",
+                       "lc","k1","k2","k12"))
+    unknown=set(benchmark_overrides)-allowed
+    if unknown:
+        raise ValueError("Unknown Gate6 scalar overrides: "+repr(sorted(unknown)))
+    g=benchmark(beta=beta,mH1=mH1,mH2=mH2,**benchmark_overrides)
     z=g["inputs"]; l=g["quartics"]
     a,b,c,d,e=(l[f"lambda{i}"] for i in range(1,6))
     s=math.sin(beta); co=math.cos(beta)
