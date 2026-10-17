@@ -208,3 +208,109 @@ Re-run P2 tests and the beta=1.394 reproduction after
 `git pull --ff-only`. Do not confuse independent
 arithmetical checks with executing repository regression
 tests on AF, which the user must still perform.
+
+
+## AF outcome: actual beta=1.394 P2 source-region pilot and branching fractions (2026-10-18)
+
+User ran the corrected Florentino Table2 P2 representative
+at alpha=1.398, beta=1.394, gamma=1.089, mH1=300,
+mH2=700, mh2=580.7, ma=633.7,
+m12sq=58000 GeV^2, k1=1.082,k2=0.00398,
+k12=+0.01267, lambda_c=4.473.
+
+Actual AF output:
+```
+MASS_RECONSTRUCTION PASS
+OLD_STRONGER_SUFFICIENT_BFB False
+ALTERNATIVE_ANALYTIC_BFB_SUFFICIENT True
+LAMBDA1 1.6369050315668792
+TREE_UNITARITY True
+MAX_UNITARITY_EIGENVALUE 18.083873017299958
+BR_H2_H1Z_INCLUDED_ONLY 0.7608003869543065
+BR_H1_tb_INCLUDED_ONLY 0.9559329373337353
+HISTORICAL_ALLOWED_REPRODUCED False
+```
+Thus the prior beta=alpha point's necessary BFB
+failure was solved by choosing beta inside the published
+allowed *range*, and an independent analytically sufficient
+BFB proves the quartic boundedness at this chosen
+representative, even though the older more restrictive
+Gate6 sufficient screen remains false.
+No claim about global charge-breaking vacuum,
+experiment 2026, full physical BRs, or
+a historically published single parameter point.
+
+**Section 8 decision update:** This P2 point has
+tanbeta=tan(1.394)~5.597, and nonzero hard-Z2
+k12=0.01267. It CANNOT be treated as
+an exact family-dependent-Z2 benchmark using the
+specific Primulando/Julio/Uttayarat 2022 flavor
+texture: that construction requires k12=0
+in dimension-4 scalar quartics, and the *published*
+neutrino-fit scan favored tanbeta≲0.5 or ≳10,
+with the small-tanbeta branch LFV excluded.
+Reference https://doi.org/10.1140/epjc/s10052-022-10189-0 .
+This is a warning about their specific fitted texture,
+not a theorem excluding every family-dependent Z2
+or every general Zee model at tanbeta~5.6.
+
+We added a provenance-tagged `--k12 0` override
+to the literature P2 scalar reproduction driver.
+This defines a NEW scalar point with dimension-4
+quartic hard Z2 breaking removed; it does NOT
+reproduce the original published P2 values.
+At beta=1.394, k12=0, the ordinary Gate6
+sufficient BFB will pass because k1,k2>0 and
+the neutral BFB margins already passed;
+this still does NOT make tanbeta5.6 a confirmed
+family-Z2 neutrino/LFV fit or a global vacuum minimum.
+
+Immediate AF test:
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_reproduce_florentino_2021_regions.py' -v
+python3 scripts/zee_reproduce_florentino_2021_regions.py \
+  --benchmark P2 --mH1 300 --mH2 700 --beta 1.394 --k12 0 \
+  --output work/florentino2021_P2_new_familyZ2_k120_scalar_v1.json
+```
+
+For symmetry-constrained neutrino fit the 2022 paper
+uses in the FAMILY charge basis
+`M_ell = v/sqrt(2) [[Y_e sinβ, Y_mu sinβ,
+Y_tau sinβ],[0,Y_mumu cosβ,0],[0,0,Y_tautau cosβ]]`.
+The antisymmetric f has only f_{e mu} and f_{e tau}
+before lepton mass-basis rotation. With
+`U_L^dag M_ell U_R=diag(mell)`,
+`fhat=U_L^T f U_L` and
+`Yhat=U_L^dag diag(-cotβ,tanβ,tanβ)
+M_ell U_R/v` in the cited 2022 convention.
+Do **NOT** naively apply this texture to B2's
+already diagonal-mell mass basis. The 2022 one-loop
+`Mnu=kappa2022*(fhat Mdiag Yhat^T +
+ (fhat Mdiag Yhat^T)^T)`
+has `kappa2022=sin(2gamma)*ln(m1²/m2²)/(16pi²)`.
+Our Chen-based B2 uses
+`kappaB2=sqrt(2)*kappa2022`; before comparing
+numerically, match the coupling normalization
+(and if same f conventions, define
+`YB2 = Yhat^T/sqrt(2)`) with independent
+one-loop benchmark checks.
+
+A high-tanbeta (>=10) symmetry-compatible
+scalar scan cannot just reuse the published
+m12sq=58000 GeV². For any CP-even potential
+in the repo conventions,
+`lambda1 = [mh² cos²(alpha)+mH² sin²(alpha)
+             -m12sq*tanbeta]/[v² cos²(beta)]`.
+At alpha=1.398, mH=580.7 GeV, positivity
+requires roughly
+`m12sq < 32770.55 GeV²`
+already at tanbeta=10, whereas the
+P2 table has 58000 GeV². Accordingly
+scan alpha,beta and m12sq together
+when extending the family-Z2 model into
+the flavor-favored tanbeta>10 region;
+fixed-P2 parameters cannot do the job.
