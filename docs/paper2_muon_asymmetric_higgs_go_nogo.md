@@ -1371,3 +1371,76 @@ conditional yields remain single digits, treat that channel
 as a likely detector-level no-go and assess hadronic Z
 only after a fast, explicit SM-background/BIB feasibility
 and 2026 equal-mass H+H-Z prior-art comparison.
+
+
+## Step S — actual B2/B3 three-point neutrino and charged-lepton-width closure (user AF, 2026-10-17)
+
+Three heavier spectra were selected after the same-legacy-A1V
+comparison (each with R_670<1, NOT physically allowed). The user ran:
+
+- `gateB2_zee_neutrino_family_scan.py` with 200 trials per point:
+  **200/200 algebraically neutrino-closed and perturbative for each
+  of the 3 scalar spectra**. Best `partial_LFV_score_NOT_EXCLUSION`
+  (ratio to the experimental reference for the implemented subset only):
+  P2L_0002092 **5.143029339e-9**,
+  P2L_0000784 **2.412926803e-8**,
+  P2L_0000654 **1.365116022e-6**.
+  This is NOT complete LFV, nor an oscillation/cosmology likelihood.
+- `gateB3_general_zee_charged_lepton_widths.py`:
+  15 retained f/Y solutions, 5 per point; every one includes
+  EXACT numerical one-loop neutrino-matrix closure
+  ~1e-17–1e-16 eV (some up to 7.2e-16 eV).
+
+Best-ranked B2 solution, B3 INCLUDED-channel conditional
+fractions (the old Type-II charged-lepton tau width is explicitly
+replaced by Zee f/Y contributions):
+
+| Point | BR2(H2->H1Z) | BR1(H1->tb) | conditional Zll truth, 1.5 TeV, 0.5 ab^-1 | conditional hadronic Z truth |
+|---|---:|---:|---:|---:|
+| P2L_0002092 | 0.71436082246 | 0.99999268631 | 6.3042 | 65.4866 |
+| P2L_0000784 | 0.60332850657 | 0.99993546109 | 4.4772 | 46.5087 |
+| P2L_0000654 | 0.59464993985 | 0.97813396109 | 3.5255 | 36.6217 |
+
+These calculations use respectively sigma_Z_both_charges =
+0.26226, 0.22056, 0.18415 fb at 1500 GeV,
+N_pair = 500 sigma (0.5 ab^-1),
+BR(Z->ee,mumu) = .0673,
+BR(Z->hadrons) = .6991. Critically:
+`N(H1H1Z->tb tb Z)= N_pair * BR(H2->H1Z)
+ * [BR(H1->tb)]**2`.
+Do NOT substitute B3's **single-H1** metric
+`sin²(gamma)*BR2*BR1`, which is not the event rate
+for this pair-production cascade.
+
+A corrected small-lepton-width inventory **does not rescue**
+the leptonic-Z yield: the favored candidate still has
+only 6.3 truth ee/mumu Z decays at benchmark luminosity,
+before top decays, b-tagging, acceptance, muon BIB and
+SM irreducible background. Even 30% overall signal selection
+efficiency would imply under 2 selected events for that
+point at 1.5 TeV, 0.5 ab^-1. Hadronic Z increases raw
+events to 65.5 at most but must then pay top decay
+branchings and combinatorics / b-tagging / BIB / ttbbZ
+background. With one W->e/mu nu and one W->qq,
+the direct prompt e/mu semileptonic tt branching
+is approximately 2*.216*.674≈0.291, reducing the
+hadronic-Z best point's truth sample to about 19
+before tagging, acceptance and background cuts.
+
+**Scientific interim verdict:** The algorithmic
+B2/B3 closure is positive; the
+muon-collider-specific *detector-level* case is weak
+at the benchmark luminosities. Z-only s-channel
+production is approximately identical at e+e-
+and mu+mu- colliders of the same sqrt(s);
+no sizeable muon-specific t-channel advantage
+has yet been validated for a fully LFV-compatible
+Zee Yukawa family. The real remaining high-value
+gates are independently NNLO-calibrated two-state
+B->Xs gamma, model-complete scalar and Yukawa
+experimental constraints, and at least a bounded
+hadronic-Z SM-background/BIB reconstruction
+feasibility study. Avoid more undirected scalar
+or neutrino seed scans without a new physics
+decision criterion. No standalone Paper 2
+significance or reach can yet be claimed.
