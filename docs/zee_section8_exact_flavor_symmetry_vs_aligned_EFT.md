@@ -1101,3 +1101,125 @@ proper CI interpretation. A rejected
 witness cannot be promoted to the full
 family-Z2 model excluded without a
 global scan and likelihood evidence.
+
+
+## AF result: NuFIT6.1 rejects the fixed first-octant IO witness (2026-10-18)
+
+User successfully acquired *hash-valid* official NuFIT 6.1
+IO projected-chi2 xz source tables and ran
+\`scripts/zee_section8_nufit61_IO_witness_profiles.py\`.
+Actual AF outputs:
+
+\`\`\`
+witness:
+  deltaCP_signed = -142.79380270145 deg
+  sin2theta12    = 0.31818987448970404
+  sin2theta13    = 0.02113073628812411
+  sin2theta23    = 0.4364576482854263
+  Delta_m21²      = +9.249091592157012e-05 eV²
+  Delta_m32²      = -2.534e-03 eV²
+  r21/|32|        = 0.036499966819877716
+  sum_mnu         = 0.10619904532612505 eV
+  TBoff-IO:
+    T13/T12    Delta chi²= 10.119430395955417
+    T23/DCP    Delta chi²= 18.556881376354696
+    DMS/DMA    Delta chi²=251.3941048913163, old fixed scale
+    DMS/DMA    Delta chi²=156.4726620137666, profiled scale
+  TByes-IO:
+    T13/T12    Delta chi²= 14.747066453659919
+    T23/DCP    Delta chi²= 23.987094066991336
+    DMS/DMA    Delta chi²=259.4678248913163, old fixed scale
+    DMS/DMA    Delta chi²=160.5070191427729, profiled scale
+\`\`\`
+
+NuFIT 6.1 release notes explicitly confirm that
+for IO \`Delta m3ℓ²=Delta m32²\`,
+\`DMS/DMA\` coordinates are
+\`log10(Delta m21²/[eV²])\` and
+\`Delta m32²/[1e-3 eV²]\`.
+The parser sign and scale are correct.
+Source https://www.nu-fit.org/sites/default/files/v61.release-notes.pdf .
+The 3σ 2dof projected threshold is 11.829.
+The **fixed witness is not viable even as individual
+NuFIT6.1 2D projections**; crucially mass splitting
+is far outside both variants even after numerically
+profiling away the overall loop mass scale.
+Do not sum overlapping projected Δχ². The numerical
+4001-point ratio profiling is not a mathematically
+certified minimum; the large separation from
+threshold still motivates rejecting this witness.
+
+**Important scope:** reject THIS lepton-Yukawa
+witness, not the full family-Z2 Zee model.
+
+NEXT gate now committed:
+\`scripts/zee_section8_nufit61_IO_familyZ2_texture_search.py\`
+and synthetic regression
+\`tests/test_zee_section8_nufit61_IO_familyZ2_texture_search.py\`.
+- Scans the 2022 family's four *allowed* symmetry
+  texture parameters at fixed tanbeta slices.
+- Uses independent rephasing invariant extraction
+  of deltaCP, verified against the rejected
+  witness' -142.7938 deg.
+- Uses source-hash verified 2D projected
+  NuFIT surfaces T13/T12, T23/DCP and DMS/DMA,
+  including an explicit **profile** along the
+  model-predicted ratio allowing common oscillation
+  mass scale to vary. This is distinct from old
+  witnesses with frozen old A1B mass normalization.
+- Uses fast 2401 by 601 rectangular ratio/splitting
+  grid interpolation in the optimizer, with
+  no extrapolation outside NuFIT support.
+  Rescores reported minima independently
+  using the original direct 10001-sample
+  projected ratio scorer; all profile values
+  printed separately. The approximate lookup
+  is an optimization heuristic, not a
+  certified continuous profile minimum.
+- Optimizes the **maximum** separate
+  projected Δχ² values, not their
+  statistically invalid sum; this minimax
+  is a NECESSARY projection-intersection
+  screen, not an experimental joint fit.
+- Provides separate TBoff-IO and TByes-IO
+  output and only optimizes one requested
+  variant at a time.
+- Original scalar P2 m12sq and beta are
+  NOT a high-tanbeta permitted scalar point.
+  No LFV, vacuum, HiggsTools, modern
+  b->s gamma, cosmology or full
+  physically allowed claim.
+
+AF execute (NuFIT tables already downloaded
+and verified by prior script, DO NOT download
+again or disable TLS for further tasks):
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_section8_nufit61_IO_familyZ2_texture_search.py' -v
+
+python3 scripts/zee_section8_nufit61_IO_familyZ2_texture_search.py \
+  --tb-off-io /data/aalida/zee_external/nufit61/v61.release-TBoff-IO.txt.xz \
+  --tb-yes-io /data/aalida/zee_external/nufit61/v61.release-TByes-IO.txt.xz \
+  --optimize-variant TBoff-IO \
+  --tanbetas 5.597170833164245,10,15,20 \
+  --seeds 20261018,20261019,20261020 \
+  --maxiter 120 --popsize 12 \
+  --output work/zee_section8_nufit61_IO_familyZ2_texture_minimax_v1.json
+\`\`\`
+
+If every sampled multi-seed minimum shows individual
+projection Δχ² >11.83, that is a serious
+phenomenological obstacle, not a mathematical
+family-Z2 no-go proof; do not declare the whole
+model excluded without more exhaustive ordering,
+parameter topology and statistical audits.
+If any passes all three necessary projection
+thresholds, save exact texture point and
+next add a modern profile-aware independent
+validation, NuFIT correlated data if obtainable,
+plus full LFV and modern cosmology. A passing
+lepton-only projection is NOT a scalar+flavor
+allowed Zee benchmark.
