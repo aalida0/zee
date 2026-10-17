@@ -68,6 +68,41 @@ def build_inputs(region, *,mH1=None,mH2=None,beta=None):
         k12=float(region["k12"])
     )
 
+
+def less_conservative_analytic_bfb(scalar):
+    """Another SUFFICIENT (not necessary) global *quartic* BFB certificate.
+
+    Write x1=|phi1|², x2=|phi2|², xc=|chi|². Since
+    |Re(phi1^dag phi2)| <= sqrt(x1*x2), the singlet cross term obeys
+    xc*(k1*x1+k2*x2-2*k12*Re(phi1^dag phi2))
+    >= xc*(k1*x1+k2*x2-2*abs(k12)*sqrt(x1*x2)).
+    The RHS is nonnegative if the symmetric 2x2 k matrix
+    [[k1,-|k12|],[-|k12|,k2]] is positive semidefinite.
+    Combine this with ordinary CP-conserving 2HDM BFB and lc>=0.
+    A negative lambda1 is a NECESSARY BFB failure, irrespective of
+    any weakness in the original Gate 6 *sufficient* condition.
+    """
+    q=scalar["quartics"]
+    p=scalar["inputs"]
+    l1,l2,l3,l4,l5=[float(q["lambda"+str(j)]) for j in range(1,6)]
+    k1,k2,k12,lc=[float(p[k]) for k in ("k1","k2","k12","lc")]
+    neutral=(l1>=0 and l2>=0 and
+             l3+math.sqrt(max(0.,l1*l2))>=0 and
+             l3+l4-abs(l5)+math.sqrt(max(0.,l1*l2))>=0)
+    margin=k1*k2-k12*k12
+    singlet_cross_psd=(k1>=0 and k2>=0 and margin>=0 and lc>=0)
+    return {
+        "lambda1":l1,"lambda2":l2,
+        "neutral_2HDM_BFB":bool(neutral),
+        "singlet_cross_PSD_sufficient":bool(singlet_cross_psd),
+        "singlet_cross_PSD_determinant":margin,
+        "alternative_global_quartic_BFB_sufficient":
+            bool(neutral and singlet_cross_psd),
+        "negative_lambda1_proves_unbounded_quartic":bool(l1<0),
+        "this_is_not_global_vev_vacuum_or_charge_breaking_test":True,
+    }
+
+
 def evaluate(source,point,*,mH1=None,mH2=None,beta=None):
     region=source["benchmarks"][point]
     inputs=build_inputs(region,mH1=mH1,mH2=mH2,beta=beta)
@@ -82,6 +117,7 @@ def evaluate(source,point,*,mH1=None,mH2=None,beta=None):
                for a,b in zip(neutral,sorted([inputs["mh1"],inputs["mh2"]]))):
         raise AssertionError("Neutral scalar mass closure failed")
     sf=w["conditional_fractions_included_channels_only"]
+    alternative=less_conservative_analytic_bfb(s)
     return {
         "status":STATUS,
         "source_paper":source["source"],
@@ -91,6 +127,7 @@ def evaluate(source,point,*,mH1=None,mH2=None,beta=None):
         "inputs":inputs,
         "mass_eigenvalue_closure":"PASS",
         "scalar_sufficient_BFB":s["sufficient_global_quartic_BFB"],
+        "alternative_analytic_quartic_BFB":alternative,
         "scalar_tree_unitarity":s["tree_unitarity_pass"],
         "scalar_max_unitarity_eigenvalue":s["max_abs_unitarity_eigenvalue"],
         "physical_Zee_allowed":None,
@@ -125,7 +162,12 @@ def main():
     print("SOURCE",a.benchmark)
     print("CHOSEN_INPUTS",json.dumps(result["inputs"],sort_keys=True))
     print("MASS_RECONSTRUCTION",result["mass_eigenvalue_closure"])
-    print("SUFFICIENT_BFB",result["scalar_sufficient_BFB"])
+    print("OLD_STRONGER_SUFFICIENT_BFB",result["scalar_sufficient_BFB"])
+    print("ALTERNATIVE_ANALYTIC_BFB_SUFFICIENT",
+          result["alternative_analytic_quartic_BFB"][
+              "alternative_global_quartic_BFB_sufficient"])
+    print("LAMBDA1",result["alternative_analytic_quartic_BFB"]["lambda1"] if False else
+          result["alternative_analytic_quartic_BFB"]["lambda1"])
     print("TREE_UNITARITY",result["scalar_tree_unitarity"])
     print("MAX_UNITARITY_EIGENVALUE",
           result["scalar_max_unitarity_eigenvalue"])
