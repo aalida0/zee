@@ -543,3 +543,98 @@ conventions, charged lepton texture, PMNS
 ordering and local/global optimizer convergence.
 Do not infer mathematical no-go from a
 restricted finite numerical scan.
+
+## Gate result: 24-run NO/IO lepton-only multi-seed pilot (2026-10-18)
+
+The user ran `zee_section8_family_z2_neutrino_grid.py`
+with tanbeta=[5.59717,10,15,20], 3 seeds each and
+both orderings; 24 jobs finished. Best rows:
+
+| tanbeta | NO proxy (not chi²) | IO proxy (not chi²) | IO sin²theta23 | IO Σmν [eV] |
+|---|---:|---:|---:|---:|
+| 5.597 | 66.5773 | 14.1633 | 0.49835 | 0.09984 |
+| 10 | 67.4894 | 13.4737 | 0.49949 | 0.09986 |
+| 15 | 67.4917 | 13.3276 | 0.49982 | 0.09987 |
+| 20 | 67.4925 | 13.2793 | 0.49994 | 0.09987 |
+
+Each IO slice converged to essentially the same
+best minimum in all 3 seeds; NO at tanbeta=15
+also had one much worse local solution. The
+IO minimum-near Σmν≈0.100 eV is **NOT by itself**
+the fully viable published 2022 quasi-degenerate
+solution, and the diagnostic threshold
+`m_lightest/m_heaviest>=0.5` in the old grid
+is *stricter than the source definition*:
+the paper Eq/paragraph around Fig 2 reports
+`2 <= m1/m3 <= 15` for IO,
+including a lightest/heaviest ratio down to ~0.067.
+Do not call the old quasidegenerate boolean a
+paper compatibility test.
+
+**Reason to change the objective, not merely more seeds:**
+the old A1B-proxy input fixed
+sin²theta23=.561, sin²theta13=.02195,
+sin²theta12=.307, J≈-.0287 (old NO δ=240°),
+R=7.49e-5/2.534e-3≈.02956, and chose
+arbitrary proxy residual scales.
+Primulando et al. EPJC 82 (2022) 253
+**Table 1 IO upper octant** instead specifies:
+```
+sin²theta12 = .304 ±.013
+sin²theta23 = .575 ±.018
+sin²theta13 = .02238 ±.00063
+R=Δm_sol²/Δm_atm² = .0297 ±.0034
+J_CP = -.0327 (+.0066,-.0008)
+```
+(source Table 1,
+https://link.springer.com/content/pdf/10.1140/epjc/s10052-022-10189-0.pdf).
+The strongly asymmetric J IO measurement cannot
+be replaced with the previous arbitrary fixed
+CP weight if attempting to reproduce the source.
+
+New script:
+`scripts/zee_section8_reproduce_2022_IO_table1.py`
++ `tests/test_zee_section8_reproduce_2022_IO_table1.py`
+uses the **actual 2022 IO upper-octant** Table1
+central values and separate plus/minus 1σ widths,
+wider bounded DE optimization in x,y,log10(r),theta,
+and records full candidate texture parameters,
+per-observable residuals, physical IO m1/m3,
+and 2%-near-search-boundary flags. The
+score is the sum of five separately standardized
+squared marginal residuals; it is **NOT a
+correlated experimental χ²**, and does not use
+NuFIT2025/2026 data, LFV, constraints, or
+physically screened high tanbeta scalar potential.
+
+AF source-reproduction run:
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_section8_reproduce_2022_IO_table1.py' -v
+python3 scripts/zee_section8_reproduce_2022_IO_table1.py \
+  --tanbetas 5.597170833164245,10,15,20 \
+  --seeds 20261018,20261019,20261020 \
+  --mH1 300 --mH2 700 --gamma 1.089 \
+  --maxiter 90 --popsize 12 \
+  --output-dir work/zee_section8_repro_2022_IO_Table1_v1
+```
+
+If this *source-matched* scan cannot find
+a small per-observable residual combination,
+inspect fitted d,e,r,phase, whether x,y or
+log10r are at numerical boundaries, objective
+scales and ordering/CP sign conventions.
+2022 published fits from Fig2 may also be
+in different first/second θ23 octants; this
+script explicitly targets **upper octant only**.
+Do not reject all possible family-Z2 textures
+on a finite upper-octant scan.
+
+Only after source reproduction should we switch
+to a genuine NuFIT 6.1 likelihood with both
+octants/orderings, modern cosmological choices,
+matching 2022 vs Chen model Yukawa
+normalizations, full LFV, and scalar re-screening.
