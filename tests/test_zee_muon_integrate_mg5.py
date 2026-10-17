@@ -76,8 +76,17 @@ class TestZeeMuonMG5Integration(unittest.TestCase):
             ew=ew_from_slha(path)
             self.assertAlmostEqual(ew["alpha"],1/127.9,places=14)
             self.assertAlmostEqual(ew["GF"],1.16637e-5,places=14)
-            self.assertTrue(.22<ew["sw2"]<.25)
-            self.assertTrue(80.<ew["MW_internal"]<82.)
+            # Yang/Wu's declared tree-level (alpha,G_F,MZ) scheme
+            # yields MW=79.82436, NOT the separate MASS[24]=80.379.
+            # Test exact scheme closure rather than an arbitrary 80-82 band.
+            self.assertAlmostEqual(
+                ew["MW_internal"],79.82435974619784,delta=1e-8)
+            self.assertAlmostEqual(
+                ew["sw2"],0.23369913342182436,delta=1e-11)
+            lhs=ew["MW_internal"]**2*(1-ew["MW_internal"]**2/
+                                           ew["MZ"]**2)
+            rhs=math.pi*ew["alpha"]/(math.sqrt(2.)*ew["GF"])
+            self.assertAlmostEqual(lhs,rhs,delta=1e-8)
             self.assertGreater(sigma_both_charges_fb(
                 1500.,207.26,686.47,1.18453,
                 alpha=ew["alpha"],sw2=ew["sw2"]),0)
@@ -97,8 +106,14 @@ class TestZeeMuonMG5Integration(unittest.TestCase):
 
     def test_unequal_mass_energy_scan_syntax(self):
         self.assertEqual(energy_list("1500,3000"),[1500.,3000.])
-        with self.assertRaisesRegex(ValueError,"Repeated"):
+        with self.assertRaisesRegex(ValueError,"Repeated energies"):
             energy_list("1500,1500")
+        with self.assertRaisesRegex(ValueError,"Empty energy"):
+            energy_list("")
+        with self.assertRaisesRegex(ValueError,"Invalid energy"):
+            energy_list("1500,garbage")
+        with self.assertRaisesRegex(ValueError,"Invalid energy"):
+            energy_list("1500,nan")
 
     def test_process_generation_card_modes_fail_closed(self):
         with tempfile.TemporaryDirectory() as root:
