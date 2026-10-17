@@ -61,8 +61,12 @@ def trilinears(p):
     return {"h125":float(u1@(math.cos(alpha)*d1+math.sin(alpha)*d2)@u2),
             "hheavy":float(u1@(-math.sin(alpha)*d1+math.cos(alpha)*d2)@u2)}
 
-def inventory(beta=1.394,mH1=300.,mH2=700.):
-    p=benchmark(beta,mH1,mH2)
+def inventory(beta=1.394,mH1=300.,mH2=700.,**scalar_kwargs):
+    """Included-channel LO widths only; NOT complete physical Zee BRs.
+
+    The off-diagonal Z coupling MUST follow gamma point by point.
+    """
+    p=benchmark(beta,mH1,mH2,**scalar_kwargs)
     x=p["inputs"]
     angle=x["beta"]-x["alpha"]
     sg,cg=math.sin(x["gamma"]),math.cos(x["gamma"])
@@ -76,8 +80,11 @@ def inventory(beta=1.394,mH1=300.,mH2=700.):
       "W_hheavy":vector_width(mH1,x["mh2"],MW,gw/2*cg*math.cos(angle)),
       "W_A":vector_width(mH1,x["ma"],MW,gw/2*cg),
     }
+    # From the Zee charged current: g_ZH1H2 = (MZ/v)*sin(gamma)*cos(gamma).
+    # Reproduces historical G12 at gamma=1.089, *without* fixing gamma.
+    g12=(MZ/x["v"])*sg*cg
     h2={
-      "H1_Z":vector_width(mH2,mH1,MZ,G12),
+      "H1_Z":vector_width(mH2,mH1,MZ,g12),
       "H1_h125":scalar_width(mH2,mH1,x["mh1"],g["h125"]),
       "H1_hheavy":scalar_width(mH2,mH1,x["mh2"],g["hheavy"]),
       "tb":tb_width(mH2,tb,sg*sg),
@@ -94,7 +101,7 @@ def inventory(beta=1.394,mH1=300.,mH2=700.):
       "status":"PARTIAL_LO_WIDTH_INVENTORY_NOT_PHYSICAL_ZEE_BRANCHING_RATIOS",
       "input":{"beta":beta,"mH1":mH1,"mH2":mH2,"gamma":x["gamma"]},
       "trilinear_H2_H1_h125_GeV":g["h125"],
-      "g12_used":G12,
+      "g12_used":g12,
       "partial_widths_GeV":widths,
       "sum_of_included_widths_GeV":totals,
       "conditional_fractions_included_channels_only":conditional,

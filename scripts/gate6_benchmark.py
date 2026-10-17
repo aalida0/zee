@@ -10,9 +10,24 @@ import math
 from pathlib import Path
 import numpy as np
 
-def benchmark(beta=1.394, mH1=300., mH2=700.):
-    alpha=1.398;gamma=1.089; m12sq=57700.;mh1=125.;mh2=580.7;ma=633.7
-    lc=4.473;k1=1.082;k2=.00398;k12=-.001266; v=246.21965
+def benchmark(beta=1.394, mH1=300., mH2=700., *,
+              alpha=1.398, gamma=1.089, m12sq=57700.,
+              mh1=125., mh2=580.7, ma=633.7,
+              lc=4.473, k1=1.082, k2=.00398, k12=-.001266,
+              v=246.21965):
+    """Reconstruct Zee scalar potential for arbitrary physical inputs.
+
+    Defaults preserve the original Gate 6 published-inspired benchmark.
+    BFB is sufficient (not necessary); global minimum is NOT established.
+    """
+    vals=(beta,mH1,mH2,alpha,gamma,m12sq,mh1,mh2,ma,lc,k1,k2,k12,v)
+    if not all(math.isfinite(z) for z in vals):
+        raise ValueError("Nonfinite scalar input")
+    if not (0.01<beta<math.pi/2-0.01 and
+            0.0<gamma<math.pi/2 and
+            0.<mh1<=mh2 and 0.<ma and
+            0.<mH1<=mH2 and v>0):
+        raise ValueError("Invalid scalar spectrum or mixing input")
     sa,ca=math.sin(alpha),math.cos(alpha)
     sb,cb=math.sin(beta),math.cos(beta)
     sg,cg=math.sin(gamma),math.cos(gamma)

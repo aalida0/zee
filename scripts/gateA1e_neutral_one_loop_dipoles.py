@@ -83,12 +83,16 @@ def neutral_dipole_for_scalar(C, scalar_mass, *, parent, daughter):
         CR+=common*(lam*mi*A+rho*mj*A+zeta*mF*B)
     return CL,CR
 
-def total_neutral_dipoles(Y, *, parent, daughter):
-    """Coherently sum h125,H,A ONE-LOOP neutral-scalar contributions."""
+def total_neutral_dipoles(Y, *, parent, daughter,
+                          mh=125., mH=580.7, mA=633.7,
+                          alpha=1.398, beta=1.394):
+    """Coherent one-loop neutral dipoles for an explicit scalar point."""
     CL=0j
     CR=0j
     by_scalar={}
-    for name,(C,mb) in zip(("h125","Hheavy","A"),scalar_couplings(Y)):
+    for name,(C,mb) in zip(
+            ("h125","Hheavy","A"),
+            scalar_couplings(Y,mh=mh,mH=mH,mA=mA,alpha=alpha,beta=beta)):
         cL,cR=neutral_dipole_for_scalar(C,mb,parent=parent,daughter=daughter)
         CL+=cL
         CR+=cR
