@@ -964,3 +964,140 @@ allowed check. Independently redo the restricted
 scalar potential at tanbeta15 and k12=0;
 the old beta1.394 Table2-P2 theory pass
 does not transfer to beta=arctan(15).
+
+
+## Actual AF neutrino witness physical outputs confirmed; NuFIT6.1 profile gate added (2026-10-18)
+
+The user ran the deterministic first-octant IO source Yukawa witness
+through its **independent neutrino Takagi and CP invariant** validation:
+
+\`\`\`
+STATUS FAMILY_Z2_FIRST_OCTANT_PHYSICAL_NEUTRINO_OBSERVABLES_NO_LIKELIHOOD
+DELTA_CP_DEGREES 217.20619729854877
+M_BETA_EV 0.04951911632782744
+M_BETA_BETA_LIGHT_EXCHANGE_EV 0.02154104228968194
+MAX_ABS_F 4.159849827708178e-06
+MAX_ABS_Y_2022 0.006436682145403169
+TAKAGI_CLOSURE_EV 7.266411429345981e-16
+NUFIT6P1_LIKELIHOOD_DONE False
+COMPLETE_LFV_DONE False
+FULL_ZEE_ALLOWED False
+\`\`\`
+
+**Decisive new solar-splitting warning.** With
+\`m=(0.04974863, 0.05066968, 0.00578073) eV\`
+(IO), the predicted
+\`Delta m21^2 ≈ 9.2490e-5 eV²\` and
+\`Delta m32^2≈-2.5340e-3 eV²\`.
+This witness fit only because the old
+2022 Table1 solar/atmospheric ratio was almost
+exactly at its +2σ upper bound, not because it
+reproduced a modern central solar result.
+NuFIT6.1 (data through November 2025)
+including JUNO gives solar \`Delta m21²\`
+around \`7.537e-5 eV²\` with order
+\`0.10e-5 eV²\` 1σ errors; the fixed witness
+is very far from current global data.
+Separately JUNO's 207.2-day September 2026
+analysis arxiv:2609.37895 reports
+\`(7.388±0.078)e-5 eV²\`
+and reinforces the tension.
+Do not claim the published original
+family-Z2 TEXTURE is therefore excluded:
+one fixed witness is rejected, not
+all possible family-Z2 neutrino solutions.
+
+**Source data and strict provenance.** NuFIT6.1
+(official page
+https://www.nu-fit.org/?q=node/309)
+publishes **marginalized** 1D, 2D, 3D
+Δχ² profile tables, NOT a free joint 6D
+likelihood. Official inverted-ordering
+xz data at:
+\`\`\`
+https://www.nu-fit.org/sites/default/files/v61.release-TBoff-IO.txt.xz
+https://www.nu-fit.org/sites/default/files/v61.release-TByes-IO.txt.xz
+\`\`\`
+Reference bytes/SHA256 (not independently
+redownloaded while writing the adapter)
+from third-party public source manifest:
+\`FloatingPragma/observer-patch-holography/
+code/particles/neutrino/nufit61_sources.json\`,
+retrieved July 2026. Never version external
+NuFIT tables in the Zee repo without
+checking redistribution rights.
+
+Added:
+\`scripts/zee_section8_nufit61_IO_witness_profiles.py\`
+and
+\`tests/test_zee_section8_nufit61_IO_witness_profiles.py\`.
+The gate reads the THREE overlapping 2D
+profiles \`T13/T12\`, \`T23/DCP\`,
+\`DMS/DMA\` for **TBoff-IO (IC23)
+and TByes-IO (IC24+SK)**, with:
+- SHA256+size validation and no extrapolation;
+- bilinear interpolation (finite table grid);
+- signed deltaCP in [-180,180): 217.206°
+  -> -142.7938°, preserving CP quadrant;
+- IO mass splitting sign
+  \`dm32 = m3²-m2² <0\`, and source y
+  axis in units of 10^-3 eV²;
+- mass profile scored (a) with old
+  fixed diagnostic atmospheric scale, and
+  (b) minimizing over common scale along
+  the fixed source \`dm21/|dm32|\` ratio
+  using 4001 finite samples. **The finite
+  minimum is not mathematically certified**;
+  a value <threshold is not strong evidence
+  of viability.
+- each marginalized 2D Δχ² reported
+  **SEPARATELY, NEVER SUMMED**. A
+  2-dof 3σ threshold of 11.829 is
+  an exclusion diagnostic of a fixed
+  candidate by an individual 2D source
+  profile, but passing all projections
+  is not equivalent to a complete
+  6D joint likelihood or actual family-Z2
+  oscillation fit.
+
+AF commands (standard authenticated HTTPS
+certificate verification; never bypass TLS):
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+ -p 'test_zee_section8_nufit61_IO_witness_profiles.py' -v
+mkdir -p /data/aalida/zee_external/nufit61
+cd /data/aalida/zee_external/nufit61
+curl -fL --retry 3 -o v61.release-TBoff-IO.txt.xz \
+ https://www.nu-fit.org/sites/default/files/v61.release-TBoff-IO.txt.xz
+curl -fL --retry 3 -o v61.release-TByes-IO.txt.xz \
+ https://www.nu-fit.org/sites/default/files/v61.release-TByes-IO.txt.xz
+cd /home/aalida/zee
+python3 scripts/zee_section8_nufit61_IO_witness_profiles.py \
+ --tb-off-io /data/aalida/zee_external/nufit61/v61.release-TBoff-IO.txt.xz \
+ --tb-yes-io /data/aalida/zee_external/nufit61/v61.release-TByes-IO.txt.xz \
+ --output work/zee_section8_nufit61_IO_witness_profiles_v1.json
+\`\`\`
+
+If curl fails due to HTTPS/certificate
+or host issues, download the files via
+the official NuFIT result page with a
+trusted browser and place exact unmodified
+\`.xz\` files at the target paths.
+**Do not** add \`--insecure\` silently,
+edit expected hashes to force acceptance,
+or substitute GitHub-hosted NuFIT tables.
+Hash/source mismatch is a blocker.
+
+Next even if fixed-witness solar projection
+rejects at 3σ: optimize the **full symmetry
+texture** against modern source data
+with at least key 2D correlated profiles,
+ideally a joint likelihood if licensed
+full data can be acquired, and retain
+proper CI interpretation. A rejected
+witness cannot be promoted to the full
+family-Z2 model excluded without a
+global scan and likelihood evidence.
