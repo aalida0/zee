@@ -1035,3 +1035,54 @@ next resource-intensive task. Otherwise prioritize individual
 modern flavor and experimental completion for the best
 B4 mass/mixing candidates. At all stages maintain
 NOT_ALLOWED labels until full physical constraints pass.
+
+
+## Step O — 314 B4 flavor scan completed, pending reference ratios (2026-10-17)
+
+The user ran the source-pinned A1V legacy SuperIso backend on the
+full 314-spectra B4 scalar/EWPO-screened CSV. The scan succeeded:
+`NUM_FLAVOUR_ONLY_POINTS 314`, output
+`work/zee_muon_P2_B4_314_A1V_v1/scan_flavour_only.csv`.
+
+The printed `LEGACY_ZEE_BR 0.000393119540782089`,
+`LINEAR_NP_SHIFT 5.2841906932436e-05`, and
+`QUADRATIC_NP_SHIFT 2.03186144557367e-06` are for the
+**fixed A1V original 300/700 benchmark check**, not
+distributional statistics of the 314 scanned spectra.
+Do NOT infer whether any of the 314 improves on Type-II-670
+until their per-point reference comparisons are executed.
+
+The new `scripts/zee_muon_compare_B4_A1V_typeII670.py` reuses
+the **already built** A1V executable from that run and
+the 314 A1V CSV records. It reruns the same code with
+mH1=670 GeV, mH2=700 GeV, gamma=0 for every point's
+actual tanbeta; checks row-by-row four-value identity, exact
+same-scheme SM reference closure, exact interference-plus-
+quadratic decomposition, and positive reference shifts.
+It then reports how many `R_legacy_Zee/TypeII670<1`
+and ranks these NOT-ALLOWED candidates by gauge-only muon
+cross section at 1.5 and 3 TeV with the already MG5-matched
+alpha/GF/MZ scheme, plus conditional included-width
+Zll→tb tb truth ceilings at 0.5 ab^-1.
+
+Run on AF:
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_muon_compare_B4_A1V_typeII670.py' -v
+python3 scripts/zee_muon_compare_B4_A1V_typeII670.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/all_screened_candidates_NOT_ALLOWED.csv \
+  --a1v-csv work/zee_muon_P2_B4_314_A1V_v1/scan_flavour_only.csv \
+  --a1v-executable work/zee_muon_P2_B4_314_A1V_v1/gateA1v_legacy_response \
+  --output-dir work/zee_muon_P2_B4_314_same_typeII670_v1
+```
+
+Interpretation: R>=1 across all 314 signals strong
+*within-A1V* flavor pressure and suggests redirecting to a
+correlated mH2~750–950 GeV scan. Some R<1 would justify
+prioritizing those benchmarks for **modern independent
+two-state NNLO matching**, but does not establish physical
+viability or override missing HiggsTools, full LFV, full
+widths or muon-collider backgrounds/BIB.
