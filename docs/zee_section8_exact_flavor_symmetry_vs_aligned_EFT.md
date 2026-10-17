@@ -427,3 +427,119 @@ find any physically supported high-tanbeta
 textures in the scalar+quark flavor viable
 region. No count of 2026 allowed Zee points
 has been obtained.
+
+## Actual AF P2-inspired family-Z2 NO neutrino pilot (2026-10-18)
+
+User ran exact charged-lepton diagonalization and source-
+equation family-Z2 neutrino texture exploratory optimizer
+at mH1=300,mH2=700,gamma=1.089,tanbeta=5.59717, NO:
+```
+CHARGED_MASS_CLOSURE_GEV 4.163336342344337e-17
+PROXY_SCORE_NOT_CHISQUARE 66.5772884474936
+sin2theta12 0.2970336121
+sin2theta13 0.02271851853
+sin2theta23 0.88101259875
+mass_ratio 0.03266106465
+J_CP -0.01782342843
+masses_eV (0.00055479,0.00911433,0.05034191)
+sum_masses_eV 0.0600110
+f_e_mu_to_match_atm_abs 3.3226990e-7
+COMPLETE_NUFIT_LIKELIHOOD False
+COMPLETE_LFV False
+PHYSICAL_ALLOWED False
+```
+
+**Interpretation:** charged-lepton masses close essentially
+exactly. But sin²theta23=0.881 is far outside NuFIT 6.1
+(2025) NO 3-sigma range 0.432–0.587
+(using NuFIT 6.1 IC23 without SK atmospheric table).
+The old A1B target 0.561 is NOT a full NuFIT likelihood.
+The mass sum near 0.060 eV is irrelevant as an
+“allowed solution” because oscillation mixing fails.
+Proxy score 66.58 is NOT a chi²; one optimizer seed
+is NOT a proof of absence of solutions.
+
+**Crucial independent literature check:** Primulando,
+Julio, Uttayarat EPJC 82 (2022) 253 Sect 3
+[https://doi.org/10.1140/epjc/s10052-022-10189-0]
+explicitly fitted 5 oscillation observables in NO
+and IO, concluding **quasidegenerate** neutrinos
+(sum 0.10–0.13 eV) with the cosmology assumptions
+of that date; their surviving fits were IO, with
+tanbeta around <0.5 or >10, low tanbeta
+further LFV disfavored.
+The current hierarchical NO output does not
+contradict the paper because its theta23 is badly
+incompatible with oscillation data. The source
+equations 8,9,10,13,17,20,21 agree with the
+implemented symmetry-basis f, charged lepton
+texture, Yhat transpose and mixing formulas.
+
+**NEW modern cosmology tension:** DESI DR2
+(+Planck/ACT) Phys Rev D 112 (2025) 083513,
+DOI 10.1103/w9pk-xsk7 finds
+sum mnu <0.0642 eV at 95% under selected
+LambdaCDM and neutrino assumptions.
+DESI DR2 changing-dark-energy model w0wa
+instead reports <0.16 eV.
+A 2026 analysis using other CMB data gives
+limits 0.082,0.11,0.138 eV according
+to combinations (Phys Lett B 879 (2026)
+140659 DOI 10.1016/j.physletb.2026.140659).
+Therefore even if we reproduce 2022's
+quasidegenerate IO/high-tanbeta solutions,
+some modern ΛCDM cosmological likelihoods
+press them strongly. Do NOT declare
+model excluded in all cosmologies; name
+the dataset and model assumptions.
+
+**Next minimal physics question:** independently
+reproduce the *qualitative* 2022 IO high-tanbeta
+fit with multiple seeds, WITHOUT claiming
+these high-tanbeta lepton-only settings
+pass the original P2 scalar potential.
+
+New `scripts/zee_section8_family_z2_neutrino_grid.py`
+reuses the exact symmetry-basis family textures
+and loops over tanbeta (default 5.597,10,15,20),
+NO and IO, 3 independent optimizer seeds each
+(24 optimizations). It writes
+`grid_NOT_NUFIT.csv` plus `summary.json`
+and prints sin²theta23, sum mnu, texture ratio
+and proxy score. All runs are **lepton-only
+counterfactuals** at high tanbeta until the
+neutral scalar m12sq and alpha/beta etc are
+re-screened. Its residual uses arbitrary
+fixed target scales, NOT a NuFIT likelihood.
+It does not use B2's unrestricted Yukawa
+fit, and no physical allowed claims follow.
+
+AF commands:
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_section8_family_z2_neutrino_grid.py' -v
+python3 scripts/zee_section8_family_z2_neutrino_grid.py \
+  --tanbetas 5.597170833164245,10,15,20 \
+  --orderings NO,IO \
+  --seeds 20261018,20261019,20261020 \
+  --mH1 300 --mH2 700 --gamma 1.089 \
+  --maxiter 65 --popsize 10 \
+  --output-dir work/zee_section8_familyZ2_neutrino_ordering_grid_v1
+```
+
+**Decision**: if multiple high-tanbeta IO seeds
+yield low *proxy* mismatch, correct mixing,
+and ~0.10–0.13 eV sum, that supports
+source-equation reproduction ONLY. Then do
+NuFIT 6.1 correlated data, current cosmological
+dataset variants, full LFV and separate scalar
+potential scan before generating a model-complete
+benchmark. If no seeds reproduce published
+results, audit search bounds, mass basis phase
+conventions, charged lepton texture, PMNS
+ordering and local/global optimizer convergence.
+Do not infer mathematical no-go from a
+restricted finite numerical scan.
