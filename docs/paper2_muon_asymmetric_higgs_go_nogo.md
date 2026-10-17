@@ -158,7 +158,9 @@ python3 scripts/zee_muon_make_scalar_card.py \
   --acknowledge-unfitted-neutrino-sector
 
 python3 scripts/gate7_preflight_card.py \
-  work/zee_muon_B4_0000318_scalar_matched_DIAGNOSTIC.dat
+  work/zee_muon_B4_0000318_scalar_matched_DIAGNOSTIC.dat \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --candidate-id B4_0000318
 ```
 
 ### Step C — independent MG5 Z-only and full-tree diagrams
