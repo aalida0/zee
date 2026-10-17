@@ -83,6 +83,15 @@ class TestLightScalarTargetedScan(unittest.TestCase):
         duplicate={**source(),"seed_id":"B4_seed_clone"}
         self.assertEqual(len(choose_sources([source(),duplicate],32)),1)
 
+    def test_heavier_mass_target_prefers_heavier_screened_seeds(self):
+        lower={**source(),"seed_id":"lower","mH1":250.,"mH2":600.}
+        upper={**source(),"seed_id":"upper","mH1":350.,"mH2":725.}
+        got=choose_sources([lower,upper],1,target=(350.,950.))
+        self.assertEqual(len(got),1)
+        self.assertEqual(got[0]["seed_id"],"upper")
+        got_light=choose_sources([lower,upper],1,target=(250.,500.))
+        self.assertEqual(got_light[0]["seed_id"],"lower")
+
 
 if __name__=="__main__":
     unittest.main()
