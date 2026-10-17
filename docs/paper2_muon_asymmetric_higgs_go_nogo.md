@@ -1086,3 +1086,81 @@ prioritizing those benchmarks for **modern independent
 two-state NNLO matching**, but does not establish physical
 viability or override missing HiggsTools, full LFV, full
 widths or muon-collider backgrounds/BIB.
+
+
+## Step P — completed same-scheme reference comparison across original 314 B4 spectra (2026-10-17)
+
+The user successfully compared all 314 B4 scalar/EWPO-screened
+spectra (mH1=201–372 GeV, mH2=593–725 GeV)
+to a single Type-II charged scalar at 670 GeV in the
+same Gate A1V 2-state legacy SuperIso backend with the
+original candidate's own tan(beta):
+
+- `SM_BASELINE_MATCH True` (exact zero baseline difference);
+- `R_670 min = 1.0475162`;
+- `R_670 median = 1.2747053`;
+- `R_670 max = 1.6788488`;
+- **0 of 314** have `R_670 < 1` (all have a larger
+  NP shift than the single 670 GeV reference).
+- Five closest: `B4_0001169` R=1.04752,
+  sigma_1500=0.16905 fb; `B4_0001115` R=1.06042,
+  sigma=0.19841 fb; `B4_0000956` and `B4_0001000`
+  R=1.06889, sigma=0.25164 fb; `B4_0001056`
+  R=1.08381, sigma=0.2042 fb.
+
+**Interpretation:** the original (mostly ~300/700-GeV) B4
+mass neighborhood joins the 43 lighter P2L points in a
+strong *legacy-scheme flavor-tension pattern*. This is
+much more relevant to the muon-paper decision than any
+single benchmark cross section. The closest R=1.0475
+is only 4.75% above its matched reference, well within
+potential higher-order/theory-scheme effects, and an R
+ratio is NOT a confidence level or proof of physical
+exclusion. The Misiak et al 2026 single Type-II 670-GeV
+bound is verified on arXiv 2608.29863, but is NOT directly
+a Zee two-charged-Higgs mass bound.
+
+**Decision:** pause further MG5 or Delphes for both these
+screened samples; test *correlated heavier* scalars first,
+especially mH2~750–950 GeV with a light H1 and reduced
+light doublet fraction. Modern two-charged NNLO matching
+and full flavor/neutrino/Higgs constraints remain mandatory
+before any "experimentally allowed" claim.
+
+**Scanner correction:** the existing
+`zee_muon_targeted_light_scalar_scan.py` originally
+always selected seeds closest to (mH1=275,mH2=593) GeV
+even when searching (350,950) GeV. Commit f75be080
+fixes this *proposal selection bias*, selecting independent
+closest B4 screened seeds for each requested target.
+It does not change sufficient scalar BFB, unitarity,
+the EWPO Gaussian ellipsoids, or any physics cut.
+The script name is historical; `--targets` supports
+heavier masses in its original 200–720/1600 GeV domain.
+
+Next AF pilot (new output folder):
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_muon_targeted_light_scalar_scan.py' -v
+
+python3 scripts/zee_muon_targeted_light_scalar_scan.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/all_screened_candidates_NOT_ALLOWED.csv \
+  --targets 250:750,300:750,300:850,350:950 \
+  --trials-per-target 750 --sources 32 \
+  --quadrature-nodes 64 --seed 20261018 \
+  --output-dir work/zee_muon_P2_heavier_scalar_target_pilot_v1
+```
+
+This computes only correlated scalar/EWPO-survival and a
+gauge-only conditional cascade yield; it does not
+calculate a flavor observable or experimental exclusions.
+A zero-survivor outcome from these 3000 stochastic
+proposals does NOT exclude the heavier region.
+
+If candidates survive, run A1V on that *new* CSV, then
+the already tested same-backend `zee_muon_compare_B4_A1V_typeII670.py`
+with its own B4/A1V inputs; return especially
+`NUM_R_LESS_1` and gauge cross sections.
