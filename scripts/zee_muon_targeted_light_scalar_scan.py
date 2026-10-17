@@ -102,12 +102,20 @@ def deform(source,goal,rng,*,mass_sigma=18.):
     return p
 
 
-def choose_sources(seeds,n):
+def choose_sources(seeds,n,target=None):
+    """Rank screened sources by distance to the SPECIFIC mass target.
+
+    The original algorithm always ranked sources toward (275,593),
+    even for a requested (350,950) pilot; that biases the higher-mass
+    continuation toward unnecessarily large and unphysical moves.
+    For backward-compatible direct calls, retain the original target
+    when target is None. Deduplication is unchanged.
+    """
     if n<=0:raise ValueError("Positive number of sources needed")
-    ranked=sorted(seeds,key=lambda p:(abs(p["mH2"]-593.)+
-                                     abs(p["mH1"]-275.)+
+    m1,m2=(275.,593.) if target is None else target
+    ranked=sorted(seeds,key=lambda p:(abs(p["mH2"]-m2)+
+                                     abs(p["mH1"]-m1)+
                                      100*abs(p["gamma"]-math.pi/4)))
-    # Deduplicate correlated neighbors by mass and charged angle.
     seen=set();out=[]
     for s in ranked:
         cell=(int(s["mH1"]//20),int(s["mH2"]//20),
@@ -139,10 +147,14 @@ def objective(p,record,E=1500.,L=.5):
 def sample(seeds,targets,trials,rng,quadrature=64,source_count=32,
            report_every=1000):
     if trials<0 or quadrature<40:raise ValueError("Invalid search settings")
-    chosen=choose_sources(seeds,source_count)
+    if not targets:
+        raise ValueError("Require at least one mass target")
     rows=[];counts=Counter();best_by_target={}
     bins=set();total=0
+    source_count_used=[]
     for target_index,goal in enumerate(targets):
+        chosen=choose_sources(seeds,source_count,target=goal)
+        source_count_used.append(len(chosen))
         label=f"m{int(goal[0])}_{int(goal[1])}"
         for j in range(trials):
             total+=1
@@ -200,7 +212,11 @@ def sample(seeds,targets,trials,rng,quadrature=64,source_count=32,
                       "DISTINCT",len(rows),flush=True)
     return rows,{
         "n_attempts":total,
-        "n_sources":len(chosen),
+        "n_sources":max(source_count_used),
+        "n_sources_by_target":dict(zip(
+            [f"m{int(m1)}_{int(m2)}" for m1,m2 in targets],
+            source_count_used)),
+        "source_selection_target_dependent":True,
         "n_scalar_STU_passes":counts["scalar_and_STU_pass"],
         "stage_counts":dict(counts),
         "top_by_target_conditional_ceiling":best_by_target,
