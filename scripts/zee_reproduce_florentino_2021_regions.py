@@ -85,7 +85,7 @@ def less_conservative_analytic_bfb(scalar):
     q=scalar["quartics"]
     p=scalar["inputs"]
     l1,l2,l3,l4,l5=[float(q["lambda"+str(j)]) for j in range(1,6)]
-    k1,k2,k12,lc=[float(p[k]) for k in ("k1","k2","k12","lc")]
+    k1,k2,k12,lc=[float(p[k]) for k in ("k1","k2","k12","lambda_c")]
     neutral=(l1>=0 and l2>=0 and
              l3+math.sqrt(max(0.,l1*l2))>=0 and
              l3+l4-abs(l5)+math.sqrt(max(0.,l1*l2))>=0)
