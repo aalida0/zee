@@ -44,6 +44,26 @@ class TestFlorentino2021Table2(unittest.TestCase):
             self.assertGreaterEqual(x[k],0)
             self.assertLessEqual(x[k],1)
 
+    def test_p2_beta_equals_alpha_is_necessarily_unbounded(self):
+        x=evaluate(self.source,"P2",mH1=300.,mH2=700.,beta=1.398)
+        b=x["alternative_analytic_quartic_BFB"]
+        self.assertLess(b["lambda1"],0)
+        self.assertTrue(b["negative_lambda1_proves_unbounded_quartic"])
+        self.assertFalse(b["alternative_global_quartic_BFB_sufficient"])
+        self.assertFalse(x["scalar_sufficient_BFB"])
+
+    def test_p2_beta_1394_is_analytically_certified_quartic_bfb(self):
+        x=evaluate(self.source,"P2",mH1=300.,mH2=700.,beta=1.394)
+        b=x["alternative_analytic_quartic_BFB"]
+        self.assertGreater(b["lambda1"],0)
+        self.assertTrue(b["neutral_2HDM_BFB"])
+        self.assertTrue(b["singlet_cross_PSD_sufficient"])
+        self.assertGreater(b["singlet_cross_PSD_determinant"],0)
+        self.assertTrue(b["alternative_global_quartic_BFB_sufficient"])
+        # Old Gate6 test is more conservative and intentionally unchanged.
+        self.assertFalse(x["scalar_sufficient_BFB"])
+        self.assertIsNone(x["physical_Zee_allowed"])
+
     def test_explicitly_rejects_signed_gamma_in_unvalidated_backend(self):
         for key in ("P3","P4"):
             with self.subTest(key=key),self.assertRaisesRegex(ValueError,
