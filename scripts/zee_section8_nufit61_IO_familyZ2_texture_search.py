@@ -100,9 +100,15 @@ class ProfileGate:
             y[None,:],x.shape).ravel()))
         vals=interpolator(points).reshape(x.shape)
         valid=np.isfinite(vals)
-        if any(not np.any(v) for v in valid):
-            raise ValueError("NuFIT ratio range not fully supported by 2D source table")
-        self.profile_approx=np.nanmin(vals,axis=1)
+        # Official DMS/DMA tables cover only a finite mass-splitting
+        # interval; unsupported ratio rows must penalize optimization,
+        # not abort loading the otherwise valid experimental table.
+        # Never extrapolate a marginalized NuFIT likelihood.
+        self.profile_approx=np.min(
+            np.where(valid,vals,1e7),axis=1)
+        self.ratio_supported=np.any(valid,axis=1)
+        if not np.any(self.ratio_supported):
+            raise ValueError("No intersection of ratio scan and NuFIT support")
 
     def scores(self,shape,precise=False):
         o=shape["observables"]
@@ -119,8 +125,13 @@ class ProfileGate:
             v["DMS/DMA_ratio_profile"]=profile_ratio(
                 self.grids["DMS/DMA"],r,steps=10001)["delta_chi2"]
         else:
+            supported_ratio_axis=self.r_axis[self.ratio_supported]
+            if r<supported_ratio_axis[0] or r>supported_ratio_axis[-1]:
+                raise ValueError("Mass ratio outside NuFIT data support")
             v["DMS/DMA_ratio_profile"]=float(np.interp(
                 r,self.r_axis,self.profile_approx))
+            if v["DMS/DMA_ratio_profile"]>=1e6:
+                raise ValueError("Ratio lies in unobserved NuFIT table gap")
         return v
 
     def score_one(self,shape,precise=False):
