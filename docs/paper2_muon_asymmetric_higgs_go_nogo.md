@@ -1237,3 +1237,137 @@ two-state NNLO calculation. If one or more has R<1 and
 useful sigma, prioritize an independent modern two-state
 matching/uncertainty and complete physical constraints
 before further MadGraph/Delphes.
+
+
+## Step R — the first three sub-reference flavor-shift spectra (2026-10-17)
+
+The 19 heavier Zee scalar/EWPO-screened spectra were passed through
+the same A1V-within-scheme Type-II 670-GeV comparator. The user
+reports:
+
+```
+B4_ROWS 19; SM_BASELINE_MATCH True
+RATIO_MIN_MEDIAN_MAX 0.95054921 1.155651 1.6006773
+NUM_R_LESS_1 3 OF 19
+P2L_0002092 m1=300.63 m2=866.99 gamma=1.1836
+    R=0.966 sigma1500=0.26226 fb conditional_Zll=6.30
+P2L_0000784 m1=285.73 m2=748.00 gamma=1.3110
+    R=0.9823 sigma1500=0.22056 fb conditional_Zll=4.48
+P2L_0000654 m1=270.13 m2=761.51 gamma=1.3334
+    R=0.9505 sigma1500=0.18415 fb conditional_Zll=3.53
+PHYSICAL_95CL_EXCLUSION_COMPUTED False
+```
+
+These are **the first screened spectra with lower A1V LEGACY NP
+BR shifts than the standalone Type-II 670-GeV reference**,
+after 43+314 older spectra all had R>1. This is NOT proof of
+Zee experimental allowedness. The reference is only a
+same-legacy-scheme ordering diagnostic, not the 2026
+two-charged-Higgs NNLO likelihood.
+
+The collider limitation is now severe. The three favorable
+points imply respectively 131.1, 110.3 and 92.1 generated
+charge-summed H1 H2 pairs at sqrt(s)=1.5 TeV, 0.5 ab^-1.
+After the **included-channel-only** H2→H1 Z and the
+TWO H1→tb conditional fractions and Z→ee/mumu,
+the truth-event ceilings are 6.30, 4.48 and 3.53.
+No top decay/branching specificity, detector response,
+SM background rejection or muon beam-induced background
+has yet been applied. The assumed included-channel ratios
+are not complete Zee physical BRs.
+
+Re-evaluating the exact same matched tree-level gauge formula
+at other reference machine settings (same provisional
+conditional decay fractions held fixed):
+
+| Point | sigma3000 fb | Zll truth at 3000, 1 ab^-1 | Z→hadrons truth at 1500, 0.5 ab^-1 |
+|---|---:|---:|---:|
+| P2L_0002092 | 0.24569 | 11.80 | 65.4 |
+| P2L_0000784 | 0.13355 | 5.43 | 46.5 |
+| P2L_0000654 | 0.11276 | 4.32 | 36.7 |
+
+Used BR(Z→ee,mumu)=0.0673 and BR(Z→hadrons)=0.6991.
+These are estimated by scaling the user-provided *rounded*
+conditional event values and cross sections, NOT new full
+simulation. A hypothetical ε=0.3 would yield at most 1.89,
+1.34, 1.06 selected Zll events at 1.5 TeV/0.5 ab^-1,
+BEFORE physical width corrections/backgrounds.
+
+**Related 2026 muon collider literature:**
+Khiem Hong Phan and Quang Hoang-Minh Pham,
+“Charged Higgs pair production associated with neutral gauge
+bosons at future multi-TeV muon colliders,” EPJC 86 (2026)
+article 516, published 15 May 2026,
+https://doi.org/10.1140/epjc/s10052-026-15755-4 .
+They analyze mu+mu-→H+H-Z with both charged scalars equal
+mass in a Type-II/X 2HDM, including ttbbZ SM backgrounds.
+This is NOT our unequal-mass Z-mediated 2→2
+mu+mu-→H1±H2∓ followed by H2±→H1±Z:
+same reconstructed ttbbZ final state but distinct
+production/decay topology and on-shell H1Z cascade.
+However, the prior-study result that ttbbZ production
+is challenging after tag/decay effects poses a
+**real novelty/reach hurdle**; don't claim novelty
+only because the gauge production is distinct.
+
+### Minimal next HEP check before additional event generation
+
+Take the THREE P2L IDs above; use the original B4
+targeted heavy scan CSV for full scalar inputs and
+its singlet quartics, without modifying them.
+Run the existing B2 neutrino-compatible f/Y
+families and B3 general-Zee leptonic width replacement
+to see if the already small included-channel truth
+ceilings decrease significantly. B2 optimizes only a
+PARTIAL LFV score, not all physical LFV. Even if
+B3 retains these ceilings, full experimental
+constraints remain blocked.
+
+```bash
+cd /home/aalida/zee
+python3 - <<'PY'
+import csv
+from pathlib import Path
+src=Path('work/zee_muon_P2_heavier_scalar_target_pilot_v1/all_screened_candidates_NOT_ALLOWED.csv')
+dst=Path('work/zee_muon_P2_heavier_3_flavorpriority_NOT_ALLOWED.csv')
+ids={'P2L_0002092','P2L_0000784','P2L_0000654'}
+with src.open(newline='') as f:
+    reader=csv.DictReader(f)
+    rows=[row for row in reader if row['id'] in ids]
+    fields=reader.fieldnames
+assert {row['id'] for row in rows}==ids and len(rows)==3
+with dst.open('w',newline='') as f:
+    writer=csv.DictWriter(f,fieldnames=fields)
+    writer.writeheader()
+    writer.writerows(rows)
+print(dst)
+PY
+
+python3 scripts/gateB2_zee_neutrino_family_scan.py \
+  --b1-csv work/zee_muon_P2_heavier_3_flavorpriority_NOT_ALLOWED.csv \
+  --trials-per-candidate 200 --top 5 --seed 20261017 \
+  --output-dir work/zee_muon_P2_heavier_3_B2_v1
+
+python3 scripts/gateB3_general_zee_charged_lepton_widths.py \
+  --b1-csv work/zee_muon_P2_heavier_3_flavorpriority_NOT_ALLOWED.csv \
+  --b2-json work/zee_muon_P2_heavier_3_B2_v1/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --top 5 --output-dir work/zee_muon_P2_heavier_3_B3_v1
+```
+
+Inspect
+`work/zee_muon_P2_heavier_3_B3_v1/cascade_width_corrected_NOT_ALLOWED.csv`
+for B3's partial-channel ratios `BR_H2_H1Z_included_general_Zee`
+and `BR_H1_tb_included_general_Zee`. They remain upper-style
+conditional fractions (NOT full physical branching ratios).
+For collider utility the production times
+`[BR(H2→H1Z)]×[BR(H1→tb)]²×BR(Z→channel)` must be used,
+NOT the older B3 `sin²(gamma)×BR(H2→H1Z)×BR(H1→tb)`
+metric (that ranks a DIFFERENT production/decay sequence).
+
+Paper 2 next formal gate: validated modern NNLO two-state
+B→Xsγ with uncertainties + complete general-Zee LFV,
+HiggsTools and full widths. If 1.5/3 TeV ee/mumu
+conditional yields remain single digits, treat that channel
+as a likely detector-level no-go and assess hadronic Z
+only after a fast, explicit SM-background/BIB feasibility
+and 2026 equal-mass H+H-Z prior-art comparison.
