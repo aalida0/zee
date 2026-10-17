@@ -752,3 +752,120 @@ be necessary to implement the separately
 quoted first-octant reference and audit
 search quality, parameterization
 conditioning near e≈m_tau.
+
+
+## Nine-job source-upper-octant 2sigma gate FAILED; independent first-octant candidate identified (2026-10-18)
+
+The user completed `scripts/zee_section8_2022_2sigma_acceptance.py` on AF:
+tanbeta=10/15/20 × 3 seeds = 9.
+**0/9 upper-octant SOURCE_STYLE passes.**
+Every slice found similar local minimum
+`VIOLATION≈2.1432–2.1437` (not χ²),
+Σmν≈0.14135 eV > historical 0.13 eV
+bound, IO m1/m3≈2.058.
+At tanbeta=15:
+sin²theta12=.330022,
+sin²theta13=.0210624,
+sin²theta23=.627555,
+J_CP=-.0238658,
+Δmsol²/Δmatm²=.0365402.
+Against 2022 upper-octant Table1 source
+the residuals are roughly
+`(+2.002,-2.091,+2.920,+1.339,+2.012)`
+in (s12,s13,s23,J,ratio).
+The charged texture's `e` variable sits very
+close to m_tau (MTAU-e≈9e-7 GeV).
+These are not accepted upper-octant or
+cosmology-compatible historical points.
+They do NOT exclude the family-dependent
+Z2 model because the 2022 paper explicitly
+allows a separate **first octant**,
+which our preceding scripts did not search.
+
+**Independent numeric cross-check (not source-likelihood-certified):**
+Using an independent small matrix/SVD/eigensolver
+in the isolated Python runtime and SciPy DE at
+tanbeta=15, setting a provisional *first-octant
+exploratory* `0.43<=sin²theta23<=0.49`
+window while retaining each of the OTHER
+FOUR 2022 Table1 IO 2sigma requirements
+and historical Σmν<0.13, found a candidate:
+```
+tanbeta = 15
+logistic-coordinate witness (x,y,log10r,phase)
+ = (-3.8318906,-8.45647671,-0.62476731,-3.1167578)
+d_GeV ≈ 0.002741073843
+e_GeV ≈ 0.106013463006 (just ABOVE m_mu)
+r ≈ 0.23726446
+sin²theta12 = 0.3181898745  (2022 IO residual +1.0915σ)
+sin²theta13 = 0.0211307363  (2022 IO residual -1.9830σ)
+sin²theta23 = 0.4364576483  (FIRST octant; exploratory window only)
+J_CP        = -0.0198756174 (2022 IO residual +1.9431σ)
+R           = 0.0364999668  (2022 IO residual +1.99999σ)
+m1_eV       = 0.04974863
+m2_eV       = 0.05066968
+m3_eV       = 0.00578073
+sum_mnu_eV  = 0.1061990453  (< historical .13)
+m1/m3       = 8.60593686   (within published 2..15)
+```
+This witness passes **four** published
+Table1 IO marginal 2sigma intervals plus a
+*PROVISIONAL* first-octant window,
+the 2022 historical cosmological threshold,
+and the 2..15 observed mass ratio.
+It is NOT a mathematically certified or
+experimentally source-accepted **five**
+observable fit, since source Table1 quotes
+the **UPPER** octant's numerical 1sigma
+central value; it does not tabulate
+the first-octant likelihood. Must retrieve
+original NuFIT5.0 theta23 first-octant
+profile or construct a valid current NuFIT6.1
+likelihood to decide physical oscillation pass.
+Independent runs with a narrower exploratory
+first-octant .43-.49 window also found
+numerical-violation=0 branches at tanbeta
+15 and 20, showing that the best-fit
+upper octant's failure is not a universal
+texture no-go.
+
+**Crucial difference:** Old upper-octant
+optimizers saturated e≈m_tau.
+The new first-octant witness has
+e≈0.106013 GeV just ABOVE m_mu, in a
+distinct charged-lepton texture basin.
+No hard zero in f,Y was changed and no
+unrestricted B2 Yukawa parameters were added.
+
+New reproducible script:
+`scripts/zee_section8_IO_first_octant_witness.py`
+plus
+`tests/test_zee_section8_IO_first_octant_witness.py`.
+The deterministic witness test is the
+immediate next cheap AF gate and does
+**NOT** require another optimizer run:
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_section8_IO_first_octant_witness.py' -v
+python3 scripts/zee_section8_IO_first_octant_witness.py \
+  --witness-only \
+  --output work/zee_section8_IO_first_octant_witness_v1.json
+```
+
+After successful witness reproducibility, NEXT
+gate is a genuinely source-pinned NuFIT5.0
+first-octant likelihood/profile or current
+NuFIT6.1, not more upper-octant optimizing.
+Modern cosmological interpretation of IO
+Σmν~0.106 eV requires a specified dataset
+and cosmological model; source 2022 .13 eV
+bound is historical only.
+All high-tanbeta scalar-potential constraints
+are NOT_EVALUATED: the original 2021 P2
+scalar point with m12sq=58000 and beta=1.394
+cannot simply be replaced by tanbeta15.
+
+No fully allowed Zee benchmarks yet.
