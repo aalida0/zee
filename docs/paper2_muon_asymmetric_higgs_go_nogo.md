@@ -259,3 +259,76 @@ Proceed to a full Paper 2 detector study only if:
 If the leptonic Z channel stays <= O(10) selected events and
 hadronic Z fails over backgrounds, revisit the second paper
 process instead of forcing an optimistic sensitivity plot.
+
+
+## Step D — MG5 numerical stable-pair cross-section closure (now implemented)
+
+After both diagram-generation decks complete, use
+`scripts/zee_muon_integrate_mg5.py` to run four independent
+parton-only LO integrations and compare the **charge-summed**
+Z-only cross section against the analytic result at the
+**same Yang/Wu UFO electroweak scheme**.
+
+The original Yang/Wu Parameters.fr does not use externally specified
+sin²thetaW; it derives MW from SMINPUTS alpha and GF plus MASS[23]=MZ,
+then computes sin²thetaW=1-(MW/MZ)². The runner computes that same
+tree-level input scheme before evaluating the analytic reference;
+this prevents misleading percent-level discrepancy with the
+illustrative fixed sin²thetaW=0.23122 values from Step A.
+
+Test it before executing:
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_muon_integrate_mg5.py' -v
+
+python3 scripts/zee_muon_integrate_mg5.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --candidate-id B4_0000318 \
+  --param-card work/zee_muon_B4_0000318_scalar_matched_DIAGNOSTIC.dat \
+  --z-only-dir work/zee_muon_mg5_B4_0000318_decks/MG5_Z_only \
+  --full-tree-dir work/zee_muon_mg5_B4_0000318_decks/MG5_full_tree \
+  --energies-GeV 1500,3000 \
+  --events 3000 \
+  --tolerance 0.05 \
+  --output-dir work/zee_muon_P2_mg5_xsec_v1
+```
+
+If the dry preflight passes, rerun with the same arguments and add
+`--execute`. The runner verifies the process cards contain **both
+charge conjugates**, the fully matched B4 scalar + singlet quartic
+card, and antisymmetric f=0 (so it *cannot* be mislabeled a neutrino
+fit). It backs up each generated process's default run/param cards
+once, configures lepton beams `lpp1=lpp2=0`, unpolarized
+`polbeam1=polbeam2=0`, beams at `E_CM/2`, no shower/detector,
+and runs:
+
+```text
+bin/generate_events P2Z1500 -f --laststep=parton
+bin/generate_events P2Z3000 -f --laststep=parton
+bin/generate_events P2F1500 -f --laststep=parton
+bin/generate_events P2F3000 -f --laststep=parton
+```
+
+Cross sections are extracted from each LHE banner
+`<MGGenerationInfo> Integrated weight (pb)` and reported in
+fb. They are NOT scraped from console text.
+
+Output: `cross_sections.csv`, `manifest.json`, four run logs,
+and normal MG5 events in their process output directories.
+
+**Strict stop conditions:** if the Z-only integration differs from
+the matched analytic reference by more than 5%, report
+`Z_ONLY_CLOSURE_FAIL_STOP` and do NOT interpret full-tree
+enhancements; inspect EW scheme, process definitions,
+Hheavy/Hlight angle mapping and normalization. This threshold
+is a numerical integration/input sanity criterion, not a
+theory uncertainty. Do not fit the threshold to make it pass.
+
+The full-tree diagnostic is **NOT** a physical muon-specific
+neutrino-exchange enhancement: f=0, Type-II-like diagonal charged
+lepton Yukawa are an artificial tree-level reference. Complex
+neutrino-compatible f,Y from B2 require a separate mapped UFO
+card with verified flavor convention.
