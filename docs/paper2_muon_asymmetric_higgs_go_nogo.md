@@ -811,3 +811,75 @@ selecting physical benchmarks. For Type-II-like quarks, charged
 mass eigenstates contribute to Wilson coefficients with the
 doublet weights cos²gamma and sin²gamma at matching, not as
 a naive sum of charged-Higgs branching fractions.
+
+
+## Step L — P2L 43-point A1V deltaBR–collider Pareto frontier, and SM-baseline ERRATUM (2026-10-17)
+
+User joined the 43-point scalar/EWPO-screened lighter spectra to
+Gate A1V `scan_flavour_only.csv`, matching all four charged-flavor
+inputs exactly, and obtained 13 nondominated points when minimizing
+`full_Zee_BR - SM_BR` and maximizing analytic, both-charge Z-only
+sigma at sqrt(s)=1.5 TeV. Representative records:
+
+| Candidate | mH1, mH2 [GeV] | gamma | deltaBR_legacy [10^-4] | sigma_Z [fb] | conditional Zll truth (0.5 ab^-1) |
+|---|---|---|---|---|---|
+| P2L_0001962 | 275.4,560.8 | 1.432 | +0.5466 | 0.1115 | 0.46 |
+| P2L_0002450 | 301.3,567.0 | 1.144 | +0.6274 | 0.8014 | 16.78 |
+| P2L_0002457 | 297.4,579.1 | 1.023 | +0.6780 | 1.0929 | 25.29 |
+| P2L_0002267 | 299.6,555.8 | 0.979 | +0.7197 | 1.2405 | 32.00 |
+| P2L_0000563 | 225.5,527.7 | 0.832 | +0.9924 | 1.6452 | 44.29 |
+| P2L_0000481 | 258.8,482.7 | 0.717 | +1.0209 | 1.7021 | 35.73 |
+
+**ERRATUM — earlier Step K erroneously compared/identified
+A1V's SM reference as 3.9250054453230092e-4.**
+That number came from a separate A1U *fixed-low* diagnostic,
+and must not be asserted to equal the within-run `SM_BR` in
+the A1V Pareto data. The user's printed A1V results imply a
+lower common SM reference around **3.38e-4**, e.g.
+3.93e-4 - 0.5466e-4 ~ 3.3834e-4.
+This is an approximation using rounded printed absolute BRs,
+**NOT independent verification of the exact SM_BR field**.
+Before assigning physical significance, read the original
+`SM_BR` values from `scan_flavour_only.csv` and verify
+their uniqueness and consistency with the A1V `SM_BR` column.
+The C backend defines its SM rate as the unperturbed
+k=0 Wilson-coefficient member `b0 = br[1]`, independently
+checked by `real_br(&sm,...)`. It must not be substituted
+with A1U fixed-low SM.
+
+The primary Misiak et al. 2026 updated calculation is
+https://arxiv.org/abs/2608.29863, reporting
+BR_SM=(3.54 +/- 0.14)e-4, BR_exp=(3.49 +/- 0.19)e-4
+(Egamma>1.6 GeV) and a **95% CL single-Type-II-2HDM
+charged-Higgs lower mass bound 670 GeV**. This does not
+directly exclude either Zee mass eigenstate: both charged
+doublet fractions enter the Wilson coefficients, approximately
+cos²gamma C7,8^TypeII(mH1) +
+sin²gamma C7,8^TypeII(mH2) in the alignment/quark
+Yukawa convention being screened.
+
+The Pareto frontend's small-legacy-deltaBR points sacrifice
+gauge-production rate; the maximum-rate ones have
+deltaBR_legacy around +1e-4. It is inappropriate to
+treat `deltaBR_legacy` as an NNLO correction to be
+naively added to Misiak 2026 SM. These numbers point to
+potential modern-flavor tension, not a calibrated 95% CL
+exclusion. P2L_0002457 is a useful *conditional study point*:
+mH1~297 GeV (b-rest momentum ~98.6 GeV), mH2~579 GeV,
+sigma~1.093 fb, deltaBR_legacy~0.678e-4;
+it is explicitly NOT currently "allowed".
+Prioritize modern two-state Wilson-matching and full-theory
+uncertainty validation before committing to MG5 cascades or
+detector-level publication claims.
+
+**One-line AF check** to settle A1V SM baseline:
+```bash
+python3 - <<'PY'
+import pandas as pd
+p='work/zee_muon_P2_light_A1V_flavour_v1/scan_flavour_only.csv'
+d=pd.read_csv(p)
+print('A1V SM_BR unique values:',d.SM_BR.unique())
+print('A1V SM range:',d.SM_BR.min(),d.SM_BR.max())
+print('A1V NP shifts range:',(d.full_Zee_BR-d.SM_BR).min(),(d.full_Zee_BR-d.SM_BR).max())
+PY
+```
