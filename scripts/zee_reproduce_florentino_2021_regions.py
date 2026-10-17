@@ -39,7 +39,7 @@ def load_regions(path=REGIONS):
             if not (0<a<b):raise ValueError("Invalid source mass interval")
     return x
 
-def build_inputs(region, *,mH1=None,mH2=None,beta=None):
+def build_inputs(region, *,mH1=None,mH2=None,beta=None,k12=None):
     m1lo,m1hi=region["mH1_interval_GeV"]
     m2lo,m2hi=region["mH2_interval_GeV"]
     m1=(m1lo+m1hi)/2 if mH1 is None else float(mH1)
@@ -59,13 +59,15 @@ def build_inputs(region, *,mH1=None,mH2=None,beta=None):
     if not(m1lo<=m1<=m1hi and m2lo<=m2<=m2hi and
            0<beta<math.pi/2 and m2>m1):
         raise ValueError("Requested representative outside source region/domain")
+    if k12 is not None and not math.isfinite(float(k12)):
+        raise ValueError("Invalid k12 override")
     return dict(
         beta=beta,mH1=m1,mH2=m2,alpha=alpha,
         gamma=gamma,m12sq=float(region["m12sq_GeV2"]),
         mh1=float(region["mh125_GeV"]),mh2=float(region["mh2_GeV"]),
         ma=float(region["ma_GeV"]),lc=float(region["lambda_c"]),
         k1=float(region["k1"]),k2=float(region["k2"]),
-        k12=float(region["k12"])
+        k12=float(region["k12"] if k12 is None else k12)
     )
 
 
@@ -103,9 +105,9 @@ def less_conservative_analytic_bfb(scalar):
     }
 
 
-def evaluate(source,point,*,mH1=None,mH2=None,beta=None):
+def evaluate(source,point,*,mH1=None,mH2=None,beta=None,k12=None):
     region=source["benchmarks"][point]
-    inputs=build_inputs(region,mH1=mH1,mH2=mH2,beta=beta)
+    inputs=build_inputs(region,mH1=mH1,mH2=mH2,beta=beta,k12=k12)
     s=scalar_benchmark(**inputs)
     w=scalar_width_inventory(**inputs)
     masses=s["rebuilt_charged_masses_GeV"]
@@ -123,7 +125,12 @@ def evaluate(source,point,*,mH1=None,mH2=None,beta=None):
         "source_paper":source["source"],
         "source_benchmark_region":point,
         "input_choice":"USER_SELECTED" if any(z is not None for z in
-                       (mH1,mH2,beta)) else "MASS_MIDPOINTS_BETA_EQUALS_ALPHA_ASSUMED",
+                       (mH1,mH2,beta,k12)) else "MASS_MIDPOINTS_BETA_EQUALS_ALPHA_ASSUMED",
+        "source_k12_value":float(region["k12"]),
+        "k12_source_overridden_for_softly_broken_Z2":bool(k12 is not None),
+        "source_Table2_exact_scalar_parameters_used":bool(k12 is None),
+        "family_Z2_exact_quartics_operator_audit":bool(inputs["k12"]==0),
+        "family_Z2_neutrino_LFV_fitted":False,
         "inputs":inputs,
         "mass_eigenvalue_closure":"PASS",
         "scalar_sufficient_BFB":s["sufficient_global_quartic_BFB"],
@@ -149,11 +156,12 @@ def main():
     ap.add_argument("--mH1",type=float)
     ap.add_argument("--mH2",type=float)
     ap.add_argument("--beta",type=float)
+    ap.add_argument("--k12",type=float,help="Override the published singlet hard Z2-breaking quartic. --k12 0 defines a NEW symmetry-compatible scalar POINT, not the published Table 2 P2.")
     ap.add_argument("--output",required=True,type=Path)
     a=ap.parse_args()
     source=load_regions()
     result=evaluate(source,a.benchmark,mH1=a.mH1,mH2=a.mH2,
-                    beta=a.beta)
+                    beta=a.beta,k12=a.k12)
     if a.output.exists():
         raise FileExistsError("Use new output file to preserve provenance")
     a.output.parent.mkdir(parents=True,exist_ok=True)
@@ -161,6 +169,7 @@ def main():
     print("STATUS",STATUS)
     print("SOURCE",a.benchmark)
     print("CHOSEN_INPUTS",json.dumps(result["inputs"],sort_keys=True))
+    print("K12_SOURCE_OVERRIDDEN",result["k12_source_overridden_for_softly_broken_Z2"])
     print("MASS_RECONSTRUCTION",result["mass_eigenvalue_closure"])
     print("OLD_STRONGER_SUFFICIENT_BFB",result["scalar_sufficient_BFB"])
     print("ALTERNATIVE_ANALYTIC_BFB_SUFFICIENT",
