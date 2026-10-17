@@ -754,3 +754,60 @@ Even if a modern two-state flavor calculation passes, we still
 need neutrino-compatible general f/Y and fully predicted widths,
 HiggsTools direct bounds, background/BIB and a muon-specific
 novelty or reconstruction result.
+
+
+## Step K — actual legacy B->Xs gamma for 43 lighter scalar/EWPO candidates (2026-10-17)
+
+User ran Gate A1V for all 43 lighter scalar/EWPO-screened
+P2L candidates. Saved `scan_flavour_only.csv`:
+
+- count 43
+- legacy BR mean 4.17e-4, std 0.12e-4,
+  min 3.93e-4, median 4.17e-4, max 4.44e-4.
+- 5 lowest: (m1,m2,gamma,tanbeta,BR):
+  (275.411222,560.788383,1.431680,8.236477,3.93e-4),
+  (313.094538,547.211799,1.273383,3.896588,3.98e-4),
+  (301.250800,566.952471,1.144114,4.787277,4.01e-4),
+  (277.508911,539.316858,1.233299,5.482108,4.02e-4),
+  (243.347015,517.611128,1.309336,6.216845,4.03e-4).
+
+**CRITICAL: comparing these absolute values to the 2021 Florentino
+historical 2.78e-4 < BR < 3.77e-4 is INVALID** because the
+same A1V legacy implementation yields SM-only BR approximately
+3.9250054453230092e-4, which ALREADY violates the 2021 bound!
+That procedure would exclude the benchmark generator's SM point.
+Do not count 43 'excluded' candidates from this incompatible
+SM baseline. The meaningful diagnostic is the *within-the-same-code*
+NP shift
+  delta_BR_legacy = BR_full_Zee_legacy - BR_SM_legacy,
+not the absolute uncalibrated physical branching ratio.
+
+The September 1, 2026 SM update by Tobias Huber,
+arXiv:2609.01005, reports [E_gamma > 1.6 GeV]:
+  BR_SM=(3.54 +/- 0.14)e-4,
+  BR_exp=(3.49 +/- 0.19)e-4.
+See https://arxiv.org/abs/2609.01005 .
+These are the most recent published references identified in
+this audit. The proceedings reference supplies an updated SM
+baseline, NOT an NNLO-matched Zee NP prediction. DO NOT combine
+'new 2026 SM BR + old SuperIso deltaBR_legacy' and label it
+physical NNLO. The Wilson matching/evolution, interference
+and uncertainties are scheme dependent.
+
+The minimum-BR sample at gamma=1.431680 has
+sin²(2gamma)≈0.075, and independently validated *analytic*
+Z-only charge-summed cross section ≈0.112 fb at 1.5 TeV:
+flavor suppression via singlet mixing comes at significant cost
+to asymmetric charged-pair collider production. Other low-BR
+samples have higher rates and merit Pareto analysis (small
+legacy deltaBR vs large sigma or conditional truth yield).
+
+**Updated decision:** neither declare the 43 points experimentally
+excluded nor promote to allowed. Do not spend on Delphes.
+Report a provenance-consistent 43-point deltaBR–sigma Pareto
+frontier, then resolve modern two-state b->s gamma normalization
+and current combined experimental/theory likelihood before
+selecting physical benchmarks. For Type-II-like quarks, charged
+mass eigenstates contribute to Wilson coefficients with the
+doublet weights cos²gamma and sin²gamma at matching, not as
+a naive sum of charged-Higgs branching fractions.
