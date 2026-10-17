@@ -410,3 +410,48 @@ A genuinely muon-specific production effect must be shown
 using the same complex f/Y solution that reconstructs neutrino
 masses; then compare e+e- versus mu+mu- and evaluate the
 full final state against backgrounds and BIB.
+
+
+## Step F — user B2 muon-Yukawa screen: negative muon-specific evidence
+
+On 2026-10-17, the user ran
+`scripts/zee_muon_yukawa_screen.py` on all 150 B2 saved solutions:
+
+- `MAX_MIXING_ABS_Y_Y = 5.8092699e-09`.
+- `MAX_MIXING_ABS_f_f = 1.5016428e-07`.
+- Top Y-column candidates:
+  `B4_0000469` rank 2, `5.80927e-09`, partial LFV `3.04449e-08`;
+  `B4_0000759` rank 5, `4.686855e-09`, partial LFV `1.47582e-07`;
+  `B4_0000820` rank 5, `4.390315e-09`, partial LFV `4.84249e-07`;
+  `B4_0000777` rank 5, `4.149567e-09`, partial LFV `1.22755e-07`;
+  `B4_0000469` rank 3, `3.147335e-09`, partial LFV `5.27832e-08`.
+
+**Interpretation**: In these deliberately low-partial-LFV-selected
+neutrino-mass-closed B2 Yukawa solutions, the candidate t-channel
+coupling products are extremely small compared with ordinary
+electroweak gauge products; no plausible *large* muon-specific
+enhancement is evident from the screen. This is NOT a computed
+neutrino-exchange cross section, nor a universal no-go theorem
+for all mathematically allowed general Zee Yukawas. All 150
+configurations were biased by B2's partial-LFV top-five selection,
+which suppresses large LFV couplings. Full LFV was not imposed.
+
+**Updated literature warning:** Dev, Heeck and Thapa,
+*Neutrino mass models at muTRISTAN*, EPJC 84 (2024) 148
+https://doi.org/10.1140/epjc/s10052-024-12496-0
+already studied the Zee model at a muon-based collider with
+mu+e- and mu+mu+ beams, LFV processes, and neutrino correlations.
+This is NOT our mu+mu- unequal-mass scalar pair mode,
+but rules out a broad novelty claim of "first Zee muon collider
+study." The ZH1H2 vertex was established earlier by
+Florentino et al 2021.
+
+**Current recommendation:** HOLD a mu+mu- detector-level Paper 2
+based only on this Z-mediated rate; do not re-export the full complex
+lepton-Yukawa UFO unless a targeted optimization/stress test
+identifies significantly enhanced muon couplings under defensible
+complete neutrino/LFV constraints. If no enhancement emerges,
+either reframe as a *lepton-collider* mixed-pair reconstruction
+study conditional on background-rejection novelty or prioritize
+Paper 1 instead. No cross section has been calculated from
+the 150 B2 f,Y complex solutions.
