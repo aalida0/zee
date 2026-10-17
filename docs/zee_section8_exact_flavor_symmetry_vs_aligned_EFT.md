@@ -314,3 +314,116 @@ scan alpha,beta and m12sq together
 when extending the family-Z2 model into
 the flavor-favored tanbeta>10 region;
 fixed-P2 parameters cannot do the job.
+
+## AF gate: source-inspired P2 k12=0 *quartic* variant confirmed (2026-10-18)
+
+User confirms:
+
+```
+SOURCE P2
+alpha=1.398, beta=1.394, gamma=1.089,
+k1=1.082, k12=0, k2=.00398, lc=4.473,
+m12sq=58000 GeV^2, mH1=300, mH2=700,
+ma=633.7, mh2=580.7, mh1=125
+K12_SOURCE_OVERRIDDEN True
+MASS_RECONSTRUCTION PASS
+OLD_STRONGER_SUFFICIENT_BFB True
+ALTERNATIVE_ANALYTIC_BFB_SUFFICIENT True
+LAMBDA1 1.6369050315668792
+TREE_UNITARITY True
+MAX_UNITARITY_EIGENVALUE 18.083843117923735
+BR_H2_H1Z_INCLUDED_ONLY 0.7606635666057693
+BR_H1_tb_INCLUDED_ONLY 0.9559329373337353
+HISTORICAL_ALLOWED_REPRODUCED False
+```
+
+At the quartic level the symmetry-compatible k12=0
+scalar point now satisfies both the existing and new
+sufficient BFB checks, and mass/unitarity close. The
+nearby nonzero-k12 historical representative had
+BR_H2_H1Z=0.76080038695 and same BR_H1_tb, so
+switching k12 to zero has **not reduced the
+included-channel gauge cascade rate materially**.
+
+**NEXT physics step, now implemented:**
+`scripts/zee_section8_family_z2_neutrino_texture_pilot.py`
+is a new independent, source-faithful realization
+of Primulando et al. EPJC 82 (2022) 253
+Eqs. (1)-(2),(8)-(10),(13),(17), and
+`tests/test_zee_section8_family_z2_neutrino_texture_pilot.py`
+tests its charged-lepton mass, symmetry-texture,
+biorthogonal rotation and Majorana symmetry.
+Source: https://doi.org/10.1140/epjc/s10052-022-10189-0 .
+
+It constructs in the charge basis
+`M_l=[[a,b,c],[0,d,0],[0,0,e]]`,
+`f=[[0,1,r exp(i theta)],[-1,0,0],
+[-r exp(i theta),0,0]]`.
+Choose `m_e < d < m_mu < e < m_tau` and
+derive b² and c² from the minor-eigenvalue
+characteristic polynomial, `a=me*m_mu*m_tau/(d*e)`.
+This exactly reproduces all THREE charged-lepton
+masses and reduces the continuous charged-lepton
+texture to two parameters d,e.
+Use SVD `O_L^T M_l O_R=diag(ml)`, then
+`fhat=O_L^T f O_L`,
+`Yhat=O_L^T diag(-cotbeta,tanbeta,tanbeta) M_l O_R/v`,
+`Mnu=kappa2022*(fhat*diag_ml*Yhat^T +
+Yhat*diag_ml*fhat^T)`,
+`kappa2022=sin(2 gamma) ln(m1²/m2²)/(16π²)`.
+This is NOT just an unrestricted complex
+f,Y B2 solution: both textures come from
+the symmetry basis with exact zero entries.
+
+The pilot's differential-evolution option optimizes
+a transparent, fixed **illustrative target proxy**
+using the old A1B central input values for
+sin²theta12,13,23, Δmsol²/Δmatm², J_CP,
+not the full NuFIT likelihood. Score weights are
+non-physical arbitrary denominators; never
+call the reported numerical score a χ²/CL.
+It does not compute LFV, vacuum, HiggsTools,
+modern flavor or exclusion. Also do NOT pass
+the 2022 Yhat directly into the Chen-based
+B2/B3 lepton-width code without checking
+normalization, transpose and conjugation.
+
+AF first run:
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_section8_family_z2_neutrino_texture_pilot.py' -v
+python3 scripts/zee_section8_family_z2_neutrino_texture_pilot.py \
+  --tanbeta 5.597170833164245 --ordering NO \
+  --mH1 300 --mH2 700 --gamma 1.089 \
+  --maxiter 65 --popsize 10 --seed 20261018 \
+  --output work/zee_section8_familyZ2_P2_tanb5597_NO_proxy_v1.json
+```
+
+For comparison a second optional **lepton-only
+counterfactual** scan at `--tanbeta 10` can
+test the literature-preferred high-tanbeta lepton
+texture. That does NOT constitute a valid scalar
+benchmark at alpha1.398/m12sq58000: the original
+P2 scalar inputs fail lambda1 positivity at
+tanbeta10, so those must be re-screened with
+different m12sq/neutral parameters BEFORE
+any combined model claim.
+
+After the algebraic texture has passed its
+regression tests: match 2022 and Chen Yukawa
+conventions, connect correct mass-basis f/Y
+to the physical LFV backend, then implement
+a real source-pinned NuFIT 6.1 likelihood
+over both orderings, phases and charged-lepton
+texture parameters, with current cosmological
+neutrino sum considered as independent
+data-dependent consistency check.
+
+Stop if constrained full leptonic fit cannot
+find any physically supported high-tanbeta
+textures in the scalar+quark flavor viable
+region. No count of 2026 allowed Zee points
+has been obtained.
