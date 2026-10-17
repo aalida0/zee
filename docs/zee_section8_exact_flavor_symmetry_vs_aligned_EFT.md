@@ -869,3 +869,98 @@ scalar point with m12sq=58000 and beta=1.394
 cannot simply be replaced by tanbeta15.
 
 No fully allowed Zee benchmarks yet.
+
+
+## AF reproducibility PASS: first-octant witness and Takagi-derived physical neutrino observables (2026-10-18)
+
+User confirms deterministic witness evaluation on AF:
+
+```
+STATUS FAMILY_Z2_IO_FIRST_OCTANT_DIAGNOSTIC_NOT_SOURCE_LIKELIHOOD_OR_ALLOWED
+IO_m1_over_m3          8.60593686031969
+charged_mass_closure   2.220446049250313e-16 GeV
+sin²theta23            0.4364576482854263
+sum_mnu_eV             0.10619904532612505
+source-other-four Table1 residuals:
+  J_CP       +1.943088266055124 sigma
+  mass_ratio +1.9999902411404884 sigma
+  sin²theta12 +1.0915288069003113 sigma
+  sin²theta13 -1.9829582728188762 sigma
+passes_exploratory True
+FORMAL_FIRST_OCTANT_SOURCE_FIT False
+FULL_ZEE_ALLOWED False
+```
+
+This is a **reproducible symmetry-texture witness**, not a
+statistically robust neutrino fit. Two of four
+source marginal observables are essentially on the
+2σ boundary, and the theta23 window was a chosen
+exploratory interval, NOT a tabulated first-octant
+source likelihood. Do not claim exact 2022 5/5
+source-accepted solution or NuFIT6.1 compatibility.
+
+For the exact same 4-parameter charged-lepton
+texture and overall f-normalization fixed by
+the old A1B diagnostic |Delta m_atm²|=2.534e-3
+eV², independent NumPy calculation gives:
+```
+m_nu_IO_eV ≈ (0.04974863,0.05066968,0.00578073)
+delta_CP = 217.2061973 deg (both independent
+  PMNS invariants sinδ and cosδ checked)
+m_beta = 0.0495191163 eV
+m_bb (light Majorana neutrino exchange only) =
+  0.0215410423 eV
+max_abs_f_mass_basis ≈ 4.15985e-6
+max_abs_Y_mass_basis_2022 ≈ 0.00643668
+Takagi closure ≈ 1e-15 eV
+```
+
+The deltaCP value is important: the original pilot
+reported J_CP but not the physical phase quadrant.
+The Majorana-phase-sensitive m_bb must use
+the Takagi factors of Mnu and the exact (ee)
+entry, NOT merely sum of positive masses
+with eigenvectors carrying arbitrary phases.
+
+New deterministic source and regression tests:
+`scripts/zee_section8_IO_witness_neutrino_physical_observables.py`,
+`tests/test_zee_section8_IO_witness_neutrino_physical_observables.py`.
+No new optimization or 2026 experimental model pass.
+
+AF command:
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_section8_IO_witness_neutrino_physical_observables.py' -v
+python3 scripts/zee_section8_IO_witness_neutrino_physical_observables.py \
+  --output work/zee_section8_IO_first_octant_neutrino_physical_observables_v1.json
+```
+
+**Immediate genuine new gate**: source-pin the actual
+NuFIT6.1 (data through Nov 2025) IO `no-SK/IC`
+and `with-SK/IC` variants and use its published
+one/two/three-dimensional chi² profile TABLES,
+with correct definitions of delta_CP in degrees
+and IO Delta m32². The tables are *profile*
+projections, not an independent factorized
+joint likelihood; summing separately
+marginalized one-dimensional Δχ² profiles
+is a diagnostic approximation and MUST NOT
+be described as a statistically calibrated
+global χ². Separate old-mass normalization
+from fitting the current |Delta m32²|.
+NuFIT6.1 official https://www.nu-fit.org/?q=node%2F309
+and release notes
+https://www.nu-fit.org/sites/default/files/v61.release-notes.pdf .
+
+After oscillation compatibility test, **run same
+witness f,Y through properly normalized
+2022->Chen bridge + B2/B5 LFV amplitudes**,
+including full Barr-Zee and mu-e conversion,
+without claiming partial subset as an experimental
+allowed check. Independently redo the restricted
+scalar potential at tanbeta15 and k12=0;
+the old beta1.394 Table2-P2 theory pass
+does not transfer to beta=arctan(15).
