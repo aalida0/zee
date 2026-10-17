@@ -332,3 +332,81 @@ neutrino-exchange enhancement: f=0, Type-II-like diagonal charged
 lepton Yukawa are an artificial tree-level reference. Complex
 neutrino-compatible f,Y from B2 require a separate mapped UFO
 card with verified flavor convention.
+
+
+## Step E — actual MG5 result and neutrino-Yukawa screening (2026-10-17)
+
+**User-reported MG5 result: integrated rates, both charge conjugates.**
+
+| E_CM | analytic Z-only, matched Yang/Wu EW | MG5 Z-only | MG5 all-tree, unfitted-lepton limit |
+|---|---:|---:|---:|
+| 1500 GeV | 0.58622616 fb | 0.585910 fb | 0.587394 fb |
+| 3000 GeV | 0.27669813 fb | 0.277090 fb | 0.2773455 fb |
+
+**Z-only analytic closure:** -0.0539% at 1.5 TeV, +0.1416%
+at 3 TeV: PASS, much better than prespecified 5%.
+**Full-tree/Z-only diagnostic:** +0.2533% and +0.0922%.
+No integrated numerical uncertainties were provided. These small
+differences are not a demonstrated muon-specific enhancement.
+
+The existing diagnostic leptons have **f=0 and Type-II diagonal
+charged-lepton Yukawa**; this is mathematically incompatible with
+our nonzero Zee neutrino-mass targets, and must not be used as a
+physical Yukawa-rate conclusion. The resulting gauge production
+is equally available to an electron machine at equal energy.
+
+**Upstream UFO technical blocker, independently verified:** the
+Yang Ma/Yongcheng Wu `ZEE_UFO/parameters.py` declares
+`fem`, `fet`, `fmt` and `ylzee`–`ylztt` as
+`type='real'` external parameters, whereas our neutrino-compatible
+B2 matrices contain **complex** entries. Real-part substitution
+is not a consistent Zee model point. A FeynRules re-export with
+appropriately declared complex parameters (and accompanying
+imaginary SLHA blocks or equivalent) must retain Hermiticity
+and validate charged-current vertices before physical MadGraph
+Yukawa production can be calculated.
+
+### Cheap flavor screen before a complex UFO re-export
+
+The new `scripts/zee_muon_yukawa_screen.py` reads the saved 150
+complex B2 Yukawa solutions and constructs only
+muon-COLUMN invariants. The original Yang/Wu lepton Yukawa
+Lagrangian is `-ylz[i,j] bar(LL_i) lR_j H2`; so the muon
+coupling is the **column** `Y[:,mu]` (not the row `Y[mu,:]`).
+The charged singlet antisymmetric `f[:,mu]` contributes to
+other initial-state chiral structures.
+
+For `H1 = cos(gamma)HD + sin(gamma)chi`,
+`H2 = -sin(gamma)HD + cos(gamma)chi`,
+muon-flavor-summed, same-chirality t-channel vertex PRODUCTS have
+magnitudes proportional to
+`|sin(gamma)cos(gamma)| * ||Y[:,mu]||²` and
+`|sin(gamma)cos(gamma)| * ||f[:,mu]||²` separately.
+The `f` vertex normalization, complex phase interference,
+massless-neutrino propagators and complete helicity amplitudes
+are NOT included. These norms are **not cross sections**,
+and small numbers alone are not a calibrated exclusion.
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests -p 'test_zee_muon_yukawa_screen.py' -v
+
+python3 scripts/zee_muon_yukawa_screen.py \
+  --b2-json work/zee_pipeline_b4pilot_v2/B2_neutrino/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --output-dir work/zee_muon_B2_complex_yukawa_screen_v1
+```
+
+Read the maximum muon doublet/singlet overlaps and top-five
+candidates, then decide if a complex parameter re-export is
+justified. **Important selection bias:** B2 saved the five
+**lowest partial-LFV-score** configurations per scalar point,
+not the maximum muon collider Yukawa solutions. No conclusion
+about all allowed Zee Yukawas can be drawn from those 150.
+
+Paper 2 remains **GO for a Yukawa-specific physics pilot,
+not yet GO for Delphes nor an independent publication**.
+A genuinely muon-specific production effect must be shown
+using the same complex f/Y solution that reconstructs neutrino
+masses; then compare e+e- versus mu+mu- and evaluate the
+full final state against backgrounds and BIB.
