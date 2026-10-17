@@ -939,3 +939,69 @@ This control does not require new model/UFO generation.
 
 No Delphes yet, and do not prioritize light mH2~500-GeV
 collider yields until this flavor risk is settled.
+
+
+## Step N — user-provided same-scheme 670-GeV Type-II reference comparison (2026-10-17)
+
+The user generated a 43-row counterfactual A1V input grid
+(mH1=670 GeV, mH2=700 GeV, gamma=0; *each original P2L
+candidate's own tan(beta)*), computed it with the same
+source-pinned Gate A1V legacy SuperIso backend, then compared the
+new-physics-only shifts pointwise.
+
+Reported:
+- maximum |`SM_BR_P2L-SM_BR_typeII670`| = **0**;
+- `R_i=(BR_Zee_i-SM_BR_i)/(BR_typeII670_i-SM_BR_670_i)`:
+  **43/43** > 1,
+  **min=1.299361**, **median=1.864539**,
+  **mean=1.857312**, **max=2.502413**,
+  sample stdev=0.280921.
+
+The larger shifts are NOT an artifact of different SM baseline
+normalizations. Together with 2026 single-Type-II 670-GeV
+reference bound (Misiak et al. arXiv:2608.29863), and the
+earlier Zee two-state Type-II flavor discussion (Florentino
+et al. EPJC 81 (2021) 1148), this is STRONG within-scheme
+evidence that the 43 collider-optimized mH2~500–580-GeV
+points are a poor priority for a physical muon-collider
+publication. **No formal modern 95% CL Zee exclusion has
+been computed.** Never label these scans a new 2026
+two-state NNLO limit or an allowed-/excluded-volume fraction.
+
+**Stop** Delphes and extra MG5 decay production at these 43 points.
+
+**Next low-cost physics question**: can one obtain substantial
+mu+mu- Z-only mixed-pair production, scalar/EWPO viability,
+and a smaller A1V flavor correction than the 670-GeV
+single-Type-II benchmark, by making H2 significantly heavier
+and reducing the light state doublet fraction?
+
+Use EXISTING (not new) targeted correlated scalar search:
+```bash
+python3 scripts/zee_muon_targeted_light_scalar_scan.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/all_screened_candidates_NOT_ALLOWED.csv \
+  --targets 250:750,300:750,300:850,350:950 \
+  --trials-per-target 750 --sources 32 \
+  --quadrature-nodes 64 --seed 20261018 \
+  --output-dir work/zee_muon_P2_heavier_scalar_target_pilot_v1
+```
+Note: script name still says 'light' but input `--targets`
+is generalized within the B4 domain. These four target pairs
+remain accessible at 1.5 TeV if m1+m2<1500 GeV.
+The B4 correlated proposal method does NOT sample uniformly
+or prove exclusions if no survivors.
+
+Then use A1V on the accepted new
+`all_screened_candidates_NOT_ALLOWED.csv` (only if nonempty).
+Generate a TypeII-670 reference grid with gamma=0 at
+each distinct accepted tanbeta; compute A1V same scheme
+and compare the NP shift ratios. **Crucially**, individual
+A1V candidate `SM_BR` must match its same-scheme reference;
+do not substitute the A1U fixed-low SM value.
+
+Do not call R<=1 "experimentally allowed": the threshold is a
+same-legacy-backend ranking proxy, not a calibrated two-state
+2026 NNLO likelihood. Once points with lower flavor pressure
+and useful rates are found, prioritize NNLO validation and
+full neutrino/LFV/HiggsTools constraints, followed by
+detector-level feasibility and muon BIB.
