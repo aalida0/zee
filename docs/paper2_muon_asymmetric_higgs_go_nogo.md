@@ -883,3 +883,59 @@ print('A1V SM range:',d.SM_BR.min(),d.SM_BR.max())
 print('A1V NP shifts range:',(d.full_Zee_BR-d.SM_BR).min(),(d.full_Zee_BR-d.SM_BR).max())
 PY
 ```
+
+
+## Step M — A1V SM baseline independently reported by the actual 43-point AF run
+
+The user supplied `pandas.DataFrame.describe()` directly from
+`work/zee_muon_P2_light_A1V_flavour_v1/scan_flavour_only.csv`:
+
+- `SM_BR`: **3.382458e-4** uniformly across all 43 points
+  (standard deviation 5.49e-20).
+- `full_Zee_BR-SM_BR`: **+0.55 to +1.06** in units 1e-4;
+  mean **+0.78e-4**, std **0.12e-4**.
+- `linear_delta_BR`: mean **+0.74e-4**, range
+  **+0.53 to +0.99e-4**.
+- `quadratic_delta_BR`: mean **+0.04e-4**, range
+  **+0.02 to +0.07e-4**.
+- `max |delta - linear - quadratic|=7.939070408025106e-17`.
+
+This directly and decisively **corrects the earlier Step K
+incorrect A1U fixed-low SM=3.925e-4 statement**:
+A1V's exact within-run k=0 SM reference, controlled by C backend
+`b0=br[1]` and independent `real_br(&sm,...)` call,
+is 3.382458e-4. Nearly 95% of the mean NP branching-ratio
+increase is interference; the smaller quadratic term cannot
+resolve the positive shift.
+
+**Physics priority is now decisive under the Type-II-like quark
+assumption.** Florentino et al (2021), EPJC 81 1148,
+Sec. 4.3.2, explicitly showed both charged Higgs states
+below their old 580-GeV Type-II threshold were outside their
+B->Xs gamma band. The 2026 Misiak et al.
+arXiv:2608.29863 modernized single-Type-II lower bound is
+670 GeV at 95% CL, with SM 3.54 +/-0.14 e-4 and experiment
+3.49 +/- 0.19 e-4. **All 43 new P2L candidates have both
+charged masses below 670 GeV**. The Yukawa mixing does not
+yield opposite-signed quark-loop contributions:
+X1=tan(beta)cos(gamma), Y1=cot(beta)cos(gamma);
+X2=-tan(beta)sin(gamma), Y2=-cot(beta)sin(gamma);
+hence X_i Y_i* are nonnegative cos²/sin² weights.
+A two-state NNLO confidence-level calculation has NOT
+been performed, so no literal model-wide CL exclusion
+should be claimed yet.
+
+**Low-cost diagnostic next:** for all 43 original P2L tanbeta
+values, run A1V *at the same tanbeta* with
+`mH1=670,mH2=700,gamma=0`, yielding a **single**
+physical-quark-Type-II charged scalar at 670 GeV (H2 decoupled).
+Compare each `deltaBR_Zee` against the single-Type-II
+`deltaBR_670` using the SAME legacy SuperIso internals,
+and verify its SM_BR agrees with the P2L SM_BR. A finding
+`deltaBR_Zee > deltaBR_670` uniformly would be a strong
+*within-the-same-legacy-scheme* ranking of flavor pressure,
+though still not a 2026 95%-CL two-state exclusion.
+This control does not require new model/UFO generation.
+
+No Delphes yet, and do not prioritize light mH2~500-GeV
+collider yields until this flavor risk is settled.
