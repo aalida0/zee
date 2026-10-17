@@ -638,3 +638,117 @@ to a genuine NuFIT 6.1 likelihood with both
 octants/orderings, modern cosmological choices,
 matching 2022 vs Chen model Yukawa
 normalizations, full LFV, and scalar re-screening.
+
+
+## Crucial correction: 12 source-matched IO scans were fitted to central values, not source-accepted 2σ windows (2026-10-18)
+
+Actual AF `zee_section8_reproduce_2022_IO_table1.py` ran
+12 source Table1 upper-octant IO proxy optimizations,
+3 seeds at tanbeta=[5.59717,10,15,20].
+At tanbeta=5.597,10,15,20 respective best
+`SCORE_DIAG` = 43.91267,43.93816,43.94472,
+43.94702, uniformly far from central targets.
+All converged to a near-rank-2 IO neutrino
+matrix, Σmν≈0.09994–0.09995 eV and enormously
+large `m1/m3` ≈ 7907.7,22811.9,44229.1,
+65950.5 respectively, far outside the
+paper's observed `2≲m1/m3≲15`.
+For representative tanbeta5.597: sin²theta23
+=.54106,J_CP=-.01126, with standardized
+source residuals: sin²theta12 +5.399,
+J_CP +3.249, sin²theta23 -1.886,
+sin²theta13 +.787, mass ratio -.175.
+**Not a reproduction**, even qualitatively
+with respect to published mass ratio.
+
+**Found two defects in the reproduction METHOD,
+not yet established as physics-model defects:**
+
+1. Paper Section 3 *accepted* points where
+   **each of five neutrino observables is in
+   its 2σ range**, plus source historical
+   `Σmν<0.13 eV` (Planck+BAO) and reported
+   `2≲m1/m3≲15`. The earlier reproduction
+   script instead globally minimizes a sum
+   of all central-value squared residuals,
+   which can select a source-excluded near-rank2
+   basin over narrow source-accepted regions.
+2. The charged lepton coordinate
+   `e=m_mu+(m_tau-m_mu)*expit(y)` had
+   y bounded `[-12,12]`, excluding
+   proximity to m_tau reached around
+   `y≈14.3` by an independent numerical
+   optimization. The old report's
+   `AT_BOUNDARY False` does not test
+   *missing regions outside the box*.
+
+**Independent exploratory numerical validation,
+not executed on AF:** Directly optimizing
+the source 2σ **violation**, broadening
+x,y to [-25,25], and including the
+IO mass-ratio observed range penalty,
+I obtained best source-style residual penalty
+~0.0208 with at tanbeta=5.6,10,15,20,
+`sin²theta12≈0.330, sin²theta23≈0.612,
+sin²theta13≈0.02112,J≈-0.02658,
+R≈0.02290, m1/m3≈1.86` in one
+exploratory branch. This lies close to
+some source 2σ edges but **does not reproduce
+the paper**: m1/m3 is still below 2,
+and the corresponding Σmν can exceed the
+paper's 0.13 eV historical bound. This
+numerical result is only evidence the
+old minimizer misdiagnosed feasibility;
+it is NOT a source 2σ+cosmology pass.
+
+**New corrected gate:**
+`scripts/zee_section8_2022_2sigma_acceptance.py`
+plus `tests/test_zee_section8_2022_2sigma_acceptance.py`.
+- uses five separate two-sigma marginal
+  acceptance windows as in the 2022
+  paper, with the asymmetric J_CP errors.
+- expands logistic x,y from ±12 to ±22
+  and log10(r) from ±4 to ±5.
+- separately records IO m1/m3 in the
+  descriptive paper range 2..15 and
+  historical Σmν<0.13 eV; uses both
+  as optimization penalties to find
+  source-qualitatively representative
+  points. These are NOT independent modern
+  experiment-exclusion tests.
+- prints each five-observable 2σ result,
+  physical ratio, sum masses,
+  near-tau charged texture gap and
+  charges SVD mass closure; no physical
+  Zee-allowed assertion or NuFIT 6.1 fit.
+
+**AF commands:**
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_section8_2022_2sigma_acceptance.py' -v
+python3 scripts/zee_section8_2022_2sigma_acceptance.py \
+  --tanbetas 10,15,20 \
+  --seeds 20261018,20261019,20261020 \
+  --mH1 300 --mH2 700 --gamma 1.089 \
+  --maxiter 145 --popsize 18 \
+  --output-dir work/zee_section8_2022_source_2sigma_gate_v1
+```
+
+If a source-style historical fit is found,
+**do not promote to physical benchmark**:
+the scalar potential at tanbeta10–20
+is unvalidated (published P2 m12sq58000
+would violate lambda1>0), NuFIT 6.1
+likelihood/full LFV/current neutrino
+cosmology plus modern two-state b→sγ
+remain missing. If no source fit found,
+the 2022 paper also explicitly accepts
+FIRST-octant theta23; current gate only
+tests the Table1 UPPER octant. It may
+be necessary to implement the separately
+quoted first-octant reference and audit
+search quality, parameterization
+conditioning near e≈m_tau.
