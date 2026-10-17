@@ -1005,3 +1005,33 @@ same-legacy-backend ranking proxy, not a calibrated two-state
 and useful rates are found, prioritize NNLO validation and
 full neutrino/LFV/HiggsTools constraints, followed by
 detector-level feasibility and muon BIB.
+
+
+### Step N.1 — lower-cost order of work: check existing 314 B4 points first
+
+Before executing the *new* targeted 750–950-GeV mass search
+recommended above, use the already-known **314** scalar/EWPO
+accepted original B4 points (m2 extends to 725 GeV) and apply
+the very same within-A1V TypeII-670-Gev control. This costs no
+new scalar-screening or UFO generation; it checks whether the
+current B4 neighborhood already contains Zee spectra with both
+interesting 1.5/3 TeV gauge pair rates and legacy NP flavor
+shift below its same-scheme 670 reference.
+
+```bash
+cd /home/aalida/zee
+python3 scripts/gateA1v_run_legacy_response.py \
+  --vendor-root work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --a1u-result work/gateA1u_legacy_zee_br_v1/legacy_two_state_br.json \
+  --grid-csv work/gateB4_zee_adaptive_pilot/all_screened_candidates_NOT_ALLOWED.csv \
+  --max-points 1000 --skip-scale-diagnostic \
+  --output-dir work/zee_muon_P2_B4_314_A1V_v1
+```
+
+Only if none of those 314 satisfy the legacy ratio<1
+with useful σ should the targeted new search be the immediate
+next resource-intensive task. Otherwise prioritize individual
+modern flavor and experimental completion for the best
+B4 mass/mixing candidates. At all stages maintain
+NOT_ALLOWED labels until full physical constraints pass.
