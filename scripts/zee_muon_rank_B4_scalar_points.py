@@ -103,7 +103,7 @@ def evaluate(p,E,L):
         "max_unitarity":p["max_unitarity"],
         "chi2_Gfitter":p["chi2_Gfitter"],
         "chi2_PDG":p["chi2_PDG"],
-        "model_allowed":False,
+        "model_allowed":"unknown",
         "status":"SCALAR_EWPO_SCREEN_AND_INCLUDED_WIDTH_CEILING_ONLY_NOT_ALLOWED",
     }
 
