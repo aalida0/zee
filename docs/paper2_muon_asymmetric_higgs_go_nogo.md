@@ -521,3 +521,71 @@ a physically viable choice of complex neutrino-compatible f,Y
 can enhance muon t-channel production (requiring full LFV and
 complex Yukawa UFO support). Still postpone Delphes until this
 physics pilot justifies it.
+
+
+## Step H — user broad mass grid: gauge rate peaks, but require B4 physical context (2026-10-17)
+
+User executed `scripts/zee_muon_mass_mixing_grid.py` successfully:
+297 analytic gauge-only rows (33 distinct ordered m1<m2 pairs × 3 gamma
+× 3 energies). Truth-level maximum cross sections with gamma=pi/4:
+
+| mH1,mH2 [GeV] | 1.5 TeV [fb] | 3 TeV [fb] | 10 TeV [fb] |
+|---|---:|---:|---:|
+| 200,500 | 1.77671 | 0.614786 | 0.0604597 |
+| 250,500 | 1.70002 | 0.609758 | 0.0604186 |
+| 300,500 | 1.60877 | 0.603649 | 0.0603683 |
+
+At 0.5 ab^-1, these yield 888, 850, 804 produced **stable
+charged-pair** events respectively, before all branching fractions,
+top decays, acceptance, backgrounds or BIB. A higher production rate
+alone is not a discovery significance; an mH1 around 200 GeV also
+leaves a soft b from H1->tb. The (250,500) and (300,500) hypotheses
+are more useful reconstruction starting points.
+
+This mass grid is **not screened** for scalar theory, EWPO, flavor
+or direct searches. In particular, charged masses around 250 and
+500 GeV in a Type-II-like quark sector require a careful two-state
+B->Xs gamma analysis; one cannot infer viability from the
+existence of the gauge signal.
+
+### Before more unrestricted MG5 benchmarks: rank the B4-scalar-screened points
+
+Our Gate B4 existing pilot retained ~314 diverse
+**scalar BFB/unitarity + correlated S,T,U**-screened records,
+broader than the 30 B2-selected spectra. The new
+`scripts/zee_muon_rank_B4_scalar_points.py` reads that original
+full screened file, without treating the arbitrary grid as a physical
+model, and ranks by s-channel Z-only rate and separately by
+**B4 partial-width-conditional tb tb Z truth-count ceiling**.
+The latter uses [BR(H2->H1Z)_included] ×
+[BR(H1->tb)_included]^2. It cannot stand in for a complete
+Zee branching fraction or statistical reach.
+
+Run:
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_muon_rank_B4_scalar_points.py' -v
+
+python3 scripts/zee_muon_rank_B4_scalar_points.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/all_screened_candidates_NOT_ALLOWED.csv \
+  --output-dir work/zee_muon_P2_B4_scalar_screened_rank_v1
+```
+
+It prints B4 mH1,mH2,gamma ranges, max gauge σ for each of
+1.5,3,10 TeV, and four mass-bin-distinct candidate IDs/energies
+with their *conditional* Z->ee,mumu truth ceilings. It writes
+`scalar_EWPO_screened_Z_only_conditional_ceiling_NOT_ALLOWED.csv`
+and `summary.json`.
+
+The B4 records still originate from a narrow neighborhood of the
+earlier 300/700-GeV benchmark. If the resulting mH1/mH2 ranges
+do not include 250/500 or 300/500, the correct next work is a
+**targeted correlated scalar-potential/EWPO exploration centered
+on the new mass region**, not an unqualified claim that those
+optimistic grid points are allowed. Independent MadGraph
+cross-section checks at additional chosen physical candidates
+are useful only once that parameter mapping can pass the
+implemented scalar consistency gates.
