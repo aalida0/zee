@@ -64,6 +64,28 @@ class TestFlorentino2021Table2(unittest.TestCase):
         self.assertFalse(x["scalar_sufficient_BFB"])
         self.assertIsNone(x["physical_Zee_allowed"])
 
+    def test_k12_zero_variant_is_explicitly_not_original_P2_and_bfb(self):
+        x=evaluate(self.source,"P2",mH1=300.,mH2=700.,
+                   beta=1.394,k12=0.)
+        self.assertTrue(x["k12_source_overridden_for_softly_broken_Z2"])
+        self.assertFalse(x["source_Table2_exact_scalar_parameters_used"])
+        self.assertEqual(x["source_k12_value"],.01267)
+        self.assertEqual(x["inputs"]["k12"],0.)
+        self.assertTrue(x["family_Z2_exact_quartics_operator_audit"])
+        self.assertFalse(x["family_Z2_neutrino_LFV_fitted"])
+        self.assertTrue(x["scalar_sufficient_BFB"])
+        self.assertTrue(x["alternative_analytic_quartic_BFB"][
+            "alternative_global_quartic_BFB_sufficient"])
+        self.assertTrue(x["scalar_tree_unitarity"])
+        self.assertIsNone(x["physical_Zee_allowed"])
+
+    def test_original_k12_not_symmetry_compatible(self):
+        x=evaluate(self.source,"P2",mH1=300.,mH2=700.,
+                   beta=1.394)
+        self.assertFalse(x["k12_source_overridden_for_softly_broken_Z2"])
+        self.assertTrue(x["source_Table2_exact_scalar_parameters_used"])
+        self.assertFalse(x["family_Z2_exact_quartics_operator_audit"])
+
     def test_explicitly_rejects_signed_gamma_in_unvalidated_backend(self):
         for key in ("P3","P4"):
             with self.subTest(key=key),self.assertRaisesRegex(ValueError,
