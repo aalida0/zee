@@ -113,9 +113,15 @@ def generated_processes(directory,mode):
 
 
 def energy_list(spec):
-    energies=[float(a) for a in spec.split(",")]
-    if not energies or len(energies)!=len(set(energies)):
-        raise ValueError("Empty/repeated energies")
+    """Validate requested centre-of-mass energies with specific errors."""
+    if not spec.strip():
+        raise ValueError("Empty energy list")
+    try:
+        energies=[float(a.strip()) for a in spec.split(",")]
+    except ValueError as exc:
+        raise ValueError("Invalid energy: expected comma-separated GeV values") from exc
+    if len(energies)!=len(set(energies)):
+        raise ValueError("Repeated energies")
     if any(not math.isfinite(E) or E<=100 for E in energies):
         raise ValueError("Invalid energy")
     return energies
