@@ -1164,3 +1164,76 @@ If candidates survive, run A1V on that *new* CSV, then
 the already tested same-backend `zee_muon_compare_B4_A1V_typeII670.py`
 with its own B4/A1V inputs; return especially
 `NUM_R_LESS_1` and gauge cross sections.
+
+
+## Step Q — Actual heavier mH2 750–970 GeV targeted Zee scalar/EWPO search (2026-10-17)
+
+User ran `scripts/zee_muon_targeted_light_scalar_scan.py` with four
+heavy target mass pairs (250,750), (300,750), (300,850),
+(350,950) GeV, 750 proposals per target (3,000 total).
+The improved per-target source selection was applied.
+
+User-reported:
+- `SCALAR_STU_PASSES=19`; `DISTINCT_SCREENED_SPECTRA=19`.
+- stage counts: scalar BFB/tree-unitarity fail **2936**;
+  outside B4 domain **20**; mass/decay domain **4**;
+  scalar pass **40**; correlated STU 95% fail **21**.
+  A scalar+STU pass requires the original unchanged Gate B4
+  sufficient BFB, tree unitarity and both correlated Gaussian
+  oblique ellipsoid screens. Acceptance 19/3000 ~0.63%
+  is proposal-specific, NOT allowed parameter volume.
+
+Top spectra per target (Z-only, both charges, sqrt(s)=1500 GeV,
+and illustrative 0.5 ab^-1 conditional truth
+H1H1Z→(tb)(tb)(ee or mumu), *NOT* complete model BRs):
+- `P2L_0000243`: m1=241.1, m2=752.0 GeV,
+  gamma=1.042, sigma=0.72523 fb,
+  conditional Zll ceiling=15.62.
+- `P2L_0001100`: m1=296.4, m2=754.6 GeV,
+  gamma=1.028, sigma=0.67006 fb,
+  conditional Zll ceiling=18.89.
+- `P2L_0001834`: m1=268.5, m2=814.7 GeV,
+  gamma=1.128, sigma=0.43829 fb,
+  conditional Zll ceiling=11.43.
+- `P2L_0002810`: m1=347.9, m2=968.8 GeV,
+  gamma=1.022, sigma=0.17954 fb,
+  conditional Zll ceiling=4.60.
+
+All four chosen 'best' candidates are provisional scalar/EWPO
+points: there is no full Zee two-charged NNLO
+B→Xsγ likelihood, HiggsTools, LFV/neutrino likelihood,
+global vacuum or detector/BIB study, and NO model-allowed
+classification. None of the four rates is a new MG5 calculation,
+although the gauge cross-section analytic scheme has been
+independently matched to MG5 at the separate B4_0000318 point.
+
+**Immediate next physics gate — run A1V and the same-backend
+single Type-II 670-GeV comparator on these exact 19 rows:**
+
+```bash
+cd /home/aalida/zee
+python3 scripts/gateA1v_run_legacy_response.py \
+  --vendor-root work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --a1u-result work/gateA1u_legacy_zee_br_v1/legacy_two_state_br.json \
+  --grid-csv work/zee_muon_P2_heavier_scalar_target_pilot_v1/all_screened_candidates_NOT_ALLOWED.csv \
+  --max-points 1000 --skip-scale-diagnostic \
+  --output-dir work/zee_muon_P2_heavier_19_A1V_v1
+
+python3 scripts/zee_muon_compare_B4_A1V_typeII670.py \
+  --b4-csv work/zee_muon_P2_heavier_scalar_target_pilot_v1/all_screened_candidates_NOT_ALLOWED.csv \
+  --a1v-csv work/zee_muon_P2_heavier_19_A1V_v1/scan_flavour_only.csv \
+  --a1v-executable work/zee_muon_P2_heavier_19_A1V_v1/gateA1v_legacy_response \
+  --output-dir work/zee_muon_P2_heavier_19_same_typeII670_v1
+```
+
+Prior smaller samples: 43/43 light P2L and 314/314
+original B4 screened points have R_670 > 1 in the SAME
+source-pinned legacy A1V scheme. If none of the new 19 has
+R_670 < 1, that is strong evidence that this sampled parameter
+corridor is flavor-pressured, but does NOT constitute a Zee-wide
+theorem, a 2026 95%-CL exclusion or a completed modern
+two-state NNLO calculation. If one or more has R<1 and
+useful sigma, prioritize an independent modern two-state
+matching/uncertainty and complete physical constraints
+before further MadGraph/Delphes.
