@@ -173,3 +173,38 @@ the one-loop RGE-induced quark misalignment and
 FCNC, plus all other full model constraints.
 
 No physical "allowed point" status has been obtained.
+
+
+## Patch: source key mismatch in P2 quartic BFB audit (2026-10-18)
+
+First AF test of the alternate analytic BFB helper found 3 of 8
+P2 tests failing with `KeyError: 'lc'`.
+This was a **code-level field-name typo**:
+`gate6_benchmark.benchmark(... )["inputs"]` serializes the
+singlet self-coupling under `"lambda_c"`, not `"lc"`.
+The source call accepts the keyword `lc`; its output schema
+uses the different full name. Corrected the helper to read
+`("k1","k2","k12","lambda_c")` in commit `f79114e3`.
+Four independent family-Z2 operator tests had already
+PASSED; no issue with their charge rules was indicated.
+
+Manual independent arithmetic cross-check for published
+Table-2 P2 with mH1=300, mH2=700, alpha=1.398,
+m12sq=58000, k1=1.082,k2=.00398,k12=.01267:
+- beta=1.398: lambda1 ~ -2.56798150: **necessarily
+  unbounded quartic**, despite mass eigenvalue closure.
+- beta=1.394: lambda1 ~ +1.63690503,
+  lambda2 ~ +0.25140194, lambda3 ~ +2.61651365,
+  lambda4 ~ -1.18196052, lambda5 ~ -1.09819999;
+  neutral quartic BFB margins 3.2580,0.97785 >0;
+  singlet cross-PSD determinant 0.0041458311 >0;
+  **alternative sufficient quartic BFB PASS**,
+  original stronger `Gate6` sufficient-BFB screen
+  still reports False because k2 < |k12|.
+- No global-minimum or modern-2026 experimental
+  verdict follows from these tests.
+
+Re-run P2 tests and the beta=1.394 reproduction after
+`git pull --ff-only`. Do not confuse independent
+arithmetical checks with executing repository regression
+tests on AF, which the user must still perform.
