@@ -436,3 +436,88 @@ leptons passing modern NuFIT and complete
 mass-basis FCNC and hadronic flavor observables
 from the SAME matched Yukawas. Do not infer
 flavor safety from the magnitude of \`T\`.
+
+
+## Q2 integrated validation: ONE AF command instead of separate tests (2026-10-19)
+
+At user request, further Q1/Q2a/Q2b/B2/B3/partial LFV consistency
+tests are combined in a **single, fail-closed runner**:
+
+- \`scripts/zee_section8_run_integrated_Q2_validation.py\`
+- \`tests/test_zee_section8_run_integrated_Q2_validation.py\`
+
+**Run ONE command** (default input paths are the same B1/B2 files
+already proven to match successfully for candidates 32 and 0):
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 scripts/zee_section8_run_integrated_Q2_validation.py \
+  --output-dir work/zee_section8_Q2_integrated_v1 \
+  2>&1 | tee work/zee_section8_Q2_integrated_v1.console.log
+\`\`\`
+
+If using \`tee\` in a diagnostic script, enable \`set -o pipefail\`
+first or inspect the script's own \`summary.json\`:
+\`\`\`bash
+set -o pipefail
+python3 scripts/zee_section8_run_integrated_Q2_validation.py \
+  --output-dir work/zee_section8_Q2_integrated_v1 \
+  2>&1 | tee work/zee_section8_Q2_integrated_v1.console.log
+\`\`\`
+
+**Output path must not already exist**; choose \`v2\` rather than
+overwrite existing results. This runner requires only Python3 and
+NumPy for the core gate. If SciPy is available, two additional
+partial Barr-Zee unit suites run. If not, they are explicitly
+\`SCIPY_UNAVAILABLE_OPTIONAL_NOT_RUN\`, **never PASS**.
+
+The single command:
+
+1. Executes **13 required unittest suites**: A1b neutrino seed,
+   A1c-f LFV components, B2 neutrino solution, B3 lepton
+   widths, B5 partial LFV, thin pipeline, Q1 one-loop
+   quark beta source, Q2a truncated finite evolution,
+   Q2b Chen-to-FLS convention matching, and the runner's
+   own synthetic integration tests.
+2. If SciPy is available, executes 2 additional suites
+   for the existing Barr-Zee *subset*, not complete LFV.
+3. Loads saved candidate CSV and B2 JSON, refusing
+   mismatched candidate IDs, insufficient saved solutions
+   or unexpected neutrino closure.
+4. Revalidates all **expected 20** stored B2 neutrino matrices,
+   scalar masses, B3 lepton-width normalization and
+   corresponding Chen-to-FLS leptonic Yukawa traces.
+5. Unlike earlier generic toy Q2a, evolves the actual
+   STORED B2 lepton Yukawa matrices through the
+   **TRUNCATED pure-2HDM** quark + lepton Yukawa RGEs.
+   Uses the same **toy** quark masses and CKM as Q2a,
+   10 TeV -> 700 GeV with 120 RK4 steps.
+6. Verifies quark-Yukawa local trace source with both
+   direct beta function and converted Chen Yukawa.
+   Cross-checks the first stored solution with 240 steps
+   and a Type-II lepton control that must retain tiny
+   neutral-quark offdiagonal entries.
+7. Saves an **input-SHA256- and git-SHA-tagged report**
+   in \`summary.json\` with all 20 individual numerical
+   observations and the explicit **unimplemented**
+   physical constraints. Logs of all unit tests are
+   retained in \`unittest_suites.log\`.
+8. Returns nonzero and writes a FAIL-CLOSED report
+   if a required test suite, input identity, a numerical
+   invariant, or the 20-case count fails. Missing
+   optional SciPy tests are marked not run.
+
+\`summary.json["overall_numerical_pass"]\` indicates
+**software/numerical** consistency only.
+It is NEVER a full theory or experimental pass.
+\`full_Zee_RGE_done=False\`,
+\`full_NuFIT61_fit=False\`,
+\`full_LFV_done=False\`,
+\`experimental_quark_FCNC_likelihood=False\`,
+\`full_Zee_allowed=None\` remain hard-coded.
+
+**Scientific next step after this combined run:** Work
+towards complete model RGEs/threshold matching and modern
+neutrino+LFV fit. More Q1/Q2a code-level tests alone
+cannot establish physically viable Zee benchmarks.
