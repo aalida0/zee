@@ -52,6 +52,9 @@ from zee_section8_Q2c_UV_EFT_scope_audit import (
 from zee_section8_Q2d_lepton_spurion_scalar_RG_audit import (
     stored_audit as zee_spurion_audit
 )
+from zee_section8_Q2e_kanemura2001_reduced_f_RGE import (
+    run as historical_2001_reduced_f_run
+)
 
 STATUS="Q2_INTEGRATED_NUMERICAL_AUDIT_ONLY_NOT_FULL_ZEE_OR_ALLOWED"
 REQUIRED_TEST_FILES=(
@@ -70,6 +73,7 @@ REQUIRED_TEST_FILES=(
     "test_zee_section8_run_integrated_Q2_validation.py",
     "test_zee_section8_Q2c_UV_EFT_applicability.py",
     "test_zee_section8_Q2d_lepton_spurion_scalar_RG_audit.py",
+    "test_zee_section8_Q2e_kanemura2001_reduced_f_RGE.py",
 )
 OPTIONAL_SCIPY_TEST_FILES=(
     "test_zee_barr_zee_kernels.py",
@@ -326,7 +330,7 @@ def main():
         "parameter_settings":{"top":a.top,
              "expected_cases":a.expected_cases,"steps":a.steps,
              "high_GeV":a.high,"low_GeV":a.low},
-        "program_scope":"one-command Q1/Q2a/Q2b/Q2c/Q2d Zee spectrum, lepton-spurion source audit, B2/B3/LFV and matched truncated RG",
+        "program_scope":"one-command Q1/Q2a/Q2b/Q2c/Q2d plus published Q2e reduced Zee f-beta reproduction, B2/B3/LFV and matched truncated RG",
         "missing_physics":list(MISSING_PHYSICS),
         "full_Zee_RGE_done":False,
         "full_NuFIT61_fit":False,
@@ -382,6 +386,14 @@ def main():
         summary["Q2d_Zee_lepton_and_scalar_RGE_spurions"]=spurions
         summary["Q2d_complete_lambda6_lambda7_RGEs_available"]=False
         summary["Q2d_lambda6_lambda7_RG_stability_proven"]=False
+        legacy_f=historical_2001_reduced_f_run(
+            low=a.low,high=a.high,steps=a.steps)
+        summary["Q2e_Kanemura2001_reduced_real_f_RGE"]=legacy_f
+        if not (0.9<legacy_f["f_scale_ratio_sqrt_q"]<1. and
+                legacy_f["f_beta_matrix_vs_3d_identity_error"]<1e-12 and
+                legacy_f["physical_Zee_allowed"] is None):
+            raise AssertionError("Q2e source-reduced f running invariant failed")
+        summary["Q2e_general_complex_f_beta_validated"]=False
         summary["overall_numerical_pass"]=True
         summary["overall_status"]="NUMERICAL_CONSISTENCY_PASS_ONLY_NO_ALLOWED_BENCHMARK"
         summary["total_seconds"]=round(time.monotonic()-start,3)
@@ -404,6 +416,10 @@ def main():
         print("Q2D_ALL_I7_NONZERO",spurions["all_I7_nonzero_at_1e_minus18"])
         print("Q2D_SCALAR_LAMBDA6_LAMBDA7_ALL_SCALE_PROTECTION_PROVEN False")
         print("Q2D_COMPLETE_LEPTON_AND_QUARTIC_BETAS_IMPLEMENTED False")
+        print("Q2E_KANEMURA2001_REDUCED_REAL_F_RGE_PASS True")
+        print("Q2E_REAL_F_SCALE_RATIO",
+              f"{legacy_f['f_scale_ratio_sqrt_q']:.9f}")
+        print("Q2E_GENERAL_COMPLEX_F_AND_YUKAWA_RGES_AVAILABLE False")
         print("COMPLETE_MODEL_AND_EXPERIMENTAL_CONSTRAINTS_PASS False")
         print("FULL_ZEE_ALLOWED False")
         print("SUMMARY",output/"summary.json")
