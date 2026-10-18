@@ -576,3 +576,79 @@ paper provides hierarchical Zee EFT matching and
 2HDM EFT RGE, **not automatically an exact
 mixed-spectrum full-Zee FCNC calculation**:
 https://doi.org/10.1007/JHEP06(2026)006 .
+
+
+## Q2c source-backed next physics gate: heavy singlet hierarchy INVERTED (Oct 19, 2026)
+
+After the complete Q2 integrated (108 tests PASS, 20 B2 matrices
+matched), an explicit literature reading changed the proper
+next step. Schmidt & Vandeleur, JHEP06(2026)006,
+arXiv:2512.17235v2:
+- source Eq.14 specifies the broken-phase Zee charged-scalar
+  mixing/trilinear relation;
+- Sec.3 says the primary EFT expands with the charged singlet
+  much heavier than the second doublet;
+- Sec.3.1 explicitly does NOT run the full unbroken Zee theory;
+- App.B contains the RGEs of its **2HDM EFT**.
+
+**Our two current B1 scalar points have the opposite ordering**:
+candidate 32: mD diagonal 620.47 GeV,
+mChi diagonal 351.46 GeV, H1 singlet weight 0.8103,
+|muZee| ~948.85 GeV;
+candidate 0: mD diagonal 635.70 GeV,
+mChi diagonal 419.39 GeV, H1 singlet weight 0.7853,
+|muZee| ~943.40 GeV.
+These are exactly reconstructed *broken-phase*
+matrix entries, not bare unbroken mass parameters.
+The singlet is **light and strongly mixed**. Therefore
+the source's primary hierarchical
+singlet-first 2HDM EFT cannot be presumed to model
+our physics, independent of the earlier small
+2HDM-truncated toy FCNC numbers.
+**This does NOT exclude the underlying Zee model.**
+
+Also source/group-theory checked the charged-singlet's
+one-loop UV gauge correction: (b_gprime,b_g2,b_g3) =
+(22/3,-3,-7) for full Zee versus (7,-3,-7)
+for pure 2HDM with SM-normalized hypercharge.
+Full f-dependent lepton Yukawa beta-functions
+still need independent derivation (RGBeta/PyR@TE
+cross-check) and threshold handling; NO invented
+f coefficients are used.
+
+Full source, assumptions, results and standalone
+tests: docs/zee_section8_Q2c_UV_EFT_scope_audit.md.
+
+### USER PREFERENCE: ONE large AF command
+
+The previous integrated one-command runner is **upgraded**
+to include Q2c with the original 108 tests, new 11
+Q2c tests (119 expected in total when SciPy is
+present), all 20 matched B2 inputs, RK4 convergence,
+TypeII leptons control, both scalar mass matrices,
+and the Zee gauge beta derivation.
+
+    cd /home/aalida/zee
+    git pull --ff-only
+    python3 scripts/zee_section8_run_integrated_Q2_validation.py \
+      --output-dir work/zee_section8_Q2_integrated_v2
+
+Use v2 because the runner deliberately refuses to
+overwrite the completed v1. Expected **software** markers:
+INTEGRATED_REQUIRED_TESTS_PASS 103
+MATCHED_OLD_B2_CASES_PASS 20
+CONTROL_TYPEII_LEPTONS_PASS True
+RK4_STABILITY_PASS True
+Q2C_HEAVY_SINGLET_HIERARCHICAL_EFT_APPLICABLE False
+Q2C_FULL_UV_ZEE_LEPTON_RGES_IMPLEMENTED False
+FULL_ZEE_ALLOWED False
+
+These counts/outcomes are expected, not yet AF-validated
+on the new commit. The implementation fails closed if a
+test, numerical invariant, or reference candidate identity
+changes. Q2c applicability must be **reassessed** for
+future scalar scan points rather than copied by assumption.
+
+Physical go/no-go remains full source-matched
+UV Zee RGE plus 2026 neutrino/LFV and quark
+FCNC experiment. No full-allowed Zee points.
