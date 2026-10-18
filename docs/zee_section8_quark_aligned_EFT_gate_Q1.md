@@ -62,3 +62,65 @@ The illustrative lepton matrices in this script are NOT a neutrino fit; its samp
 **If Q2–Q4 do not work:** do not fabricate allowed points or impose arbitrary Yukawa tunings. First fallback is a gauge-consistent **conditional** collider study with upper limits on sigma(pp -> t(b) H2±) x BR(H2± -> H1± Z) x BR(H1± -> tb) versus masses, finite widths, scalar mixing and production model, explicitly distinguishing it from a demonstrated minimal Zee interpretation. Second fallback is a *new, independently audited* flavor symmetry/UV completion; not another assumption silently identified with Type-II.
 
 **No fully allowed Zee point exists in this project yet.** Q1 is an exact local beta-function consistency test only.
+
+
+## Q2a: exploratory finite one-loop *pure 2HDM* Yukawa flow
+
+Added scripts/zee_section8_quark_alignment_truncated_flow.py and
+tests/test_zee_section8_quark_alignment_truncated_flow.py.
+These integrate Ferreira–Lavoura–Silva (2010) Eqs. (3)–(5)
+for Gamma1/2, Delta1/2 and Pi1/2 using SciPy-free RK4,
+fixed illustrative gauge inputs and fixed tanbeta, then
+diagonalize the quark mass Yukawas using complex SVD and
+inspect off-diagonal Higgs-orthogonal rho^u/rho^d matrices.
+
+**Illustrative independent local computation** (NOT a Zee benchmark):
+Type-II quarks at 10 TeV, fake CKM-like matrices, general
+illustrative lepton Pi and scales 10 TeV -> 700 GeV:
+- initial down/offdiag neutral rho: exact 0
+- initial up/offdiag neutral rho: ~1.4e-18
+- final down max |rho_ij| (i!=j): ~6.15e-9
+- final up max |rho_ij| (i!=j): ~1.67e-10.
+
+Under an exactly Type-II lepton **control** (Pi2=0 at the
+high scale), the same RG steps preserve approximate zero
+off-diagonal rho_d (~1e-25) and rho_u (~1e-20).
+The general-lepton example varies with its arbitrary
+lepton Yukawa size, and is NOT a phenomenological
+prediction or physical bound.
+
+**NONNEGOTIABLE LIMITATIONS:**
+- This is ONLY a pure-2HDM Yukawa-subsector beta flow,
+  not a complete Zee coupled RGE with the f LL chi term,
+  singlet quartics, charged mixing or scalar thresholds;
+- no running of the gauge couplings or vev angle;
+- synthetic quark/CKM-like values and **unfitted** leptons;
+- no matching onto meson mixing or flavor EFT Wilson coefficients,
+  no hadronic or experimental FCNC likelihood;
+- no numerical proof that a physically fitted general Zee
+  spectrum has acceptably small induced FCNC;
+- output is a structural demonstration that *finite*
+  pure-2HDM evolution can generate off-diagonal rho,
+  despite local Q1 wrong-doublet tangent proportionality.
+
+AF commands:
+
+    cd /home/aalida/zee
+    git pull --ff-only
+    python3 -m unittest discover -s tests \
+      -p 'test_zee_section8_quark_alignment_one_loop_gate.py' -v
+    python3 -m unittest discover -s tests \
+      -p 'test_zee_section8_quark_alignment_truncated_flow.py' -v
+    python3 scripts/zee_section8_quark_alignment_truncated_flow.py \
+      --tanbeta 5.6 --high 10000 --low 700 --steps 120 \
+      --output work/zee_section8_quark_alignment_Q2a_generic_toy_v1.json
+    python3 scripts/zee_section8_quark_alignment_truncated_flow.py \
+      --tanbeta 5.6 --high 10000 --low 700 --steps 120 \
+      --typeii-leptons-control \
+      --output work/zee_section8_quark_alignment_Q2a_typeII_control_v1.json
+
+**Next decision-critical work:** source or derive the **complete
+Zee-model** coupled beta functions and feed in leptonic
+Yukawa solutions that pass *modern* NuFIT and LFV before
+any experimental quark-FCNC statement. Q2a does not
+replace Q2 full coupled RGEs or Q3 experimental limits.
