@@ -374,3 +374,65 @@ validation plus 2026 NuFIT and full LFV
 fits; this bridge merely makes it possible
 to feed source-consistent lepton Yukawas
 to that future machinery.
+
+
+## AF Q2b-1 matched-B2 data bridge — SUCCESS; regression API fix (October 2026)
+
+User reports successfully running
+\`scripts/zee_section8_Q2b_chen_FLS_matching_gate.py\`
+with
+\`work/gateB1_zee_seed_scan/all_screened_candidates_NOT_ALLOWED.csv\`
+and
+\`work/gateB2_zee_neutrino_family/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json\`.
+The script matched **20 / 20** saved B2 Yukawa solutions:
+10 for scalar candidate 32 and 10 for candidate 0.
+
+Local FLS quark wrong-doublet source
+\`T=Tr(Pi2 Pi1†)\`, computed from each correctly
+conjugate/transposed Chen neutrino Y:
+- Candidate 32: Re(T) from 1.795500456084206e-5
+  to 1.8005370896868615e-5; source
+  \`|T|/(16pi²)\` from 1.137014354144162e-7
+  to 1.1402087448817508e-7.
+- Candidate 0: Re(T) from 1.8125823073947113e-5
+  to 1.821436094013654e-5; source
+  from 1.1478314605634309e-7
+  to 1.1534381603034936e-7.
+- Neutrino-matrix algebraic closure across all 20:
+  residuals about 1.2e-17 to 1.6e-16 eV.
+- Full Zee running, quark FCNC observable likelihood,
+  modern neutrino likelihood and complete LFV
+  **NOT** calculated; physical allowed **FALSE/unknown**.
+- These values are local one-loop beta-function
+  coefficients per unit log scale, **not measured
+  FCNC couplings, branching fractions, or exclusions**.
+  They are from old fixed-NO central-input B2 solutions
+  that are not established as modern 2026 viable.
+
+AF regression in the same turn: 7/9 tests passed,
+2 raised \`TypeError: validate_B2_solution() takes
+2 positional arguments but 3 were given\`.
+Root cause: \`validate_B2_solution(point,solution,*,target=None)\`
+has keyword-only \`target\`, but three total test
+call sites supplied target \`M\` positionally. The
+production script ran all 20 solutions with
+its valid two-positional-argument signature
+and therefore was unaffected. Fixed all
+three tests to use \`target=M\` in commit
+\`c3f4e211281e7fb0c266d6b8b471188f394209db\`,
+no source physics code changes. AF rerun pending.
+
+    cd /home/aalida/zee
+    git pull --ff-only
+    python3 -m unittest discover -s tests \
+      -p 'test_zee_section8_Q2b_chen_FLS_matching_gate.py' -v
+
+**Next physics decision, not another toy scan:** (a)
+validate complete Zee/full-model RGEs and f/lepton
+terms or matching to EFT over a demonstrably
+controlled hierarchy; (b) produce general Zee
+leptons passing modern NuFIT and complete
+1-/2-loop LFV; (c) compute induced quark
+mass-basis FCNC and hadronic flavor observables
+from the SAME matched Yukawas. Do not infer
+flavor safety from the magnitude of \`T\`.
