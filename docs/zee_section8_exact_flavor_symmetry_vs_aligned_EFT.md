@@ -1324,3 +1324,64 @@ output path. Do not mistake a low
 minimax marginal 2D projection
 for a full 6-dimensional joint likelihood
 or any modern fully allowed Zee model.
+
+
+## AF smoke SUCCESS: modern IO family-Z2 minimax numerical integration fixed (2026-10-18)
+
+User ran the updated finite-domain search with
+`--optimize-variant TBoff-IO --tanbetas 15 --seeds 20261018 --maxiter 35 --popsize 8`.
+The smoke test completed without exception:
+```
+STATUS FAMILY_Z2_NUFIT61_IO_TEXTURE_NECESSARY_2D_FEASIBILITY_NOT_JOINT_FIT_OR_ALLOWED
+RUNS 1, variant TBoff-IO
+tanbeta 15.0; seed 20261018
+worst 2D Δχ² = 25.213338606234597
+T13/T12          25.213338606053867
+T23/DCP          25.213338606234597
+DMS/DMA profiled 25.171963780181308
+sin²theta23 = 0.448213
+delta_CP = -170.232 deg
+dm21/|dm32| = 0.027822
+all_three_at_or_below_3sigma = False
+FULL_JOINT_LIKELIHOOD_DONE False
+FULL_ZEE_ALLOWED False
+```
+Confirmed **technical dead-zone repair**: robust DE found in-domain
+candidate and strict official hash-pinned NuFIT projection re-evaluation
+completed. This single source-verified selected candidate still
+FAILS all three necessary 3σ 2-dof profile checks (threshold 11.829),
+with minimax balancing approximately equal penalties around 25.2.
+At ratio-shape level mass penalty is much smaller than the fixed
+witness's ~156.5, confirming search can move away from old 2022
+boundary texture; this is NOT a proof of global optimum or of
+family-Z2 exclusion. The source projection scores are individually
+marginalized, so NEVER add them as a combined likelihood.
+Only one seed / 35 iterations / one tanbeta has been checked.
+
+**Next AF full-grid command (file must not already exist):**
+
+```bash
+cd /home/aalida/zee
+python3 scripts/zee_section8_nufit61_IO_familyZ2_texture_search.py \
+  --tb-off-io /data/aalida/zee_external/nufit61/v61.release-TBoff-IO.txt.xz \
+  --tb-yes-io /data/aalida/zee_external/nufit61/v61.release-TByes-IO.txt.xz \
+  --optimize-variant TBoff-IO \
+  --tanbetas 5.597170833164245,10,15,20 \
+  --seeds 20261018,20261019,20261020 \
+  --maxiter 120 --popsize 12 \
+  --output work/zee_section8_nufit61_IO_familyZ2_texture_minimax_v2.json
+```
+
+After TBoff scan, note that `other_variant_TByes-IO_profiles_DO_NOT_SUM`
+in the output re-evaluates TBoff winners on TByes but does not
+optimize TByes. If TBoff nonviable and a definitive texture audit
+is needed, separately run `--optimize-variant TByes-IO` with a new
+filename. Include first-octant/second-octant and parameter boundary
+checks before drawing no-go conclusions.
+
+If all 12 seeds stay well above 11.83 in both variants,
+publication-risk advice: this specific family-dependent-Z2
+candidate becomes high risk under 2026 data, and it may be
+more productive to investigate a different flavor texture or
+quark-aligned effective Zee model than force an unviable realization.
+Such outcome is not a mathematical or full joint-likelihood exclusion.
