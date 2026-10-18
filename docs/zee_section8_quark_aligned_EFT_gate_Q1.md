@@ -652,3 +652,58 @@ future scalar scan points rather than copied by assumption.
 Physical go/no-go remains full source-matched
 UV Zee RGE plus 2026 neutrino/LFV and quark
 FCNC experiment. No full-allowed Zee points.
+
+
+## Q2d new theoretical obstruction: lambda6/lambda7 are boundary conditions (Oct 19, 2026)
+
+After Q2c PASS (119 tests), the literature audit identifies an
+additional independent potential nonclosure: the project uses
+lambda6=lambda7=0 in the scalar 2HDM subsector but allows
+general complex doublet lepton Yukawas and possibly k12/lambda10.
+An exact Type-II Z2 no longer protects the ENTIRE scalar/Yukawa
+theory. In the general 2HDM scalar RGEs, fermion-dependent
+contributions to beta_lambda6/beta_lambda7 must be included.
+The boson-only lambda6=lambda7=0 fixed point does **not**
+establish an all-sector fixed point. Quark alignment alone
+does not fix this.
+
+New source-based structural test:
+scripts/zee_section8_Q2d_lepton_spurion_scalar_RG_audit.py
+and tests/test_zee_section8_Q2d_lepton_spurion_scalar_RG_audit.py.
+They compute T21, I6, I7 complex lepton box
+contractions and antisymmetric f invariants
+for each of the actual 20 B2 saved solutions,
+without guessing complete beta_lambda6 or
+beta_lambda7 coefficients. See dedicated
+docs/zee_section8_Q2d_scalar_symmetry_spurion_audit.md.
+
+The user prefers ONE large run, so the existing
+single Q2 runner now incorporates 11 Q2d
+regressions and the full 20-input new spurion
+audit in addition to every previous test and
+finite pure-2HDM RG check. The new combined
+command is:
+
+    cd /home/aalida/zee
+    git pull --ff-only
+    python3 scripts/zee_section8_run_integrated_Q2_validation.py \
+      --output-dir work/zee_section8_Q2_integrated_v3
+
+Expected if everything passes: 114 required unit
+tests + 16 optional SciPy Barr-Zee-subset tests =
+**130 total**; 20 matched Yukawa cases and 20
+Q2d lepton spurion reports. NO change in physical
+allowed semantics. Code committed, AF v3
+execution not yet received.
+
+**Next real theoretical job**, rather than yet
+another arbitrary toy numerical scan: independently
+source/generate the *complete renormalizable Zee*
+one-loop coupled beta_f, beta_Pi1/Pi2,
+beta_lambda6/7, with scalar singlet interactions
+and mass/threshold conventions. Validate f->0
+pure-2HDM and symmetry protected limits.
+Use those beta equations only after an
+independent second-source cross-check; then
+fit modern neutrino/LFV and assess radiative
+quark FCNC and scalar vacuum with the SAME Yukawas.
