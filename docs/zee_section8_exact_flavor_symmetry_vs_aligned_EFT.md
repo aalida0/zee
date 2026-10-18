@@ -1504,3 +1504,59 @@ Zee Yukawas with a declared matching
 scale and explicit RG-induced FCNC checks.
 Do not call unrestricted Zee B2 Yukawas
 an exact family-dependent Z2 model.
+
+
+## AF TByes-IO cross-evaluation of TBoff minimax survivors: also 0 compatible (2026-10-18)
+
+User evaluated the *TBoff-optimized* candidate at each tanbeta
+against NuFIT6.1 TByes-IO profiles from the already saved
+`work/zee_section8_nufit61_IO_familyZ2_texture_minimax_v2.json`.
+These are separate **marginal 2D projections**; NEVER add them.
+
+| tanbeta | TBoff worst | TByes T13/T12 | TByes T23/DCP | TByes DMS/DMA ratio | TByes worst |
+|---|---:|---:|---:|---:|---:|
+| 5.597 | 25.092789 | 29.40337 | 30.01178 | 31.29162 | 31.29162 |
+| 10 | 25.124444 | 29.43905 | 30.04429 | 31.11851 | 31.11851 |
+| 15 | 25.124265 | 29.43581 | 30.05947 | 34.29462 | 34.29462 |
+| 20 | 25.124469 | 29.42782 | 30.04665 | 34.77958 | 34.77958 |
+
+All 4 tested TBoff candidates are far above the
+standard 2-dof 3σ `Δχ²=11.829` necessary threshold
+in EACH of the THREE TByes projected likelihoods.
+This is **not independent TByes optimization**; a
+distinct TByes minimax run might find other points.
+
+**Priority decision:** Given 0/12 TBoff projected
+compatibility and TByes rejection of all four
+representative TBoff winners, the *specific* 2022
+family-dependent-Z2 symmetry assignment becomes a
+LOW PRIORITY route for flagship HL-LHC Zee physics.
+Do not claim a rigorous model-wide exclusion:
+finite `tanbeta` values/seeds, IO only,
+no mathematical search-completeness proof,
+no complete joint NuFIT likelihood and no other
+flavor/cosmology constraints applied.
+
+Finish inexpensive **mu/tau flavor-basis relabeling
+equivalence test** if desired (already committed as
+a regression test in
+`tests/test_zee_section8_family_z2_neutrino_texture_pilot.py`).
+No further broad IO Monte Carlo parameter scans
+are recommended without discovering a distinct
+symmetry construction or correction in the
+implemented neutrino equations.
+
+Proposed workstream pivot, keeping 2021 restricted
+scalar `lambda6=lambda7=0`:
+(a) a scale-declared quark-aligned effective
+Zee phenomenology with **fully general lepton
+Yukawas**, followed by an explicit one-loop RGE
+wrong-doublet quark Yukawa/neutral FCNC audit,
+updated two-charged-state b->s gamma, complete
+LFV and neutrino data; or
+(b) perform model-independent HL-LHC expected
+upper limits in `mH1,mH2,sigma_core`
+without asserting the problematic family-Z2
+points are fully physically allowed. Both
+directions need their own novelty and
+publication-scope audits.
