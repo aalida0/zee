@@ -54,6 +54,38 @@ class TestFamilyZ2ModernIOProjectionSearch(unittest.TestCase):
                     self.assertAlmostEqual(b[name],4.,places=10)
             self.assertAlmostEqual(gate.score_one(w),4.)
 
+    def test_out_of_grid_objective_is_smooth_but_strict_score_rejects(self):
+        with tempfile.TemporaryDirectory() as d:
+            p=Path(d)/"synthetic.txt.xz"
+            self.fixture(p,delta_chi2=4.)
+            with patch("zee_section8_nufit61_IO_familyZ2_texture_search.verify",
+                       return_value={"SYNTHETIC_TEST_ONLY":True}):
+                gate=ProfileGate(p,"TBoff-IO",r_nodes=121,y_samples=121)
+            w=source_shape(WITNESS["tanbeta"],WITNESS["coordinates"])
+            outside=dict(w,observables=dict(w["observables"]))
+            outside["observables"]["sin2theta13"]=.23
+            with self.assertRaisesRegex(ValueError,"Outside official table support"):
+                gate.score_one(outside)
+            proxy=gate.soft_domain_search_score(outside)
+            self.assertTrue(0 < proxy < 1e8)
+            self.assertGreater(proxy,gate.score_one(w))
+            # Clipped score NEVER returns as an official Delta chi2.
+            self.assertAlmostEqual(gate.score_one(w),4.)
+
+    def test_physical_angular_anchors_are_finite_across_tanbeta(self):
+        from zee_section8_nufit61_IO_familyZ2_texture_search import (
+            START_ANGULAR_SEEDS,
+        )
+        for tb,coordinates in START_ANGULAR_SEEDS.items():
+            with self.subTest(tanbeta=tb):
+                w=source_shape(tb,coordinates)
+                for obsname in ("sin2theta12","sin2theta13","sin2theta23"):
+                    self.assertTrue(0<=w["observables"][obsname]<=1)
+                self.assertLess(w["charged_mass_closure_GeV"],1e-9)
+                self.assertGreater(w["solar_over_abs_atm_ratio"],0)
+                self.assertGreaterEqual(w["deltaCP_degrees_signed"],-180)
+                self.assertLessEqual(w["deltaCP_degrees_signed"],180)
+
     def test_tiny_minimax_not_a_joint_likelihood_or_allowed_claim(self):
         with tempfile.TemporaryDirectory() as d:
             p=Path(d)/"synthetic.txt.xz"
@@ -70,6 +102,8 @@ class TestFamilyZ2ModernIOProjectionSearch(unittest.TestCase):
             self.assertFalse(result["full_NuFIT6p1_joint_likelihood"])
             self.assertIsNone(result["physical_Zee_allowed"])
             self.assertFalse(result["optimizer_global_optimum_proved"])
+            self.assertGreater(result["strictly_in_range_evaluations"],0)
+            self.assertTrue(result["domain_continuation_is_search_heuristic_NOT_experimental_Delta_chi2"])
             self.assertIn("NOT_JOINT_FIT_OR_ALLOWED",STATUS)
 
     def test_rejects_unsupported_or_duplicate_options(self):
