@@ -270,3 +270,107 @@ use the old Chen B2 unrestricted Yukawa
 solutions labeled fully allowed: their earlier
 partial LFV screens failed, and B2 versus
 2022 Yukawa conventions differ.
+
+
+## Q2b-1: exact Chen-to-FLS lepton Yukawa basis matching (NEW, October 2026)
+
+New runnable source:
+- scripts/zee_section8_Q2b_chen_FLS_matching_gate.py
+- tests/test_zee_section8_Q2b_chen_FLS_matching_gate.py
+
+This is a *data-contract bridge* between the **existing** fixed-NO
+B2 Zee neutrino family solutions and the **published** general
+2HDM Yukawa beta-functions used in Q1/Q2a. It is not yet a complete
+Zee beta-function calculation.
+
+**Source conventions and independent normalization check:**
+- Chen, arXiv:2508.18757 Eqs.(3-6), charged-lepton mass basis:
+  the Higgs-orthogonal charged scalar couples as
+  sqrt(2) bar(ell_R) Y_Chen nu_L H_perp^- + h.c.
+  and Mnu = kappa_Chen [f Ml Y_Chen +(f Ml Y_Chen)^T].
+- Ferreira–Lavoura–Silva, arXiv:1001.2561 Eq.(1),
+  the lepton Yukawa matrices Pi_k multiply
+  bar(L_L) Phi_k ell_R.
+- Therefore the correct orientation and factor are
+  **rho_e := Pi_perp = sqrt(2) Y_Chen dagger**,
+  kappa_e := Pi_v = sqrt(2) diag(m_e,m_mu,m_tau)/v,
+  Pi1=c_beta kappa_e-s_beta rho_e,
+  Pi2=s_beta kappa_e+c_beta rho_e.
+  Careless substitution Pi_perp=Y_Chen or Y_Chen^T
+  changes both quark-trace magnitude and CP phase.
+- The same normalization predicts the charged-doublet
+  tree leptonic width factor
+  m_H/(16pi) times ||rho_e||_F² =
+  m_H/(16pi) times 2||Y_Chen||_F², before charged-mixing
+  weights; this is checked against the already-written
+  B3 charged-scalar lepton widths, including the f
+  singlet contribution and physical lepton masses.
+- Q1 quark beta source is
+  T = Tr(Pi2 Pi1 dagger).
+  The independent Higgs-basis identity is
+  T = cs(||kappa_e||_F²-||rho_e||_F²)
+      + c² X - s² X*,
+  X=Tr(rho_e kappa_e dagger).
+  Thus Im(T)=Im(X) for all real positive tanbeta
+  at fixed kappa_e,rho_e. Exact conjugation and
+  rephasing-invariance checks protect this mapping.
+
+**Inputs:** exact matched B1/B4 scalar candidate CSV and the
+corresponding stored B2
+top_neutrino_Yukawa_matrices_NOT_ALLOWED.json.
+Reject mismatched IDs/spectrum, antisymmetry violation,
+missing target neutrino closure or large Yukawas.
+NO assumption that the older B2 NO target passes
+current NuFIT6.1 or full LFV is made.
+The reported |T|/(16pi²) is a **local
+wrong-doublet source per one unit of ln(mu)**, not
+a physical FCNC coupling or a finite-scale
+model-dependent prediction.
+No arbitrary high-scale initial condition
+or uncalibrated FCNC limit is introduced.
+
+**Important paper scope warning:** Schmidt & Vandeleur
+JHEP06(2026)006 (arXiv:2512.17235v2)
+primarily calculate a **hierarchical** EFT,
+charged-singlet scalar m_h >> second doublet m_H2
+>> SM Higgs, using a threshold-matched 2HDM
+effective theory. Our charged Higgs mass
+eigenstates mH1~209-300 and mH2~680-700 GeV
+are **mixed at gamma~1.1**, so the paper's
+large-separation EFT matching cannot be
+adopted as a quantitatively controlled
+approximation to our benchmarks without
+a separate hierarchy/power-counting audit.
+The UV Zee charged-singlet f running and
+its scalar thresholds are a different
+remaining calculation.
+
+Reproducibility commands (run tests BEFORE any interpretation):
+
+    cd /home/aalida/zee
+    git pull --ff-only
+    python3 -m unittest discover -s tests \
+      -p 'test_zee_section8_Q2b_chen_FLS_matching_gate.py' -v
+    python3 scripts/zee_section8_Q2b_chen_FLS_matching_gate.py \
+      --points work/gateB1_zee_seed_scan/all_screened_candidates_NOT_ALLOWED.csv \
+      --b2-json work/gateB2_zee_neutrino_family/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+      --top 10 \
+      --output work/zee_section8_Q2b_chen_FLS_matching_B1_v1.json
+
+If the B2 file is instead from the B4 pipeline,
+use exactly its matching B4 CSV and B2 JSON paths,
+never mix the two families of scalar inputs.
+If the B1 CSV contains many candidates not present
+in B2, filter to the exact B2 candidate-ID set
+using an independently audited, reproducible
+candidate-selection step rather than silently
+dropping unmatched rows. Program fails closed
+on any ID mismatch.
+
+**Status:** Implementation and regression suite committed;
+AF execution needed. The next scientifically
+decisive step is full Zee UV RGE/threshold
+validation plus 2026 NuFIT and full LFV
+fits; this bridge merely makes it possible
+to feed source-consistent lepton Yukawas
+to that future machinery.
