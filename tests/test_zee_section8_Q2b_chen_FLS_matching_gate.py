@@ -110,7 +110,7 @@ class TestQ2bChenFLSBridge(unittest.TestCase):
         sol={"candidate_id":"synthetic","mH1":300.,
              "mH2":700.,"gamma":gamma,
              "f":encode(f),"Y":encode(Y)}
-        out=validate_B2_solution(point,sol,M)
+        out=validate_B2_solution(point,sol,target=M)
         self.assertLess(out["neutrino_matrix_closure_eV"],1e-9)
         self.assertLess(out["chen_y_reconstruction_error"],1e-13)
         self.assertTrue(out["B2_neutrino_target_is_old_NO_fixed"])
@@ -129,11 +129,11 @@ class TestQ2bChenFLSBridge(unittest.TestCase):
            "mH2":700.,"gamma":1.089,
            "f":encode(f),"Y":encode(Y)}
         with self.assertRaisesRegex(ValueError,"candidate ID"):
-            validate_B2_solution(p,s,M)
+            validate_B2_solution(p,s,target=M)
         s["candidate_id"]="synthetic"
         s["mH2"]=720.
         with self.assertRaisesRegex(ValueError,"spectrum mismatch"):
-            validate_B2_solution(p,s,M)
+            validate_B2_solution(p,s,target=M)
 
     def test_bad_Y_rejected(self):
         for y in (np.zeros((2,3)),np.full((3,3),float("nan"))):
