@@ -49,6 +49,9 @@ from zee_section8_quark_alignment_truncated_flow import (
 from zee_section8_Q2c_UV_EFT_scope_audit import (
     charged_matrix_audit,gauge_audit
 )
+from zee_section8_Q2d_lepton_spurion_scalar_RG_audit import (
+    stored_audit as zee_spurion_audit
+)
 
 STATUS="Q2_INTEGRATED_NUMERICAL_AUDIT_ONLY_NOT_FULL_ZEE_OR_ALLOWED"
 REQUIRED_TEST_FILES=(
@@ -66,6 +69,7 @@ REQUIRED_TEST_FILES=(
     "test_zee_section8_Q2b_chen_FLS_matching_gate.py",
     "test_zee_section8_run_integrated_Q2_validation.py",
     "test_zee_section8_Q2c_UV_EFT_applicability.py",
+    "test_zee_section8_Q2d_lepton_spurion_scalar_RG_audit.py",
 )
 OPTIONAL_SCIPY_TEST_FILES=(
     "test_zee_barr_zee_kernels.py",
@@ -322,7 +326,7 @@ def main():
         "parameter_settings":{"top":a.top,
              "expected_cases":a.expected_cases,"steps":a.steps,
              "high_GeV":a.high,"low_GeV":a.low},
-        "program_scope":"one-command Q1/Q2a/Q2b and Q2c mixed-Zee source applicability, B2/B3/LFV tests and matched truncated RG",
+        "program_scope":"one-command Q1/Q2a/Q2b/Q2c/Q2d Zee spectrum, lepton-spurion source audit, B2/B3/LFV and matched truncated RG",
         "missing_physics":list(MISSING_PHYSICS),
         "full_Zee_RGE_done":False,
         "full_NuFIT61_fit":False,
@@ -373,6 +377,11 @@ def main():
         summary["Q2c_analytical_Zee_gauge_beta"]=gauge_audit()
         summary["Q2c_heavy_singlet_hierarchical_EFT_applicable"]=False
         summary["Q2c_complete_Zee_f_RGEs_available"]=False
+        spurions=zee_spurion_audit(
+            scalar,b2,top=a.top,expected=a.expected_cases)
+        summary["Q2d_Zee_lepton_and_scalar_RGE_spurions"]=spurions
+        summary["Q2d_complete_lambda6_lambda7_RGEs_available"]=False
+        summary["Q2d_lambda6_lambda7_RG_stability_proven"]=False
         summary["overall_numerical_pass"]=True
         summary["overall_status"]="NUMERICAL_CONSISTENCY_PASS_ONLY_NO_ALLOWED_BENCHMARK"
         summary["total_seconds"]=round(time.monotonic()-start,3)
@@ -389,6 +398,12 @@ def main():
                   "H1_SINGLET_FRACTION",f"{m['H1_singlet_weight']:.6f}")
         print("Q2C_HEAVY_SINGLET_HIERARCHICAL_EFT_APPLICABLE False")
         print("Q2C_FULL_UV_ZEE_LEPTON_RGES_IMPLEMENTED False")
+        print("Q2D_MATCHED_B2_SPURIONS",spurions["count"])
+        print("Q2D_ALL_T21_NONZERO",spurions["all_T21_nonzero"])
+        print("Q2D_ALL_I6_NONZERO",spurions["all_I6_nonzero_at_1e_minus18"])
+        print("Q2D_ALL_I7_NONZERO",spurions["all_I7_nonzero_at_1e_minus18"])
+        print("Q2D_SCALAR_LAMBDA6_LAMBDA7_ALL_SCALE_PROTECTION_PROVEN False")
+        print("Q2D_COMPLETE_LEPTON_AND_QUARTIC_BETAS_IMPLEMENTED False")
         print("COMPLETE_MODEL_AND_EXPERIMENTAL_CONSTRAINTS_PASS False")
         print("FULL_ZEE_ALLOWED False")
         print("SUMMARY",output/"summary.json")
