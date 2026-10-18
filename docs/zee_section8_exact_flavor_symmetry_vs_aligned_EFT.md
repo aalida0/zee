@@ -1385,3 +1385,122 @@ candidate becomes high risk under 2026 data, and it may be
 more productive to investigate a different flavor texture or
 quark-aligned effective Zee model than force an unviable realization.
 Such outcome is not a mathematical or full joint-likelihood exclusion.
+
+
+## NuFIT6.1 TBoff-IO full twelve-run SOURCE-PROFILE SCREEN: 0/12 compatible (2026-10-18)
+
+AF run of the modern minimax texture search completed without
+runtime error (this also validates the earlier optimizer-domain
+fix on real hash-pinned NuFIT6.1 tables):
+```
+STATUS FAMILY_Z2_NUFIT61_IO_TEXTURE_NECESSARY_2D_FEASIBILITY_NOT_JOINT_FIT_OR_ALLOWED
+PRIMARY_VARIANT TBoff-IO RUNS 12
+tanbeta        best worst 2D Δχ²    ratio dm21/|dm32|   sin²theta23    δ_CP
+5.5971708       25.0927891           .027983            .447916       -169.809°
+10              25.1244441           .027991            .447916       -169.871°
+15              25.1242655           .027847            .447585       -169.641°
+20              25.1244692           .027826            .447850       -169.824°
+ALL 12: all_projection_3sigma False
+FULL_JOINT_LIKELIHOOD_DONE False
+FULL_ZEE_ALLOWED False
+```
+
+The three independent NuFIT2D projected profiles for each
+best tanbeta are each above the standard 2D 3σ
+11.829158 threshold.
+TBoff minimum at tanbeta~5.597:
+`DMS/DMA_profile=21.97688648,
+T13/T12=25.09278878,T23/DCP=25.09278906`;
+tanbeta10:
+`21.82321934,25.12444381,25.12444412`;
+tanbeta15:
+`24.65318836,25.12426530,25.12426548`;
+tanbeta20:
+`25.08759216,25.12446923,25.12376068`.
+
+**Critical physical inference:**
+The negative 12-run result is a robust SIGN OF TENSION
+for this particular family-dependent Z2 flavor pattern
+under **modern NuFIT6.1 TBoff-IO 2D projections**, but
+not a proven model exclusion:
+- finite stochastic 4D Yukawa-texture optimization,
+  no exhaustive global-minimum certificate;
+- tanbeta fixed only to four slices, not a
+  continuous global optimization;
+- inverted neutrino mass ordering only;
+- separate marginalized projections, no full
+  six-dimensional correlated likelihood;
+- TBoff optimization primary; TByes values at
+  TBoff candidates exist in JSON under
+  `other_variant_TByes-IO_profiles_DO_NOT_SUM`,
+  but TByes hasn't itself been optimized.
+- no LFV, modern cosmology, scalar global vacuum,
+  quark flavor and direct scalar constraints.
+
+The `DMS/DMA` ratio can be brought into a
+reasonable shape region (~.028), but the
+simultaneous angular/CP projections remain
+strongly disfavored in the found minimax
+basin. Nearly identical profiles for four
+tanbeta slices and three seeds suggest a
+stable constrained texture shape, though
+minimax balancing explains some equality
+of the angular penalties.
+
+**Analytic branch audit:** In the triangular
+real positive symmetry-basis
+`M_l=[[a,b,c],[0,d,0],[0,0,e]]`
+with physical charged-lepton singular values,
+the principal-minor interlacing admits
+the alternative diagonal branch
+`m_e<e<m_mu<d<m_tau` besides
+`m_e<d<m_mu<e<m_tau`.
+Since `L_mu,L_tau` have IDENTICAL
+family-Z2 charges, swapping the symmetry
+labels simultaneously on L and eR with
+a permutation P maps
+`M_l -> P M_l P^T`,
+`f -> P f P^T`,
+`Y -> P Y P^T`.
+The resulting mass-basis Majorana mass
+matrix is unchanged, up to a harmless
+nonzero complex factor when f_eμ is
+renormalized to 1; the opposite interlacing
+branch does NOT create independent
+physical neutrino spectra.
+This basis-equivalence has a new
+deterministic regression test
+`test_opposite_mu_tau_diagonal_branch_is_exact_basis_relabeling`
+in
+`tests/test_zee_section8_family_z2_neutrino_texture_pilot.py`.
+AF test execution still pending.
+
+**Decision:** Deprioritize further broad family-Z2
+oscillation scans for the flagship HL-LHC Zee
+interpretation unless an independent source
+likelihood or distinct family symmetry is
+identified that can reproduce NuFIT6.1.
+Make one cheap TByes cross-read of existing
+stored TBoff results and run the exact mu/tau
+basis-equivalence unit test. These steps
+may rule out a trivial missing-scan artifact,
+but they cannot prove a global no-go.
+A TBoff-failing candidate need not pass when
+tested with TByes; the alternate atmospheric
+variant MUST be treated separately.
+
+Avoid holding up the HL-LHC detector-level
+`σ(pp→t(b)H2±)BR(H2±→H1±Z)BR(H1±→tb)`
+expected sensitivity design: this can be
+reported initially as a **model-independent
+signal-core upper limit** with a gauge-consistent
+parametrization, without claiming any
+particular Zee fully-allowed benchmark.
+For a model-interpreted follow-up prefer
+(a) a distinct explicit flavor symmetry
+whose 2026 neutrino constraints survive, or
+(b) well-defined quark-aligned effective
+Zee Yukawas with a declared matching
+scale and explicit RG-induced FCNC checks.
+Do not call unrestricted Zee B2 Yukawas
+an exact family-dependent Z2 model.
