@@ -115,14 +115,26 @@ class TestFamilyZ2MassTexture(unittest.TestCase):
         fhp=lp.T@fp@lp
         yhp=lp.T@yp@rp
         mnup=fhp@np.diag(ML)@yhp.T + yhp@np.diag(ML)@fhp.T
-        self.assertTrue(np.allclose(mnup,mnu/z,atol=1e-12))
-        # All mixing angles, J_CP and mass-squared ratios depend on
-        # eigenvectors of mnu^dagger*mnu, and therefore are invariant
-        # under a common nonzero complex rescaling.
-        ev=np.linalg.eigvalsh(mnu.conj().T@mnu)
-        evp=np.linalg.eigvalsh(mnup.conj().T@mnup)
-        self.assertTrue(np.allclose(evp,ev/abs(z)**2,rtol=1e-10,
-                                     atol=1e-20))
+        # Verify the full complex matrix relation, not only its spectrum.
+        # This is the exact model/basis-equivalence statement.
+        np.testing.assert_allclose(mnup,mnu/z,rtol=1e-12,atol=1e-14)
+        # For a hierarchical spectrum, diagonalizing M^dag M squares
+        # the condition number and spoils relative accuracy of its
+        # smallest eigenvalue. Compare Takagi singular values directly,
+        # with NO artificial absolute eigenvalue floor.
+        masses=np.linalg.svd(mnu,compute_uv=False)
+        masses_swapped=np.linalg.svd(mnup,compute_uv=False)
+        np.testing.assert_allclose(
+            masses_swapped,masses/abs(z),rtol=1e-10,atol=0.0)
+        # Rephasing-invariant oscillation information is encoded in the
+        # normalized Hermitian matrix, unchanged by common rescaling.
+        # Comparing the matrix rather than tiny eigenvalues avoids
+        # cancellation in the near-null mode.
+        H=mnu.conj().T@mnu
+        H_swapped=mnup.conj().T@mnup
+        np.testing.assert_allclose(
+            H_swapped/np.trace(H_swapped).real,
+            H/np.trace(H).real,rtol=1e-12,atol=1e-13)
 
     def test_optimizer_does_not_claim_real_fit(self):
         x=exploratory_optimize(tanbeta=5.6,maxiter=2,popsize=3,
