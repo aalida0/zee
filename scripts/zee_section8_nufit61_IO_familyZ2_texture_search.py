@@ -249,7 +249,7 @@ def optimize_case(gate,*,tanbeta,seed,maxiter,popsize):
         "tanbeta":tanbeta,"seed":seed,
         "search_coordinates":selected.tolist(),
         "optimizer_terminal_coordinates":res.x.tolist(),
-        "optimizer_terminal_in_strict_table_support":bool(
+        "reported_coordinates_equal_optimizer_terminal":bool(
             np.array_equal(selected,res.x)),
         "strictly_in_range_evaluations":strict_valid_evaluations,
         "domain_continuation_is_search_heuristic_NOT_experimental_Delta_chi2":True,
