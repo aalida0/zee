@@ -38,6 +38,7 @@ from scipy.optimize import differential_evolution
 from zee_section8_family_z2_neutrino_texture_pilot import (
     candidate_from_unit,forward,mixing_observables
 )
+from zee_section8_IO_first_octant_witness import WITNESS
 from zee_section8_nufit61_IO_witness_profiles import (
     TABLES,THRESHOLD_3SIGMA_2DOF,read_tables,verify,profile_ratio,
 )
@@ -45,6 +46,18 @@ from zee_section8_nufit61_IO_witness_profiles import (
 STATUS="FAMILY_Z2_NUFIT61_IO_TEXTURE_NECESSARY_2D_FEASIBILITY_NOT_JOINT_FIT_OR_ALLOWED"
 BOUNDS=((-24.,24.),(-24.,24.),(-5.,5.),(-math.pi,math.pi))
 R_RANGE=(.010,.080)
+# Angular-domain starting points from INDEPENDENT LOCAL GEOMETRY-PROXY
+# searches, not NuFIT fits and NOT physically allowed Zee benchmarks.
+# Each approx reproduces [sin²12~.3445,sin²13~.02539,
+# sin²23~.4813,delta~-174°,r~.0297] at its listed tanbeta.
+# Initial seeds merely help DE get inside the finite official grid.
+START_ANGULAR_SEEDS={
+    5.597170833164245:(-1.329141, .888322, -2.032898, -3.055481),
+    10.0:(-1.329461, .815955, -2.021894, -3.055875),
+    15.0:(-1.329547, .796736, -2.018981, -3.055988),
+    20.0:(-1.329579, .789920, -2.017949, -3.056030),
+}
+
 
 def independent_dirac_phase(point,obs):
     """Delta_CP from both phase-invariant sin(delta) and cos(delta)."""
@@ -138,38 +151,116 @@ class ProfileGate:
         scores=self.scores(shape,precise=precise)
         return float(max(scores.values()))
 
+    def soft_domain_search_score(self,shape):
+        """Optimization-only continuation outside official finite grids.
+
+        Clip for a distance-to-domain SEARCH HEURISTIC and penalize the
+        dimensionless outside distance. NEVER report this as a NuFIT
+        Delta-chi2 or extrapolate the official likelihood. Final points
+        must pass strict self.scores() in-range checks and be rescored.
+        """
+        o=shape["observables"]
+        def clip_penalty(grid,x,y):
+            xlo,xhi=grid.x[0],grid.x[-1]
+            ylo,yhi=grid.y[0],grid.y[-1]
+            xc=min(max(float(x),xlo),xhi)
+            yc=min(max(float(y),ylo),yhi)
+            dx=abs(x-xc)/(xhi-xlo)
+            dy=abs(y-yc)/(yhi-ylo)
+            penalty=1000.*(dx+dy+dx*dx+dy*dy)
+            return grid.interpolate(xc,yc)+penalty
+        t12=clip_penalty(self.grids["T13/T12"],
+                         o["sin2theta13"],o["sin2theta12"])
+        dcp=clip_penalty(self.grids["T23/DCP"],
+                         o["sin2theta23"],shape["deltaCP_degrees_signed"])
+        r=float(shape["solar_over_abs_atm_ratio"])
+        supported=self.r_axis[self.ratio_supported]
+        rc=min(max(r,float(supported[0])),float(supported[-1]))
+        # Do not bridge isolated missing ratio-profile rows.
+        i=int(np.searchsorted(self.r_axis,rc,side="left"))
+        i=min(max(i,0),len(self.r_axis)-1)
+        if not self.ratio_supported[i]:
+            allowed_idx=np.flatnonzero(self.ratio_supported)
+            i=int(allowed_idx[np.argmin(abs(self.r_axis[allowed_idx]-rc))])
+            rc=float(self.r_axis[i])
+        rr=float(np.interp(rc,self.r_axis,self.profile_approx))
+        dr=abs(r-rc)/(supported[-1]-supported[0])
+        mass=rr+1000.*(dr+dr*dr)
+        score=max(t12,dcp,mass)
+        if not math.isfinite(score):
+            raise ValueError("Invalid domain-continuation score")
+        return float(score)
+
 def optimize_case(gate,*,tanbeta,seed,maxiter,popsize):
     if not(math.isfinite(tanbeta) and tanbeta>0 and
            isinstance(seed,int) and seed>=0 and
            1<=maxiter<=2000 and 3<=popsize<=100):
         raise ValueError("Invalid scan settings")
+    best_valid={"approx_score":float("inf"),"coordinates":None}
+    strict_valid_evaluations=0
     def objective(x):
+        nonlocal strict_valid_evaluations
         try:
             shape=source_shape(tanbeta,x)
-            return gate.score_one(shape,precise=False)
+            search_score=gate.soft_domain_search_score(shape)
+            # The continuation is ONLY a heuristic. Remember the best
+            # strictly supported point in case the DE result is outside.
+            try:
+                strict_score=gate.score_one(shape,precise=False)
+                strict_valid_evaluations+=1
+                if strict_score<best_valid["approx_score"]:
+                    best_valid["approx_score"]=strict_score
+                    best_valid["coordinates"]=np.asarray(x,dtype=float).copy()
+            except ValueError:
+                pass
+            return search_score
         except (ValueError,OverflowError,ZeroDivisionError,
                 FloatingPointError,np.linalg.LinAlgError):
             return 1e9
+
+    # A valid-region seed is essential: unseeded DE saw all-invalid
+    # populations and a constant 1e9 objective even in synthetic tests.
+    anchors=[np.asarray(WITNESS["coordinates"],float)]
+    anchors += [np.asarray(p,float) for p in START_ANGULAR_SEEDS.values()]
+    ranked=[]
+    for x in anchors:
+        score=objective(x)
+        if math.isfinite(score) and score<1e8:
+            ranked.append((score,x))
+    if not ranked:
+        raise ValueError("No source-texture anchor could be evaluated")
+    init_x=min(ranked,key=lambda pair:pair[0])[1]
     res=differential_evolution(
         objective,BOUNDS,seed=seed,maxiter=maxiter,popsize=popsize,
-        polish=True,updating="immediate",workers=1,tol=.005)
-    if not math.isfinite(res.fun) or res.fun>=1e8:
-        raise ValueError("Optimizer failed to find an in-domain candidate")
-    shape=source_shape(tanbeta,res.x)
+        x0=init_x,polish=True,updating="immediate",workers=1,tol=.005)
+    if best_valid["coordinates"] is None:
+        raise ValueError(
+            "No strictly in-range NuFIT point found; cannot report "
+            "clipped-domain proxy as an experimental profile result")
+    # Optimizer can terminate slightly outside a finite NuFIT table.
+    # Strictly re-score the best IN-RANGE candidate instead.
+    selected=best_valid["coordinates"]
+    shape=source_shape(tanbeta,selected)
     precise=gate.scores(shape,precise=True)
     if shape["charged_mass_closure_GeV"]>1e-9:
         raise ValueError("Charged-lepton closure failed")
     out={
         "status":STATUS,"NuFIT_variant_optimized":gate.variant,
         "tanbeta":tanbeta,"seed":seed,
-        "search_coordinates":res.x.tolist(),
+        "search_coordinates":selected.tolist(),
+        "optimizer_terminal_coordinates":res.x.tolist(),
+        "optimizer_terminal_in_strict_table_support":bool(
+            np.array_equal(selected,res.x)),
+        "strictly_in_range_evaluations":strict_valid_evaluations,
+        "domain_continuation_is_search_heuristic_NOT_experimental_Delta_chi2":True,
         "source_texture_parameters":shape["parameters"],
         "ordering":"IO",
         "oscillation_observables":shape["observables"],
         "deltaCP_degrees_signed":shape["deltaCP_degrees_signed"],
         "mass_splitting_ratio":shape["solar_over_abs_atm_ratio"],
         "charged_mass_closure_GeV":shape["charged_mass_closure_GeV"],
-        "approximate_optimizer_worst_profile":float(res.fun),
+        "approximate_optimizer_search_heuristic_NOT_Delta_chi2":float(res.fun),
+        "selected_strict_in_domain_approx_worst_profile":float(best_valid["approx_score"]),
         "source_verified_2D_profiles_DO_NOT_SUM":{
           name:{"delta_chi2":float(value),
                 "outside_3sigma_2dof":bool(value>THRESHOLD_3SIGMA_2DOF)}
