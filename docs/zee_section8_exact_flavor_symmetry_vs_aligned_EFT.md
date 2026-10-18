@@ -1560,3 +1560,58 @@ without asserting the problematic family-Z2
 points are fully physically allowed. Both
 directions need their own novelty and
 publication-scope audits.
+
+
+## AF regression failure in mu/tau basis-branch equivalence is NUMERICAL, not physical (2026-10-18)
+
+User reports 7/8 `test_zee_section8_family_z2_neutrino_texture_pilot.py`
+tests passing. The only failure is
+`test_opposite_mu_tau_diagonal_branch_is_exact_basis_relabeling`
+at the FINAL Hermitian mass-squared eigenvalue comparison:
+`np.allclose(evp,ev/abs(z)**2,rtol=1e-10,atol=1e-20)`.
+
+Independent local NumPy reproduction with the literal test
+parameters `d=.025,e=.7,tanbeta=15,r=.3,phase=.4` shows:
+- direct physical mass-matrix basis relation
+  `mnup=mnu/z` has Frobenius relative residual
+  ~6.54e-17 (MACHINE PRECISION).
+- smallest swapped `eigvalsh(mnup†mnup)`
+  is ~1.58226305e-10, and the difference
+  from `eigvalsh(mnu†mnu)/|z|²` is ~6.01e-19,
+  relative error ~3.8e-9. This is eigenvalue
+  roundoff in the tiny squared singular-value
+  mode, NOT failure of the complex mass-matrix
+  identity or evidence of a new physical branch.
+- Comparing SVD singular values themselves
+  has tiny-mode relative discrepancy ~4.45e-13.
+- Comparing normalized Hermitian matrices
+  `H/tr(H)` and `H'/tr(H')` passes independently.
+
+Fixed only the regression test (commit
+`bc1bb6314d2a751ac2925510f841541c444aed7e`):
+now checks the FULL complex-matrix relation
+using tight relative tolerances, stable direct
+SVD Takagi singular values with 1e-10
+relative tolerance and zero absolute floor,
+and normalized Hermitian oscillation matrices.
+All three proposed assertions were independently
+executed and PASSED in a local NumPy reproduction.
+Repository tests have NOT YET been rerun on AF
+for this patch.
+
+AF commands:
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_section8_family_z2_neutrino_texture_pilot.py' -v
+```
+
+This supports the restricted texture's mu/tau
+symmetry-basis exchange equivalence in the
+tested example; it does NOT certify that
+every global physically distinct flavor
+assignment has been exhaustively explored.
+The independent modern NuFIT6.1 0/12
+projected-compatibility result and
+model-priority verdict are UNCHANGED.
