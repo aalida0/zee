@@ -124,3 +124,81 @@ Zee-model** coupled beta functions and feed in leptonic
 Yukawa solutions that pass *modern* NuFIT and LFV before
 any experimental quark-FCNC statement. Q2a does not
 replace Q2 full coupled RGEs or Q3 experimental limits.
+
+
+## Q2a user-run AF reproduction and 2026 EFT literature checkpoint (October 2026)
+
+User ran \`scripts/zee_section8_quark_alignment_truncated_flow.py\`
+with \`tanbeta=5.6, high=10000 GeV, low=700 GeV, steps=120\`.
+Actual output:
+
+    STATUS ZEE_TRUNCATED_PURE_2HDM_YUKAWA_FLOW_NOT_PHYSICAL_FCNC_BOUND
+    initial down max |rho_offdiag| = 0
+    initial up max |rho_offdiag| = 1.36337468407239e-18
+    final down max |rho_offdiag| = 6.1545176620916696e-09
+    final up max |rho_offdiag| = 1.6685582310783954e-10
+    initial largest y_down = .024,  final = .029134207020041616
+    initial largest y_up   = .95,   final = 1.0775225196883416
+    FULL_ZEE_RGE_OR_FCNC_LIKELIHOOD False
+    PHYSICAL_ZEE_ALLOWED False
+
+Interpretation: the **toy truncated pure-2HDM Yukawa flow**
+does generate flavor-off-diagonal neutral-quark Yukawa matrices
+from the imposed matching-scale Type-II boundary in the
+presence of unfitted general doublet lepton Yukawas.
+Numerical agreement with independent prior local toy run
+validates reproducibility, NOT physical Zee or
+flavor-constraint viability. No meson mixing,
+FCNC Wilson coefficient, full model running, error budget,
+actual measured CKM input, scale-threshold uncertainty or
+neutrino/LFV-fitted lepton parameters was computed.
+
+**Critical new source (published 2026-06-01):**
+Michael A. Schmidt and James Vandeleur,
+"Running of neutrino mass parameters in the Zee model,"
+JHEP 06 (2026) 006,
+https://doi.org/10.1007/JHEP06(2026)006 ,
+arXiv:2512.17235.
+This **existing** work derives Zee-specific one-loop EFT
+matching and uses the 2HDM RGEs to quantify corrections to
+neutrino mass differences, mixing angles and phases across four
+scenarios. It supplies an important source benchmark for
+our eventual Zee EFT matching/threshold treatment and materially
+limits novelty of a standalone neutrino RG-running paper.
+It does NOT (from its published abstract) establish our
+quark-alignment boundary's finite quark-FCNC
+compatibility or validate current toy flavor numbers.
+Do not imply the source contains complete UV Zee quark
+FCNC constraints without auditing its full formulas.
+
+Independent generic RGE generator:
+PyR@TE 3 (Sartore & Schienbein CPC 2021),
+https://github.com/LSartore/pyrate ;
+capable of generating RGEs for generic renormalizable
+nonsupersymmetric models. A faithful Zee model file,
+charged-singlet leptonic f tensor, matching conventions
+and independent beta-coefficient checks are prerequisites
+before using its output physically. Another relevant
+framework is RGBeta (referenced by the Schmidt-Vandeleur
+paper). Do not imply these packages are already installed.
+
+**Immediate inexpensive control:**
+
+    cd /home/aalida/zee
+    python3 -m unittest discover -s tests \
+      -p 'test_zee_section8_quark_alignment_one_loop_gate.py' -v
+    python3 -m unittest discover -s tests \
+      -p 'test_zee_section8_quark_alignment_truncated_flow.py' -v
+    python3 scripts/zee_section8_quark_alignment_truncated_flow.py \
+      --tanbeta 5.6 --high 10000 --low 700 --steps 120 \
+      --typeii-leptons-control \
+      --output work/zee_section8_quark_alignment_Q2a_typeII_control_v1.json
+
+The Type-II lepton control should stay near floating-point zero,
+establishing that nonzero flavor offdiagonal entries in the generic
+toy are induced by relaxing the lepton Yukawa texture rather than
+SVD rotation noise. Step-halving stability is explicitly tested.
+Next meaningful **physical** gate is not more toy iterations;
+it is a source-validated Zee-matching/full-model RGE input
+with general neutrino/LFV-compatible lepton Yukawas and actual
+quark masses/CKM, followed by DeltaF2 and b->s gamma constraints.
