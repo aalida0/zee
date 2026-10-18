@@ -1223,3 +1223,104 @@ validation, NuFIT correlated data if obtainable,
 plus full LFV and modern cosmology. A passing
 lepton-only projection is NOT a scalar+flavor
 allowed Zee benchmark.
+
+
+## Debug and patch: NuFIT6.1 family-Z2 minimax optimizer all-invalid dead zone (AF log)
+
+User's first AF trial of
+\`tests/test_zee_section8_nufit61_IO_familyZ2_texture_search.py\`
+had 3/4 pass and
+\`test_tiny_minimax_not_a_joint_likelihood_or_allowed_claim\`
+ERROR at \`optimize_case\`:
+\`ValueError("Optimizer failed to find an in-domain candidate")\`.
+The real NuFIT6.1 IO minimax 12-run scan died
+at the FIRST case with the identical exception.
+**This is numerical search-domain initialization,
+not a physical exclusion.**
+
+Cause: original DE in
+\`scripts/zee_section8_nufit61_IO_familyZ2_texture_search.py\`
+sampled large parameter boxes
+x,y in [-24,24], log10r in [-5,5] and phase [-π,π].
+For most random samples at least one
+\`T13/T12,T23/DCP,DMS/DMA\` projected
+observable was outside the NuFIT table
+support. The strictly no-extrapolation
+\`Grid.interpolate\` rightly raises ValueError,
+but the OLD objective caught all such errors
+and gave the SAME 1e9 score, causing
+an all-invalid flat DE population
+even in the synthetic regression test.
+Longer maxiter/popsize alone cannot
+guarantee escape from that plateau.
+
+Patch:
+1. Preserve the original STRICT official
+   profile scorer and no-extrapolation.
+2. Add \`ProfileGate.soft_domain_search_score\`:
+   only an **optimizer heuristic**, clipping
+   points to finite table support and adding
+   continuous distance-to-domain penalties.
+   This is NEVER reported as an official
+   source Δχ², model likelihood, or exclusion.
+3. Seed DE \`x0\` with the best of the
+   old AF-verified IO first-octant witness
+   and four exploratory ANGULAR-DOMAIN
+   anchor points for tanbeta~5.597,10,15,20.
+   Anchor geometry was found separately
+   by minimizing a simple illustrative
+   PMNS geometry proxy, NOT a NuFIT fit;
+   anchors DO NOT count as physics successes.
+4. Track \`strictly_in_range_evaluations\`
+   and the best strictly in-grid coordinate
+   DURING all evaluations. On termination,
+   use the best strictly valid point rather
+   than an out-of-domain DE terminal point.
+   If no strict valid point found, FAIL CLOSED
+   with an explicit diagnostic.
+5. Final 10001-sample mass-ratio
+   profile and all reported 2D Δχ²
+   scores are ALWAYS computed from
+   strict original NuFIT table interpolation,
+   NEVER from the clipped search heuristic.
+6. New regression tests check that
+   in-grid seed recovery works with synthetic
+   small populations, an out-of-grid
+   candidate has a finite distance heuristic
+   BUT raises ValueError in the strict
+   source scorer, and that approximate
+   anchors have physical charged-mass closure
+   for their intended tanbetas.
+
+Commits:
+\`a0840fdb5aedc4245468da36763a8d8e1a2eec5d\`
+(search repair) and
+\`98bdabe859327fc3d1c85d15577152e37e8d7e86\`
+(regression repair).
+
+AF next TEST BEFORE full grid:
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_section8_nufit61_IO_familyZ2_texture_search.py' -v
+python3 scripts/zee_section8_nufit61_IO_familyZ2_texture_search.py \
+  --tb-off-io /data/aalida/zee_external/nufit61/v61.release-TBoff-IO.txt.xz \
+  --tb-yes-io /data/aalida/zee_external/nufit61/v61.release-TByes-IO.txt.xz \
+  --optimize-variant TBoff-IO \
+  --tanbetas 15 \
+  --seeds 20261018 \
+  --maxiter 35 --popsize 8 \
+  --output work/zee_section8_nufit61_IO_familyZ2_smoke_v2.json
+\`\`\`
+
+If smoke is successful, perform full
+12-run grid with the SAME previous
+\`--tanbetas 5.597170833164245,10,15,20\`
+and seeds, maxiter 120 popsize 12,
+using new distinct \`...minimax_v2.json\`
+output path. Do not mistake a low
+minimax marginal 2D projection
+for a full 6-dimensional joint likelihood
+or any modern fully allowed Zee model.
