@@ -46,6 +46,9 @@ from zee_section8_quark_alignment_one_loop_gate import (
 from zee_section8_quark_alignment_truncated_flow import (
     evolve,physical_offdiagonals
 )
+from zee_section8_Q2c_UV_EFT_scope_audit import (
+    charged_matrix_audit,gauge_audit
+)
 
 STATUS="Q2_INTEGRATED_NUMERICAL_AUDIT_ONLY_NOT_FULL_ZEE_OR_ALLOWED"
 REQUIRED_TEST_FILES=(
@@ -62,6 +65,7 @@ REQUIRED_TEST_FILES=(
     "test_zee_section8_quark_alignment_truncated_flow.py",
     "test_zee_section8_Q2b_chen_FLS_matching_gate.py",
     "test_zee_section8_run_integrated_Q2_validation.py",
+    "test_zee_section8_Q2c_UV_EFT_applicability.py",
 )
 OPTIONAL_SCIPY_TEST_FILES=(
     "test_zee_barr_zee_kernels.py",
@@ -318,7 +322,7 @@ def main():
         "parameter_settings":{"top":a.top,
              "expected_cases":a.expected_cases,"steps":a.steps,
              "high_GeV":a.high,"low_GeV":a.low},
-        "program_scope":"one-command Q1 Q2a Q2b B2 B3 partial LFV tests and matched truncated RGE",
+        "program_scope":"one-command Q1/Q2a/Q2b and Q2c mixed-Zee source applicability, B2/B3/LFV tests and matched truncated RG",
         "missing_physics":list(MISSING_PHYSICS),
         "full_Zee_RGE_done":False,
         "full_NuFIT61_fit":False,
@@ -352,6 +356,23 @@ def main():
         if report["n_checked"]!=a.expected_cases:
             raise AssertionError(
                 f"Expected {a.expected_cases} matched cases, found {report['n_checked']}")
+        charged={k:charged_matrix_audit(
+            p["mH1"],p["mH2"],p["gamma"])
+            for k,p in scalar.items()}
+        hierarchy_inapplicable=all(
+            not entry["necessary_heavy_singlet_diagonal_ordering"]
+            for entry in charged.values())
+        # For these two SOURCE-PINNED scalar points, checking the
+        # hierarchy as a *necessary* condition must fail.
+        # A future scan may contain other spectra, at which point this
+        # strict result must be re-reviewed instead of silently reused.
+        if len(charged)!=2 or not hierarchy_inapplicable:
+            raise AssertionError(
+                "Q2c reference candidates changed; independently reassess EFT hierarchy")
+        summary["Q2c_reconstructed_charged_matrices"]=charged
+        summary["Q2c_analytical_Zee_gauge_beta"]=gauge_audit()
+        summary["Q2c_heavy_singlet_hierarchical_EFT_applicable"]=False
+        summary["Q2c_complete_Zee_f_RGEs_available"]=False
         summary["overall_numerical_pass"]=True
         summary["overall_status"]="NUMERICAL_CONSISTENCY_PASS_ONLY_NO_ALLOWED_BENCHMARK"
         summary["total_seconds"]=round(time.monotonic()-start,3)
@@ -360,6 +381,14 @@ def main():
         print("MATCHED_OLD_B2_CASES_PASS",report["n_checked"])
         print("CONTROL_TYPEII_LEPTONS_PASS True")
         print("RK4_STABILITY_PASS True")
+        for ident,m in charged.items():
+            print("Q2C_CHARGED",ident,
+                  "MDD_GeV",f"{m['sqrt_M_DD_squared_GeV']:.5f}",
+                  "Mchi_GeV",f"{m['sqrt_M_chichi_squared_GeV']:.5f}",
+                  "MU_ZEE_GeV",f"{m['abs_muZee_GeV_from_eq14']:.5f}",
+                  "H1_SINGLET_FRACTION",f"{m['H1_singlet_weight']:.6f}")
+        print("Q2C_HEAVY_SINGLET_HIERARCHICAL_EFT_APPLICABLE False")
+        print("Q2C_FULL_UV_ZEE_LEPTON_RGES_IMPLEMENTED False")
         print("COMPLETE_MODEL_AND_EXPERIMENTAL_CONSTRAINTS_PASS False")
         print("FULL_ZEE_ALLOWED False")
         print("SUMMARY",output/"summary.json")
