@@ -1615,3 +1615,44 @@ assignment has been exhaustively explored.
 The independent modern NuFIT6.1 0/12
 projected-compatibility result and
 model-priority verdict are UNCHANGED.
+
+
+## Transition to quark-aligned EFT — source-audited Q1 (2026-10-18)
+
+The user approved beginning the quark-aligned Zee alternative and asked for a fallback should that theory also be inconsistent.
+
+New dedicated source-pinned report:
+docs/zee_section8_quark_aligned_EFT_gate_Q1.md
+and source/test:
+scripts/zee_section8_quark_alignment_one_loop_gate.py,
+tests/test_zee_section8_quark_alignment_one_loop_gate.py.
+
+From Ferreira–Lavoura–Silva (2010) 2HDM one-loop quark RGEs,
+with symmetry-basis quark Type-II boundary
+Gamma1 nonzero, Gamma2=0, Delta1=0, Delta2 nonzero,
+and general lepton Pi1,Pi2:
+  D Gamma2 = Tr(Pi2 Pi1^dagger) Gamma1
+  D Delta1 = Tr(Pi1^dagger Pi2) Delta2,
+D=16 pi^2 d/dln mu. The two traces are identical by cyclicity.
+Thus generic lepton Yukawas source wrong-doublet quark Yukawas,
+but they are *initially still aligned with the parent quark
+flavor matrices*: loss of literal Type-II texture is NOT
+instantaneous generation of flavor-off-diagonal neutral
+couplings. Finite-scale running, thresholds and flavor
+likelihood remain unsolved. Special cross-trace zero removes
+the source locally but is not proven stable under the coupled
+Zee model RGEs. Independent local NumPy checks passed eight
+tests, AF repository tests pending.
+
+Stop/go:
+Q1 local tangent is only a first consistency check.
+Q2 derive/source coupled RGEs + finite running + mass-basis FCNC;
+Q3 DeltaF2 and two-Higgs b->s gamma constraints;
+Q4 full NuFIT+LFV+cosmology+scalar and HiggsTools;
+Q5 collider 4FS/5FS and Delphes sensitivity, only allowed
+benchmarks interpreted physically. If alignment fails,
+fall back to *conditional* gauge-consistent collider
+expected upper limits on sigma x BR with acceptance/width
+assumptions, not a fake fully allowed Zee benchmark;
+or separately develop and audit a protective UV flavor
+symmetry. The old family-Z2 IO NuFIT failure still stands.
