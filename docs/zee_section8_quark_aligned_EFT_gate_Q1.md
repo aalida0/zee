@@ -521,3 +521,58 @@ It is NEVER a full theory or experimental pass.
 towards complete model RGEs/threshold matching and modern
 neutrino+LFV fit. More Q1/Q2a code-level tests alone
 cannot establish physically viable Zee benchmarks.
+
+
+## Integrated Q2 AF execution: 108 regression PASS, 20/20 matched flow PASS (19 October 2026)
+
+User executed the consolidated Q2 validation on UChicago AF.
+Actual printed Git HEAD:
+\`579dc6de628b9e9aa96f347480d69c57e0e224eb\`.
+This is **execution provenance**, not an independently accessed AF log.
+The runner reports:
+- All 13 required suites PASS, comprising 92 regression tests.
+- SciPy installed: 2 additional available Barr–Zee-subset
+  suites PASS (7 kernel + 9 fermion-photon tests), 108 tests in total.
+  This is still NOT complete Barr–Zee LFV.
+- All 20 old fixed-NO algebraic B2 solutions match the
+  B1 scalar CSV, with source-matched Chen-to-FLS lepton
+  Yukawa matrices, B3 charged lepton widths and
+  neutrino reconstruction passing.
+- Type-II leptonic control PASS; RK4 step doubling PASS.
+- Generic saved B2 lepton Yukawas evolved using
+  fixed toy CKM and quark mass inputs, pure-2HDM
+  one-loop quark/lepton Yukawa equations only.
+  The following are maximum absolute off-diagonal
+  values of *orthogonal-Higgs* quark Yukawa matrices,
+  NOT measured bounds or full Zee predictions:
+
+| Old scalar candidate | down, largest absolute rho_ij (i!=j) across B2 ranks 1-10 | up, largest absolute rho_ij |
+|---|---:|---:|
+| 32 | 4.2419e-10 to 4.2538e-10 | 1.1500e-11 to 1.1532e-11 |
+| 0 | 4.2108e-10 to 4.2314e-10 | 1.1416e-11 to 1.1471e-11 |
+
+The exact reported terminal markers were:
+\`INTEGRATED_REQUIRED_TESTS_PASS 92\`,
+\`MATCHED_OLD_B2_CASES_PASS 20\`,
+\`CONTROL_TYPEII_LEPTONS_PASS True\`,
+\`RK4_STABILITY_PASS True\`,
+\`COMPLETE_MODEL_AND_EXPERIMENTAL_CONSTRAINTS_PASS False\`,
+\`FULL_ZEE_ALLOWED False\`.
+Detailed machine-readable report:
+\`work/zee_section8_Q2_integrated_v1/summary.json\`
+on the user's AF (not transmitted to GitHub).
+
+**Scientific decision:** mark Q1/Q2a/Q2b software/matching
+VALIDATED; do not present this as *quark-aligned Zee
+physically viable*. Avoid repeating already-validated
+toy RG runs. Next substantial validation must source,
+derive and independently check **UV renormalizable
+Zee-specific RGE corrections**, match at
+charge-scalar mass thresholds, modern neutrino
+likelihood and complete LFV, then calculate
+quark-mass-basis FCNC flavor constraints using
+the SAME candidate. The 2026 JHEP Schmidt–Vandeleur
+paper provides hierarchical Zee EFT matching and
+2HDM EFT RGE, **not automatically an exact
+mixed-spectrum full-Zee FCNC calculation**:
+https://doi.org/10.1007/JHEP06(2026)006 .
