@@ -202,3 +202,71 @@ Next meaningful **physical** gate is not more toy iterations;
 it is a source-validated Zee-matching/full-model RGE input
 with general neutrino/LFV-compatible lepton Yukawas and actual
 quark masses/CKM, followed by DeltaF2 and b->s gamma constraints.
+
+
+
+## AF Q2a Type-II lepton CONTROL PASS — completed (2026-10-19)
+
+User supplied actual AF command output for
+\`scripts/zee_section8_quark_alignment_truncated_flow.py --typeii-leptons-control\`
+with matching high=10 TeV, low=700 GeV, tanbeta=5.6,
+steps=120 (same as prior generic-lepton toy).
+
+At the high scale both toy configurations have
+\`max_abs_rho_offdiag(down)=0\`, and
+\`max_abs_rho_offdiag(up)=1.36337468407239e-18\`.
+
+At low scale:
+
+| Toy branch | down max \`|rho_offdiag|\` | up max \`|rho_offdiag|\` |
+|---|---:|---:|
+| **Unfitted generic doublet-lepton Yukawas** | **6.1545176620916696e-09** | **1.6685582310783954e-10** |
+| **Exact Type-II doublet-lepton control** | **1.9650578367537174e-17** | **3.244755357147471e-17** |
+
+Type-II control terminal quark mass-Yukawa singular values:
+down [3.308658641177962e-05,6.862303850316814e-04,2.913201618464826e-02];
+up [1.5149140120662072e-05,8.506807411421055e-03,1.077524737878739].
+These are *running synthetic Yukawas*, not measured quark masses
+or a benchmark with a flavor likelihood.
+
+**Q2a control conclusion:** A structure-preserving
+lepton control keeps FCNC-like neutral Yukawa offdiagonals
+at roundoff in this pure-2HDM Yukawa flow.
+The nonzero generic-lepton result is therefore
+a genuine dependence on the lepton Yukawa
+input in this controlled numerical experiment,
+not a spurious SVD neutral-current rotation.
+The pure-2HDM truncated solver is now
+experimentally reproducible on AF for both
+inputs. Neither branch is a physically constrained
+full Zee solution, and no FCNC bound has been
+calculated.
+
+Source update relevant to Q2b:
+Schmidt & Vandeleur, *Running of neutrino mass
+parameters in the Zee model*, JHEP06(2026)006
+https://doi.org/10.1007/JHEP06(2026)006
+provides one-loop Zee-related *EFT matching*
+and running of neutrino parameters, with an
+appendix for the 2HDM EFT beta-functions;
+it does NOT automatically supply complete
+unbroken renormalizable Zee RGEs plus quark
+FCNC Wilson coefficients. Full source
+coefficients, thresholds and precise matching
+conventions must be checked independently.
+
+**Decision:** Stop extending toy-only Yukawa
+running. Begin a physics-meaningful Q2b gate:
+obtain a general-Zee \`f_ij,Pi1,Pi2\` solution
+that passes current neutrino likelihood AND
+complete 1L/2L LFV (with charged singlet scalar
+normalization audited); match gauge/flavor-basis
+conventions and the scalar spectrum; then
+pass *the exact same lepton matrices* to
+source-validated complete Zee running with
+measured quark masses and CKM; calculate
+the quark FCNC EFT/meson observables. Do not
+use the old Chen B2 unrestricted Yukawa
+solutions labeled fully allowed: their earlier
+partial LFV screens failed, and B2 versus
+2022 Yukawa conventions differ.
