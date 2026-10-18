@@ -707,3 +707,62 @@ Use those beta equations only after an
 independent second-source cross-check; then
 fit modern neutrino/LFV and assess radiative
 quark FCNC and scalar vacuum with the SAME Yukawas.
+
+## Q2d AF validation completed, Q2e breakthrough from original Zee RGE source (October 2026)
+
+User executed `work/zee_section8_Q2_integrated_v3/` with GIT_HEAD
+`fe7b08fab8837596f5b6ee0390d9be9263ccb641`.
+ACTUAL results: **114 required +16 optional Barr-Zee-subset tests =130 PASS**;
+all 20 B2 scalar/lepton matches PASS; Type-II control and RK4
+convergence PASS; Q2d ALL T21/I6/I7 nonzero TRUE across saved 20
+old fixed-NO Yukawa solutions. This proves presence of the
+symmetry-breaking lepton spurions, not numerical beta_lambda6/7
+or experimental exclusions. Q2c heavy-singlet hierarchical
+EFT remains inapplicable for both scalar candidate spectra.
+Full general Zee f/Pi and quartic beta equations still unavailable.
+
+**NEW PRIMARY RGE REFERENCE:** Kanemura et al.,
+PRD64, 053007 (2001), arXiv:hep-ph/0011357v2,
+[Appendix A](https://arxiv.org/pdf/hep-ph/0011357).
+Their Eqs.(A1)–(A3), (A12), (A13)
+provide a REDUCED one-loop Zee gauge, top-Yukawa
+and **real antisymmetric charged-singlet f** running system.
+They explicitly neglect all ordinary Yukawas besides top in
+their source formula and neglect f numerically. For
+real 3x3 antisymmetric f,
+q=sum_{i<j} f_ij², f³=-q f and
+D f=[-3gprime²/2-9g2²/2+12q]f, D=16pi² d/dlnmu.
+THIS IS NOT A COMPLEX GENERAL-ZEE RGE and cannot
+be applied to our stored B2 complex f solutions without
+additional source-validated conjugation/Yukawa terms.
+
+New code + 11 regression tests:
+scripts/zee_section8_Q2e_kanemura2001_reduced_f_RGE.py
+tests/test_zee_section8_Q2e_kanemura2001_reduced_f_RGE.py.
+Dedicated audit:
+docs/zee_section8_Q2e_Kanemura2001_reduced_f_RGE.md.
+This new real-f RGE source limit is a **nontrivial independent
+benchmark requirement** for a future full-model RGE generator.
+An independent illustrative 700->10000 GeV numerical integration
+for real f=(.001,-.002,.003), fixed-field-content gives
+a norm ratio approx 0.96592, NOT a B2 physics prediction.
+
+Single user-preferred next AF command, NO separate test commands:
+
+    cd /home/aalida/zee
+    git pull --ff-only
+    python3 scripts/zee_section8_run_integrated_Q2_validation.py \
+      --output-dir work/zee_section8_Q2_integrated_v4
+
+Expect 125 required tests and 16 optional subset
+Barr-Zee tests (141 total if SciPy is present), all 20
+saved B2 analyses, new real-f RGE diagnostic.
+NOT yet tested on user's AF. `FULL_ZEE_ALLOWED=False`
+and `Q2E_GENERAL_COMPLEX_F_AND_YUKAWA_RGES_AVAILABLE=False`
+must remain explicit.
+
+Next decisive calculation is COMPLEX f and Pi1/Pi2 beta
+coefficients plus lambda6/lambda7/lambda10. Require both
+published Kanemura real-f and FLS pure-2HDM f=0 limits.
+No further paper/physical claim before modern correlated
+neutrino+complete LFV and mass-basis quark FCNC analyses.
