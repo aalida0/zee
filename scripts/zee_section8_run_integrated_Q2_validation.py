@@ -61,6 +61,7 @@ REQUIRED_TEST_FILES=(
     "test_zee_section8_quark_alignment_one_loop_gate.py",
     "test_zee_section8_quark_alignment_truncated_flow.py",
     "test_zee_section8_Q2b_chen_FLS_matching_gate.py",
+    "test_zee_section8_run_integrated_Q2_validation.py",
 )
 OPTIONAL_SCIPY_TEST_FILES=(
     "test_zee_barr_zee_kernels.py",
