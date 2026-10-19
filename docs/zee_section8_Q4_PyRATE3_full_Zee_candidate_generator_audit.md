@@ -981,3 +981,44 @@ python3 -u scripts/zee_gateD1_joint_300_neutrino_lfv_inventory.py \
 \`\`\`
 
 Now prints \`D1_B2_SAVED_SOLUTION_COUNTS {...} D1_TOTAL_SAVED N\`, \`D1_FLAVOR_FAMILY...\`, and \`D1_TOTAL_NEUTRINO_LFV_CONFIGURATIONS N OF_MAXIMUM_POSSIBLE 300\`. Report has original B2 population and per-spectrum counts. Full-LFV/experimental/physical allowed remains **UNKNOWN**. If a larger/specified 300-solution cohort is scientifically needed later, that is a **new B2 generation experiment**, which changes input hashes and requires re-linking/revalidating dependent C2–C5 provenance; do not silently regenerate B2 for this D1 join.
+
+
+
+## D1 AF SUCCESS 150 actual B2 solutions; D2 exact-neutrino continuous partial-LFV optimization
+
+**Actual D1 user stdout (Oct 19, 2026):** 30 spectra each had EXACTLY five B2 saved f/Y solutions, yielding 150 independent Yukawa configurations, not 300. Uniform five likely means the upstream B2 was invoked with \`--top 5\`; do not assume rejection reduced each candidate from ten to five without the B2 command/summary. All 30 analyzed; D1 report \`work/gateD1_joint_available_neutrino_lfv_v2/summary.json\`. Twenty-seven unique spectra have at least one C4 10 TeV theory-screened potential with no C5 deeper tree vacuum witness, while three have no such potential (B4_0000822 and B4_0001150: deeper tree charge-breaking, B4_0000827: incomplete C4 running theory). Conditional on these 150 PRE-RANKED fixed PMNS central-target textures, **none** had D1's INCOMPLETE LFV diagnostic score <1. Across the 30 spectra, best-score min 1.1668263540854733 (B4_0001049), median 7.500504789917159 and max 48.53404904275761; near-min B4_0000404 1.367815576716, B4_0000676 2.217927214987. These are NOT full rate/likelihood exclusions, and missing components could interfere. Do not extrapolate to model-wide impossibility.
+
+**New Gate D2:** \`scripts/zee_gateD2_neutrino_exact_partial_LFV_optimization.py\`, \`tests/test_zee_gateD2_neutrino_exact_partial_LFV_optimization.py\` (12 tests). ONE physics optimization experiment, replacing nonconclusive LFV random-ranking with *continuous, neutrino-exact* minimization over the FOUR COMPLEX homogeneous Yukawa degrees of freedom (8 real) PLUS f overall positive rescaling (1 real). For fixed antisymmetric f0, construct rank-5 complex neutrino operator A and null basis N (9×4), minimum norm Y0, and parameterize
+
+\`\`\`text
+f = r f0,
+Y = Y0 / r + unvec[ N z ], r = exp(t), z in C^4,
+Mnu(f,Y) = Mnu(f0,Y0) exactly (within numerical roundoff).
+\`\`\`
+
+At every objective evaluation, recompute the **same** coherent scalar one-loop + top/bottom/tau *photon* Barr–Zee subset for the three dipole modes and the five neutral *tree-only* 3-body decay rates as D1, taking log10(max[channel BR/reference bound]) as a numerical LFV-tension score. Reject any |fij| or |Yij|≥√(4π). The expensive f(z),g(z) integrals are memoized in-process: their arguments depend only on the fixed physical scalar masses and internal fermion masses, not the candidate Yukawas. Full rate and numerical closure are independently reconstructed using unmodified B2 + D1 backends for every retained finalist (differences >2e-8 fail closed); enforce exact saved D1 input SHA match, 30×5 B2 population, and C4/C5 scalar-theory shortlist.
+
+D2 chooses the **27 distinct scalar spectra** satisfying C4 screen and no C5 deeper witness, starts at the **2 best of the 5 B2 stored Yukawa textures for each spectrum** (54 local optimizations), uses bounded Powell with at most 240 function evaluations/start (configurable), always retains the starting root as valid fallback, and reports best matched partial score per spectrum; cannot establish a global minimum. The scope covers 9 real degrees within each fixed B2 f-null orientation, not the continuous two-complex-dimensional f orientation space or PMNS uncertainties. Any optimized Yukawa different from the saved C1/C4 rank-1 texture **must have full 26 one-loop RGE rerun** before a theoretically screened benchmark can be claimed: large lepton Yukawas change scalar beta functions, so prior C4 'passes' cannot automatically be transferred to optimized f/Y.
+
+**Single AF run** (fresh dir, no modified original B2 / C2..C5 inputs):
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateD2_neutrino_exact_partial_LFV_optimization.py' -v &&
+python3 -u scripts/zee_gateD2_neutrino_exact_partial_LFV_optimization.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --c2-summary work/gateC2_paired_uv_rescue_v1/summary.json \
+  --c3-summary work/gateC3_running_complex_bfb_v1/summary.json \
+  --c4-summary work/gateC4_55channel_running_unitarity_v1/summary.json \
+  --c5-summary work/gateC5_charge_breaking_vacuum_v1/summary.json \
+  --d1-summary work/gateD1_joint_available_neutrino_lfv_v2/summary.json \
+  --max-spectra 27 --starts-per-spectrum 2 --max-evals 240 \
+  --output-dir work/gateD2_neutrino_exact_partial_LFV_v1
+\`\`\`
+
+Main output \`summary.json\` includes final complex f,Y for each optimized spectrum, original vs optimized partial rates, dominant LFV contribution, precise neutrino closure, and every missing phenomenology/running constraint. Flat \`optimized_partial_LFV_cohort_NOT_ALLOWED.csv\` summarizes 27 flavors; NO "allowed" label even if partial score <1. If successful, next physics task should implement the missing complete amplitudes and rerun full theory constraints for any optimized f/Y before a global fit with neutrino oscillation parameter uncertainties, CKM and matched b->s gamma, HiggsTools.
+
+Note: the current archived B2 sample is **exactly five per spectrum**, which is consistent with an intentional \`--top 5\`. These are a selectively ranked sample, not evidence that only five neutrino solutions exist.
