@@ -14,7 +14,7 @@ from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from zee_section8_Q4_pyrate_generator_gate import (
     MODEL,EXPECTED,FIELD_Y,block,declared_terms,gauge_from_content,
-    preflight,sha256,PYRATE_SHA,isolated_pyrate_command,isolated_environment
+    preflight,sha256,PYRATE_SHA,isolated_pyrate_command,isolated_environment,dependency_manifest
 )
 
 class TestQ4GeneratorInput(unittest.TestCase):
@@ -119,6 +119,59 @@ class TestQ4GeneratorInput(unittest.TestCase):
             self.assertNotEqual(run.returncode,0)
             self.assertIn('PyR@TE Particles import collision',run.stderr)
             self.assertNotIn('UNSAFE_EXECUTION',run.stdout)
+    def test_parent_can_find_yaml_for_isolated_child(self):
+        d=dependency_manifest(('yaml',))
+        self.assertEqual(set(d),{'yaml'})
+        self.assertTrue(Path(d['yaml']['origin']).is_file())
+        self.assertTrue(Path(d['yaml']['search_root']).is_dir())
+
+    def test_allowlisted_nonstandard_yaml_import_without_key4hep_particles(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);src=root/'pyrate';core=src/'src/Core'
+            core.mkdir(parents=True)
+            packages=root/'nonstandard_dep_root'
+            (packages/'yaml').mkdir(parents=True)
+            (packages/'yaml/__init__.py').write_text(
+                'ORIGIN="ALLOWLIST_YAML"\n')
+            (core/'Particles.py').write_text('ORIGIN="PINNED_PYRATE"\n')
+            (src/'pyR@TE.py').write_text(
+                'import sys,Particles,yaml\n'
+                'from pathlib import Path\n'
+                'Path(sys.argv[sys.argv.index("--Results")+1]).joinpath("imports.txt").write_text('
+                'yaml.ORIGIN + ":" + Particles.ORIGIN)\n')
+            bad=root/'key4hep'
+            bad.mkdir()
+            (bad/'Particles.py').write_text('ORIGIN="BAD_KEY4HEP"\n')
+            out=root/'output';out.mkdir()
+            deps={'yaml':{'origin':str(packages/'yaml/__init__.py'),
+                          'search_root':str(packages)}}
+            cmd=isolated_pyrate_command(src,src/'pyR@TE.py',MODEL,out,deps)
+            env=os.environ.copy();env['PYTHONPATH']=str(bad)
+            proc=subprocess.run(cmd,cwd=src,capture_output=True,
+                                text=True,env=env,timeout=20)
+            self.assertEqual(proc.returncode,0,proc.stdout+proc.stderr)
+            self.assertEqual((out/'imports.txt').read_text(),
+                             'ALLOWLIST_YAML:PINNED_PYRATE')
+            self.assertIn('Q4_IMPORT_PROVENANCE',proc.stdout)
+
+    def test_dependency_origin_mismatch_is_rejected(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);src=root/'pyrate';core=src/'src/Core'
+            core.mkdir(parents=True)
+            packages=root/'external';(packages/'yaml').mkdir(parents=True)
+            (packages/'yaml/__init__.py').write_text('ORIGIN="REAL"\n')
+            (core/'Particles.py').write_text('ORIGIN="PINNED"\n')
+            (src/'pyR@TE.py').write_text('print("SHOULD_NOT_EXECUTE")\n')
+            out=root/'output';out.mkdir()
+            deps={'yaml':{'origin':str(packages/'yaml/MISSING.py'),
+                          'search_root':str(packages)}}
+            cmd=isolated_pyrate_command(src,src/'pyR@TE.py',MODEL,out,deps)
+            proc=subprocess.run(cmd,cwd=src,capture_output=True,
+                                text=True,timeout=20,env=isolated_environment())
+            self.assertNotEqual(proc.returncode,0)
+            self.assertIn('dependency yaml import mismatch',proc.stderr)
+            self.assertNotIn('SHOULD_NOT_EXECUTE',proc.stdout)
+
     def test_preflight_only_does_not_claim_betas(self):
         with tempfile.TemporaryDirectory() as d:
             target=Path(d)/'q4_out'
