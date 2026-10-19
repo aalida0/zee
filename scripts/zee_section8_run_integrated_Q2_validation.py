@@ -436,7 +436,7 @@ def main():
         print("Q3_EXACT_SINGLET_QUARTIC_REDUCTION_AND_INSTABILITY_WITNESS_PASS True")
         print("Q3_COMPLETE_ZEE_UV_BETA_FUNCTIONS_IMPLEMENTED False")
         print("COMPLETE_MODEL_AND_EXPERIMENTAL_CONSTRAINTS_PASS False")
-        print("FULL_ZEE_ALLOWED False")
+        print("FULL_ZEE_ALLOWED UNKNOWN_NOT_EVALUATED")
         print("SUMMARY",output/"summary.json")
         return 0
     except Exception as exc:
