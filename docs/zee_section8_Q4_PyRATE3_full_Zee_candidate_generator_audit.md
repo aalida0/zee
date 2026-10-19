@@ -95,3 +95,26 @@ python3 scripts/zee_section8_Q4_pyrate_generator_gate.py \
 
 If the isolated interpreter lacks scientific dependencies previously supplied through Key4hep PYTHONPATH, this may reveal a new **environment** failure; do not add Key4hep to PYTHONPATH again. Instead use an appropriate isolated interpreter/venv with PyR@TE's documented requirements. A successful execution remains **UNVALIDATED PHYSICS** until source limits and independent cross-checks pass.
 
+
+
+## Q4v3 — PyYAML hidden by Python -I (user AF failure, diagnosed)
+
+User-run Q4v2: `Q4_SOURCE_INPUT_CONTRACT_TESTS_PASS 16`, `Q4_PREFLIGHT_PASS True`, `Q4_GAUGE_1LOOP_B ['22/3', '-3', '-7']`; PyR@TE stdout only displayed its banner and stderr reported **`Error while importing PyYAML`**. The pinned generator launcher imports `yaml` before parsing the Zee model. This is a Python environment regression caused by the deliberately isolated `-I` mode hiding package roots originally provided through `PYTHONPATH`, **not** a failed Zee beta calculation.
+
+Q4v3 repair in the local wrapper (no upstream/source physics changes):
+- Resolve `yaml,sympy,numpy,scipy,h5py,matplotlib` via `importlib.util.find_spec` using the parent interpreter. All are documented requirements of the official PyR@TE 3 release.
+- Pass precisely their package roots and expected absolute origins to the `python -I -c` bootstrap. Prepend pinned PyR@TE internal `src/Core`, `src/IO`, `src/PyLie`, `src/GroupTheory`, `src` first, then add only the discovered dependency roots. Drop `PYTHONPATH`, `PYTHONHOME`, `PYTHONSTARTUP` for the subprocess; retain other environment variables needed by native libraries.
+- Assert PyR@TE's internal `Particles` origin and the exact source origin of each allowed dependency before running the original upstream entrypoint. Record `pyrate3_python_dependency_provenance.json` and stdout `Q4_IMPORT_PROVENANCE`.
+- Q4 input suite extended to **19 regression tests**, including discovery of parent PyYAML, hidden third-party package import under isolated mode, and a mismatched dependency-origin fail-closed test. The bootstrap was independently smoke-tested locally with a synthetic Key4hep module collision and a hidden trusted PyYAML package; all three targeted trials passed, including import of the six real installed scientific packages in an isolated subprocess. **Full PyR@TE on AF remains unverified**.
+
+One new AF invocation, reusing existing source:
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 scripts/zee_section8_Q4_pyrate_generator_gate.py \
+    --pyrate-root work/zee_section8_Q4_pyrate_v1/pyrate3_src \
+    --output-dir work/zee_section8_Q4_pyrate_v3
+```
+
+A successful subprocess run permits inspecting generated expressions but **does not certify** full Zee RGEs. Continue checking the Kanemura A13 and FLS f=0 limits, scalar trilinear/complex conjugation, and independent RGBeta output before physics acceptance. If other dependencies are unavailable in the parent interpreter, fail closed with a precise missing-package message rather than modifying the Zee model.
