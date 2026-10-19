@@ -130,6 +130,41 @@ class TestIndependentYukawaQuartic(unittest.TestCase):
         b=delta_bilinears(self.fields[8],{k:2*v for k,v in yy.items()})
         np.testing.assert_allclose(b,4*a,rtol=1e-12,atol=1e-14)
 
+    def test_full_complex_doublet_rephasing_invariance(self):
+        from zee_section8_Q4_independent_gauge_quartic_gate import (
+            complex_doublets_and_singlet)
+        rng=np.random.default_rng(711)
+        phi=rng.normal(size=10)
+        theta=.63
+        yy=synthetic_yukawas(20261019)
+        q=synthetic_quartics(20261020)
+        reference=fermionic_quartic_polynomial(phi,q,yy)
+        h1,h2,chi=complex_doublets_and_singlet(phi)
+        h2rot=np.exp(1j*theta)*h2
+        rotated=phi.copy()
+        rotated[4]=np.sqrt(2)*h2rot[0].real
+        rotated[5]=np.sqrt(2)*h2rot[0].imag
+        rotated[6]=np.sqrt(2)*h2rot[1].real
+        rotated[7]=np.sqrt(2)*h2rot[1].imag
+        yrot={k:np.array(v,copy=True) for k,v in yy.items()}
+        yrot['Yu2']*=np.exp(1j*theta)
+        for k in ('Yd2','Ye2'):
+            yrot[k]*=np.exp(-1j*theta)
+        qrot=dict(q)
+        qrot['l5']*=np.exp(-2j*theta)
+        for k in ('l6','l7','l10'):
+            qrot[k]*=np.exp(-1j*theta)
+        actual=fermionic_quartic_polynomial(rotated,qrot,yrot)
+        self.assertAlmostEqual(actual,reference,places=11)
+
+    def test_f_zero_fermionic_box_independent_of_charged_singlet_field(self):
+        yy=synthetic_yukawas(20261020)
+        a=np.array(self.fields[0],copy=True)
+        b=a.copy();b[8:]=np.array((9.2,-7.1))
+        ref=fermionic_quartic_polynomial(a,{},yy)
+        actual=fermionic_quartic_polynomial(b,{},yy)
+        self.assertAlmostEqual(actual,ref,places=11)
+
     def test_mock_output_comparison_detects_wrong_l10(self):
         q={'l1':.31,'l10':.025+.011j}
         yy=empty_yy();yy['Yu1']=np.diag((0,0,.93))
