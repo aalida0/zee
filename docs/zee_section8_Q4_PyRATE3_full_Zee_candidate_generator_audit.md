@@ -655,3 +655,56 @@ amplitudes), modern two-charged b->s gamma and HiggsTools also remain
 required for Paper 1. Do not extrapolate a 90-case diagnostic cohort
 into model-wide exclusion, discoverability or publication-level
 statistical conclusions.
+
+
+## C1 v2 AF result: scalar quartic UV diagnostics fail for ALL 30 selected spectra
+
+**Actual user-provided 2026-10-19 log:** C1 v2 ran 30 distinct B4 scalar spectra with three independent B2 neutrino-Yukawa representatives each, 90 joined full 26-one-loop-RGE trajectories and their numerical step-doubling controls. All **90/90** trajectories reached the **heuristic** \`max(|lambda_i|)=4*pi\` cutoff before the 10 TeV target. All 30 distinct scalar-spectrum cutoff estimates are in the range **1308.699–3605.650 GeV**, with median ~**1608.941 GeV**. **23/30** spectra cross below 2 TeV. First limiter: \`lh\` (the complex charged singlet self-quartic) in **18 spectra / 54 runs** and \`l1\` (the first Higgs-doublet quartic) in **12 spectra / 36 runs**. Leptonic solution ranks 1,2,3 have identical displayed limiting scales (high precision) for every spectrum. Coarse/fine boundary agreement metrics ~6.7e-6 to 2.04e-5, but **these quantify RK4 step-size sensitivity, not theoretical scale errors**.
+
+This is a useful **negative result in the biased, large-cascade B4 local sample**; NOT a universal constraint on the Zee model, NOR a full-theory UV bound. The initial \`lc~4.5\` is large in the original 2021-inspired benchmarks, and \`lambda1\` is sensitive to the neutral-scalar soft parameter. Do not conflate an arbitrary \`4*pi\` criterion with a Landau pole, or conclude that neutrino/LFV requirements intrinsically force the early scalar divergence without a general viable flavor fit.
+
+## Gate C2: 240-point PAIRED quartic UV-rescue experiment
+
+New driver \`scripts/zee_gateC2_paired_uv_rescue.py\` and tests \`tests/test_zee_gateC2_paired_uv_rescue.py\`. **C2 is deliberately a large physics-controlled study, not another small source-level coefficient gate.**
+
+For each of the same **30 B4 charged/neutral scalar spectra**, evaluate EIGHT systematically selected, mass-spectrum-preserving potentials (8×30=**240 initial spectrum-potentials**) at the **same** charged H1/H2 masses and charged mixing gamma, fixed neutral h,H,A masses, alpha,beta, tanbeta, k1,k2,k12, fixed same B2 neutrino f,Y family (rank 1).
+
+Interventions, performed as precise counterfactuals:
+1. unmodified C1 baseline, exactly reproducing its first crossing and driver;
+2. cap charged-singlet self quartic \`lh=lc<=1.0\`;
+3. cap \`lh<=0.4\`;
+4. tune \`lambda1=1.0\`;
+5. tune \`lambda1=0.5\`;
+6. combine \`lh<=1\` and \`lambda1=1\`;
+7. combine \`lh<=0.4\` and \`lambda1=1\`;
+8. combine \`lh<=0.4\` and \`lambda1=0.5\`.
+
+Tuning lambda1 is done exactly by inverse CP-even tree-mass reconstruction, at unchanged \`alpha,beta,mh125,mH\`:
+\`\`\`text
+m12sq = [mh125^2*cos(alpha)^2 + mH^2*sin(alpha)^2
+         - lambda1_target * v^2*cos(beta)^2]/tan(beta)
+\`\`\`
+Then recompute *all* 2HDM quartics and scalar-mass terms in the same fixed renormalizable potential; the charge/neutral scalar spectrum is unchanged but scalar interactions and all potential-sensitive bosonic decay widths can change. Simply replacing lambda1 in the RGE boundary without changing this underlying potential is NOT allowed.
+
+Lowering positive lh independently of the mass spectrum is possible because the charged singlet has no VEV. Recheck **exact scalar eigenmasses, Gate6 sufficient BFB, tree unitarity**. Original scalar S,T,U predictions depend on masses and mixing rather than lh or m12sq directly, so these on-shell oblique inputs stay unchanged under the paired intervention; other collider and precision observables can change and are explicitly NOT inherited.
+
+Use the saved B2 rank1 neutrino f,Y pair and recalculate neutrino matrix closure (it depends on mH1,mH2,gamma, unchanged); convert Higgs-basis Y into symmetry-basis Ye1/Ye2 exactly; evaluate provisional B3 included-channel charged branching fractions for the new potential; evolve *all 26 one-loop Zee couplings* using Q4v13 source-provenance lock with twice-refined RK4 to **10 TeV**. Numerically bracket any first |quartic|=4pi (or Yukawa/gauge heuristic) crossing and test numerical stability. Comparison baseline (unmodified) is also provenance-locked against saved **C1 v2 90-solution report**, with identical SHA hashes of B4/B2/RGEs and first crossing scales/drivers.
+
+**One AF command (do not reuse an old output directory):**
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateC2_paired_uv_rescue.py' -v &&
+python3 -u scripts/zee_gateC2_paired_uv_rescue.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+  --q4v13-report work/zee_section8_Q4_pyrate_v4/large_integrated_v1.json \
+  --c1-cohort-summary work/gateC1_joined_uv_v2_cohort/summary.json \
+  --max-spectra 30 --steps 24 --upper-GeV 10000 \
+  --output-dir work/gateC2_paired_uv_rescue_v1
+\`\`\`
+Outputs \`summary.json\` and \`paired_uv_rescue_diagnostics_NOT_ALLOWED.csv\`; summary shows per-variant tree acceptance, numerically stable UV trajectories, heuristic 10 TeV survival, limiting couplings, and per-spectrum paired rescue outcomes. If none survives, that is valuable evidence that simply decreasing lh/l1 is insufficient *in this particular high-cascade sample*. If some survive, advance these specifically to **full running BFB and tree unitarity, complete flavor/neutrino constraints and non-toy CKM matching**, before any allowed benchmark or high-scale bound. Recompute any altered cascade branching fractions and do not claim original phenomenological fit remains unchanged.
+
+**Crucial:** these 240 are **constructed modifications of a biased 30-spectrum shortlist**, not a random prior or exclusion limit for the general Zee theory. Physical allowed remains UNKNOWN; all full-LFV/HiggsTools/modern b->s gamma/global vacuum/CKM/threshold conditions NOT_EVALUATED.
