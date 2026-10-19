@@ -179,8 +179,30 @@ def dependency_manifest(modules=PYRATE_DEPENDENCIES)->dict[str,dict[str,str]]:
     return out
 
 
+def external_python_roots(paths=None)->list[str]:
+    """Restore parent search roots for transitive scientific dependencies.
+
+    PyR@TE source always remains ahead of these paths. Reject blank/current
+    working directory entries and paths containing an unrelated Particles.py
+    to prevent the original Key4hep collision from reappearing.
+    """
+    if paths is None:
+        paths=sys.path
+    out=[]
+    for value in paths:
+        if not value or not Path(value).is_absolute():
+            continue
+        path=Path(value).resolve()
+        if not path.is_dir() or (path/'Particles.py').is_file():
+            continue
+        if str(path) not in out:
+            out.append(str(path))
+    return out
+
+
 def isolated_pyrate_command(source:Path,entry:Path,model:Path,target:Path,
-                            dependencies:dict|None=None)->list[str]:
+                            dependencies:dict|None=None,
+                            extra_roots:list[str]|None=None)->list[str]:
     """Run UNMODIFIED PyR@TE under -I, with source first and dependencies second.
 
     The pinned PyR@TE Core must win over Key4hep's identically named
@@ -189,6 +211,8 @@ def isolated_pyrate_command(source:Path,entry:Path,model:Path,target:Path,
     """
     if dependencies is None:
         dependencies=dependency_manifest()
+    if extra_roots is None:
+        extra_roots=external_python_roots()
     bootstrap="""
 import importlib.util
 import json
@@ -198,9 +222,11 @@ from pathlib import Path
 
 root = Path(sys.argv[1]).resolve()
 deps = json.loads(sys.argv[2])
+extra_roots = json.loads(sys.argv[3])
 internal = [root/'src'/name for name in ('Core','IO','PyLie','GroupTheory')]
 dep_roots = list(dict.fromkeys(info['search_root'] for info in deps.values()))
-sys.path[:0] = [str(item) for item in internal] + [str(root/'src')] + dep_roots
+sys.path[:0] = ([str(item) for item in internal] +
+                [str(root/'src')] + dep_roots + extra_roots)
 
 internal_particles = (root/'src/Core/Particles.py').resolve()
 spec = importlib.util.find_spec('Particles')
@@ -216,16 +242,25 @@ for name, info in deps.items():
     if actual != expected:
         raise RuntimeError(
             f'PyR@TE dependency {name} import mismatch: {actual} != {expected}')
+    try:
+        imported = __import__(name)
+        reported_version = getattr(imported, '__version__', None)
+        if reported_version is None:
+            raise RuntimeError(f'{name} has no importable package version')
+    except Exception as exc:
+        raise RuntimeError(
+            f'PyR@TE dependency {name} failed to import from {actual}: '
+            f'{type(exc).__name__}: {exc}') from exc
 print('Q4_IMPORT_PROVENANCE',
       json.dumps({'Particles':str(origin),
                   'dependencies':{key:value['origin'] for key,value in deps.items()}},
                  sort_keys=True),flush=True)
-sys.argv = [str(root/'pyR@TE.py'), *sys.argv[3:]]
+sys.argv = [str(root/'pyR@TE.py'), *sys.argv[4:]]
 runpy.run_path(sys.argv[0], run_name='__main__')
 """
     return [
         sys.executable,'-I','-c',bootstrap,str(source),
-        json.dumps(dependencies,sort_keys=True),
+        json.dumps(dependencies,sort_keys=True),json.dumps(extra_roots),
         '--Model',str(model),'--Loops','1',
         '--Results',str(target),'--CheckGaugeInvariance','--PythonOutput',
         '--no-LatexOutput','--no-MathematicaOutput'
@@ -263,7 +298,11 @@ def execute(model:Path,output:Path,pyrate_root:Path|None,timeout:int)->dict:
     dependencies=dependency_manifest()
     (output/'pyrate3_python_dependency_provenance.json').write_text(
         json.dumps(dependencies,indent=2,sort_keys=True)+'\n')
-    cmd=isolated_pyrate_command(source,entry,model,target,dependencies)
+    restored_roots=external_python_roots()
+    (output/'pyrate3_transitive_import_roots.json').write_text(
+        json.dumps(restored_roots,indent=2)+'\\n')
+    cmd=isolated_pyrate_command(source,entry,model,target,dependencies,
+                                extra_roots=restored_roots)
     env=isolated_environment()
     generator_started=time.time()
     done=subprocess.run(cmd,cwd=source,capture_output=True,text=True,
@@ -292,6 +331,7 @@ def execute(model:Path,output:Path,pyrate_root:Path|None,timeout:int)->dict:
         'PYTHONPATH_PYTHONHOME_PYTHONSTARTUP_removed':True,
         'pyrate_source_imports_prepend':True,
         'third_party_import_locations_allowlisted':True,
+        'parent_transitive_dependency_roots_restored':len(restored_roots),
         'generated_file_count':len(files),
         'no_files_despite_zero_returncode':bool(done.returncode==0 and not files),
         'upstream_logs_from_this_run':recent_logs,
