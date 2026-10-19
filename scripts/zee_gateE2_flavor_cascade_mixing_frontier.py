@@ -272,9 +272,10 @@ def main():
         if len(rows)!=27:
             raise ValueError('Incomplete E2 cohort')
         cohort=summarize(rows)
-        result.update(status=STATUS,tested=len(rows),rows=rows,
-                      cohort=cohort,
-                      'not_an_experimental_exclusion':True)
+        result.update(
+            status=STATUS, tested=len(rows), rows=rows, cohort=cohort,
+            not_an_experimental_exclusion=True,
+        )
         target=args.output_dir/'mixing_Zvertex_vs_legacy_bsgamma_27_NOT_ALLOWED.csv'
         with target.open('w',newline='') as f:
             keys=['candidate_id','mH1','mH2','original_gamma',
