@@ -388,7 +388,7 @@ def main():
                         z["2026_NNLO_two_state_BR"] for z in results),
                     "maximum_BR":max(z["2026_NNLO_two_state_BR"] for z in results),
                     "Zee_exclusion_from_complete_likelihood":"NOT_COMPUTED",
-                    "full_global_Zee_viability":"UNKNOWN"})
+                    "full_global_Zee_viability":"UNKNOWN"}
         )
         outfile=args.output_dir/"source_validated_2026_NNLO_twocharged_27_NOT_GLOBAL_ALLOWED.csv"
         with outfile.open("w",newline="") as h:
