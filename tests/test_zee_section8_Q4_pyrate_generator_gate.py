@@ -14,7 +14,7 @@ from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from zee_section8_Q4_pyrate_generator_gate import (
     MODEL,EXPECTED,FIELD_Y,block,declared_terms,gauge_from_content,
-    preflight,sha256,PYRATE_SHA,isolated_pyrate_command,isolated_environment,dependency_manifest
+    preflight,sha256,PYRATE_SHA,isolated_pyrate_command,isolated_environment,dependency_manifest,external_python_roots
 )
 
 class TestQ4GeneratorInput(unittest.TestCase):
@@ -171,6 +171,64 @@ class TestQ4GeneratorInput(unittest.TestCase):
             self.assertNotEqual(proc.returncode,0)
             self.assertIn('dependency yaml import mismatch',proc.stderr)
             self.assertNotIn('SHOULD_NOT_EXECUTE',proc.stdout)
+
+    def test_external_roots_excludes_conflicting_particles_and_cwd(self):
+        with tempfile.TemporaryDirectory() as folder:
+            p=Path(folder)
+            trusted=p/'dependency_site';trusted.mkdir()
+            bad=p/'key4hep_python';bad.mkdir()
+            (bad/'Particles.py').write_text('origin="wrong"\n')
+            roots=external_python_roots(
+                ['', '.', str(bad), str(trusted), str(trusted), str(p/'missing')])
+            self.assertEqual(roots,[str(trusted.resolve())])
+    def test_nested_dependency_visible_under_isolated_python(self):
+        with tempfile.TemporaryDirectory() as folder:
+            p=Path(folder);root=p/'pyrate';core=root/'src/Core';core.mkdir(parents=True)
+            pkg=p/'sympy_site';(pkg/'sympy').mkdir(parents=True)
+            transitive=p/'transitive_site'
+            (transitive/'zee_q4_hidden_dependency').mkdir(parents=True)
+            (pkg/'sympy/__init__.py').write_text(
+                "import zee_q4_hidden_dependency\n"
+                "__version__='1.13.3'\n"
+                "FLAG=zee_q4_hidden_dependency.VALUE\n")
+            (transitive/'zee_q4_hidden_dependency/__init__.py').write_text(
+                "VALUE='TRANSITIVE_OK'\n")
+            (core/'Particles.py').write_text("FLAG='PYRATE_OWN_PARTICLES'\n")
+            (root/'pyR@TE.py').write_text(
+                "import sys,sympy,Particles\n"
+                "from pathlib import Path\n"
+                "p=Path(sys.argv[sys.argv.index('--Results')+1])\n"
+                "p.joinpath('dependency.txt').write_text(sympy.FLAG+':'+Particles.FLAG)\n")
+            destination=p/'result';destination.mkdir()
+            dependency={'sympy':{'origin':str(pkg/'sympy/__init__.py'),
+                                 'search_root':str(pkg)}}
+            cmd=isolated_pyrate_command(root,root/'pyR@TE.py',MODEL,destination,
+                                        dependency,[str(transitive)])
+            proc=subprocess.run(cmd,cwd=root,capture_output=True,text=True,
+                                timeout=20,env=isolated_environment())
+            self.assertEqual(proc.returncode,0,proc.stdout+proc.stderr)
+            self.assertEqual((destination/'dependency.txt').read_text(),
+                             'TRANSITIVE_OK:PYRATE_OWN_PARTICLES')
+            self.assertIn('Q4_IMPORT_PROVENANCE',proc.stdout)
+    def test_missing_nested_dependency_reports_exception_not_none(self):
+        with tempfile.TemporaryDirectory() as folder:
+            p=Path(folder);root=p/'pyrate';core=root/'src/Core';core.mkdir(parents=True)
+            pkg=p/'sympy_site';(pkg/'sympy').mkdir(parents=True)
+            (pkg/'sympy/__init__.py').write_text(
+                "import zee_q4_missing_dependency\n__version__='1.13.3'\n")
+            (core/'Particles.py').write_text('FLAG=1\n')
+            (root/'pyR@TE.py').write_text('print("SHOULD_NOT_RUN")\n')
+            destination=p/'result';destination.mkdir()
+            dependency={'sympy':{'origin':str(pkg/'sympy/__init__.py'),
+                                 'search_root':str(pkg)}}
+            cmd=isolated_pyrate_command(root,root/'pyR@TE.py',MODEL,destination,
+                                        dependency,[])
+            proc=subprocess.run(cmd,cwd=root,capture_output=True,text=True,
+                                timeout=20,env=isolated_environment())
+            self.assertNotEqual(proc.returncode,0)
+            self.assertIn('PyR@TE dependency sympy failed to import',proc.stderr)
+            self.assertIn('zee_q4_missing_dependency',proc.stderr)
+            self.assertNotIn('SHOULD_NOT_RUN',proc.stdout)
 
     def test_preflight_only_does_not_claim_betas(self):
         with tempfile.TemporaryDirectory() as d:
