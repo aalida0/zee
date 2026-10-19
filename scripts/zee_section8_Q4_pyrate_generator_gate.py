@@ -172,6 +172,21 @@ def execute(model:Path,output:Path,pyrate_root:Path|None,timeout:int)->dict:
     done=subprocess.run(cmd,cwd=source,capture_output=True,text=True,timeout=timeout)
     (output/'pyrate3_stdout.log').write_text(done.stdout)
     (output/'pyrate3_stderr.log').write_text(done.stderr)
+    diagnostic={
+        'stage':'pyrate3_subprocess',
+        'command':cmd,
+        'returncode':done.returncode,
+        'python_executable':sys.executable,
+        'python_version':sys.version,
+        'stdout_last_70_lines':'\n'.join(done.stdout.splitlines()[-70:])[-16000:],
+        'stderr_last_70_lines':'\n'.join(done.stderr.splitlines()[-70:])[-16000:],
+    }
+    (output/'pyrate3_diagnostic.json').write_text(json.dumps(diagnostic,indent=2)+'\n')
+    if done.returncode!=0:
+        print('Q4_PYRATE_STDOUT_TAIL_BEGIN\n'+diagnostic['stdout_last_70_lines']+
+              '\nQ4_PYRATE_STDOUT_TAIL_END',file=sys.stderr,flush=True)
+        print('Q4_PYRATE_STDERR_TAIL_BEGIN\n'+diagnostic['stderr_last_70_lines']+
+              '\nQ4_PYRATE_STDERR_TAIL_END',file=sys.stderr,flush=True)
     files=[str(p.relative_to(target)) for p in target.rglob('*') if p.is_file()]
     result={'pyrate_SHA':head,'command':cmd,'returncode':done.returncode,
             'generated_files':files,'generator_executed_successfully':done.returncode==0,
@@ -222,6 +237,9 @@ def main()->int:
         print('Q4_FULL_ZEE_BETAS_INDEPENDENTLY_VALIDATED False',flush=True)
         return 0
     except Exception as exc:
+        diagnostic_file=output/'pyrate3_diagnostic.json'
+        if diagnostic_file.is_file():
+            summary['generator_failure_diagnostic']=json.loads(diagnostic_file.read_text())
         summary['error']=repr(exc);summary['traceback']=traceback.format_exc()
         print('Q4_FAIL_CLOSED',repr(exc),file=sys.stderr,flush=True)
         return 1
