@@ -24,7 +24,7 @@ from pathlib import Path
 
 from gateA1r_run_br_pilot import check_superiso_source,compile_pilot
 from zee_gateE4b_2026_observable_validation import read_source_e4a
-from zee_gateF1_peerreviewed_flavio_27_observable import sha
+from zee_gateF1_peerreviewed_flavio_27_observable import sha, validate_e4a_typeii
 from zee_gateF2_eos_flavio_nlo_27_validation import (
     RatePair,model_coeffs,from_e4a_source, DENSE_MASS,
     TANBETA_VALUES,WC_NLO_OPERATORS, SUCCESS as F2_PASS)
@@ -178,7 +178,7 @@ def validate_provenance(e4a,f1,f2):
         raise ValueError("F3 cohort changed from F1/F2")
     return d,models,rows,f,s
 
-def calc(pair,exe,models,rows,f2):
+def calc(pair,exe,models,rows,f2,e4a_data=None):
     pair.prepare()
     alpha_b=pair.flavio.physics.running.running.get_alpha(
         pair.par,SCALE_B,nf_out=5)["alpha_s"]
@@ -236,11 +236,22 @@ def calc(pair,exe,models,rows,f2):
               "LO_EOS_DELTA_RATE_RESIDUAL",f"{rate_relative:.4g}",
               "EXCLUSION_UNKNOWN",flush=True)
     typeII=[]
+    anchors=validate_e4a_typeii(e4a_data) if e4a_data is not None else {}
+    if e4a_data is not None and len(anchors)!=18:
+        raise ValueError("F3 original 18 E4A TypeII reference controls absent")
+    seen_anchors=set()
     for t in TANBETA_VALUES:
         for mass in DENSE_MASS:
             # Regenerate full source-matched single charged spectrum;
             # same angles and masses at both eigenvalues.
             d=probe(exe,mass,mass,t,0.)
+            if (mass,t) in anchors:
+                a=anchors[mass,t]
+                for op in (7,8):
+                    if abs(d[0,op]["high_LO"]-float(a[f"LO_C{op}"]))>TOL_HIGH or abs(
+                        d[2,op]["high_NLO"]-float(a[f"NLO_C{op}_vendor"]))>TOL_HIGH:
+                        raise ValueError("F3 TypeII probe not original E4A source")
+                seen_anchors.add((mass,t))
             rates=eos_observable(pair,d,aslow)
             z={
                 "mass_GeV":mass,"tanbeta":t,
@@ -255,6 +266,8 @@ def calc(pair,exe,models,rows,f2):
                 "2017_580GeV_bound_reproduced":False,
             }
             typeII.append(z)
+    if e4a_data is not None and seen_anchors!=set(anchors):
+        raise ValueError("F3 dense scan omitted source-locked TypeII E4A anchors")
     errors=[]
     if max_wilson>RG_DIAGNOSTIC_MAX_FRACTION:
         errors.append("SuperIso low-scale raw dipole and wilson-eft LO evolution differ beyond 35%")
@@ -267,6 +280,7 @@ def calc(pair,exe,models,rows,f2):
     # perturbatively matched EOS observable in a certified common basis.
     summary={
         "Zee_spectra":len(outZ),"typeII_dense_benchmarks":len(typeII),
+        "source_locked_TypeII_18_anchor_coefficients_checked":len(seen_anchors),
         "RG_evaluations":len(outZ)+len(typeII),
         "muW_GeV":SCALE_W,"mub_GeV":SCALE_B,
         "max_relative_LO_raw_C7_C8_source_vs_wilson":max_wilson,
@@ -322,7 +336,7 @@ def main():
                                False)
         pair=RatePair()
         report=calc(pair,args.output_dir/"f3_source_pinned_RG_probe",
-                    models,rows,f2)
+                    models,rows,f2,data)
         report.update({
             "hash_E4A":sha(args.e4a_summary),
             "hash_F1":sha(args.f1_summary),
