@@ -240,3 +240,26 @@ python3 scripts/zee_section8_Q4_generated_source_limit_probe.py \
 ```
 
 Even all source-limit checks passing **does not** prove the general complex beta_f, general beta_Ye1/Ye2, beta_l6/l7/l10, muZee mass sector or RGBeta agreement. The next rigorous stage must inspect the explicit symbolic tensors and independently derive/compare these components.
+
+
+## Q4v6 — lepton Yukawa and full-complex covariance gate
+
+AF Q4v5: 9/9 synthetic tests and 11/11 source-limit comparisons PASS. Gauge exact; historical real-f beta reproduces Kanemura A13 (normalized residual 2.76e-16); complex f antisymmetry residual about 1e-18 absolute; four general quark Yukawas reproduce FLS 2010 at f=0 with normalized residuals below 8e-16. Existing NumPy matrix subclass warnings are cosmetic; the generated source uses matrix-specific multiplication and .H and must not be blindly converted to ndarray.
+
+New script: scripts/zee_section8_Q4_complex_lepton_scalar_covariance_gate.py
+New tests: tests/test_zee_section8_Q4_complex_lepton_scalar_covariance_gate.py (11 synthetic unit cases). AF validation remains pending.
+
+- Implement independently FLS 2010 Eq(5a-c) for both lepton Yukawa matrices Pi1/Pi2 with all six generic complex doublet Yukawas at f=0; a_Pi = -9/4 g2² - 15/4 gp².
+- Evaluate all 26 beta functions under Phi2_new=e^{i theta} Phi2_old and chi_new=e^{i psi} chi_old. Coupling weights: Yu2:+theta, Yd2/Ye2:-theta, f:-psi, l5:-2theta, l6/l7/l10/m12:-theta, muZee:-theta+psi, others invariant. Check H2 only, chi only and combined rephasings.
+- Check complex-conjugation covariance for all 26 and numerical reality of 13 beta functions for manifestly real couplings.
+- Test generic one-loop f-feedback in both charged-lepton Yukawas: nonzero with generic f, invariant under f phase and quadratic under f→2f. Quark beta functions must not have direct f dependence at one loop. Check the only dimension-one scalar coupling muZee=0 remains zero under RGEs.
+- Fail closed on any discrepancy; preserve raw source hashes and residuals. This is a model symmetry and FLS limiting-equation check, NOT an independent complete beta-function derivation or RGBeta validation.
+
+AF invocation (reuses existing generated RGEs; does NOT rerun PyR@TE or Q3):
+
+    cd /home/aalida/zee
+    git pull --ff-only
+    python3 -m unittest discover -s tests -p 'test_zee_section8_Q4_complex_lepton_scalar_covariance_gate.py' -v &&
+    python3 scripts/zee_section8_Q4_complex_lepton_scalar_covariance_gate.py --generator-output work/zee_section8_Q4_pyrate_v4/generator_output --report work/zee_section8_Q4_pyrate_v4/complex_covariance_v1.json
+
+Full complex Zee RGEs and physical point acceptance remain unverified.
