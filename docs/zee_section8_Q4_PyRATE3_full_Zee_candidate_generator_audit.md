@@ -951,3 +951,33 @@ Outputs:
 \`summary.json\` complete 300 per-solution partial LFV diagnostics, with explicit missing-physics flags; \`incomplete_flavor_diagnostics_300_NOT_ALLOWED.csv\` 300 flat rows; \`spectrum_flavor_shortlist_NOT_ALLOWED.csv\` 30 independently re-ranked spectra. No updated experimental limits are claimed, all experimental reference 90% limits are pinned to existing source code and must be checked before publication.
 
 The ultimate Paper 1 viability problem remains open. If all sampled B2 families have severe partial flavor tension, do not conclude general Zee excluded: these were only 300 PRE-RANKED restricted B2 samples with fixed central NO neutrino target, not globally fitted Yukawas. Next substantive work would be completing *missing dipole/3-body/conversion amplitudes*, then a proper global fit optimized over neutrino flavor while simultaneously imposing quark precision and Higgs constraints. Stop adding new RGE source checks unless new physics identifies a bug.
+
+
+
+## D1 input-shape correction: saved B2 Yukawa counts can be smaller than 10
+
+**Actual user AF error 2026-10-19:** initial D1 15/15 small tests passed after the earlier regex correction but the first production run stopped: \`D1_FAIL_CLOSED ValueError('Require all TEN saved B2 neutrino solutions for B4_0000648')\`. This was a **script assumption error**, not a neutrino mass failure. B2 generates 300 trial flavors and retains only solutions passing numerical and individual perturbativity checks. Its \`--top=10\` is an UPPER LIMIT, not an assurance that ten solutions survived for every scalar spectrum. The original C1 only needed three saved per spectrum and succeeded.
+
+**Correction implemented:** D1's \`load_cohort\` now requires **30 exact B4/B2 spectrum identifiers** and **1..10 saved solution dicts per spectrum** with matching IDs. Empty, >10, missing/incorrect or malformed entries fail closed. D1 enumerates **all actual saved solutions**, dynamically checks row total against \`sum(len(B2[id]))\`, and prints/stores the population histogram and per-spectrum counts. All 30 scalar-model preflight and full f/Y numerical closure checks remain; no solutions are artificially generated or duplicated. The input SHA hashes are unchanged, preserving all previous C2–C5 provenance. Output filenames and status now denote **available**, not the unjustified exact 300 assumption. No flavor distribution is claimed to contain 300 observations unless the saved input truly does.
+
+Tests updated to **19**, including balanced 30×10 complete-case, variable 30×(1..10), zero and >10 rejection and wrong-identity controls. Initial old output directory \`work/gateD1_joint_300_neutrino_lfv_v1\` contains a fail-closed summary and MUST NOT be reused; choose a fresh V2 path.
+
+Run:
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateD1_joint_300_neutrino_lfv_inventory.py' -v &&
+python3 -u scripts/zee_gateD1_joint_300_neutrino_lfv_inventory.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --c2-summary work/gateC2_paired_uv_rescue_v1/summary.json \
+  --c3-summary work/gateC3_running_complex_bfb_v1/summary.json \
+  --c4-summary work/gateC4_55channel_running_unitarity_v1/summary.json \
+  --c5-summary work/gateC5_charge_breaking_vacuum_v1/summary.json \
+  --solution-limit 10 \
+  --output-dir work/gateD1_joint_available_neutrino_lfv_v2
+\`\`\`
+
+Now prints \`D1_B2_SAVED_SOLUTION_COUNTS {...} D1_TOTAL_SAVED N\`, \`D1_FLAVOR_FAMILY...\`, and \`D1_TOTAL_NEUTRINO_LFV_CONFIGURATIONS N OF_MAXIMUM_POSSIBLE 300\`. Report has original B2 population and per-spectrum counts. Full-LFV/experimental/physical allowed remains **UNKNOWN**. If a larger/specified 300-solution cohort is scientifically needed later, that is a **new B2 generation experiment**, which changes input hashes and requires re-linking/revalidating dependent C2–C5 provenance; do not silently regenerate B2 for this D1 join.
