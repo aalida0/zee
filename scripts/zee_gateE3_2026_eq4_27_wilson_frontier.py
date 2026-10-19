@@ -202,7 +202,7 @@ def summarize(rows):
     half=[r['2026_Eq4_frontier'][2] for r in rows]
     return {
         'spectra':len(rows),
-        'two_charged_LO_matching_probes':2*len(rows),
+        'charged_scalar_LO_matching_inputs_assembled':2*len(rows),
         'all_27_legacy_E2_complete_provenance':True,
         'eq4_160GeV_LO_modern_2026_source':"arxiv:2608.29863v1 Eq.(4)",
         'modern_original_median_BR_times_1e4':statistics.median(
@@ -282,6 +282,8 @@ def main():
         if len(rows)!=27:
             raise ValueError('E3 incomplete source-matched Eq4 27 spectrum set')
         cohort=summarize(rows)
+        cohort['actual_unique_vendor_LO_probes_run']=len(cached)
+        cohort['cached_matching_inputs_reused']=54-len(cached)
         result.update(status=STATUS,tested=len(rows),rows=rows,cohort=cohort,
                       provenance={
                           'E1':digest(opts.e1_summary),
