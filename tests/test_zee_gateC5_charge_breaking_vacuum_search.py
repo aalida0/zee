@@ -151,7 +151,7 @@ class TestGateC5GlobalVacuumSearch(unittest.TestCase):
         cache=scalar_cache(s)
         ew=electroweak_check(self.point,cache,strict=False)
         x=np.array((np.cos(self.point['beta']),0.,
-                    np.sin(self.point['beta']),0.,3.,0.))
+                    np.sin(self.point['beta']),0.,2.,0.))
         val,_=gauge_value_and_gradient(x,cache)
         self.assertLess(val-ew['vacuum_V_over_v4'],-WITNESS_MARGIN)
 
