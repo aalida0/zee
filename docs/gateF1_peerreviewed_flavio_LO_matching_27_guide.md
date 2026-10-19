@@ -63,7 +63,8 @@ git pull --ff-only
 /usr/bin/python3.12 -m venv .venv-flavor-f1
 source .venv-flavor-f1/bin/activate
 python -m pip install --upgrade pip
-python -m pip install 'flavio==2.7.0' 'particle==0.26.2' 'wilson'\npython -m pip check
+python -m pip install 'flavio==2.7.0' 'particle==0.26.2' 'wilson'
+python -m pip check
 python -c 'import flavio,wilson; print("flavio",flavio.__version__,"wilson",getattr(wilson,"__version__","unknown"))'
 
 python -m py_compile \
