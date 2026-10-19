@@ -137,3 +137,40 @@ Outputs:
 **Scientific accept/reject:** This is source-validated **MATCHING-LEVEL** progress only. The SM+charged matching vectors themselves are NOT the full 2026 2HDM-II BR; they cannot reproduce the 2026 **670 GeV 95% CL limit** without the authors' phase-space/matrix-element + nonperturbative observable and uncertainty model. We explicitly report P0/P1 BLOCKED even after 5184 matching coefficients have passed numerical algebra. No new numerical model exclusion, 95% confidence interval, or physically allowed Zee point is possible yet. Do not substitute an old SuperIso BR with a 2026 SM central value or fabricate covariance.
 
 The next REAL precision action is a source-supported 2026 observable kernel, then numerical blind Type-II mass-curve/670GeV validation, then coherent 2-state Zee NP prediction.
+
+
+## E4A ACTUAL AF RESULT (2026-10-19): INTEGRATED MATCHING PASS; PRECISION EXCLUSION BLOCKED
+
+User uploaded complete terminal log \`Pasted text(20261019-191657).txt\`: one end-to-end mocked integration regression ran successfully (**1 test, ~0.012 s**) exercising 27 artificial \`B4_0000000...B4_0000026\` parameter rows. **Do not confuse this synthetic regression stdout with the following real source runs**. Subsequently, the real AF E4A driver executed on the 27 original B4 IDs (B4_0000318, ... B4_0001151) with 216 pinned vendor evaluations.
+
+Actual E4A real cohort summary:
+\`\`\`text
+status                               GATE_E4A_ALL_ORDERS_COHERENT_MATCHING_COMPLETED_2026_PRECISION_OBSERVABLE_BLOCKED
+Zee spectra                         27/27
+Zee gamma/source evaluations        162
+Type-II pure-state mass×tanbeta     18 (including 670 GeV × tanbeta 5.6,50)
+Type-II pure gamma evaluations      54
+Source-pinned matching calls        216
+Coefficient entries inspected       5184 = 216×3 orders×8 operators
+Original physical gamma coefficients exported 648 = 27×3×8
+Original-source Mathematica audited 48
+Maximum Zee mixing source residual  0
+Maximum fixed-mass source variation 0
+Max Type-II equal-mass gamma error   1.7763568394002505e-15
+2026 Type-II 670 GeV 95% CL reproduced FALSE
+2026 precision Zee exclusion       NULL
+E4A_P0_FULL_2026_OBSERVABLE         BLOCKED_MISSING_2026_FULL_NNLO_MATRIX_ELEMENTS_AND_LIKELIHOOD
+E4A_PHYSICAL_ZEE_ALLOWED           UNKNOWN
+output work/gateE4a_large_matching_typeII_27_v1/summary.json
+\`\`\`
+
+For the actual 27 models, the independently rebuilt 2026 Eq4 LO *NP-sensitivity estimate* is numerically identical to E3; it ranges 4.10760694190546 to 4.293920072872331 times 10^-4. The source printout's \`C7_LO ~ -0.24\`, \`C8_LO ~ -0.15\`, \`C3_NNLO ~ -7\`, \`C4_NNLO ~ +12.5\` are **the combined SM+charged-state entries**, not the new-physics differences. The source prints \`MATCH order=... sm=... delta_light=... delta_heavy=... zee=...\`; only the individual \`delta\` fields isolate NP, and NNLO operator conventions/effective basis must be audited before interpreting these values across perturbative orders. Do not claim the large combined C3/C4 values represent physical large Higgs effects.
+
+**Scientific interpretation and forward decision:**
+1. E4A demonstrably completes full-case **algebraic/source matching** and common-scale mixed-state inputs; gamma invariance in fixed spectra is partly guaranteed by \`w1*cos²+w2*sin²\` algebra and is NOT independent validation of complete 2026 higher-order inclusive BR.
+2. E4A reran earlier A1Q source residual decompositions; it **did not remove** known SuperIso-vs-original NNLO C3...C6 basis/formula discrepancies (nor reconcile the direct HEPfit dipole numerical differences). Hence it must not be relabeled full NNLO matching validated merely because all 216 source calls returned finite coefficients.
+3. The 2026 paper arXiv:2608.29863 §IV Eq4 is explicitly an LO NP linearization; its 670 GeV Type-II lower bound is computed with higher-order 2HDM matching. No general high-precision two-charged observable kernel, full correlation matrix or equivalent readout was identified in the checked paper text or available repository. Code/documentation record this uncertainty rather than assuming absence of any private author code.
+4. **STOP iterative approximate BR recentering**; 27-spectra numerical trend is already clear. Next go/no-go is recovering/implementing a *validated* low-scale observable kernel and comparing an entire Type-II BR-vs-mass curve (at tanβ=50, including 670 GeV) with publication uncertainties/95% CL, followed by common-Wilson-vector two-state generalization. A reproducible source package or machine-readable Type-II benchmark from authors would be helpful, but not replaced by guessing parameters from the figure.
+5. Parallel independent physics route, if kernel unavailable: fully rebuild scalar/neutrino/f/Y and full RGE at new **heavy charged-mass** points (not mixing-only counterfactuals), while keeping \`BtoXsGamma allowed = UNKNOWN\` until precision validated. More benchmark source sampling of the existing 27 states will not establish Paper 1's needed physical allowed overlap.
+
+**Validation:** user AF reported the 1-test integrated regression \`OK\`, then 27 real cases, \`E4A_LARGE_INTEGRATED_MATCHING\`, \`E4A_P0_FULL_2026_OBSERVABLE BLOCKED...\` and summary file path. The assistant did not personally run AF.
