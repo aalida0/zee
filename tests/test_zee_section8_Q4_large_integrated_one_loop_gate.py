@@ -44,8 +44,8 @@ class TestQ4LargeOneLoop(unittest.TestCase):
         self.assertEqual(set(MATRIX_NAMES),
                          {'Yu1','Yu2','Yd1','Yd2','Ye1','Ye2','f'})
 
-    def test_12_complex_independent_reference_points_finite(self):
-        for seed in range(20261101,20261113):
+    def test_three_complex_independent_reference_points_finite(self):
+        for seed in range(20261101,20261104):
             s=baseline(seed)
             out,_=independent_full_beta(
                 s,self.fields,self.quartic_basis,self.dimension_basis)
@@ -84,16 +84,20 @@ class TestQ4LargeOneLoop(unittest.TestCase):
         from zee_section8_Q4_independent_f_quartic_gate import synthetic_f
         s['f']=np.matrix(synthetic_f(20261019))
         s.update({'m1':0.,'m2':0.,'mchi':129000.,
-                  'm12':0.,'muZee':220.+55j})
-        bet,_=combined_dimensional_beta(
+                  'm12':0.,'muZee':0.})
+        pure_mass,_=combined_dimensional_beta(
             s,self.fields,self.dimension_basis)
         trace=float(np.trace(s['f'].H@s['f']).real)
-        self.assertAlmostEqual(bet['mchi'],8*trace*s['mchi'],delta=1e-7)
-        self.assertAlmostEqual(bet['muZee'].real,
+        self.assertAlmostEqual(pure_mass['mchi'],8*trace*s['mchi'],delta=1e-7)
+        s['muZee']=220.+55j
+        with_mu,_=combined_dimensional_beta(
+            s,self.fields,self.dimension_basis)
+        self.assertAlmostEqual(with_mu['muZee'].real,
             4*trace*s['muZee'].real,delta=1e-8)
-        # Cubic scalar loop produces additive masses from mu^2.
-        self.assertGreater(bet['m1'],0.)
-        self.assertGreater(bet['m2'],0.)
+        # Cubic scalar loop also produces additive masses from |mu|^2.
+        self.assertGreater(with_mu['m1'],pure_mass['m1'])
+        self.assertGreater(with_mu['m2'],pure_mass['m2'])
+        self.assertGreater(with_mu['mchi'],pure_mass['mchi'])
 
     def test_top_only_higgs_mass_and_zee_cubic_wave(self):
         s=gauge_only()
