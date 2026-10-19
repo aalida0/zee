@@ -207,7 +207,7 @@ def typeii_controls(e4a,binpath):
         raise ValueError("Full Type-II curve count incorrect")
     return result
 
-def run(pair,e4a,f1,path_probe):
+def run(pair,e4a,f1,path_probe,e1=None):
     data,models,rows=read_source_e4a(e4a)
     f1r=json.loads(Path(f1).read_text())
     if (f1r.get("source_e4a_summary_sha256")!=sha(e4a) or
@@ -218,6 +218,15 @@ def run(pair,e4a,f1,path_probe):
     old={r["candidate_id"]:r for r in f1r["Zee_27_results"]}
     if len(old)!=27 or set(old)!={m["candidate_id"] for m in models}:
         raise ValueError("F1/F2 cohort identities disagree")
+    old_legacy=None
+    if e1 is not None:
+        if data.get("fingerprints_sha256",{}).get("E1")!=sha(e1):
+            raise ValueError("E1 original SuperIso SHA does not match E4A ancestry")
+        e1data=json.loads(Path(e1).read_text())
+        old_legacy={r["candidate_id"]:r for r in e1data.get("rows",[])}
+        if (e1data.get("tested")!=27 or len(old_legacy)!=27 or
+            set(old_legacy)!=set(old)):
+            raise ValueError("Original legacy E1 27-spectrum source mismatched")
     pair.prepare()
     controls=typeii_controls(data,path_probe)
     typeii=[];zee=[]
@@ -236,7 +245,15 @@ def run(pair,e4a,f1,path_probe):
                  "mH2_GeV":model["mH2_GeV"],
                  "tanbeta":model["tanbeta"],"gamma":model["gamma"],
                  **z,"F1_LO_flavio_control_BR":old[name]["flavio_hybrid_BR"],
-                 "Zee_allowed_or_excluded":None}
+                 "Zee_allowed_or_excluded":None,
+                 "legacy_SuperIso_BR_separate_scheme":(
+                     None if old_legacy is None else
+                     finite(old_legacy[name][
+                         "B_to_Xs_gamma_legacy_Zee_BR"],"E1 legacy BR")),
+                 "legacy_E1_vs_f2_absolute_difference_DIAGNOSTIC":(
+                     None if old_legacy is None else
+                     z["flavio_BR"]-finite(old_legacy[name][
+                         "B_to_Xs_gamma_legacy_Zee_BR"],"E1 legacy BR"))}
             zee.append(rec)
         print("F2_ZEE",f"{k}/27",name,
               "F1_reproduced",f"{v_lo['flavio_BR']:.11g}",
@@ -302,11 +319,13 @@ def run(pair,e4a,f1,path_probe):
         "typeii_checks":checks,"errors":reasons,
         "EOS_independent_NLO_rate_but_shared_E4A_matching_and_wilson_running":True,
         "NLO_BSM_complete":False,
+        "separate_legacy_E1_27_comparison_included":old_legacy is not None,
         "2017_TypeII_580GeV_95CL_reproduced":False,
         "publishable_Zee_95CL_exclusions":False}
     return {
         "status":SUCCESS if not reasons else BLOCKED,
         "source_F1_sha256":sha(f1),"source_E4A_sha256":sha(e4a),
+        "source_E1_legacy_sha256":sha(e1) if e1 is not None else None,
         "flavio_version":pair.flavio_version,
         "EOS_version":pair.eos_version,"wilson_version":pair.wilson_version,
         "matching_raw_source":"E4A CW_calculator at mu0=160GeV",
@@ -328,6 +347,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument("--e4a-summary",type=Path,required=True)
     p.add_argument("--f1-summary",type=Path,required=True)
+    p.add_argument("--e1-summary",type=Path)
     p.add_argument("--e4a-probe",type=Path)
     p.add_argument("--output-dir",type=Path,required=True)
     a=p.parse_args()
@@ -344,8 +364,11 @@ def main():
             ("compiled pinned E4A matching probe",binpath)):
             if not path.is_file():
                 raise FileNotFoundError(f"{label} missing: {path.resolve()}")
+        if a.e1_summary is not None and not a.e1_summary.is_file():
+            raise FileNotFoundError("Optional E1 summary missing: "
+                                    +str(a.e1_summary.resolve()))
         pair=RatePair()
-        report=run(pair,a.e4a_summary,a.f1_summary,binpath)
+        report=run(pair,a.e4a_summary,a.f1_summary,binpath,a.e1_summary)
         write_csv(a.output_dir/"F2_54_Zee_LO_NLOmatching_real_EOS_flavio.csv",
                   report["Zee_27_by_matching_order"])
         write_csv(a.output_dir/"F2_TypeII_dense_EOS_flavio_LO_NLOmatching.csv",
