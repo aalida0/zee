@@ -81,7 +81,8 @@ def fixture():
     return ({"status":"source_proxy"},models,rows),typeii,existing
 
 class TestF2OneLargeRealWorkflowContract(unittest.TestCase):
-    def test_27_zee_dense_typeii_and_fail_closed_injections(self):
+    @patch("builtins.print")  # Never display synthetic F2_ZEE as real AF physics
+    def test_27_zee_dense_typeii_and_fail_closed_injections(self, _unused_print):
         e4a,typeii,rows=fixture()
         with tempfile.TemporaryDirectory() as d:
             path=Path(d)/"f1.json"
