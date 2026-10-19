@@ -516,3 +516,54 @@ python3 scripts/zee_section8_Q4_large_integrated_one_loop_gate.py \
 \`\`\`
 
 **Current state:** Q4v13 code committed, NOT executed on UChicago AF; 676 comparisons are pending. Even 676/676 would certify only **tested one-loop full-complex RHS numerical consistency and short integration**, NOT RG threshold matching, independent 2-loop terms, global vacuum stability, physical neutrino/LFV/flavor/Higgs constraints, or permission to call candidates 0/32 viable. Physical Zee allowed=UNKNOWN. Follow-up after success should be first a scale-running/threshold prescription and then actual flavour/viability pipeline; avoid endless Q4 check proliferation.
+
+
+## Q4v13 AF PASSED: integrated 26-function one-loop numerical agreement
+
+**Actual UChicago AF output from user:** all 26 one-loop generated beta functions agree at **12 generic complex points + 4 independently rephased complex points + 5 points on each of two short numerical RG trajectories**. This is **676/676 PASS**. Largest absolute difference across the logged points is about 1.28e-9 on dimensionful coefficients, within the explicit scale-aware tolerance. The Type-II-start Yukawa trajectory from 700 to 2000 GeV induced Frobenius norms |Yd2|_F = 5.492237841e-7, |Yu1|_F = 5.069945239e-6, even though both vanished initially. These are sources of wrong-doublet couplings and NOT neutral meson FCNC likelihoods or exclusions.
+
+Total prior Q4v5..v12 543 checks + Q4v13 676 = **1219/1219 source/limit/metamorphic numerical comparisons PASS**. Full 26-equation one-loop RHS is now strongly cross-validated at tested complex points, including the dimensionful gauge+Yukawa+f terms, and a modest coupled one-loop integration. This is enough to stop adding serial *coefficient-only* gates. **No complete physics acceptance is established**: potential EFT thresholds, full BFB along complex RGE flows, global vacuum, collider tools, matched NNLO b->s gamma, CKM and precision quark input scheme, neutrino parameter likelihood and all LFV amplitudes remain incomplete. Continue the Paper 1 model/flavor physics program.
+
+## Next single *physics-connected* pilot: Gate C1 joined scalar/neutrino/full-one-loop UV diagnostics
+
+- Script: \`scripts/zee_gateC1_joined_uv_pilot.py\`
+- Regression suite: \`tests/test_zee_gateC1_joined_uv_pilot.py\` (15 unittest methods).
+- Output: \`work/gateC1_joined_uv_v1/summary.json\` and \`joined_uv_diagnostics_NOT_ALLOWED.csv\`.
+
+Use the EXISTING B4 scalar/EWPO screened thirty spectra and corresponding B2 neutrino-closed (f,Y) solutions, not new random, unproven potential points. Build **one coherent renormalizable lagrangian at matching scale mu0=mH2** for each tested solution.
+
+**SCALAR:** explicitly map restricted CP-conserving Florentino et al. (2021) Eq.16 into PyR@TE's general complex UV basis:
+
+\`\`\`text
+l1..5 = lambda1..lambda5 from Gate6 inverse spectrum
+l6=l7=0; lh=lc; l8=k1; l9=k2; l10=-k12
+m12=m12sq; mchi=mc2; muZee=mu4;
+m1=m12sq*tan(beta)-v²/2*(lambda1*cos²(beta)+lambda345*sin²(beta))
+m2=m12sq*cot(beta)-v²/2*(lambda2*sin²(beta)+lambda345*cos²(beta))
+\`\`\`
+
+Match all reconstructed neutral, pseudoscalar and charged masses and check the B4 serialized quartics; require Gate6 sufficient BFB and tree unitarity at mu0. Complex \`l6,l7\`, \`l10\` and wrong-doublet quark Yukawa couplings may be generated under coupled RG flow; DO NOT artificially project them back to the restricted subspace at each step.
+
+**LEPTON:** B2's Chen/Herrero charged-lepton mass/Higgs-basis Y is the coefficient of \`-sqrt(2)*bar(ell_R) Y nu_L H_perp^-\`. The symmetry-basis Yukawas used by generated RGE are instead \`Ye1=cos(beta)*kappa_e-sin(beta)*rho_e\`, \`Ye2=sin(beta)*kappa_e+cos(beta)*rho_e\`, where \`kappa_e=sqrt(2)*Mell/v\`, \`rho_e=sqrt(2)*Y†\` with the Hermitian conjugation ESSENTIAL to preserve flavor orientation. Preserve the antisymmetric B2 f with the model's charged-singlet phase convention. Require neutrino mass-matrix closure against the same one fixed illustrative NO target and verify saved B2 closure roundtrips.
+
+**QUARK and EW GAUGE input scope:** illustrative diagonal CKM=I Type-II quark Yukawa boundary, approximate dimensionless SM Yukawa eigenvalues (top .93 etc) divided by sin(beta)/cos(beta) respectively, and approximate gauge couplings. These are NOT precise running MS-bar Yukawas or a physical CKM/flavor fit and must be replaced before any quantitative UV cutoff or FCNC exclusion result. This deliberate scope limitation avoids presenting an arbitrary quark boundary as physics.
+
+**FLOW:** RK4 over all 26 real/complex matrices and couplings, from mu0=mH2 to 10 TeV, with 24 time steps and an independently repeated 48-step run. Record the coarse/refined terminal mismatch (must be <=2e-4 on max-scaled coefficient) if both reach the endpoint; if a threshold is crossed, retain both paths as diagnostic stopping cases, not UV exclusion. Heuristic stopping diagnostics: quartic absolute value reaches 4*pi or Yukawa entry abs reaches sqrt(4*pi), or gauge input >=3. These are deliberately NOT rigorous perturbativity/unitarity/BFB conditions and not physical UV scales; no decoupling or thresholds. Output per-solution status, last mu, generated lambda6/7, wrong-doublet Yukawa norms, B2 neutrino closure, initial scalar BFB, and every incomplete physical constraint as NOT_EVALUATED.
+
+**One AF run (NO PyR@TE regeneration):**
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateC1_joined_uv_pilot.py' -v &&
+python3 scripts/zee_gateC1_joined_uv_pilot.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+  --top-candidates 3 --solutions-per-candidate 2 --steps 24 \
+  --upper-GeV 10000 \
+  --output-dir work/gateC1_joined_uv_v1
+\`\`\`
+
+This is a **large physical mapping and coupled flow exercise**, not another coefficient-by-coefficient validation. Gate C1 does **not** implement full lepton flavor or meson likelihoods, HiggsTools, global vacuum or threshold matching; those are the next actual paper constraints. NO output receives an "allowed" label.
