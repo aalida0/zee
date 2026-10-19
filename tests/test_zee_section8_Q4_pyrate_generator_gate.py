@@ -4,6 +4,7 @@ Does not calculate or validate any full Zee beta function.
 """
 from __future__ import annotations
 import json
+import os
 import subprocess
 import sys
 import tempfile
@@ -13,7 +14,7 @@ from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from zee_section8_Q4_pyrate_generator_gate import (
     MODEL,EXPECTED,FIELD_Y,block,declared_terms,gauge_from_content,
-    preflight,sha256,PYRATE_SHA
+    preflight,sha256,PYRATE_SHA,isolated_pyrate_command,isolated_environment
 )
 
 class TestQ4GeneratorInput(unittest.TestCase):
@@ -72,6 +73,52 @@ class TestQ4GeneratorInput(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'trilinear missing SU2'):
             self.mutated('muZee: Eps[i,j] Phi1[i] Phi2[j] chibar',
                          'muZee: Phi1[i] Phi2[j] chibar')
+    def test_key4hep_pythonpath_removed_in_generator_environment(self):
+        from unittest.mock import patch
+        with patch.dict(os.environ,{'PYTHONPATH':'/bogus/key4hep/Particles.py',
+                                    'PYTHONHOME':'/bogus/python',
+                                    'PYTHONSTARTUP':'/bogus/start.py',
+                                    'Q4_NATIVE_LIBRARY_TEST':'preserved'}):
+            result=isolated_environment()
+            for key in ('PYTHONPATH','PYTHONHOME','PYTHONSTARTUP'):
+                self.assertNotIn(key,result)
+            self.assertEqual(result['Q4_NATIVE_LIBRARY_TEST'],'preserved')
+    def test_pinned_source_particles_takes_precedence_over_key4hep_collision(self):
+        with tempfile.TemporaryDirectory() as d:
+            p=Path(d)
+            src=p/'pyrate';core=src/'src'/'Core'
+            core.mkdir(parents=True)
+            malicious=p/'key4hep';malicious.mkdir()
+            (core/'Particles.py').write_text('ORIGIN="PINNED_PYRATE"\\n')
+            (malicious/'Particles.py').write_text('ORIGIN="KEY4HEP_COLLISION"\\n')
+            (src/'pyR@TE.py').write_text(
+                'import sys,Particles\\n'
+                'from pathlib import Path\\n'
+                'Path(sys.argv[sys.argv.index("--Results")+1]).joinpath("origin.txt").write_text(Particles.ORIGIN)\\n'
+            )
+            output=p/'out';output.mkdir()
+            cmd=isolated_pyrate_command(src,src/'pyR@TE.py',MODEL,output)
+            self.assertEqual(cmd[1],'-I')
+            env=os.environ.copy()
+            env['PYTHONPATH']=str(malicious)
+            run=subprocess.run(cmd,cwd=src,env=env,capture_output=True,
+                               text=True,timeout=20)
+            self.assertEqual(run.returncode,0,run.stdout+run.stderr)
+            self.assertEqual((output/'origin.txt').read_text(),'PINNED_PYRATE')
+    def test_missing_source_particles_fails_closed_not_using_key4hep(self):
+        with tempfile.TemporaryDirectory() as d:
+            p=Path(d);src=p/'pyrate';(src/'src'/'Core').mkdir(parents=True)
+            malicious=p/'key4hep';malicious.mkdir()
+            (malicious/'Particles.py').write_text('ORIGIN="KEY4HEP_COLLISION"\\n')
+            (src/'pyR@TE.py').write_text('print("UNSAFE_EXECUTION")\\n')
+            output=p/'out';output.mkdir()
+            cmd=isolated_pyrate_command(src,src/'pyR@TE.py',MODEL,output)
+            env=os.environ.copy();env['PYTHONPATH']=str(malicious)
+            run=subprocess.run(cmd,cwd=src,env=env,capture_output=True,
+                               text=True,timeout=20)
+            self.assertNotEqual(run.returncode,0)
+            self.assertIn('PyR@TE Particles import collision',run.stderr)
+            self.assertNotIn('UNSAFE_EXECUTION',run.stdout)
     def test_preflight_only_does_not_claim_betas(self):
         with tempfile.TemporaryDirectory() as d:
             target=Path(d)/'q4_out'
