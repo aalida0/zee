@@ -321,3 +321,34 @@ against the independent gauge expression. This isolates g^4 and lambda*g² witho
     python3 scripts/zee_section8_Q4_independent_gauge_quartic_gate.py --generator-output work/zee_section8_Q4_pyrate_v4/generator_output --report work/zee_section8_Q4_pyrate_v4/gauge_quartic_v1.json
 
 Even 66/66 PASS would establish only the gauge-dependent quartic contributions in addition to the previous pure-scalar limits. The complete Yukawa-dependent quartic beta terms, full complex f/charged-lepton mixing betas, trilinear/mass betas and independent RGBeta full-theory agreement remain unvalidated. No physical Zee point has been established.
+
+
+## Q4v9 — Independent f=0 fermion-box and mixed quartic-Yukawa RGE stage
+
+User-run AF Q4v8 **66/66 PASS** for independent electroweak-gauge contributions to all eleven Zee quartic beta functions at six parameter configurations. Maximum absolute difference among reported cases ~1.61e-15. This validates tested scalar-gauge g^4 and lambda*g² contributions on top of Q4v7's 66/66 independent scalar-only checks. Overall previously reported numeric gauge/FLS/Kanemura source limits 11/11, complex covariance 156/156, scalar Hessian 66/66, and gauge quartic 66/66 have passed: **299 numeric checks** across complementary tests. This is NOT an independent verification of the entire 26-function beta system.
+
+The new independent Q4v9 script `scripts/zee_section8_Q4_independent_yukawa_quartic_gate.py` calculates **fermionic Yukawa effects in the f=0 limit**, without reusing PyR@TE loop formulas. With arbitrary complex Yukawa matrices Yu1/Yu2, Yd1/Yd2, Ye1/Ye2 and arbitrary charged + neutral Higgs backgrounds, build the quark (uL,dL) × (uR,dR) 6×6 Dirac mass matrix and lepton (nuL,eL) × eR 6×3 mass matrix from the Higgs/Yukawa Lagrangian. The one-loop fermionic Coleman–Weinberg quartic divergence is
+
+```text
+(16*pi²) beta(V4)|ferm_box = -2 [3 Tr((Mq†Mq)^2) + Tr((Me†Me)^2)].
+```
+
+The independent Higgs wavefunction mixing matrix `T_kl = 3Tr(Yd_k Yd_l† + Yu_k† Yu_l) + Tr(Ye_k Ye_l†)` comes from the FLS 2010 multi-doublet Yukawa formalism; apply `delta(Phi_l) = sum_k T_kl Phi_k` to the general Zee quartic potential and add `delta V4` for its one-loop lambda*Y² contributions. No additional f wavefunction contribution is included because **f is explicitly zero**.
+
+Project the total fermionic quartic polynomial onto the **15 real quartic components** using the independently verified 10-real-field design. Compare against `beta_l[PyR@TE](Y) - beta_l[PyR@TE](Y=0)` with gauge=0, f=0 and dimensions=0; pure-scalar terms cancel. Seven configurations (isolated top, lepton, full-complex quark/lepton, nonzero general scalar quartics and complex portals) yield **77 comparisons** covering all eleven quartic functions. Fifteen synthetic/analytic tests verify standard top-only beta_l2=-12yt^4 and +12lambda2 yt², lepton beta_l1=-4ye^4 and +4lambda1 ye², charged portal l8 contribution +6 yt² l8, complex projection, quartic scaling, and mutated lambda10 comparator rejection.
+
+**This is NOT the nonzero-f full Zee Yukawa/portal validation**. Do not claim full model RGEs accepted if Q4v9 passes. Next source-independent physics step is the f-dependent quartic contributions and full complex lepton/f beta coefficients, then dimensionful scalar beta terms and RGBeta.
+
+One AF command, reusing existing PyR@TE export:
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+ -p 'test_zee_section8_Q4_independent_yukawa_quartic_gate.py' -v &&
+python3 scripts/zee_section8_Q4_independent_yukawa_quartic_gate.py \
+ --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+ --report work/zee_section8_Q4_pyrate_v4/yukawa_quartic_f_zero_v1.json
+```
+
+Pending AF evaluation. The generator is NOT rerun. Complete Zee beta validation remains FALSE, and physical point acceptance UNKNOWN/NOT EVALUATED.
