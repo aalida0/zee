@@ -1111,3 +1111,32 @@ python3 -u scripts/zee_gateD4_W_photon_barr_zee_27.py \
 \`\`\`
 
 The report \`summary.json\` and \`27_W_photon_extended_LFV_diagnostics_NOT_ALLOWED.csv\` compare D2 vs D4 old/new partial score, flavor channel and relative W-to-prior amplitude. Individual contributions returned in \`per_channel_amplitude_parts\`. No physical LFV "pass" or exclusion: absent W-Z, charged-Higgs scalar-loop/Barr-Zee, full loop-3lepton and mu-e conversion; and input quark matching is only Type-II nominal. The applied W-photon formula should still be independently convention-benchmarked against a published complete 2HDM decay for publication claims. If D4 destroys most D2 subtotal gains, next step should be optimizing f/Y with this new W amplitude included and subsequently rerunning RGE, not inferring model exclusion. If W term is small and leaves gains, next step is charged scalar and Z-exchange bosonic two-loop amplitudes and complete lepton flavor likelihood.
+
+
+## D4 AF outcome (Oct 19, 2026) and D5 direct Higgs LFV
+
+D4 user stdout: 27/27 D3-optimized Zee neutrino-closed spectra retain an incomplete coherent LFV score below 1 after adding the real W-photon Barr-Zee contribution. Median new partial score 0.0022783299761540577; minimum 3.678069679209149e-05 (B4_0000733); maximum 0.13781658523844337 (B4_0001097); largest rate-score amplification 1352.4078051972074. This is NOT a physical acceptance or complete LFV calculation. Certain models have large W-induced shifts (B4_0000874 and B4_0001097); others show destructive interference. The shared D3 26-beta full Zee running/BFB/55channel 10-TeV screens remained successful in at least one quartic variant per spectrum.
+
+Gate D5 ADDITIONAL PHYSICS test (new script scripts/zee_gateD5_h125_direct_LFV_27.py and 16 regression tests in tests/test_zee_gateD5_h125_direct_LFV_27.py): For the 27 original D2 Yukawa matrices, compute genuine tree physical 125 GeV Higgs charged lepton flavor violating widths h->e mu, e tau, mu tau, including both charge conjugate final states and exact finite lepton masses. Use the A1D Higgs-basis physical scalar couplings C_h, and verify the analytic massless limit and pure-diagonal-SM limit. As C2 quartic choices fix scalar masses/mixing/alpha/beta, do NOT double count identical h LFV predictions as two independent flavor points.
+
+Reference observed direct 95% CL limits: CMS HIG-22-002 h->e mu < 4.4e-5 (PhysRevD108 072004, 2023); ATLAS JHEP 07 (2023) 166 h->e tau < 0.0020, h->mu tau < 0.0018. URLs respectively https://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-22-002/index.html and https://link.springer.com/article/10.1007/JHEP07(2023)166 . Note these experimental bounds use SM-like production admixtures. Report gamma_h divided by 4.07 MeV nominal reference AND a proxy where only charged lepton diagonal and new LFV widths are updated. Leave nonleptonic Higgs widths, charged scalar hγγ loops, production, signal strengths, HiggsTools and full total-width uncertainty explicitly NOT computed. Even ratios >1 should be called direct-Higgs-LFV reference TENSION, NOT complete model experimental exclusions. A ratio <1 is not evidence of physically allowed.
+
+AF command, fresh output:
+
+    cd /home/aalida/zee
+    git pull --ff-only
+    python3 -m unittest discover -s tests -p 'test_zee_gateD5_h125_direct_LFV_27.py' -v &&
+    python3 -u scripts/zee_gateD5_h125_direct_LFV_27.py \
+      --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+      --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+      --c2-summary work/gateC2_paired_uv_rescue_v1/summary.json \
+      --c3-summary work/gateC3_running_complex_bfb_v1/summary.json \
+      --c4-summary work/gateC4_55channel_running_unitarity_v1/summary.json \
+      --c5-summary work/gateC5_charge_breaking_vacuum_v1/summary.json \
+      --d1-summary work/gateD1_joint_available_neutrino_lfv_v2/summary.json \
+      --d2-summary work/gateD2_neutrino_exact_partial_LFV_v1/summary.json \
+      --d3-summary work/gateD3_optimized_fY_full_theory_v1/summary.json \
+      --d4-summary work/gateD4_W_photon_Barr_Zee_v1/summary.json \
+      --output-dir work/gateD5_h125_direct_LFV_v1
+
+Output summary.json and a 27-row h125 direct LFV comparison CSV. Code not yet executed on AF. Following D5, a real complete LFV+HiggsTools+matched quark flavor likelihood is required before any physical Zee allowed benchmark or Paper 1 quantitative conclusion.
