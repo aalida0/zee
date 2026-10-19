@@ -79,6 +79,36 @@ class LargeZeeCampaignContract(unittest.TestCase):
         with self.assertRaises(ValueError):
             w.expect_stage("PIPELINE",p,30,5,8)
 
+
+    def test_fresh_tree_variant_selection_is_diverse_and_not_exclusion(self):
+        from gateB4_adaptive_zee_scalar_scan import OUTPUT_COLS
+        with tempfile.TemporaryDirectory() as tmp:
+            src=Path(tmp)/"sample.csv"
+            dest=Path(tmp)/"selected.csv"
+            rows=[]
+            for i in range(38):
+                row={"id":f"B4_{i:05d}",
+                     "mH1":300.+i*26.,"mH2":700.+i*41.,
+                     "mh2":580.7,"ma":633.7,
+                     "alpha":1.398,"beta":1.394,"gamma":1.089,
+                     "m12sq":57700.,"lc":4.473,"k1":1.082,
+                     "k2":.00398,"k12":-.001266,
+                     "production_weighted_nonleptonic_cascade_upper_proxy":
+                         .8-.003*i,
+                     "candidate_status":
+                         "SCALAR_EWPO_SCREEN_ONLY_NOT_ALLOWED"}
+                rows.append(row)
+            with src.open("w",newline="") as handle:
+                writer=csv.DictWriter(handle,fieldnames=list(rows[0]))
+                writer.writeheader();writer.writerows(rows)
+            with patch("zee_gateC1_joined_uv_pilot.scalar_lagrangian",
+                       return_value=({"l1":1.},{})) as check:
+                result=w.select_tree_consistent_30(src,dest,30)
+            self.assertEqual(result["chosen_diverse_cohort_size"],30)
+            self.assertEqual(len(w.csv_rows(dest)),30)
+            self.assertGreaterEqual(check.call_count,60)
+            self.assertTrue(result["selection_bias_not_Zee_viability_or_model_prior"])
+
     def test_30_cand_60_case_join_with_only_provisional_labels(self):
         with tempfile.TemporaryDirectory() as tmp:
             base=Path(tmp)
