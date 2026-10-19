@@ -95,6 +95,20 @@ class F3Integrated(unittest.TestCase):
             "EOS_and_SuperIso_operator_basis_fully_certified"])
         self.assertGreater(report["summary"][
             "max_abs_fourquark_rate_shift_conditional"],0.)
+        # New F3 QCD-order diagnosis must always emit both source
+        # LO-only and LO-plus-NLO evolution numbers. Synthetic
+        # source C1b=0 in the LO input mode, so the difference is zero
+        # by construction; a real SuperIso run determines its size.
+        self.assertIn("max_relative_QCD_LO_only_C7_C8_source_vs_wilson",
+                      report["summary"])
+        self.assertIn("max_relative_QCD_LO_only_RG_vs_F2_EOS_deltaBR",
+                      report["summary"])
+        self.assertTrue(all(
+            "EOS_source_LO_QCD_RG_ONLY_BR_conditional" in rec
+            and "EOS_source_NLO_running_shift_at_LO_matching_conditional" in rec
+            for rec in report["Zee_27_results"]))
+        self.assertTrue(report["summary"][
+            "NLO_ADM_order_not_equated_to_wilson_default_LO_QCD"])
         self.assertIsNone(report["Zee_allowed_or_excluded"])
         x=synthetic_source(240.,700.,5.6,1.)
         bad=fake_rg(240.,700.,5.6,1.)
