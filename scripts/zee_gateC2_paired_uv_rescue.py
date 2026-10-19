@@ -106,13 +106,27 @@ def read_cohort_reference(path,b4,b2,rges):
         point=row.get('candidate_id')
         full=row.get('full_step',{})
         bracket=full.get('boundary_bracket')
-        if (point in expected or not bracket or
-            not full.get('limiting_couplings') or
-            full.get('status')!='DIAGNOSTIC_BOUNDARY_REACHED_NOT_PHYSICAL_CUTOFF'):
-            raise ValueError('C1 cohort rank1 boundary report incomplete')
-        expected[point]=(
-            float(bracket['estimated_boundary_GeV']),
-            str(full['limiting_couplings'][0]['coupling']))
+        # Older C1 cohorts happened to reach a 4*pi boundary for every
+        # rank-1 spectrum. A fresh scan must ALSO accept source-consistent
+        # flows that reached the requested target scale. Neither is a
+        # physical model acceptance/exclusion.
+        kind=full.get('status')
+        if point in expected or kind not in (
+                'DIAGNOSTIC_BOUNDARY_REACHED_NOT_PHYSICAL_CUTOFF',
+                'REACHED_END_SCALE_ONE_LOOP_DIAGNOSTIC_ONLY'):
+            raise ValueError('C1 cohort rank1 source flow incomplete')
+        if kind=='DIAGNOSTIC_BOUNDARY_REACHED_NOT_PHYSICAL_CUTOFF':
+            if not bracket or not full.get('limiting_couplings'):
+                raise ValueError('C1 boundary control missing')
+            expected[point]={
+                'status':kind,
+                'boundary_GeV':float(bracket['estimated_boundary_GeV']),
+                'limiter':str(full['limiting_couplings'][0]['coupling'])}
+        else:
+            if bracket is not None:
+                raise ValueError('C1 end-scale flow unexpectedly has a boundary')
+            expected[point]={
+                'status':kind,'boundary_GeV':None,'limiter':None}
     if len(expected)!=30:
         raise ValueError('C1 cohort lacks exactly 30 baseline spectra')
     return expected
@@ -246,15 +260,28 @@ def validate_baseline(row,reference):
         raise ValueError('Reference must apply only to original spectrum')
     if not row['RGE_stepdoubling_compatible']:
         raise ValueError('Baseline RGE numerical control failed')
-    expected_mu,expected_driver=reference
-    found_mu=row['estimated_4pi_crossing_GeV']
-    found_driver=row['first_limiting_coupling']
-    if (found_mu is None or
-        abs(found_mu-expected_mu)/expected_mu>3e-4
-        or found_driver!=expected_driver):
+    expected_status=reference['status']
+    got_status=row['flow_status']
+    if got_status!=expected_status:
         raise ValueError(
-            f'Original C1 90-solution baseline does not reproduce: '
-            f'got {(found_mu,found_driver)} expected {reference}')
+            f'C1/C2 baseline flow outcome differs: '
+            f'{got_status} != {expected_status}')
+    found_mu=row['estimated_4pi_crossing_GeV']
+    if expected_status=='DIAGNOSTIC_BOUNDARY_REACHED_NOT_PHYSICAL_CUTOFF':
+        expected_mu=reference['boundary_GeV']
+        if (found_mu is None or
+            abs(found_mu-expected_mu)/expected_mu>3e-4 or
+            row['first_limiting_coupling']!=reference['limiter']):
+            raise ValueError(
+                f'C1/C2 baseline boundary differs: '
+                f'{(found_mu,row["first_limiting_coupling"])} != {reference}')
+        if row['reached_10TeV_heuristic']:
+            raise ValueError('Boundary flow mislabeled as reaching 10 TeV')
+    elif expected_status=='REACHED_END_SCALE_ONE_LOOP_DIAGNOSTIC_ONLY':
+        if found_mu is not None or not row['reached_10TeV_heuristic']:
+            raise ValueError('End-scale flow has inconsistent boundary/endpoint')
+    else:
+        raise ValueError('Unknown C1 numerical flow status')
 
 def summarize(rows):
     points=collections.defaultdict(list)
