@@ -1022,3 +1022,45 @@ python3 -u scripts/zee_gateD2_neutrino_exact_partial_LFV_optimization.py \
 Main output \`summary.json\` includes final complex f,Y for each optimized spectrum, original vs optimized partial rates, dominant LFV contribution, precise neutrino closure, and every missing phenomenology/running constraint. Flat \`optimized_partial_LFV_cohort_NOT_ALLOWED.csv\` summarizes 27 flavors; NO "allowed" label even if partial score <1. If successful, next physics task should implement the missing complete amplitudes and rerun full theory constraints for any optimized f/Y before a global fit with neutrino oscillation parameter uncertainties, CKM and matched b->s gamma, HiggsTools.
 
 Note: the current archived B2 sample is **exactly five per spectrum**, which is consistent with an intentional \`--top 5\`. These are a selectively ranked sample, not evidence that only five neutrino solutions exist.
+
+
+
+## D2 AF SUCCESS — 27/27 neutrino-exact optimized partial LFV scores <1; D3 full-theory rerun
+
+Actual user AF D2 stdout (2026-10-19): all **27** spectra with at least one C4 passing (sampled) running scalar-theory model and no C5 deeper tree charge-breaking witness were subjected to two locally optimized neutrino-Yukawa textures each. **All 27** achieved D2's MAXIMUM COHERENT *PARTIAL* LFV observable-to-reference-limit score below 1, while preserving the same fixed neutrino target. All have leading remaining partial channel **mu->e gamma**. Scores range **4.2158479641905944e-05** (B4_0000940) to **0.013874375000513412** (B4_0000469); median improvement **42,221.954289408786** and maximum improvement **357,230.28314088617** (B4_0000759). Examples: B4_0001049 original 1.1668263540854733 -> 5.8200706093975896e-05; B4_0000404 original 1.3678155767162739 -> 0.00014754708129610436; B4_0000940 new 4.2158479641905944e-05.
+
+This establishes **a failure of B2's five-per-spectrum *partial-amplitude-sampled* LFV optimization, not an experimental flavor acceptance**. Nine exactly-neutrino-constrained real f/Y directions generated up to 10^3-10^5 improvements relative to these old random samples. D2's score <1 is *NOT* a complete LFV rate; W and scalar mediated two-loop Barr-Zee, other virtual corrections and 3-body penguin/box contributions, mu->e conversion, full oscillation likelihood remain uncomputed. Cancellation stability/fine tuning should be investigated and not assumed, especially with huge score changes. The saved C1--C4 full-RGE curves had DIFFERENT lepton Yukawas (B2 rank1); they cannot be transferred to these D2 solutions.
+
+## Gate D3 — re-evaluate 27×2 complete scalar/optimized-flavor running theory and local LFV sensitivity
+
+New driver \`scripts/zee_gateD3_optimized_flavor_full_theory_rerun.py\` and \`tests/test_zee_gateD3_optimized_flavor_full_theory_rerun.py\` (15 regressions). This is a large joined 54-complete-RGE-model *physics* verification.
+
+- Require exact D2 27-spectrum/54-start record, per-candidate f,Y identity, best-score closure, D1/B4/B2/C2/C3/C4/C5 input SHA matches, and unchanged Q4v13 676/676 RGEs SHA. Recompute every optimized partial LFV score using the original D1 backend; disagreeing scores fail closed.
+- Rebuild BOTH C2 rescued scalar-potential variants for every optimized spectrum; reconstruct scalar eigenmasses, full 26-one-loop Zee initial model and *optimized* Ye1,Ye2 and f, no inheritance from B2 rank1. Verify original C5 scalar-only matching-scale charge-breaking results match their original scalar potentials (tree level independent of f,Y).
+- Evolve ALL 26 RGEs on both a 24- and independently refined 48-step log grid up to 10 TeV; check full general-complex quartic sufficient BFB and 55-channel tree unitarity on both grids using existing C3/C4 validators. Report per variant if perturbativity, BFB, or unitarity survives, and detect numerical coarse/refined unitarity crossing disagreement >5%; do not call screen a rigorous physical UV cutoff.
+- Around each D2 optimized solution, probe 12 random normalized null-coordinate directions at radius 1e-3 and 1e-2 (24 additional LFV evaluations/spectrum), verifying neutrino mass matrix remains exact. Record how often the **partial** score stays <1 and the maximum drift. These are *local sensitivity diagnostics*, not statistical experimental uncertainties or proof of absence of accidental cancellations.
+- Summarize which of the 27 unique scalar-theory candidate spectra retains ≥1 fully re-evaluated one-loop theory-screen survivor **with its D2 f/Y**, in addition to the independently observed absence of a C5 deeper charge-breaking tree witness. It remains unknown whether any spectrum is a fully physical Zee allowed point, because even D3 lacks full LFV/mu-e conversion, CKM quark matching, matched two-charged b->s gamma, HiggsTools, full PMNS/phase fit and global vacuum proof.
+
+**One UChicago AF command**, fresh output directory, no regenerated B2:
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateD3_optimized_flavor_full_theory_rerun.py' -v &&
+python3 -u scripts/zee_gateD3_optimized_flavor_full_theory_rerun.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --c2-summary work/gateC2_paired_uv_rescue_v1/summary.json \
+  --c3-summary work/gateC3_running_complex_bfb_v1/summary.json \
+  --c4-summary work/gateC4_55channel_running_unitarity_v1/summary.json \
+  --c5-summary work/gateC5_charge_breaking_vacuum_v1/summary.json \
+  --d1-summary work/gateD1_joint_available_neutrino_lfv_v2/summary.json \
+  --d2-summary work/gateD2_neutrino_exact_partial_LFV_v1/summary.json \
+  --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+  --q4v13-report work/zee_section8_Q4_pyrate_v4/large_integrated_v1.json \
+  --steps 24 --orbit-samples 2048 --local-trials 12 --upper-GeV 10000 \
+  --output-dir work/gateD3_optimized_fY_full_theory_v1
+\`\`\`
+
+Report \`summary.json\` including per-candidate local partial-LFV variation and 54 theory flows; flat \`revalidated_optimized_fY_theory_NOT_ALLOWED.csv\`. Expected output \`D3_OPTIMIZED_FY_FULL_RGE ...\`, \`D3_FULL_THEORY_COHORT {...}\`, \`D3_FULL_ZEE_ALLOWED UNKNOWN\`. This code has NOT been executed on AF yet. If many optimized Yukawas fail 10 TeV theory, the next scientific step is a *joint flavor-plus-UV optimization*, not a claim of exclusion. If many survive, the next scientific step is completing the missing LFV amplitudes and meson matching, not declaring allowed points.
