@@ -36,3 +36,29 @@ Independent hypercharge checks: `LL LL chi`: (-1/2) + (-1/2) +1=0; `Phi1 Phi2 ch
 ## Decision
 
 The model candidate is an actionable **generator input**, not generated beta functions. Full Zee RGEs and physically allowed Zee benchmarks are **UNKNOWN / NOT ESTABLISHED**. An untested PyR@TE file must not be promoted to a physical result.
+
+
+## Q4 executable source-input gate (19 October 2026)
+
+New code:
+- \`scripts/zee_section8_Q4_pyrate_generator_gate.py\` — pinned official PyR@TE 3 checkout and CLI runner; exact field inventory and hypercharge/gauge b check; output SHA256; fail-closed JSON; does **not** claim full beta validation.
+- \`tests/test_zee_section8_Q4_pyrate_generator_gate.py\` — 13 unit checks for field/operator inventory, source hypercharge, gauge coefficients, missing f/portal, noninvariant f, absent epsilon, unwanted lambda6/7 or GUT substitutions, output hygiene, and absence of false physics claims.
+
+Local reproduction of the static input gate: **13/13 tests PASS** using Python 3.13 with PyYAML; generator execution and exported beta consistency **NOT RUN HERE** because the local shell has no network access to clone PyR@TE, and no AF session or Mathematica kernel is connected.
+
+Verified official PyR@TE 3 source on GitHub:
+- \`LSartore/pyrate\` pinned master HEAD \`04b219c2016f3fc4f2371d72607edc26a7e06364\` (2024-05-02).
+- Entrypoint \`pyR@TE.py\` with CLI flags \`--Model\`, \`--Loops\`, \`--Results\`, \`--CheckGaugeInvariance\`, \`--PythonOutput\`, \`--no-LatexOutput\`, \`--no-MathematicaOutput\`, from \`src/IO/Inputs.py\` lines 127–183.
+- Model parser accepts \`ComplexScalars\`; \`src/IO/Inputs.py\` aliases the example-file spelling \`CplxScalars\`.
+- \`src/Core/Lagrangian.py\` lines 594–644 detects symmetric/antisymmetric same-field Yukawa tensors. The Zee-specific \`f\` input **has not been parsed by PyR@TE itself**.
+
+One command for a new substantive AF stage (after \`git pull --ff-only\`; keep all output in \`work/\`):
+
+\`\`\`bash
+python3 scripts/zee_section8_Q4_pyrate_generator_gate.py \
+    --output-dir work/zee_section8_Q4_pyrate_v1
+\`\`\`
+
+This runner performs the 13 Q4 contract tests first, executes the static source gate, shallow-fetches exactly the pinned upstream revision, then requests one-loop generation with gauge-invariance check and Python output. It writes \`summary.json\`, unit-test logs and generator logs. A nonzero return code is a hard blocker, not a passed result. **Even if the generator finishes, statuses remain \`GENERATOR_EXECUTED_BUT_COMPLEX_BETAS_UNVALIDATED\` and \`full_Zee_RGE_calculation_accepted: false\`.** No Q3 rerun is included.
+
+Full Q4 acceptance is deferred until the generator's emitted f, Pi, lambda6/7/10, other quartics and muZee/mass equations are inspected; Kanemura A13 and FLS Eqs. (3)–(5) are exactly reproduced in explicitly normalized limits; and the independent RGBeta implementation agrees at general complex points. Important: simple hypercharge/operator checks do not prove the PyR@TE Weyl spinor normalization, flavor-index orientation, SU(2) epsilon/sign or automatic Hermitian-conjugate treatment.
