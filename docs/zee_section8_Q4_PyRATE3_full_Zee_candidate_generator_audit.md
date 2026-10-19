@@ -352,3 +352,51 @@ python3 scripts/zee_section8_Q4_independent_yukawa_quartic_gate.py \
 ```
 
 Pending AF evaluation. The generator is NOT rerun. Complete Zee beta validation remains FALSE, and physical point acceptance UNKNOWN/NOT EVALUATED.
+
+
+## Q4v10 — 77/77 Yukawa quartics PASS, independent Zee f-dependent quartics
+
+User-run Q4v9 on AF yielded **77/77 PASS** for all eleven scalar quartic beta functions, including two generic-complex Yukawa/full-quartic random seeds, charged-singlet portals, a top-only sector, and a charged-lepton-only sector. Maximum absolute residual across the seven cases was approximately 9.38e-14. Combined Q4v5...v9 report: 11 + 156 + 66 + 66 + 77 = **376 numerical validations PASS**. This is evidence for all 11 quartic coefficients in pure scalar, gauge, and general f=0 Yukawa limits at tested points. It does not test f-dependent quartic terms.
+
+New Q4v10 scripts:
+
+- scripts/zee_section8_Q4_independent_f_quartic_gate.py
+- tests/test_zee_section8_Q4_independent_f_quartic_gate.py (17 synthetic and analytic regression tests).
+
+**Physics derivation.** In an arbitrary ten-real-scalar background, construct the complex symmetric 9x9 mass matrix for the nine left Weyl leptons (nu_L,e_L,e_R^c), three flavors each. Write the 6x6 LL mass subblock from the antisymmetric Zee interaction as M_{nu,eL}=2 f chi; the coefficient 2 is fixed by Kanemura's reduced real-f normalization in Appendix A, Eqs A9–A11. The L−eR^c mass block equals complex-conjugated Pi_k Phi_k in the 2-component convention, with generic complex Pi1/Pi2. The resulting f-dependent fermionic one-loop quartic counterterm is computed independently from the field-dependent mass spectrum as
+
+```text
+(16 pi²) beta(V4)|f-fermion-box
+ = -Tr[(M†M)^2 - (M0†M0)^2],
+M0=M(f=0) with every other coupling unchanged.
+```
+
+The charged-singlet wavefunction contribution is
+
+```text
+(16 pi²) beta(V4)|f-chi-wave
+  = 8 Tr(f†f) s dV4/ds,
+s=|chi|².
+```
+
+This wavefunction coefficient is independently **source-normalized** (but not independently diagram-derived) against Kanemura A9-A11. At Ye=0 the method reproduces:
+ beta_lh|f = 16 lh Tr(f†f) −32 Tr[(f†f)^2],
+ beta_l8|f = 8 l8 Tr(f†f),
+ beta_l9|f = 8 l9 Tr(f†f),
+ beta_l10|f = 8 l10 Tr(f†f).
+The raw box is fully independent of PyR@TE's loop expressions. Generic complex Ye1,Ye2 and complex f produce both box-interference quartic terms and wavefunction contributions.
+
+Project onto 15 real quartic components using the independent real-field scalar-orbit basis (96-128 samples, overconstrained rank checked). Eight configurations include historical real f with/without singlet quartic, pure complex f, complex f with portals, generic complex f and nonzero lepton Yukawas, two complex quartic seeds, and a mixed-portal case. Compare beta_l(f)−beta_l(f=0) from existing generated RGEs against the independent construction, with all gauge and dimensional parameters zero. Expected **88 comparisons** (eight x eleven). Zero effect on the seven pure-doublet quartic beta functions is a falsifiable consequence at one loop. The 17 regression tests check source-normalized f quartic coefficients, f flavor antisymmetry, 9x9 Weyl mass symmetry, correct phase covariance, f^4 and f² scaling, mixed complex projection closure, and synthetic mutated-coefficient rejection.
+
+**One AF run, NO new PyR@TE generation and no Q3 rerun:**
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests -p 'test_zee_section8_Q4_independent_f_quartic_gate.py' -v &&
+python3 scripts/zee_section8_Q4_independent_f_quartic_gate.py \
+    --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+    --report work/zee_section8_Q4_pyrate_v4/f_dependent_quartic_v1.json
+```
+
+Q4v10 script and regression tests are committed but **AF tests and real comparison remain pending**. Any mismatch is to be investigated at the Weyl flavor ordering/complex-conjugation/operator-normalization level, not silently repaired with a factor. Even 88/88 PASS does not certify full complex beta_f, f-dependent beta_Pi1/Pi2, dimensionful scalar RGEs, threshold matching, independent RGBeta or physically allowed model points.
