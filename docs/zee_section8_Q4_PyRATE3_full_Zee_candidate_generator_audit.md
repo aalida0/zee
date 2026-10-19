@@ -708,3 +708,70 @@ python3 -u scripts/zee_gateC2_paired_uv_rescue.py \
 Outputs \`summary.json\` and \`paired_uv_rescue_diagnostics_NOT_ALLOWED.csv\`; summary shows per-variant tree acceptance, numerically stable UV trajectories, heuristic 10 TeV survival, limiting couplings, and per-spectrum paired rescue outcomes. If none survives, that is valuable evidence that simply decreasing lh/l1 is insufficient *in this particular high-cascade sample*. If some survive, advance these specifically to **full running BFB and tree unitarity, complete flavor/neutrino constraints and non-toy CKM matching**, before any allowed benchmark or high-scale bound. Recompute any altered cascade branching fractions and do not claim original phenomenological fit remains unchanged.
 
 **Crucial:** these 240 are **constructed modifications of a biased 30-spectrum shortlist**, not a random prior or exclusion limit for the general Zee theory. Physical allowed remains UNKNOWN; all full-LFV/HiggsTools/modern b->s gamma/global vacuum/CKM/threshold conditions NOT_EVALUATED.
+
+
+
+## C2 AF result — near-total rescue of heuristic 10 TeV perturbativity by paired quartic tuning (2026-10-19)
+
+Actual AF \`Pasted text(7).txt\` logs: C2 completed **240/240 paired potential configurations**, 30 B4 scalar spectra × 8 scalar counterfactuals, each with tree-level BFB sufficient and tree unitarity at matching and numerically stable full 26 one-loop diagnostic flow. All 30 unmodified baselines violate the chosen \`|lambda_i|<4*pi\` bound below 10 TeV (C1 reproduced). Among counterfactuals:
+
+\`\`\`text
+baseline                    0/30 reach 10 TeV
+cap_lh_1                    7/30
+cap_lh_0p4                  7/30
+target_l1_1                 0/30
+target_l1_0p5               0/30
+both_lh1_l1_1              29/30
+both_lh0p4_l1_1            29/30
+both_lh0p4_l1_0p5          29/30
+\`\`\`
+
+The only exception among joint changes: \`B4_0000827\`, which first crosses \`l3\` at ~6.376, 6.379 or 7.235 TeV, depending on the intervention. For all other paired targets the one-loop heuristic 10 TeV goal is met. **This shows the original low crossing scale is NOT intrinsic to the fixed charged-Higgs mass+mixing spectrum under the existing approximate quark boundary.** It does NOT prove UV consistency, global vacuum stability, full multiscalar unitarity, threshold/CKM matching, LFV or experimental viability. Percentages are conditional on an intentionally selected local B4 cohort and should never be read as an allowed fraction of the general Zee model. B3 included-channel cascade proxies are recalculated by C2 but the stdout contains no summary of their values; do not assume unchanged signal rates.
+
+## C3 — One larger running-BFB test of complete complex Zee scalar quartics
+
+Script \`scripts/zee_gateC3_running_complex_bfb.py\`; tests \`tests/test_zee_gateC3_running_complex_bfb.py\` (16). Probe **60 full complex Zee RGE paths**: 30 scalar spectra × two combined C2 counterfactuals, \`both_lh1_l1_1\` and \`both_lh0p4_l1_0p5\`, each toward 10 TeV, evaluating full complex quartic BFB at **25** logarithmically spaced scales per trajectory (for 24 steps). This is NOT another 26-beta numerical coefficient gate; Q4v13 already completed 676/676.
+
+For x=Φ1†Φ1, y=Φ2†Φ2, s=|χ|², z=Φ1†Φ2 with |z|≤sqrt(xy), use the EXACT general complex 11-quartic polynomial in the previously validated PyR@TE field convention:
+
+\`\`\`text
+V4=.5*l1*x²+.5*l2*y²+l3*xy+l4*|z|²
+   +Re(l5*z²)+2Re[(l6*x+l7*y+l10*s)*z]
+   +lh*s²+l8*x*s+l9*y*s.
+\`\`\`
+
+A rigorous but possibly too conservative lower bound via complex modulus, triangle inequality and AM-GM \`2x sqrt(xy)<=x²+xy\` reads \`V4 >= (x,y,s)·M·(x,y,s)^T\` with
+
+\`\`\`text
+M11 = .5*l1-|l6|
+M22 = .5*l2-|l7|
+M33 = lh
+2*M12 = l3 + min(0,l4-|l5|) - |l6|-|l7|
+2*M13 = l8-|l10|
+2*M23 = l9-|l10|
+\`\`\`
+
+If the real symmetric 3×3 M is strictly copositive (using the well-known Hadeler criteria), **BFB of the full 10-real-scalar complex quartic is rigorously certified at that scale**. Failure of this conservative sufficient test is NOT instability. Independently sample ≥2048 reproducibly chosen PHYSICAL gauge-invariant field-space orbits, \`x+y+s=1, |z|²<=xy\`, including pure fields, mixed boundaries, generic complex phases. A sampled \`V4<0\` is a **genuine quartic unbounded-from-below witness**; no negative orbit detected is NOT BFB certification. Each scale gets precisely one of \`BFB_SUFFICIENT_CERTIFIED\`, \`BFB_NEGATIVE_WITNESS\`, \`BFB_INCONCLUSIVE\`. Paths that encounter an actual negative direction stop early; inconclusive do not become passes.
+
+Accept only saved Q4v13 complete source hash and a saved C2 summary containing 240 interventions with identical B4/B2/RGE inputs and stable RK4 solver. This is a scale-sampled one-loop quartic BFB test, NOT a full global vacuum or general-complex coupled-channel tree unitarity certification, and it still lacks full LFV/mesons/HiggsTools, threshold matching, CKM and a physical UV cutoff.
+
+**Single AF command:**
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateC3_running_complex_bfb.py' -v &&
+python3 -u scripts/zee_gateC3_running_complex_bfb.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+  --q4v13-report work/zee_section8_Q4_pyrate_v4/large_integrated_v1.json \
+  --c2-summary work/gateC2_paired_uv_rescue_v1/summary.json \
+  --max-spectra 30 --steps 24 --orbit-samples 2048 \
+  --upper-GeV 10000 \
+  --output-dir work/gateC3_running_complex_bfb_v1
+\`\`\`
+
+Pending AF result. File outputs:
+  \`summary.json\` with per-variant rigorous-sufficient and negative-witness counts, plus \`running_BFB_diagnostics_NOT_ALLOWED.csv\`. Most important distinctions: which of the 29/30 RGE-perturbative paths are also rigorously sufficiently BFB throughout the sampled scales, explicitly unstable, or mathematically INCONCLUSIVE. At sampling time only; stability between steps and dimensionful charge-breaking global vacuum not certified.
