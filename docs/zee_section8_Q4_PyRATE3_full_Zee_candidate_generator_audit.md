@@ -292,3 +292,32 @@ python3 scripts/zee_section8_Q4_independent_scalar_hessian_gate.py \
 ```
 
 **Acceptance:** Even 66/66 PASS validates **only** the pure-scalar contributions to all 11 one-loop quartic beta functions and their complex components. Gauge/Yukawa-f-mediated scalar terms, beta_f complex nontrivial Yukawa structures, dimensionful masses/muZee, and the independent full RGBeta cross-check remain unverified; no fully allowed Zee point has been found.
+
+
+## Q4v8 — independent electroweak gauge contributions to 11 Zee quartic RGEs
+
+User-run Q4v7 results: **66/66 PASS** of the independent one-loop pure-scalar quartic Hessian comparison across six quartic configurations. The max values in the previous normalized-difference field (as high as 1.8e-3 on isolated benchmarks) are driven by the 1e-12 numerical normalization floor for analytically vanishing coefficients; the actual pass criterion uses absolute differences and a max(1,|beta|) scale. Do not describe those as 0.18%-level disagreements in physical nonzero beta coefficients. Independent pure-scalar part is validated only at the six tested configurations; it is not a proof of every full-complex parameter combination.
+
+**New independent gauge calculation:** scripts/zee_section8_Q4_independent_gauge_quartic_gate.py. Start from two canonically normalized SU(2) doublets with Y=1/2 and one canonically normalized electrically charged singlet with Y=1. In arbitrary ten-real-field backgrounds, construct the 4x4 gauge-boson mass-squared matrix M_V² in basis (W1,W2,W3,B) by expanding the covariant kinetic terms. The one-loop gauge contribution to the scalar quartic polynomial is the vector Coleman-Weinberg UV divergence (3/2) Tr[(M_V²)^2] plus universal external-scalar gauge anomalous dimension terms. Coupling-level gauge-linear terms are: l1..l7: -(9 g2²+3 gp²) lambda; lh: -12 gp² lh; l8,l9,l10: -(9/2 g2²+15/2 gp²) lambda. The gauge quartic polynomial is projected onto all 15 real components of the 11 quartic couplings with the independently verified scalar-bilinear design matrix.
+
+**Analytic limits verified in the construction:** with quartics=0,
+beta_l1(beta_l2) = 3/4(3g2^4+2g2² gp²+gp^4),
+beta_l3 = 3/4(3g2^4-2g2² gp²+gp^4),
+beta_l4=3g2² gp²,
+beta_lh=6 gp^4,
+beta_l8=beta_l9=3 gp^4.
+No pure gauge constant term seeds complex l5,l6,l7,l10.
+These follow independently from the gauge kinetic representation, and are checked by dedicated regression tests.
+
+**AF comparison:** With all Yukawa, f and dimensional scalar terms zero, compare
+ beta_l^generated(gp,g2,quartics) - beta_l^generated(0,0,quartics)
+against the independent gauge expression. This isolates g^4 and lambda*g² without counting the scalar Hessian contribution twice. Six gauge/quartic cases yield **66 comparisons**, with tolerance absdiff <= 2e-9*max(1,|got|,|expected|). Fourteen synthetic/analytic tests validate gauge boson masses, electroweak/charged-singlet limits, projections, covariance of portal coefficients, and rejection of a deliberately modified gauge beta. The new 14 tests and actual 66 AF comparisons have **not yet been executed on AF**.
+
+**Single AF command (reuse prior generated RGEs, do not rerun Q3 or PyR@TE):**
+
+    cd /home/aalida/zee
+    git pull --ff-only
+    python3 -m unittest discover -s tests -p 'test_zee_section8_Q4_independent_gauge_quartic_gate.py' -v &&
+    python3 scripts/zee_section8_Q4_independent_gauge_quartic_gate.py --generator-output work/zee_section8_Q4_pyrate_v4/generator_output --report work/zee_section8_Q4_pyrate_v4/gauge_quartic_v1.json
+
+Even 66/66 PASS would establish only the gauge-dependent quartic contributions in addition to the previous pure-scalar limits. The complete Yukawa-dependent quartic beta terms, full complex f/charged-lepton mixing betas, trilinear/mass betas and independent RGBeta full-theory agreement remain unvalidated. No physical Zee point has been established.
