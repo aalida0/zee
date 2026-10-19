@@ -79,6 +79,23 @@ def digest(path):
             h.update(chunk)
     return h.hexdigest()
 
+def verify_rge_validation(report_path,source_path):
+    """Require the actual Q4v13 676/676 report and identical RGEs.py bytes."""
+    report=json.loads(Path(report_path).read_text())
+    if (report.get('source_SHA256')!=digest(source_path)
+        or report.get('compared_total')!=676
+        or report.get('compared_passed')!=676
+        or report.get('one_loop_full_Zee_source_consistency_passed') is not True
+        or report.get('failed_checks')):
+        raise ValueError(
+            'Missing/mismatched 676/676 Q4v13 report for exact RGEs.py; '
+            'refuse integrated physics-connected flow')
+    return {'validation_report_path':str(report_path),
+            'validation_report_sha256':digest(report_path),
+            'Q4v13_numeric_comparisons_passed':676,
+            'RGE_exact_source_sha256':digest(source_path),
+            'not_a_phenomenological_exclusion':True}
+
 def scalar_lagrangian(point):
     """Reconstruct ALL independent dimensionful/quartic model inputs."""
     p=point
@@ -318,6 +335,7 @@ def main():
     pa.add_argument('--b4-csv',type=Path,required=True)
     pa.add_argument('--b2-json',type=Path,required=True)
     pa.add_argument('--generator-output',type=Path,required=True)
+    pa.add_argument('--q4v13-report',type=Path,required=True)
     pa.add_argument('--output-dir',type=Path,required=True)
     pa.add_argument('--top-candidates',type=int,default=3)
     pa.add_argument('--solutions-per-candidate',type=int,default=2)
@@ -343,6 +361,7 @@ def main():
     opts.output_dir.mkdir(parents=True,exist_ok=True)
     try:
         src=find_rges(opts.generator_output)
+        summary['Q4_validation']=verify_rge_validation(opts.q4v13_report,src)
         summary['RGE_sha256']=digest(src)
         summary['B4_sha256']=digest(opts.b4_csv)
         summary['B2_sha256']=digest(opts.b2_json)
