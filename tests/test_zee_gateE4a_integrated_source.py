@@ -54,3 +54,21 @@ class TestE4A(unittest.TestCase):
         self.assertTrue(all(x['modern_2026_95CL_exclusion']=='NOT_IMPLEMENTED'
                             for x in models))
         self.assertIn('BLOCKED',OBSERVABLE_STATUS)
+
+        # Inject corrupt independent Eq.(4) matching; E4A must stop.
+        bad=dict(e3['B4_0000000'])
+        bad['LO_delta_C7_Zee_mu0_160']+=0.01
+        first=e1['B4_0000000']
+        ref=synthetic(first['mH1'],first['mH2'],
+                      first['tanbeta'],first['gamma'])
+        with self.assertRaisesRegex(ValueError,'C7 mismatch'):
+            eq4_closure(ref,bad,first['gamma'])
+        # A corrupted fixed-mass source trajectory is likewise fatal.
+        trace=[synthetic(670.,670.,50.,g) for g in (0.,.4,math.pi/2)]
+        gamma_trajectory_checks(trace)
+        trace[1]['coefficient_rows'][1,7][1]+=.01
+        with self.assertRaisesRegex(ValueError,'gamma-dependence'):
+            gamma_trajectory_checks(trace)
+
+if __name__=='__main__':
+    unittest.main()
