@@ -214,9 +214,9 @@ class D1JointFlavorTests(unittest.TestCase):
             source=root/'b4.csv';target=root/'b2.json'
             head='id,mH1,mH2,mh2,ma,alpha,beta,gamma\n'
             csv_rows=''.join(
-                f'B4_{i:07d},300,700,580.7,633.7,1.398,1.394,1.089\\n'
+                f'B4_{i:07d},300,700,580.7,633.7,1.398,1.394,1.089\n'
                 for i in range(30))
-            source.write_text(head+csv_rows.replace('\\\\n','\\n'))
+            source.write_text(head+csv_rows)
             sol=json.dumps({f'B4_{i:07d}':[
                 {'candidate_id':f'B4_{i:07d}'} for j in range(10)]
                 for i in range(30)})
