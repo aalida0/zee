@@ -295,8 +295,14 @@ def main():
         candidate_names=[name for name in sorted(points)
             if any(v['scalar_only_candidate_for_further_flavor_work']
                    for v in saved_theory[name].values())]
-        if len(candidate_names)!=27:
-            raise ValueError('D1 scalar-theory shortlist expected 27 spectra')
+        # This is a fresh B4 scan: the number of spectra surviving the
+        # C4/C5 *diagnostic* selection is data-dependent, not fixed at 27.
+        # Old AF pilots had 27; do not turn that historical count into a
+        # hidden physics criterion in a new integrated campaign.
+        if not candidate_names or len(candidate_names)>len(points):
+            raise ValueError('No coherent scalar-theory shortlist for D2')
+        report['scalar_theory_diagnostic_shortlist_size']=len(candidate_names)
+        report['D2_cohort_size_not_fixed_to_historical_27']=True
         selection=sorted(
             candidate_names,
             key=lambda n:min(
