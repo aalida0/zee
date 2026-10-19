@@ -33,6 +33,25 @@ Included validations:
 
 **Single large regression:** \`tests/test_zee_gateF1_single_integrated_flavio_observable.py\` tests the *entire 27 + 18 logic* with a deterministic synthetic quadratic observable and deliberately corrupted source & Wilson sign. Passing this fast test **is not evidence of actual flavio numerical performance**. The real AF command below separately runs external real libraries.
 
+## Confirmed Python dependency incompatibility (October 2026)
+
+A real AF attempt failed during **import of flavio**, before running the original 27 model sample, with `FileNotFoundError ... site-packages/particle/data/particle2022.csv`. This is not an E4A input failure and not a physics rejection. `particle` 1.0.0 removed PDG2022 tables, while `flavio` 2.7.1 still attempted to load them. Cross-checked source-pinned compatible combination:
+- `flavio==2.7.0` (published March 2026) declares `particle>=0.21.0`.
+- `particle==0.26.2` (April 2026) has `particle2022.csv` and `nuclei2022.csv` in its packaged data tree.
+- `flavio==2.7.1` (June 2026) declares `particle>=1.0.0`; DO NOT just force an incompatible particle pin under that version.
+
+Inside `.venv-flavor-f1`, install:
+```bash
+python -m pip install "flavio==2.7.0" "particle==0.26.2"
+python -m pip check
+python - <<'PY'
+import flavio, particle, wilson
+print("flavio",flavio.__version__, "particle",particle.__version__)
+print("SM",flavio.sm_prediction("BR(B->Xsgamma)"))
+PY
+```
+Then re-run the F1 real physics calculation with a **fresh** output directory. The 27 lines from `test_zee_gateF1_single_integrated_flavio_observable.py` are SYNTHETIC test fixtures, not Zee physical predictions.
+
 ## AF setup and ONE execution
 
 Use a clean venv under **/home** (not /data) and system Python 3.12 where possible, because your active Key4hep Python 3.13 and its \`LD_LIBRARY_PATH\` may conflict with wheel packages:
@@ -44,7 +63,7 @@ git pull --ff-only
 /usr/bin/python3.12 -m venv .venv-flavor-f1
 source .venv-flavor-f1/bin/activate
 python -m pip install --upgrade pip
-python -m pip install 'flavio' 'wilson'
+python -m pip install 'flavio==2.7.0' 'particle==0.26.2' 'wilson'\npython -m pip check
 python -c 'import flavio,wilson; print("flavio",flavio.__version__,"wilson",getattr(wilson,"__version__","unknown"))'
 
 python -m py_compile \
