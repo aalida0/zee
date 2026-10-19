@@ -227,16 +227,71 @@ def diagnostics(state):
         'scalar_mass_mchi_squared_GeV2':float(state['mchi']),
     }
 
+def limiting_couplings(state,top=6):
+    """Numerical cutoff criteria only; ratios do not establish exclusions."""
+    ranked=[]
+    for k in QUARTIC_KEYS:
+        ranked.append({'coupling':k,'sector':'quartic',
+                       'abs':float(abs(state[k])),'threshold':4*math.pi,
+                       'ratio':float(abs(state[k])/(4*math.pi))})
+    for k in MATRIX_KEYS:
+        mat=np.asarray(state[k],complex)
+        index=np.unravel_index(np.argmax(abs(mat)),mat.shape)
+        value=float(abs(mat[index]))
+        ranked.append({'coupling':k,'entry':[int(i) for i in index],
+                       'sector':'Yukawa_or_f','abs':value,
+                       'threshold':math.sqrt(4*math.pi),
+                       'ratio':value/math.sqrt(4*math.pi)})
+    for k in ('gp','g2','g3'):
+        value=float(state[k])
+        ranked.append({'coupling':k,'sector':'gauge',
+                       'abs':abs(value),'threshold':3.,
+                       'ratio':abs(value)/3.})
+    return sorted(ranked,key=lambda x:x['ratio'],reverse=True)[:top]
+
 def numerical_control(state):
-    d=diagnostics(state)
-    if d['max_abs_scalar_quartic']>=4*math.pi:
-        return 'QUARTIC_ABS_GE_4PI'
-    if d['max_abs_Yukawa_or_f_entry']>=math.sqrt(4*math.pi):
+    drivers=limiting_couplings(state,1)
+    lead=drivers[0]
+    if lead['sector']=='gauge' and float(state[lead['coupling']])<0:
+        return 'GAUGE_NEGATIVE'
+    if lead['ratio']<1:
+        return None
+    if lead['sector']=='quartic':return 'QUARTIC_ABS_GE_4PI'
+    if lead['sector']=='Yukawa_or_f':
         return 'YUKAWA_ENTRY_ABS_GE_SQRT4PI'
-    if min(float(state[k]) for k in ('gp','g2','g3'))<0 or max(
-            float(state[k]) for k in ('gp','g2','g3'))>=3:
-        return 'GAUGE_DIAGNOSTIC_BOUND'
-    return None
+    return 'GAUGE_DIAGNOSTIC_BOUND'
+
+def locate_boundary(mod,state,dt,mu_lower,iterations=12):
+    """Substep-bisect the FIRST heuristic boundary within one RK4 step.
+
+    This is numerical localization of a user-specified heuristic, not
+    a physical cutoff. A nonfinite step is explicitly not interpreted
+    as reaching a perturbativity threshold.
+    """
+    lo=0.;hi=dt;accepted=state
+    high=None
+    for _ in range(iterations):
+        mid=(lo+hi)/2
+        try:
+            probe=rk4_step(mod,state,mid)
+            failure=numerical_control(probe)
+        except (ValueError,OverflowError,FloatingPointError):
+            probe=None
+            failure='NONFINITE_RGE_SUBSTEP'
+        if failure:
+            hi=mid
+            high=probe
+        else:
+            lo=mid;accepted=probe
+    return {
+        'last_accepted_mu_GeV':float(mu_lower*math.exp(lo)),
+        'first_rejected_mu_GeV':float(mu_lower*math.exp(hi)),
+        'estimated_boundary_GeV':float(mu_lower*math.exp((lo+hi)/2)),
+        'relative_bracket_width':float(math.exp(hi-lo)-1.),
+        'approaching_couplings':limiting_couplings(accepted),
+        'crossing_couplings':None if high is None else limiting_couplings(high),
+        'crossing_reason':None if high is None else numerical_control(high),
+    }
 
 def vector_distance(a,b):
     out={}
@@ -258,13 +313,15 @@ def run_flow(mod,start,*,mu0,mu1,steps,record_every=4):
     initial_condition=numerical_control(state)
     if initial_condition:
         return {'status':'INITIAL_PERTURBATIVITY_CONTROL_FAILED',
-                'reason':initial_condition,
+                'reason':initial_condition,'limiting_couplings':limiting_couplings(state),
                 'first_diagnostic_boundary_GeV':float(mu0),
-                'history':history,'endpoint':None}
+                'boundary_bracket':None,'history':history,'endpoint':None}
     for i in range(steps+1):
+        mu_i=float(mu0*math.exp(i*dt))
         if i%record_every==0 or i==steps:
-            hist={'mu_GeV':float(mu0*math.exp(i*dt)),
-                  'step':i,**diagnostics(state)}
+            hist={'mu_GeV':mu_i,
+                  'step':i,**diagnostics(state),
+                  'largest_threshold_ratios':limiting_couplings(state,3)}
             history.append(hist)
         if i==steps:break
         try:
@@ -274,16 +331,33 @@ def run_flow(mod,start,*,mu0,mu1,steps,record_every=4):
             reason='NONFINITE_OR_INVALID_RGE_STEP:'+type(exc).__name__
             next_state=None
         if reason:
+            if next_state is None:
+                return {
+                    'status':'NUMERICAL_EVOLUTION_FAILURE_NOT_A_UV_EXCLUSION',
+                    'reason':reason,
+                    'limiting_couplings':limiting_couplings(state),
+                    'first_diagnostic_boundary_GeV':None,
+                    'boundary_bracket':None,
+                    'last_accepted_mu_GeV':mu_i,
+                    'history':history,'endpoint':None
+                }
+            bracket=locate_boundary(mod,state,dt,mu_i)
             return {
                 'status':'DIAGNOSTIC_BOUNDARY_REACHED_NOT_PHYSICAL_CUTOFF',
                 'reason':reason,
+                'limiting_couplings':limiting_couplings(next_state),
                 'first_diagnostic_boundary_GeV':
                     float(mu0*math.exp((i+1)*dt)),
-                'history':history,'endpoint':None}
+                'boundary_bracket':bracket,
+                'last_accepted_mu_GeV':bracket['last_accepted_mu_GeV'],
+                'history':history,'endpoint':None
+            }
         state=next_state
     return {
         'status':'REACHED_END_SCALE_ONE_LOOP_DIAGNOSTIC_ONLY',
-        'reason':None,'first_diagnostic_boundary_GeV':None,
+        'reason':None,'limiting_couplings':limiting_couplings(state),
+        'first_diagnostic_boundary_GeV':None,
+        'boundary_bracket':None,'last_accepted_mu_GeV':float(mu1),
         'history':history,'endpoint':state}
 
 def choose_rows(b4_csv,b2_json,top,solutions):
@@ -316,12 +390,19 @@ def public_row(point,rank,preflight,flow,step_convergence):
         'one_loop_RGE_diagnostic_status':flow['status'],
         'last_recorded_mu_GeV':None if not last else last['mu_GeV'],
         'first_diagnostic_boundary_GeV':flow['first_diagnostic_boundary_GeV'],
+        'boundary_estimated_GeV':None if flow['boundary_bracket'] is None else flow['boundary_bracket']['estimated_boundary_GeV'],
+        'boundary_relative_bracket_width':None if flow['boundary_bracket'] is None else flow['boundary_bracket']['relative_bracket_width'],
+        'boundary_triggering_coupling':flow['limiting_couplings'][0]['coupling'],
+        'boundary_triggering_sector':flow['limiting_couplings'][0]['sector'],
+        'boundary_triggering_ratio':flow['limiting_couplings'][0]['ratio'],
+        'boundary_stop_reason':flow['reason'],
         'max_abs_quartic_last_recorded':None if not last else last['max_abs_scalar_quartic'],
         'max_abs_lambda6_last_recorded':None if not last else last['lambda6_abs'],
         'max_abs_lambda7_last_recorded':None if not last else last['lambda7_abs'],
         'wrong_doublet_Yd2_norm_last':None if not last else last['wrong_doublet_quark_norms']['Yd2'],
         'wrong_doublet_Yu1_norm_last':None if not last else last['wrong_doublet_quark_norms']['Yu1'],
         'RK4_full_half_convergence_max_scaled_difference':step_convergence,
+        'RK4_boundary_scale_relative_difference':None,
         'UV_vacuum_consistency':'NOT_EVALUATED',
         'full_LFV':'NOT_EVALUATED',
         'flavor_FCNC':'NOT_EVALUATED',
