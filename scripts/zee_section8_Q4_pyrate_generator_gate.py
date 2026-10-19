@@ -153,8 +153,11 @@ def execute(model:Path,output:Path,pyrate_root:Path|None,timeout:int)->dict:
         cmd=['git','-C',str(source),'init','-q']
         subprocess.run(cmd,check=True,timeout=60)
         subprocess.run(['git','-C',str(source),'remote','add','origin',PYRATE_REMOTE],check=True,timeout=15)
-        subprocess.run(['git','-C',str(source),'fetch','--depth','1','origin',PYRATE_SHA],
-                       check=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,timeout=120)
+        fetch=subprocess.run(['git','-C',str(source),'fetch','--depth','1','origin',PYRATE_SHA],
+                             stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,timeout=120)
+        (output/'pyrate3_git_fetch.log').write_text(fetch.stdout+fetch.stderr)
+        if fetch.returncode!=0:
+            raise RuntimeError('Pinned PyR@TE fetch failed; inspect pyrate3_git_fetch.log')
         subprocess.run(['git','-C',str(source),'checkout','-q','FETCH_HEAD'],check=True,timeout=30)
     head=subprocess.run(['git','-C',str(source),'rev-parse','HEAD'],capture_output=True,
                         text=True,check=True,timeout=10).stdout.strip()
