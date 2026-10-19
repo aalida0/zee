@@ -116,6 +116,27 @@ class TestGateD4WPhoton(unittest.TestCase):
         self.assertAlmostEqual(abs(c-phase*a),0.,delta=1e-16)
         self.assertAlmostEqual(abs(d-phase.conjugate()*b),0.,delta=1e-16)
 
+    def test_exact_mass_basis_mixing_product_reproduces_Davidson_W_signs(self):
+        # A1D: C_h=-sin(delta)Y, C_H=cos(delta)Y, while
+        # W couplings are cos(delta),sin(delta), respectively.
+        from gateA1c_charged_singlet_lfv import ALPHA_EM
+        p=example_point()
+        p['alpha']=p['beta']-.17
+        Y=np.zeros((3,3),complex)
+        Y[0,1]=.024+.017j
+        Y[1,0]=.015-.005j
+        left,right,_=w_photon_amplitudes(
+            p,Y,parent=1,daughter=0)
+        delta=p['beta']-p['alpha']
+        pref=ALPHA_EM/(16*math.pi**3*.1056583745*VEV)
+        diff=(photon_W_kernel((MW_GEV/p['mh2'])**2)-
+              photon_W_kernel((MW_GEV/125.)**2))
+        mix=math.sin(delta)*math.cos(delta)
+        self.assertAlmostEqual(abs(left-pref*mix*Y[0,1]*diff),
+                               0.,delta=5e-17)
+        self.assertAlmostEqual(abs(right-pref*mix*Y[1,0].conjugate()*diff),
+                               0.,delta=5e-17)
+
     def test_W_diagrams_scale_linearly_in_offdiagonal_Y(self):
         p=example_point()
         Y=np.zeros((3,3),complex)
