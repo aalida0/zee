@@ -189,11 +189,28 @@ class TestGateC2PairedUV(unittest.TestCase):
     def test_c1_reference_reproduction_requires_driver_and_scale(self):
         baseline={'variant':'baseline',
                   'RGE_stepdoubling_compatible':True,
+                  'flow_status':'DIAGNOSTIC_BOUNDARY_REACHED_NOT_PHYSICAL_CUTOFF',
+                  'reached_10TeV_heuristic':False,
                   'estimated_4pi_crossing_GeV':1500.,
                   'first_limiting_coupling':'lh'}
-        validate_baseline(baseline,(1500.,'lh'))
-        with self.assertRaisesRegex(ValueError,'does not reproduce'):
-            validate_baseline(baseline,(1500.,'l1'))
+        reference={'status':'DIAGNOSTIC_BOUNDARY_REACHED_NOT_PHYSICAL_CUTOFF',
+                   'boundary_GeV':1500.,'limiter':'lh'}
+        validate_baseline(baseline,reference)
+        with self.assertRaisesRegex(ValueError,'boundary differs'):
+            validate_baseline(baseline,{**reference,'limiter':'l1'})
+        # New genuinely reached-end test: successful RGE flow must not be
+        # mislabeled a required boundary because an older pilot had one.
+        reached={**baseline,
+            'flow_status':'REACHED_END_SCALE_ONE_LOOP_DIAGNOSTIC_ONLY',
+            'reached_10TeV_heuristic':True,
+            'estimated_4pi_crossing_GeV':None}
+        passed={'status':'REACHED_END_SCALE_ONE_LOOP_DIAGNOSTIC_ONLY',
+                'boundary_GeV':None,'limiter':None}
+        validate_baseline(reached,passed)
+        with self.assertRaisesRegex(ValueError,'outcome differs'):
+            validate_baseline(reached,reference)
+        with self.assertRaisesRegex(ValueError,'inconsistent'):
+            validate_baseline({**reached,'reached_10TeV_heuristic':False},passed)
 
     def test_c1_90_source_and_candidate_provenance(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -217,6 +234,19 @@ class TestGateC2PairedUV(unittest.TestCase):
                 'row_count':90,'rows':rows}))
             good=read_cohort_reference(ref,b4,b2,rges)
             self.assertEqual(len(good),30)
+            self.assertEqual(good['B4_000000']['status'],
+                             'DIAGNOSTIC_BOUNDARY_REACHED_NOT_PHYSICAL_CUTOFF')
+            rows[0]['full_step']={
+                'status':'REACHED_END_SCALE_ONE_LOOP_DIAGNOSTIC_ONLY',
+                'boundary_bracket':None,
+                'limiting_couplings':[{'coupling':'l1'}]}
+            ref.write_text(json.dumps({
+                'B4_sha256':digest(b4),'B2_sha256':digest(b2),
+                'RGE_sha256':digest(rges),'row_count':90,'rows':rows}))
+            refreshed=read_cohort_reference(ref,b4,b2,rges)
+            self.assertEqual(refreshed['B4_000000']['status'],
+                             'REACHED_END_SCALE_ONE_LOOP_DIAGNOSTIC_ONLY')
+            self.assertIsNone(refreshed['B4_000000']['boundary_GeV'])
             b2.write_text('{"different":"data"}')
             with self.assertRaisesRegex(ValueError,'different inputs'):
                 read_cohort_reference(ref,b4,b2,rges)
