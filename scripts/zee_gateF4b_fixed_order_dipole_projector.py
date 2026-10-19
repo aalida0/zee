@@ -283,6 +283,8 @@ def main() -> int:
             "source_effective_basis_checks": basis,
             "source_alpha_probe_build": alpha_build,
             "source_rg_probe_build": rg_build,
+            "source_rg_probe_executable_sha256":
+                hashlib.sha256(rg_exe.read_bytes()).hexdigest(),
             "source_running_parameters": inputs,
             "num_typeII_controls": len(rows),
             "typeII_masses_GeV": list(MASSES),
