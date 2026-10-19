@@ -66,8 +66,8 @@ VEV=246.21965
 MATRIX_KEYS=set(MATRIX_NAMES)
 QUARTIC_KEYS=('l1','l2','l3','l4','l5','l6','l7','lh','l8','l9','l10')
 QUARK_BOUNDARY={
-   'yu':(1.2e-5,.0069,.93),
-   'yd':(2.5e-5,.00056,.024),
+   'yu':(1.2e-5,.0069,.93),  # dimensionless SM Yukawas, NOT masses
+   'yd':(2.5e-5,.00056,.024),  # dimensionless SM Yukawas, NOT masses
 }
 DEFAULT_EW_GAUGE={'gp':.36,'g2':.65,'g3':1.10}
 PRE_FLIGHT_CLOSURE_GEV=1e-5
@@ -158,17 +158,22 @@ def illustrative_quarks(beta):
     zero=np.zeros((3,3),complex)
     return {
         'Yu1':zero,
-        'Yu2':np.diag(QUARK_BOUNDARY['yu'])*np.sqrt(2.)/sb,
-        'Yd1':np.diag(QUARK_BOUNDARY['yd'])*np.sqrt(2.)/cb,
+        'Yu2':np.diag(QUARK_BOUNDARY['yu'])/sb,
+        'Yd1':np.diag(QUARK_BOUNDARY['yd'])/cb,
         'Yd2':zero
     }
 
 def build_model_state(point,solution):
+    if 'NOT_ALLOWED' not in str(solution.get('status','')):
+        raise ValueError('B2 source must explicitly retain NOT_ALLOWED status')
     fields,scalar=scalar_lagrangian(point)
     f=complex_matrix(solution['f'],'f')
     Y=complex_matrix(solution['Y'],'Y')
     target,_=target_neutrino_matrix()
     closure=ensure_neutrino_closure(point,f,Y,target)
+    saved=float(solution['neutrino_matrix_closure_eV'])
+    if not math.isclose(closure,saved,rel_tol=2e-5,abs_tol=1e-22):
+        raise ValueError('Recomputed B2 neutrino closure does not match saved solution')
     ye1,ye2,basis=convert_higgs_basis_Y(Y,point['beta'])
     quarks=illustrative_quarks(point['beta'])
     vals=arg_map(gp=DEFAULT_EW_GAUGE['gp'],
