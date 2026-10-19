@@ -283,6 +283,8 @@ def locate_boundary(mod,state,dt,mu_lower,iterations=12):
             high=probe
         else:
             lo=mid;accepted=probe
+    if high is None:
+        raise ValueError('Heuristic crossing could not be localized to a finite perturbativity-violating state')
     return {
         'last_accepted_mu_GeV':float(mu_lower*math.exp(lo)),
         'first_rejected_mu_GeV':float(mu_lower*math.exp(hi)),
@@ -342,10 +344,11 @@ def run_flow(mod,start,*,mu0,mu1,steps,record_every=4):
                     'history':history,'endpoint':None
                 }
             bracket=locate_boundary(mod,state,dt,mu_i)
+            crossing=bracket['crossing_couplings']
             return {
                 'status':'DIAGNOSTIC_BOUNDARY_REACHED_NOT_PHYSICAL_CUTOFF',
-                'reason':reason,
-                'limiting_couplings':limiting_couplings(next_state),
+                'reason':bracket['crossing_reason'],
+                'limiting_couplings':crossing,
                 'first_diagnostic_boundary_GeV':
                     float(mu0*math.exp((i+1)*dt)),
                 'boundary_bracket':bracket,
