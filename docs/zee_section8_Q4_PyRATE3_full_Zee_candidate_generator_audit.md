@@ -1140,3 +1140,47 @@ AF command, fresh output:
       --output-dir work/gateD5_h125_direct_LFV_v1
 
 Output summary.json and a 27-row h125 direct LFV comparison CSV. Code not yet executed on AF. Following D5, a real complete LFV+HiggsTools+matched quark flavor likelihood is required before any physical Zee allowed benchmark or Paper 1 quantitative conclusion.
+
+
+
+## D5 AF SUCCESS — direct h125 LFV far below reference bounds (2026-10-19)
+
+D5 completed all **27** D2 Yukawa solutions: all three charged-conjugate summed tree h125->eμ,eτ,μτ widths, finite lepton masses and updated leptonic widths. D5 outputs **27/27** with all three *proxy* reference BR ratios <1, no observed direct Higgs LFV reference tension. Largest reference-limit ratio is **6.306688396325444e-7** (B4_0001097). Per-mode maxima from user stdout: BR(h->eμ)=**2.7749428943831953e-11**; BR(h->eτ)=**9.892517009756622e-10**; BR(h->μτ)=**1.2517678032638578e-10**. This is under the explicit D5 assumption of SM-like production, non-leptonic Higgs widths held at the reference and only charged leptonic widths updated. No physical HiggsTools allowed classification, no new scalar hγγ loops, no full total width / signal-strength fit.
+
+The enormous suppression is fully consistent with the B4 scalar mixing input alpha approximately beta: for physical h SM alignment, the off-diagonal Higgs-basis Yukawa coupling is proportional to sin(beta-alpha). One should not extrapolate direct h LFV suppression to generic alpha or non-alignment parameter space. The existing optimized Zee Yukawas STILL require full low-energy LFV and quark flavor matching.
+
+## Gate E1 — physics-selected 27-spectra coherent two-charged SuperIso-v5 legacy B->Xs gamma audit
+
+Files:
+- scripts/zee_gateE1_joined_27_legacy_bsgamma.py
+- tests/test_zee_gateE1_joined_27_legacy_bsgamma.py (13 tests).
+
+This is the first joined quark-flavor evaluation for all **27 D5-checked spectra**. It reuses the existing rigorously audited A1U/A1V source-pinned SuperIso-v5 observable interface. Source-level nested helper high-scale C7/C8 reload bug in the original external two-state wrapper was already corrected in A1U, which AF validated against single charged-state gamma=0,pi/2 and equal-mass controls. Do NOT assume the legacy rate is a current NNLO prediction or Zee experimental exclusion. Recent independent SM NNLO study (Misiak et al arXiv:2608.29863, Aug 2026): SM B(Egamma>1.6)=(3.54±0.14)*1e-4, whereas old SuperIso source A1R SM=3.382457724e-4. HFLAV reference BR_exp=(3.49±0.19)*1e-4. These SM references have different calculational frameworks, schemes and theory correlations; do NOT splice modern SM onto legacy SuperIso NP rates without matched perturbative/mass-scheme treatment.
+
+At each charged-Higgs spectrum read exact mH1,mH2,gamma,tanbeta from original B4 and Type-II quark assumptions, generate a 27-point A1V grid and independently calculate the full mixed-Wilson-coefficient BR. Inspect each A1V response linear and quadratic NP decomposition. In addition, calculate pure-light gamma=0, pure-heavy gamma=pi/2 and equal-mass gamma-dependent controls per spectrum; if any fail threshold 5e-10 BR, halt. If any of the original D5/B2/C2/C3/C4/C5/D1/D2/D3/D4 ancestry hashes are altered, halt. Retain D4 partial LFV and D5 direct h LFV relative diagnostics in each final row. Output a comparison to the HFLAV reference and a ratio to its experimental-only uncertainty explicitly marked **NOT a pull, CL, acceptance, or exclusion**. The C1..D5 benchmark family is cascade-selected and non-prior-independent.
+
+AF command (requires prior *actual* source-pinned A1U result and isolated A1M vendor):
+
+    cd /home/aalida/zee
+    git pull --ff-only
+    python3 -m unittest discover -s tests -p 'test_zee_gateE1_joined_27_legacy_bsgamma.py' -v &&
+    python3 -u scripts/zee_gateE1_joined_27_legacy_bsgamma.py \
+      --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+      --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+      --c2-summary work/gateC2_paired_uv_rescue_v1/summary.json \
+      --c3-summary work/gateC3_running_complex_bfb_v1/summary.json \
+      --c4-summary work/gateC4_55channel_running_unitarity_v1/summary.json \
+      --c5-summary work/gateC5_charge_breaking_vacuum_v1/summary.json \
+      --d1-summary work/gateD1_joint_available_neutrino_lfv_v2/summary.json \
+      --d2-summary work/gateD2_neutrino_exact_partial_LFV_v1/summary.json \
+      --d3-summary work/gateD3_optimized_fY_full_theory_v1/summary.json \
+      --d4-summary work/gateD4_W_photon_Barr_Zee_v1/summary.json \
+      --d5-summary work/gateD5_h125_direct_LFV_v1/summary.json \
+      --vendor-root work/gateA1m_isolated_nlo_v1/isolated_superiso \
+      --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+      --a1u-result work/gateA1u_legacy_zee_br_v1/legacy_two_state_br.json \
+      --output-dir work/gateE1_joined_27_legacy_bsgamma_v1
+
+Writes summary.json, A1V_grid_27.csv, A1V_source_pinned_kernel/gateA1v_legacy_response.json and 27_model_joined_legacy_bsgamma_NOT_EXCLUSION.csv; stdout E1_LEGACY_BSGAMMA ... E1_27_LEGACY_BSGAMMA_COHORT. Source-pinned AF execution PENDING as of this doc update. If A1U/A1M files missing, stop and restore correct original source-pinned inputs (not unsourced SuperIso from CVMFS). A1V itself has source audit and rejects invalid helper signatures.
+
+**Physics target:** determine the size and sign of coherent two-charged-Higgs Wilson contributions across the existing neutrino/LFV/scalar-cascade preferred sample. Any large discrepancy from experiment is a **legacy sensitivity/tension indicator**, not exclusion. Publication-level Paper 1 requires a coherent modern NNLO observable with uncertainty treatment, plus full lepton flavor, HiggsTools, and global vacuum.
