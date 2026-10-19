@@ -462,6 +462,8 @@ def main():
             # the numerical solver, NOT the physics truncation error.
             half=run_flow(mod,start,mu0=mu0,mu1=opts.upper_GeV,
                           steps=2*opts.steps)
+            boundary_error=None
+            boundary_agreement=None
             if flow['endpoint'] is not None and half['endpoint'] is not None:
                 per=vector_distance(flow['endpoint'],half['endpoint'])
                 max_diff=max(per.values())
@@ -472,7 +474,29 @@ def main():
                 convergence=None
             if flow['status']!=half['status']:
                 raise ValueError('RK4 coarse/refined path boundary outcome differs')
+            if (flow['boundary_bracket'] is not None and
+                    half['boundary_bracket'] is not None):
+                a=flow['boundary_bracket']['estimated_boundary_GeV']
+                b=half['boundary_bracket']['estimated_boundary_GeV']
+                boundary_error=abs(a-b)/max(1.,a,b)
+                boundary_agreement=(
+                    boundary_error<=.05 and
+                    flow['limiting_couplings'][0]['coupling']==
+                    half['limiting_couplings'][0]['coupling'])
+                if not boundary_agreement:
+                    raise ValueError(
+                        f'RGE boundary step doubling inconsistent: '
+                        f'coarse={a}, refined={b}, '
+                        f'drivers={flow["limiting_couplings"][0]["coupling"]}/'
+                        f'{half["limiting_couplings"][0]["coupling"]}')
             view=public_row(point,rank,preflight,flow,convergence)
+            view['RK4_boundary_scale_relative_difference']=boundary_error
+            view['RK4_boundary_crossing_consistent']=boundary_agreement
+            view['lambda_c_at_matching']=float(point['lc'])
+            view['lambda1_at_matching']=float(scalar_lagrangian(point)[0]['l1'])
+            view['lambda2_at_matching']=float(scalar_lagrangian(point)[0]['l2'])
+            view['k2_at_matching']=float(point['k2'])
+            view['k12_at_matching']=float(point['k12'])
             public.append(view)
             reports.append({
                 'candidate_id':point['id'],'B2_solution_rank':rank,
@@ -481,18 +505,71 @@ def main():
                 'half_step':{k:v for k,v in half.items()
                                   if k!='endpoint'},
                 'RK4_relative_step_convergence':convergence,
+                'RK4_boundary_scale_relative_difference':boundary_error,
+                'RK4_boundary_crossing_consistent':boundary_agreement,
                 'status':'RG_SCREEN_ONLY_NOT_PHYSICAL_CUTOFF_OR_ALLOWED'
             })
             print('C1_JOINED_UV',point['id'],'rank',rank,
                   flow['status'],
                   'last_mu',view['last_recorded_mu_GeV'],
                   'max_quartic',view['max_abs_quartic_last_recorded'],
+                  'driver',view['boundary_triggering_coupling'],
+                  'est_boundary_GeV',view['boundary_estimated_GeV'],
+                  'boundary_refinement_delta',boundary_error,
                   'rk4_control',convergence,flush=True)
         summary['rows']=reports
         summary['row_count']=len(public)
         summary['diagnostic_boundary_count']=sum(
             r['one_loop_RGE_diagnostic_status']!='REACHED_END_SCALE_ONE_LOOP_DIAGNOSTIC_ONLY'
             for r in public)
+        from collections import Counter,defaultdict
+        import statistics
+        finite_boundary=[r['boundary_estimated_GeV'] for r in public
+                         if r['boundary_estimated_GeV'] is not None]
+        by_spectrum=defaultdict(list)
+        for row in public:
+            by_spectrum[row['candidate_id']].append(row)
+        spectrum_table=[]
+        for candidate,rr in sorted(by_spectrum.items()):
+            cutoffs=[z['boundary_estimated_GeV'] for z in rr
+                     if z['boundary_estimated_GeV'] is not None]
+            spectrum_table.append({
+                'candidate_id':candidate,
+                'solutions_tested':len(rr),
+                'boundary_min_GeV':min(cutoffs) if cutoffs else None,
+                'boundary_median_GeV':statistics.median(cutoffs) if cutoffs else None,
+                'boundary_max_GeV':max(cutoffs) if cutoffs else None,
+                'dominant_triggering_coupling':Counter(
+                    z['boundary_triggering_coupling'] for z in rr
+                ).most_common(1)[0][0],
+                'lambda_c_at_matching':rr[0]['lambda_c_at_matching'],
+                'lambda1_at_matching':rr[0]['lambda1_at_matching'],
+                'physically_allowed':'UNKNOWN',
+            })
+        summary['cohort']={
+            'candidate_spectra':len(by_spectrum),
+            'neutrino_yukawa_solutions':len(public),
+            'boundary_estimates_GeV':{
+                'minimum':min(finite_boundary) if finite_boundary else None,
+                'median':statistics.median(finite_boundary) if finite_boundary else None,
+                'maximum':max(finite_boundary) if finite_boundary else None,
+            },
+            'dominant_triggering_couplings':dict(Counter(
+                row['boundary_triggering_coupling'] for row in public
+            )),
+            'all_quantiles_are_biased_screened_subset_NOT_model_prior':True,
+            'no_physical_uv_exclusions_or_validated_perturbativity_scale':True,
+        }
+        cohortfile=opts.output_dir/'cohort_by_scalar_spectrum_NOT_ALLOWED.csv'
+        with cohortfile.open('w',newline='') as f:
+            writer=csv.DictWriter(f,fieldnames=list(spectrum_table[0]))
+            writer.writeheader()
+            writer.writerows(spectrum_table)
+        summary['cohort_csv']=str(cohortfile)
+        print('C1_COHORT_SPECTRA',len(by_spectrum),
+              'C1_COHORT_SOLUTIONS',len(public),
+              'C1_COUPLING_DRIVERS',summary['cohort']['dominant_triggering_couplings'],
+              'C1_BIASED_SCREENED_SAMPLE_NOT_A_MODEL_POSTERIOR True',flush=True)
         summary['status']=STATUS
         file=opts.output_dir/'joined_uv_diagnostics_NOT_ALLOWED.csv'
         with file.open('w',newline='') as f:
