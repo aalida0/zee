@@ -294,6 +294,22 @@ def main():
                     raise ValueError('C2 model trajectory not numerically certified')
                 check=full_trajectory(mod,first,mu0=pot['mH2'],
                                       upper=a.upper_GeV,steps=a.steps,orbits=orbits)
+                refined=full_trajectory(mod,first,mu0=pot['mH2'],
+                                      upper=a.upper_GeV,steps=2*a.steps,orbits=orbits)
+                if check['reached_end_scale']!=refined['reached_end_scale']:
+                    raise ValueError('C4 RK4 coarse/refined reaching target disagreement')
+                c0=check['first_tree_unitarity_crossing']
+                c1=refined['first_tree_unitarity_crossing']
+                if (c0 is None)!=(c1 is None):
+                    raise ValueError('C4 coarse/refined classification of unitarity crossing differs')
+                crossing_delta=None
+                if c0 is not None:
+                    u=c0['first_failure_GeV'];v=c1['first_failure_GeV']
+                    crossing_delta=abs(u-v)/max(1.,u,v)
+                    if crossing_delta>.05:
+                        raise ValueError('C4 coarse/refined unitarity crossing discrepancy >5%')
+                if check['BFB_negative_witness'] != refined['BFB_negative_witness']:
+                    raise ValueError('C4 coarse/refined negative BFB witness differs')
                 if (check['reached_end_scale'] !=
                     bool(previous_c2['reached_10TeV_heuristic'])):
                     raise ValueError('C4/C2 perturbativity contradiction '+name+'/'+variant)
@@ -312,14 +328,29 @@ def main():
                     'max_55channel_eigenvalue_final_record':check['max_abs_eigenvalue_at_last_recorded_scale'],
                     'unitarity_crossing_GeV':crossing['first_failure_GeV'] if crossing else None,
                     'unitarity_crossing_relative_bracket_width':crossing['relative_bracket_width'] if crossing else None,
-                    'full_55x55_unitarity_through_10TeV':check['tree_unitarity_8pi_at_all_sampled_steps'],
+                    'full_55x55_unitarity_through_10TeV':bool(
+                        check['tree_unitarity_8pi_at_all_sampled_steps'] and
+                        refined['tree_unitarity_8pi_at_all_sampled_steps']),
                     'both_running_theory_screens_pass':bool(
                         check['tree_unitarity_8pi_at_all_sampled_steps'] and
-                        check['BFB_sufficient_at_all_sampled_steps']),
-                    'BFB_negative_witness':check['BFB_negative_witness'],
+                        refined['tree_unitarity_8pi_at_all_sampled_steps'] and
+                        check['BFB_sufficient_at_all_sampled_steps'] and
+                        refined['BFB_sufficient_at_all_sampled_steps']),
+                    'refined_48_step_BFB_certified':refined['BFB_sufficient_at_all_sampled_steps'],
+                    'refined_48_step_55channel_unitary':refined['tree_unitarity_8pi_at_all_sampled_steps'],
+                    'unitarity_RK4_coarse_refined_relative_crossing_scale_delta':crossing_delta,
+                    'BFB_negative_witness':bool(
+                        check['BFB_negative_witness'] or refined['BFB_negative_witness']),
                     'first_BFB_uncertified_scale_GeV':check['first_BFB_uncertified_scale_GeV'],
                     'first_unitarity_uncertified_sample_GeV':check['first_tree_unitarity_uncertified_scale_GeV'],
-                    'first_limit_diagnostic':'unitarity_if_any_else_perturbativity_if_stop',
+                    'first_limit_diagnostic':(
+                        'TREE_UNITARITY_8PI' if crossing is not None and (
+                            previous_c2.get('estimated_4pi_crossing_GeV') is None or
+                            crossing['first_failure_GeV'] <
+                                previous_c2['estimated_4pi_crossing_GeV'])
+                        else 'QUARTIC_OR_YUKAWA_4PI_DIAGNOSTIC'
+                        if previous_c2.get('estimated_4pi_crossing_GeV') is not None
+                        else 'NO_TESTED_LIMIT_CROSSED_BEFORE_10TEV'),
                     'physical_Zee_allowed':'UNKNOWN',
                     'global_vacuum_and_flavor':'NOT_EVALUATED',
                 }
