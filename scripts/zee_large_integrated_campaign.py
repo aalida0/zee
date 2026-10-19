@@ -484,6 +484,7 @@ def main() -> int:
                 "test_zee_gateC5_charge_breaking_vacuum_search.py",
                 "test_zee_gateD1_joint_300_neutrino_lfv_inventory.py",
                 "test_zee_gateD2_neutrino_exact_partial_LFV_optimization.py",
+                "test_zee_large_integrated_campaign.py",
             ]
             log=out/"source_regressions.log"
             with log.open("w") as f:
