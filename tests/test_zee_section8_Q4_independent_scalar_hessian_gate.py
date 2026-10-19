@@ -112,7 +112,7 @@ class TestIndependentScalarHessian(unittest.TestCase):
         functions={}
         for k,val in expected.items():
             namespace={}
-            exec('def beta_'+k+'(nLoop):\n    return '+repr(val)+'\n',{},namespace)
+            exec('def beta_'+k+'(nLoop):\n    return '+repr(complex(val) if np.iscomplexobj(val) else float(val))+'\n',{},namespace)
             functions['beta_'+k]=namespace['beta_'+k]
         mock=SimpleNamespace(**functions)
         result=compare_pyrate_scalar_betas(mock,{'l1':.31,'lh':.19},expected)
@@ -124,7 +124,7 @@ class TestIndependentScalarHessian(unittest.TestCase):
         functions={}
         for k,val in expected.items():
             namespace={}
-            exec('def beta_'+k+'(nLoop):\n    return '+repr(val)+'\n',{},namespace)
+            exec('def beta_'+k+'(nLoop):\n    return '+repr(complex(val) if np.iscomplexobj(val) else float(val))+'\n',{},namespace)
             functions['beta_'+k]=namespace['beta_'+k]
         functions['beta_l10']=lambda nLoop:expected['l10']*2
         result=compare_pyrate_scalar_betas(
