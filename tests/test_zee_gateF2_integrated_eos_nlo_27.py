@@ -106,6 +106,23 @@ class TestF2OneLargeRealWorkflowContract(unittest.TestCase):
                     "F1_27_real_flavio_predictions_reproduced"])
                 self.assertIsNone(report["Zee_physical_allowed_or_excluded"])
                 self.assertFalse(report["summary"]["publishable_Zee_95CL_exclusions"])
+                # Optional original E1 legacy SuperIso comparison must
+                # carry the independently source-locked E4A ancestry.
+                legacy_path=Path(d)/"e1.json"
+                e4a[0]["fingerprints_sha256"]={"E1":"fixture sha"}
+                legacy_path.write_text(json.dumps({
+                    "tested":27,"rows":[{
+                        "candidate_id":r["candidate_id"],
+                        "B_to_Xs_gamma_legacy_Zee_BR":4.0e-4}
+                        for r in rows]}))
+                with_legacy=f.run(ToyEnginesNotPhysics(),
+                                  Path(d)/"e4a.json",path,Path(d)/"probe",
+                                  legacy_path)
+                self.assertTrue(with_legacy["summary"][
+                    "separate_legacy_E1_27_comparison_included"])
+                self.assertTrue(all(x[
+                    "legacy_SuperIso_BR_separate_scheme"]==4.0e-4
+                    for x in with_legacy["Zee_27_by_matching_order"]))
                 corrupted=list(rows)
                 corrupted[0]=dict(corrupted[0])
                 corrupted[0]["flavio_hybrid_BR"]+=2e-5
