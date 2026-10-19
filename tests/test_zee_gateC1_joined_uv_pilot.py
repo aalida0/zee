@@ -23,7 +23,8 @@ from zee_gateC1_joined_uv_pilot import (
     VEV,NAMES,MATRIX_KEYS,QUARK_BOUNDARY,
     scalar_lagrangian,convert_higgs_basis_Y,illustrative_quarks,
     build_model_state,diagnostics,numerical_control,
-    vector_distance,run_flow,public_row,verify_rge_validation
+    vector_distance,run_flow,public_row,verify_rge_validation,numerical_control,
+    limiting_couplings,locate_boundary,
 )
 
 def sample_point():
@@ -219,6 +220,50 @@ class TestGateC1JoinedUV(unittest.TestCase):
                 'failed_checks':[]}))
             with self.assertRaisesRegex(ValueError,'676/676'):
                 verify_rge_validation(report,source)
+
+    def test_exact_quartic_riccati_boundary_is_bracketed(self):
+        """Check boundary localization against d lambda/dt=20 lambda²/(16pi²)."""
+        p=sample_point()
+        state,_=build_model_state(p,test_solution(p))
+        start_quartic=4.
+        state['lh']=start_quartic
+        fake=zero_mod()
+        fake.beta_lh=lambda nLoop,lh:20*lh*lh
+        analytical=700*math.exp(
+            (16*math.pi**2/20)*(1/start_quartic-1/(4*math.pi))
+        )
+        coarse=run_flow(fake,state,mu0=700.,mu1=10000.,steps=24)
+        refined=run_flow(fake,state,mu0=700.,mu1=10000.,steps=48)
+        for result in (coarse,refined):
+            self.assertEqual(result['status'],
+                             'DIAGNOSTIC_BOUNDARY_REACHED_NOT_PHYSICAL_CUTOFF')
+            self.assertEqual(result['reason'],'QUARTIC_ABS_GE_4PI')
+            self.assertEqual(result['limiting_couplings'][0]['coupling'],'lh')
+            bracket=result['boundary_bracket']
+            self.assertIsNotNone(bracket)
+            self.assertLess(bracket['relative_bracket_width'],1e-3)
+            self.assertLess(bracket['last_accepted_mu_GeV'],
+                            bracket['first_rejected_mu_GeV'])
+            self.assertAlmostEqual(
+                bracket['estimated_boundary_GeV']/analytical,1.,
+                delta=.045)
+        a=coarse['boundary_bracket']['estimated_boundary_GeV']
+        b=refined['boundary_bracket']['estimated_boundary_GeV']
+        self.assertLess(abs(a-b)/max(a,b),.025)
+
+    def test_sole_numeric_gauge_negative_is_never_ignored(self):
+        p=sample_point()
+        state,_=build_model_state(p,test_solution(p))
+        state['gp']=-.1
+        self.assertEqual(numerical_control(state),'GAUGE_NEGATIVE')
+
+    def test_ranked_coupling_diagnostic_identifies_largest_portal(self):
+        state,_=build_model_state(sample_point(),test_solution(sample_point()))
+        state['l10']=11.+0.4j
+        top=limiting_couplings(state,1)[0]
+        self.assertEqual(top['coupling'],'l10')
+        self.assertEqual(top['sector'],'quartic')
+        self.assertGreater(top['ratio'],.85)
 
     def test_public_output_is_not_physical_acceptance(self):
         p=sample_point()
