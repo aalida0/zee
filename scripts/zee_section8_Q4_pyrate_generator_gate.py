@@ -300,7 +300,7 @@ def execute(model:Path,output:Path,pyrate_root:Path|None,timeout:int)->dict:
         json.dumps(dependencies,indent=2,sort_keys=True)+'\n')
     restored_roots=external_python_roots()
     (output/'pyrate3_transitive_import_roots.json').write_text(
-        json.dumps(restored_roots,indent=2)+'\\n')
+        json.dumps(restored_roots,indent=2)+'\n')
     cmd=isolated_pyrate_command(source,entry,model,target,dependencies,
                                 extra_roots=restored_roots)
     env=isolated_environment()
