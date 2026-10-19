@@ -3,6 +3,8 @@ import math
 import unittest
 from pathlib import Path
 from unittest.mock import patch
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from gateA1s_run_modern_2026_screen import linearized_2026
 from zee_gateE4a_integrated_precision_matching_calibration import (
     run_cohort,typeII_controls,OBSERVABLE_STATUS,
