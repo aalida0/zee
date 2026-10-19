@@ -110,7 +110,11 @@ def source_gauge_delta(module,quartics,gp,g2):
     gauged.update(quartics)
     delta={}
     for k in PHYSICAL_QUARTICS:
-        delta[k]=complex(evaluate(module,k,gauged)-evaluate(module,k,zero))
+        raw=np.asarray(evaluate(module,k,gauged)-
+                       evaluate(module,k,zero),dtype=complex)
+        if raw.size!=1:
+            raise ValueError(f'Expected scalar beta_{k}, got shape {raw.shape}')
+        delta[k]=complex(raw.reshape(-1)[0])
     return delta
 
 def compare_generator(module,quartics,gp,g2,independent):
