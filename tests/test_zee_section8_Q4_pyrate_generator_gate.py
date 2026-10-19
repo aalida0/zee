@@ -132,7 +132,7 @@ class TestQ4GeneratorInput(unittest.TestCase):
             packages=root/'nonstandard_dep_root'
             (packages/'yaml').mkdir(parents=True)
             (packages/'yaml/__init__.py').write_text(
-                'ORIGIN="ALLOWLIST_YAML"\n')
+                'ORIGIN="ALLOWLIST_YAML"\n__version__="6.0.3"\n')
             (core/'Particles.py').write_text('ORIGIN="PINNED_PYRATE"\n')
             (src/'pyR@TE.py').write_text(
                 'import sys,Particles,yaml\n'
