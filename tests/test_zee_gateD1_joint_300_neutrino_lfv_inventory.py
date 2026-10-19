@@ -97,7 +97,7 @@ class D1JointFlavorTests(unittest.TestCase):
     def test_negative_control_corrupted_neutrino_solution(self):
         p=example_point();s=example_solution(p)
         s['Y']['real'][0][0]+=1.
-        with self.assertRaisesRegex(ValueError,'Neutrino'):
+        with self.assertRaisesRegex(ValueError,'do not reconstruct requested neutrino matrix'):
             candidate_flavor(p,s,1)
 
     def test_negative_control_unsafe_allowed_status(self):
