@@ -1,0 +1,94 @@
+"""Q4 input integrity, gauge group check and fail-closed generator contract.
+
+Does not calculate or validate any full Zee beta function.
+"""
+from __future__ import annotations
+import json
+import subprocess
+import sys
+import tempfile
+import unittest
+from fractions import Fraction
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
+from zee_section8_Q4_pyrate_generator_gate import (
+    MODEL,EXPECTED,FIELD_Y,block,declared_terms,gauge_from_content,
+    preflight,sha256,PYRATE_SHA
+)
+
+class TestQ4GeneratorInput(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.src=MODEL.read_text()
+    def mutated(self,original,replacement):
+        self.assertIn(original,self.src)
+        t=self.src.replace(original,replacement)
+        with tempfile.TemporaryDirectory() as d:
+            p=Path(d)/'mutated.model'
+            p.write_text(t)
+            return preflight(p)
+    def test_current_exact_operator_inventory(self):
+        d=preflight(MODEL)
+        self.assertEqual(len(d['operators']['Yukawas']),7)
+        self.assertEqual(len(d['operators']['QuarticTerms']),11)
+        self.assertEqual(len(d['operators']['TrilinearTerms']),1)
+        self.assertEqual(len(d['operators']['ScalarMasses']),4)
+        self.assertEqual(d['couplings_quartic_real_components'],15)
+        self.assertEqual(d['field_content_real_scalar_dof'],10)
+        self.assertFalse(d['full_complex_beta_functions_verified'])
+    def test_independent_gauge_coefficients(self):
+        d=preflight(MODEL)
+        self.assertEqual(d['gauge_1loop_SM_gprime'],['22/3','-3','-7'])
+    def test_explicit_hypercharge_for_f_and_mu(self):
+        self.assertEqual(2*FIELD_Y['LL']+FIELD_Y['chi'],0)
+        self.assertEqual(FIELD_Y['Phi1']+FIELD_Y['Phi2']+FIELD_Y['chibar'],0)
+    def test_input_hashed(self):
+        self.assertEqual(preflight(MODEL)['input_SHA256'],sha256(MODEL))
+        self.assertEqual(len(PYRATE_SHA),40)
+    def test_reject_missing_f(self):
+        with self.assertRaisesRegex(ValueError,'missing='):
+            self.mutated('f: Eps[i,j] LL[i] LL[j] chi','')
+    def test_reject_f_with_wrong_hypercharge(self):
+        with self.assertRaisesRegex(ValueError,'nonzero Y'):
+            self.mutated('f: Eps[i,j] LL[i] LL[j] chi',
+                         'f: Eps[i,j] LL[i] LL[j] chibar')
+    def test_reject_f_bad_SU2_structure(self):
+        with self.assertRaisesRegex(ValueError,'antisymmetric SU2'):
+            self.mutated('f: Eps[i,j] LL[i] LL[j] chi',
+                         'f: LL[i] LL[j] chi')
+    def test_reject_forbidden_lambda6_zero(self):
+        with self.assertRaisesRegex(ValueError,'Forbidden'):
+            self.mutated('g_U1Y: gp,','l6: 0,\n  g_U1Y: gp,')
+    def test_reject_forbidden_GUT_g1(self):
+        with self.assertRaisesRegex(ValueError,'Forbidden'):
+            self.mutated('g_U1Y: gp,','g_U1Y: sqrt(5/3) * gp,')
+    def test_reject_removed_portal(self):
+        with self.assertRaisesRegex(ValueError,'missing='):
+            self.mutated('l10: chibar chi Phi1bar[i] Phi2[i]','')
+    def test_reject_wrong_singlet_charge(self):
+        with self.assertRaisesRegex(ValueError,'Wrong hypercharges'):
+            self.mutated('U1Y: 1, SU2L: 1','U1Y: 2, SU2L: 1')
+    def test_reject_missing_trilinear_epsilon(self):
+        with self.assertRaisesRegex(ValueError,'trilinear missing SU2'):
+            self.mutated('muZee: Eps[i,j] Phi1[i] Phi2[j] chibar',
+                         'muZee: Phi1[i] Phi2[j] chibar')
+    def test_preflight_only_does_not_claim_betas(self):
+        with tempfile.TemporaryDirectory() as d:
+            target=Path(d)/'q4_out'
+            p=subprocess.run([sys.executable,
+                str(Path(__file__).resolve().parents[1]/'scripts/zee_section8_Q4_pyrate_generator_gate.py'),
+                '--model',str(MODEL),'--output-dir',str(target),'--preflight-only'],
+                text=True,capture_output=True,timeout=20)
+            self.assertEqual(p.returncode,0,p.stdout+p.stderr)
+            r=json.loads((target/'summary.json').read_text())
+            self.assertEqual(r['result'],'PREFLIGHT_ONLY_GENERATOR_NOT_EXECUTED')
+            self.assertFalse(r['full_Zee_RGE_calculation_accepted'])
+            self.assertNotIn('generator',r)
+            p=subprocess.run([sys.executable,
+                str(Path(__file__).resolve().parents[1]/'scripts/zee_section8_Q4_pyrate_generator_gate.py'),
+                '--model',str(MODEL),'--output-dir',str(target),'--preflight-only'],
+                text=True,capture_output=True,timeout=20)
+            self.assertNotEqual(p.returncode,0)
+            self.assertIn('Refusing to overwrite',p.stderr)
+
+if __name__=='__main__':unittest.main()
