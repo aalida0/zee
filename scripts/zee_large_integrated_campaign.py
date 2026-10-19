@@ -135,7 +135,7 @@ def expect_stage(stage: str, report: dict, cohort: int,
         "PIPELINE":("PARTIAL_DIAGNOSTICS_COMPLETE_NOT_ALLOWED",
                     "input_candidate_count",cohort),
         "C1":("GATE_C1_JOINT_ZEE_MODEL_ONE_LOOP_UV_DIAGNOSTIC_NOT_ALLOWED",
-              "row_count",cohort),
+              "row_count",cohort*3),
         "C2":("GATE_C2_PAIRED_ZEE_SCALAR_RESCUE_ONE_LOOP_DIAGNOSTIC_NOT_ALLOWED",
               "tested_interventions",cohort*variants),
         "C3":("GATE_C3_COMPLEX_QUARTIC_RUNNING_BFB_DIAGNOSTIC_NOT_ALLOWED",
@@ -214,6 +214,64 @@ def run_stage(stage, cmd, out, expect, manifest, logroot):
     print("LARGE_SCAN_STAGE",stage,"PASS",information["validated_cohort_count"],
           "NOT_ALLOWED",flush=True)
     return report
+
+
+def select_tree_consistent_30(all_csv: Path, output_csv: Path,
+                              needed: int = 30) -> dict:
+    """One fresh scan: select diverse candidates for C2's two *counterfactual*
+    scalar potentials using tree-level model reconstruction only.
+
+    This is explicitly *biased proposal filtering*, not a theory or Higgs
+    experimental exclusion. C4/C5 must independently test the selected
+    scalar variations, and the central B4 spectra remain unclassified.
+    """
+    from gateB4_adaptive_zee_scalar_scan import shortlist, write_csv
+    from zee_gateC2_paired_uv_rescue import VARIANTS, varied_point
+    from zee_gateC3_running_complex_bfb import TARGET_VARIANTS
+    from zee_gateC1_joined_uv_pilot import scalar_lagrangian
+    raw = csv_rows(all_csv)
+    unique_ids(raw, "id")
+    nvars=[v for v in VARIANTS if v[0] in TARGET_VARIANTS]
+    if len(nvars)!=2:
+        raise ValueError("Expected exactly two C3/C4/C5 tree counterfactuals")
+    keep=[]
+    rejection={}
+    parameters=("mH1","mH2","mh2","ma","alpha","beta",
+                "gamma","m12sq","lc","k1","k2","k12")
+    for row in raw:
+        try:
+            point={k:float(row[k]) for k in parameters}
+            point["id"]=row["id"]
+            for name,max_lh,target_l1 in nvars:
+                scalar_lagrangian(varied_point(point,max_lh,target_l1))
+        except (ValueError, ArithmeticError, KeyError, OverflowError) as exc:
+            # This counterfactual-family rejection is about diagnostic
+            # *selection only*. The original B4 point may remain valid.
+            key=type(exc).__name__
+            rejection[key]=rejection.get(key,0)+1
+            continue
+        keep.append({k:float(v) if k in parameters or k.startswith(
+            ("lambda","BR_","production_weighted")) else v
+            for k,v in row.items()})
+    chosen=shortlist(keep,needed)
+    if len(chosen)!=needed:
+        raise ValueError(
+            f"Only {len(chosen)} of {needed} diverse spectra had both "
+            f"required C2 tree diagnostic variants; {len(keep)} passed "
+            f"source tree preselection out of {len(raw)}. Cannot run C1–C5 "
+            "with incomplete 30-spectrum cohort.")
+    write_csv(output_csv,chosen)
+    if len(csv_rows(output_csv))!=needed:
+        raise ValueError("Selected B4 CSV not preserved")
+    return {
+        "source_B4_screened_coarse_bins":len(raw),
+        "counterfactual_tree_candidate_count":len(keep),
+        "chosen_diverse_cohort_size":len(chosen),
+        "counterfactual_tree_rejection_categories":rejection,
+        "selection_bias_not_Zee_viability_or_model_prior":True,
+        "counterfactual_potentials_are_not_the_original_B4_model":True,
+        "selected_csv_sha256":digest(output_csv),
+    }
 
 
 def scalar_theory_available(d1: dict) -> int:
@@ -363,7 +421,7 @@ def main() -> int:
     ap=make_parser()
     args=ap.parse_args()
     if (not 1200<=args.steps<=200000 or not 2<=args.chains<=128 or
-        args.top!=30 or not 5<=args.flavor_top<=10 or
+        args.top!=30 or args.flavor_top!=5 or
         args.flavor_top>args.neutrino_trials or
         args.neutrino_trials>50000 or
         not 8<=args.uv_steps<=96 or args.uv_steps%4 or
@@ -452,9 +510,14 @@ def main() -> int:
             "--top",args.top,"--quadrature-nodes",96,"--adapt-every",200,
             "--random-seed",20261020,"--output-dir",b4),
             b4,b4/"summary.json",manifest,out)
-        selected=b4/"diverse_candidates_for_B2_NOT_ALLOWED.csv"
-        if len(csv_rows(selected))!=args.top:
-            raise ValueError("B4 shortlist not precisely 30 candidates")
+        # The historical C3–C5 backends compare two specified paired
+        # scalar variants. Verify their tree reconstruction BEFORE using
+        # a fresh cohort for the expensive complete coupled-RGE chain.
+        selected=out/"B4_diverse_tree_consistent_30_NOT_ALLOWED.csv"
+        manifest["C2_variant_tree_preselection"]=select_tree_consistent_30(
+            b4/"all_screened_candidates_NOT_ALLOWED.csv",
+            selected,args.top)
+        write_json(out/"manifest.json",manifest)
         # 2. Single already-integrated neutrino, widths, partial LFV,
         # source-pinned legacy quark-flavor and provenance join.
         pipe=out/"partial_constraint_pipeline"
@@ -473,7 +536,7 @@ def main() -> int:
         c1=out/"C1_model_RGE"
         run_stage("C1",py("zee_gateC1_joined_uv_pilot.py",
             *common,*rgeargs,"--top-candidates",args.top,
-            "--solutions-per-candidate",1,"--steps",args.uv_steps,
+            "--solutions-per-candidate",3,"--steps",args.uv_steps,
             "--upper-GeV",10000,"--output-dir",c1),
             c1,c1/"summary.json",manifest,out)
         c2=out/"C2_paired_UV"
