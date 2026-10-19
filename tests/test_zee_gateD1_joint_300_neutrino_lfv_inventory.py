@@ -1,4 +1,4 @@
-"""D1 large joined 300-Zee-flavor-configurations cohort regression controls.
+"""D1 joined all-saved-B2 Zee flavor configurations cohort regression controls.
 
 These tests exercise source consistency, neuron mass closure and hard
 provenance gates WITHOUT turning any partial LFV result into an exclusion.
@@ -208,26 +208,62 @@ class D1JointFlavorTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'C5 completed report'):
                 verify_c5(target,*files.values())
 
-    def test_b2_cohort_exact_30x10_instead_of_double_counting_variants(self):
+    @staticmethod
+    def _synthetic_cohort_in_directory(root, counts):
+        source=root/'b4.csv';target=root/'b2.json'
+        head='id,mH1,mH2,mh2,ma,alpha,beta,gamma,m12sq\n'
+        csv_rows=''.join(
+            f'B4_{i:07d},300,700,580.7,633.7,1.398,1.394,1.089,57700\n'
+            for i in range(30))
+        source.write_text(head+csv_rows)
+        sols={f'B4_{i:07d}':[
+            {'candidate_id':f'B4_{i:07d}'} for _ in range(counts[i])]
+            for i in range(30)}
+        target.write_text(json.dumps(sols))
+        return source,target,sols
+
+    def test_b2_cohort_all_30x10_when_fully_populated(self):
         with tempfile.TemporaryDirectory() as tmp:
-            root=Path(tmp)
-            source=root/'b4.csv';target=root/'b2.json'
-            head='id,mH1,mH2,mh2,ma,alpha,beta,gamma,m12sq\n'
-            csv_rows=''.join(
-                f'B4_{i:07d},300,700,580.7,633.7,1.398,1.394,1.089,57700\n'
-                for i in range(30))
-            source.write_text(head+csv_rows)
-            sol=json.dumps({f'B4_{i:07d}':[
-                {'candidate_id':f'B4_{i:07d}'} for j in range(10)]
-                for i in range(30)})
-            target.write_text(sol)
+            source,target,_=self._synthetic_cohort_in_directory(
+                Path(tmp),[10]*30)
             pts,sols=load_cohort(source,target)
             self.assertEqual(len(pts),30)
             self.assertEqual(sum(len(v) for v in sols.values()),300)
-            data=json.loads(target.read_text())
-            del data['B4_0000000'][0]
-            target.write_text(json.dumps(data))
-            with self.assertRaisesRegex(ValueError,'TEN'):
+
+    def test_b2_cohort_variable_solution_population_is_valid(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            counts=[1+(i%10) for i in range(30)]
+            source,target,_=self._synthetic_cohort_in_directory(
+                Path(tmp),counts)
+            pts,sols=load_cohort(source,target)
+            self.assertEqual(len(pts),30)
+            self.assertEqual(sum(len(v) for v in sols.values()),sum(counts))
+            self.assertEqual(len(sols['B4_0000000']),1)
+            self.assertEqual(len(sols['B4_0000009']),10)
+
+    def test_b2_cohort_empty_family_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            source,target,sols=self._synthetic_cohort_in_directory(
+                Path(tmp),[3]*30)
+            sols['B4_0000000']=[]
+            target.write_text(json.dumps(sols))
+            with self.assertRaisesRegex(ValueError,'1..10'):
+                load_cohort(source,target)
+
+    def test_b2_cohort_over_ten_family_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            source,target,_=self._synthetic_cohort_in_directory(
+                Path(tmp),[11]*30)
+            with self.assertRaisesRegex(ValueError,'1..10'):
+                load_cohort(source,target)
+
+    def test_b2_cohort_wrong_identity_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            source,target,sols=self._synthetic_cohort_in_directory(
+                Path(tmp),[3]*30)
+            sols['B4_0000000'][2]['candidate_id']='B4_WRONG'
+            target.write_text(json.dumps(sols))
+            with self.assertRaisesRegex(ValueError,'identity mismatch'):
                 load_cohort(source,target)
 
 if __name__=='__main__':
