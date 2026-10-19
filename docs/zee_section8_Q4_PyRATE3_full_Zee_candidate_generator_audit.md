@@ -775,3 +775,80 @@ python3 -u scripts/zee_gateC3_running_complex_bfb.py \
 
 Pending AF result. File outputs:
   \`summary.json\` with per-variant rigorous-sufficient and negative-witness counts, plus \`running_BFB_diagnostics_NOT_ALLOWED.csv\`. Most important distinctions: which of the 29/30 RGE-perturbative paths are also rigorously sufficiently BFB throughout the sampled scales, explicitly unstable, or mathematically INCONCLUSIVE. At sampling time only; stability between steps and dimensionful charge-breaking global vacuum not certified.
+
+
+
+## C3 AF outcome — 58/60 rescued coupled trajectories sufficiently BFB, 0 negative witnesses
+
+Actual AF log supplied 2026-10-19 (Pasted text (8)): all 60 paths (30 B4 scalar spectra, 2 paired C2 counterfactuals) were executed against the unchanged 26 one-loop RGEs. C3 reports **29/30 COMPLETE_TO_TARGET with sufficient copositivity BFB at EVERY sampled scale for each intervention**, hence 58/60 successful running-BFB diagnostic paths (24 steps + matching scale per case = **1450 certified field-independent sufficient checks**). No negative quartic gauge-invariant orbit witness was found. Only B4_0000827 stopped at the preexisting C2 perturbativity threshold, so its lack of a full 10 TeV BFB certificate is **not a demonstrated unstable vacuum**. These checks are strong enough to establish mathematically sufficient lower bounds on V4 at sampled scales, but do not prove scale-continuous BFB, global charge-breaking vacuum stability including dimensionful terms, or physically viable spectra. Neutrino f,Y closure was checked against one illustrative target, not a full fit.
+
+## Gate C4 — full 55-channel general complex scalar tree unitarity + running-BFB joint test
+
+Reason: **C3 alone cannot establish theoretical UV consistency**, because scattering-matrix unitarity can fail even when the individual |quartic|<4π and a BFB lower bound are satisfied.
+
+New \`scripts/zee_gateC4_running_55channel_unitarity.py\` and
+\`tests/test_zee_gateC4_running_55channel_unitarity.py\` (18 regression tests).
+Instead of relying on the original 2021 Appendix C restricted Q,Y blocks,
+compute the exact high-energy 55×55 symmetric two-real-scalar scattering
+matrix from all TEN real scalar components of \`Phi1, Phi2, chi\`, including
+radiatively induced complex l5,l6,l7,l10. There are 10×11/2=55 normalized
+symmetric two-particle states |ij>/sqrt(1+δ_ij). For V4=q^T C q and
+q_a=.5 phi_i A^a_ij phi_j, derive contact vertex tensor:
+
+\`\`\`text
+T_ijkl = 2 C_ab [A^a_ij A^b_kl + A^a_ik A^b_jl + A^a_il A^b_jk]
+M_(ij),(kl) = T_ijkl / sqrt[(1+δ_ij)(1+δ_kl)]
+a0_eigen = - M_eigen / (16π)
+tree-unitarity requirement: max |M_eigen| < 8π.
+\`\`\`
+
+**Independent normalization validation**: the restricted Gate6 benchmark
+from Florentino et al 2021 Appendix C predicts max
+|M_eigen| = **18.13677908573045**; the independent full 55-real-channel
+construction returns the same maximum to machine precision, confirmed
+by a standalone NumPy calculation. Additional exact analytic limits:
+lambda1-only max eigen=3 λ1, lambda2-only=3 λ2, singlet lh-only=4 lh.
+The matrix/eigenspectrum remains invariant under general complex
+Higgs-doublet rephasing.
+
+Trace the **same 60** paired C2/C3 counterfactuals under the full
+complex 26-one-loop Zee flow, using 24 and 48 logarithmic RK4 steps
+toward 10 TeV. Evaluate all 55 eigenvalues and the full C3 conservative
+BFB sufficient proof at EVERY sampled step on both grids. RK4
+step-bisect any first |eigen|=8π crossing, check its stability against
+a 48-step calculation (<=5% crossing-scale difference), and report
+the first theoretical numerical warning (tree unitarity vs the
+earlier |quartic|=4π heuristic). Require *exact* Q4v13/C2/C3
+source and B4/B2 provenance. Fail closed if C4 contradicts
+C2's 10 TeV heuristic or C3's original 24-step BFB outcomes.
+The reported number of 10 TeV survivors must meet ALL tested
+heuristic perturbativity, sufficient BFB and complete 55-channel
+tree unitarity on both grids.
+
+**One AF command:**
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateC4_running_55channel_unitarity.py' -v &&
+python3 -u scripts/zee_gateC4_running_55channel_unitarity.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+  --q4v13-report work/zee_section8_Q4_pyrate_v4/large_integrated_v1.json \
+  --c2-summary work/gateC2_paired_uv_rescue_v1/summary.json \
+  --c3-summary work/gateC3_running_complex_bfb_v1/summary.json \
+  --max-spectra 30 --steps 24 --orbit-samples 2048 \
+  --upper-GeV 10000 \
+  --output-dir work/gateC4_55channel_running_unitarity_v1
+\`\`\`
+
+The user-supplied C3 AF run is complete and did not run C4 yet.
+C4 reports \`summary.json\` and \`running_55channel_unitarity_NOT_ALLOWED.csv\`.
+This remains an approximate, tree/one-loop, no-threshold theory screen,
+not a global vacuum or full RG-consistent allowed-parameter fit. In
+particular no full modern two-charged-state b→sγ, Barr–Zee LFV, CKM
+meson FCNC, HiggsTools or charge-breaking global extrema constraints
+have been applied to these 60 counterfactuals. Never label
+“full Zee point allowed” based on C4 alone.
