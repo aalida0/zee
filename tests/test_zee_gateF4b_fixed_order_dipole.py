@@ -73,7 +73,10 @@ class F4bProjectorContracts(unittest.TestCase):
                       "six_high_scale_effective_rotations_source_checked":True,
                       "no_explicit_low_dipole_inverse_in_base1":True,
                       "three_order_evolution_uses_effective_dipoles":True},
-                  "controls":rows}
+                  "controls":rows,
+                  "compiled_F3_source_probe":{
+                      "library_SHA256":"fixture-lib",
+                      "driver_SHA256":"fixture-driver"}}
             path.write_text(json.dumps(good))
             self.assertEqual(len(f.check_f4_source_summary(path,"pin")),8)
             with self.assertRaises(ValueError):
