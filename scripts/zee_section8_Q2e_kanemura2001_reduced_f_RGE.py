@@ -137,8 +137,8 @@ def run(high=10000.,low=700.,steps=120,*,gauge=None,yt=None,f=None):
         "q_initial":initial_q,
         "q_final":final_q,
         "f_scale_ratio_sqrt_q":math.sqrt(final_q/initial_q) if initial_q else None,
-        "f_beta_matrix_vs_3d_identity_error":float(np.max(abs(
-           beta_f_matrix(a,g[0],g[1])-beta_f_reduced(a,g[0],g[1]))),
+        "f_beta_matrix_vs_3d_identity_error":float(np.max(np.abs(
+           beta_f_matrix(a,g[0],g[1])-beta_f_reduced(a,g[0],g[1])))),
         "general_complex_f_supported":False,
         "ordinary_lepton_Pi_beta_included":False,
         "quartic_lambda6_lambda7_beta_included":False,
