@@ -381,7 +381,7 @@ def main():
             full_2026_Zee_NNLO_prediction=True,
             precision_source_unavailable_in_repo=False,
             implementation_source=manifest["implementation_source"],
-            2026_NNLO_Zee_27=results,
+            NNLO_2026_Zee_27=results,
             cohort={"spectra":27,
                     "minimum_BR":min(z["2026_NNLO_two_state_BR"] for z in results),
                     "median_BR":statistics.median(
