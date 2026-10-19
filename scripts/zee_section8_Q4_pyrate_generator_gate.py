@@ -280,7 +280,7 @@ def execute(model:Path,output:Path,pyrate_root:Path|None,timeout:int)->dict:
                 copied.write_bytes(item.read_bytes())
                 recent_logs.append({
                     'source':str(item),'copy':str(copied),
-                    'tail':'\\n'.join(item.read_text(errors='replace').splitlines()[-70:])[-16000:]
+                    'tail':'\n'.join(item.read_text(errors='replace').splitlines()[-70:])[-16000:]
                 })
     diagnostic={
         'stage':'pyrate3_subprocess',
@@ -300,12 +300,12 @@ def execute(model:Path,output:Path,pyrate_root:Path|None,timeout:int)->dict:
     }
     (output/'pyrate3_diagnostic.json').write_text(json.dumps(diagnostic,indent=2)+'\n')
     if done.returncode!=0 or not files:
-        print('Q4_PYRATE_STDOUT_TAIL_BEGIN\\n'+diagnostic['stdout_last_70_lines']+
-              '\\nQ4_PYRATE_STDOUT_TAIL_END',file=sys.stderr,flush=True)
-        print('Q4_PYRATE_STDERR_TAIL_BEGIN\\n'+diagnostic['stderr_last_70_lines']+
-              '\\nQ4_PYRATE_STDERR_TAIL_END',file=sys.stderr,flush=True)
+        print('Q4_PYRATE_STDOUT_TAIL_BEGIN\n'+diagnostic['stdout_last_70_lines']+
+              '\nQ4_PYRATE_STDOUT_TAIL_END',file=sys.stderr,flush=True)
+        print('Q4_PYRATE_STDERR_TAIL_BEGIN\n'+diagnostic['stderr_last_70_lines']+
+              '\nQ4_PYRATE_STDERR_TAIL_END',file=sys.stderr,flush=True)
         for log in recent_logs:
-            print('Q4_PYRATE_UPSTREAM_LOG '+log['copy']+'\\n'+log['tail'],
+            print('Q4_PYRATE_UPSTREAM_LOG '+log['copy']+'\n'+log['tail'],
                   file=sys.stderr,flush=True)
     result={'pyrate_SHA':head,'command':cmd,'returncode':done.returncode,
             'generated_files':files,'generator_executed_successfully':done.returncode==0,
