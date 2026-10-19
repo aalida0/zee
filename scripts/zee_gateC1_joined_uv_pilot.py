@@ -250,10 +250,10 @@ def limiting_couplings(state,top=6):
     return sorted(ranked,key=lambda x:x['ratio'],reverse=True)[:top]
 
 def numerical_control(state):
+    if any(float(state[k])<0 for k in ('gp','g2','g3')):
+        return 'GAUGE_NEGATIVE'
     drivers=limiting_couplings(state,1)
     lead=drivers[0]
-    if lead['sector']=='gauge' and float(state[lead['coupling']])<0:
-        return 'GAUGE_NEGATIVE'
     if lead['ratio']<1:
         return None
     if lead['sector']=='quartic':return 'QUARTIC_ABS_GE_4PI'
@@ -493,8 +493,8 @@ def main():
             view['RK4_boundary_scale_relative_difference']=boundary_error
             view['RK4_boundary_crossing_consistent']=boundary_agreement
             view['lambda_c_at_matching']=float(point['lc'])
-            view['lambda1_at_matching']=float(scalar_lagrangian(point)[0]['l1'])
-            view['lambda2_at_matching']=float(scalar_lagrangian(point)[0]['l2'])
+            view['lambda1_at_matching']=float(start['l1'])
+            view['lambda2_at_matching']=float(start['l2'])
             view['k2_at_matching']=float(point['k2'])
             view['k12_at_matching']=float(point['k12'])
             public.append(view)
