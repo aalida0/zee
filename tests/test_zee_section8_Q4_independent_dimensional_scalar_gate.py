@@ -37,7 +37,7 @@ class TestQ4IndependentDimensionalScalar(unittest.TestCase):
     def test_quadratic_mass_hessian_finite_differences(self):
         masses={"m1":81000.,"m2":252000.,"mchi":129000.,
                 "m12":26000.+8000j}
-        r=self.fields[3];h=1e-3;I=np.eye(10)
+        r=self.fields[3];h=.05;I=np.eye(10)
         exact=quadratic_hessian(masses)
         for i,j in ((0,0),(0,4),(1,5),(2,7),(8,9)):
             fd=(potential_quadratic(r+h*I[i]+h*I[j],masses)
@@ -49,7 +49,7 @@ class TestQ4IndependentDimensionalScalar(unittest.TestCase):
     def test_cubic_hessian_finite_differences(self):
         r=self.fields[7];mu=220.+55j
         exact=cubic_hessian(r,mu)
-        h=1e-3;I=np.eye(10)
+        h=.05;I=np.eye(10)
         for i,j in ((0,4),(0,6),(0,8),(4,9),(2,7),(3,6)):
             fd=(potential_cubic(r+h*I[i]+h*I[j],mu)
                 -potential_cubic(r+h*I[i]-h*I[j],mu)
