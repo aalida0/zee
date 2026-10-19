@@ -1184,3 +1184,39 @@ AF command (requires prior *actual* source-pinned A1U result and isolated A1M ve
 Writes summary.json, A1V_grid_27.csv, A1V_source_pinned_kernel/gateA1v_legacy_response.json and 27_model_joined_legacy_bsgamma_NOT_EXCLUSION.csv; stdout E1_LEGACY_BSGAMMA ... E1_27_LEGACY_BSGAMMA_COHORT. Source-pinned AF execution PENDING as of this doc update. If A1U/A1M files missing, stop and restore correct original source-pinned inputs (not unsourced SuperIso from CVMFS). A1V itself has source audit and rejects invalid helper signatures.
 
 **Physics target:** determine the size and sign of coherent two-charged-Higgs Wilson contributions across the existing neutrino/LFV/scalar-cascade preferred sample. Any large discrepancy from experiment is a **legacy sensitivity/tension indicator**, not exclusion. Publication-level Paper 1 requires a coherent modern NNLO observable with uncertainty treatment, plus full lepton flavor, HiggsTools, and global vacuum.
+
+
+
+## E1 AF SUCCESS — 27/27 positive two-state legacy B->Xs gamma NP, and E2 charged-mixing/cascade physics tradeoff
+
+The user supplied full **27/27 E1 AF log** (Oct 19, 2026), all source-pinned pure-light/pure-heavy and equal-mass endpoints successful. Data:
+- LEGACY SuperIso predicted two-state BR range **[0.00038632835890417316, 0.0004041932539836534]**; median **0.0003914422634967018**.
+- All **27/27** positive NP BR shifts relative to the SAME **legacy** SM baseline. Median NP shift **5.3196491092622226e-05** = **15.7%** of original E1 legacy SM 0.00033824577.
+- Under ONLY HFLAV experimental uncertainty (no theory error included), raw |BR_legacy-BR_exp|/sigma_exp from **1.96465** to **2.90491**, median **2.23380**. These numbers are **not true standard deviation pulls, exclusions or an allowed fraction**; 2026 NNLO B->Xs gamma SM differs from SuperIso legacy calculation and must NOT be naively spliced with old NP rate. All 27 linear (interference) pieces are positive and larger than the positive quadratic NP contributions.
+- Example B4_0000820 lowest legacy BR ~3.8633e-4; B4_0000874 highest ~4.0419e-4. Favoring the large off-diagonal charged Z cascade leads to potential quark-flavor pressure; quantified modern EFT matching remains necessary.
+
+**Gate E2** is a *physical tradeoff* diagnostic, not a repeat full scan or a 2026 flavor exclusion. Driver \`scripts/zee_gateE2_flavor_cascade_mixing_frontier.py\` with 14 regressions in \`tests/test_zee_gateE2_flavor_cascade_mixing_frontier.py\`.
+
+At fixed masses/tanβ use exact A1V Wilson mixing \`C^(Zee)_i=C^SM_i+cos²γ C^H1_i+sin²γ C^H2_i\`. The source-pinned SuperIso observable is quadratic in NP-strength \`k\` (already verified in A1V), so BR_legacy is mathematically quadratic in \`x=cos²γ\`: \`BR=A+B x+C x²\`. Construct the unique polynomial from each E1 original γ result, pure-light γ=0 and pure-heavy γ=π/2 controls. This costs no approximate Wilson data inference; the quadratic structure is source-verified and then independently checked via **4 fresh compiled-and-audited vendor evaluations per spectrum**: γ=0.31,0.79,1.33 and original γ (27×4=**108 vendor checks**). Fail closed if any BR disagreement >1e-10. Rebuild the A1V executable directly from the original SHA256-pinned A1M isolated library and compare rebuilt lib / C-driver hashes against the saved E1/A1V report. Lock E1/A1M/A1U SHA provenance.
+
+The off-diagonal charge-cascade vertex \`g_ZH1H2~sin2gamma\` gives normalized coupling strength squared \`S_Z=sin²(2gamma)=4x(1-x)\`. **S_Z is NOT BR(H2→H1Z)**: full decay competition, neutrino matrix reconstruction, scalar-potential mass matching, global vacuum and 26-beta UV running ALL change when γ changes. Mathematically minimize BR_legacy over allowed γ at each of five retention levels \`S_Z ≥ {0,.25,.50,.75,1} × S_Z(original)\`, including exact analytic quadratic minimum and degenerate roots. Export per-spectrum the optimum γ, retained vertex strength and flavor NP-rate tradeoff, no experimental cut or allowed/excluded label. Thus this stage answers: **can the legacy quark-flavor pressure be relieved by moving toward a mostly singlet lighter charged scalar without destroying the distinctive off-diagonal Z coupling?** A successful counterfactual would THEN require a real full-model scalar/neutrino/LFV re-fit and theory matching before any allowed claim.
+
+**One AF command**, fresh directory:
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m py_compile \
+    scripts/zee_gateE2_flavor_cascade_mixing_frontier.py \
+    tests/test_zee_gateE2_flavor_cascade_mixing_frontier.py
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateE2_flavor_cascade_mixing_frontier.py' -v &&
+python3 -u scripts/zee_gateE2_flavor_cascade_mixing_frontier.py \
+  --e1-summary work/gateE1_joined_27_legacy_bsgamma_v1/summary.json \
+  --vendor-root work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --a1u-result work/gateA1u_legacy_zee_br_v1/legacy_two_state_br.json \
+  --output-dir work/gateE2_flavor_cascade_mixing_frontier_v1
+\`\`\`
+
+Output \`summary.json\` with original-vs-minimum legacy flavor BR and five coupling-retention minima per spectrum, and \`mixing_Zvertex_vs_legacy_bsgamma_27_NOT_ALLOWED.csv\`. Expected stdout \`E2_FLAVOR_CASCADE_ANGLE 1/27 ...\`, \`E2_COHORT {...}\`, \`E2_PHYSICAL_ZEE_ALLOWED UNKNOWN\`. Not yet run on AF. Source literature: Florentino/Romão/Silva EPJC81 (2021) 1148 equations for off-diagonal Z coupling, arXiv:2106.08332; Misiak et al. 2026 modern SM B->Xs gamma arXiv:2608.29863. No model experimental exclusions from E1 or E2.
