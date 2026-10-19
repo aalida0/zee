@@ -111,11 +111,35 @@ def net_low(data,mode,aslow):
     return {n:data[mode,n]["low_LO"]+aslow*data[mode,n]["low_NLO"]
             for n in range(1,9)}
 
+def independent_wilson_qed_off(pair,high):
+    """Real WET/flavio LO-QCD evolution with leading QED switched OFF.
+
+    F2 uses wilson default qcd_order=1, qed_order=1. Here we change
+    ONLY qed_order to 0 and preserve scale, basis and input coefficients.
+    This does not force agreement with SuperIso alpha_s/mass inputs.
+    """
+    wc=pair.flavio.WilsonCoefficients()
+    inputs={f"C{n}_bs":float(v) for n,v in high.items()
+            if abs(v)>1e-19}
+    wc.set_initial(inputs or {"C7_bs":0.},SCALE_W,
+                   eft="WET",basis="flavio")
+    wc.set_option("qcd_order",1)
+    wc.set_option("qed_order",0)
+    low=wc.get_wc("bsee",SCALE_B,pair.par,nf_out=5)
+    result={}
+    for n in range(1,9):
+        z=complex(low.get(f"C{n}_bs",0.))
+        if abs(z.imag)>1e-10 or not math.isfinite(z.real):
+            raise ValueError("Nonreal or nonfinite QED-off Wilson coefficient")
+        result[n]=float(z.real)
+    return result
+
 def rg_validation(pair,data,reference,w,aslow):
     # All LO source deltas are included. Cross-check two loop paths
     # WITHOUT assigning unsupported C4_bs in WCxf.
     high=from_e4a_source(reference,w,"LO",pair.as4pi)
     _,independent=pair.wc(high)
+    independent_no_qed=independent_wilson_qed_off(pair,high)
     actual=net_low(data,0,aslow)
     source_lo_only={n:data[0,n]["low_LO"] for n in range(1,9)}
     errors={}
@@ -123,6 +147,7 @@ def rg_validation(pair,data,reference,w,aslow):
         x=actual[n]
         xlo=source_lo_only[n]
         y=independent[n]
+        y_no_qed=independent_no_qed[n]
         # Non-effective and effective low C7,8 might differ by penguin
         # rotations. Compare both instead of choosing by assumption.
         y_peng=({3:-1/3,4:-4/9,5:-20/3,6:-80/9} if n==7 else
@@ -134,7 +159,11 @@ def rg_validation(pair,data,reference,w,aslow):
             "superiso_low_raw_LO_RG_only":xlo,
             "source_NLO_RG_delta_at_fixed_LO_high":x-xlo,
             "independent_wilson_low_raw_NP":y,
+            "independent_wilson_low_QCD_only_no_QED":y_no_qed,
+            "independent_wilson_QED_induced_delta":y-y_no_qed,
             "relative_LO_only_residual":abs(xlo-y)/scale,
+            "relative_LO_only_vs_wilson_QED_off":abs(xlo-y_no_qed)/
+                max(1.e-9,abs(y_no_qed)),
             "relative_LOplusNLO_residual":abs(x-y)/scale,
             "superiso_low_effective_candidate":effective,
             "relative_raw_residual":abs(x-y)/scale,
@@ -145,9 +174,13 @@ def rg_validation(pair,data,reference,w,aslow):
     maximum=max(errors[f"C{n}"]["relative_raw_residual"] for n in (7,8))
     maximum_lo=max(errors[f"C{n}"]["relative_LO_only_residual"]
                    for n in (7,8))
+    maximum_noqed=max(errors[f"C{n}"]["relative_LO_only_vs_wilson_QED_off"]
+                      for n in (7,8))
     return {"dipole_low_cross_code":errors,
+            "wilson_LO_QCD_only_low_vector_no_QED":independent_no_qed,
             "max_raw_fractional_residual":maximum,
             "max_LO_only_fractional_residual":maximum_lo,
+            "max_LO_only_vs_wilson_noQED_fractional":maximum_noqed,
             "within_gross_35percent_screen":maximum<RG_DIAGNOSTIC_MAX_FRACTION}
 
 def eos_observable(pair,data,aslow):
@@ -205,7 +238,8 @@ def calc(pair,exe,models,rows,f2,e4a_data=None):
     outZ=[]
     max_wilson=0.;max_f2_rate=0.
     max_wilson_lo_only=0.;max_f2_rate_lo_only=0.
-    nlo_running_rate_shifts=[];lo_only_raw_c7_residuals=[]
+    max_wilson_lo_vs_noqed=0.;max_f2_rate_lo_vs_noqed=0.
+    nlo_running_rate_shifts=[]
     for index,m in enumerate(models,1):
         name=m["candidate_id"];g=float(m["gamma"])
         coeff=model_coeffs(rows,name)
@@ -218,6 +252,8 @@ def calc(pair,exe,models,rows,f2,e4a_data=None):
         max_wilson=max(max_wilson,rg["max_raw_fractional_residual"])
         max_wilson_lo_only=max(max_wilson_lo_only,
             rg["max_LO_only_fractional_residual"])
+        max_wilson_lo_vs_noqed=max(max_wilson_lo_vs_noqed,
+            rg["max_LO_only_vs_wilson_noQED_fractional"])
         f2_ref=old[name,"LO"]
         original=eos["LO_RG"]["EOS_NLO_BR_conditional_basis"]
         ref=f2_ref["eos_NLO_BR"]
@@ -227,6 +263,12 @@ def calc(pair,exe,models,rows,f2,e4a_data=None):
         lo_only_br=eos["LO_QCD_RG_ONLY"]["EOS_NLO_BR_conditional_basis"]
         lo_only_rate_relative=abs((lo_only_br-pair.eos_sm)-f2_response)/max(
             abs(f2_response),1.e-8)
+        wilson_noqed_eos_rate=pair.eos_rate(
+            rg["wilson_LO_QCD_only_low_vector_no_QED"])
+        no_qed_rate_relative=abs(lo_only_br-wilson_noqed_eos_rate)/max(
+            abs(wilson_noqed_eos_rate-pair.eos_sm),1.e-8)
+        max_f2_rate_lo_vs_noqed=max(max_f2_rate_lo_vs_noqed,
+                                   no_qed_rate_relative)
         nlo_running_rate_shift=original-lo_only_br
         nlo_running_rate_shifts.append(nlo_running_rate_shift)
         max_f2_rate=max(max_f2_rate,rate_relative)
@@ -246,6 +288,12 @@ def calc(pair,exe,models,rows,f2,e4a_data=None):
                 lo_only_rate_relative,
             "LO_source_QCD_RG_ONLY_vs_wilson_max_C7C8_relative":
                 rg["max_LO_only_fractional_residual"],
+            "LO_source_QCD_RG_ONLY_vs_wilson_QED_OFF_max_C7C8_relative":
+                rg["max_LO_only_vs_wilson_noQED_fractional"],
+            "LO_source_QCD_RG_ONLY_vs_wilson_QED_OFF_delta_rate_relative":
+                no_qed_rate_relative,
+            "EOS_wilson_default_QED_OFF_LO_NP_conditional":
+                wilson_noqed_eos_rate,
             "EOS_source_NLO_dipoles_RG_BR_conditional":a,
             "EOS_source_full_NLO_matching_RG_BR_conditional":b,
             "fourquark_NLO_matching_deltaBR_conditional":b-a,
@@ -267,6 +315,8 @@ def calc(pair,exe,models,rows,f2,e4a_data=None):
               "LO_CROSSCODE_WC_RESIDUAL_LOONLY",f"{rg['max_LO_only_fractional_residual']:.4g}",
               "LO_CROSSCODE_WC_RESIDUAL_LOPLUSNLO",f"{rg['max_raw_fractional_residual']:.4g}",
               "LO_ONLY_EOS_DELTA_RATE_RESIDUAL",f"{lo_only_rate_relative:.4g}",
+              "LO_ONLY_EOS_DELTA_RATE_RESIDUAL_QED_OFF",f"{no_qed_rate_relative:.4g}",
+              "LO_WC_RESIDUAL_QED_OFF",f"{rg['max_LO_only_vs_wilson_noQED_fractional']:.4g}",
               "LO_PLUS_NLO_EOS_DELTA_RATE_RESIDUAL",f"{rate_relative:.4g}",
               "EXCLUSION_UNKNOWN",flush=True)
     typeII=[]
@@ -321,6 +371,11 @@ def calc(pair,exe,models,rows,f2,e4a_data=None):
         "max_relative_QCD_LO_only_C7_C8_source_vs_wilson":max_wilson_lo_only,
         "max_relative_LO_source_RG_vs_F2_EOS_deltaBR":max_f2_rate,
         "max_relative_QCD_LO_only_RG_vs_F2_EOS_deltaBR":max_f2_rate_lo_only,
+        "max_relative_QCD_LO_only_C7_C8_source_vs_wilson_QED_OFF":
+            max_wilson_lo_vs_noqed,
+        "max_relative_QCD_LO_only_RG_vs_wilson_QED_OFF_EOS_deltaBR":
+            max_f2_rate_lo_vs_noqed,
+        "independent_WET_wilson_QCD_LO_QED_ON_OFF_compared":True,
         "median_extra_NLO_running_rate_shift_with_LO_matching_conditional":
             statistics.median(nlo_running_rate_shifts),
         "NLO_ADM_order_not_equated_to_wilson_default_LO_QCD":True,
