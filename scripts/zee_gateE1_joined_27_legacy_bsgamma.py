@@ -293,13 +293,18 @@ def main():
                 row['legacy_difference_over_HFLAV_experimental_error_ONLY_NOT_PULL'],
                 'physical_exclusion_UNKNOWN',flush=True)
         if len(rows)!=27:raise ValueError('Incomplete 27-spectra E1 result')
-        report.update(status=STATUS,rows=rows,tested=27,cohort=aggregate(rows),
-            'provenance_sha256':{
+        report.update(
+            status=STATUS,
+            rows=rows,
+            tested=27,
+            cohort=aggregate(rows),
+            provenance_sha256={
                 **{k:digest(v) for k,v in paths.items()},
                 'A1U':digest(opts.a1u_result),
                 'A1M':digest(opts.a1m_provenance),
                 'A1V_report':digest(a1v_file),
-            })
+            },
+        )
         outfile=opts.output_dir/'27_model_joined_legacy_bsgamma_NOT_EXCLUSION.csv'
         with outfile.open('w',newline='') as handle:
             writer=csv.DictWriter(handle,fieldnames=list(rows[0]))
