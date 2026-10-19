@@ -8,6 +8,7 @@ remain UNVALIDATED until Kanemura/FLS limits and independent generator agree.
 from __future__ import annotations
 import argparse
 import hashlib
+import importlib.util
 import json
 import os
 import re
@@ -147,28 +148,70 @@ def preflight(model:Path)->dict:
             'full_complex_beta_functions_verified':False}
 
 
-def isolated_pyrate_command(source:Path,entry:Path,model:Path,target:Path)->list[str]:
-    """Run the unmodified pinned PyR@TE script with its own source first.
+PYRATE_DEPENDENCIES=('yaml','sympy','numpy','scipy','h5py','matplotlib')
 
-    -I ignores contaminated PYTHONPATH and user-site modules. The bootstrap
-    PREPENDS PyR@TE internal modules, which upstream's own launcher APPENDS.
-    runpy preserves execution of the original pinned entrypoint as __main__.
+
+def dependency_manifest(modules=PYRATE_DEPENDENCIES)->dict[str,dict[str,str]]:
+    """Locate PyR@TE requirements using the SAME parent interpreter.
+
+    The AF's parent Python can import yaml; -I suppresses some module roots.
+    Explicitly restore package roots *after* the pinned PyR@TE source paths,
+    rather than inheriting unrestricted PYTHONPATH from Key4hep.
     """
+    out={}
+    for name in modules:
+        spec=importlib.util.find_spec(name)
+        if spec is None or not spec.origin:
+            raise RuntimeError(
+                f"Missing PyR@TE dependency {name!r} in parent Python "
+                f"{sys.executable}; use a Python environment containing it.")
+        origin=Path(spec.origin).resolve()
+        if spec.submodule_search_locations is not None:
+            locs=list(spec.submodule_search_locations)
+            if len(locs)!=1:
+                raise RuntimeError(f"Ambiguous package location for {name}: {locs}")
+            root=Path(locs[0]).resolve().parent
+        else:
+            root=origin.parent
+        if not root.is_dir() or not origin.is_file():
+            raise RuntimeError(f"Unusable Python dependency {name}: {origin}")
+        out[name]={'origin':str(origin),'search_root':str(root)}
+    return out
+
+
+def isolated_pyrate_command(source:Path,entry:Path,model:Path,target:Path,
+                            dependencies:dict|None=None)->list[str]:
+    """Run UNMODIFIED PyR@TE under -I, with source first and dependencies second.
+
+    The pinned PyR@TE Core must win over Key4hep's identically named
+    Particles.py. Resolve required third-party import roots in the parent,
+    then pass them explicitly instead of allowing arbitrary PYTHONPATH.
+    """
+    if dependencies is None:
+        dependencies=dependency_manifest()
     bootstrap=(
-        "import importlib.util,runpy,sys;"
+        "import importlib.util,json,runpy,sys;"
         "from pathlib import Path;"
         "root=Path(sys.argv[1]).resolve();"
+        "deps=json.loads(sys.argv[2]);"
         "paths=[root/'src'/x for x in ('Core','IO','PyLie','GroupTheory')];"
-        "sys.path[:0]=[str(x) for x in paths]+[str(root/'src')];"
+        "dep_roots=list(dict.fromkeys(v['search_root'] for v in deps.values()));"
+        "sys.path[:0]=[str(x) for x in paths]+[str(root/'src')]+dep_roots;"
         "spec=importlib.util.find_spec('Particles');"
         "expected=(root/'src/Core/Particles.py').resolve();"
         "actual=Path(spec.origin).resolve() if spec and spec.origin else None;"
         "assert actual==expected, f'PyR@TE Particles import collision: {actual} != {expected}';"
-        "sys.argv=[str(root/'pyR@TE.py'),*sys.argv[2:]];"
+        "[(lambda a,b: (_ for _ in ()).throw(RuntimeError('dependency '+a+' resolves to '+str(b)))"
+        " if b!=Path(deps[a]['origin']).resolve() else None)"
+        "(name,Path(importlib.util.find_spec(name).origin).resolve()) for name in deps];"
+        "print('Q4_IMPORT_PROVENANCE', json.dumps({'Particles':str(actual),"
+        "'dependencies':{k:deps[k]['origin'] for k in deps}},sort_keys=True),flush=True);"
+        "sys.argv=[str(root/'pyR@TE.py'),*sys.argv[3:]];"
         "runpy.run_path(sys.argv[0],run_name='__main__')"
     )
     return [
         sys.executable,'-I','-c',bootstrap,str(source),
+        json.dumps(dependencies,sort_keys=True),
         '--Model',str(model),'--Loops','1',
         '--Results',str(target),'--CheckGaugeInvariance','--PythonOutput',
         '--no-LatexOutput','--no-MathematicaOutput'
@@ -203,7 +246,10 @@ def execute(model:Path,output:Path,pyrate_root:Path|None,timeout:int)->dict:
     if not entry.is_file():raise ValueError(f'Missing PyR@TE entrypoint at {entry}')
     target=output/'generator_output'
     target.mkdir()
-    cmd=isolated_pyrate_command(source,entry,model,target)
+    dependencies=dependency_manifest()
+    (output/'pyrate3_python_dependency_provenance.json').write_text(
+        json.dumps(dependencies,indent=2,sort_keys=True)+'\n')
+    cmd=isolated_pyrate_command(source,entry,model,target,dependencies)
     env=isolated_environment()
     done=subprocess.run(cmd,cwd=source,capture_output=True,text=True,
                         timeout=timeout,env=env)
@@ -218,6 +264,7 @@ def execute(model:Path,output:Path,pyrate_root:Path|None,timeout:int)->dict:
         'isolated_python_flag':True,
         'PYTHONPATH_PYTHONHOME_PYTHONSTARTUP_removed':True,
         'pyrate_source_imports_prepend':True,
+        'third_party_import_locations_allowlisted':True,
         'stdout_last_70_lines':'\n'.join(done.stdout.splitlines()[-70:])[-16000:],
         'stderr_last_70_lines':'\n'.join(done.stderr.splitlines()[-70:])[-16000:],
     }
