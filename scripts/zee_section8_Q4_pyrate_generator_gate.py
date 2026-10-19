@@ -189,26 +189,40 @@ def isolated_pyrate_command(source:Path,entry:Path,model:Path,target:Path,
     """
     if dependencies is None:
         dependencies=dependency_manifest()
-    bootstrap=(
-        "import importlib.util,json,runpy,sys;"
-        "from pathlib import Path;"
-        "root=Path(sys.argv[1]).resolve();"
-        "deps=json.loads(sys.argv[2]);"
-        "paths=[root/'src'/x for x in ('Core','IO','PyLie','GroupTheory')];"
-        "dep_roots=list(dict.fromkeys(v['search_root'] for v in deps.values()));"
-        "sys.path[:0]=[str(x) for x in paths]+[str(root/'src')]+dep_roots;"
-        "spec=importlib.util.find_spec('Particles');"
-        "expected=(root/'src/Core/Particles.py').resolve();"
-        "actual=Path(spec.origin).resolve() if spec and spec.origin else None;"
-        "assert actual==expected, f'PyR@TE Particles import collision: {actual} != {expected}';"
-        "[(lambda a,b: (_ for _ in ()).throw(RuntimeError('dependency '+a+' resolves to '+str(b)))"
-        " if b!=Path(deps[a]['origin']).resolve() else None)"
-        "(name,Path(importlib.util.find_spec(name).origin).resolve()) for name in deps];"
-        "print('Q4_IMPORT_PROVENANCE', json.dumps({'Particles':str(actual),"
-        "'dependencies':{k:deps[k]['origin'] for k in deps}},sort_keys=True),flush=True);"
-        "sys.argv=[str(root/'pyR@TE.py'),*sys.argv[3:]];"
-        "runpy.run_path(sys.argv[0],run_name='__main__')"
-    )
+    bootstrap="""
+import importlib.util
+import json
+import runpy
+import sys
+from pathlib import Path
+
+root = Path(sys.argv[1]).resolve()
+deps = json.loads(sys.argv[2])
+internal = [root/'src'/name for name in ('Core','IO','PyLie','GroupTheory')]
+dep_roots = list(dict.fromkeys(info['search_root'] for info in deps.values()))
+sys.path[:0] = [str(item) for item in internal] + [str(root/'src')] + dep_roots
+
+internal_particles = (root/'src/Core/Particles.py').resolve()
+spec = importlib.util.find_spec('Particles')
+origin = Path(spec.origin).resolve() if spec and spec.origin else None
+if origin != internal_particles:
+    raise RuntimeError(
+        f'PyR@TE Particles import collision: {origin} != {internal_particles}')
+
+for name, info in deps.items():
+    found = importlib.util.find_spec(name)
+    actual = Path(found.origin).resolve() if found and found.origin else None
+    expected = Path(info['origin']).resolve()
+    if actual != expected:
+        raise RuntimeError(
+            f'PyR@TE dependency {name} import mismatch: {actual} != {expected}')
+print('Q4_IMPORT_PROVENANCE',
+      json.dumps({'Particles':str(origin),
+                  'dependencies':{key:value['origin'] for key,value in deps.items()}},
+                 sort_keys=True),flush=True)
+sys.argv = [str(root/'pyR@TE.py'), *sys.argv[3:]]
+runpy.run_path(sys.argv[0], run_name='__main__')
+"""
     return [
         sys.executable,'-I','-c',bootstrap,str(source),
         json.dumps(dependencies,sort_keys=True),
