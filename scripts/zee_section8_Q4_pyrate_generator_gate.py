@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
@@ -146,6 +147,42 @@ def preflight(model:Path)->dict:
             'full_complex_beta_functions_verified':False}
 
 
+def isolated_pyrate_command(source:Path,entry:Path,model:Path,target:Path)->list[str]:
+    """Run the unmodified pinned PyR@TE script with its own source first.
+
+    -I ignores contaminated PYTHONPATH and user-site modules. The bootstrap
+    PREPENDS PyR@TE internal modules, which upstream's own launcher APPENDS.
+    runpy preserves execution of the original pinned entrypoint as __main__.
+    """
+    bootstrap=(
+        "import importlib.util,runpy,sys;"
+        "from pathlib import Path;"
+        "root=Path(sys.argv[1]).resolve();"
+        "paths=[root/'src'/x for x in ('Core','IO','PyLie','GroupTheory')];"
+        "sys.path[:0]=[str(x) for x in paths]+[str(root/'src')];"
+        "spec=importlib.util.find_spec('Particles');"
+        "expected=(root/'src/Core/Particles.py').resolve();"
+        "actual=Path(spec.origin).resolve() if spec and spec.origin else None;"
+        "assert actual==expected, f'PyR@TE Particles import collision: {actual} != {expected}';"
+        "sys.argv=[str(root/'pyR@TE.py'),*sys.argv[2:]];"
+        "runpy.run_path(sys.argv[0],run_name='__main__')"
+    )
+    return [
+        sys.executable,'-I','-c',bootstrap,str(source),
+        '--Model',str(model),'--Loops','1',
+        '--Results',str(target),'--CheckGaugeInvariance','--PythonOutput',
+        '--no-LatexOutput','--no-MathematicaOutput'
+    ]
+
+
+def isolated_environment()->dict[str,str]:
+    """Only remove Python import contamination, leave native library env alone."""
+    env=os.environ.copy()
+    for key in ('PYTHONPATH','PYTHONHOME','PYTHONSTARTUP'):
+        env.pop(key,None)
+    return env
+
+
 def execute(model:Path,output:Path,pyrate_root:Path|None,timeout:int)->dict:
     source=pyrate_root.resolve() if pyrate_root else output/'pyrate3_src'
     if pyrate_root is None:
@@ -166,10 +203,10 @@ def execute(model:Path,output:Path,pyrate_root:Path|None,timeout:int)->dict:
     if not entry.is_file():raise ValueError(f'Missing PyR@TE entrypoint at {entry}')
     target=output/'generator_output'
     target.mkdir()
-    cmd=[sys.executable,str(entry),'--Model',str(model),'--Loops','1',
-         '--Results',str(target),'--CheckGaugeInvariance','--PythonOutput',
-         '--no-LatexOutput','--no-MathematicaOutput']
-    done=subprocess.run(cmd,cwd=source,capture_output=True,text=True,timeout=timeout)
+    cmd=isolated_pyrate_command(source,entry,model,target)
+    env=isolated_environment()
+    done=subprocess.run(cmd,cwd=source,capture_output=True,text=True,
+                        timeout=timeout,env=env)
     (output/'pyrate3_stdout.log').write_text(done.stdout)
     (output/'pyrate3_stderr.log').write_text(done.stderr)
     diagnostic={
@@ -178,6 +215,9 @@ def execute(model:Path,output:Path,pyrate_root:Path|None,timeout:int)->dict:
         'returncode':done.returncode,
         'python_executable':sys.executable,
         'python_version':sys.version,
+        'isolated_python_flag':True,
+        'PYTHONPATH_PYTHONHOME_PYTHONSTARTUP_removed':True,
+        'pyrate_source_imports_prepend':True,
         'stdout_last_70_lines':'\n'.join(done.stdout.splitlines()[-70:])[-16000:],
         'stderr_last_70_lines':'\n'.join(done.stderr.splitlines()[-70:])[-16000:],
     }
