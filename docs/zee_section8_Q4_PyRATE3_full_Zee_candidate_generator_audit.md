@@ -1064,3 +1064,50 @@ python3 -u scripts/zee_gateD3_optimized_flavor_full_theory_rerun.py \
 \`\`\`
 
 Report \`summary.json\` including per-candidate local partial-LFV variation and 54 theory flows; flat \`revalidated_optimized_fY_theory_NOT_ALLOWED.csv\`. Expected output \`D3_OPTIMIZED_FY_FULL_RGE ...\`, \`D3_FULL_THEORY_COHORT {...}\`, \`D3_FULL_ZEE_ALLOWED UNKNOWN\`. This code has NOT been executed on AF yet. If many optimized Yukawas fail 10 TeV theory, the next scientific step is a *joint flavor-plus-UV optimization*, not a claim of exclusion. If many survive, the next scientific step is completing the missing LFV amplitudes and meson matching, not declaring allowed points.
+
+
+
+## D3 AF SUCCESS: all 27 neutrino-exact LFV-optimized spectra retain a 10-TeV theory-screen variant
+
+User's \`Pasted text (10).txt\`, 2026-10-19: D3 completed all **54** complete full one-loop 26-RGE trajectories for the **27 distinct D2 optimized complex f/Y neutrino solutions**, two scalar-potential variants each. D3 repeated 24/48-step integrator, full complex quartic conservative BFB, 55-channel high-energy tree unitarity, rechecked D2 partial LFV and exact neutrino matrix. RGE reaches 10 TeV: 27/27 BOTH variants. Sufficient running BFB at every sampled scale: 27/27 BOTH variants. Running complete unitarity passes 26/27 for \`both_lh1_l1_1\` and 27/27 for \`both_lh0p4_l1_0p5\`. Hence **53/54** complete model configurations pass all sampled 10-TeV screens; **27/27 unique scalar spectra** have at least one passing variant. The only unsuccessful variant is B4_0000755 with first quartic intervention, consistent with old C4. The 27 optimized partial LFV maxima range 4.21585e-5 through 0.0138744; these cannot be used as full physical bounds.
+
+D3 stdout does NOT show the 1%-flavor-perturbation robustness diagnostics (they are stored in \`work/gateD3_optimized_fY_full_theory_v1/summary.json\`), so do not invent conclusions regarding fine-tuning from the console-only results. Crucially still no physical allowed Zee point because full W-photon, charged-scalar two-loop, Z-penguin, 3-body loop interference, mu-e conversion, meson FCNC, matched b->s gamma, HiggsTools, global vacuum and RG thresholds remain undone.
+
+## Gate D4: ADD the missing W-PHOTON Barr-Zee amplitude to 27 D3-optimized models
+
+Motivation: A 10^4–10^5 suppression of the *previous incomplete* dipole rate can be overturned by an absent **non-fermionic two-loop** amplitude. S. Davidson, EPJC 76 (2016) 258 arXiv:1601.01949 Eq.(24), based on Chang-Hou-Keung (1993), gives the CP-even neutral W-photon Barr-Zee factor, and arXiv:2111.10464 Appendix B.28 independently gives the exact same **photonic W term**. In the existing source-converted 1loop/fermion-BZ C_L,C_R [GeV^-2] convention and A1D CP-even scalar basis:
+
+\`\`\`text
+C^Wgamma_{L,R} =
+  alpha_em/(16*pi^3*m_parent*v) *
+  sum_{phi=h,H} [g_{phi WW} C^{phi,L/R}_{daughter,parent} *
+                  K(mW²/mphi²)]
+g_hWW=cos(beta-alpha), g_HWW=sin(beta-alpha)
+K(z)=3 f(z) + 23/4*g(z) + 3/4*h(z) + (f(z)-g(z))/(2*z)
+f(z)=z*(2+ln z)+(1-2*z)g(z)
+h(z)=z*(2*g(z)+ln z)/(1-4*z)  (direct integral at z=1/4).
+\`\`\`
+
+The new code \`scripts/zee_gateD4_W_photon_barr_zee_27.py\` (tests \`tests/test_zee_gateD4_W_photon_barr_zee_27.py\`, 14 regression methods) computes f,g,h with independent Haber g/h integral and identity cross-checks, CP-even vs CP-odd selection, both exact-alignment and CP-even degenerate-mass cancellations, complex lepton flavor-chirality transformations, and the previous exact D1/D2 coherent rates. It coherently adds \`C_one_loop + C_top,b,tau-photon_BZ + C_W-photon_BZ\` for the three radiative modes, still includes all previously evaluated five neutral tree-only 3-lepton BR subsets in the \`max\` partial objective, and cross-checks previous D2 rates BEFORE any new numerical result. Exact D2 and D3 SHA/54-RGE-case locks: no regenerated previous inputs. **One complete 27-texture experiment**, not isolated RGE tests.
+
+**ONE AF command** (fresh output directory):
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateD4_W_photon_barr_zee_27.py' -v &&
+python3 -u scripts/zee_gateD4_W_photon_barr_zee_27.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --c2-summary work/gateC2_paired_uv_rescue_v1/summary.json \
+  --c3-summary work/gateC3_running_complex_bfb_v1/summary.json \
+  --c4-summary work/gateC4_55channel_running_unitarity_v1/summary.json \
+  --c5-summary work/gateC5_charge_breaking_vacuum_v1/summary.json \
+  --d1-summary work/gateD1_joint_available_neutrino_lfv_v2/summary.json \
+  --d2-summary work/gateD2_neutrino_exact_partial_LFV_v1/summary.json \
+  --d3-summary work/gateD3_optimized_fY_full_theory_v1/summary.json \
+  --output-dir work/gateD4_W_photon_Barr_Zee_v1
+\`\`\`
+
+The report \`summary.json\` and \`27_W_photon_extended_LFV_diagnostics_NOT_ALLOWED.csv\` compare D2 vs D4 old/new partial score, flavor channel and relative W-to-prior amplitude. Individual contributions returned in \`per_channel_amplitude_parts\`. No physical LFV "pass" or exclusion: absent W-Z, charged-Higgs scalar-loop/Barr-Zee, full loop-3lepton and mu-e conversion; and input quark matching is only Type-II nominal. The applied W-photon formula should still be independently convention-benchmarked against a published complete 2HDM decay for publication claims. If D4 destroys most D2 subtotal gains, next step should be optimizing f/Y with this new W amplitude included and subsequently rerunning RGE, not inferring model exclusion. If W term is small and leaves gains, next step is charged scalar and Z-exchange bosonic two-loop amplitudes and complete lepton flavor likelihood.
