@@ -265,10 +265,23 @@ def execute(model:Path,output:Path,pyrate_root:Path|None,timeout:int)->dict:
         json.dumps(dependencies,indent=2,sort_keys=True)+'\n')
     cmd=isolated_pyrate_command(source,entry,model,target,dependencies)
     env=isolated_environment()
+    generator_started=time.time()
     done=subprocess.run(cmd,cwd=source,capture_output=True,text=True,
                         timeout=timeout,env=env)
     (output/'pyrate3_stdout.log').write_text(done.stdout)
     (output/'pyrate3_stderr.log').write_text(done.stderr)
+    files=[str(p.relative_to(target)) for p in target.rglob('*') if p.is_file()]
+    recent_logs=[]
+    logdir=source/'log'
+    if logdir.is_dir():
+        for item in sorted(logdir.glob('PyLog*.log')):
+            if item.is_file() and item.stat().st_mtime >= generator_started-2:
+                copied=output/('upstream_'+item.name)
+                copied.write_bytes(item.read_bytes())
+                recent_logs.append({
+                    'source':str(item),'copy':str(copied),
+                    'tail':'\\n'.join(item.read_text(errors='replace').splitlines()[-70:])[-16000:]
+                })
     diagnostic={
         'stage':'pyrate3_subprocess',
         'command':cmd,
@@ -279,22 +292,31 @@ def execute(model:Path,output:Path,pyrate_root:Path|None,timeout:int)->dict:
         'PYTHONPATH_PYTHONHOME_PYTHONSTARTUP_removed':True,
         'pyrate_source_imports_prepend':True,
         'third_party_import_locations_allowlisted':True,
+        'generated_file_count':len(files),
+        'no_files_despite_zero_returncode':bool(done.returncode==0 and not files),
+        'upstream_logs_from_this_run':recent_logs,
         'stdout_last_70_lines':'\n'.join(done.stdout.splitlines()[-70:])[-16000:],
         'stderr_last_70_lines':'\n'.join(done.stderr.splitlines()[-70:])[-16000:],
     }
     (output/'pyrate3_diagnostic.json').write_text(json.dumps(diagnostic,indent=2)+'\n')
-    if done.returncode!=0:
-        print('Q4_PYRATE_STDOUT_TAIL_BEGIN\n'+diagnostic['stdout_last_70_lines']+
-              '\nQ4_PYRATE_STDOUT_TAIL_END',file=sys.stderr,flush=True)
-        print('Q4_PYRATE_STDERR_TAIL_BEGIN\n'+diagnostic['stderr_last_70_lines']+
-              '\nQ4_PYRATE_STDERR_TAIL_END',file=sys.stderr,flush=True)
-    files=[str(p.relative_to(target)) for p in target.rglob('*') if p.is_file()]
+    if done.returncode!=0 or not files:
+        print('Q4_PYRATE_STDOUT_TAIL_BEGIN\\n'+diagnostic['stdout_last_70_lines']+
+              '\\nQ4_PYRATE_STDOUT_TAIL_END',file=sys.stderr,flush=True)
+        print('Q4_PYRATE_STDERR_TAIL_BEGIN\\n'+diagnostic['stderr_last_70_lines']+
+              '\\nQ4_PYRATE_STDERR_TAIL_END',file=sys.stderr,flush=True)
+        for log in recent_logs:
+            print('Q4_PYRATE_UPSTREAM_LOG '+log['copy']+'\\n'+log['tail'],
+                  file=sys.stderr,flush=True)
     result={'pyrate_SHA':head,'command':cmd,'returncode':done.returncode,
             'generated_files':files,'generator_executed_successfully':done.returncode==0,
             'physics_source_limit_crosschecked':False,
             'independent_RGBeta_comparison_passed':False}
     if done.returncode!=0:raise RuntimeError(f'PyR@TE exit={done.returncode}; see stdout/stderr logs')
-    if not files:raise RuntimeError('PyR@TE produced no output files')
+    if not files:
+        raise RuntimeError(
+            'PyR@TE exited with code 0 but produced no files. '
+            'Upstream PyR@TE sometimes uses exit() without nonzero status '
+            'after reporting an error. Inspect captured stdout/stderr and recent logs.')
     return result
 
 
