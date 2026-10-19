@@ -59,6 +59,45 @@ Use a **new** result directory because F3 is explicitly overwrite-protected. Exa
 \`work/gateF3_RG_order_audit_27_v2\`.
 This changes the original 27-spectrum report and adds the order audit, but never overrides original v1.
 
+## Actual F3 v2 result: perturbative-order hypothesis confirmed
+
+User ran \`work/gateF3_RG_order_audit_27_v2/summary.json\`. Observed:
+
+| Metric | LO-matching plus **NLO RG** versus \`wilson\` default | LO-matching plus **LO RG only** versus \`wilson\` default |
+|---|---:|---:|
+| Max dipole low WC relative deviation | 0.06578781849 (6.579%) | 0.004284949275 (0.4285%) |
+| Max NP EOS \`deltaBR\` relative deviation | 0.06638023118 (6.638%) | 0.004134165766 (0.4134%) |
+
+So most (~94%) of the apparent 6.6% mismatch is due to comparing different QCD evolution orders. The median extra NLO evolution contribution with LO-only BSM matching is **-4.9179142511e-6** in absolute BR units. These are NOT generic theory errors: they quantify specific differences between particular implementations/truncations.
+
+For a source-locked F3 full-NLO diagnostic, the median conditional C3-C6 increment remains +1.032765815e-8. \`FULL_NLO_RG\` is conditional pending *independent* NLO matching/renormalization-scheme verification; no physical Zee exclusion or 2017 full-NNLO TypeII limit has been established.
+
+## F3 v3: isolate remaining 0.4% by switching leading QED evolution off in wilson
+
+The F3 v3 code uses \`flavio.WilsonCoefficients.set_option("qcd_order",1)\` and \`set_option("qed_order",0)\` with **exactly the same** E4A LO C7/C8 high-scale inputs at 160 GeV, then runs to 4.2 GeV. It compares:
+
+- SuperIso QCD LO-only low C7,C8 against \`wilson\` default QCD LO + QED LO (existing F3 v2).
+- SuperIso QCD LO-only low C7,C8 against \`wilson\` QCD LO, **QED completely switched off** (new).
+- Both low-scale vectors as inputs to EOS NLO \`deltaBR\`, recording the difference.
+
+New maxima in \`F3_COHORT\`: \`max_relative_QCD_LO_only_C7_C8_source_vs_wilson_QED_OFF\` and \`max_relative_QCD_LO_only_RG_vs_wilson_QED_OFF_EOS_deltaBR\`. If these shrink well below 0.4%, leading QED running explains most of the remaining residual; if not, compare \(\alpha_s\), heavy-quark masses, matching/evolution scheme conventions (Wilson and SuperIso have different defaults). No thresholds are relaxed, no 95% CL exclusions are introduced.
+
+Run the same command as below but use a **new**, non-existing destination:
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+source .venv-flavor-f1/bin/activate
+python -m unittest discover -s tests -p 'test_zee_gateF3_integrated_full_nlo_source_rg.py' -v && \
+python -u scripts/zee_gateF3_fullNLO_source_RG_27.py \
+  --e4a-summary work/gateE4a_large_matching_typeII_27_v1/summary.json \
+  --f1-summary work/gateF1_flavio_real_v3/summary.json \
+  --f2-summary work/gateF2_eos_flavio_LO_dipolesOnly_27_v2/summary.json \
+  --vendor-root work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --output-dir work/gateF3_QED_order_audit_27_v3
+\`\`\`
+
 ## ONE full AF run
 
 From a Bash shell where F1 successfully imported flavio/wilson and F2 successfully imported EOS:
