@@ -114,9 +114,18 @@ def potential_gradient_hessian(r,cache):
     return float(value),np.asarray(gradient,float),h2+h3+h4
 
 def gauge_value_and_gradient(t,cache):
+    """Fast analytic gradient: omit expensive full Hessian at each optimizer step."""
     r=full_field(np.asarray(t,float)*VEV)
-    v,g,_=potential_gradient_hessian(r,cache)
-    return float(v/VEV**4),g[EMBED]/VEV**3
+    C=cache['C'];H2=cache['H2'];T=cache['T3']
+    q=invariants(r)
+    gq=np.einsum('aij,j->ai',A,r,optimize=False)
+    cubic_gradient=np.einsum('ijk,j,k->i',T,r,r,optimize=False)
+    v2=float(r@H2@r/2)
+    v3=float(r@cubic_gradient/6)
+    v4=float(q@C@q)
+    gradient=H2@r+cubic_gradient/2
+    gradient+=2*np.einsum('a,ai->i',C@q,gq,optimize=False)
+    return float((v2+v3+v4)/VEV**4),gradient[EMBED]/VEV**3
 
 def electroweak_check(point,cache,strict=True):
     beta=float(point['beta'])
