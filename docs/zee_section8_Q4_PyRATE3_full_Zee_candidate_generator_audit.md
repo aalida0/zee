@@ -852,3 +852,50 @@ particular no full modern two-charged-state b→sγ, Barr–Zee LFV, CKM
 meson FCNC, HiggsTools or charge-breaking global extrema constraints
 have been applied to these 60 counterfactuals. Never label
 “full Zee point allowed” based on C4 alone.
+
+
+
+## C4 AF outcome (2026-10-19): complete running 55-channel scalar unitarity
+
+The user-provided C4 stdout \`Pasted text (9)\` confirms **all 60 trajectories analyzed** with complete 55×55 high-energy scalar contact scattering, both 24- and 48-step integration, and previously certified C3 sampled-scale BFB.
+
+\`\`\`text
+Intervention                           tree BFB to 10 TeV   55ch unitarity to 10 TeV   combined
+both_lh1_l1_1                          29/30                28/30                     28/30
+both_lh0p4_l1_0p5                      29/30                29/30                     29/30
+\`\`\`
+
+**All 60 match-scale initial conditions pass tree unitarity**; all C4 outputs explicitly \`physical_allowed_UNKNOWN\`. With \`both_lh1_l1_1\`, B4_0000755 first crosses the *8π full scattering eigenvalue criterion* around **9338.5709 GeV**, despite its |lambda|<4π and BFB tests passing up to 10 TeV. With B4_0000827, the full scattering eigenvalue crossing occurs around **4622.6779 GeV** in \`both_lh1_l1_1\` or **5532.3859 GeV** in \`both_lh0p4_l1_0p5\`; these are earlier than C2's already-known ~6.38/7.23 TeV quartic heuristic crossings. Other candidates satisfy all three one-loop/high-energy tree screening criteria at sampled scales to 10 TeV.
+
+**Scientific interpretation:** Most of the original cascade-spectrum shortlist can be scalar-rescued, AND the complete scalar scattering matrix removes additional cases missed by the single-coupling heuristic. Neither this success nor its percentages are evidence of complete physical viability, because Type-II quark boundary CKM is toy, threshold matching is missing, and LFV, meson flavor, HiggsTools and the global vacuum have not been integrated.
+
+## Gate C5: LARGE full tree Zee charge-breaking/CP/alternative-neutral vacuum search
+
+A major remaining theoretical gap: running **quartic** BFB ensures V4 does not trend negative at large fields, but it does not ensure the **dimensionful** Zee scalar potential's physical electroweak stationary point is the deepest minimum. The Zee trilinear \`muZee Phi1^T epsilon Phi2 chi†\` can favor a charge-breaking vacuum even if V4 is BFB and all scalar scattering eigenvalues satisfy the 8π tree bound.
+
+New driver: \`scripts/zee_gateC5_charge_breaking_vacuum_search.py\`; 16 regressions \`tests/test_zee_gateC5_charge_breaking_vacuum_search.py\`. Explore **30 B4 scalar mass spectra × 2 C2-rescued quartic potentials = 60** full 10-real-field renormalizable potentials at the *matching scale*. Each run uses **128 multistart seeds** + the EW reference and its signed partner (130 optimizations each, **7800 minimizations**), spanning neutral, charged-doublet, charged-singlet and mixed directions. Exact six-real-component gauge fixing \`Phi1=(0,v1)/sqrt(2)\`, \`Phi2=(u,v2+i v3)/sqrt(2)\` with real u using remaining QED phase, \`chi=(sR+i sI)/sqrt(2)\`, covers generic charge/CP-breaking orbits. The exact potential is evaluated using the independent ten-real scalar invariant/tensor representation with analytical gradients, and physical EW Hessian eigenvalues are compared to the expected three Goldstones plus seven real physical modes (125², heavy neutral², pseudoscalar², doubly degenerate charged H1/H2²). Scalar C2 reconstructed masses and B2 neutrino closure are rechecked. C4 report of all 60 scanned cases is required, with unchanged B4/B2/C2/C3 hashes.
+
+**Crucial logical outputs:**
+- \`EXPLICIT_DEEPER_TREE_POTENTIAL_WITNESS\`: a reproducible physical scalar field configuration has V(field) < V(EW) − 1e−6 v⁴, which unambiguously disproves the EW vacuum being the **global tree-level** minimum (though whether the EW state can be long-lived metastable is a separate question).
+- \`NO_DEEPER_WITNESS_FOUND_NOT_GLOBAL_CERTIFICATE\`: large multistart search found nothing deeper; **not** a global-minimum mathematical proof, and not a label of physical acceptance.
+- \`EW stationary or physical mass-squared Hessian closure failure\`: fail closed; do not search an incorrectly matched potential.
+
+**ONE AF run, fresh output directory, no RGE regeneration:**
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateC5_charge_breaking_vacuum_search.py' -v &&
+python3 -u scripts/zee_gateC5_charge_breaking_vacuum_search.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --c2-summary work/gateC2_paired_uv_rescue_v1/summary.json \
+  --c3-summary work/gateC3_running_complex_bfb_v1/summary.json \
+  --c4-summary work/gateC4_55channel_running_unitarity_v1/summary.json \
+  --max-spectra 30 --multistart 128 --maxiter 1000 \
+  --seed 20261019 \
+  --output-dir work/gateC5_charge_breaking_vacuum_v1
+\`\`\`
+
+Report: \`summary.json\`, \`charge_breaking_vacuum_screen_NOT_ALLOWED.csv\`. Interpretation: if explicit deeper potential witnesses appear, they are robust objections to **global EW vacuum** for those points (not lifetime/metastability exclusions). If none are found, next upgrade is a complete set of all polynomial stationary points or independently certified global optimization. Quantitative Paper 1 physics still depends on full neutrino/LFV, CKM matched b→s gamma, HiggsTools and consistent threshold schemes; no allowed Zee point established.
