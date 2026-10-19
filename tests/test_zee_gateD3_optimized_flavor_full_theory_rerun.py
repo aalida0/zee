@@ -132,21 +132,44 @@ class TestD3OptimizedFullTheory(unittest.TestCase):
                 verify_d2(doc,*inputs)
 
     def test_D2_partial_score_recalculation_matches_previous_D1(self):
+        from unittest.mock import patch
         p=point();sol=neutrino_root(p)
-        d1=candidate_flavor(p,sol,1)
-        score=d1['joint_incomplete_LFV_score_NOT_EXCLUSION']
-        record={'new_best_partial_score_NOT_EXCLUSION':score}
-        got=check_flavor_input(p,record,{'solution':sol})
-        self.assertAlmostEqual(
-            got['joint_incomplete_LFV_score_NOT_EXCLUSION'],score)
+        # The synthetic A1B starting root need not have score <1.
+        # Simulate a valid D2-optimized D1 result in the threshold logic,
+        # while D2's own separate test suite checks actual backend equality.
+        checked={'joint_incomplete_LFV_score_NOT_EXCLUSION':0.03,
+                 'neutrino_closure_eV':1e-16}
+        with patch('zee_gateD3_optimized_flavor_full_theory_rerun.candidate_flavor',
+                   return_value=checked) as mock:
+            got=check_flavor_input(
+                p,{'new_best_partial_score_NOT_EXCLUSION':0.03},
+                {'solution':sol})
+        self.assertEqual(got,checked)
+        mock.assert_called_once()
 
     def test_corrupted_D2_score_rejected(self):
+        from unittest.mock import patch
         p=point();sol=neutrino_root(p)
-        d1=candidate_flavor(p,sol,1)
-        score=d1['joint_incomplete_LFV_score_NOT_EXCLUSION']
-        record={'new_best_partial_score_NOT_EXCLUSION':score*0.1}
-        with self.assertRaisesRegex(ValueError,'D2/D1'):
-            check_flavor_input(p,record,{'solution':sol})
+        with patch('zee_gateD3_optimized_flavor_full_theory_rerun.candidate_flavor',
+                   return_value={
+                       'joint_incomplete_LFV_score_NOT_EXCLUSION':0.08,
+                       'neutrino_closure_eV':1e-16}):
+            with self.assertRaisesRegex(ValueError,'D2/D1'):
+                check_flavor_input(
+                    p,{'new_best_partial_score_NOT_EXCLUSION':0.001},
+                    {'solution':sol})
+
+    def test_partial_LFV_above_one_never_called_revalidated(self):
+        from unittest.mock import patch
+        p=point();sol=neutrino_root(p)
+        with patch('zee_gateD3_optimized_flavor_full_theory_rerun.candidate_flavor',
+                   return_value={
+                       'joint_incomplete_LFV_score_NOT_EXCLUSION':1.01,
+                       'neutrino_closure_eV':1e-16}):
+            with self.assertRaisesRegex(ValueError,'does not meet'):
+                check_flavor_input(
+                    p,{'new_best_partial_score_NOT_EXCLUSION':1.01},
+                    {'solution':sol})
 
     def test_new_optimized_input_maintains_tree_scalar_matching(self):
         p=point();sol=neutrino_root(p)
