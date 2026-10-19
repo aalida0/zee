@@ -183,7 +183,8 @@ def main():
                        'comparisons_passed':total-len(failures),
                        'mismatches':failures,
                        'gauge_quartic_limit_validated':len(failures)==0,
-                       'scalar_gauge_and_Yukawa_mixed_terms_independently_validated':False,
+                       'Yukawa_dependent_quartic_terms_independently_validated':False,
+                       'full_Zee_quartic_beta_independently_validated':False,
                        'method':'10 real-field gauge mass matrix, vector CW and Casimir anomalous dimensions'})
         print('Q4_INDEPENDENT_GAUGE_QUARTIC',total-len(failures),'/',total,flush=True)
         print('Q4_FULL_ZEE_RGE_VALIDATED False',flush=True)
