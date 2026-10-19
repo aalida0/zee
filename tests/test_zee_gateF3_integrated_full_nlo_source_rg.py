@@ -85,7 +85,12 @@ class F3Integrated(unittest.TestCase):
         def mocked_probe(exe, m1, m2, tanbeta, gamma):
             self.assertEqual(exe, Path("/no/exe"))
             return fake_rg(m1, m2, tanbeta, gamma)
-        with patch.object(f,"probe",side_effect=mocked_probe):
+        # The production implementation additionally calls the real
+        # wilson WCxf RGE with QED switched off. The synthetic fake has
+        # no external libraries: mock ONLY this dependency boundary.
+        with patch.object(f,"probe",side_effect=mocked_probe), patch.object(
+            f,"independent_wilson_qed_off",
+            side_effect=lambda pair,high:pair.wc(high)[1]):
             report=f.calc(FakePair(),Path("/no/exe"),models,rows,fakef2)
         self.assertEqual(report["status"],f.STATUS)
         self.assertEqual(len(report["Zee_27_results"]),27)
@@ -109,6 +114,16 @@ class F3Integrated(unittest.TestCase):
             for rec in report["Zee_27_results"]))
         self.assertTrue(report["summary"][
             "NLO_ADM_order_not_equated_to_wilson_default_LO_QCD"])
+        self.assertTrue(report["summary"][
+            "independent_WET_wilson_QCD_LO_QED_ON_OFF_compared"])
+        self.assertIn(
+            "max_relative_QCD_LO_only_C7_C8_source_vs_wilson_QED_OFF",
+            report["summary"])
+        self.assertIn(
+            "max_relative_QCD_LO_only_RG_vs_wilson_QED_OFF_EOS_deltaBR",
+            report["summary"])
+        self.assertTrue(all("EOS_wilson_default_QED_OFF_LO_NP_conditional" in
+            row for row in report["Zee_27_results"]))
         self.assertIsNone(report["Zee_allowed_or_excluded"])
         x=synthetic_source(240.,700.,5.6,1.)
         bad=fake_rg(240.,700.,5.6,1.)
