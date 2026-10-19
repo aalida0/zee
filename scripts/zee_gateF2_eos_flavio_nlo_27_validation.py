@@ -7,9 +7,12 @@ the SAME E4A matching and wilson RG as the flavio path. Therefore this is
 NOT independent Wilson matching and NOT 2017 full-NNLO TypeII reproduction.
 
 Two expansion modes: LO NP C7,C8 only (F1-identical high-scale input);
-NLO source CW C3-C8 added as alpha_s(mu0)/(4*pi)*C^(1), including
-possible C4 source terms. NLO matched input in EOS/ fl avio higher-order
-inclusive models is DIAGNOSTIC, NOT complete NLO/NNLO BSM calculation.
+NLO_dipoles_only adds alpha_s(mu0)/(4pi)*source C7,C8^(1), but DOES NOT
+inject NLO four-quark C3-C6. The WET/flavio WCxf basis rejects C4_bs
+(and related C3-6) as input. We explicitly record the omitted source
+coefficients per spectrum. These are NOT full NLO matching predictions.
+EOS has an independent NLO rate only, and shares the SAME LO or partial
+dipole matching and RG running with flavio.
 No custom 95% CL likelihood or physical Zee viability inference.
 """
 from __future__ import annotations
@@ -31,7 +34,7 @@ from zee_gateE4a_integrated_precision_matching_calibration import (
 from zee_gateF1_peerreviewed_flavio_27_observable import (
     MU0, OBS, FlavioEngine, validate_e4a_typeii, sha)
 
-SUCCESS="F2_INDEPENDENT_EOS_NLO_RESPONSE_LO_AND_NLO_SOURCE_AUDIT_NOT_EXCLUSION"
+SUCCESS="F2_EOS_NLO_LO_MATCHING_RESPONSE_WITH_NLO_DIPOLE_ONLY_DIAGNOSTIC_NO_EXCLUSION"
 BLOCKED="F2_EOS_OR_MATCHING_OR_BASIS_VALIDATION_BLOCKED_NO_EXCLUSION"
 E0=1.6
 EOS_SCALE=4.2
@@ -43,6 +46,7 @@ CHECK_MASS=(300.,450.,550.,600.,650.,670.,700.,800.,1000.)
 DENSE_MASS=tuple(sorted(set(float(x) for x in range(300,1001,25))|
                              {570.,580.,670.}))
 WC_NLO_OPERATORS=tuple(range(3,9))
+OMITTED_NLO_OPERATORS=(3,4,5,6)
 EOS_WC_NAMES={
     1:"b->s::c1",2:"b->s::c2",3:"b->s::c3",
     4:"b->s::c4",5:"b->s::c5",6:"b->s::c6",
@@ -153,7 +157,7 @@ class RatePair:
         }
 
 def from_e4a_source(coeffs, weight1, order, alpha):
-    if order not in ("LO","NLO_matching"):
+    if order not in ("LO","NLO_dipoles_only"):
         raise ValueError("Invalid perturbative order")
     if not 0<=weight1<=1:
         raise ValueError("Invalid charged doublet mixing fraction")
@@ -161,15 +165,31 @@ def from_e4a_source(coeffs, weight1, order, alpha):
     for n in range(1,9):
         lo=coeffs[0,n]
         shift=weight1*lo[0]+(1-weight1)*lo[1]
-        if order=="NLO_matching":
-            nlo=coeffs[1,n]
-            shift+=alpha*(weight1*nlo[0]+(1-weight1)*nlo[1])
-        if n not in (7,8) and order=="LO" and abs(shift)>1e-11:
+        if n not in (7,8) and abs(shift)>1e-11:
             raise ValueError("unexpected LO NP beyond dipoles; F1 mismatch")
-        if order=="NLO_matching" and n in (1,2) and abs(shift)>1e-11:
-            raise ValueError("unexpected NLO C1,2 source in F2 matching")
-        if abs(shift)>1e-18:out[n]=shift
+        if order=="NLO_dipoles_only":
+            nlo=coeffs[1,n]
+            dn=alpha*(weight1*nlo[0]+(1-weight1)*nlo[1])
+            if n in (1,2) and abs(dn)>1e-11:
+                raise ValueError("unexpected NLO C1,2 source in F2 matching")
+            if n in (7,8):
+                shift+=dn
+            elif n in OMITTED_NLO_OPERATORS:
+                # WCxf WET/flavio does not allow C3_bs...C6_bs
+                # source inputs. Do not inject invalid keys or quietly
+                # claim their contribution was included.
+                continue
+        if n in (7,8) and abs(shift)>1e-18:
+            out[n]=shift
+    if not set(out).issubset({7,8}):
+        raise ValueError("Non-dipole WCxf input improperly injected")
     return out
+
+def omitted_nlo_fourquark(coeffs,weight1,alpha):
+    """Return actual not-implemented NLO source shifts, never rates."""
+    return {f"C{n}":alpha*(weight1*coeffs[1,n][0]+
+                          (1.-weight1)*coeffs[1,n][1])
+            for n in OMITTED_NLO_OPERATORS}
 
 def model_coeffs(rows,ident):
     return {(order,n):
@@ -213,6 +233,8 @@ def run(pair,e4a,f1,path_probe,e1=None):
     if (f1r.get("source_e4a_summary_sha256")!=sha(e4a) or
         f1r.get("summary",{}).get("Zee_models")!=27 or
         f1r.get("summary",{}).get("TypeII_controls")!=18 or
+        f1r.get("summary",{}).get("errors") or
+        f1r.get("summary",{}).get("underlying_2015_basis_validation_provisional") is not True or
         f1r.get("Zee_allowed_or_excluded") is not None):
         raise ValueError("F1 provenancing incomplete/not source identical")
     old={r["candidate_id"]:r for r in f1r["Zee_27_results"]}
@@ -236,15 +258,18 @@ def run(pair,e4a,f1,path_probe,e1=None):
         coeff=model_coeffs(rows,name)
         w=math.cos(float(model["gamma"]))**2
         v_lo=pair.evaluate(from_e4a_source(coeff,w,"LO",pair.as4pi))
-        v_nlo=pair.evaluate(from_e4a_source(coeff,w,"NLO_matching",pair.as4pi))
+        v_nlo=pair.evaluate(from_e4a_source(coeff,w,"NLO_dipoles_only",pair.as4pi))
+        omitted=omitted_nlo_fourquark(coeff,w,pair.as4pi)
         if abs(v_lo["flavio_BR"]-old[name]["flavio_hybrid_BR"])>3e-10:
             raise ValueError(f"F2 nonreproduction of REAL F1 for {name}")
-        for mode,z in (("LO",v_lo),("NLO_matching",v_nlo)):
+        for mode,z in (("LO",v_lo),("NLO_dipoles_only",v_nlo)):
             rec={"candidate_id":name,"input_matching_order":mode,
                  "mH1_GeV":model["mH1_GeV"],
                  "mH2_GeV":model["mH2_GeV"],
                  "tanbeta":model["tanbeta"],"gamma":model["gamma"],
-                 **z,"F1_LO_flavio_control_BR":old[name]["flavio_hybrid_BR"],
+                 **z,**{f"omitted_NLO_source_{k}":v for k,v in omitted.items()},
+                 "NLO_C3_C6_matching_physically_included":False,
+                 "F1_LO_flavio_control_BR":old[name]["flavio_hybrid_BR"],
                  "Zee_allowed_or_excluded":None,
                  "legacy_SuperIso_BR_separate_scheme":(
                      None if old_legacy is None else
@@ -258,23 +283,27 @@ def run(pair,e4a,f1,path_probe,e1=None):
         print("F2_ZEE",f"{k}/27",name,
               "F1_reproduced",f"{v_lo['flavio_BR']:.11g}",
               "EOS_NLO_LOmatch_BR",f"{v_lo['eos_NLO_BR']:.11g}",
-              "flavio_NLOmatch_BR",f"{v_nlo['flavio_BR']:.11g}",
-              "EOS_NLO_NLOmatch_BR",f"{v_nlo['eos_NLO_BR']:.11g}",
+              "flavio_NLO_DIPOLES_ONLY_BR",f"{v_nlo['flavio_BR']:.11g}",
+              "EOS_NLO_NLO_DIPOLES_ONLY_BR",f"{v_nlo['eos_NLO_BR']:.11g}",
+              "NLO_C3_C6_OMITTED",max(abs(v) for v in omitted.values()),
               "EXCLUSION_UNKNOWN",flush=True)
     for t in TANBETA_VALUES:
         for m in DENSE_MASS:
             coeff=controls[m,t]
-            for order in ("LO","NLO_matching"):
+            om=omitted_nlo_fourquark(coeff,1.,pair.as4pi)
+            for order in ("LO","NLO_dipoles_only"):
                 z=pair.evaluate(from_e4a_source(
                     coeff,1.,order,pair.as4pi))
                 typeii.append({"mass_GeV":m,"tanbeta":t,
                                "input_matching_order":order,**z,
+                               **{f"omitted_NLO_source_{k}":v for k,v in om.items()},
+                               "NLO_C3_C6_matching_physically_included":False,
                                "published_TypeII_580GeV_bound_reproduced":False})
     ref=pair.evaluate({})
     if abs(ref["flavio_delta_BR"])>1e-12 or abs(ref["eos_NLO_delta_BR"])>1e-12:
         raise ValueError("Zero NP EOS or flavio baseline not closed")
     checks={}
-    for order in ("LO","NLO_matching"):
+    for order in ("LO","NLO_dipoles_only"):
         samples=[x for x in typeii if x["input_matching_order"]==order]
         # Pure TypeII should constructively increase the rate and decouple.
         positive=all(x["flavio_delta_BR"]>0 and
@@ -309,9 +338,9 @@ def run(pair,e4a,f1,path_probe,e1=None):
         if not c["exploratory_max_under_60pct"]:
             reasons.append(order+": EOS and flavio NP rate shifts differ >60%")
     summary={
-        "real_Zee_spectra":27,"real_Zee_rows_LO_plus_NLO_matching":len(zee),
+        "real_Zee_spectra":27,"real_Zee_rows_LO_plus_NLO_dipoles_only":len(zee),
         "typeii_mass_points_each_tanbeta":len(DENSE_MASS),
-        "typeii_rows_LO_plus_NLO_matching":len(typeii),
+        "typeii_rows_LO_plus_NLO_dipoles_only":len(typeii),
         "F1_27_real_flavio_predictions_reproduced":True,
         "EOS_NLO_SM":pair.eos_sm,"flavio_SM":pair.flavio_sm,
         "alpha_s_160_nf5":pair.alpha160,"EOS_scale_GeV":EOS_SCALE,
@@ -319,6 +348,15 @@ def run(pair,e4a,f1,path_probe,e1=None):
         "typeii_checks":checks,"errors":reasons,
         "EOS_independent_NLO_rate_but_shared_E4A_matching_and_wilson_running":True,
         "NLO_BSM_complete":False,
+        "fourquark_NLO_match_discarded":True,
+        "WCxf_flavio_highscale_supported_inputs":["C7_bs","C8_bs"],
+        "NLO_variant_is_dipoles_only_not_full_NLO":True,
+        "max_abs_omitted_source_NLO_C3_C6_weighted_Zee":max(
+            abs(row[f"omitted_NLO_source_C{n}"]) for row in zee
+            for n in OMITTED_NLO_OPERATORS),
+        "max_abs_omitted_source_NLO_C3_C6_TypeII":max(
+            abs(row[f"omitted_NLO_source_C{n}"]) for row in typeii
+            for n in OMITTED_NLO_OPERATORS),
         "separate_legacy_E1_27_comparison_included":old_legacy is not None,
         "2017_TypeII_580GeV_95CL_reproduced":False,
         "publishable_Zee_95CL_exclusions":False}
@@ -329,7 +367,8 @@ def run(pair,e4a,f1,path_probe,e1=None):
         "flavio_version":pair.flavio_version,
         "EOS_version":pair.eos_version,"wilson_version":pair.wilson_version,
         "matching_raw_source":"E4A CW_calculator at mu0=160GeV",
-        "C3_to_C8_NLO_terms_added_with_alpha_s_over_4pi":True,
+        "C7_C8_NLO_dipoles_added_with_alpha_s_over_4pi":True,
+        "C3_C6_NLO_quark_NP_coefficients_reported_but_NOT_evolved":True,
         "raw_NNLO_C3_to_C6_discrepancies_unresolved":True,
         "SM":{"EOS_NLO":pair.eos_sm,"flavio":pair.flavio_sm},
         "Zee_27_by_matching_order":zee,
@@ -369,9 +408,9 @@ def main():
                                     +str(a.e1_summary.resolve()))
         pair=RatePair()
         report=run(pair,a.e4a_summary,a.f1_summary,binpath,a.e1_summary)
-        write_csv(a.output_dir/"F2_54_Zee_LO_NLOmatching_real_EOS_flavio.csv",
+        write_csv(a.output_dir/"F2_54_Zee_LO_NLOdipoles_only_EOS_flavio.csv",
                   report["Zee_27_by_matching_order"])
-        write_csv(a.output_dir/"F2_TypeII_dense_EOS_flavio_LO_NLOmatching.csv",
+        write_csv(a.output_dir/"F2_TypeII_dense_EOS_flavio_LO_NLOdipoles_only.csv",
                   report["TypeII_dense_by_matching_order"])
         print("F2_COHORT",json.dumps(report["summary"]),flush=True)
         print("F2_EXCLUSIONS UNKNOWN",flush=True)
