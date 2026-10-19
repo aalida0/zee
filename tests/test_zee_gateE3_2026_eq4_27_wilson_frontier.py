@@ -184,7 +184,7 @@ class TestGateE3WilsonModern2026(unittest.TestCase):
             reports.append(out)
         summary=summarize(reports)
         self.assertEqual(summary['spectra'],27)
-        self.assertEqual(summary['two_charged_LO_matching_probes'],54)
+        self.assertEqual(summary['charged_scalar_LO_matching_inputs_assembled'],54)
         self.assertIsNone(summary['physical_Zee_allowed_or_excluded'])
         self.assertFalse(summary['2026_full_TypeII_670GeV_bound_reused_as_Zee_exclusion'])
         self.assertTrue(summary['no_legacy_modern_absolute_BR_addition'])
