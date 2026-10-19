@@ -120,9 +120,7 @@ def h125_widths(point,Y):
     partial={}
     for name,(i,j,limit,url) in CHANNELS.items():
         partial[name]=exact_flavor_width(h,mh=MH,i=i,j=j)
-    orig=np.diag(np.asarray(ML,float))/VEV
-    orig=np.diag(orig).astype(complex) if orig.ndim==1 else orig.astype(complex)
-    # If ML is already 3x3 diagonal, do not alter it.
+    # ML is the shared 3x3 diagonal physical charged-lepton mass matrix.
     smC=np.asarray(ML,complex)/VEV
     if smC.shape!=(3,3):
         raise ValueError('SM charged lepton mass matrix convention changed')
