@@ -527,7 +527,7 @@ Total prior Q4v5..v12 543 checks + Q4v13 676 = **1219/1219 source/limit/metamorp
 ## Next single *physics-connected* pilot: Gate C1 joined scalar/neutrino/full-one-loop UV diagnostics
 
 - Script: \`scripts/zee_gateC1_joined_uv_pilot.py\`
-- Regression suite: \`tests/test_zee_gateC1_joined_uv_pilot.py\` (15 unittest methods).
+- Regression suite: \`tests/test_zee_gateC1_joined_uv_pilot.py\` (17 unittest methods).
 - Output: \`work/gateC1_joined_uv_v1/summary.json\` and \`joined_uv_diagnostics_NOT_ALLOWED.csv\`.
 
 Use the EXISTING B4 scalar/EWPO screened thirty spectra and corresponding B2 neutrino-closed (f,Y) solutions, not new random, unproven potential points. Build **one coherent renormalizable lagrangian at matching scale mu0=mH2** for each tested solution.
@@ -548,7 +548,7 @@ Match all reconstructed neutral, pseudoscalar and charged masses and check the B
 
 **QUARK and EW GAUGE input scope:** illustrative diagonal CKM=I Type-II quark Yukawa boundary, approximate dimensionless SM Yukawa eigenvalues (top .93 etc) divided by sin(beta)/cos(beta) respectively, and approximate gauge couplings. These are NOT precise running MS-bar Yukawas or a physical CKM/flavor fit and must be replaced before any quantitative UV cutoff or FCNC exclusion result. This deliberate scope limitation avoids presenting an arbitrary quark boundary as physics.
 
-**FLOW:** RK4 over all 26 real/complex matrices and couplings, from mu0=mH2 to 10 TeV, with 24 time steps and an independently repeated 48-step run. Record the coarse/refined terminal mismatch (must be <=2e-4 on max-scaled coefficient) if both reach the endpoint; if a threshold is crossed, retain both paths as diagnostic stopping cases, not UV exclusion. Heuristic stopping diagnostics: quartic absolute value reaches 4*pi or Yukawa entry abs reaches sqrt(4*pi), or gauge input >=3. These are deliberately NOT rigorous perturbativity/unitarity/BFB conditions and not physical UV scales; no decoupling or thresholds. Output per-solution status, last mu, generated lambda6/7, wrong-doublet Yukawa norms, B2 neutrino closure, initial scalar BFB, and every incomplete physical constraint as NOT_EVALUATED.
+**PROVENANCE LOCK:** C1 refuses to run unless the user-produced Q4v13 report certifies exactly 676/676 passed source comparisons and its stored SHA256 matches the unmodified generated `RGEs.py`. This is a source integrity requirement, not a physical model acceptance claim.\n\n**FLOW:** RK4 over all 26 real/complex matrices and couplings, from mu0=mH2 to 10 TeV, with 24 time steps and an independently repeated 48-step run. Record the coarse/refined terminal mismatch (must be <=2e-4 on max-scaled coefficient) if both reach the endpoint; if a threshold is crossed, retain both paths as diagnostic stopping cases, not UV exclusion. Heuristic stopping diagnostics: quartic absolute value reaches 4*pi or Yukawa entry abs reaches sqrt(4*pi), or gauge input >=3. These are deliberately NOT rigorous perturbativity/unitarity/BFB conditions and not physical UV scales; no decoupling or thresholds. Output per-solution status, last mu, generated lambda6/7, wrong-doublet Yukawa norms, B2 neutrino closure, initial scalar BFB, and every incomplete physical constraint as NOT_EVALUATED.
 
 **One AF run (NO PyR@TE regeneration):**
 
@@ -561,6 +561,7 @@ python3 scripts/zee_gateC1_joined_uv_pilot.py \
   --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
   --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
   --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+  --q4v13-report work/zee_section8_Q4_pyrate_v4/large_integrated_v1.json \
   --top-candidates 3 --solutions-per-candidate 2 --steps 24 \
   --upper-GeV 10000 \
   --output-dir work/gateC1_joined_uv_v1
