@@ -7,6 +7,7 @@ import sys
 import tempfile
 import json
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
@@ -89,6 +90,40 @@ class F4bProjectorContracts(unittest.TestCase):
             path.write_text(json.dumps(good))
             with self.assertRaises(ValueError):
                 f.check_f4_source_summary(path,"pin")
+
+    def test_eight_row_mocked_RG_projects_matching_linearly(self):
+        # Synthetic coefficient vectors; NEVER validates vendor physics.
+        import zee_gateF3_fullNLO_source_RG_27 as rg
+        def fake_probe(exe, m1, m2, tanb, gamma):
+            self.assertEqual(m1,m2)
+            self.assertEqual(gamma,0.)
+            out={}
+            for mode in range(3):
+                for op in range(1,9):
+                    out[mode,op]={
+                        "low_SM_LO": -.3 if op==7 else 0.,
+                        "low_SM_NLO":1.2 if op==7 else 0.,
+                        "low_LO":-.05 if op==7 else 0.,
+                        "low_NLO":(-.8+.2*mode) if op==7 else 0.,
+                    }
+            return out
+        prior={(m,t):{
+            "alpha_s_low_from_flavio":.225,
+            "eos_BR_inverse_effective_CONDITIONAL":3.4e-4}
+            for t in f.TANBETAS for m in f.MASSES}
+        with patch.object(rg,"probe",side_effect=fake_probe) as call:
+            rows=f.run_projector(
+                Path("/this-is-a-synthetic-fixture"),{"alphas_mub":.225},prior)
+        self.assertEqual(call.call_count,8)
+        self.assertEqual(len(rows),8)
+        for row in rows:
+            a=.225/(4*math.pi)
+            expected=2*a*(-.35)*(.4)
+            self.assertAlmostEqual(row["Q7eff_NP_NLO_matching_total"],expected)
+            self.assertAlmostEqual(
+                row["Q7eff_NP_NLO_matching_fourquark_induced"],
+                2*a*(-.35)*(.2))
+            self.assertFalse(row["physical_full_NLO_BtoXsgamma_rate_calculated"])
 
 if __name__=="__main__":
     unittest.main()
