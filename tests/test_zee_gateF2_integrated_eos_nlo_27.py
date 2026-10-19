@@ -89,7 +89,9 @@ class TestF2OneLargeRealWorkflowContract(unittest.TestCase):
             def make_f1(zee):
                 path.write_text(json.dumps({
                     "source_e4a_summary_sha256":"fixture sha",
-                    "summary":{"Zee_models":27,"TypeII_controls":18},
+                    "summary":{"Zee_models":27,"TypeII_controls":18,
+                               "underlying_2015_basis_validation_provisional":True,
+                               "errors":[]},
                     "Zee_allowed_or_excluded":None,
                     "Zee_27_results":zee,
                 }))
@@ -107,6 +109,22 @@ class TestF2OneLargeRealWorkflowContract(unittest.TestCase):
                     "F1_27_real_flavio_predictions_reproduced"])
                 self.assertIsNone(report["Zee_physical_allowed_or_excluded"])
                 self.assertFalse(report["summary"]["publishable_Zee_95CL_exclusions"])
+                self.assertTrue(report["summary"][
+                    "NLO_variant_is_dipoles_only_not_full_NLO"])
+                self.assertFalse(report["summary"]["NLO_BSM_complete"])
+                self.assertTrue(report["summary"][
+                    "max_abs_omitted_source_NLO_C3_C6_weighted_Zee"]>0.)
+                self.assertTrue(all(
+                    "omitted_NLO_source_C4" in row
+                    and row["NLO_C3_C6_matching_physically_included"] is False
+                    for row in report["Zee_27_by_matching_order"]))
+                # No new-physics C4_bs is ever supplied to WCxf/flavio.
+                ff=f.model_coeffs(e4a[2],e4a[1][0]["candidate_id"])
+                high=f.from_e4a_source(ff,.31,"NLO_dipoles_only",
+                                        ToyEnginesNotPhysics.as4pi)
+                self.assertTrue(set(high).issubset({7,8}))
+                self.assertGreater(abs(f.omitted_nlo_fourquark(
+                    ff,.31,ToyEnginesNotPhysics.as4pi)["C4"]),0.)
                 # Optional original E1 legacy SuperIso comparison must
                 # carry the independently source-locked E4A ancestry.
                 legacy_path=Path(d)/"e1.json"
@@ -134,7 +152,7 @@ class TestF2OneLargeRealWorkflowContract(unittest.TestCase):
                 a=f.model_coeffs(e4a[2],e4a[1][0]["candidate_id"])
                 a[1,1]=(-2.,0.)
                 with self.assertRaisesRegex(ValueError,"unexpected NLO C1"):
-                    f.from_e4a_source(a,.2,"NLO_matching",.009)
+                    f.from_e4a_source(a,.2,"NLO_dipoles_only",.009)
 
 if __name__=="__main__":
     unittest.main()
