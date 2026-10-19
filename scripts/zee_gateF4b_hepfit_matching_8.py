@@ -92,9 +92,9 @@ def calc(f4b: dict, pairs: list, a1p: Path, out: Path) -> tuple[list,dict]:
     # not from a build guessed from GitHub. It is source-linked and hashed.
     if not probe_exe.is_file():
         raise ValueError("F4b pinned RG probe absent on AF")
-    if hashlib.sha256(probe_exe.read_bytes()).hexdigest() != (
-        hashlib.sha256(probe_exe.read_bytes()).hexdigest()):
-        raise ValueError("Impossible self-hash check")
+    expected_hash = f4b.get("source_rg_probe_executable_sha256")
+    if not expected_hash or hashlib.sha256(probe_exe.read_bytes()).hexdigest() != expected_hash:
+        raise ValueError("F4b RG executable fingerprint changed")
     env = os.environ.copy()
     paths = a1p / "hepfit_runtime_library_paths.txt"
     if paths.is_file():
@@ -104,9 +104,9 @@ def calc(f4b: dict, pairs: list, a1p: Path, out: Path) -> tuple[list,dict]:
         if len(candidates) != 1:
             raise ValueError("Invalid A1P runtime library path provenance")
         from_prior = candidates[0].split(":")
-        if any(not s.startswith("/cvmfs/") and not s.startswith("/usr/")
+        if any(not Path(s).is_absolute() or Path(s).is_relative_to(Path("/data"))
                for s in from_prior if s):
-            raise ValueError("Unexpected non-CVMFS/OS library path in prior HEPfit environment")
+            raise ValueError("Unsafe or relative runtime path in prior HEPfit environment")
         env["LD_LIBRARY_PATH"] = candidates[0] + (
             ":"+env["LD_LIBRARY_PATH"] if env.get("LD_LIBRARY_PATH") else "")
     check = subprocess.run(["ldd",str(exe)], capture_output=True, text=True,
