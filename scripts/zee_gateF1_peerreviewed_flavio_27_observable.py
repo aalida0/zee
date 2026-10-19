@@ -281,6 +281,20 @@ def main():
             "published_2017_580GeV_bound_reproduced":False}
     code=1
     try:
+        # Print exact missing path rather than FileNotFoundError(2, ...).
+        # E1 is optional, but an explicitly provided E1 must exist and
+        # retain its exact SHA linkage to E4A; never silently substitute
+        # a different legacy file for a publication provenance check.
+        required=[("E4A --e4a-summary", args.e4a_summary)]
+        if args.e1_summary is not None:
+            required.append(("optional E1 --e1-summary", args.e1_summary))
+        for label, source in required:
+            if not source.is_file():
+                raise FileNotFoundError(
+                    f"{label} missing or not a regular file: "
+                    f"{source.resolve(strict=False)}. "
+                    "The E1 comparison is optional; omit --e1-summary "
+                    "to run the real flavio calculation without it.")
         # Validate the actual source before importing physics dependencies
         # to avoid silently running on absent or partial 27 model inputs.
         read_source_e4a(args.e4a_summary)
@@ -304,6 +318,11 @@ def main():
                 "traceback":traceback.format_exc(),
                 "Zee_allowed_or_excluded":None}
         print("F1_FAIL_CLOSED",repr(exc),file=sys.stderr,flush=True)
+        # stdout from the synthetic unittest is not a real flavio run.
+        # Show the full traceback for missing runtime resources as well.
+        if isinstance(exc,FileNotFoundError):
+            print("F1_MISSING_FILE",getattr(exc,"filename",None)
+                  or str(exc),file=sys.stderr,flush=True)
         code=1
     finally:
         dest=args.output_dir/"summary.json"
