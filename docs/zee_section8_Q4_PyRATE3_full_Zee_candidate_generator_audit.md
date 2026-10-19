@@ -1257,3 +1257,10 @@ python3 -u scripts/zee_gateE3_2026_eq4_27_wilson_frontier.py \
 \`\`\`
 
 Outputs \`summary.json\`, \`2026_Eq4_LO_27_flavor_cascade_NOT_EXCLUSION.csv\`, \`A1S_54_charged_LO_matching_raw.log\` (can contain fewer distinct probes when mass/tanβ are identical). Prints \`E3_MODERN_EQ4_WILSON_FRONTIER\`, \`E3_COHORT\`, \`E3_FULL_ZEE_ALLOWED UNKNOWN\`. Source-verified original E2 angular continuation enables comparison at five same vertex thresholds. E3 does NOT supply the missing full 2026 NNLO two-state BR or flavor likelihood, nor full Zee physical allowed models. At large NP DeltaC~0.05-0.1, Eq4 truncation uncertainty must be assessed, preferably using independent full-TypeII NNLO benchmark and new Wilson/RG/BR coupling, before publication. Paper 1 bottleneck remains modern matched quark flavor, full lepton flavor, global vacuum and HiggsTools.
+
+
+## E3 AF success and E4 precision-flavor decision (2026-10-19)
+
+E3 completed all 27 original Zee spectra with 48 unique modern 2026 Eq.(4) LO matching probes (54 state inputs; six cache reuses): source-based original Eq.(4) BR range (4.1076–4.2939)×10^-4, median 4.1615×10^-4; best BR with 50% original squared Z-cascade vertex median 4.0901×10^-4. All 27 E3 angular minima agree with the legacy E2 minima; no spectrum lowers BR at equal or higher squared Z vertex, all 27 lower at half-vertex retention. NO full modern NNLO prediction, model exclusion or allowed benchmark exists. 
+
+**Do not run another legacy vs linearized re-centering gate.** Implementing the actual publication-level 2026 prediction requires the missing full modern observable and common Wilson-level NP interference plus Type-II 670-GeV/95%-CL validation. The source-verified P0–P4 acceptance criteria and detailed references are recorded in [`docs/gateE4_precision_two_charged_bsgamma_requirements.md`](gateE4_precision_two_charged_bsgamma_requirements.md). The next useful task is obtaining/implementing the modern full two-charged kernel, independently reproducing the full 2HDM Type-II curve/likelihood, *then* using the 27 originally matched spectra for a real constraint.
