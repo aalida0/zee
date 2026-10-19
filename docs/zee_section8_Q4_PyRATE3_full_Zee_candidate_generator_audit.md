@@ -442,3 +442,44 @@ python3 scripts/zee_section8_Q4_independent_dimensional_scalar_gate.py \
 ```
 
 This is an independent scalar-loop coefficient cross-check, **not** a complete calculation of dimensionful Zee RGEs. Priority after Q4v11: full complex beta_f and f-dependent beta_Pi1/Pi2 using a independently derived or separate-engine one-loop general Weyl-Yukawa tensor, then gauge/Yukawa/f contributions to dimensionful scalar running and independent RGBeta full-source matching. Do not run scale evolution on physical benchmark candidates until all essential sectors are certified.
+
+
+## Q4v12 — 35/35 scalar-only dimensionful PASS; new independent complex Weyl Yukawa RGE gate
+
+AF Q4v11: **35/35 PASS** (7 cases x 5 dimensionful parameters m1,m2,m12,mchi,muZee). Max absolute difference ~1.05e-9 in the mass-squared coefficients (nominal mass-squared scale ~1e5 GeV²); all passed the explicit scale-aware tolerance. Thus Q4v5–Q4v11: 11+156+66+66+77+88+35 = **499** passed numeric source/consistency comparisons. The tested contributions to scalar mass and trilinear RGEs are PURE SCALAR, not the gauge or f/Yukawa contributions.
+
+**New substantive independent one-loop Yukawa calculation**:
+- scripts/zee_section8_Q4_independent_complex_weyl_yukawas.py
+- tests/test_zee_section8_Q4_independent_complex_weyl_yukawas.py (17 synthetic/source-limit tests).
+
+Physics source: Schienbein, Staub, Steudtner, Svirina, NPB939 (2019) 1–48, Eq.(5.11), arXiv:1809.06797. Cross-reference Chankowski, Lewandowski, Meissner, JHEP11(2016)105, Eq.(7.26). In a real-scalar + left-handed Weyl fermion representation, the general symmetric Yukawa tensors Y_a=d M_F/d phi_a satisfy the one-loop formula
+
+```text
+beta_Ya|Yuk = 1/2 (F.T @ Ya + Ya @ F)
+             + 2 sum_b [ Yb @ Ya† @ Yb ]
+             + sum_b [ S_ab * Yb ],
+F = sum_b Yb† @ Yb;
+S_ab = Re Tr(Ya† @ Yb).
+```
+
+All betas here are 16*pi² d/d ln(mu) coefficients. For two-component Weyl fermions κ=1/2, giving the scalar-wavefunction term above. Use the already independently derived 9x9 symmetric field-dependent Zee lepton mass tensor from Q4v10, with ten canonically normalized real scalars, general complex Ye1/Ye2, and complex antisymmetric f with f chi coupling 2 f chi. Construct and process ten Y_a tensors at once and project beta tensors back to beta_f, beta_Ye1 and beta_Ye2 through **four independent doublet components and two complex-singlet components**, rejecting mismatched flavor orientation/conjugation/antisymmetry. Include independent fermion Casimir gauge factors: beta_f gauge=−(3/2 gp²+9/2 g2²)f; beta_Ye gauge=−(15/4 gp²+9/4 g2²)Ye.
+
+The generic Weyl implementation was independently prototyped locally and reproduces both published limits:
+- f=0: **both** general complex FLS charged-lepton Yukawa beta matrices, for noncommuting Ye1/Ye2.
+- Ye1=Ye2=0 and real antisymmetric f: historical Kanemura 2001 beta_f = [−3/2 gp²−9/2 g2²+12 sum_{i<j} f_ij²] f.
+
+Q4v12 checks generated beta_f, beta_Ye1, beta_Ye2 at seven lepton configurations (zero and nonzero gauge, real and complex f, three complex Ye+f seeds), including direct f-dependent Ye increments relative to f=0 (7x5=35). At three more configurations with all **six** quark and lepton Yukawas generic complex, verify beta_f has no direct quark dependence and the f-induced increments of beta_Ye1 and beta_Ye2 agree after f=0 subtraction (3x3=9); total expected **44 numerical comparisons** on existing PyR@TE export. Full complex Yukawa/field conjugation projection checks and source-limit regressions accompany the code. This stage does not regenerate PyR@TE or modify generated equations. A nonzero residual is investigated, not repaired with hidden factor adjustments.
+
+**One AF invocation (source-limit crosscheck, no regeneration):**
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_section8_Q4_independent_complex_weyl_yukawas.py' -v &&
+python3 scripts/zee_section8_Q4_independent_complex_weyl_yukawas.py \
+  --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+  --report work/zee_section8_Q4_pyrate_v4/complex_weyl_v1.json
+```
+
+This would independently test the remaining complex f and f-dependent lepton Yukawa coefficients, but even a full 44/44 PASS would not alone certify the **complete general Zee RGEs**: the gauge/Yukawa/f contributions to all dimensionful scalar beta functions, full multiengine RGBeta or equivalent comparison, and threshold matching are still pending. No model parameter point has been certified against full neutrino+LFV+flavor+Higgs/vacuum constraints.
