@@ -265,7 +265,7 @@ AF invocation (reuses existing generated RGEs; does NOT rerun PyR@TE or Q3):
 Full complex Zee RGEs and physical point acceptance remain unverified.
 
 
-## Q4v7 — independent pure-scalar one-loop quartic beta calculation (20 October 2026)
+## Q4v7 — independent pure-scalar one-loop quartic beta calculation (19 October 2026)
 
 User-run Q4v6 reported **156/156 PASS**: rephasing covariance in the complete complex Zee scalar-Yukawa system, conjugation covariance, reality of real beta functions, both independent FLS 2010 lepton Yukawa f=0 limits, nonzero f-induced lepton Yukawa feedback obeying phase and quadratic scaling, zero direct quark f feedback, and muZee=0 multiplicative protection. Together with the Q4v5 11/11 published source-limit comparisons, **167 numerical source/symmetry checks passed**. None independently compared the genuine Zee scalar quartic coefficients.
 
