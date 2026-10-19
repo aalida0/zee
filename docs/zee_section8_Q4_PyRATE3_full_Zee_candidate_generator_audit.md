@@ -483,3 +483,36 @@ python3 scripts/zee_section8_Q4_independent_complex_weyl_yukawas.py \
 ```
 
 This would independently test the remaining complex f and f-dependent lepton Yukawa coefficients, but even a full 44/44 PASS would not alone certify the **complete general Zee RGEs**: the gauge/Yukawa/f contributions to all dimensionful scalar beta functions, full multiengine RGBeta or equivalent comparison, and threshold matching are still pending. No model parameter point has been certified against full neutrino+LFV+flavor+Higgs/vacuum constraints.
+
+
+## Q4v13 — LARGE integrated one-loop 26-beta and short-flow verification
+
+AF Q4v12 outcome supplied by user: **44 / 44 PASS** for independent Schienbein symmetric-Weyl lepton/f tensor beta functions, including complex f, Ye1/Ye2, and f-induced increments with generic complex quark Yukawa matrices. The earlier 499 checks plus 44 yield **543 cumulative reported numerical matches**. One-loop full-Zee source comparison is NOT automatically certified: Q4v5...v12 mostly checked separate sectors and limits.
+
+**Q4v13 is a single large integrated verification**, to avoid proliferating numerous narrow gates.
+
+New files:
+- \`scripts/zee_section8_Q4_large_integrated_one_loop_gate.py\`
+- \`tests/test_zee_section8_Q4_large_integrated_one_loop_gate.py\`
+
+Build a **complete independent one-loop reference for all 26 betas at the SAME complex point** using the previously source-checked independent ingredients:
+1. gauge betas [22/3,−3,−7]; quarks via FLS 2010 full complex 2HDM Yukawa matrices;
+2. general complex lepton/f Yukawas from symmetric 9-Weyl Schienbein tensor, supplemented with the independent FLS quark-trace contribution to beta_Ye1,Ye2;
+3. all eleven quartics: independently computed scalar-field Hessian + electroweak gauge-boson mass/linear wave contribution + full complex quark/lepton mass-box and doublet Yukawa-wave contribution + complex Zee f/lepton Weyl box and charged-singlet-wave contribution;
+4. **NEW dimensionful mixed contribution check**: prior pure scalar 10-real-field quadratic/cubic Hessian, plus gauge and fermionic external-scalar wavefunction effects. Gauge factors for doublet quadratic operators are −(9g2²+3gp²)/2, and for singlet mass −6gp². Zee-cubic gauge is −(9g2²+9gp²)/2. Yukawa doublet wave uses the full complex 2×2 FLS trace matrix T_kℓ and the induced bilinear variations. f singlet wave is +8 Tr(f†f) in beta_mchi and +4 Tr(f†f) in beta_muZee. In particular beta_muZee gets Tr(T) + 4 Tr(f†f) minus the gauge factor. These are one-loop **MS-bar** coefficients, source-convention-dependent and unvalidated at mixed points until the new AF run is performed.
+
+An overconstrained 96-background scalar orbit basis independently projects the scalar potential coefficient polynomials. Comparison with PyR@TE's **unchanged generated RGEs.py** is component-wise for 26 functions, including complex matrix entries, with explicit max-abs and scale-aware tolerance per function (3e−9 +3e−9*max(1,|got|,|expected|)). Cases: **12** independently seeded full complex points, **4** independently phased equivalent full complex points, and **2 eight-step generated-RK4 trajectories**, one generic and one starting at a Type-II quark texture with generic nonzero lepton Yukawas. Compare to independent reference at **5 checkpoints each** (steps 0,2,4,6,8). Thus **(12+4+5+5)×26 = 676 full beta comparisons**, plus 2×8 RK4 source-evolution steps (64 full beta-vector source evaluations) and 11 focused sanity/negative controls. If any direct comparison fails, fail closed, skip trajectory and record which beta functions mismatch instead of hiding the discrepancy. Tracks whether wrong-doublet quark Yukawa textures are radiatively generated, without claiming any FCNC limit.
+
+**One AF command** (runs only saved RGEs; NO new generation or Q3 rerun):
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+ -p 'test_zee_section8_Q4_large_integrated_one_loop_gate.py' -v &&
+python3 scripts/zee_section8_Q4_large_integrated_one_loop_gate.py \
+ --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+ --report work/zee_section8_Q4_pyrate_v4/large_integrated_v1.json
+\`\`\`
+
+**Current state:** Q4v13 code committed, NOT executed on UChicago AF; 676 comparisons are pending. Even 676/676 would certify only **tested one-loop full-complex RHS numerical consistency and short integration**, NOT RG threshold matching, independent 2-loop terms, global vacuum stability, physical neutrino/LFV/flavor/Higgs constraints, or permission to call candidates 0/32 viable. Physical Zee allowed=UNKNOWN. Follow-up after success should be first a scale-running/threshold prescription and then actual flavour/viability pipeline; avoid endless Q4 check proliferation.
