@@ -16,7 +16,7 @@ The charged singlet wavefunction contributes
 No gauge/Yukawa-independent scalar/gauge quartic expressions are reused.
 
 Results are checked against beta_l[PyR@TE](f)-beta_l[PyR@TE](f=0)
-with all other couplings fixed; seven cases x 11 quartic functions.
+with all other couplings fixed; eight cases x 11 quartic functions.
 This validates the f-dependent quartic sector only at tested points,
 NOT complex beta_f/Yukawas, dimensionful RGEs or allowed Zee points.
 """
