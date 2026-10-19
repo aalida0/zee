@@ -118,3 +118,28 @@ python3 scripts/zee_section8_Q4_pyrate_generator_gate.py \
 ```
 
 A successful subprocess run permits inspecting generated expressions but **does not certify** full Zee RGEs. Continue checking the Kanemura A13 and FLS f=0 limits, scalar trilinear/complex conjugation, and independent RGBeta output before physics acceptance. If other dependencies are unavailable in the parent interpreter, fail closed with a precise missing-package message rather than modifying the Zee model.
+
+
+## Q4v3 AF generator returned 0, but no RGE files (diagnostic pending)
+
+AF terminal output reported `Q4_SOURCE_INPUT_CONTRACT_TESTS_PASS 19`, `Q4_PREFLIGHT_PASS True`, correct `(22/3,-3,-7)` gauge coefficients, followed by `Q4_FAIL_CLOSED RuntimeError('PyR@TE produced no output files')`. The original run's `pyrate3_stdout.log` and `pyrate3_stderr.log` have not yet been provided. **The precise reason is therefore NOT YET DETERMINED.**
+
+Source audit of pinned upstream `LSartore/pyrate`:
+- `src/IO/Dependencies.py` uses `exit()` (zero exit status) after logging missing mandatory dependencies.
+- `src/Core/ModelsClass.py` and `src/IO/Inputs.py` have several other validation paths with `exit()` (again no guaranteed nonzero return code).
+- `src/IO/Exports.py` would produce Python RGE files in `Results/[model name]/` if it reaches successful export, so an empty recursive results directory cannot count as a successful generator run.
+- The Q4 wrapper appropriately uses a **fail-closed** artifact check. The new runner records `no_files_despite_zero_returncode`, prints the last 70 lines of both generator streams whenever no files appear, and archives PyR@TE's contemporaneous `log/PyLog*.log` files. This is DIAGNOSTIC ONLY; it changes no interaction or beta coefficient.
+
+**Do not rerun Q4 or change the Lagrangian until reviewing these existing logs:**
+
+```bash
+cd /home/aalida/zee
+echo "========== PYRATE STDOUT v3 =========="
+tail -n 120 work/zee_section8_Q4_pyrate_v3/pyrate3_stdout.log
+echo "========== PYRATE STDERR v3 =========="
+tail -n 120 work/zee_section8_Q4_pyrate_v3/pyrate3_stderr.log
+echo "========== LATEST UPSTREAM PYRATE LOG =========="
+find work/zee_section8_Q4_pyrate_v1/pyrate3_src/log -maxdepth 1 -type f -name 'PyLog*.log' -printf '%T@ %p\n' 2>/dev/null | sort -nr | head -n 3
+```
+
+Q4 full complex Zee beta functions, source limits, independent RGBeta agreement and phenomenological acceptance remain unverified.
