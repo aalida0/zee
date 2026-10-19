@@ -8,6 +8,8 @@ from pathlib import Path
 import sys
 import math
 import unittest
+import tempfile
+import json
 from types import SimpleNamespace
 import numpy as np
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
@@ -21,7 +23,7 @@ from zee_gateC1_joined_uv_pilot import (
     VEV,NAMES,MATRIX_KEYS,QUARK_BOUNDARY,
     scalar_lagrangian,convert_higgs_basis_Y,illustrative_quarks,
     build_model_state,diagnostics,numerical_control,
-    vector_distance,run_flow,public_row
+    vector_distance,run_flow,public_row,verify_rge_validation
 )
 
 def sample_point():
@@ -189,6 +191,34 @@ class TestGateC1JoinedUV(unittest.TestCase):
                         mu1=10000.,steps=8)
         self.assertEqual(report['status'],'INITIAL_PERTURBATIVITY_CONTROL_FAILED')
         self.assertIsNone(report['endpoint'])
+
+    def test_q4v13_exact_source_checksum_accepted(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source=Path(directory)/'RGEs.py'
+            source.write_text('# exact generated RGEs fixture')
+            import hashlib
+            digest=hashlib.sha256(source.read_bytes()).hexdigest()
+            report=Path(directory)/'q4v13.json'
+            report.write_text(json.dumps({
+                'source_SHA256':digest,'compared_total':676,
+                'compared_passed':676,
+                'one_loop_full_Zee_source_consistency_passed':True,
+                'failed_checks':[]}))
+            got=verify_rge_validation(report,source)
+            self.assertEqual(got['RGE_exact_source_sha256'],digest)
+
+    def test_q4v13_changed_source_rejected_before_flow(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source=Path(directory)/'RGEs.py'
+            source.write_text('# actual generator changed')
+            report=Path(directory)/'q4v13.json'
+            report.write_text(json.dumps({
+                'source_SHA256':'old source','compared_total':676,
+                'compared_passed':676,
+                'one_loop_full_Zee_source_consistency_passed':True,
+                'failed_checks':[]}))
+            with self.assertRaisesRegex(ValueError,'676/676'):
+                verify_rge_validation(report,source)
 
     def test_public_output_is_not_physical_acceptance(self):
         p=sample_point()
