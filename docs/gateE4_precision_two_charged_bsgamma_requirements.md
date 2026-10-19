@@ -95,3 +95,45 @@ All stages must retain source SHA, order/mass/mixing inputs, numerical finite ch
 - HEPfit historical Type-II single-mass interpolation source: https://hepfit.roma1.infn.it/doc/latest-release/de/da2/bsgamma_t_h_d_m_8cpp_source.html
 - HEPfit general bsgamma class overview: https://hepfit.roma1.infn.it/doc/latest-release/d0/d13/class_bsgamma.html
 - SuperIso historical tool description: https://superiso.in2p3.fr/
+
+
+
+## E4A — one large executable source integration experiment (not 2026 exclusion)
+
+Implemented in this branch:
+- \`scripts/zee_gateE4a_full_order_matching_probe.c\`: compile against the unmodified original isolated A1M *library* (contains previously recorded exact four-line bug-fix provenance); calculate SM + H1 + H2 *matching-scale* LEFT Wilson arrays C1–C8 at orders 0,1,2 and μ0=160 GeV in ONE source call with coherent doublet-fraction weights. No fake branching-ratio re-centering.
+- \`scripts/zee_gateE4a_integrated_precision_matching_calibration.py\`: ONE full cohort experiment, **27 Zee spectra × six charged mixing angles = 162 calls**, plus **9 Type-II pure charged Higgs masses [300,450,550,600,650,670,700,800,1000] GeV × two tanβ [5.6,50] × 3 exactly-degenerate gamma choices = 54 calls**: total **216 real source-pinned calls**, 24 operator/order entries per call = **5184 matching-coefficient records checked**. Among them full 27×24 original matched coefficient vectors are exported = **648 rows**. Enforce gamma invariance of physical matching at fixed masses, both pure endpoints, equal-mass exact mixing invariance, a same-common-mu Wilson sum for all 3 orders, and a 27/27 completely independent modern E3 Eq4 LO C7/C8 reconstruction.
+- \`tests/test_zee_gateE4a_integrated_source.py\`: **ONE large end-to-end regression**, exercises all 216 analytic source-call contracts (using deterministic controlled stand-in values in tests) with actual full 27 + 18 cohort structure, ~5184 operator/order entries and intentional independent Eq4 mismatch and gamma dependence corruption. It does not substitute for the 216 **real SuperIso source calls** in the AF experiment.
+- Exact A1Q original 2012 KIT author Mathematica 48-coefficient numeric audit is **rerun inside the same E4A physics driver** from the saved source data \`original_vs_A1P_NNLO_numeric.json\`, with known HEPfit NNLO four-quark agreement and SuperIso deviations; do NOT conceal incomplete NNLO basis/loop matching. It does not claim full 2026 matrix elements.
+
+### Run ONE large AF experiment
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m py_compile \
+  scripts/zee_gateE4a_integrated_precision_matching_calibration.py \
+  tests/test_zee_gateE4a_integrated_source.py
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateE4a_integrated_source.py' -v &&
+python3 -u scripts/zee_gateE4a_integrated_precision_matching_calibration.py \
+  --e1-summary work/gateE1_joined_27_legacy_bsgamma_v1/summary.json \
+  --e2-summary work/gateE2_flavor_cascade_mixing_frontier_v1/summary.json \
+  --e3-summary work/gateE3_modern_2026_eq4_27_wilson_frontier_v1/summary.json \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --a1u-result work/gateA1u_legacy_zee_br_v1/legacy_two_state_br.json \
+  --a1q-original-comparison work/gateA1q_original_nnlo_v1/original_vs_A1P_NNLO_numeric.json \
+  --vendor-root work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  --output-dir work/gateE4a_large_matching_typeII_27_v1
+\`\`\`
+
+Outputs:
+- \`summary.json\`: nested 27×24 full matching, 18 pure-Type-II high-order coefficient anchors including 670 GeV, original 2012 author crosscheck, source hashes and **NOT IMPLEMENTED** full 2026 rate.
+- \`E4A_27_Zee_full_order_coefficients.csv\`: all 648 original-physical-gamma operator/order entries, BOTH charged contributions and their coherent NP-Wilson sum.
+- \`E4A_18_pure_TypeII_benchmarks.csv\`: pure Type-II matching including LO C7/C8, NLO dipoles and NNLO four-quark/ dipole entries, 670 GeV anchors at tanβ=5.6 and 50.
+- \`E4A_27_models_summary.csv\`: E3's 2026 Eq4 independently source-verified at each spectrum.
+- stdout \`E4A_FULLORDER_MODEL 1/27 ... 27/27\`, \`E4A_LARGE_INTEGRATED_MATCHING {...}\`, \`E4A_P0_FULL_2026_OBSERVABLE BLOCKED_MISSING_2026_FULL_NNLO_MATRIX_ELEMENTS_AND_LIKELIHOOD\`, \`E4A_PHYSICAL_ZEE_ALLOWED UNKNOWN\`.
+
+**Scientific accept/reject:** This is source-validated **MATCHING-LEVEL** progress only. The SM+charged matching vectors themselves are NOT the full 2026 2HDM-II BR; they cannot reproduce the 2026 **670 GeV 95% CL limit** without the authors' phase-space/matrix-element + nonperturbative observable and uncertainty model. We explicitly report P0/P1 BLOCKED even after 5184 matching coefficients have passed numerical algebra. No new numerical model exclusion, 95% confidence interval, or physically allowed Zee point is possible yet. Do not substitute an old SuperIso BR with a 2026 SM central value or fabricate covariance.
+
+The next REAL precision action is a source-supported 2026 observable kernel, then numerical blind Type-II mass-curve/670GeV validation, then coherent 2-state Zee NP prediction.
