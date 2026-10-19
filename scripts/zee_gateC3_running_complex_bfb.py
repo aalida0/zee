@@ -92,20 +92,20 @@ def copositive_3x3(M,atol=1e-10):
     if np.max(abs(M-M.T))>1e-12:
         raise ValueError('Require symmetric lower-bound matrix')
     a,b,c=(float(M[i,i]) for i in range(3))
-    if min(a,b,c)<-atol:
-        return False,{'condition':'negative_diagonal'}
-    a=max(0.,a);b=max(0.,b);c=max(0.,c)
+    if min(a,b,c)<=atol:
+        return False,{'condition':'nonpositive_or_nearzero_diagonal_no_strict_certificate'}
     x,y,z=(float(M[0,1]),float(M[0,2]),float(M[1,2]))
     barx=x+math.sqrt(a*b)
     bary=y+math.sqrt(a*c)
     barz=z+math.sqrt(b*c)
-    if min(barx,bary,barz)<-atol:
-        return False,{'condition':'negative_pair_bound'}
+    if min(barx,bary,barz)<=atol:
+        return False,{'condition':'weak_or_negative_pair_bound_no_strict_certificate'}
     positive_term=math.sqrt(a*b*c)+x*math.sqrt(c)+y*math.sqrt(b)+z*math.sqrt(a)
     rad=max(0.,2*max(0.,barx)*max(0.,bary)*max(0.,barz))
     total=positive_term+math.sqrt(rad)
-    # A small positive margin is required for an unambiguous PASS.
-    return bool(total>=atol),{
+    # Strict positive margins prevent borderline floating-point points from
+    # being mislabelled as rigorous certificates.
+    return bool(total>atol),{
         'condition':'third_copositivity_condition','third_margin':total,
         'diagonals':[a,b,c],
         'pair_margins':[barx,bary,barz]
@@ -154,6 +154,8 @@ def quartic_bfb(state,orbits):
     arg=int(np.argmin(values))
     minimum=float(values[arg])
     scale=max(1.,max(abs(q[k]) for k in PHYSICAL_QUARTICS))
+    if is_sufficient and minimum<-(1e-12*scale):
+        raise AssertionError('Mathematical lower bound contradicted by physical orbit')
     if minimum<-(1e-9*scale):
         verdict='BFB_NEGATIVE_WITNESS'
     elif is_sufficient:
@@ -313,6 +315,9 @@ def main():
                 pnt=varied_point(point,variant[1],variant[2])
                 initial,checks=build_model_state(pnt,solution)
                 previous=c2[(name,label)]
+                if (not previous.get('RGE_stepdoubling_compatible') or
+                    previous.get('status')!='UV_DIAGNOSTIC_SOLVER_STABLE_NOT_ALLOWED'):
+                    raise ValueError('Cannot use inconclusive C2 predecessor for '+name+'/'+label)
                 coarse=path_with_bfb(module,initial,
                     mu0=pnt['mH2'],upper=a.upper_GeV,steps=a.steps,
                     orbits=orbits)
