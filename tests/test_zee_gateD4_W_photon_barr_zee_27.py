@@ -128,7 +128,8 @@ class TestGateD4WPhoton(unittest.TestCase):
         left,right,_=w_photon_amplitudes(
             p,Y,parent=1,daughter=0)
         delta=p['beta']-p['alpha']
-        pref=ALPHA_EM/(16*math.pi**3*.1056583745*VEV)
+        from gateA1b_hierarchical_no_seed import MMU
+        pref=ALPHA_EM/(16*math.pi**3*MMU*VEV)
         diff=(photon_W_kernel((MW_GEV/p['mh2'])**2)-
               photon_W_kernel((MW_GEV/125.)**2))
         mix=math.sin(delta)*math.cos(delta)
