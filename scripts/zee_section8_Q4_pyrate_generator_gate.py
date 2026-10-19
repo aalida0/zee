@@ -383,11 +383,11 @@ def main()->int:
                 cwd=ROOT,capture_output=True,text=True,timeout=120)
             (output/'q4_unit_tests.log').write_text(tests.stdout+tests.stderr)
             summary['q4_unit_tests_pass']=(tests.returncode==0 and
-                'Ran 19 tests' in tests.stderr and
+                'Ran 22 tests' in tests.stderr and
                 '\nOK' in tests.stderr)
             if not summary['q4_unit_tests_pass']:
                 raise RuntimeError('Q4 input contract unit tests failed: see q4_unit_tests.log')
-            print('Q4_SOURCE_INPUT_CONTRACT_TESTS_PASS 19',flush=True)
+            print('Q4_SOURCE_INPUT_CONTRACT_TESTS_PASS 22',flush=True)
         summary['preflight']=preflight(args.model)
         summary['preflight_pass']=True
         print('Q4_PREFLIGHT_PASS True',flush=True)
