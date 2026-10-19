@@ -400,3 +400,45 @@ python3 scripts/zee_section8_Q4_independent_f_quartic_gate.py \
 ```
 
 Q4v10 script and regression tests are committed but **AF tests and real comparison remain pending**. Any mismatch is to be investigated at the Weyl flavor ordering/complex-conjugation/operator-normalization level, not silently repaired with a factor. Even 88/88 PASS does not certify full complex beta_f, f-dependent beta_Pi1/Pi2, dimensionful scalar RGEs, threshold matching, independent RGBeta or physically allowed model points.
+
+
+## Q4v11 — 88/88 nonzero-f quartic agreement; new scalar-only dimensionful beta comparison
+
+AF Q4v10 outcome: **88/88 PASS** across eight f and complex lepton-Yukawa scenarios, max reported absolute difference ~5.63e-16. Combining all previously recorded v5...v10 11+156+66+66+77+88 gives **464 numerical source/metamorphic/reference comparisons PASS**. This does not guarantee full UV RGEs, threshold implementation, or physical model viability.
+
+New independent scalar-only dimensionful RGE code:
+  scripts/zee_section8_Q4_independent_dimensional_scalar_gate.py
+Companion tests:
+  tests/test_zee_section8_Q4_independent_dimensional_scalar_gate.py (13).
+
+With ten canonically normalized real scalar fields r and bilinears q=(Phi1†Phi1,Phi2†Phi2,chi†chi,Re Phi1†Phi2,Im Phi1†Phi2), reconstruct
+  V2=m1*q1 + m2*q2 + mchi*q3 - 2 Re[m12*(q4+i q5)],
+  V3=2 Re[muZee*epsilon_ij Phi1_i Phi2_j chi*],
+  V4=all 11 general quartic couplings (previously tested).
+
+The independently derived Hessian H(V) splits as H2+H3+H4, homogeneous in background fields with degrees 0, 1, 2. One-loop pure-scalar counterterms of degrees 2 and 3 from (1/2) Tr(H(V)^2) are:
+  degree2: Tr(H2 H4) + (1/2) Tr(H3^2);
+  degree3: Tr(H3 H4).
+
+Project onto the **five real quadratic coefficients** (m1,m2,mchi,Re m12,Im m12) and **two real cubic coefficients** (Re muZee,Im muZee), using 128 overconstraining real-field backgrounds, full-rank verification, and separate polynomial closure tests. Independently test analytic single-field limits:
+  beta_m1(scalar) = 6*l1*m1 (all other couplings zero);
+  beta_mchi(scalar) = 8*lh*mchi (all others zero);
+  pure muZee cubic induces additive scalar masses even with all quadratic terms zero, with beta_mchi=2 beta_m1=2 beta_m2;
+  trilinear beta is proportional to muZee and zero at muZee=0.
+Note: these analytic limits are conditional on the model potential normalization and do NOT cover gauge, f or ordinary Yukawa contributions.
+
+Seven scalar coupling/spectrum cases compare each generated PyR@TE scalar mass/trilinear beta (with gauge/Yukawas/f=0) to this independent Hessian prediction. Expected **35 comparisons** against existing RGEs, without rerunning PyR@TE, including complex offdiagonal mass m12 and trilinear muZee. Synthetic tests verify finite-difference quadratic/cubic Hessians, 7-real-component projection, complex rephasing of full potential, isolated O(4)/O(2) mass limits, pure Zee-cubic additive mass effects, projection closure, and deliberate beta mismatch. These 13 tests have NOT YET BEEN RUN on AF.
+
+**Single AF command:**
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_section8_Q4_independent_dimensional_scalar_gate.py' -v &&
+python3 scripts/zee_section8_Q4_independent_dimensional_scalar_gate.py \
+  --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+  --report work/zee_section8_Q4_pyrate_v4/scalar_dimensional_v1.json
+```
+
+This is an independent scalar-loop coefficient cross-check, **not** a complete calculation of dimensionful Zee RGEs. Priority after Q4v11: full complex beta_f and f-dependent beta_Pi1/Pi2 using a independently derived or separate-engine one-loop general Weyl-Yukawa tensor, then gauge/Yukawa/f contributions to dimensionful scalar running and independent RGBeta full-source matching. Do not run scale evolution on physical benchmark candidates until all essential sectors are certified.
