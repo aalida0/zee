@@ -89,12 +89,12 @@ class TestQ4GeneratorInput(unittest.TestCase):
             src=p/'pyrate';core=src/'src'/'Core'
             core.mkdir(parents=True)
             malicious=p/'key4hep';malicious.mkdir()
-            (core/'Particles.py').write_text('ORIGIN="PINNED_PYRATE"\\n')
-            (malicious/'Particles.py').write_text('ORIGIN="KEY4HEP_COLLISION"\\n')
+            (core/'Particles.py').write_text('ORIGIN="PINNED_PYRATE"\n')
+            (malicious/'Particles.py').write_text('ORIGIN="KEY4HEP_COLLISION"\n')
             (src/'pyR@TE.py').write_text(
-                'import sys,Particles\\n'
-                'from pathlib import Path\\n'
-                'Path(sys.argv[sys.argv.index("--Results")+1]).joinpath("origin.txt").write_text(Particles.ORIGIN)\\n'
+                'import sys,Particles\n'
+                'from pathlib import Path\n'
+                'Path(sys.argv[sys.argv.index("--Results")+1]).joinpath("origin.txt").write_text(Particles.ORIGIN)\n'
             )
             output=p/'out';output.mkdir()
             cmd=isolated_pyrate_command(src,src/'pyR@TE.py',MODEL,output)
@@ -109,8 +109,8 @@ class TestQ4GeneratorInput(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             p=Path(d);src=p/'pyrate';(src/'src'/'Core').mkdir(parents=True)
             malicious=p/'key4hep';malicious.mkdir()
-            (malicious/'Particles.py').write_text('ORIGIN="KEY4HEP_COLLISION"\\n')
-            (src/'pyR@TE.py').write_text('print("UNSAFE_EXECUTION")\\n')
+            (malicious/'Particles.py').write_text('ORIGIN="KEY4HEP_COLLISION"\n')
+            (src/'pyR@TE.py').write_text('print("UNSAFE_EXECUTION")\n')
             output=p/'out';output.mkdir()
             cmd=isolated_pyrate_command(src,src/'pyR@TE.py',MODEL,output)
             env=os.environ.copy();env['PYTHONPATH']=str(malicious)
