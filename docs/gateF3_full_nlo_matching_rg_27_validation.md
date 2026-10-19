@@ -32,6 +32,33 @@ At \(\mu_b=4.2\) GeV the effective low-coefficient shift is evaluated in the ven
 
 **Important**: Even a passing F3 cross-code rate response does **not** certify an independently accurate full NLO Type-II curve. Both F3 source modes share the SuperIso matching/RG; EOS supplies the independent matrix-element response only. To obtain publishable accuracy, independently validate operator basis and NLO source terms against the peer-reviewed Hermann–Misiak–Steinhauser matching, HEPfit, and an equivalent NLO numerical implementation, including perturbative scheme conversion and scale variation.
 
+## F3 v1 actual AF result and v2 order-resolved RG diagnosis
+
+First **real** F3 source-based 27-spectrum and 64-Type-II run completed:
+- \`Zee_spectra=27\`, \`typeII_dense_benchmarks=64\`, \`source_locked_TypeII_18_anchor_coefficients_checked=18\`.
+- EOS conditional full-source-NLO BR range approximately \`3.8604–4.0501 × 10^-4\`.
+- Original NLO C3–C6 four-quark *conditional* BR increment: median \`1.032765815e-8\`; maximum absolute \`1.233319930e-8\`. In the chosen vendor/EOS scheme this is around 0.003% of total BR, *not a basis-independent NLO uncertainty*.
+- Cross-code maximum LO charged dipole RG mismatch \`6.5788%\`; F3 LO source-QCD evolution vs F2 \`wilson\`-RG EOS NP-rate mismatch \`6.6380%\`. These are **relative to the NP shift / Wilson coefficient**, not absolute BR. Previous 35% acceptance was deliberately a gross-error gate and is **not** precision validation.
+
+A direct source audit of \`wilson/run/wet/classes.py\` shows the default \`qcd_order=1\` means **LO QCD ADM**. \`wilson/run/wet/rge.py\` explicitly evolves this LO QCD matrix; its default also includes leading QED running. The SuperIso \`C_calculator_base1\` is a multiorder QCD solution: even with **LO-only high-scale NP matching** it produces an induced NLO \`C1b\` contribution. Therefore comparing SuperIso \`delta C0b + alpha_s/(4pi)*delta C1b\` to \`wilson\` directly does **not** compare matching perturbative evolution orders. This is a **plausible cause**, but do not assert that it explains the full 6.6% before the decomposition below. QED/mass/coupling parameter differences and operator conventions are also possible.
+
+EOS source \`eos/rare-b-decays/inclusive-b-to-s-gamma.cc\` explicitly defines
+\`c7eff = c7 - c3/3 - 4c4/9 - 20c5/3 - 80c6/9\` and
+\`c8eff = c8 + c3 - c4/6 + 20c5 - 10c6/3\`.
+The source uses them internally: **EOS inputs must be raw low-scale \(C_i\), not pre-rotated \`C7eff\`,\`C8eff\`**, or the four-quark penguin rotation would be double applied. F3 prints both raw and effective candidates strictly as diagnostics.
+
+The updated F3 v2 calculation now extracts the following **per point** from the same source-probe output with no matched source changes:
+- \`LO_QCD_RG_ONLY\` using just the original \`delta C0b\` for the LO high-scale NP input;
+- \`LO_RG\` using \`delta C0b + alpha_s(mu_b)/(4pi)*delta C1b\` **for that same LO input**;
+- explicit NLO-running-induced \`deltaBR\` and each \(C_7,C_8\) difference;
+- **separate** maximum relative low-WC and EOS-NP-rate discrepancies against \`wilson\` for the two evolution truncations.
+
+This is an **order diagnostic**, not a complete order-matched NLO evolution validation; Wilson default LO still includes QED and uses its own inputs. A smaller LO-only discrepancy would support the perturbative-order hypothesis; unchanged discrepancies suggest coupling/mass/basis differences. Do not decrease a 35% pass threshold to 1% without ensuring equivalent QED schemes and matching normalization.
+
+Use a **new** result directory because F3 is explicitly overwrite-protected. Example:
+\`work/gateF3_RG_order_audit_27_v2\`.
+This changes the original 27-spectrum report and adds the order audit, but never overrides original v1.
+
 ## ONE full AF run
 
 From a Bash shell where F1 successfully imported flavio/wilson and F2 successfully imported EOS:
@@ -53,7 +80,7 @@ python -u scripts/zee_gateF3_fullNLO_source_RG_27.py \
   --f2-summary work/gateF2_eos_flavio_LO_dipolesOnly_27_v2/summary.json \
   --vendor-root work/gateA1m_isolated_nlo_v1/isolated_superiso \
   --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
-  --output-dir work/gateF3_full_NLO_source_rg_27_v1
+  --output-dir work/gateF3_RG_order_audit_27_v2
 \`\`\`
 
 The vendor root, E4A, F1 and F2 must match the exact pinned AF files. Do not run code or build the source on \`/data\`; store only large outputs there. This small F3 report remains in \`/home/aalida/zee/work\`.
