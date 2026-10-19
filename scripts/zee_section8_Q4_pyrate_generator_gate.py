@@ -196,6 +196,17 @@ def main()->int:
              'PyRATE3_source_sha_expected':PYRATE_SHA,
              'started_epoch':time.time()}
     try:
+        if not args.preflight_only:
+            tests=subprocess.run([sys.executable,'-m','unittest','discover',
+                '-s','tests','-p','test_zee_section8_Q4_pyrate_generator_gate.py','-v'],
+                cwd=ROOT,capture_output=True,text=True,timeout=120)
+            (output/'q4_unit_tests.log').write_text(tests.stdout+tests.stderr)
+            summary['q4_unit_tests_pass']=(tests.returncode==0 and
+                'Ran 13 tests' in tests.stderr and
+                '\nOK' in tests.stderr)
+            if not summary['q4_unit_tests_pass']:
+                raise RuntimeError('Q4 input contract unit tests failed: see q4_unit_tests.log')
+            print('Q4_SOURCE_INPUT_CONTRACT_TESTS_PASS 13',flush=True)
         summary['preflight']=preflight(args.model)
         summary['preflight_pass']=True
         print('Q4_PREFLIGHT_PASS True',flush=True)
