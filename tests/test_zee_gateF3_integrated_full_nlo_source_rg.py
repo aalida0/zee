@@ -78,7 +78,14 @@ class F3Integrated(unittest.TestCase):
                            "input_matching_order":"LO",
                            "eos_NLO_BR":pair.eos_rate(lo)})
         fakef2={"Zee_27_by_matching_order":f2rows}
-        with patch.object(f,"probe",side_effect=fake_rg):
+        # Production probe(exe, m1, m2, tanbeta, gamma) accepts a
+        # compiled-binary path first; the synthetic RG fixture models
+        # only its four physics inputs. Keep a strict adapter so the
+        # unittest checks the real call signature.
+        def mocked_probe(exe, m1, m2, tanbeta, gamma):
+            self.assertEqual(exe, Path("/no/exe"))
+            return fake_rg(m1, m2, tanbeta, gamma)
+        with patch.object(f,"probe",side_effect=mocked_probe):
             report=f.calc(FakePair(),Path("/no/exe"),models,rows,fakef2)
         self.assertEqual(report["status"],f.STATUS)
         self.assertEqual(len(report["Zee_27_results"]),27)
