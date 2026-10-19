@@ -263,3 +263,32 @@ AF invocation (reuses existing generated RGEs; does NOT rerun PyR@TE or Q3):
     python3 scripts/zee_section8_Q4_complex_lepton_scalar_covariance_gate.py --generator-output work/zee_section8_Q4_pyrate_v4/generator_output --report work/zee_section8_Q4_pyrate_v4/complex_covariance_v1.json
 
 Full complex Zee RGEs and physical point acceptance remain unverified.
+
+
+## Q4v7 — independent pure-scalar one-loop quartic beta calculation (20 October 2026)
+
+User-run Q4v6 reported **156/156 PASS**: rephasing covariance in the complete complex Zee scalar-Yukawa system, conjugation covariance, reality of real beta functions, both independent FLS 2010 lepton Yukawa f=0 limits, nonzero f-induced lepton Yukawa feedback obeying phase and quadratic scaling, zero direct quark f feedback, and muZee=0 multiplicative protection. Together with the Q4v5 11/11 published source-limit comparisons, **167 numerical source/symmetry checks passed**. None independently compared the genuine Zee scalar quartic coefficients.
+
+**New genuinely independent calculation** (not RGBeta): `scripts/zee_section8_Q4_independent_scalar_hessian_gate.py`. The general Zee quartic potential is reconstructed as `V4 = q^T C q` with five gauge-invariant real bilinears `q=(Phi1†Phi1, Phi2†Phi2, chi†chi, Re(Phi1†Phi2), Im(Phi1†Phi2))` and ten canonically normalized real scalar components. The one-loop **pure-scalar** (all gauge and fermion Yukawa couplings switched off) effective-potential divergence gives
+
+```text
+16*pi^2 beta(V4)|_scalar = 1/2 * Tr[(d^2 V4/d r_i d r_j)^2].
+```
+
+This is the standard one-loop quartic scalar contribution, related to general scalar RGE calculations such as Machacek–Vaughn NPB249 (1985) 70–92, DOI 10.1016/0550-3213(85)90040-9. The Hessian and real-orbit sampling are written independently of the PyR@TE tensor/diagram rules. An overconstrained, full-rank real-field projection recovers **all 15 real components** of `l1,l2,l3,l4,l5,l6,l7,lh,l8,l9,l10` (four complex parameters l5/l6/l7/l10). The field design uses 96 seeded configurations and checks rank, conditioning and polynomial closure. Two analytic checks are reproduced locally, with all other interactions zero: `beta_l1 = 12*l1^2` for O(4) Higgs-doublet quartic and `beta_lh = 20*lh^2` for O(2) complex-singlet quartic. The analytic Hessian code's projection residual was <1e−15 for the synthetic full-complex test point; **this does not claim AF PyR@TE agreement yet**.
+
+The new comparison evaluates the existing generated PyR@TE quartic functions with gauge=all Yukawa=f=all dimensionful terms=0 at six coupling sets: two full-complex examples, one pure-doublet, one pure-singlet, one pure Zee-portal complex example, and one general mixed-doublet complex example. Expected **66 independent beta comparisons** (6 x 11 physical quartic couplings), with all complex components compared, a fail-closed tolerance and per-case JSON residuals. Twelve companion unit tests validate bilinear definitions, independent potential reconstruction, Hessian finite-differences, rank/closure, O(4)/O(2) coefficients, full-complex projections, and mutated portal-beta rejection.
+
+**AF command; NO RGE regeneration and NO Q3 rerun:**
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_section8_Q4_independent_scalar_hessian_gate.py' -v &&
+python3 scripts/zee_section8_Q4_independent_scalar_hessian_gate.py \
+  --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+  --report work/zee_section8_Q4_pyrate_v4/scalar_hessian_v1.json
+```
+
+**Acceptance:** Even 66/66 PASS validates **only** the pure-scalar contributions to all 11 one-loop quartic beta functions and their complex components. Gauge/Yukawa-f-mediated scalar terms, beta_f complex nontrivial Yukawa structures, dimensionful masses/muZee, and the independent full RGBeta cross-check remain unverified; no fully allowed Zee point has been found.
