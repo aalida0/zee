@@ -1220,3 +1220,40 @@ python3 -u scripts/zee_gateE2_flavor_cascade_mixing_frontier.py \
 \`\`\`
 
 Output \`summary.json\` with original-vs-minimum legacy flavor BR and five coupling-retention minima per spectrum, and \`mixing_Zvertex_vs_legacy_bsgamma_27_NOT_ALLOWED.csv\`. Expected stdout \`E2_FLAVOR_CASCADE_ANGLE 1/27 ...\`, \`E2_COHORT {...}\`, \`E2_PHYSICAL_ZEE_ALLOWED UNKNOWN\`. Not yet run on AF. Source literature: Florentino/Romão/Silva EPJC81 (2021) 1148 equations for off-diagonal Z coupling, arXiv:2106.08332; Misiak et al. 2026 modern SM B->Xs gamma arXiv:2608.29863. No model experimental exclusions from E1 or E2.
+
+
+
+## E2 AF SUCCESS — mixing tradeoff 27/27; E3 full cohort at modern 2026 LO Wilson Eq4
+
+Actual E2 AF stdout (Oct 19, 2026), all **27** original E1 spectra, **108** independently recomputed A1V SuperIso legacy response points. Max absolute interpolated vs direct SuperIso BR residual = **3.198396408832238e-17**. No source endpoint mismatches. All 27 original mixing angles at fixed mass/tanβ are at the *lowest legacy BR attainable while retaining the same or larger squared off-diagonal Z coupling*, i.e. **0/27** BR improvements with no reduction of S_Z. If instead preserve >=50% of the original S_Z, ALL 27 can reduce legacy BR. Median original BR=3.914422634967018e-4, median optimal at half-Z-coupling squared=3.846942973744442e-4, difference ~0.0675e-4 (~1.7% original BR). Even this half-vertex preservation does not produce a properly accepted Zee quark-flavor configuration, and S_Z is not BR(H2->H1 Z). Gamma-only counterfactuals must not inherit the original neutrino, LFV, 10-TeV RG or vacuum certification.
+
+**E3 motivation**: A1S already existed and was USER-RUN in Oct 2026 on AF. Crucially, the NEW Misiak et al arXiv:2608.29863 (Aug 2026), Section IV **Eq.(4)** provides exactly:
+\`\`\`text
+(10^4) BR(Bbar->Xs gamma) ~= 3.54 - 8.51*DeltaC7(mu0=160GeV)
+                                  - 2.16*DeltaC8(mu0=160GeV)
+\`\`\`
+for matching-scale LO NP Wilson coefficients, neglecting quadratic NP and higher-order matching. Explicit author warning: 2026 2HDM-II 670GeV 95% CL lower bound uses **complete 2HDM-II NNLO**, not Eq4. Re-do the E2 mixing-vs-cascade tradeoff for all 27 selected Zee spectra using that *modern, independently normalized observable expansion*, not grafting E1's old SuperIso NP BR shift onto 2026 SM. This directly tests whether the **QUALITATIVE** positive flavor-vs-vertex tradeoff is stable across perturbative prescriptions.
+
+New script: \`scripts/zee_gateE3_2026_eq4_27_wilson_frontier.py\`; 15 regression methods \`tests/test_zee_gateE3_2026_eq4_27_wilson_frontier.py\`.
+
+Read the source-locked E1/E2 27 spectrum reports plus source fingerprints for A1M SuperIso and A1U; compile existing unmodified A1S LO C7/C8 driver against exact pinned isolated SuperIso-v5 lib and rerun it for each physical mH1,mH2,tanβ pair at EXACT mu0=160GeV. Cache exact repeated (mass,tanβ) combinations. For 27 two-state spectra, up to **54 unique LO matching probes**; exactly 54 input positions assembled even if cache reuse means fewer unique actual C subprocess calls. LO C7,C8 of Zee = cos²γ*(light) + sin²γ*(heavy). Use 2026 Eq4 *once* on the combined Wilson coefficients, never average full BRs. Eq4 BR is mathematically AFFINE in x=cos²γ (unlike E2's quadratic legacy observable); minimize exactly for the same FIVE normalized cascade Z vertex squared retention thresholds 0%,25%,50%,75%,100%. Include each E2 legacy optimum gamma and both separate BR values side-by-side (different schemes/units), **never sum or equate to model CLs**. Source A1S 300/700/tanβ=5.597 validation probe result from the user's earlier AF A1S: DeltaC7_Zee ~-0.0592117200769, DeltaC8_Zee ~-0.0626838511569, Eq4 linearized BR~4.17928885635e-4; a regression anchors these results.
+
+**One AF command**, fresh output:
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m py_compile scripts/zee_gateE3_2026_eq4_27_wilson_frontier.py \
+  tests/test_zee_gateE3_2026_eq4_27_wilson_frontier.py
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateE3_2026_eq4_27_wilson_frontier.py' -v &&
+python3 -u scripts/zee_gateE3_2026_eq4_27_wilson_frontier.py \
+  --e1-summary work/gateE1_joined_27_legacy_bsgamma_v1/summary.json \
+  --e2-summary work/gateE2_flavor_cascade_mixing_frontier_v1/summary.json \
+  --vendor-root work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --a1u-result work/gateA1u_legacy_zee_br_v1/legacy_two_state_br.json \
+  --output-dir work/gateE3_modern_2026_eq4_27_wilson_frontier_v1
+\`\`\`
+
+Outputs \`summary.json\`, \`2026_Eq4_LO_27_flavor_cascade_NOT_EXCLUSION.csv\`, \`A1S_54_charged_LO_matching_raw.log\` (can contain fewer distinct probes when mass/tanβ are identical). Prints \`E3_MODERN_EQ4_WILSON_FRONTIER\`, \`E3_COHORT\`, \`E3_FULL_ZEE_ALLOWED UNKNOWN\`. Source-verified original E2 angular continuation enables comparison at five same vertex thresholds. E3 does NOT supply the missing full 2026 NNLO two-state BR or flavor likelihood, nor full Zee physical allowed models. At large NP DeltaC~0.05-0.1, Eq4 truncation uncertainty must be assessed, preferably using independent full-TypeII NNLO benchmark and new Wilson/RG/BR coupling, before publication. Paper 1 bottleneck remains modern matched quark flavor, full lepton flavor, global vacuum and HiggsTools.
