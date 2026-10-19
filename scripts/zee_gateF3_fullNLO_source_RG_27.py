@@ -117,9 +117,11 @@ def rg_validation(pair,data,reference,w,aslow):
     high=from_e4a_source(reference,w,"LO",pair.as4pi)
     _,independent=pair.wc(high)
     actual=net_low(data,0,aslow)
+    source_lo_only={n:data[0,n]["low_LO"] for n in range(1,9)}
     errors={}
     for n in (7,8):
         x=actual[n]
+        xlo=source_lo_only[n]
         y=independent[n]
         # Non-effective and effective low C7,8 might differ by penguin
         # rotations. Compare both instead of choosing by assumption.
@@ -129,22 +131,35 @@ def rg_validation(pair,data,reference,w,aslow):
         scale=max(1.e-9,abs(y))
         errors[f"C{n}"]={
             "superiso_low_raw_LOplusNLO_RGE":x,
-            "superiso_low_effective_candidate":effective,
+            "superiso_low_raw_LO_RG_only":xlo,
+            "source_NLO_RG_delta_at_fixed_LO_high":x-xlo,
             "independent_wilson_low_raw_NP":y,
+            "relative_LO_only_residual":abs(xlo-y)/scale,
+            "relative_LOplusNLO_residual":abs(x-y)/scale,
+            "superiso_low_effective_candidate":effective,
             "relative_raw_residual":abs(x-y)/scale,
             "relative_effective_candidate_residual":abs(effective-y)/scale,
             "basis_translation_not_certified":True}
     # Compare raw to raw because EOS and flavio expect non-effective WCs
     # at their model parameter boundary.
     maximum=max(errors[f"C{n}"]["relative_raw_residual"] for n in (7,8))
-    return {"dipole_low_cross_code":errors,"max_raw_fractional_residual":maximum,
+    maximum_lo=max(errors[f"C{n}"]["relative_LO_only_residual"]
+                   for n in (7,8))
+    return {"dipole_low_cross_code":errors,
+            "max_raw_fractional_residual":maximum,
+            "max_LO_only_fractional_residual":maximum_lo,
             "within_gross_35percent_screen":maximum<RG_DIAGNOSTIC_MAX_FRACTION}
 
 def eos_observable(pair,data,aslow):
     # EOS parameters b->s::c1..c8 are low-scale non-effective coefficients.
     # Source-to-EOS precise scheme correspondence is not yet independently
     # certified: report conditional numerical sensitivity, NOT exclusion.
-    outcome={}
+    lo_only={n:data[0,n]["low_LO"] for n in range(1,9)}
+    lo_br=pair.eos_rate(lo_only)
+    outcome={"LO_QCD_RG_ONLY": {
+        "EOS_NLO_BR_conditional_basis":lo_br,
+        "EOS_deltaBR_conditional_basis":lo_br-pair.eos_sm,
+        "low_coeffs":lo_only}}
     for label,mode in MODES.items():
         d=net_low(data,mode,aslow)
         br=pair.eos_rate(d)
@@ -189,6 +204,8 @@ def calc(pair,exe,models,rows,f2,e4a_data=None):
          for r in f2["Zee_27_by_matching_order"]}
     outZ=[]
     max_wilson=0.;max_f2_rate=0.
+    max_wilson_lo_only=0.;max_f2_rate_lo_only=0.
+    nlo_running_rate_shifts=[];lo_only_raw_c7_residuals=[]
     for index,m in enumerate(models,1):
         name=m["candidate_id"];g=float(m["gamma"])
         coeff=model_coeffs(rows,name)
@@ -199,13 +216,21 @@ def calc(pair,exe,models,rows,f2,e4a_data=None):
         rg=rg_validation(pair,d,coeff,w,aslow)
         eos=eos_observable(pair,d,aslow)
         max_wilson=max(max_wilson,rg["max_raw_fractional_residual"])
+        max_wilson_lo_only=max(max_wilson_lo_only,
+            rg["max_LO_only_fractional_residual"])
         f2_ref=old[name,"LO"]
         original=eos["LO_RG"]["EOS_NLO_BR_conditional_basis"]
         ref=f2_ref["eos_NLO_BR"]
         response=original-pair.eos_sm
         f2_response=ref-pair.eos_sm
         rate_relative=abs(response-f2_response)/max(abs(f2_response),1.e-8)
+        lo_only_br=eos["LO_QCD_RG_ONLY"]["EOS_NLO_BR_conditional_basis"]
+        lo_only_rate_relative=abs((lo_only_br-pair.eos_sm)-f2_response)/max(
+            abs(f2_response),1.e-8)
+        nlo_running_rate_shift=original-lo_only_br
+        nlo_running_rate_shifts.append(nlo_running_rate_shift)
         max_f2_rate=max(max_f2_rate,rate_relative)
+        max_f2_rate_lo_only=max(max_f2_rate_lo_only,lo_only_rate_relative)
         a=eos["NLO_DIPOLES_RG"]["EOS_NLO_BR_conditional_basis"]
         b=eos["FULL_NLO_RG"]["EOS_NLO_BR_conditional_basis"]
         row={
@@ -214,6 +239,13 @@ def calc(pair,exe,models,rows,f2,e4a_data=None):
             "mH2_GeV":m["mH2_GeV"],
             "gamma":g,"tanbeta":m["tanbeta"],
             "EOS_source_LO_RG_BR_conditional":original,
+            "EOS_source_LO_QCD_RG_ONLY_BR_conditional":lo_only_br,
+            "EOS_source_NLO_running_shift_at_LO_matching_conditional":
+                nlo_running_rate_shift,
+            "EOS_source_LO_QCD_RG_ONLY_vs_F2_delta_rate_relative":
+                lo_only_rate_relative,
+            "LO_source_QCD_RG_ONLY_vs_wilson_max_C7C8_relative":
+                rg["max_LO_only_fractional_residual"],
             "EOS_source_NLO_dipoles_RG_BR_conditional":a,
             "EOS_source_full_NLO_matching_RG_BR_conditional":b,
             "fourquark_NLO_matching_deltaBR_conditional":b-a,
@@ -232,8 +264,10 @@ def calc(pair,exe,models,rows,f2,e4a_data=None):
         print("F3_ZEE",f"{index}/27",name,
               "EOS_FULL_SOURCE_NLO_CONDITIONAL",f"{b:.12g}",
               "FOURQUARK_RATE_SHIFT_CONDITIONAL",f"{b-a:.8g}",
-              "LO_CROSSCODE_LOW_WC_RESIDUAL",f"{rg['max_raw_fractional_residual']:.4g}",
-              "LO_EOS_DELTA_RATE_RESIDUAL",f"{rate_relative:.4g}",
+              "LO_CROSSCODE_WC_RESIDUAL_LOONLY",f"{rg['max_LO_only_fractional_residual']:.4g}",
+              "LO_CROSSCODE_WC_RESIDUAL_LOPLUSNLO",f"{rg['max_raw_fractional_residual']:.4g}",
+              "LO_ONLY_EOS_DELTA_RATE_RESIDUAL",f"{lo_only_rate_relative:.4g}",
+              "LO_PLUS_NLO_EOS_DELTA_RATE_RESIDUAL",f"{rate_relative:.4g}",
               "EXCLUSION_UNKNOWN",flush=True)
     typeII=[]
     anchors=validate_e4a_typeii(e4a_data) if e4a_data is not None else {}
@@ -284,7 +318,12 @@ def calc(pair,exe,models,rows,f2,e4a_data=None):
         "RG_evaluations":len(outZ)+len(typeII),
         "muW_GeV":SCALE_W,"mub_GeV":SCALE_B,
         "max_relative_LO_raw_C7_C8_source_vs_wilson":max_wilson,
+        "max_relative_QCD_LO_only_C7_C8_source_vs_wilson":max_wilson_lo_only,
         "max_relative_LO_source_RG_vs_F2_EOS_deltaBR":max_f2_rate,
+        "max_relative_QCD_LO_only_RG_vs_F2_EOS_deltaBR":max_f2_rate_lo_only,
+        "median_extra_NLO_running_rate_shift_with_LO_matching_conditional":
+            statistics.median(nlo_running_rate_shifts),
+        "NLO_ADM_order_not_equated_to_wilson_default_LO_QCD":True,
         "median_fourquark_rate_shift_conditional":statistics.median(
             x["fourquark_NLO_matching_deltaBR_conditional"] for x in outZ),
         "max_abs_fourquark_rate_shift_conditional":max(
