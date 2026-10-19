@@ -568,3 +568,90 @@ python3 scripts/zee_gateC1_joined_uv_pilot.py \
 \`\`\`
 
 This is a **large physical mapping and coupled flow exercise**, not another coefficient-by-coefficient validation. Gate C1 does **not** implement full lepton flavor or meson likelihoods, HiggsTools, global vacuum or threshold matching; those are the next actual paper constraints. NO output receives an "allowed" label.
+
+
+## Gate C1 v1 AF outcome — six joined RGE paths hit a heuristic scale boundary
+
+AF logs from user confirm six successful B4/B2/full-one-loop runs, each
+without unhandled errors; all six stopped by an **unclassified numerical
+perturbativity diagnostic** before the chosen 10 TeV endpoint:
+
+| B4 spectrum | neutrino ranks | last RECORDED checkpoint GeV | last checkpoint max abs quartic |
+|---|---|---:|---:|
+| B4_0000648 | 1,2 | 2607.6263585 | 9.3088956 |
+| B4_0000318 | 1,2 | 1676.5482280 | 11.4383770 |
+| B4_0001151 | 1,2 | 1684.7207798 | 8.95836135 |
+
+**DO NOT CALL THESE LAST CHECKPOINT SCALES THE CUTOFF.**
+Existing pilot records an accepted history point every four RK4 steps
+and aborts after a later step that violates one of three numerical
+heuristics: max_i |lambda_i| >=4pi, max_ij |Y_ij or f_ij| >=sqrt(4pi),
+or an extreme gauge coupling >=3. The stdout did not identify which
+criterion was violated or its crossing scale. Similar stopping between
+ranks 1,2 at fixed B4 scalar point is EVIDENCE of predominantly scalar
+running, but the specific driver is not known until recorded.
+No global vacuum or full-LFV/meson flavor/HiggsTools exclusions
+were imposed. No threshold matching; quark Yukawas and gauge
+couplings were approximate CKM-identity illustrative inputs.
+Thus these results are **not physical UV cutoffs or constraints**.
+
+### C1 v2 — One larger multi-spectrum diagnostic, not more RGE tests
+
+Expanded the existing script \`scripts/zee_gateC1_joined_uv_pilot.py\`
+to report the **FIRST coupling** exceeding the heuristic cutoff at a
+localized within-step boundary, not an old checkpoint. For a crossing,
+bisect the full one-loop RK4 step for 12 iterations, record accepted and
+rejected scale bracket and the first crossing's leading couplings,
+including whether the trigger is quartic, Yukawa/f, or gauge. Reject
+non-finite evolution as a separate numerical failure, not a
+perturbativity exclusion. Independently evolve 24 and 48 RK4 steps;
+when both reach the endpoint demand max-scaled difference <2e-4,
+and when both reach a heuristic crossing demand their crossing scales
+agree within 5% and driver names match. These are **solver** checks,
+not theoretical uncertainties. New regressions compare the bisection
+algorithm with the **analytic Riccati flow**
+\`16pi² d(lambda)/dlogmu =20 lambda²\` and ensure modified output
+preserves all missing-physics constraint flags.
+
+Run the **entire 30-spectrum B4 shortlist** with the **first three
+neutrino-family solutions per spectrum**, 90 joined RG trajectories
+plus 90 independently refined 48-step trajectories. Aggregate
+\`lambda_c(mu0)\`, \`lambda1(mu0)\`, the triggering quartic and
+localized numerical crossing \`mu_heuristic\` into a per-spectrum
+CSV and a diagnostic cohort summary; all plots/quantiles are
+explicitly **biased B4-screened sample diagnostics**, not the
+allowed fraction or a prior-independent distribution of cutoff scales.
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateC1_joined_uv_pilot.py' -v &&
+python3 scripts/zee_gateC1_joined_uv_pilot.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+  --q4v13-report work/zee_section8_Q4_pyrate_v4/large_integrated_v1.json \
+  --top-candidates 30 --solutions-per-candidate 3 --steps 24 \
+  --upper-GeV 10000 \
+  --output-dir work/gateC1_joined_uv_v2_cohort
+\`\`\`
+
+New outputs:
+- \`summary.json\`: all 90 per-solution coarse/refined diagnostic
+  boundary brackets, full model-mapping provenance, and driver counts.
+- \`joined_uv_diagnostics_NOT_ALLOWED.csv\`: each solution with
+  first-limiting coupling, numerical boundary estimate/bracket,
+  RGE solver scale-convergence, and missing physics.
+- \`cohort_by_scalar_spectrum_NOT_ALLOWED.csv\`: candidate-by-candidate
+  spread across three neutrino-family ranks.
+
+The **paper-level UV program after this exploratory cohort** must
+first settle the model's consistent Type-II quark alignment/symmetry,
+include CKM and properly matched running quark inputs, and implement
+full general-complex quartic BFB/unitarity/vacuum and thresholds along
+the flow. Full neutrino likelihood, complete LFV (not just partial
+amplitudes), modern two-charged b->s gamma and HiggsTools also remain
+required for Paper 1. Do not extrapolate a 90-case diagnostic cohort
+into model-wide exclusion, discoverability or publication-level
+statistical conclusions.
