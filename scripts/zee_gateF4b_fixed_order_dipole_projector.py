@@ -117,6 +117,9 @@ def check_f4_source_summary(path: Path, vendor_source_sha: str) -> dict:
         mapped[key] = row
     if len(mapped) != 8:
         raise ValueError("Missing F4 Type-II controls")
+    build = f4.get("compiled_F3_source_probe", {})
+    if not build.get("library_SHA256") or not build.get("driver_SHA256"):
+        raise ValueError("F4 missing source-linked library/probe fingerprints")
     return mapped
 
 
@@ -221,6 +224,8 @@ def main() -> int:
     args = ap.parse_args()
     root = Path.cwd().resolve()
     out = args.output_dir.resolve()
+    if not root.is_relative_to(Path("/home")):
+        ap.error("F4b execution directory must be under /home, never /data")
     if not out.is_relative_to(root / "work"):
         ap.error("F4b outputs must remain under /home repo work/")
     if out.exists() and any(out.iterdir()):
@@ -239,6 +244,17 @@ def main() -> int:
         basis = audit_low_basis_source(wilson_data.decode("utf-8"))
         source_hash = hashlib.sha256(wilson_data).hexdigest()
         f4 = check_f4_source_summary(args.f4_summary, source_hash)
+        prior = json.loads(args.f4_summary.read_text())
+        prior_build = prior["compiled_F3_source_probe"]
+        current_library_sha = hashlib.sha256(
+            (root_si / "src" / "libsuperiso.a").read_bytes()).hexdigest()
+        if current_library_sha != prior_build["library_SHA256"]:
+            raise ValueError("A1M library changed since F4")
+        prior_driver_sha = hashlib.sha256(
+            Path(__file__).with_name("zee_gateF3_fullNLO_rg_probe.c")
+            .read_bytes()).hexdigest()
+        if prior_driver_sha != prior_build["driver_SHA256"]:
+            raise ValueError("F3 C probe changed since F4")
         alpha_exe = out / "f4b_source_running_parameters"
         alpha_build = compile_pilot(
             root_si, alpha_exe,
