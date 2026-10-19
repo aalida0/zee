@@ -52,9 +52,13 @@ def neutrino_solution(point):
             'neutrino_matrix_closure_eV':err}
 
 def dummy_reached():
+    from zee_section8_Q4_large_integrated_one_loop_gate import NAMES,MATRIX_NAMES
+    state={k:(np.zeros((3,3),complex) if k in MATRIX_NAMES else 0.)
+           for k in NAMES}
+    state['l1']=1.
     return {
         'status':'REACHED_END_SCALE_ONE_LOOP_DIAGNOSTIC_ONLY',
-        'endpoint':{'l1':1.},'boundary_bracket':None,
+        'endpoint':state,'boundary_bracket':None,
         'limiting_couplings':[{'coupling':'l1'}],
     }
 
@@ -166,7 +170,7 @@ class TestGateC2PairedUV(unittest.TestCase):
         self.assertTrue(good)
         self.assertEqual(kind,'end_scale')
         self.assertEqual(delta,0.)
-        b['endpoint']={'l1':1.2}
+        b['endpoint']['l1']=1.2
         good,kind,delta=compare_flows(a,b)
         self.assertFalse(good)
 
