@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Gate D1: joined 30-spectrum x 10-neutrino-family flavor amplitude inventory.
+"""Gate D1: joined 30-spectrum flavor amplitude inventory of ALL SAVED B2 families.
 
-This is ONE sizeable PHYSICS-oriented 300-Yukawa-solution analysis,
+This is ONE sizeable PHYSICS-oriented all-available-Yukawa-solution analysis,
 not a string of beta-function tests or a physically allowed scan.
 
-Select the 30 C2 scalar spectra and all 10 saved B2 neutrino-closed
-complex (f,Y) solutions for EACH spectrum. Recheck neutrino closure.
+Select the 30 C2 scalar spectra and up to 10 saved B2 neutrino-closed
+complex (f,Y) solutions for EACH spectrum. B2 can save fewer because
+it rejects numerically invalid or nonperturbative trials. Recheck neutrino closure.
 Join:
  - EXACT B2 coherent scalar ONE-LOOP l_i -> l_j photon amplitudes;
  - fermion-PHOTON top, bottom, tau Barr--Zee subset coherently combined
@@ -19,8 +20,8 @@ Join:
 Spectrum preservation in C2 means Higgs masses, alpha, beta and charged
 mixing gamma are the SAME for both scalar-potential interventions, so
 the currently implemented LFV subsets are identical between variants.
-Do NOT double count identical flavor configurations as 600 independent
-points. C5 only assessed the rank-1 f,Y case but the scalar tree vacuum
+Do NOT double count identical flavor configurations as twice the
+number of saved B2 solutions. C5 only assessed the rank-1 f,Y case but the scalar tree vacuum
 depends on neither f nor Y at this order; tags are valid for all ranks,
 subject to RG/backreaction of Yukawas across the full running range
 remaining UNTESTED for ranks 2--10.
@@ -31,7 +32,7 @@ electroweak/Barr--Zee, Z-penguin, W, charged-scalar, box and conversion
 effects are absent and can interfere. In particular do not use a
 one-loop-only > limit as a robust experimental exclusion without bounding
 missing interference. The saved B2 solutions were pre-ranked using
-PARTIAL LFV; hence the 300-case distribution is SELECTION BIASED.
+PARTIAL LFV; hence the available-sample distribution is SELECTION BIASED.
 
 This gate produces a clear physics priority: for each scalar spectrum,
 which existing neutrino family has the smallest jointly evaluated
@@ -66,7 +67,7 @@ from zee_gateC2_paired_uv_rescue import (
 from zee_gateC3_running_complex_bfb import TARGET_VARIANTS
 from zee_gateC5_charge_breaking_vacuum_search import c4_provenance
 
-STATUS='GATE_D1_300_JOINT_ZEE_NEUTRINO_LFV_PARTIAL_DIAGNOSTIC_NOT_ALLOWED'
+STATUS='GATE_D1_AVAILABLE_B2_JOINT_ZEE_NEUTRINO_LFV_PARTIAL_DIAGNOSTIC_NOT_ALLOWED'
 MAX_RELATIVE_ONELOOP_RECHECK=2e-8
 
 def verify_c5(path,b4,b2,c2,c3,c4):
@@ -121,8 +122,10 @@ def load_cohort(b4_path,b2_path):
     if set(points)!=set(sols) or len(points)!=30:
         raise ValueError('Expected exact B4/B2 thirty-spectrum provenance')
     for name,entries in sols.items():
-        if not isinstance(entries,list) or len(entries)!=10:
-            raise ValueError('Require all TEN saved B2 neutrino solutions for '+name)
+        if not isinstance(entries,list) or not (1<=len(entries)<=10):
+            raise ValueError('Require 1..10 saved B2 neutrino solutions for '+name)
+        if any(not isinstance(z,dict) for z in entries):
+            raise ValueError('Malformed saved B2 solution entry for '+name)
         if any(str(z.get('candidate_id'))!=name for z in entries):
             raise ValueError('B2 candidate identity mismatch '+name)
     return points,sols
@@ -272,7 +275,7 @@ def main():
     a.add_argument('--solution-limit',type=int,default=10)
     options=a.parse_args()
     if options.solution_limit!=10:
-        a.error('D1 requires all 10 saved B2 Yukawa solutions per spectrum')
+        a.error('D1 requires --solution-limit 10 as an upper bound; fewer saved solutions are valid')
     if options.output_dir.exists() and any(options.output_dir.iterdir()):
         a.error('Refuse to overwrite existing report')
     options.output_dir.mkdir(parents=True,exist_ok=True)
@@ -294,6 +297,18 @@ def main():
             options.c5_summary,options.b4_csv,options.b2_json,
             options.c2_summary,options.c3_summary,options.c4_summary)
         points,sols=load_cohort(options.b4_csv,options.b2_json)
+        solution_counts={k:len(v) for k,v in sorted(sols.items())}
+        total_saved=sum(solution_counts.values())
+        if total_saved<30 or total_saved>300:
+            raise ValueError('Saved B2 cohort count inconsistent with 30 spectra')
+        result['B2_saved_solution_count_per_candidate']=solution_counts
+        result['B2_total_saved_solutions']=total_saved
+        result['B2_solutions_per_spectrum_histogram']={
+            str(n):sum(x==n for x in solution_counts.values())
+            for n in sorted(set(solution_counts.values()))}
+        print('D1_B2_SAVED_SOLUTION_COUNTS',
+              json.dumps(result['B2_solutions_per_spectrum_histogram']),
+              'D1_TOTAL_SAVED',total_saved,flush=True)
         models={}
         table=[]
         full=[]
@@ -305,7 +320,7 @@ def main():
                 vv=next(z for z in VARIANTS if z[0]==label)
                 model=varied_point(point,vv[1],vv[2])
                 # Validate the scalar mapping and rank1 closure; flavor
-                # states for all 10 ranks are tested independently below.
+                # all saved ranks are tested independently below.
                 build_model_state(model,sols[name][0])
             for rank,sol in enumerate(sols[name],1):
                 row=candidate_flavor(point,sol,rank)
@@ -320,15 +335,15 @@ def main():
                       for v in models[name].values()),
                   'best_joint_partial_diagnostic',min(
                       z['joint_incomplete_LFV_score_NOT_EXCLUSION']
-                      for z in full[-10:]),flush=True)
-        if len(full)!=300:
-            raise ValueError('D1 expected 300 unique B2 flavor configurations')
+                      for z in full[-len(sols[name]):]),flush=True)
+        if len(full)!=total_saved:
+            raise ValueError('D1 actual LFV count disagrees with saved B2 entries')
         by_spectrum,cohort=summarize(full,models)
         result.update({
             'cohort':cohort,
             'model_variant_status':models,
             'per_spectrum':by_spectrum,
-            'all_300_incomplete_LFV_details':full,
+            'all_available_incomplete_LFV_details':full,
             'RGEs_SHA256_from_C4':rge_sha,
             'input_sha256':{
                 k:digest(v) for k,v in (
@@ -336,7 +351,7 @@ def main():
                   ('C2',options.c2_summary),('C3',options.c3_summary),
                   ('C4',options.c4_summary),('C5',options.c5_summary))}
         })
-        file=options.output_dir/'incomplete_flavor_diagnostics_300_NOT_ALLOWED.csv'
+        file=options.output_dir/'incomplete_flavor_diagnostics_available_NOT_ALLOWED.csv'
         with file.open('w',newline='') as stream:
             fields=list(table[0])
             writer=csv.DictWriter(stream,fieldnames=fields)
@@ -348,7 +363,8 @@ def main():
             writer.writeheader();writer.writerows(by_spectrum)
         result['full_csv']=str(file)
         result['shortlist_csv']=str(second)
-        print('D1_TOTAL_NEUTRINO_LFV_CONFIGURATIONS',len(full))
+        print('D1_TOTAL_NEUTRINO_LFV_CONFIGURATIONS',len(full),
+              'OF_MAXIMUM_POSSIBLE',300)
         print('D1_COHORT',json.dumps(cohort))
         print('D1_PHYSICAL_ZEE_ALLOWED UNKNOWN')
         return 0
