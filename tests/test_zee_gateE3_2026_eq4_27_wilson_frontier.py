@@ -164,15 +164,15 @@ class TestGateE3WilsonModern2026(unittest.TestCase):
 
     def test_published_A1S_parse_requires_mu0_160(self):
         raw=(
-            'STATUS A1S_SOURCE_PINNED_LO_MATCHING_NO_BR_OR_EXCLUSION\\n'
+            'STATUS A1S_SOURCE_PINNED_LO_MATCHING_NO_BR_OR_EXCLUSION\n'
             'INPUT mH_GeV=700 tanbeta=5.6 mu0_GeV=160 '
-            'running_mt_mu0_GeV=163\\n'
-            'DELTA_C7_LO=-0.04\\nDELTA_C8_LO=-0.05\\n'
-            'NO_THEORY_LIKELIHOOD_VALIDATED true\\n')
-        got=parse_probe(raw.replace('\\\\n','\\n'),700.,5.6)
+            'running_mt_mu0_GeV=163\n'
+            'DELTA_C7_LO=-0.04\nDELTA_C8_LO=-0.05\n'
+            'NO_THEORY_LIKELIHOOD_VALIDATED true\n')
+        got=parse_probe(raw,700.,5.6)
         self.assertAlmostEqual(got['delta_C7_LO'],-.04)
         with self.assertRaisesRegex(ValueError,'2026 Eq4 contract'):
-            parse_probe(raw.replace('\\\\n','\\n').replace('mu0_GeV=160','mu0_GeV=161'),
+            parse_probe(raw.replace('mu0_GeV=160','mu0_GeV=161'),
                         700.,5.6)
 
     def test_27_cohort_summary_is_never_95CL_exclusion(self):
