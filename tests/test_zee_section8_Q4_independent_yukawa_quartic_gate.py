@@ -134,17 +134,16 @@ class TestIndependentYukawaQuartic(unittest.TestCase):
         q={'l1':.31,'l10':.025+.011j}
         yy=empty_yy();yy['Yu1']=np.diag((0,0,.93))
         independent,_=yukawa_quartic_beta(q,yy,self.fields)
-        funcs={}
-        for k,val in independent.items():
-            fn={}
-            source_val=complex(val) if np.iscomplexobj(val) else float(val)
-            exec('def beta_'+k+'(nLoop):\n    return '+repr(source_val)+'\n',{},fn)
-            funcs['beta_'+k]=fn['beta_'+k]
+        def make_mock_beta(value):
+            def fake_beta(nLoop,Yu1):
+                return value if np.max(np.abs(Yu1))>0 else 0.
+            return fake_beta
+        funcs={'beta_'+k:make_mock_beta(v) for k,v in independent.items()}
         mod=SimpleNamespace(**funcs)
         checks=compare_source(mod,q,yy,independent)
         self.assertEqual(len(checks),11)
         self.assertTrue(all(v['pass'] for v in checks.values()))
-        mod.beta_l10=lambda nLoop:2*independent['l10']
+        mod.beta_l10=make_mock_beta(2*independent['l10'])
         checks=compare_source(mod,q,yy,independent)
         self.assertFalse(checks['l10']['pass'])
 
