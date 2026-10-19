@@ -55,6 +55,9 @@ from zee_section8_Q2d_lepton_spurion_scalar_RG_audit import (
 from zee_section8_Q2e_kanemura2001_reduced_f_RGE import (
     run as historical_2001_reduced_f_run
 )
+from zee_section8_Q3_generic_scalar_bfb_witness import (
+    reference_diagnostics as q3_quartic_diagnostics
+)
 
 STATUS="Q2_INTEGRATED_NUMERICAL_AUDIT_ONLY_NOT_FULL_ZEE_OR_ALLOWED"
 REQUIRED_TEST_FILES=(
@@ -74,6 +77,7 @@ REQUIRED_TEST_FILES=(
     "test_zee_section8_Q2c_UV_EFT_applicability.py",
     "test_zee_section8_Q2d_lepton_spurion_scalar_RG_audit.py",
     "test_zee_section8_Q2e_kanemura2001_reduced_f_RGE.py",
+    "test_zee_section8_Q3_generic_scalar_bfb_witness.py",
 )
 OPTIONAL_SCIPY_TEST_FILES=(
     "test_zee_barr_zee_kernels.py",
@@ -394,6 +398,15 @@ def main():
                 legacy_f["physical_Zee_allowed"] is None):
             raise AssertionError("Q2e source-reduced f running invariant failed")
         summary["Q2e_general_complex_f_beta_validated"]=False
+        q3=q3_quartic_diagnostics()
+        if (q3["synthetic_stable_example_no_negative_witness"]["negative_witness"] is not None
+            or q3["synthetic_unstable_example_has_negative_witness"]["negative_witness"] is None
+            or q3["full_UV_Zee_betas_available"] is not False
+            or q3["physical_Zee_allowed"] is not None):
+            raise AssertionError("Q3 source-limited scalar witness sanity checks failed")
+        summary["Q3_generic_quartic_tree_level_source_audit"]=q3
+        summary["Q3_complete_UV_Zee_betas_implemented"]=False
+        summary["Q3_tree_level_quartic_diagnostics_NOT_global_BFB"]=True
         summary["overall_numerical_pass"]=True
         summary["overall_status"]="NUMERICAL_CONSISTENCY_PASS_ONLY_NO_ALLOWED_BENCHMARK"
         summary["total_seconds"]=round(time.monotonic()-start,3)
@@ -420,6 +433,8 @@ def main():
         print("Q2E_REAL_F_SCALE_RATIO",
               f"{legacy_f['f_scale_ratio_sqrt_q']:.9f}")
         print("Q2E_GENERAL_COMPLEX_F_AND_YUKAWA_RGES_AVAILABLE False")
+        print("Q3_EXACT_SINGLET_QUARTIC_REDUCTION_AND_INSTABILITY_WITNESS_PASS True")
+        print("Q3_COMPLETE_ZEE_UV_BETA_FUNCTIONS_IMPLEMENTED False")
         print("COMPLETE_MODEL_AND_EXPERIMENTAL_CONSTRAINTS_PASS False")
         print("FULL_ZEE_ALLOWED False")
         print("SUMMARY",output/"summary.json")
