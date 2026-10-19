@@ -899,3 +899,55 @@ python3 -u scripts/zee_gateC5_charge_breaking_vacuum_search.py \
 \`\`\`
 
 Report: \`summary.json\`, \`charge_breaking_vacuum_screen_NOT_ALLOWED.csv\`. Interpretation: if explicit deeper potential witnesses appear, they are robust objections to **global EW vacuum** for those points (not lifetime/metastability exclusions). If none are found, next upgrade is a complete set of all polynomial stationary points or independently certified global optimization. Quantitative Paper 1 physics still depends on full neutrino/LFV, CKM matched b→s gamma, HiggsTools and consistent threshold schemes; no allowed Zee point established.
+
+
+
+## C5 AF result: 4 explicit deeper charge-breaking vacuum witnesses in 60 model potentials
+
+User ran all **60 C5 multistart scalar minimizations**, using **130 minimizations per potential** (128 generated + 2 EW reference orientations = **7800 total**). All report \`C5_PHYSICAL_ZEE_ALLOWED UNKNOWN\`. Four **explicit deeper charge-breaking** configurations were identified, affecting two distinct B4 spectra and BOTH paired scalar-quartic counterfactuals:
+
+\`\`\`text
+B4_0000822 both_lh1_l1_1       ΔV/v^4 = -1.3508153892822872
+B4_0000822 both_lh0p4_l1_0p5   ΔV/v^4 = -5.365828674616401
+B4_0001150 both_lh1_l1_1       ΔV/v^4 = -0.2056624990629435
+B4_0001150 both_lh0p4_l1_0p5   ΔV/v^4 = -3.253198537566649
+\`\`\`
+
+These are **far beyond numerical noise** (the numerical-optimization acceptance/witness threshold is 1e-6 v^4), so they are robust counterexamples to GLOBAL EW tree-potential minimality (though no metastable lifetime is computed). The other 56 cases found no lower potential within finite multistart search, which is NOT rigorous global-vacuum certification. In addition, first C4 variant fails the full running unitarity for B4_0000755, and BOTH variants fail for B4_0000827. Therefore \`C4_pass && no_C5_deeper_witness_found\` is **26/30** first variant and **27/30** second, but **neither count measures physically allowed points**. These 53 potential realizations correspond to 27 unique scalar spectra; shared spectra across variants and shared B2 Yukawa families should not be double-counted. Note that C5 is matching-scale *tree-level* vacuum only, not a loop-corrected or running vacuum analysis. The reported minimum energy differences are physical scalar potential comparisons within the fixed model convention; no off-shell gauge loop-correction claims.
+
+**Scientific takeaway:** Previously unexamined dimensionful Zee interactions make charged-breaking minima an independently relevant restriction: quartic positivity and complete 55-channel unitarity alone did NOT identify B4_0000822 or B4_0001150.
+
+## Gate D1 — one large neutrino/LFV partial-amplitude audit over all 300 B2 solutions
+
+Next shift to FLAVOR physics (rather than serial additional scalar checks).
+
+Files:
+- \`scripts/zee_gateD1_joint_300_neutrino_lfv_inventory.py\`
+- \`tests/test_zee_gateD1_joint_300_neutrino_lfv_inventory.py\` (15 regression methods).
+
+Use ALL TEN complex neutrino-family matrices (f,Y) for EACH of the same 30 B4 spectra = **300 independent saved f/Y configurations**, not 600 points because paired C2 potential interventions leave physical masses, alpha/beta/gamma and *current implemented* LFV amplitudes unchanged. The C2-based scalar potentials are reconstructed, C5 60-point outcomes and C4 55-channel theory flags imported with exact B4/B2/C2/C3/C4/C5 source hashes. Scalar-theory preselection remains a **screen**: the union has 27 unique spectra with both/one potential having successful running theory and NO OBSERVED deeper C5 witness; two spectra have definite C5 tree charge-breaking witness, one has C4 10 TeV failure in both variants.
+
+For EVERY neutrino-family solution, re-evaluate mass-matrix closure, coherently sum full currently implemented **one-loop** scalar dipoles (\`h,H,A + physical charged-doublet Y + charged-singlet f\`), add validated-but-incomplete **fermion-photon Barr-Zee** top/bottom/tau subset in the same external chirality and phase convention, and compute neutral tree-only \`mu->3e\`, \`tau->3e\`, \`tau->3mu\`, \`tau->mu ee\`, \`tau->e mumu\` and f-only charged current lepton-universality shifts. Individual one-loop scalar BR must numerically reproduce source B2 saved values; fail closed on numerical/provenance/normalization mismatches. Re-rank ten solutions per spectrum by the largest of the three partial radiative (one-loop + fermion-photon BZ coherently combined) ratio-to-reference-experiment bound and the five tree-only 3-body ratios. This is a **cohort priority score and NOT an experimental exclusion/pass**. Re-rank even if the B2 partial-only initial ranks are different; compare the influence of fermion-photon BZ amplitudes. All physical LFV, modern B->Xs gamma, CKM and running quark masses, HiggsTools, global vacuum and physical viable state stay NOT COMPUTED/UNKNOWN.
+
+**One AF command** (output dir MUST be new):
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateD1_joint_300_neutrino_lfv_inventory.py' -v &&
+python3 -u scripts/zee_gateD1_joint_300_neutrino_lfv_inventory.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --c2-summary work/gateC2_paired_uv_rescue_v1/summary.json \
+  --c3-summary work/gateC3_running_complex_bfb_v1/summary.json \
+  --c4-summary work/gateC4_55channel_running_unitarity_v1/summary.json \
+  --c5-summary work/gateC5_charge_breaking_vacuum_v1/summary.json \
+  --solution-limit 10 \
+  --output-dir work/gateD1_joint_300_neutrino_lfv_v1
+\`\`\`
+
+Outputs:
+\`summary.json\` complete 300 per-solution partial LFV diagnostics, with explicit missing-physics flags; \`incomplete_flavor_diagnostics_300_NOT_ALLOWED.csv\` 300 flat rows; \`spectrum_flavor_shortlist_NOT_ALLOWED.csv\` 30 independently re-ranked spectra. No updated experimental limits are claimed, all experimental reference 90% limits are pinned to existing source code and must be checked before publication.
+
+The ultimate Paper 1 viability problem remains open. If all sampled B2 families have severe partial flavor tension, do not conclude general Zee excluded: these were only 300 PRE-RANKED restricted B2 samples with fixed central NO neutrino target, not globally fitted Yukawas. Next substantive work would be completing *missing dipole/3-body/conversion amplitudes*, then a proper global fit optimized over neutrino flavor while simultaneously imposing quark precision and Higgs constraints. Stop adding new RGE source checks unless new physics identifies a bug.
