@@ -95,10 +95,26 @@ class F3Integrated(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"high NLO source mismatch"):
             f.check_high(x,bad,math.cos(1.)**2)
         with self.assertRaisesRegex(ValueError,"incomplete"):
-            # Stand-in simulates one absent operator row, before
-            # any source model could be used by EOS.
-            tmp={k:v for k,v in fake_rg(240.,700.,5.6,1.).items()
-                 if k!=(2,4)}
-            self.assertEqual(len(tmp),24)  # must fail
+            # The real parser must fail if any (mode, operator)
+            # is missing from the external source stdout.
+            fake_lines=[
+                "STATUS F3_SOURCE_PINNED_NLO_RG_DIAGNOSTIC_NOT_BR_OR_EXCLUSION",
+                "INPUT mass1=240 mass2=700 tanbeta=5.6 gamma=1 "
+                "muW=160 mub=4.2 w1=0.2919265817264289 "
+                "w2=0.7080734182735711",
+            ]
+            for (mode,n),v in fake_rg(240.,700.,5.6,1.).items():
+                if (mode,n)==(2,4):continue
+                fake_lines.append(
+                    f"WC mode={mode} op={n} hiLO={v['high_LO']} "
+                    f"hiNLO={v['high_NLO']} loLO={v['low_LO']} "
+                    f"loNLO={v['low_NLO']} SMloLO=0 SMloNLO=0")
+            fake_lines += [
+                "F3_WC_XF_FOURQUARK_TRANSLATION_ASSUMED false",
+                "F3_EXCLUSION UNKNOWN"]
+            sub=SimpleNamespace(returncode=0,stdout="\n".join(fake_lines),
+                                stderr="")
+            with patch.object(f.subprocess,"run",return_value=sub):
+                f.probe(Path("/synthetic/never-executed"),240.,700.,5.6,1.)
 
 if __name__=="__main__":unittest.main()
