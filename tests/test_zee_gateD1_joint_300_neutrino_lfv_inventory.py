@@ -212,9 +212,9 @@ class D1JointFlavorTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp)
             source=root/'b4.csv';target=root/'b2.json'
-            head='id,mH1,mH2,mh2,ma,alpha,beta,gamma\n'
+            head='id,mH1,mH2,mh2,ma,alpha,beta,gamma,m12sq\n'
             csv_rows=''.join(
-                f'B4_{i:07d},300,700,580.7,633.7,1.398,1.394,1.089\n'
+                f'B4_{i:07d},300,700,580.7,633.7,1.398,1.394,1.089,57700\n'
                 for i in range(30))
             source.write_text(head+csv_rows)
             sol=json.dumps({f'B4_{i:07d}':[
