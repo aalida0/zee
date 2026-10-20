@@ -60,6 +60,17 @@ class TestSarahZeeSource(unittest.TestCase):
             self.assertIn("MassMatrix[" + name + "]", audit)
         self.assertIn("SARAH_GATE6_TREE_MASS_MATRICES_NUMERIC_PASS", audit)
         self.assertIn("mass_matrices_raw.txt", audit)
+        self.assertNotIn("actual[[i,j]]", audit)
+        self.assertIn("mass_matrices_substituted.txt", audit)
+
+    def test_z_vertex_probe_is_non_certifying(self):
+        probe = (ROOT / "scripts" / "zee_sarah_z_vertex_probe.m").read_text()
+        self.assertIn("Z_VERTEX_NOT_VALIDATED", probe)
+        self.assertIn("Z_VERTEX_EXTRACTED_NOT_YET_PHYSICS_VALIDATED", probe)
+        self.assertIn("Z_2_3", probe)
+        self.assertIn("PHOTON_2_3", probe)
+        self.assertIn("Vertex[item[[2]]", probe)
+
 
     def test_batch_loader_finds_local_sarah_and_records_failure(self):
         runner = (ROOT / "scripts" / "zee_sarah_check.m").read_text()
