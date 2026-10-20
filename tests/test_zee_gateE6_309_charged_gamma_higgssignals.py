@@ -116,6 +116,9 @@ class E6Unit(unittest.TestCase):
   # But the offdiagonal Z current is present: Zgamma cannot be
   # computed by adding only equal-mass scalar loop functions.
   self.assertGreater(abs(G["Z_generator_T3_minus_sW2_mass_basis"][0][1]),0.)
+   self.assertAlmostEqual(
+       G["Z_generator_T3_minus_sW2_mass_basis"][0][1],
+       -.25*math.sin(2*pack["scalar"]["gamma"]),places=12)
 
  def test_actual_sm_particle_CPodd_yukawa_adds_in_quadrature(self):
   pak=self.pak()
@@ -195,7 +198,7 @@ class E6Unit(unittest.TestCase):
   G=x.hcharged_trilinears(t["scalar"])
   z=zpv.zgam_ratio(t,G)
   self.assertTrue(z["full_offdiagonal_ZH1H2_included"])
-  self.assertTrue(z["PV_32_48_quadrature_and_equal_mass_I1_checked"])
+  self.assertTrue(z["PV_48_64_quadrature_and_equal_mass_I1_checked"])
   self.assertAlmostEqual(
       z["ordered_mixed_H1H2_and_H2H1_amplitudes"][0],
       z["ordered_mixed_H1H2_and_H2H1_amplitudes"][1],places=10)
