@@ -78,7 +78,7 @@ class E1IntegrityContract(unittest.TestCase):
         rows=[]
         for i in range(5):
             rows.append({
-                "id":f"B4_{i:07d}",
+                "candidate_id":f"B4_{i:07d}",
                 "mH1_GeV":300. if i<2 else 350.+30*i,
                 "mH2_GeV":700. if i<2 else 750.+50*i,
                 "gamma":1.02,
@@ -87,9 +87,26 @@ class E1IntegrityContract(unittest.TestCase):
                 "diagnostic_status":
                     "ORIGINAL_RGE_AND_NO_TREE_DEEPER_WITNESS_DIAGNOSTIC"})
         chosen=e.rank_pool(rows,4)
-        self.assertEqual(chosen[0]["id"],"B4_0000000")
-        self.assertNotIn("B4_0000001",[x["id"] for x in chosen])
+        self.assertEqual(chosen[0]["candidate_id"],"B4_0000000")
+        self.assertNotIn("B4_0000001",[x["candidate_id"] for x in chosen])
         self.assertTrue(all("NOT_ALLOWED" in e.STATUS for _ in chosen))
+
+    def test_post_RGE_id_schema_rejects_legacy_or_duplicates(self):
+        """After RGE, 'candidate_id' is canonical; input B4 'id' is not."""
+        good={"candidate_id":"B4_0006862","mH1_GeV":301.6,
+              "mH2_GeV":653.5,"gamma":1.08,
+              "cascade_upper_proxy":.55,
+              "maximum_unity_ratio_to_8pi_along_run":.56}
+        self.assertEqual(e.rank_pool([good],1)[0]["candidate_id"],
+                         "B4_0006862")
+        self.assertEqual(e.rank_pool([],0),[])
+        with self.assertRaises((KeyError,ValueError)):
+            e.rank_pool([{**good,"id":"B4_0006862",
+                          "candidate_id":None}],1)
+        with self.assertRaisesRegex(ValueError,"Duplicate"):
+            e.rank_pool([good,dict(good)],1)
+        with self.assertRaisesRegex(ValueError,"limit"):
+            e.rank_pool([good],2)
 
     def test_live_C3_C4_C5_dictionary_contracts(self):
         """Verify real backend return dictionaries, not invented mocks."""
