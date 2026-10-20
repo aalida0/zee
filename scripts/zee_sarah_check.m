@@ -9,9 +9,9 @@ If[!DirectoryQ[logDir],
   CreateDirectory[logDir, CreateIntermediateDirectories -> True]];
 logFile = FileNameJoin[{logDir, "checkmodel.log"}];
 statusFile = FileNameJoin[{logDir, "checkmodel_status.txt"}];
-writeStatus[s_String] := (
-  Export[statusFile, s <> "\n", "Text"];
-  Print["ZEE_SARAH_STATUS ", s]
+writeStatus[zeeState_String] := (
+  Export[statusFile, zeeState <> "\n", "Text"];
+  Print["ZEE_SARAH_STATUS ", zeeState]
 );
 writeStatus["SOURCE_IMPLEMENTED_NOT_VALIDATED"];
 If[!DirectoryQ[modelDir],
@@ -52,11 +52,16 @@ PrependTo[$Path, DirectoryName[sarahSource]];
 messageStream = OpenWrite[logFile, PageWidth -> Infinity];
 If[ListQ[$Messages], AppendTo[$Messages, messageStream]];
 
-(* Load at TOP LEVEL before any subsequent expression containing the
-   SARAH`Start symbol is parsed: necessary for correct context resolution. *)
-loadResult = Check[Get[sarahSource], $Failed];
-If[loadResult === $Failed || !MemberQ[$Packages, "SARAH`"],
-  Print["FAIL SARAH_LOAD_FAILED"];
+(* Never use Check[Get[...], $Failed] here: a harmless General::shdw
+   message would incorrectly classify an otherwise successful load as
+   $Failed. Capture aborts, then test package state and actual functions.
+   Qualify SARAH public symbols to avoid parse-time shadowing. *)
+loadCompleted = CheckAbort[(Get[sarahSource]; True), False];
+If[!TrueQ[loadCompleted] ||
+   !MemberQ[$Packages, "SARAH`"] ||
+   !ValueQ[SA`Version] ||
+   DownValues[SARAH`Start] === {},
+  Print["FAIL SARAH_LOAD_FAILED; packages=", InputForm[$Packages]];
   writeStatus["SARAH_LOAD_FAILED"]; Close[messageStream]; Exit[4]
 ];
 Print["ZEE_SARAH_LOADED ", SA`Version];
@@ -72,15 +77,15 @@ Print["ZEE_SARAH_INPUT_DIRS ", InputForm[SARAH[InputDirectories]]];
 
 CheckAbort[
   Print["ZEE_SARAH_START_BEGIN"];
-  startResult = Start["ZeeTypeII"];
+  startResult = SARAH`Start["ZeeTypeII"];
   Print["ZEE_SARAH_START_RESULT ", InputForm[startResult]];
-  If[!TrueQ[ModelLoaded] || TrueQ[AbortStart],
+  If[!TrueQ[SARAH`ModelLoaded] || TrueQ[SARAH`AbortStart],
     writeStatus["SARAH_START_FAILED"];
     Close[messageStream]; Exit[6]
   ];
   writeStatus["SARAH_MODEL_INITIALIZED_NOT_CHECKED"];
   Print["ZEE_SARAH_CHECKMODEL_BEGIN"];
-  checkResult = CheckModel[];
+  checkResult = SARAH`CheckModel[];
   Print["ZEE_SARAH_CHECKMODEL_RESULT ", InputForm[checkResult]];
   (* CheckModel may return Null despite warnings. This is NOT a PASS. *)
   writeStatus["SARAH_CHECKMODEL_COMPLETED_REVIEW_WARNINGS"];
