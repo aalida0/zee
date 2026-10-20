@@ -7,6 +7,9 @@ archived scalar/EWPO-screened B4 records.
 from __future__ import annotations
 
 import csv
+import ast
+import inspect
+import textwrap
 import json
 import math
 from pathlib import Path
@@ -85,6 +88,33 @@ class E1IntegrityContract(unittest.TestCase):
         self.assertEqual(chosen[0]["id"],"B4_0000000")
         self.assertNotIn("B4_0000001",[x["id"] for x in chosen])
         self.assertTrue(all("NOT_ALLOWED" in e.STATUS for _ in chosen))
+
+    def test_live_C3_C4_C5_dictionary_contracts(self):
+        """Verify real backend return dictionaries, not invented mocks."""
+        from zee_gateC3_running_complex_bfb import quartic_bfb
+        from zee_gateC4_running_55channel_unitarity import (
+            scattering_limit,full_trajectory)
+        from zee_gateC5_charge_breaking_vacuum_search import evaluate_multistart
+        def literal_keys(fn):
+            node=ast.parse(textwrap.dedent(inspect.getsource(fn)))
+            results=[x.value for x in ast.walk(node)
+                     if isinstance(x,ast.Return) and isinstance(x.value,ast.Dict)]
+            self.assertTrue(results,"Backend source missing dictionary result")
+            return {k.value for z in results for k in z.keys
+                    if isinstance(k,ast.Constant) and isinstance(k.value,str)}
+        self.assertTrue({
+            "ratio_to_8pi","passes_strict_8pi"}<=literal_keys(scattering_limit))
+        self.assertTrue({"verdict"}<=literal_keys(quartic_bfb))
+        self.assertTrue({
+            "status","reached_end_scale","BFB_sufficient_at_all_sampled_steps",
+            "tree_unitarity_8pi_at_all_sampled_steps","BFB_negative_witness",
+            "first_BFB_uncertified_scale_GeV",
+            "first_tree_unitarity_uncertified_scale_GeV",
+            "maximum_scattering_eigenvalue_encountered"
+        }<=literal_keys(full_trajectory))
+        self.assertTrue({
+            "status","most_negative_witness","successful_field_evaluations",
+            "lowest_point_found"}<=literal_keys(evaluate_multistart))
 
     def test_unimplemented_observables_are_explicitly_unavailable(self):
         self.assertIn("HiggsTools"," ".join(e.EVIDENCE_CONSTRAINTS_NOT_IMPLEMENTED))
