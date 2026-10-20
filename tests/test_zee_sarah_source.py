@@ -127,6 +127,12 @@ class TestSarahZeeSource(unittest.TestCase):
         ):
             self.assertIn(text, probe)
         self.assertNotIn('FZEE_PHYSICS_PASS', probe)
+        self.assertIn('SARAH`Start["ZeeTypeII"]', probe)
+        self.assertIn("SARAH`ModelLoaded", probe)
+        self.assertIn("SARAH`AbortStart", probe)
+        self.assertIn("SARAH`Vertex[fields", probe)
+        for bad in ("SA`Start[", "SA`ModelLoaded", "SA`AbortStart", "SA`Vertex["):
+            self.assertNotIn(bad, probe)
 
     def test_no_false_validation_claims(self):
         self.assertIn("SOURCE_IMPLEMENTED_NOT_VALIDATED", self.model)
