@@ -38,8 +38,9 @@ def takagi(matrix,ordering):
         U=U[:,[1,2,0]]
     # Each column is rephased to make diagonal U^T M U real positive.
     D=np.diag(U.T@M@U)
-    if np.min(abs(D))<1e-12:
-        raise ValueError("Near-massless Takagi phase degeneracy; use a certified algorithm")
+    # A vanishing lightest neutrino mass is physical; its unobservable
+    # column phase can be chosen arbitrarily. Validate the full matrix,
+    # not a spurious strictly-positive lightest-mass requirement.
     U=U*np.exp(-.5j*np.angle(D))[None,:]
     d=U.T@M@U
     masses=np.abs(np.diag(d))
