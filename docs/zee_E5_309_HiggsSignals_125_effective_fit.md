@@ -258,3 +258,40 @@ python -c 'import Higgs.predictions, Higgs.signals; print("HiggsTools OK")'
 Only proceed to the E5 HiggsSignals run after the import and the project E5 regressions pass in the **same** interpreter. The data in `work/E2`, `work/E3`, `work/E4h` is read-only, so a separate virtual environment does not change those source physics results.
 
 The isolated probe is diagnostics, **not** a claim that the extra `Python_LIBRARY` flag is conclusively necessary; exact failures and CMake cache artifact paths must be inspected if it still fails.
+
+
+### Final verified AF FindPython probe and EL9 split-header layout
+
+User ran the isolated CMake probe using:
+\`-DPython_EXECUTABLE=/home/aalida/zee/.venv-flavor-f1/bin/python\`,
+\`-DPython_INCLUDE_DIR=/home/aalida/tools/python312-devel/usr/include/python3.12\`,
+\`-DPython_LIBRARY=/usr/lib64/libpython3.12.so.1.0\`,
+\`-DPython_FIND_VIRTUALENV=STANDARD\`.
+
+**Result: PASS.**
+\`Found Python ... (found suitable exact version "3.12.15") found components: Interpreter Development.Module\`, \`Module found: TRUE\`. Previous complete-HiggsTools wheel failure was not repeated after this successful probe.
+
+The missing \`pyconfig-64.h\` from the **extracted devel RPM** is expected for AlmaLinux 9: **that file is shipped by \`python3.12-libs\`**, not \`python3.12-devel\`. On a machine with matching Python 3.12.15 runtime, first run \`ls -l /usr/include/python3.12/pyconfig-64.h\` and \`rpm -qf /usr/include/python3.12/pyconfig-64.h\`. If present, do not download a second RPM or synthesize a header. See official RPM file inventory: https://rpmfind.net/linux/RPM/almalinux/9.8/appstream/x86_64/python3.12-libs-3.12.15-1.el9_8.x86_64.html .
+
+Confirm **real C++ compilation** works, not just \`FindPython\` configuration:
+
+\`\`\`bash
+cd /home/aalida/zee
+source .venv-flavor-f1/bin/activate
+export E5_PY312_INC=/home/aalida/tools/python312-devel/usr/include/python3.12
+ls -l /usr/include/python3.12/pyconfig-64.h
+printf '#include <Python.h>\nint main() { return PY_MAJOR_VERSION == 3 ? 0 : 1; }\n' > /tmp/e5_python_header_check.cpp
+g++ -std=c++17 -fsyntax-only -I"$E5_PY312_INC" /tmp/e5_python_header_check.cpp
+\`\`\`
+
+**Only if that compilation succeeds**:
+
+\`\`\`bash
+export CMAKE_ARGS="-DPython_EXECUTABLE=/home/aalida/zee/.venv-flavor-f1/bin/python -DPython_INCLUDE_DIR=$E5_PY312_INC -DPython_LIBRARY=/usr/lib64/libpython3.12.so.1.0 -DPython_FIND_VIRTUALENV=STANDARD -DPYTHON_INCLUDE_DIR=$E5_PY312_INC"
+export CMAKE_BUILD_PARALLEL_LEVEL=4
+rm -rf /home/aalida/tools/higgstools/_skbuild
+python -m pip install --no-cache-dir /home/aalida/tools/higgstools
+python -c 'import Higgs.predictions, Higgs.signals; print("HiggsTools v1.3 import OK")'
+\`\`\`
+
+If compiler fails and the *system* \`pyconfig-64.h\` is absent, extract **only the appropriate file from the matching \`python3.12-libs\` RPM** under /home, then add its parent \`usr/include\` to \`CPPFLAGS\`/\`CXXFLAGS\` before retrying. Do not overwrite installed runtime libraries or copy foreign binary libraries.
