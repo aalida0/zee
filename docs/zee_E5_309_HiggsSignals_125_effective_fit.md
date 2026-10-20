@@ -124,3 +124,57 @@ The headline \`summary.json\` reports 309 HiggsSignals **conditional effective-m
 ### Critical next steps to convert E5 into a physical Higgs fit
 
 Implement and independently validate \(g_{hH_1^+H_1^-},g_{hH_2^+H_2^-}\) from the full Zee gauge-invariant scalar potential; compute charged-scalar loop amplitudes (including normalization and heavy-mass decoupling) for \(h\to\gamma\gamma,Z\gamma\); model complete diagonal/non-diagonal Higgs leptonic partial widths and Higgstools+heavy scalar HiggsBounds predictions; validate 125 rates against an independent 2HDM limiting benchmark at identical quark/Yukawa convention. Only then consider an actual exclusion prescription and joint global constraints with B→Xsγ, complete LFV and EWPO.
+
+
+## AF HiggsTools v1.3 installation repair: missing Python 3.12 Development.Module
+
+**Observed 20 October 2026** while building \`/home/aalida/tools/higgstools\` tag \`v1.3\` under the working \`.venv-flavor-f1\` Python 3.12.15:
+
+\`\`\`text
+/usr/share/cmake/Modules/FindPython/Support.cmake:754:
+  file STRINGS file "/usr/include/python3.12/patchlevel.h" cannot be read.
+Could NOT find Python (missing: Development.Module) (found 3.12.15)
+\`\`\`
+
+CMake and Ninja work, gcc/g++ 11.5 work. **Only the Python development headers are missing**. Existing research venv and already validated E2/E3/E4H files must remain unchanged.
+
+There is an exactly matching \`python3.12-devel-3.12.15-1.el9_8.x86_64\` AppStream RPM for AlmaLinux 9.8, released 8 October 2026. [RPM metadata](https://rpmfind.net/linux/RPM/almalinux/9.8/appstream/x86_64/python3.12-devel-3.12.15-1.el9_8.x86_64.html). This supplies \`Python.h\`, \`patchlevel.h\`, and the distro-generated \`pyconfig.h\`.
+
+**Preferred rootless AF installation** (does not modify system Python):
+
+\`\`\`bash
+cd /home/aalida/zee
+source .venv-flavor-f1/bin/activate
+python -V
+rpm -q python3.12 python3.12-libs || true
+test -f /usr/include/python3.12/patchlevel.h && echo "headers already available"
+
+mkdir -p /home/aalida/tools/python312-devel
+cd /home/aalida/tools/python312-devel
+
+# dnf-plugins-core 'download' is rootless when available.
+dnf download --destdir "$PWD" python3.12-devel-3.12.15-1.el9_8.x86_64
+
+# Unpack into /home: do NOT execute 'rpm -i' or touch /usr.
+rpm2cpio python3.12-devel-3.12.15-1.el9_8.x86_64.rpm | cpio -id --quiet
+test -f "$PWD/usr/include/python3.12/Python.h"
+test -f "$PWD/usr/include/python3.12/patchlevel.h"
+test -f "$PWD/usr/include/python3.12/pyconfig.h"
+
+cd /home/aalida/zee
+source .venv-flavor-f1/bin/activate
+export E5_PY312_INC=/home/aalida/tools/python312-devel/usr/include/python3.12
+export CMAKE_ARGS="-DPython_INCLUDE_DIR=$E5_PY312_INC -DPython3_INCLUDE_DIR=$E5_PY312_INC -DPYTHON_INCLUDE_DIR=$E5_PY312_INC"
+export CMAKE_BUILD_PARALLEL_LEVEL=4
+
+python -m pip install --no-cache-dir /home/aalida/tools/higgstools
+python -c 'import Higgs.predictions, Higgs.signals; print("HiggsTools import OK")'
+\`\`\`
+
+If \`dnf download\` is unavailable or not configured on AF, use an x86_64 **3.12.15** devel RPM from a supported EL9 archive; an indexed upstream [Rocky Linux 9 AppStream mirror](https://distro.ibiblio.org/rocky/9/AppStream/x86_64/os/Packages/p/) is an alternative, since the Python/RHEL minor ABI is shared, but **prefer exact matching AlmaLinux source**. For an extracted RPM the resulting include directory contains \`usr/include/python3.12\` relative to the extraction location. You need \`rpm2cpio\` and \`cpio\`, or a user-space RPM extractor; do NOT install the RPM system-wide on a shared AF host.
+
+If the old broken \`_skbuild\` CMake cache still points at \`/usr/include/python3.12\` after setting \`CMAKE_ARGS\`, remove only the **generated** \`/home/aalida/tools/higgstools/_skbuild\` directory and retry. Never delete model source, E2/E3/E4H data or existing venv.
+
+**Fallback** if matching headers cannot be extracted: install a managed Python 3.12.15 with \`uv python install 3.12.15\`, create a separate managed-Python venv containing full headers, reinstall Zee scientific dependencies there, then build HiggsTools; this requires no root but is more intrusive and must not silently change the validated E2/E3/E4H execution environment. See [uv managed Python](https://docs.astral.sh/uv/concepts/python-versions/).
+
+This is build-environment repair only: no HiggsSignals \(\chi^2\) or source physics acceptance has yet been evaluated.
