@@ -116,7 +116,7 @@ def hcharged_trilinears(point):
  # Higgs basis analytically reconstructed from the SAME scalar potential,
  # independent of the gauge-basis cubic expression.
  mapping=map_point(beta=b,mH1=x["mH1"],mH2=x["mH2"],
-                   **{k:x[k] for k in ("alpha","gamma","m12sq","mh2",
+                   **{k:float(point[k]) for k in ("alpha","gamma","m12sq","mh2",
                                        "ma","lc","k1","k2","k12")})
  m=mapping["map"]["ZEELAMS"]
  Z3,Z7,K1,K12=(m[2],m[3],m[4],m[6])
