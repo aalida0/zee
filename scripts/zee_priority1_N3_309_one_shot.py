@@ -144,10 +144,8 @@ def execute(n2_dir,charged_dir,out):
  if not(len(points)==len(charged)==len(prev)==309
         and set(points)==set(prev)==set(charged)):
   raise ValueError("N3 previous N2 and scalar model cohorts do not close")
- if (proof["N2_source_provenance"]!={
-      **{k:v for k,v in proof["N2_source_provenance"].items()
-          if k not in source},
-      **source}):
+ if any(proof["N2_source_provenance"].get(k)!=v
+        for k,v in source.items()):
   raise ValueError("N3 previous N2 original charged E2/E3 source changed")
  records=[merge_one(points[k],prev[k]) for k in sorted(points)]
  if any(validate_decays(q,{})!="BLOCKED_DECAY_CHANNEL_COMPLETENESS"
