@@ -143,6 +143,54 @@ cat work/sarah_zee/z_vertex_raw.txt
 Only `Z_VERTEX_EXTRACTED_NOT_YET_PHYSICS_VALIDATED` is intended
 until the coefficients and momentum structures are checked.
 
+## Local vertex extraction result and next quantitative gate
+
+On 2026-10-21 the user ran `zee_sarah_z_vertex_probe.m` successfully:
+`Z_VERTEX_EXTRACTED_NOT_YET_PHYSICS_VALIDATED`. SARAH 4.15.4 returns
+
+```text
+Z(H1+,H2-): (-i/2) * [
+  (g2*cW-g1*sW) * (ZP[2,1]*ZP[3,1]+ZP[2,2]*ZP[3,2])
+  -2*g1*sW*ZP[2,3]*ZP[3,3]
+] * (p_H1+ - p_H2-)
+```
+
+Orthogonality of the charged scalar mixing matrix sets
+`ZP[2,1]*ZP[3,1]+ZP[2,2]*ZP[3,2]
+ = -ZP[2,3]*ZP[3,3]`.
+Together with `g1=g2 tan(thetaW)`, this gives the expected
+`|g_Z12|=g2*|sin(2 gamma)|/(4 cos(thetaW))`.
+The extracted off-diagonal photon vertex vanishes under the
+same orthogonality and gauge-coupling relations. The raw symbolic
+expressions therefore agree analytically with the expected gauge
+couplings, but do not yet demonstrate the **numeric** mixing
+assignment and sign convention for the saved Gate6 benchmark.
+
+A fail-closed numeric check is now available:
+
+```bash
+cd ~/zee
+git pull --ff-only
+python3 scripts/zee_sarah_gate6_fixture.py
+math -script scripts/zee_sarah_z_vertex_numeric_audit.m \
+  2>&1 | tee work_sarah_z_vertex_numeric_console.log
+cat work/sarah_zee/z_vertex_numeric_status.txt
+cat work/sarah_zee/z_vertex_numeric_results.txt
+```
+
+The test first verifies `ZP * Mcharged * Transpose[ZP]` is diagonal
+with masses `{0, 300, 700} GeV`, then evaluates the SARAH
+`Z_{23},Z_{32},gamma_{23},gamma_{22},gamma_{33},Z_{22},Z_{33}`
+couplings. For explicitly chosen `g2=0.652` and
+`sin^2(thetaW)=0.23122`, the expected off-diagonal Z coefficient
+magnitude at `gamma=1.089` is approximately `0.1526723`.
+Other predictions include `gamma_{23}=0` and diagonal
+photon coefficients `-i*g2*sin(thetaW)`.
+
+Passing the source-level tests does NOT establish that this audit has
+run, and the status must remain `Z_VERTEX_NUMERIC_NOT_VALIDATED`
+until the local Mathematica output is inspected.
+
 ## Unresolved physics / blockers
 
 1. Check the SU(2) dot contraction and sign of the Zee trilinear in SARAH
