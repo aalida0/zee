@@ -136,7 +136,7 @@ class E7Regressions(unittest.TestCase):
   with tempfile.TemporaryDirectory() as d:
    src=self.synthetic_archive(d)
    cohort={f"B4_{i:07d}" for i in range(309)}
-   with self.assertRaisesRegex(ValueError,"source files changed"):
+   with self.assertRaisesRegex(ValueError,"completion/provenance/status mismatch"):
     g.validate_e6_archive(Path(d),cohort,{
         "e6_status":src["e6_status"],"e6_source":"DIFFERENT"})
   with tempfile.TemporaryDirectory() as d:
