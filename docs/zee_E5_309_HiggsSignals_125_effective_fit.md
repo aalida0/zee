@@ -178,3 +178,83 @@ If the old broken \`_skbuild\` CMake cache still points at \`/usr/include/python
 **Fallback** if matching headers cannot be extracted: install a managed Python 3.12.15 with \`uv python install 3.12.15\`, create a separate managed-Python venv containing full headers, reinstall Zee scientific dependencies there, then build HiggsTools; this requires no root but is more intrusive and must not silently change the validated E2/E3/E4H execution environment. See [uv managed Python](https://docs.astral.sh/uv/concepts/python-versions/).
 
 This is build-environment repair only: no HiggsSignals \(\chi^2\) or source physics acceptance has yet been evaluated.
+
+## E5 build follow-up — CMake still cannot find Development.Module after RPM extraction
+
+A subsequent user-provided build log confirms that Python.h, patchlevel.h and pyconfig.h are now present in `/home/aalida/tools/python312-devel/usr/include/python3.12`. The CMake command includes `-DPython_INCLUDE_DIR=...correct extracted path...`, but the pybind11-v3.2.0 `FindPython` call still reports `missing: Development.Module`. The old `patchlevel.h` read error is **gone**. This is now an interpreter/development **artifact-detection** or linking/configuration problem, not missing extracted header files alone; stop rerunning the identical pip command.
+
+Next step: an **isolated** modern-CMake Python probe, using the *same Python executable*, extracted header tree **and** real system libpython shared library. Do not modify `/usr`, or remove a good scientific environment.
+
+```bash
+cd /home/aalida/zee
+source .venv-flavor-f1/bin/activate
+export E5_PY312_INC=/home/aalida/tools/python312-devel/usr/include/python3.12
+export E5_PYTHON="$(python -c 'import sys; print(sys.executable)')"
+python - <<'PY'
+import sys,sysconfig,os
+print("python",sys.executable,sys.version)
+for k in ("INCLUDEPY","CONFINCLUDEPY","LIBDIR","LDLIBRARY","LIBRARY","SOABI"):
+ print(k,repr(sysconfig.get_config_var(k)))
+PY
+ls -l "$E5_PY312_INC"/{Python.h,patchlevel.h,pyconfig.h,pyconfig-64.h}
+grep -E '^#define PY_(MAJOR|MINOR|MICRO)_VERSION' "$E5_PY312_INC/patchlevel.h"
+ldconfig -p | grep -E 'libpython3\.12\.so' || true
+ls -l /usr/lib64/libpython3.12.so* 2>/dev/null || true
+
+# A minimal isolated CMake FindPython test, no HiggsTools dependencies.
+mkdir -p /home/aalida/tools/e5-findpython-probe
+cat > /home/aalida/tools/e5-findpython-probe/CMakeLists.txt <<'EOF'
+cmake_minimum_required(VERSION 3.18)
+project(ProbePythonModule LANGUAGES C CXX)
+find_package(Python 3.12 EXACT COMPONENTS Interpreter Development.Module REQUIRED)
+message(STATUS "PROBE Python_EXE=${Python_EXECUTABLE}")
+message(STATUS "PROBE Python_INC=${Python_INCLUDE_DIRS}")
+message(STATUS "PROBE Python_LIBS=${Python_LIBRARIES}")
+message(STATUS "PROBE Module_FOUND=${Python_Development.Module_FOUND}")
+EOF
+# Find a real shared runtime (development symlink may not be installed).
+E5_PY312_LIB=/usr/lib64/libpython3.12.so.1.0
+test -f "$E5_PY312_LIB" || { echo "No system libpython at expected path; inspect ldconfig output"; exit 1; }
+cmake -S /home/aalida/tools/e5-findpython-probe \
+  -B /home/aalida/tools/e5-findpython-probe/build \
+  -DPython_EXECUTABLE="$E5_PYTHON" \
+  -DPython_INCLUDE_DIR="$E5_PY312_INC" \
+  -DPython_LIBRARY="$E5_PY312_LIB" \
+  -DPython_FIND_VIRTUALENV=STANDARD
+```
+
+**If the isolated CMake test passes**, clear **only** the HiggsTools generated build cache `/home/aalida/tools/higgstools/_skbuild`, export consistent `CMAKE_ARGS` with `Python_EXECUTABLE`, `Python_INCLUDE_DIR`, `Python_LIBRARY`, `Python_FIND_VIRTUALENV=STANDARD`, then retry `python -m pip install --no-cache-dir /home/aalida/tools/higgstools`. Do not delete the source checkout or preexisting validated venv.
+
+```bash
+cd /home/aalida/zee
+source .venv-flavor-f1/bin/activate
+export E5_PY312_INC=/home/aalida/tools/python312-devel/usr/include/python3.12
+export E5_PYTHON="$(python -c 'import sys; print(sys.executable)')"
+export E5_PY312_LIB=/usr/lib64/libpython3.12.so.1.0
+export CMAKE_ARGS="-DPython_EXECUTABLE=$E5_PYTHON -DPython_INCLUDE_DIR=$E5_PY312_INC -DPython_LIBRARY=$E5_PY312_LIB -DPython_FIND_VIRTUALENV=STANDARD -DPYTHON_INCLUDE_DIR=$E5_PY312_INC"
+export CMAKE_BUILD_PARALLEL_LEVEL=4
+rm -rf /home/aalida/tools/higgstools/_skbuild
+python -m pip install --no-cache-dir /home/aalida/tools/higgstools
+python -c 'import Higgs.predictions, Higgs.signals; print("HiggsTools OK")'
+```
+
+**If the isolated probe STILL fails**, do not alter the project or fabricate headers/symlinks under /usr. The robust second environment is a managed same-minor Python 3.12.15 with its **own matching full include/lib tree**, e.g.:
+
+```bash
+# uv available: separate /home environment, no root, original .venv untouched.
+uv python install 3.12.15
+uv venv --seed --python 3.12.15 /home/aalida/zee/.venv-higgstools
+source /home/aalida/zee/.venv-higgstools/bin/activate
+python - <<'PY'
+import sysconfig,os
+p=sysconfig.get_path("include")
+print("New Python include",p, "has Python.h", os.path.exists(os.path.join(p,"Python.h")))
+PY
+python -m pip install numpy scipy pandas matplotlib requests
+python -m pip install --no-cache-dir /home/aalida/tools/higgstools
+python -c 'import Higgs.predictions, Higgs.signals; print("HiggsTools OK")'
+```
+
+Only proceed to the E5 HiggsSignals run after the import and the project E5 regressions pass in the **same** interpreter. The data in `work/E2`, `work/E3`, `work/E4h` is read-only, so a separate virtual environment does not change those source physics results.
+
+The isolated probe is diagnostics, **not** a claim that the extra `Python_LIBRARY` flag is conclusively necessary; exact failures and CMake cache artifact paths must be inspected if it still fails.
