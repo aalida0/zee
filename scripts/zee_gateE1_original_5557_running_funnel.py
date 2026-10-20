@@ -422,7 +422,10 @@ def main():
             "vacuum_followup_limit":args.max_vacuum_followup,
             "RGE_screens_passing_but_vacuum_not_evaluated":
                 max(0,RGEs_pass-args.max_vacuum_followup),
-            "original_B4_10TeV_plus_numerical_vacuum_candidates":
+            "original_B4_10TeV_plus_numerical_vacuum_no_witness_tested":
+                stats["original_vacuum_cases_tested"]-
+                stats["original_vacuum_deeper_witness"],
+            "ranked_original_B4_diagnostic_shortlist_size":
                 len(selected),
             "source_provenance":prov,
             "diagnostic_counts":dict(stats),
