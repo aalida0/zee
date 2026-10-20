@@ -105,6 +105,26 @@ def merge_one(point,old):
   "complete_Zee_allowed_or_excluded":None,
  }
 
+def decay_export_payload(records,archive_proof,charged_proof):
+ """One audited N2 schema-v1 artifact for the canonical P1 validator.
+
+ The source key is required by load_export(), but explicitly DOES NOT
+ claim independent external cross-code physics verification.
+ """
+ return {
+  "schema_version":1,"stage":"decays",
+  "provenance":{
+    "source":"Original SHA-verified E2/E3/charged/N1 archives; Gate6 scalar Hessian and gauge-kinetic N2 source implementation (same repository, not independent cross-code validation)",
+    **archive_proof,**charged_proof,
+    "N2_bosonic_source_SHA256":hashfile(
+        ROOT/"scripts"/"zee_priority1_neutral_bosonic_two_body.py"),
+    "N2_runner_SHA256":hashfile(Path(__file__)),
+    "independent_external_width_validation_completed":False},
+  "records":records,
+  "full_Zee_allowed_or_excluded":None,
+  "usable_as_complete_HiggsBounds_five_state_input":False,
+ }
+
 def execute(n1,charged,out):
  from zee_priority1_cli import main as p1main
  if not ROOT.resolve().is_relative_to(Path("/home")):
@@ -125,19 +145,9 @@ def execute(n1,charged,out):
   raise ValueError("N2 partial decay values incorrectly accepted by P1")
  out.mkdir(parents=True,exist_ok=False)
  target=out/"P1_N2_309_h_H_A_H1_H2_MORE_PARTIAL_LO_NOT_COMPLETE.json"
- target.write_text(json.dumps({
-  "schema_version":1,"stage":"decays",
-  "provenance":{
-    "source":"Original SHA-verified E2/E3/charged/N1 archives; Gate6 scalar Hessian and gauge-kinetic N2 source implementation (same repository, not independent cross-code validation)",
-    **archive_proof,**charged_proof,
-    "N2_bosonic_source_SHA256":hashfile(
-        ROOT/"scripts"/"zee_priority1_neutral_bosonic_two_body.py"),
-    "N2_runner_SHA256":hashfile(Path(__file__)),
-    "independent_external_width_validation_completed":False},
-  "records":result,
-  "full_Zee_allowed_or_excluded":None,
-  "usable_as_complete_HiggsBounds_five_state_input":False,
- },sort_keys=True,indent=2,allow_nan=False)+"\n")
+ target.write_text(json.dumps(
+   decay_export_payload(result,archive_proof,charged_proof),
+   sort_keys=True,indent=2,allow_nan=False)+"\n")
  joined=out/"joined_five_gate_report"
  if p1main(["--points",str(e2),"--decays",str(target),
             "--out",str(joined)])!=0:
