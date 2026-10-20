@@ -122,11 +122,11 @@ class TestE5A(unittest.TestCase):
                 a.finalize(Path(tmp),dict(list(cohort.items())[:-1]),{},manifest,100.,159)
 
     def test_checkpoint_rejects_duplicate_and_exclusion(self):
+        actual=Fakes.Signals()(a.e5.build_predictions(Fakes.HP,self.package())[0])
         row=a.compute(Fakes.Signals(),Fakes.HP,self.package(),{
-              "h125_effective_HiggsSignals_chi2":103.2,
-              "delta_chi2_vs_SM_same_dataset_NOT_calibrated_CL":3.2,
+              "h125_effective_HiggsSignals_chi2":actual,
+              "delta_chi2_vs_SM_same_dataset_NOT_calibrated_CL":actual-100.,
               "h125_total_width_with_h_LFV_GeV":.004},100.)
-        # Correct reference value for B=.6,tau=.7 is 103.47.
         with tempfile.TemporaryDirectory() as tmp:
             ck=Path(tmp)/"cp.jsonl"
             ck.write_text(json.dumps(row)+"\n")
@@ -145,11 +145,8 @@ class TestE5A(unittest.TestCase):
                 return [Fakes.Measurement(101),Fakes.Measurement(202)]
         fakepack={"B4_TEST":model}
         result={"B4_TEST":{"delta_chi2_vs_fixed_SM":3.47}}
-        with patch.object(a.e5,"build_predictions",
-                          side_effect=lambda HP,pk:(a.e5.build_predictions(
-                              Fakes.HP,pk))):
-            result,nb=a.measurements_summary(
-                Signals(),Fakes.HP,fakepack,result,max_each=1)
+        result,nb=a.measurements_summary(
+            Signals(),Fakes.HP,fakepack,result,max_each=1)
         self.assertEqual(nb,2)
         self.assertEqual(len(result["B4_TEST"]["leading_12_measurements_by_absolute_delta"]),2)
 
