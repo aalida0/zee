@@ -85,7 +85,7 @@ git pull --ff-only
 bash scripts/zee_priority1_one_shot.sh
 \`\`\`
 
-This compiles all five new Python modules, runs 20 source-safe and numerical tests
+This compiles all five new Python modules, runs 22 source-safe and numerical tests
 and evaluates a one-line original-B4-style *synthetic* scalar CSV. All
 five missing full-physics backends are correctly marked BLOCKED and
 \`Zee_allowed_or_excluded\` remains null. **This smoke test is not physics
@@ -134,8 +134,8 @@ convention. It still does **not generate** the missing two-loop
 amplitudes, mu-e nuclear overlap or 3-body flavor rates. Those need
 independent code. Unit tests include cancellation of two amplitudes.
 
-**GitHub Actions:** 20 tests currently green (12 backend/interface
-contracts + 8 complex-matrix/LFV interference numerical regressions).
+**GitHub Actions:** 22 tests currently green (12 backend/interface
+contracts + 10 complex-matrix/LFV interference numerical regressions).
 These tests do not establish that any physical Zee configuration is
 allowed.
 
