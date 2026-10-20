@@ -86,3 +86,50 @@ If the bottom reset significantly lowers chi2 across the high-penalty models and
 If the diagonally general lepton Yukawas instead dominate, target Higgs plus LFV **joint neutrino-exact Yukawa** minimization for the same original potential, then rerun full 10 TeV BFB/unitarity, E4H and h125 \(\chi^2\) with the newly selected matrices. The original E2 "no deeper tree witness" status remains only a finite numerical diagnostic.
 
 **Publication blockers persist:** charged-scalar hγγ/hZγ loop amplitudes from independently derived trilinears, heavy-state HiggsBounds, complete LFV/oscillation likelihood with IO+nuisances, scheme-consistent precision \(B\to X_s\gamma\), global vacuum proof, validated full decay widths and production. A limited h125 effective model with a good \(\Delta\chi^2\) is not a fully allowed Zee point.
+
+
+## Actual completed AF E5A result + regression-only NaN repair (20 October 2026)
+
+The user supplied complete E5A stdout for **309/309** original scalar/Yukawa models. The end marker is:
+
+\`E5A_STATUS E5A_309_HS_EFFECTIVE_REPRO_AND_SECTOR_SENSITIVITY_NOT_ALLOWED SOURCE_REPRODUCED 309 HS_MEASUREMENTS 22 NO_ZEE_ALLOWED_EXCLUDED\`.
+
+E5A first reproduced **all 309 original E5 HiggsSignals chi2** exactly (as enforced by the source-closure check), then performed the bottom/down/strange couplings SM-reset diagnostic. An independent parse of **all 309** STDOUT source rows found:
+
+| Statistic | Original E5 \(\Delta\chi^2\) | SM-reset \((bb,dd,ss)\) counterfactual \(\Delta\chi^2\) |
+|---|---:|---:|
+| Minimum | 0.07766062 | -0.05090145 |
+| Median | **112.98944249** | **0.65909278** |
+| Mean | **259.14069304** | **0.72751253** |
+| Maximum | 1089.04521643 | **1.93693744** |
+| descriptive \(\Delta\chi^2<1\) | 16/309 | 232/309 |
+| descriptive \(\Delta\chi^2<4\) | 29/309 | **309/309** |
+
+The bottom/down/strange reset *decreases* the conditional chi2 for **306/309**, increases it for 3 near-SM spectra; median fractional reduction of original positive \(\Delta\chi^2\) is **99.51%**, not a model acceptance fraction. The original cascade priorities change:
+- \`B4_0006862\`: 23.1068 → **0.26121** (\(\Delta\chi^2\) shift -22.8456).
+- \`B4_0006962\`: 126.9021 → **0.46705** (shift -126.4351).
+- Best unmodified \`B4_0011305\` has 0.07766; resetting down-type couplings makes it modestly WORSE at 0.12393.
+
+**Scientific inference:** Down-type Yukawa deviations are the dominant driver of the 125-HiggsSignals tension *in the incomplete Type-II-like effective-coupling approximation*. E5A reset modifies bb, dd and ss simultaneously, not just bb alone; although hbbar/total-width effects are expected to dominate, that decomposition has NOT been explicitly tested. The reset states violate the original scalar model's fixed \(\beta,\alpha\) Yukawa relations, and are NOT actual Zee allowed points, independent of their small chi2.
+
+**One E5A unit test failed before the physical AF run**, \`test_full_309_ledger_summary_never_assigns_physical_CL\`. That test clones ONE synthetic configuration 309 times. The \`np.corrcoef(delta_chi2, abs(kappaBottom-1))\` both inputs have zero variance, giving \`NaN\`, and JSON deliberately rejects NaN. This is a **test/summary edge case only**; the real AF campaign subsequently printed its successful E5A status and wrote summary.json, proving its real finite correlation did not fail.
+
+GitHub hotfixes:
+- \`scripts/zee_gateE5a_309_higgssignals_drivers.py\`: validate both arrays finite, use variance-aware definition; serialize correlation \`null\` with \`pearson_approx_chisq_vs_abs_bottom_deviation_defined: false\` when mathematically undefined. Never invent a value of 0 or suppress the fail-closed JSON writer.
+- \`tests/test_zee_gateE5a_309_higgssignals_drivers.py\`: assert null/false on the degenerate 309-copy fixture; check finite correlation on a separate nonconstant 309-point synthetic fixture.
+
+Run only the unit tests after the repository update:
+
+\`\`\`bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+source .venv-flavor-f1/bin/activate
+python -m unittest discover -s tests -p 'test_zee_gateE5a_309_higgssignals_drivers.py' -v
+\`\`\`
+
+**Do not overwrite or rerun the already-completed \`work/zee_E5a_309_HiggsSignals_drivers_v1\`**. As the E5A source code SHA has changed, the old completed manifest remains a historically valid, immutable source-pinned artifact of its original run. A fresh run would have to use a new \`v2\` output directory if genuinely needed. No physics recalculation is necessary for the Pearson test fix.
+
+The summary alone does not contain the other 3 sector-reset distributions or the detailed 22 measurement contributions. To decide the next calculation, inspect the already-produced \`E5A_309_ranked_drivers_NOT_ALLOWED.csv\` and \`E5A_selected_measurement_drivers_NOT_GLOBAL_CL.json\` without recomputing it. They can distinguish whether any residual tau/top/VV effects still matter within this approximation.
+
+Research direction: move to an **original-potential constrained collider + Higgs joint strategy** near strict alignment that preserves strong charged-scalar Z off-diagonal coupling; independently derive and validate charged-scalar loops in \`h→γγ,Zγ\`, plus HiggsBounds heavy states and physical charged widths. No paper-ready full experimental exclusion claim is available.
