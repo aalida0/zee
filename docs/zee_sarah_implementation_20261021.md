@@ -1,8 +1,13 @@
 # ZeeTypeII SARAH model — first source implementation (2026-10-21)
 
-**Status: SOURCE_IMPLEMENTED_NOT_VALIDATED.** Neither SARAH Start nor
-CheckModel has been run for this new ZeeTypeII model. The prior successful
-run was for the *upstream THDM-II*, not the Zee model.
+**Status: SARAH_INITIALIZED_CHECKMODEL_COMPLETED_WARNINGS_UNRESOLVED.**
+User's first local SARAH 4.15.4 run (2026-10-21) initialized ZeeTypeII
+in 6.21 s and completed CheckModel in 4.02 s. This is not
+SARAH_CHECKMODEL_PASS and not model/physics validation.
+See `work_sarah_console.log` and `work/sarah_zee/checkmodel.log`
+on the local machine. The log reports `PossibleTerms::NonSUSY`
+and seven missing gauge-eigenstate fermion metadata entries. The
+metadata was subsequently corrected in source, pending local rerun.
 
 ## Sources and precise scope
 
@@ -40,28 +45,64 @@ antisymmetric lepton-doublet coupling. In the mass basis:
 Hence **do not** use the built-in THDM-II SPheno prescription
 `Ye = sqrt(2) m_e/v1` unless Ye2=0.
 
+## Warning audit based on first local CheckModel run
+
+1. `{d,q,conj[H2]}` and `{H1,q,u}`: wrong-doublet quark Yukawa
+   structures. Omitted by the chosen Type-II quark *ansatz*. Verify any
+   claimed symmetry with full Zee lepton/portal interactions.
+2. `{H1,H1,conj[Splus]}`, `{H2,H2,conj[Splus]}`: candidate
+   contractions with two identical commuting scalar doublets vanish
+   under the antisymmetric SU(2) contraction. Verify independently.
+3. `{d,conj[Splus],conj[u]}`: do not add automatically. Check
+   Lorentz structure and impose the model's baryon-number selection
+   explicitly; this is potentially problematic if actually allowed.
+4. The four additional doublet-quartic terms correspond to allowed
+   hard-breaking structures of the `lambda6/lambda7` class.
+   With `Ye2`, `K12`, and the model's other symmetry-breaking
+   interactions, the restricted potential may not be closed under
+   one-loop RG evolution. This is an **open physics question**,
+   not a harmless metadata warning. Do not silently set these
+   couplings to zero in a purported general RGE analysis.
+5. Missing `Fd1,Fu1,Fe1,Fv1,Fd2,Fu2,Fe2` were addressed in
+   `particles.m` using SARAH's standard `Models/particles.m`
+   descriptions. Rerun CheckModel to test warning removal.
+
 ## Local validation
 
-From the checked-out repository on the local machine:
+Run from the **local** checkout (not /data on AF):
 
 ```bash
 cd ~/zee
-git fetch origin
-git switch feature/global-scan-priority1
 git pull --ff-only
-python3 -m unittest tests/test_zee_sarah_source.py -v
-set -o pipefail\nmath -script scripts/zee_sarah_check.m 2>&1 | tee work_sarah_console.log
+
+python3 -m unittest discover -s tests -p 'test_zee_sarah_source.py' -v
+
+set -o pipefail
+math -script scripts/zee_sarah_check.m 2>&1 | tee work_sarah_console.log
+
+# Next: numerical comparison with original Gate6 tree-level matrices
+python3 scripts/zee_sarah_gate6_fixture.py
+math -script scripts/zee_sarah_gate6_mass_audit.m \
+  2>&1 | tee work_sarah_mass_audit_console.log
+
+cat work/sarah_zee/checkmodel_status.txt
+cat work/sarah_zee/mass_audit_status.txt
 ```
 
-The script first locates and loads an installed `SARAH.m` from the local\nMathematica application directories (including\n`~/.Mathematica/Applications/SARAH-4.15.4/SARAH.m`). This avoids\ninteractive-versus-`math -script` differences in `$Path`.\nThe runner tests the loaded SARAH package state instead of incorrectly\nconsidering nonfatal `General::shdw` messages to be load failures.\nIt also avoids defining a pre-SARAH symbol named `s` in `Global``. It initializes\n`work/sarah_zee/checkmodel_status.txt` even if SARAH loading fails.\n\nThe script then prepends the *repository* `models/SARAH` directory to
-`SARAH[InputDirectories]` and does not copy files into a Mathematica
-installation. Mathematica message text is written to
-`work/sarah_zee/checkmodel.log`, status to
-`work/sarah_zee/checkmodel_status.txt`.
+The second script compares the *actual generated SARAH matrices*
+`MassMatrix[hh]`, `MassMatrix[Ah]`, `MassMatrix[Hm]` against
+independent physical-input predictions derived from the original
+`gate6_benchmark.py`, including charged/neutral Goldstone directions.
+The full raw SARAH formulas are saved in
+`work/sarah_zee/mass_matrices_raw.txt` for mismatch diagnostics.
+Numerical mismatches are not automatically evidence of broken physics:
+inspect basis ordering, conjugation, gauge fixing, tadpole substitutions,
+and signs before resolving.
 
-A process exit code of zero only establishes **completion**, not physics
-validation. Inspect **all** messages in the console and log and classify
-them before promoting the model to `SARAH_CHECKMODEL_PASS`.
+The loader finds installed `SARAH.m` explicitly because the batch
+Mathematica `$Path` differs from interactive mode; it does **not**
+modify the installed SARAH package. The initial run successfully
+located and started SARAH 4.15.4.
 
 ## Unresolved physics / blockers
 
