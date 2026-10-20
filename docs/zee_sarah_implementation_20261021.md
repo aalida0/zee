@@ -50,10 +50,10 @@ git fetch origin
 git switch feature/global-scan-priority1
 git pull --ff-only
 python3 -m unittest tests/test_zee_sarah_source.py -v
-math -script scripts/zee_sarah_check.m 2>&1 | tee work_sarah_console.log
+set -o pipefail\nmath -script scripts/zee_sarah_check.m 2>&1 | tee work_sarah_console.log
 ```
 
-The script prepends the *repository* `models/SARAH` directory to
+The script first locates and loads an installed `SARAH.m` from the local\nMathematica application directories (including\n`~/.Mathematica/Applications/SARAH-4.15.4/SARAH.m`). This avoids\ninteractive-versus-`math -script` differences in `$Path`. It initializes\n`work/sarah_zee/checkmodel_status.txt` even if SARAH loading fails.\n\nThe script then prepends the *repository* `models/SARAH` directory to
 `SARAH[InputDirectories]` and does not copy files into a Mathematica
 installation. Mathematica message text is written to
 `work/sarah_zee/checkmodel.log`, status to
