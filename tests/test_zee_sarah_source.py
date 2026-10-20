@@ -102,6 +102,16 @@ class TestSarahZeeSource(unittest.TestCase):
         self.assertIn("DownValues[SARAH`Start]", runner)
         self.assertIn('startResult = SARAH`Start["ZeeTypeII"]', runner)
 
+    def test_lepton_vertex_probe_is_non_certifying(self):
+        probe = (ROOT / "scripts" / "zee_sarah_lepton_vertex_probe.m").read_text()
+        self.assertIn("LEPTON_VERTICES_NOT_VALIDATED", probe)
+        self.assertIn("LEPTON_VERTEX_EXPRESSIONS_EXTRACTED_NOT_VALIDATED", probe)
+        self.assertIn("Fzee[1,2]+Fzee[2,1]", probe)
+        self.assertIn("SARAH`MassMatrix[Fe]", probe)
+        self.assertIn("bar[Fe],Fv,Hm", probe)
+        self.assertIn("bar[Fv],Fe,conj[Hm]", probe)
+        self.assertIn("lepton_vertices_raw.txt", probe)
+
     def test_no_false_validation_claims(self):
         self.assertIn("SOURCE_IMPLEMENTED_NOT_VALIDATED", self.model)
         self.assertNotIn("MakeSPheno[]", self.model)
