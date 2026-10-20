@@ -31,6 +31,9 @@ jobs:
       - name: General Zee flavor source 12 complex couplings into 24 SLHA real imaginary inputs
         run: |
           python -m unittest discover -s tests -p 'test_zee_p1_complex_flavor_feynrules.py' -v
+      - name: General Zee five-particle UFO actual interaction and complex-input static gate
+        run: |
+          python -m unittest discover -s tests -p 'test_zee_p1_ufo_model_audit.py' -v
 
   original-B3-physics:
     runs-on: ubuntu-latest
