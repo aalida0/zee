@@ -85,7 +85,7 @@ git pull --ff-only
 bash scripts/zee_priority1_one_shot.sh
 \`\`\`
 
-This compiles all three new Python modules, runs the 12 source-safe tests
+This compiles all five new Python modules, runs 20 source-safe and numerical tests
 and evaluates a one-line original-B4-style *synthetic* scalar CSV. All
 five missing full-physics backends are correctly marked BLOCKED and
 \`Zee_allowed_or_excluded\` remains null. **This smoke test is not physics
@@ -111,6 +111,33 @@ HiggsTools API evaluation additionally requires **BOTH**
 Do not feed 5–10M points to this current in-memory CSV validator at
 once. This is a first-priority **component adapter**, not the future
 chunked, resumable HTCondor production scanner (Priority 3).
+
+## Additional genuine numerical components
+
+`scripts/zee_priority1_neutrino_gaussian.py` performs a complex symmetric
+Majorana Takagi diagonalization in both NO and IO, reconstructs three
+physical mixing angles, the Dirac phase, the physical mass splittings and
+a supplied 5-dimensional positive-definite correlated Gaussian
+chi-squared. It checks the full complex mass-matrix reconstruction and
+explicitly labels the Gaussian result as **not a full non-Gaussian
+oscillation likelihood**. Zero lightest mass is supported. No
+experimental central values or covariances are invented; the actual
+oscillation-data release is a required independent input.
+
+`scripts/zee_priority1_coherent_lfv.py` computes real coherent
+radiative LFV branching ratios from supplied full complex left/right
+Wilson amplitudes, including interference (not a sum of independent
+sub-rates). It refuses to certify the radiative rate unless all six
+neutral/charged one-loop and fermion/W/scalar Barr–Zee contribution
+classes are explicitly present, in a common validated operator
+convention. It still does **not generate** the missing two-loop
+amplitudes, mu-e nuclear overlap or 3-body flavor rates. Those need
+independent code. Unit tests include cancellation of two amplitudes.
+
+**GitHub Actions:** 20 tests currently green (12 backend/interface
+contracts + 8 complex-matrix/LFV interference numerical regressions).
+These tests do not establish that any physical Zee configuration is
+allowed.
 
 ## Actual next scientific implementation tasks
 
