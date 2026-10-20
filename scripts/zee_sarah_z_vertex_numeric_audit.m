@@ -67,6 +67,12 @@ getCoupling[zeeFields_List]:=Module[{vtx,coeff},
  Print["ZEE_Z_VERTEX_NUMERIC_FIELDS ",InputForm[zeeFields]];
  Print["ZEE_Z_VERTEX_NUMERIC_COEFF ",InputForm[coeff]];
  Print["ZEE_Z_VERTEX_LORENTZ ",InputForm[vtx[[2,2]]]];
+ (* The current SARAH convention has two scalar momenta in a difference.
+    Reject a future output that loses this derivative structure. *)
+ If[StringCount[ToString[InputForm[vtx[[2,2]]]],"Mom["]!=2 ||
+    !StringContainsQ[ToString[InputForm[vtx[[2,2]]]]," - "],
+   Print["FAIL VERTEX_MOMENTUM_DIFFERENCE ",InputForm[vtx[[2,2]]]];
+   Return[$Failed]];
  coeff
 ];
 cZ23=getCoupling[{conj[Hm[{2}]],Hm[{3}],VZ}];
