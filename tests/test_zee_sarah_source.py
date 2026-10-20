@@ -63,6 +63,22 @@ class TestSarahZeeSource(unittest.TestCase):
         self.assertNotIn("actual[[i,j]]", audit)
         self.assertIn("mass_matrices_substituted.txt", audit)
 
+    def test_z_vertex_numeric_audit_is_gated(self):
+        src = (ROOT / "scripts" / "zee_sarah_z_vertex_numeric_audit.m").read_text()
+        fixture = (ROOT / "scripts" / "zee_sarah_gate6_fixture.py").read_text()
+        self.assertIn("zeeGate6Beta", fixture)
+        self.assertIn("zeeGate6Gamma", fixture)
+        self.assertIn("Z_VERTEX_NUMERIC_NOT_VALIDATED", src)
+        self.assertIn("Z_VERTEX_MIXING_MASS_MISMATCH", src)
+        self.assertIn("Z_VERTEX_NUMERIC_COEFFICIENT_MISMATCH", src)
+        self.assertIn("SARAH_GATE6_CHARGED_GAUGE_VERTEX_NUMERIC_PASS", src)
+        self.assertIn("cP23=getCoupling", src)
+        self.assertIn("cP22=getCoupling", src)
+        self.assertIn("cP33=getCoupling", src)
+        self.assertIn("cZ23=getCoupling", src)
+        self.assertIn("cZ32=getCoupling", src)
+        self.assertIn("diagResid", src)
+
     def test_z_vertex_probe_is_non_certifying(self):
         probe = (ROOT / "scripts" / "zee_sarah_z_vertex_probe.m").read_text()
         self.assertIn("Z_VERTEX_NOT_VALIDATED", probe)
