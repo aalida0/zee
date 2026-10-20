@@ -112,6 +112,22 @@ class TestSarahZeeSource(unittest.TestCase):
         self.assertIn("bar[Fv],Fe,conj[Hm]", probe)
         self.assertIn("lepton_vertices_raw.txt", probe)
 
+    def test_fzee_charge_conjugate_orientation_probe(self):
+        probe = (ROOT / "scripts" / "zee_sarah_fzee_orientation_probe.m").read_text()
+        for text in (
+            'FZEE_ORIENTATION_NOT_VALIDATED',
+            'FZEE_NOT_FOUND_IN_PROBED_ORIENTATIONS_NOT_VALIDATED',
+            'FZEE_PRESENT_IN_PROBED_VERTICES_NORMALIZATION_NOT_VALIDATED',
+            'UseSymmASymm',
+            'gauge_LL_splus',
+            'barbar_Hm',
+            'LL_Hp',
+            'HAS_FZEE',
+            'fzee_orientation_vertices.txt',
+        ):
+            self.assertIn(text, probe)
+        self.assertNotIn('FZEE_PHYSICS_PASS', probe)
+
     def test_no_false_validation_claims(self):
         self.assertIn("SOURCE_IMPLEMENTED_NOT_VALIDATED", self.model)
         self.assertNotIn("MakeSPheno[]", self.model)
