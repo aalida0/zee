@@ -28,6 +28,9 @@ jobs:
       - name: Five source-pinned E2-E3 provenance tests
         run: |
           python -m unittest discover -s tests -p 'test_zee_priority1_309_source_pairing.py' -v
+      - name: General Zee flavor source 12 complex couplings into 24 SLHA real imaginary inputs
+        run: |
+          python -m unittest discover -s tests -p 'test_zee_p1_complex_flavor_feynrules.py' -v
 
   original-B3-physics:
     runs-on: ubuntu-latest
