@@ -4,6 +4,9 @@ The tests verify source schemas, partial-physics labels and resumability.
 They do NOT replace AF execution of the complete 309-spectrum study.
 """
 import csv
+import ast
+import inspect
+import textwrap
 import json
 import math
 import sys
@@ -85,6 +88,34 @@ class E3Contracts(unittest.TestCase):
         self.assertEqual(row["D2"]["number_optimized_family_starts"],2)
         self.assertIsNone(row["full_Zee_allowed_or_excluded"])
         self.assertFalse(row["complete_neutrino_LFV_likelihood_available"])
+
+    def test_live_D2_D4_C1_C4_result_field_names(self):
+        """Inspect actual source dictionaries rather than copying a mock typo."""
+        from zee_gateD2_neutrino_exact_partial_LFV_optimization import (
+            optimize_start)
+        from zee_gateD4_W_photon_barr_zee_27 import compare_partial
+        from zee_gateC4_running_55channel_unitarity import full_trajectory
+        from zee_gateC1_joined_uv_pilot import build_model_state
+        def keys(fn):
+            node=ast.parse(textwrap.dedent(inspect.getsource(fn)))
+            literals=[z.value for z in ast.walk(node)
+                      if isinstance(z,ast.Return) and isinstance(z.value,ast.Dict)]
+            return {x.value for d in literals for x in d.keys
+                    if isinstance(x,ast.Constant) and isinstance(x.value,str)}
+        self.assertTrue({
+            "seed_original_score","best_score","solution",
+            "D1_crosschecked_LFV"} <= keys(optimize_start))
+        self.assertTrue({
+            "new_W_gamma_extended_max_partial_ratio_NOT_EXCLUSION"}
+                        <= keys(compare_partial))
+        self.assertTrue({
+            "first_tree_unitarity_uncertified_scale_GeV",
+            "maximum_scattering_eigenvalue_encountered",
+            "tree_unitarity_8pi_at_all_sampled_steps",
+            "BFB_sufficient_at_all_sampled_steps",
+            "reached_end_scale","BFB_negative_witness","status"
+        }<=keys(full_trajectory))
+        self.assertTrue({"neutrino_matrix_closure_eV"}<=keys(build_model_state))
 
     def test_checkpoint_fails_on_duplicate_or_physical_acceptance(self):
         with tempfile.TemporaryDirectory() as tmp:
