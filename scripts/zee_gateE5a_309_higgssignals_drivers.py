@@ -226,6 +226,18 @@ def finalize(out,results,details,manifest,smchi,nb):
             })
     dlt=np.asarray([r["delta_chi2_vs_fixed_SM"] for r in ordered],float)
     corr=np.asarray([r["kappaBottom"] for r in ordered],float)
+    abs_bottom=np.abs(corr-1.)
+    if not (np.isfinite(dlt).all() and np.isfinite(abs_bottom).all()):
+        raise ValueError("E5A nonfinite delta chi2 or bottom coupling")
+    # Pearson is mathematically undefined when one input is constant.
+    # Synthetic 309-copy fixture deliberately exercises this limit.
+    # Encode undefined as JSON null, never NaN and never a guessed 0.
+    def informative_variance(a):
+        return bool(np.std(a) > 1e-12*max(1.,float(np.max(np.abs(a)))))
+    correlation_defined=(informative_variance(dlt) and
+                         informative_variance(abs_bottom))
+    pearson=(float(np.corrcoef(dlt,abs_bottom)[0,1])
+             if correlation_defined else None)
     stats={
         "status":STATUS,"models":309,
         "HiggsSignals_SM_chi2_same_data":smchi,
@@ -237,8 +249,10 @@ def finalize(out,results,details,manifest,smchi,nb):
         "descriptive_number_delta_chi2_less_than_4":int(np.sum(dlt<4.)),
         "descriptive_number_delta_chi2_less_than_10":int(np.sum(dlt<10.)),
         "descriptive_number_delta_chi2_greater_than_100":int(np.sum(dlt>100.)),
-        "pearson_approx_chisq_vs_abs_bottom_deviation":float(np.corrcoef(
-          dlt,np.abs(corr-1))[0,1]),
+        "pearson_approx_chisq_vs_abs_bottom_deviation":pearson,
+        "pearson_approx_chisq_vs_abs_bottom_deviation_defined":
+            correlation_defined,
+        "undefined_correlations_serialized_as_JSON_null":True,
         "counterfactual_effects_are_not_valid_model_points":True,
         "individual_measurement_chisq_include_their_own_correlations":True,
         "cross_analysis_correlations_not_attributed":True,
