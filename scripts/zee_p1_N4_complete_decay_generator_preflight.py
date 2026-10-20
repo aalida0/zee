@@ -59,7 +59,7 @@ def execute(prior,out,typeii_source,ufo):
    "real_309_complex_lepton_Y_f_exported":True,
    "flavor_export_summary_SHA256":hashfile(
      out/"E3_complex_flavor_309"/"summary.json"),
-   "max_abs_E3_Y_imaginary":flavor["max_abs_imag_Y"],
+   "max_abs_E3_Y_imaginary":flavor["max_abs_imag_Y_UFO_convention"],
    "max_abs_E3_f_imaginary":flavor["max_abs_imag_f"],
    "feynrules_complex_typeII_source":fr_info,
    "ufo_audit":ufo_info,
