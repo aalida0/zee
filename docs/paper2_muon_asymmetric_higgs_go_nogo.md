@@ -1,0 +1,1446 @@
+# Paper 2 pre-Delphes go/no-go: asymmetric charged-Higgs production at a muon collider
+
+**Study status (2026-10-17):** analytic Z-only signal feasibility and
+B4-to-Yang/Wu scalar card mapping committed. *No MG5 rates run for this
+study, no detector sensitivities calculated, and no fully allowed Zee
+benchmarks established.*
+
+## Proposed physics
+
+mu+mu- -> H1+ H2- + H1- H2+,
+H2+- -> H1+- Z,
+H1+- -> t b.
+
+The off-diagonal ZH1H2 vertex is already established by
+Florentino, Romao, Silva, EPJC 81 (2021) 1148:
+https://link.springer.com/article/10.1140/epjc/s10052-021-09956-2
+
+This is **not** the same as ordinary 2HDM H+H- pair production,
+but the Z-only source is equally available in e+e- annihilation
+at the same sqrt(s), neglecting lepton masses. Thus publication
+requires an additional distinction: muon-specific Yukawa-mediated
+production; reconstruction of both unequal scalar masses;
+neutrino–Yukawa correlation; or demonstrable complementarity to
+e+e- and pp machines.
+
+Related precedent:
+- Ait Ouazghour et al, PRD 110 (2024) 095026, associated charged
+  Higgs production in the 2HDM at e+e- versus muon colliders:
+  https://arxiv.org/abs/2408.13952
+- Han et al, BSM Higgs Production at a Muon Collider (2022):
+  https://arxiv.org/abs/2205.11730
+- Jueid et al, Probing Zee-Babu states at muon colliders (2024),
+  a DIFFERENT model: https://doi.org/10.1103/PhysRevD.109.075011
+- 2024 Zee-type related off-diagonal coupling discussion:
+  https://doi.org/10.1103/PhysRevD.109.095002
+
+Targeted literature search did not identify a direct published
+Zee **unequal-mass charged-pair at muon collider** detector study.
+That is a provisional gap, not guaranteed novelty.
+
+## Analytic Z-only cross section and checks
+
+From Florentino Appendix B,
+g_ZH1H2 = +/- e/(4 sW cW) sin(2gamma);
+g_Zmu,L = e/(sW cW) (-1/2+sW²),
+g_Zmu,R = e/(sW cW) (sW²).
+
+With s=E_CM² and
+beta12=sqrt[(1-(m1+m2)²/s)(1-(m1-m2)²/s)],
+the tree-level unpolarized rate per charge-conjugate channel is
+
+sigma_one = pi alpha²/(3s) * beta12³
+  * sin²(2gamma) *
+    [(-1/2+sW²)²+(sW²)²]/[32(sW²(1-sW²))²]
+  * [s/(s-mZ²)]².
+
+sigma_sum = 2 sigma_one, because H1+H2- and H1-H2+
+are distinct final states. This normalization is independently
+compared with textbook scalar QED
+sigma(e+e- -> H+H-)_photon = pi alpha² beta³/(3s).
+No off-diagonal photon vertex exists. Angular signal at Born level:
+d sigma/dcos(theta) proportional sin²(theta). The unequal-mass
+beta12³ vanishes at threshold.
+
+Use fixed alpha=1/128, sW²=0.23122, mZ=91.1876 GeV.
+Do not conflate this fixed-scheme LO approximation with
+MG5 EW input scheme; exact numerical closure requires matching them.
+
+For B4_0000318, m1=207.258 GeV, m2=686.474 GeV,
+gamma=1.184531, gauge-only **charge-summed**:
+- sqrt(s)=1.5 TeV: sigma = 0.594902 fb;
+- sqrt(s)=3 TeV: sigma = 0.280793 fb;
+- sqrt(s)=10 TeV: sigma = 0.0296865 fb.
+
+Production near 1.5 TeV is more effective per unit luminosity
+than 3 TeV for these masses, but published collider luminosity
+assumptions must be attached to energy choices.
+
+**Approximate truth-only event ceiling** using the B3 *included
+channel* branching fractions for this benchmark,
+BR2(H2->H1Z)=0.793008,
+BR1(H1->tb)=0.99978,
+and both H1 -> tb (thus BR1²):
+
+ Energy | assumed L | produced pairs | tb tb Z | Z->ee,mumu | Z->hadrons
+ 1.5 TeV | 0.5 ab-1 | 297 | 236 | 15.9 | 165
+ 3 TeV | 1 ab-1 | 281 | 223 | 15.0 | 156
+ 10 TeV | 10 ab-1 | 297 | 235 | 15.8 | 165
+
+These are deliberately **illustrative luminosities**, not
+machine guarantees. All yields are before top branching,
+object cuts, b tagging, trigger, detector acceptance, ISR, BIB,
+or reconstruction. They are **not signal significances**.
+The B3 included-only fractions are NOT model-complete physical BRs.
+
+For H1~207 GeV and t~172.5 GeV, rest-frame b momentum
+p*=31.61 GeV, potentially worsening separation and tagging
+of H1->tb near threshold, especially in boosted topologies.
+The distinct two mass resonances m_tb~m1 and
+m_tbZ~m2 are the main reconstruction handles.
+
+## Existing code and exact next step
+
+The repository ALREADY has a Yang/Wu original Zee model with
+a locally exported Type-II-like QUARK extension:
+`work/Zee_TypeII_LO_UFO` (on AF; not Git-tracked).
+MadGraph v3.5.9 previously passed static diagram generation
+for Z Hheavy Hlight and tb Hheavy/light:
+`docs/gate7c_af_lo_ufo_smoke_pass.md`.
+
+*CRITICAL*: existing Gate7 original
+`gate7_map_p2_to_yangwu.py` accepted only default scalar
+params. It is now generalized to accept B4 physical spectra:
+alpha,gamma,m12sq,mh2,ma,lc,k1,k2,k12.
+`gate7_make_diagnostic_param_card.replacements()` also
+accepts these scanned options and internally verifies mass/angle
+consistency. This avoids silently mapping the NEW m1~207,m2~686
+point to OLD (300,700) scalar potential.
+
+The resulting diagnostic card uses f=0 and Type-II diagonal
+lepton Yukawas: NOT fitted neutrino masses. Its DECAY widths
+are stale; no physical cascade event generation is valid.
+
+### Step A — reproduce analytic rates on all 30 B4C points
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+source ~/fccee_zh/scripts/setup_key4hep.sh
+
+python3 -m unittest discover -s tests \
+  -p 'test_zee_muon_asymmetric_pair_pilot.py' -v
+
+python3 scripts/zee_muon_asymmetric_pair_pilot.py \
+  --joined-csv work/zee_pipeline_b4pilot_v2/B4C_joint_audit/joint_scalar_neutrino_width_flavour_NOT_ALLOWED.csv \
+  --output-dir work/zee_muon_P2_gauge_pilot
+```
+
+The CSV contains 30 candidates × 3 energies = 90
+charge-summed cross-section/conditional-yield rows and
+the H1->tb rest-frame b momentum.
+
+### Step B — build B4_0000318 mass/potential matched MG5 card
+
+The template is from the previous Gate7 smoke process; keep
+the original untouched.
+
+```bash
+python3 -m unittest discover -s tests \
+  -p 'test_zee_muon_make_scalar_card.py' -v
+
+python3 scripts/zee_muon_make_scalar_card.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --candidate-id B4_0000318 \
+  --ufo-template-param-card work/gate7_mg5_typeii_smoke/Associated_4FS/Cards/param_card.dat \
+  --output-card work/zee_muon_B4_0000318_scalar_matched_DIAGNOSTIC.dat \
+  --acknowledge-unfitted-neutrino-sector
+
+python3 scripts/gate7_preflight_card.py \
+  work/zee_muon_B4_0000318_scalar_matched_DIAGNOSTIC.dat \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --candidate-id B4_0000318
+```
+
+### Step C — independent MG5 Z-only and full-tree diagrams
+
+```bash
+python3 scripts/zee_muon_prepare_mg5.py \
+  --ufo work/Zee_TypeII_LO_UFO \
+  --output-dir work/zee_muon_mg5_B4_0000318_decks
+
+export MG5_BIN=/cvmfs/sw.hsf.org/key4hep/releases/2026-04-08/x86_64-almalinux9-gcc14.2.0-opt/madgraph5amc/3.5.9-3xnfke/bin/mg5_aMC
+
+"$MG5_BIN" work/zee_muon_mg5_B4_0000318_decks/Z_only.mg5
+"$MG5_BIN" work/zee_muon_mg5_B4_0000318_decks/full_tree.mg5
+```
+
+These commands **generate diagrams, not numeric cross sections**.
+The Z-only process restricts diagrams to an off-shell s-channel
+Z using MG5 syntax (mu+ mu- > z > H+ h-). This is an analytic
+normalization diagnostic. The full tree process also includes any
+available neutrino t-channel or neutral-Higgs interactions for
+the specified (currently *unfitted*) lepton Yukawas.
+
+After diagram gate, copy the new matched SLHA card into each
+*generated* subprocess's Cards/param_card.dat and use
+beam energies lpp1=lpp2=0, ebeam1=ebeam2=E_CM/2.
+Do not generate events from the stale DECAY card;
+integrate **stable H+ h-** pair production first.
+Only when the gauge-restricted MG5 integrated cross section
+matches the analytic calculation at a common EW input scheme
+should one compare full tree to Z-only. Process restrictions
+can violate gauge invariance in general; the full tree is the
+reference for physical production after Yukawa completion.
+
+## BLOCKER: neutrino-compatible muon-specific enhancement
+
+The Yang/Wu UFO contains general lepton Yukawa parameters
+ZEEYUKAWAF and ZEEYUKAWAY but its default external couplings
+are real, whereas B2 fits COMPLEX f and Y. The 2026 tuned
+scalar card intentionally uses f=0 and nonphysical Type-II
+lepton Yukawa. A complete flavor UFO card requires compatible
+complex couplings, a consistent Higgs basis/phases and PMNS,
+matching neutrino and charged leptonic decay amplitudes.
+**Do not infer an allowed t-channel enhancement using this
+diagnostic Type-II-lepton card.**
+
+Next develop a general Zee lepton UFO exporter allowing
+complex f and Y, then compare full and Z-only MG5 predictions
+for several B2 solutions spanning muon-row couplings.
+Include E+E- versus muon comparison with the same gauge
+and neutral-scalar parameters, so we know whether the machine
+choice adds genuine physics rather than BIB complications.
+
+## Detector feasibility and decisive backgrounds
+
+Truth channel:
+mu+mu- -> Hheavy+- Hlight-+ -> Z Hlight+ Hlight-
+ -> t tbar b bbar Z.
+
+One should test:
+- Z->ee,mumu with both tops hadronic and semileptonic;
+- Z->qq if jet combinatorics and BIB are manageable;
+- mass-based pairing m(tb)~mH1 and m(tbZ)~mH2;
+- SM t tbar b bbar Z irreducible background, including
+  electroweak + QCD contributions and t tbar Z plus jets,
+  with consistent diagrams and generation-level cuts;
+- BIB effects, b/top tagging, ISR and reconstruction.
+
+A previous official *generic target* Delphes muon card explicitly
+states it is NOT validated by full simulation:
+https://github.com/delphes/delphes/blob/master/cards/delphes_card_MuonColliderDet.tcl
+A 2024 official muon-collider fast-simulation release:
+https://zenodo.org/records/14001529
+and MAIA performance with BIB:
+https://arxiv.org/abs/2502.00181 .
+No universal Delphes card is equivalent to a full muon-collider
+BIB-overlay simulation. Sensitivity forecasts must label this.
+
+## Decision criteria
+
+Proceed to a full Paper 2 detector study only if:
+1. Independent MG5 Z-only LO agreement (EW-scheme matched)
+   within ~2–5% numerical integration/inputs; any discrepant
+   vertex-factor-of-two is a STOP.
+2. The chosen allowed-BSM-inspired benchmark does not rely
+   on missing Type-II quark/lepton symmetry assumptions;
+   neutrino Yukawas and scalar widths can be represented.
+3. Signal topology has adequate reconstructable event yields
+   and a statistically meaningful improvement over full SM
+   backgrounds with BIB/efficiency robustness.
+4. There is a distinctive muon-collider result relative to
+   equivalent e+e- gauge production (or a novel reconstruction
+   result beyond an existing topology).
+5. Clear non-overlap with Paper 1: model constraints can be
+   imported, but not counted as a second independent physics result.
+
+If the leptonic Z channel stays <= O(10) selected events and
+hadronic Z fails over backgrounds, revisit the second paper
+process instead of forcing an optimistic sensitivity plot.
+
+
+## Step D — MG5 numerical stable-pair cross-section closure (now implemented)
+
+After both diagram-generation decks complete, use
+`scripts/zee_muon_integrate_mg5.py` to run four independent
+parton-only LO integrations and compare the **charge-summed**
+Z-only cross section against the analytic result at the
+**same Yang/Wu UFO electroweak scheme**.
+
+The original Yang/Wu Parameters.fr does not use externally specified
+sin²thetaW; it derives MW from SMINPUTS alpha and GF plus MASS[23]=MZ,
+then computes sin²thetaW=1-(MW/MZ)². The runner computes that same
+tree-level input scheme before evaluating the analytic reference;
+this prevents misleading percent-level discrepancy with the
+illustrative fixed sin²thetaW=0.23122 values from Step A.
+
+Test it before executing:
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_muon_integrate_mg5.py' -v
+
+python3 scripts/zee_muon_integrate_mg5.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --candidate-id B4_0000318 \
+  --param-card work/zee_muon_B4_0000318_scalar_matched_DIAGNOSTIC.dat \
+  --z-only-dir work/zee_muon_mg5_B4_0000318_decks/MG5_Z_only \
+  --full-tree-dir work/zee_muon_mg5_B4_0000318_decks/MG5_full_tree \
+  --energies-GeV 1500,3000 \
+  --events 3000 \
+  --tolerance 0.05 \
+  --output-dir work/zee_muon_P2_mg5_xsec_v1
+```
+
+If the dry preflight passes, rerun with the same arguments and add
+`--execute`. The runner verifies the process cards contain **both
+charge conjugates**, the fully matched B4 scalar + singlet quartic
+card, and antisymmetric f=0 (so it *cannot* be mislabeled a neutrino
+fit). It backs up each generated process's default run/param cards
+once, configures lepton beams `lpp1=lpp2=0`, unpolarized
+`polbeam1=polbeam2=0`, beams at `E_CM/2`, no shower/detector,
+and runs:
+
+```text
+bin/generate_events P2Z1500 -f --laststep=parton
+bin/generate_events P2Z3000 -f --laststep=parton
+bin/generate_events P2F1500 -f --laststep=parton
+bin/generate_events P2F3000 -f --laststep=parton
+```
+
+Cross sections are extracted from each LHE banner
+`<MGGenerationInfo> Integrated weight (pb)` and reported in
+fb. They are NOT scraped from console text.
+
+Output: `cross_sections.csv`, `manifest.json`, four run logs,
+and normal MG5 events in their process output directories.
+
+**Strict stop conditions:** if the Z-only integration differs from
+the matched analytic reference by more than 5%, report
+`Z_ONLY_CLOSURE_FAIL_STOP` and do NOT interpret full-tree
+enhancements; inspect EW scheme, process definitions,
+Hheavy/Hlight angle mapping and normalization. This threshold
+is a numerical integration/input sanity criterion, not a
+theory uncertainty. Do not fit the threshold to make it pass.
+
+The full-tree diagnostic is **NOT** a physical muon-specific
+neutrino-exchange enhancement: f=0, Type-II-like diagonal charged
+lepton Yukawa are an artificial tree-level reference. Complex
+neutrino-compatible f,Y from B2 require a separate mapped UFO
+card with verified flavor convention.
+
+
+## Step E — actual MG5 result and neutrino-Yukawa screening (2026-10-17)
+
+**User-reported MG5 result: integrated rates, both charge conjugates.**
+
+| E_CM | analytic Z-only, matched Yang/Wu EW | MG5 Z-only | MG5 all-tree, unfitted-lepton limit |
+|---|---:|---:|---:|
+| 1500 GeV | 0.58622616 fb | 0.585910 fb | 0.587394 fb |
+| 3000 GeV | 0.27669813 fb | 0.277090 fb | 0.2773455 fb |
+
+**Z-only analytic closure:** -0.0539% at 1.5 TeV, +0.1416%
+at 3 TeV: PASS, much better than prespecified 5%.
+**Full-tree/Z-only diagnostic:** +0.2533% and +0.0922%.
+No integrated numerical uncertainties were provided. These small
+differences are not a demonstrated muon-specific enhancement.
+
+The existing diagnostic leptons have **f=0 and Type-II diagonal
+charged-lepton Yukawa**; this is mathematically incompatible with
+our nonzero Zee neutrino-mass targets, and must not be used as a
+physical Yukawa-rate conclusion. The resulting gauge production
+is equally available to an electron machine at equal energy.
+
+**Upstream UFO technical blocker, independently verified:** the
+Yang Ma/Yongcheng Wu `ZEE_UFO/parameters.py` declares
+`fem`, `fet`, `fmt` and `ylzee`–`ylztt` as
+`type='real'` external parameters, whereas our neutrino-compatible
+B2 matrices contain **complex** entries. Real-part substitution
+is not a consistent Zee model point. A FeynRules re-export with
+appropriately declared complex parameters (and accompanying
+imaginary SLHA blocks or equivalent) must retain Hermiticity
+and validate charged-current vertices before physical MadGraph
+Yukawa production can be calculated.
+
+### Cheap flavor screen before a complex UFO re-export
+
+The new `scripts/zee_muon_yukawa_screen.py` reads the saved 150
+complex B2 Yukawa solutions and constructs only
+muon-COLUMN invariants. The original Yang/Wu lepton Yukawa
+Lagrangian is `-ylz[i,j] bar(LL_i) lR_j H2`; so the muon
+coupling is the **column** `Y[:,mu]` (not the row `Y[mu,:]`).
+The charged singlet antisymmetric `f[:,mu]` contributes to
+other initial-state chiral structures.
+
+For `H1 = cos(gamma)HD + sin(gamma)chi`,
+`H2 = -sin(gamma)HD + cos(gamma)chi`,
+muon-flavor-summed, same-chirality t-channel vertex PRODUCTS have
+magnitudes proportional to
+`|sin(gamma)cos(gamma)| * ||Y[:,mu]||²` and
+`|sin(gamma)cos(gamma)| * ||f[:,mu]||²` separately.
+The `f` vertex normalization, complex phase interference,
+massless-neutrino propagators and complete helicity amplitudes
+are NOT included. These norms are **not cross sections**,
+and small numbers alone are not a calibrated exclusion.
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests -p 'test_zee_muon_yukawa_screen.py' -v
+
+python3 scripts/zee_muon_yukawa_screen.py \
+  --b2-json work/zee_pipeline_b4pilot_v2/B2_neutrino/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --output-dir work/zee_muon_B2_complex_yukawa_screen_v1
+```
+
+Read the maximum muon doublet/singlet overlaps and top-five
+candidates, then decide if a complex parameter re-export is
+justified. **Important selection bias:** B2 saved the five
+**lowest partial-LFV-score** configurations per scalar point,
+not the maximum muon collider Yukawa solutions. No conclusion
+about all allowed Zee Yukawas can be drawn from those 150.
+
+Paper 2 remains **GO for a Yukawa-specific physics pilot,
+not yet GO for Delphes nor an independent publication**.
+A genuinely muon-specific production effect must be shown
+using the same complex f/Y solution that reconstructs neutrino
+masses; then compare e+e- versus mu+mu- and evaluate the
+full final state against backgrounds and BIB.
+
+
+## Step F — user B2 muon-Yukawa screen: negative muon-specific evidence
+
+On 2026-10-17, the user ran
+`scripts/zee_muon_yukawa_screen.py` on all 150 B2 saved solutions:
+
+- `MAX_MIXING_ABS_Y_Y = 5.8092699e-09`.
+- `MAX_MIXING_ABS_f_f = 1.5016428e-07`.
+- Top Y-column candidates:
+  `B4_0000469` rank 2, `5.80927e-09`, partial LFV `3.04449e-08`;
+  `B4_0000759` rank 5, `4.686855e-09`, partial LFV `1.47582e-07`;
+  `B4_0000820` rank 5, `4.390315e-09`, partial LFV `4.84249e-07`;
+  `B4_0000777` rank 5, `4.149567e-09`, partial LFV `1.22755e-07`;
+  `B4_0000469` rank 3, `3.147335e-09`, partial LFV `5.27832e-08`.
+
+**Interpretation**: In these deliberately low-partial-LFV-selected
+neutrino-mass-closed B2 Yukawa solutions, the candidate t-channel
+coupling products are extremely small compared with ordinary
+electroweak gauge products; no plausible *large* muon-specific
+enhancement is evident from the screen. This is NOT a computed
+neutrino-exchange cross section, nor a universal no-go theorem
+for all mathematically allowed general Zee Yukawas. All 150
+configurations were biased by B2's partial-LFV top-five selection,
+which suppresses large LFV couplings. Full LFV was not imposed.
+
+**Updated literature warning:** Dev, Heeck and Thapa,
+*Neutrino mass models at muTRISTAN*, EPJC 84 (2024) 148
+https://doi.org/10.1140/epjc/s10052-024-12496-0
+already studied the Zee model at a muon-based collider with
+mu+e- and mu+mu+ beams, LFV processes, and neutrino correlations.
+This is NOT our mu+mu- unequal-mass scalar pair mode,
+but rules out a broad novelty claim of "first Zee muon collider
+study." The ZH1H2 vertex was established earlier by
+Florentino et al 2021.
+
+**Current recommendation:** HOLD a mu+mu- detector-level Paper 2
+based only on this Z-mediated rate; do not re-export the full complex
+lepton-Yukawa UFO unless a targeted optimization/stress test
+identifies significantly enhanced muon couplings under defensible
+complete neutrino/LFV constraints. If no enhancement emerges,
+either reframe as a *lepton-collider* mixed-pair reconstruction
+study conditional on background-rejection novelty or prioritize
+Paper 1 instead. No cross section has been calculated from
+the 150 B2 f,Y complex solutions.
+
+
+## Step G — expand beyond one benchmark (2026-10-17)
+
+The validated numerical MG5 Z-only closure pertains ONLY to
+`B4_0000318` (m1≈207, m2≈686, gamma≈1.185). The B2 low-partial-LFV
+Yukawa screen covered 30 scalar spectra in a NARROW mass slice
+(mH1≈203–351 GeV, mH2≈637–722 GeV) and is not a global Zee no-go.
+
+The new `scripts/zee_muon_mass_mixing_grid.py` varies mH1, mH2,
+gamma and energy using the already MG5-validated analytic Z-only
+formula; all rows are marked kinematic-only, NOT allowed models.
+It uses the matched Yang/Wu alpha/G_F/MZ derived sW²=0.2336991334,
+not the former approximate fixed 0.23122 scheme. It includes both
+charge-conjugate final states; reported luminosity-weighted counts
+are **produced stable pairs before decay**, not final-state yields.
+Kinematic flags require H1->tb open and H2->H1Z open; no
+potential/stability/LFV/HiggsTools validity is inferred.
+
+On AF:
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_muon_mass_mixing_grid.py' -v
+
+python3 scripts/zee_muon_mass_mixing_grid.py \
+  --mH1-GeV 200,250,300,400,600,800 \
+  --mH2-GeV 500,700,1000,1200,1500,2000 \
+  --gamma-rad 0.4,0.7853981633974483,1.1845311184933986 \
+  --energies-GeV 1500,3000,10000 \
+  --luminosities-ab-inverse 0.5,1,10 \
+  --output-dir work/zee_muon_P2_broad_mass_grid_v1
+```
+
+Outputs:
+`mixed_pair_Z_only_mass_mixing_grid_NOT_ALLOWED.csv` and
+`summary.json` with highest cross sections by energy
+subject to kinematic H1->tb and H2->H1Z opening.
+
+Examples at gamma=1.18453 (fb; Z-only, charge summed):
+
+| mH1,mH2 GeV | 1.5 TeV | 3 TeV | 10 TeV |
+|---|---:|---:|---:|
+| (200,500) | 0.8655 | 0.2995 | 0.02945 |
+| (200,700) | 0.5707 | 0.2752 | 0.02924 |
+| (300,700) | 0.4931 | 0.2698 | 0.02920 |
+| (300,1000) | 0.1143 | 0.2226 | 0.02875 |
+| (400,800) | 0.2572 | 0.2478 | 0.02900 |
+| (400,1200) | closed | 0.1792 | 0.02830 |
+| (600,1200) | closed | 0.1592 | 0.02813 |
+
+These are NOT independent MG5 validations at every mass/mixing
+point. The full general-Zee allowed space may correlate masses and
+gamma strongly via the scalar potential and EW precision constraints.
+
+**Go/no-go amendment:** Do not declare Paper2 no-go from one
+benchmark or the 150 low-partial-LFV Yukawa solutions.
+Use the grid to select two additional distinct MASS benchmarks
+and one near-maximal-mixing benchmark, then validate the mapped
+UFO against the analytic Z result. Separately investigate whether
+a physically viable choice of complex neutrino-compatible f,Y
+can enhance muon t-channel production (requiring full LFV and
+complex Yukawa UFO support). Still postpone Delphes until this
+physics pilot justifies it.
+
+
+## Step H — user broad mass grid: gauge rate peaks, but require B4 physical context (2026-10-17)
+
+User executed `scripts/zee_muon_mass_mixing_grid.py` successfully:
+297 analytic gauge-only rows (33 distinct ordered m1<m2 pairs × 3 gamma
+× 3 energies). Truth-level maximum cross sections with gamma=pi/4:
+
+| mH1,mH2 [GeV] | 1.5 TeV [fb] | 3 TeV [fb] | 10 TeV [fb] |
+|---|---:|---:|---:|
+| 200,500 | 1.77671 | 0.614786 | 0.0604597 |
+| 250,500 | 1.70002 | 0.609758 | 0.0604186 |
+| 300,500 | 1.60877 | 0.603649 | 0.0603683 |
+
+At 0.5 ab^-1, these yield 888, 850, 804 produced **stable
+charged-pair** events respectively, before all branching fractions,
+top decays, acceptance, backgrounds or BIB. A higher production rate
+alone is not a discovery significance; an mH1 around 200 GeV also
+leaves a soft b from H1->tb. The (250,500) and (300,500) hypotheses
+are more useful reconstruction starting points.
+
+This mass grid is **not screened** for scalar theory, EWPO, flavor
+or direct searches. In particular, charged masses around 250 and
+500 GeV in a Type-II-like quark sector require a careful two-state
+B->Xs gamma analysis; one cannot infer viability from the
+existence of the gauge signal.
+
+### Before more unrestricted MG5 benchmarks: rank the B4-scalar-screened points
+
+Our Gate B4 existing pilot retained ~314 diverse
+**scalar BFB/unitarity + correlated S,T,U**-screened records,
+broader than the 30 B2-selected spectra. The new
+`scripts/zee_muon_rank_B4_scalar_points.py` reads that original
+full screened file, without treating the arbitrary grid as a physical
+model, and ranks by s-channel Z-only rate and separately by
+**B4 partial-width-conditional tb tb Z truth-count ceiling**.
+The latter uses [BR(H2->H1Z)_included] ×
+[BR(H1->tb)_included]^2. It cannot stand in for a complete
+Zee branching fraction or statistical reach.
+
+Run:
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_muon_rank_B4_scalar_points.py' -v
+
+python3 scripts/zee_muon_rank_B4_scalar_points.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/all_screened_candidates_NOT_ALLOWED.csv \
+  --output-dir work/zee_muon_P2_B4_scalar_screened_rank_v1
+```
+
+It prints B4 mH1,mH2,gamma ranges, max gauge σ for each of
+1.5,3,10 TeV, and four mass-bin-distinct candidate IDs/energies
+with their *conditional* Z->ee,mumu truth ceilings. It writes
+`scalar_EWPO_screened_Z_only_conditional_ceiling_NOT_ALLOWED.csv`
+and `summary.json`.
+
+The B4 records still originate from a narrow neighborhood of the
+earlier 300/700-GeV benchmark. If the resulting mH1/mH2 ranges
+do not include 250/500 or 300/500, the correct next work is a
+**targeted correlated scalar-potential/EWPO exploration centered
+on the new mass region**, not an unqualified claim that those
+optimistic grid points are allowed. Independent MadGraph
+cross-section checks at additional chosen physical candidates
+are useful only once that parameter mapping can pass the
+implemented scalar consistency gates.
+
+
+## Step I — actual 314-point B4 scan and targeted correlated lighter-mass feasibility
+
+User-reported result for `scripts/zee_muon_rank_B4_scalar_points.py`
+(2026-10-17):
+
+- 314 scalar BFB/unitarity + correlated STU-screened spectra; 942
+  energy-scenario rows.
+- Mass ranges mH1=201.128–371.712 GeV, mH2=593.040–725.033 GeV,
+  gamma=1.02486–1.36850 rad. **The B4 scan did not reach
+  the 250/500 or 300/500 region**; this is a limitation of
+  that benchmark-seeded search, NOT an exclusion.
+- Maximum gauge-only s-channel cross section:
+  1.5 TeV **0.937342 fb**,
+  3 TeV **0.445928 fb**,
+  10 TeV **0.0472829 fb**.
+- Maximum B4 *included-channel conditional*
+  truth Z->e+e-/mu+mu-, H1->tb twice:
+  **26.682, 25.7834, 27.373** events for the illustrative
+  0.5, 1 and 10 ab^-1 luminosities.
+- `B4_0000822`: (m1,m2)=(220.93,690.99) GeV, gamma=1.025,
+  sigma(1.5 TeV)=0.92179 fb, conditional truth Zll=26.68,
+  and b momentum in H1 rest frame about 43 GeV.
+- `B4_0001150`: (255.95,691.49) GeV, gamma=1.05,
+  sigma(1.5 TeV)=0.83088 fb, conditional truth Zll=23.11,
+  and harder b momentum ~70 GeV, potentially better reconstruction.
+
+The **high-rate 1.78 fb** mass-grid case at (200,500) GeV and
+gamma=pi/4 remains an *arbitrary* gauge-kinematic hypothesis,
+not even B4-screened. The main next physics question is whether
+a nearby scalar spectrum at light mH2 can satisfy our implemented
+potential and precision tests at all.
+
+### New targeted correlated potential/oblique search
+
+`scripts/zee_muon_targeted_light_scalar_scan.py` reuses
+`gateB4_adaptive_zee_scalar_scan.scalar_screen`,
+`ewpo_screen` and `make_record` with no cut changes.
+It starts from the 314 B4-screened points and moves *together*:
+- mH1 and mH2 toward selected 250/500,300/500,250/550,300/550;
+- heavy neutral mH and pseudoscalar mA correlated with the charged scale;
+- soft M² proportional to the squared charged scale;
+- beta, alpha-beta, gamma (including a near-pi/4 proposal family);
+- singlet lc, k1, k2 and k12 retaining their original sufficient BFB domain.
+
+The experiment is stochastic and local to deformed B4 seeds;
+**zero survivors does not exclude that mass region**. It records
+counts for failed proposal-domain, scalar-theory, STU ellipsoid,
+and numerical/partial-width gates separately. Accepted rows
+have the complete original B4 CSV columns for provenance plus
+muon collider gauge-only rate and **conditional** Zll truth counts.
+
+Pilot:
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_muon_targeted_light_scalar_scan.py' -v
+
+python3 scripts/zee_muon_targeted_light_scalar_scan.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/all_screened_candidates_NOT_ALLOWED.csv \
+  --targets 250:500,300:500,250:550,300:550 \
+  --trials-per-target 750 \
+  --sources 32 \
+  --quadrature-nodes 64 \
+  --seed 20261017 \
+  --output-dir work/zee_muon_P2_light_scalar_target_pilot_v1
+```
+
+Only if this has useful accepted scalar/EWPO spectra, increase
+`--trials-per-target` to 3000 (new empty output directory).
+If no samples pass, inspect rejection-stage fractions before
+trying a correlated continuation/optimizer; do not loosen BFB,
+unitarity or STU fits to force a benchmark.
+
+**Scientific go/no-go:** Even with more scalar/EWPO survivors,
+the physical published Paper 2 reach requires full neutrino/LFV,
+Type-II-like quark flavor, HiggsTools direct search constraints,
+complete Zee widths and SM backgrounds with muon BIB effects.
+A high s-channel rate alone is not a muon-specific paper.
+
+
+## Step J — user 43 successful targeted scalar+EWPO solutions and urgent Type-II flavor gate
+
+User executed the `zee_muon_targeted_light_scalar_scan.py`
+3,000-point correlated proposal pilot:
+
+- 55/3000 passed the implemented Zee sufficient BFB/tree unitarity.
+- 43/55 scalar survivors also passed BOTH correlated published
+  3D S,T,U 95%-ellipsoid screens (43 distinct candidates, about
+  1.43% of all **targeted nonuniform** proposals).
+- Rejected: scalar 2904, outside original B4 proposal domain 35,
+  mass/decay domain 5, EWPO 12, numerical or width 1.
+  These rejection fractions are *proposal-specific* and not
+  exclusion probabilities or parameter-space posterior volumes.
+- Top conditional Z->e/mu event ceilings at sqrt(s)=1.5 TeV,
+  0.5 ab^-1 (NO detector and NOT complete widths):
+  - `P2L_0000563`: (225.5,527.7) GeV; gamma=0.832;
+    gauge sigma=1.64516 fb; 44.29 Z->ee/mumu conditional events;
+    b rest momentum 46.6 GeV.
+  - `P2L_0001019`: (284.5,534.7) GeV; gamma=0.901;
+    sigma=1.45745 fb; 35.26 conditional Zll events;
+    b rest momentum 89.9 GeV.
+  - `P2L_0001913`: (255.3,541.6) GeV; gamma=0.935;
+    sigma=1.43450 fb; 37.67 conditional Zll events;
+    b rest momentum 69.3 GeV.
+  - `P2L_0002555`: (292.6,546.9) GeV; gamma=0.821;
+    sigma=1.48001 fb; 40.05 conditional Zll events;
+    b rest momentum 95.4 GeV.
+
+**Urgent physics qualification:** Florentino, Romão and Silva,
+EPJC 81 (2021) 1148, Sec.4.3.2, explicitly report that under
+their historical two-charged Zee-Type-II `B->Xs gamma` treatment
+points with **both charged Higgs masses below the standalone
+Type-II ~580 GeV threshold are excluded** by their implemented
+flavor cut; only one can be substantially lighter with the
+other above that threshold. See:
+https://link.springer.com/article/10.1140/epjc/s10052-021-09956-2
+Sec.4.3.2 paragraphs under Fig.2 and Appendix C. All FOUR top
+light-mass candidates have mH2=528-547 GeV, below 580 GeV,
+so these collider-optimized mass points are HIGH RISK for
+historical Type-II flavor rejection. A **modern 2026 two-state
+NNLO theoretical/experimental likelihood has NOT been validated**,
+and that historical threshold MUST NOT be copied as a current
+hard statistical bound. The complete charged-Higgs flavor
+observable must be evaluated pointwise.
+
+### Next practical step: A1V diagnostic scan of all 43
+
+The existing A1V source-audited two-state SuperIso backend can
+scan the *original* P2L input CSV directly: it has all four
+required columns `mH1,mH2,gamma,tanbeta`. No model rewrite,
+standalone new gating layer or MG5 generation needed.
+
+```bash
+cd /home/aalida/zee
+python3 scripts/gateA1v_run_legacy_response.py \
+  --vendor-root work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --a1u-result work/gateA1u_legacy_zee_br_v1/legacy_two_state_br.json \
+  --grid-csv work/zee_muon_P2_light_scalar_target_pilot_v1/all_screened_candidates_NOT_ALLOWED.csv \
+  --max-points 1000 --skip-scale-diagnostic \
+  --output-dir work/zee_muon_P2_light_A1V_flavour_v1
+```
+
+Output `scan_flavour_only.csv` with all 43 B->Xs gamma
+legacy predictions. **Do not report experimental accepted or
+excluded points**: A1V is a source-validated *legacy diagnostic*,
+not the NNLO-matched full likelihood. Comparison to the Florentino
+2021 **historical** window
+2.78e-4 < BR(B->Xs gamma) < 3.77e-4 is a qualitative
+source-era stress test ONLY, not a current physical constraint.
+
+If all 43 strongly overshoot that historical band, deprioritize
+the lighter 500–550 GeV region and target mH2 >= 600–800 GeV with
+larger mixed charged overlap and a heavier mH1 for reconstruction.
+If some are close to the band, mark for independent modern
+calibrated flavor check before expensive MG5/Delphes work.
+
+Even if a modern two-state flavor calculation passes, we still
+need neutrino-compatible general f/Y and fully predicted widths,
+HiggsTools direct bounds, background/BIB and a muon-specific
+novelty or reconstruction result.
+
+
+## Step K — actual legacy B->Xs gamma for 43 lighter scalar/EWPO candidates (2026-10-17)
+
+User ran Gate A1V for all 43 lighter scalar/EWPO-screened
+P2L candidates. Saved `scan_flavour_only.csv`:
+
+- count 43
+- legacy BR mean 4.17e-4, std 0.12e-4,
+  min 3.93e-4, median 4.17e-4, max 4.44e-4.
+- 5 lowest: (m1,m2,gamma,tanbeta,BR):
+  (275.411222,560.788383,1.431680,8.236477,3.93e-4),
+  (313.094538,547.211799,1.273383,3.896588,3.98e-4),
+  (301.250800,566.952471,1.144114,4.787277,4.01e-4),
+  (277.508911,539.316858,1.233299,5.482108,4.02e-4),
+  (243.347015,517.611128,1.309336,6.216845,4.03e-4).
+
+**CRITICAL: comparing these absolute values to the 2021 Florentino
+historical 2.78e-4 < BR < 3.77e-4 is INVALID** because the
+same A1V legacy implementation yields SM-only BR approximately
+3.9250054453230092e-4, which ALREADY violates the 2021 bound!
+That procedure would exclude the benchmark generator's SM point.
+Do not count 43 'excluded' candidates from this incompatible
+SM baseline. The meaningful diagnostic is the *within-the-same-code*
+NP shift
+  delta_BR_legacy = BR_full_Zee_legacy - BR_SM_legacy,
+not the absolute uncalibrated physical branching ratio.
+
+The September 1, 2026 SM update by Tobias Huber,
+arXiv:2609.01005, reports [E_gamma > 1.6 GeV]:
+  BR_SM=(3.54 +/- 0.14)e-4,
+  BR_exp=(3.49 +/- 0.19)e-4.
+See https://arxiv.org/abs/2609.01005 .
+These are the most recent published references identified in
+this audit. The proceedings reference supplies an updated SM
+baseline, NOT an NNLO-matched Zee NP prediction. DO NOT combine
+'new 2026 SM BR + old SuperIso deltaBR_legacy' and label it
+physical NNLO. The Wilson matching/evolution, interference
+and uncertainties are scheme dependent.
+
+The minimum-BR sample at gamma=1.431680 has
+sin²(2gamma)≈0.075, and independently validated *analytic*
+Z-only charge-summed cross section ≈0.112 fb at 1.5 TeV:
+flavor suppression via singlet mixing comes at significant cost
+to asymmetric charged-pair collider production. Other low-BR
+samples have higher rates and merit Pareto analysis (small
+legacy deltaBR vs large sigma or conditional truth yield).
+
+**Updated decision:** neither declare the 43 points experimentally
+excluded nor promote to allowed. Do not spend on Delphes.
+Report a provenance-consistent 43-point deltaBR–sigma Pareto
+frontier, then resolve modern two-state b->s gamma normalization
+and current combined experimental/theory likelihood before
+selecting physical benchmarks. For Type-II-like quarks, charged
+mass eigenstates contribute to Wilson coefficients with the
+doublet weights cos²gamma and sin²gamma at matching, not as
+a naive sum of charged-Higgs branching fractions.
+
+
+## Step L — P2L 43-point A1V deltaBR–collider Pareto frontier, and SM-baseline ERRATUM (2026-10-17)
+
+User joined the 43-point scalar/EWPO-screened lighter spectra to
+Gate A1V `scan_flavour_only.csv`, matching all four charged-flavor
+inputs exactly, and obtained 13 nondominated points when minimizing
+`full_Zee_BR - SM_BR` and maximizing analytic, both-charge Z-only
+sigma at sqrt(s)=1.5 TeV. Representative records:
+
+| Candidate | mH1, mH2 [GeV] | gamma | deltaBR_legacy [10^-4] | sigma_Z [fb] | conditional Zll truth (0.5 ab^-1) |
+|---|---|---|---|---|---|
+| P2L_0001962 | 275.4,560.8 | 1.432 | +0.5466 | 0.1115 | 0.46 |
+| P2L_0002450 | 301.3,567.0 | 1.144 | +0.6274 | 0.8014 | 16.78 |
+| P2L_0002457 | 297.4,579.1 | 1.023 | +0.6780 | 1.0929 | 25.29 |
+| P2L_0002267 | 299.6,555.8 | 0.979 | +0.7197 | 1.2405 | 32.00 |
+| P2L_0000563 | 225.5,527.7 | 0.832 | +0.9924 | 1.6452 | 44.29 |
+| P2L_0000481 | 258.8,482.7 | 0.717 | +1.0209 | 1.7021 | 35.73 |
+
+**ERRATUM — earlier Step K erroneously compared/identified
+A1V's SM reference as 3.9250054453230092e-4.**
+That number came from a separate A1U *fixed-low* diagnostic,
+and must not be asserted to equal the within-run `SM_BR` in
+the A1V Pareto data. The user's printed A1V results imply a
+lower common SM reference around **3.38e-4**, e.g.
+3.93e-4 - 0.5466e-4 ~ 3.3834e-4.
+This is an approximation using rounded printed absolute BRs,
+**NOT independent verification of the exact SM_BR field**.
+Before assigning physical significance, read the original
+`SM_BR` values from `scan_flavour_only.csv` and verify
+their uniqueness and consistency with the A1V `SM_BR` column.
+The C backend defines its SM rate as the unperturbed
+k=0 Wilson-coefficient member `b0 = br[1]`, independently
+checked by `real_br(&sm,...)`. It must not be substituted
+with A1U fixed-low SM.
+
+The primary Misiak et al. 2026 updated calculation is
+https://arxiv.org/abs/2608.29863, reporting
+BR_SM=(3.54 +/- 0.14)e-4, BR_exp=(3.49 +/- 0.19)e-4
+(Egamma>1.6 GeV) and a **95% CL single-Type-II-2HDM
+charged-Higgs lower mass bound 670 GeV**. This does not
+directly exclude either Zee mass eigenstate: both charged
+doublet fractions enter the Wilson coefficients, approximately
+cos²gamma C7,8^TypeII(mH1) +
+sin²gamma C7,8^TypeII(mH2) in the alignment/quark
+Yukawa convention being screened.
+
+The Pareto frontend's small-legacy-deltaBR points sacrifice
+gauge-production rate; the maximum-rate ones have
+deltaBR_legacy around +1e-4. It is inappropriate to
+treat `deltaBR_legacy` as an NNLO correction to be
+naively added to Misiak 2026 SM. These numbers point to
+potential modern-flavor tension, not a calibrated 95% CL
+exclusion. P2L_0002457 is a useful *conditional study point*:
+mH1~297 GeV (b-rest momentum ~98.6 GeV), mH2~579 GeV,
+sigma~1.093 fb, deltaBR_legacy~0.678e-4;
+it is explicitly NOT currently "allowed".
+Prioritize modern two-state Wilson-matching and full-theory
+uncertainty validation before committing to MG5 cascades or
+detector-level publication claims.
+
+**One-line AF check** to settle A1V SM baseline:
+```bash
+python3 - <<'PY'
+import pandas as pd
+p='work/zee_muon_P2_light_A1V_flavour_v1/scan_flavour_only.csv'
+d=pd.read_csv(p)
+print('A1V SM_BR unique values:',d.SM_BR.unique())
+print('A1V SM range:',d.SM_BR.min(),d.SM_BR.max())
+print('A1V NP shifts range:',(d.full_Zee_BR-d.SM_BR).min(),(d.full_Zee_BR-d.SM_BR).max())
+PY
+```
+
+
+## Step M — A1V SM baseline independently reported by the actual 43-point AF run
+
+The user supplied `pandas.DataFrame.describe()` directly from
+`work/zee_muon_P2_light_A1V_flavour_v1/scan_flavour_only.csv`:
+
+- `SM_BR`: **3.382458e-4** uniformly across all 43 points
+  (standard deviation 5.49e-20).
+- `full_Zee_BR-SM_BR`: **+0.55 to +1.06** in units 1e-4;
+  mean **+0.78e-4**, std **0.12e-4**.
+- `linear_delta_BR`: mean **+0.74e-4**, range
+  **+0.53 to +0.99e-4**.
+- `quadratic_delta_BR`: mean **+0.04e-4**, range
+  **+0.02 to +0.07e-4**.
+- `max |delta - linear - quadratic|=7.939070408025106e-17`.
+
+This directly and decisively **corrects the earlier Step K
+incorrect A1U fixed-low SM=3.925e-4 statement**:
+A1V's exact within-run k=0 SM reference, controlled by C backend
+`b0=br[1]` and independent `real_br(&sm,...)` call,
+is 3.382458e-4. Nearly 95% of the mean NP branching-ratio
+increase is interference; the smaller quadratic term cannot
+resolve the positive shift.
+
+**Physics priority is now decisive under the Type-II-like quark
+assumption.** Florentino et al (2021), EPJC 81 1148,
+Sec. 4.3.2, explicitly showed both charged Higgs states
+below their old 580-GeV Type-II threshold were outside their
+B->Xs gamma band. The 2026 Misiak et al.
+arXiv:2608.29863 modernized single-Type-II lower bound is
+670 GeV at 95% CL, with SM 3.54 +/-0.14 e-4 and experiment
+3.49 +/- 0.19 e-4. **All 43 new P2L candidates have both
+charged masses below 670 GeV**. The Yukawa mixing does not
+yield opposite-signed quark-loop contributions:
+X1=tan(beta)cos(gamma), Y1=cot(beta)cos(gamma);
+X2=-tan(beta)sin(gamma), Y2=-cot(beta)sin(gamma);
+hence X_i Y_i* are nonnegative cos²/sin² weights.
+A two-state NNLO confidence-level calculation has NOT
+been performed, so no literal model-wide CL exclusion
+should be claimed yet.
+
+**Low-cost diagnostic next:** for all 43 original P2L tanbeta
+values, run A1V *at the same tanbeta* with
+`mH1=670,mH2=700,gamma=0`, yielding a **single**
+physical-quark-Type-II charged scalar at 670 GeV (H2 decoupled).
+Compare each `deltaBR_Zee` against the single-Type-II
+`deltaBR_670` using the SAME legacy SuperIso internals,
+and verify its SM_BR agrees with the P2L SM_BR. A finding
+`deltaBR_Zee > deltaBR_670` uniformly would be a strong
+*within-the-same-legacy-scheme* ranking of flavor pressure,
+though still not a 2026 95%-CL two-state exclusion.
+This control does not require new model/UFO generation.
+
+No Delphes yet, and do not prioritize light mH2~500-GeV
+collider yields until this flavor risk is settled.
+
+
+## Step N — user-provided same-scheme 670-GeV Type-II reference comparison (2026-10-17)
+
+The user generated a 43-row counterfactual A1V input grid
+(mH1=670 GeV, mH2=700 GeV, gamma=0; *each original P2L
+candidate's own tan(beta)*), computed it with the same
+source-pinned Gate A1V legacy SuperIso backend, then compared the
+new-physics-only shifts pointwise.
+
+Reported:
+- maximum |`SM_BR_P2L-SM_BR_typeII670`| = **0**;
+- `R_i=(BR_Zee_i-SM_BR_i)/(BR_typeII670_i-SM_BR_670_i)`:
+  **43/43** > 1,
+  **min=1.299361**, **median=1.864539**,
+  **mean=1.857312**, **max=2.502413**,
+  sample stdev=0.280921.
+
+The larger shifts are NOT an artifact of different SM baseline
+normalizations. Together with 2026 single-Type-II 670-GeV
+reference bound (Misiak et al. arXiv:2608.29863), and the
+earlier Zee two-state Type-II flavor discussion (Florentino
+et al. EPJC 81 (2021) 1148), this is STRONG within-scheme
+evidence that the 43 collider-optimized mH2~500–580-GeV
+points are a poor priority for a physical muon-collider
+publication. **No formal modern 95% CL Zee exclusion has
+been computed.** Never label these scans a new 2026
+two-state NNLO limit or an allowed-/excluded-volume fraction.
+
+**Stop** Delphes and extra MG5 decay production at these 43 points.
+
+**Next low-cost physics question**: can one obtain substantial
+mu+mu- Z-only mixed-pair production, scalar/EWPO viability,
+and a smaller A1V flavor correction than the 670-GeV
+single-Type-II benchmark, by making H2 significantly heavier
+and reducing the light state doublet fraction?
+
+Use EXISTING (not new) targeted correlated scalar search:
+```bash
+python3 scripts/zee_muon_targeted_light_scalar_scan.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/all_screened_candidates_NOT_ALLOWED.csv \
+  --targets 250:750,300:750,300:850,350:950 \
+  --trials-per-target 750 --sources 32 \
+  --quadrature-nodes 64 --seed 20261018 \
+  --output-dir work/zee_muon_P2_heavier_scalar_target_pilot_v1
+```
+Note: script name still says 'light' but input `--targets`
+is generalized within the B4 domain. These four target pairs
+remain accessible at 1.5 TeV if m1+m2<1500 GeV.
+The B4 correlated proposal method does NOT sample uniformly
+or prove exclusions if no survivors.
+
+Then use A1V on the accepted new
+`all_screened_candidates_NOT_ALLOWED.csv` (only if nonempty).
+Generate a TypeII-670 reference grid with gamma=0 at
+each distinct accepted tanbeta; compute A1V same scheme
+and compare the NP shift ratios. **Crucially**, individual
+A1V candidate `SM_BR` must match its same-scheme reference;
+do not substitute the A1U fixed-low SM value.
+
+Do not call R<=1 "experimentally allowed": the threshold is a
+same-legacy-backend ranking proxy, not a calibrated two-state
+2026 NNLO likelihood. Once points with lower flavor pressure
+and useful rates are found, prioritize NNLO validation and
+full neutrino/LFV/HiggsTools constraints, followed by
+detector-level feasibility and muon BIB.
+
+
+### Step N.1 — lower-cost order of work: check existing 314 B4 points first
+
+Before executing the *new* targeted 750–950-GeV mass search
+recommended above, use the already-known **314** scalar/EWPO
+accepted original B4 points (m2 extends to 725 GeV) and apply
+the very same within-A1V TypeII-670-Gev control. This costs no
+new scalar-screening or UFO generation; it checks whether the
+current B4 neighborhood already contains Zee spectra with both
+interesting 1.5/3 TeV gauge pair rates and legacy NP flavor
+shift below its same-scheme 670 reference.
+
+```bash
+cd /home/aalida/zee
+python3 scripts/gateA1v_run_legacy_response.py \
+  --vendor-root work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --a1u-result work/gateA1u_legacy_zee_br_v1/legacy_two_state_br.json \
+  --grid-csv work/gateB4_zee_adaptive_pilot/all_screened_candidates_NOT_ALLOWED.csv \
+  --max-points 1000 --skip-scale-diagnostic \
+  --output-dir work/zee_muon_P2_B4_314_A1V_v1
+```
+
+Only if none of those 314 satisfy the legacy ratio<1
+with useful σ should the targeted new search be the immediate
+next resource-intensive task. Otherwise prioritize individual
+modern flavor and experimental completion for the best
+B4 mass/mixing candidates. At all stages maintain
+NOT_ALLOWED labels until full physical constraints pass.
+
+
+## Step O — 314 B4 flavor scan completed, pending reference ratios (2026-10-17)
+
+The user ran the source-pinned A1V legacy SuperIso backend on the
+full 314-spectra B4 scalar/EWPO-screened CSV. The scan succeeded:
+`NUM_FLAVOUR_ONLY_POINTS 314`, output
+`work/zee_muon_P2_B4_314_A1V_v1/scan_flavour_only.csv`.
+
+The printed `LEGACY_ZEE_BR 0.000393119540782089`,
+`LINEAR_NP_SHIFT 5.2841906932436e-05`, and
+`QUADRATIC_NP_SHIFT 2.03186144557367e-06` are for the
+**fixed A1V original 300/700 benchmark check**, not
+distributional statistics of the 314 scanned spectra.
+Do NOT infer whether any of the 314 improves on Type-II-670
+until their per-point reference comparisons are executed.
+
+The new `scripts/zee_muon_compare_B4_A1V_typeII670.py` reuses
+the **already built** A1V executable from that run and
+the 314 A1V CSV records. It reruns the same code with
+mH1=670 GeV, mH2=700 GeV, gamma=0 for every point's
+actual tanbeta; checks row-by-row four-value identity, exact
+same-scheme SM reference closure, exact interference-plus-
+quadratic decomposition, and positive reference shifts.
+It then reports how many `R_legacy_Zee/TypeII670<1`
+and ranks these NOT-ALLOWED candidates by gauge-only muon
+cross section at 1.5 and 3 TeV with the already MG5-matched
+alpha/GF/MZ scheme, plus conditional included-width
+Zll→tb tb truth ceilings at 0.5 ab^-1.
+
+Run on AF:
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_muon_compare_B4_A1V_typeII670.py' -v
+python3 scripts/zee_muon_compare_B4_A1V_typeII670.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/all_screened_candidates_NOT_ALLOWED.csv \
+  --a1v-csv work/zee_muon_P2_B4_314_A1V_v1/scan_flavour_only.csv \
+  --a1v-executable work/zee_muon_P2_B4_314_A1V_v1/gateA1v_legacy_response \
+  --output-dir work/zee_muon_P2_B4_314_same_typeII670_v1
+```
+
+Interpretation: R>=1 across all 314 signals strong
+*within-A1V* flavor pressure and suggests redirecting to a
+correlated mH2~750–950 GeV scan. Some R<1 would justify
+prioritizing those benchmarks for **modern independent
+two-state NNLO matching**, but does not establish physical
+viability or override missing HiggsTools, full LFV, full
+widths or muon-collider backgrounds/BIB.
+
+
+## Step P — completed same-scheme reference comparison across original 314 B4 spectra (2026-10-17)
+
+The user successfully compared all 314 B4 scalar/EWPO-screened
+spectra (mH1=201–372 GeV, mH2=593–725 GeV)
+to a single Type-II charged scalar at 670 GeV in the
+same Gate A1V 2-state legacy SuperIso backend with the
+original candidate's own tan(beta):
+
+- `SM_BASELINE_MATCH True` (exact zero baseline difference);
+- `R_670 min = 1.0475162`;
+- `R_670 median = 1.2747053`;
+- `R_670 max = 1.6788488`;
+- **0 of 314** have `R_670 < 1` (all have a larger
+  NP shift than the single 670 GeV reference).
+- Five closest: `B4_0001169` R=1.04752,
+  sigma_1500=0.16905 fb; `B4_0001115` R=1.06042,
+  sigma=0.19841 fb; `B4_0000956` and `B4_0001000`
+  R=1.06889, sigma=0.25164 fb; `B4_0001056`
+  R=1.08381, sigma=0.2042 fb.
+
+**Interpretation:** the original (mostly ~300/700-GeV) B4
+mass neighborhood joins the 43 lighter P2L points in a
+strong *legacy-scheme flavor-tension pattern*. This is
+much more relevant to the muon-paper decision than any
+single benchmark cross section. The closest R=1.0475
+is only 4.75% above its matched reference, well within
+potential higher-order/theory-scheme effects, and an R
+ratio is NOT a confidence level or proof of physical
+exclusion. The Misiak et al 2026 single Type-II 670-GeV
+bound is verified on arXiv 2608.29863, but is NOT directly
+a Zee two-charged-Higgs mass bound.
+
+**Decision:** pause further MG5 or Delphes for both these
+screened samples; test *correlated heavier* scalars first,
+especially mH2~750–950 GeV with a light H1 and reduced
+light doublet fraction. Modern two-charged NNLO matching
+and full flavor/neutrino/Higgs constraints remain mandatory
+before any "experimentally allowed" claim.
+
+**Scanner correction:** the existing
+`zee_muon_targeted_light_scalar_scan.py` originally
+always selected seeds closest to (mH1=275,mH2=593) GeV
+even when searching (350,950) GeV. Commit f75be080
+fixes this *proposal selection bias*, selecting independent
+closest B4 screened seeds for each requested target.
+It does not change sufficient scalar BFB, unitarity,
+the EWPO Gaussian ellipsoids, or any physics cut.
+The script name is historical; `--targets` supports
+heavier masses in its original 200–720/1600 GeV domain.
+
+Next AF pilot (new output folder):
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_muon_targeted_light_scalar_scan.py' -v
+
+python3 scripts/zee_muon_targeted_light_scalar_scan.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/all_screened_candidates_NOT_ALLOWED.csv \
+  --targets 250:750,300:750,300:850,350:950 \
+  --trials-per-target 750 --sources 32 \
+  --quadrature-nodes 64 --seed 20261018 \
+  --output-dir work/zee_muon_P2_heavier_scalar_target_pilot_v1
+```
+
+This computes only correlated scalar/EWPO-survival and a
+gauge-only conditional cascade yield; it does not
+calculate a flavor observable or experimental exclusions.
+A zero-survivor outcome from these 3000 stochastic
+proposals does NOT exclude the heavier region.
+
+If candidates survive, run A1V on that *new* CSV, then
+the already tested same-backend `zee_muon_compare_B4_A1V_typeII670.py`
+with its own B4/A1V inputs; return especially
+`NUM_R_LESS_1` and gauge cross sections.
+
+
+## Step Q — Actual heavier mH2 750–970 GeV targeted Zee scalar/EWPO search (2026-10-17)
+
+User ran `scripts/zee_muon_targeted_light_scalar_scan.py` with four
+heavy target mass pairs (250,750), (300,750), (300,850),
+(350,950) GeV, 750 proposals per target (3,000 total).
+The improved per-target source selection was applied.
+
+User-reported:
+- `SCALAR_STU_PASSES=19`; `DISTINCT_SCREENED_SPECTRA=19`.
+- stage counts: scalar BFB/tree-unitarity fail **2936**;
+  outside B4 domain **20**; mass/decay domain **4**;
+  scalar pass **40**; correlated STU 95% fail **21**.
+  A scalar+STU pass requires the original unchanged Gate B4
+  sufficient BFB, tree unitarity and both correlated Gaussian
+  oblique ellipsoid screens. Acceptance 19/3000 ~0.63%
+  is proposal-specific, NOT allowed parameter volume.
+
+Top spectra per target (Z-only, both charges, sqrt(s)=1500 GeV,
+and illustrative 0.5 ab^-1 conditional truth
+H1H1Z→(tb)(tb)(ee or mumu), *NOT* complete model BRs):
+- `P2L_0000243`: m1=241.1, m2=752.0 GeV,
+  gamma=1.042, sigma=0.72523 fb,
+  conditional Zll ceiling=15.62.
+- `P2L_0001100`: m1=296.4, m2=754.6 GeV,
+  gamma=1.028, sigma=0.67006 fb,
+  conditional Zll ceiling=18.89.
+- `P2L_0001834`: m1=268.5, m2=814.7 GeV,
+  gamma=1.128, sigma=0.43829 fb,
+  conditional Zll ceiling=11.43.
+- `P2L_0002810`: m1=347.9, m2=968.8 GeV,
+  gamma=1.022, sigma=0.17954 fb,
+  conditional Zll ceiling=4.60.
+
+All four chosen 'best' candidates are provisional scalar/EWPO
+points: there is no full Zee two-charged NNLO
+B→Xsγ likelihood, HiggsTools, LFV/neutrino likelihood,
+global vacuum or detector/BIB study, and NO model-allowed
+classification. None of the four rates is a new MG5 calculation,
+although the gauge cross-section analytic scheme has been
+independently matched to MG5 at the separate B4_0000318 point.
+
+**Immediate next physics gate — run A1V and the same-backend
+single Type-II 670-GeV comparator on these exact 19 rows:**
+
+```bash
+cd /home/aalida/zee
+python3 scripts/gateA1v_run_legacy_response.py \
+  --vendor-root work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --a1u-result work/gateA1u_legacy_zee_br_v1/legacy_two_state_br.json \
+  --grid-csv work/zee_muon_P2_heavier_scalar_target_pilot_v1/all_screened_candidates_NOT_ALLOWED.csv \
+  --max-points 1000 --skip-scale-diagnostic \
+  --output-dir work/zee_muon_P2_heavier_19_A1V_v1
+
+python3 scripts/zee_muon_compare_B4_A1V_typeII670.py \
+  --b4-csv work/zee_muon_P2_heavier_scalar_target_pilot_v1/all_screened_candidates_NOT_ALLOWED.csv \
+  --a1v-csv work/zee_muon_P2_heavier_19_A1V_v1/scan_flavour_only.csv \
+  --a1v-executable work/zee_muon_P2_heavier_19_A1V_v1/gateA1v_legacy_response \
+  --output-dir work/zee_muon_P2_heavier_19_same_typeII670_v1
+```
+
+Prior smaller samples: 43/43 light P2L and 314/314
+original B4 screened points have R_670 > 1 in the SAME
+source-pinned legacy A1V scheme. If none of the new 19 has
+R_670 < 1, that is strong evidence that this sampled parameter
+corridor is flavor-pressured, but does NOT constitute a Zee-wide
+theorem, a 2026 95%-CL exclusion or a completed modern
+two-state NNLO calculation. If one or more has R<1 and
+useful sigma, prioritize an independent modern two-state
+matching/uncertainty and complete physical constraints
+before further MadGraph/Delphes.
+
+
+## Step R — the first three sub-reference flavor-shift spectra (2026-10-17)
+
+The 19 heavier Zee scalar/EWPO-screened spectra were passed through
+the same A1V-within-scheme Type-II 670-GeV comparator. The user
+reports:
+
+```
+B4_ROWS 19; SM_BASELINE_MATCH True
+RATIO_MIN_MEDIAN_MAX 0.95054921 1.155651 1.6006773
+NUM_R_LESS_1 3 OF 19
+P2L_0002092 m1=300.63 m2=866.99 gamma=1.1836
+    R=0.966 sigma1500=0.26226 fb conditional_Zll=6.30
+P2L_0000784 m1=285.73 m2=748.00 gamma=1.3110
+    R=0.9823 sigma1500=0.22056 fb conditional_Zll=4.48
+P2L_0000654 m1=270.13 m2=761.51 gamma=1.3334
+    R=0.9505 sigma1500=0.18415 fb conditional_Zll=3.53
+PHYSICAL_95CL_EXCLUSION_COMPUTED False
+```
+
+These are **the first screened spectra with lower A1V LEGACY NP
+BR shifts than the standalone Type-II 670-GeV reference**,
+after 43+314 older spectra all had R>1. This is NOT proof of
+Zee experimental allowedness. The reference is only a
+same-legacy-scheme ordering diagnostic, not the 2026
+two-charged-Higgs NNLO likelihood.
+
+The collider limitation is now severe. The three favorable
+points imply respectively 131.1, 110.3 and 92.1 generated
+charge-summed H1 H2 pairs at sqrt(s)=1.5 TeV, 0.5 ab^-1.
+After the **included-channel-only** H2→H1 Z and the
+TWO H1→tb conditional fractions and Z→ee/mumu,
+the truth-event ceilings are 6.30, 4.48 and 3.53.
+No top decay/branching specificity, detector response,
+SM background rejection or muon beam-induced background
+has yet been applied. The assumed included-channel ratios
+are not complete Zee physical BRs.
+
+Re-evaluating the exact same matched tree-level gauge formula
+at other reference machine settings (same provisional
+conditional decay fractions held fixed):
+
+| Point | sigma3000 fb | Zll truth at 3000, 1 ab^-1 | Z→hadrons truth at 1500, 0.5 ab^-1 |
+|---|---:|---:|---:|
+| P2L_0002092 | 0.24569 | 11.80 | 65.4 |
+| P2L_0000784 | 0.13355 | 5.43 | 46.5 |
+| P2L_0000654 | 0.11276 | 4.32 | 36.7 |
+
+Used BR(Z→ee,mumu)=0.0673 and BR(Z→hadrons)=0.6991.
+These are estimated by scaling the user-provided *rounded*
+conditional event values and cross sections, NOT new full
+simulation. A hypothetical ε=0.3 would yield at most 1.89,
+1.34, 1.06 selected Zll events at 1.5 TeV/0.5 ab^-1,
+BEFORE physical width corrections/backgrounds.
+
+**Related 2026 muon collider literature:**
+Khiem Hong Phan and Quang Hoang-Minh Pham,
+“Charged Higgs pair production associated with neutral gauge
+bosons at future multi-TeV muon colliders,” EPJC 86 (2026)
+article 516, published 15 May 2026,
+https://doi.org/10.1140/epjc/s10052-026-15755-4 .
+They analyze mu+mu-→H+H-Z with both charged scalars equal
+mass in a Type-II/X 2HDM, including ttbbZ SM backgrounds.
+This is NOT our unequal-mass Z-mediated 2→2
+mu+mu-→H1±H2∓ followed by H2±→H1±Z:
+same reconstructed ttbbZ final state but distinct
+production/decay topology and on-shell H1Z cascade.
+However, the prior-study result that ttbbZ production
+is challenging after tag/decay effects poses a
+**real novelty/reach hurdle**; don't claim novelty
+only because the gauge production is distinct.
+
+### Minimal next HEP check before additional event generation
+
+Take the THREE P2L IDs above; use the original B4
+targeted heavy scan CSV for full scalar inputs and
+its singlet quartics, without modifying them.
+Run the existing B2 neutrino-compatible f/Y
+families and B3 general-Zee leptonic width replacement
+to see if the already small included-channel truth
+ceilings decrease significantly. B2 optimizes only a
+PARTIAL LFV score, not all physical LFV. Even if
+B3 retains these ceilings, full experimental
+constraints remain blocked.
+
+```bash
+cd /home/aalida/zee
+python3 - <<'PY'
+import csv
+from pathlib import Path
+src=Path('work/zee_muon_P2_heavier_scalar_target_pilot_v1/all_screened_candidates_NOT_ALLOWED.csv')
+dst=Path('work/zee_muon_P2_heavier_3_flavorpriority_NOT_ALLOWED.csv')
+ids={'P2L_0002092','P2L_0000784','P2L_0000654'}
+with src.open(newline='') as f:
+    reader=csv.DictReader(f)
+    rows=[row for row in reader if row['id'] in ids]
+    fields=reader.fieldnames
+assert {row['id'] for row in rows}==ids and len(rows)==3
+with dst.open('w',newline='') as f:
+    writer=csv.DictWriter(f,fieldnames=fields)
+    writer.writeheader()
+    writer.writerows(rows)
+print(dst)
+PY
+
+python3 scripts/gateB2_zee_neutrino_family_scan.py \
+  --b1-csv work/zee_muon_P2_heavier_3_flavorpriority_NOT_ALLOWED.csv \
+  --trials-per-candidate 200 --top 5 --seed 20261017 \
+  --output-dir work/zee_muon_P2_heavier_3_B2_v1
+
+python3 scripts/gateB3_general_zee_charged_lepton_widths.py \
+  --b1-csv work/zee_muon_P2_heavier_3_flavorpriority_NOT_ALLOWED.csv \
+  --b2-json work/zee_muon_P2_heavier_3_B2_v1/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --top 5 --output-dir work/zee_muon_P2_heavier_3_B3_v1
+```
+
+Inspect
+`work/zee_muon_P2_heavier_3_B3_v1/cascade_width_corrected_NOT_ALLOWED.csv`
+for B3's partial-channel ratios `BR_H2_H1Z_included_general_Zee`
+and `BR_H1_tb_included_general_Zee`. They remain upper-style
+conditional fractions (NOT full physical branching ratios).
+For collider utility the production times
+`[BR(H2→H1Z)]×[BR(H1→tb)]²×BR(Z→channel)` must be used,
+NOT the older B3 `sin²(gamma)×BR(H2→H1Z)×BR(H1→tb)`
+metric (that ranks a DIFFERENT production/decay sequence).
+
+Paper 2 next formal gate: validated modern NNLO two-state
+B→Xsγ with uncertainties + complete general-Zee LFV,
+HiggsTools and full widths. If 1.5/3 TeV ee/mumu
+conditional yields remain single digits, treat that channel
+as a likely detector-level no-go and assess hadronic Z
+only after a fast, explicit SM-background/BIB feasibility
+and 2026 equal-mass H+H-Z prior-art comparison.
+
+
+## Step S — actual B2/B3 three-point neutrino and charged-lepton-width closure (user AF, 2026-10-17)
+
+Three heavier spectra were selected after the same-legacy-A1V
+comparison (each with R_670<1, NOT physically allowed). The user ran:
+
+- `gateB2_zee_neutrino_family_scan.py` with 200 trials per point:
+  **200/200 algebraically neutrino-closed and perturbative for each
+  of the 3 scalar spectra**. Best `partial_LFV_score_NOT_EXCLUSION`
+  (ratio to the experimental reference for the implemented subset only):
+  P2L_0002092 **5.143029339e-9**,
+  P2L_0000784 **2.412926803e-8**,
+  P2L_0000654 **1.365116022e-6**.
+  This is NOT complete LFV, nor an oscillation/cosmology likelihood.
+- `gateB3_general_zee_charged_lepton_widths.py`:
+  15 retained f/Y solutions, 5 per point; every one includes
+  EXACT numerical one-loop neutrino-matrix closure
+  ~1e-17–1e-16 eV (some up to 7.2e-16 eV).
+
+Best-ranked B2 solution, B3 INCLUDED-channel conditional
+fractions (the old Type-II charged-lepton tau width is explicitly
+replaced by Zee f/Y contributions):
+
+| Point | BR2(H2->H1Z) | BR1(H1->tb) | conditional Zll truth, 1.5 TeV, 0.5 ab^-1 | conditional hadronic Z truth |
+|---|---:|---:|---:|---:|
+| P2L_0002092 | 0.71436082246 | 0.99999268631 | 6.3042 | 65.4866 |
+| P2L_0000784 | 0.60332850657 | 0.99993546109 | 4.4772 | 46.5087 |
+| P2L_0000654 | 0.59464993985 | 0.97813396109 | 3.5255 | 36.6217 |
+
+These calculations use respectively sigma_Z_both_charges =
+0.26226, 0.22056, 0.18415 fb at 1500 GeV,
+N_pair = 500 sigma (0.5 ab^-1),
+BR(Z->ee,mumu) = .0673,
+BR(Z->hadrons) = .6991. Critically:
+`N(H1H1Z->tb tb Z)= N_pair * BR(H2->H1Z)
+ * [BR(H1->tb)]**2`.
+Do NOT substitute B3's **single-H1** metric
+`sin²(gamma)*BR2*BR1`, which is not the event rate
+for this pair-production cascade.
+
+A corrected small-lepton-width inventory **does not rescue**
+the leptonic-Z yield: the favored candidate still has
+only 6.3 truth ee/mumu Z decays at benchmark luminosity,
+before top decays, b-tagging, acceptance, muon BIB and
+SM irreducible background. Even 30% overall signal selection
+efficiency would imply under 2 selected events for that
+point at 1.5 TeV, 0.5 ab^-1. Hadronic Z increases raw
+events to 65.5 at most but must then pay top decay
+branchings and combinatorics / b-tagging / BIB / ttbbZ
+background. With one W->e/mu nu and one W->qq,
+the direct prompt e/mu semileptonic tt branching
+is approximately 2*.216*.674≈0.291, reducing the
+hadronic-Z best point's truth sample to about 19
+before tagging, acceptance and background cuts.
+
+**Scientific interim verdict:** The algorithmic
+B2/B3 closure is positive; the
+muon-collider-specific *detector-level* case is weak
+at the benchmark luminosities. Z-only s-channel
+production is approximately identical at e+e-
+and mu+mu- colliders of the same sqrt(s);
+no sizeable muon-specific t-channel advantage
+has yet been validated for a fully LFV-compatible
+Zee Yukawa family. The real remaining high-value
+gates are independently NNLO-calibrated two-state
+B->Xs gamma, model-complete scalar and Yukawa
+experimental constraints, and at least a bounded
+hadronic-Z SM-background/BIB reconstruction
+feasibility study. Avoid more undirected scalar
+or neutrino seed scans without a new physics
+decision criterion. No standalone Paper 2
+significance or reach can yet be claimed.

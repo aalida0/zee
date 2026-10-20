@@ -49,10 +49,17 @@ def target_neutrino_matrix():
     U = pmns()
     return U.conj() @ np.diag(masses) @ U.conj().T, masses
 
-def scalar_kappa():
-    """Chen Eq. (6): sqrt(2)*sin(2gamma)*log(m1^2/m2^2)/(16pi^2)."""
-    return float(np.sqrt(2)*np.sin(2*GAMMA) *
-                 np.log(M1*M1/(M2*M2))/(16*np.pi**2))
+def scalar_kappa(m1=M1,m2=M2,gamma=GAMMA):
+    """Chen Eq.(6): scalar-dependent Zee one-loop neutrino prefactor.
+
+    The decoupling cases m1=m2 or gamma=0,pi/2 give kappa=0 and
+    cannot produce the specified nonzero neutrino-mass target.
+    """
+    if not (np.isfinite(m1) and np.isfinite(m2) and np.isfinite(gamma) and
+            m1>0 and m2>0 and 0<=gamma<=np.pi/2):
+        raise ValueError("Invalid Zee neutrino scalar inputs")
+    return float(np.sqrt(2)*np.sin(2*gamma) *
+                 np.log(m1*m1/(m2*m2))/(16*np.pi**2))
 
 def antisymmetric_f_with_null_condition(M):
     """Choose n=(1,x,t), enforce n.T M n=0 (NOT Hermitian n^dag M n)."""
@@ -73,13 +80,15 @@ def antisymmetric_f_with_null_condition(M):
     f *= F_MAX/max(1., abs(t), abs(x))
     return f, n
 
-def solve_lepton_yukawa(f, M):
+def solve_lepton_yukawa(f, M, *, kappa=None):
     """Solve 6 complex independent symmetric entries for 9 complex Y.
 
     The minimum 2-norm solution is only a reproducibility choice:
     neutrino observables do not determine the full Yukawa matrix.
     """
-    kappa = scalar_kappa()
+    kappa = scalar_kappa() if kappa is None else float(kappa)
+    if not np.isfinite(kappa) or abs(kappa)<1e-12:
+        raise ValueError("Vanishing Zee loop prefactor forbids the required neutrino masses")
     upper = np.triu_indices(3)
     columns = []
     for i in range(3):
@@ -92,9 +101,10 @@ def solve_lepton_yukawa(f, M):
     Y_flat, _, rank, singular = np.linalg.lstsq(A, M[upper], rcond=1e-13)
     return Y_flat.reshape(3,3), int(rank), singular
 
-def reconstruct_neutrino(f, Y):
+def reconstruct_neutrino(f, Y, *, kappa=None):
     A = f @ ML @ Y
-    return scalar_kappa()*(A+A.T)*1e9  # eV
+    prefactor=scalar_kappa() if kappa is None else float(kappa)
+    return prefactor*(A+A.T)*1e9  # eV
 
 def complex_json(a):
     return {"real": np.asarray(a).real.tolist(),

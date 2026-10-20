@@ -1,0 +1,906 @@
+## Gate A1Q — independent original 2012 theory reference
+
+Scientific motivation: our **Type-II quark sector** defines the
+doublet-like charged Higgs Yukawa interactions. Adding an SU(2)L-singlet
+charged scalar and mixing it with the doublet charged state creates two
+physical charged scalars. Their Type-II quark-flavor Wilson
+contributions are proportional to the respective squared doublet
+fractions. The **full Zee model** additionally needs the antisymmetric
+singlet-lepton Yukawas and a neutrino-mass and lepton-flavor-sector
+validation; this does not automatically follow from a charged-scalar
+model scan.
+
+**Published original sources:**
+- Hermann, Misiak, Steinhauser,
+  https://arxiv.org/abs/1208.2788 (Section 2, 2012);
+- official TTP12-029 2-page original author README,
+  https://www.ttp.kit.edu/Progdata/ttp12/ttp12-029/readme.pdf;
+- official https://www.ttp.kit.edu/progdata ("TTP12-029" [Source]).
+
+The original author README specifies:
+1. c2HDM.m contains raw and effective C7/C8 and two-loop four-quark
+   matching expressions C3..C6.
+2. Original dipole operator normalization:
+   C7eff=(4π/αs)*C7+sum(yj Cj),
+   C8eff=(4π/αs)*C8+sum(zj Cj).
+   **Never apply the 4π/αs factor twice** when comparing to
+   conventional dipole Wilson coefficients.
+3. y=(0,0,-1/3,-4/9,-20/3,-80/9)
+   and z=(0,0,+1,-1/6,+20,-10/3).
+   The pinned HEPfit THDMMatching::setWCbsg() instead contains
+   **-20*C5** in its NNLO effective C8 combination.
+4. The original source includes the NNLO cH[2,i] (i=3..6),
+   cHeff[2,i] (i=7,8), and finite dipole three-loop functions
+   corresponding to Eq. (14)-(35) of the paper.
+5. r = mt²(mu0)/MH² and the mass mt is the *running* top
+   mass evaluated at the matching scale, not mt_pole.
+
+**We do not have an independently retrieved and inspected
+copy of the original c2HDM.m bytes in this PR.**
+Do not claim the original C3/C4 logarithmic prescription has
+been adjudicated: the original paper and README specify the
+notation but are not a substitute for numerically evaluating
+the complete Mathematica source.
+
+A1Q adds a **read-only provenance and source-acquisition preflight**
+(scripts/gateA1q_original_theory_preflight.py; corresponding tests)
+that verifies the exact pinned SuperIso A1M and HEPfit source hashes
+and basis structure, attempts to obtain the actual author file
+from its published archive directory, and fingerprint-checks
+Mathematica symbols before advancing to independent formula
+evaluation. **Its status deliberately remains BLOCKED**
+even if a plausible source was obtained, until the original
+expressions are independently evaluated with matching
+operator normalization. A hash of user-provided bytes alone
+is not proof of original-author authenticity.
+
+Run the preflight on AF:
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_gateA1q_original_theory_preflight.py' -v
+bash scripts/gateA1q_try_original_author_source.sh
+cat work/gateA1q_original_nnlo_theory_v1/theory_preflight.json
+```
+
+The source fetch URL in the shell is a **candidate relative to the
+known official README directory, not independently confirmed**.
+If the remote endpoint rejects it, open the official KIT
+Programs and Data site, locate TTP12-029 [Source], save the
+original c2HDM.m as
+work/gateA1q_original_nnlo_theory_v1/c2HDM.m,
+and rerun the same preflight. Never substitute a HEPfit-derived
+or SuperIso-derived replacement. Do not patch source to
+manufacture agreement.
+
+**Completion criteria still outstanding for A1Q:**
+(A) authenticate original source retrieval/provenance;
+(B) evaluate original Mathematica C3/C4 at 300,700,1000,2000 GeV
+for two matching scales, checking derivatives/log signs;
+(C) compare raw/effective C7/C8 with paper's inverse-gs²
+operator normalization and z5=+20;
+(D) record tolerance/approximation errors and fail on any
+unresolved basis or logarithmic discrepancy.
+Only then consider A1R observable-level NLO/NNLO validation.
+
+**No physical B→Xsγ exclusion or allowed Zee parameter point
+has been established in A1Q.**
+
+## Gate A1P — finite three-loop terms: measured and rounding discrepancy explained
+
+**AF finite-function audit PASS:** all 13 regression tests and actual SuperIso
+helper evaluations passed. HEPfit loader recovered 30 accessible directories
+with two stale historical directories ignored; no shared library unresolved.
+Source-hash pinned HEPfit finite terms were evaluated independently at
+fixed mt(muW)=163.10709645657508 GeV, matching log artificially set to
+zero, and two tanbeta values for decomposition.
+
+    mH [GeV]  op    cot² contribution    mixed Yukawa         total finite
+      300     C7      +0.0000143637     -0.0026431601        -0.0026287964
+      300     C8      +0.0000026436     -0.0003243810        -0.0003217374
+      700     C7      +0.0000396244     +0.0140280806        +0.0140677050
+      700     C8      -0.0000006258     -0.0130033970        -0.0130040227
+     1000     C7      +0.0000146454     +0.0106227084        +0.0106373538
+     1000     C8      -0.0000008648     -0.0095807804        -0.0095816452
+     2000     C7      +0.0000017013     +0.0052263284        +0.0052280297
+     2000     C8      +0.0000001849     -0.0041118118        -0.0041116269
+
+**Source cause:** the actual SuperIso and pinned HEPfit Type-II finite
+mixed-Yukawa functions use the same 16th-order (near-degenerate mass)
+and 5th-order (heavy charged scalar) power/log expansion structures,
+but source constants have different significant figures. At 300 GeV
+the HEPfit C7 mixed polynomial begins 12.82 + 1.663*ubar +
+0.7780*ubar²; SuperIso begins 12.8225 + 1.66323*ubar +
+0.77799*ubar². For heavy charged masses HEPfit C7 uses -572.2*r
+and -870.3*r²*log(r); SuperIso uses -572.224*r and
+-870.291*r²*log(r). The same pattern occurs in C8.
+
+Direct evaluation of the HEPfit source's *rounded* mixed-Yukawa
+polynomial expressions, subtracted from the actual compiled SuperIso
+helper outputs, reproduces all eight AF residuals:
+
+    mH      C7 mixed residual        C8 mixed residual
+    300     -0.00264316012223276    -0.00032438100372356
+    700     +0.01402808057135196    -0.01300339697481423
+    1000    +0.01062270837581281    -0.00958078042383459
+    2000    +0.00522632842056225    -0.00411181180847553
+
+The differences are small compared with the magnitudes of their
+respective SuperIso finite mixed-Yukawa terms:
+C7 0.018–0.101%, C8 0.038–0.455% across the four masses.
+
+**Conclusion:** finite-loop matching differences are quantitatively
+consistent with coefficient-rounding precision of the same published
+piecewise expansion families. No finite-loop source patch is justified
+merely to force machine-level agreement. This is not independent
+validation of the physical NNLO prediction; the original 2012
+author Mathematica supplement remains the reference for exact
+reported expansion coefficients. Outstanding issues remain the
+C3/C4 matching logarithm prescription, HEPfit NNLO C8 -20*C5
+versus authors' standard effective +20*C5, and an independent
+full Type-II branching-ratio computation with uncertainty treatment.
+
+**No physical Zee exclusion is authorized.**
+
+## AF finite-function audit: stale Key4hep LD_LIBRARY_PATH recovery
+
+The AF compiled SuperIso v5 finite NNLO helper probe **completed**
+at `mt_fixed=163.10709645657508 GeV`, emitting all 16 helper
+components (four masses × C7/C8 × cot²beta/cross term). The
+independent HEPfit finite comparator then stopped **before evaluating
+a single HEPfit finite coefficient**, because a saved
+`hepfit_runtime_library_paths.txt` from a previous AF shell
+contained at least one now-inaccessible directory. This was
+an **overly strict infrastructure guard**, not a physics
+discrepancy or an incorrectly compiled SuperIso helper.
+
+The fixed `gateA1p_audit_nnlo_finite_functions.py`:
+- retains valid directories from current and saved
+  `LD_LIBRARY_PATH` (ignoring only expired paths);
+- discovers the actual `libgsl.so.28` and
+  `libopenblas.so.0` under the same previously verified
+  Key4hep 2026-02-01 architecture/release, if accessible;
+- permits explicit, real SONAME directories through
+  `GATE_A1P_GSL_LIBDIR`/`GATE_A1P_OPENBLAS_LIBDIR`;
+- checks the HEPfit executable's **actual** dependencies
+  with `ldd` before trying any numerical matching;
+- records the retained/stale runtime paths in
+  `hepfit_finite_runtime_paths.json` and the loader
+  output in `hepfit_finite_runtime_ldd.log`;
+- refuses unresolved dependencies; does **not** relink,
+  copy, symlink, rebuild, edit physics or alter source hashes.
+
+The runtime gate now has five new synthetic tests; the
+original eight algebraic/parser checks remain, so
+`test_gateA1p_nnlo_finite_functions.py` contains **13 tests**.
+The revised audit is committed but **has not yet been
+rerun on the AF**.
+
+**Resume with the saved 16 SuperIso finite values, no recompile:**
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+
+python3 -m unittest discover -s tests \
+  -p 'test_gateA1p_nnlo_finite_functions.py' -v
+
+python3 scripts/gateA1p_audit_nnlo_finite_functions.py \
+  --existing-result work/gateA1p_hepfit_typeii_v1/result.json \
+  --mass-input work/gateA1p_hepfit_typeii_v1/mass_input_provenance.json \
+  --superiso-finite work/gateA1p_hepfit_typeii_v1/nnlo_superiso_finite_helpers.txt \
+  --hepfit-binary work/gateA1p_hepfit_typeii_v1/hepfit_matching \
+  --superiso-source work/gateA1m_isolated_nlo_v1/isolated_superiso/src/wilson.c \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --hepfit-source work/gateA1p_hepfit_typeii_v1/HEPfit_THDMMatching.cpp \
+  --hepfit-provenance work/gateA1p_hepfit_typeii_v1/hepfit_provenance.json \
+  --library-paths work/gateA1p_hepfit_typeii_v1/hepfit_runtime_library_paths.txt \
+  --output work/gateA1p_hepfit_typeii_v1/nnlo_finite_function_audit.json
+```
+
+If the binary still cannot resolve GSL/OpenBLAS,
+inspect `hepfit_finite_runtime_ldd.log`.
+For the original AF Key4hep release, the known real library dirs were:
+
+```text
+/cvmfs/sw.hsf.org/key4hep/releases/2026-02-01/x86_64-almalinux9-gcc14.2.0-opt/gsl/2.8-rqwj7y/lib
+/cvmfs/sw.hsf.org/key4hep/releases/2026-02-01/x86_64-almalinux9-gcc14.2.0-opt/openblas/0.3.30-fvauzm/lib
+```
+
+Those are a **previously observed runtime**, not guaranteed
+available in every AF session; explicit override variables
+can select them when they are actually mounted.
+
+The finite C7/C8 NNLO decomposition, original-author
+`c2HDM.m` validation, complete Type-II BR and any Zee
+physical exclusion remain pending.
+
+## Gate A1P FINITE NNLO diagnostic: isolate three-loop piecewise functions
+
+**AF independent-basis result CONFIRMED**: the corrected HEPfit C8
+`z5=-20` source correction and SuperIso `z5=+20` standard-basis
+conversion passed. The true matched **direct** C7/C8 NNLO
+differences SuperIso−HEPfit are:
+
+    mH [GeV]      ΔC7 direct       ΔC8 direct
+      300        −0.0026287964     −0.0003217374
+      700        +0.0140677050     −0.0130040227
+     1000        +0.0106373538     −0.0095816452
+     2000        +0.0052280297     −0.0041116269
+
+The 2012 original authors [arXiv:1208.2788](https://arxiv.org/abs/1208.2788)
+compute three-loop finite dipole functions using **piecewise
+small/intermediate/large charged-mass expansions**. Their official
+[c2HDM.m README](https://www.ttp.kit.edu/Progdata/ttp12/ttp12-029/readme.pdf)
+lists the expansion families. At the four tested masses the HEPfit
+and SuperIso finite-function approximations may differ due to rounded
+coefficients and expansion truncation, but this hypothesis must be
+tested rather than asserted as an NNLO correctness result.
+
+**New isolated test (no source modifications):**
+
+1. Use the *existing* compiled HEPfit `setWCbsg` executable with
+   `muW = mt_running=163.10709645657508 GeV`, **holding the numerical
+   mt input fixed** so its matching logarithm
+   `lstmu=2*ln(muW/mt)=0`. This is an algebraic isolation, **not**
+   a physical matching-scale variation; mt is not rerun.
+2. Compute HEPfit's direct finite (C_{7,8}^{(2)}) using
+   `C7_eff − y·C3…6` and
+   `C8_code − z_HEPfit·C3…6`, where HEPfit uses `z5=-20`.
+3. Repeat HEPfit at both baseline `tanbeta` and
+   `2*tanbeta`, solving exactly for the independent finite
+   `cot²beta` and cross-coupling components.
+4. Compare those components to **actual compiled SuperIso A1M v5**
+   finite helpers `C7H2lulumt, C7H2ldlumt, C8H2lulumt,
+   C8H2ldlumt` at identical `mt²/mH²`; Type-II
+   `lambda_d*lambda_u=-1`.
+5. Emit each `cot²beta` and mixed contribution separately and
+   test closure. Original HEPfit source and A1M SuperIso
+   source SHA provenance checked before the test; no external
+   code patched or recompiled.
+
+**AF commands (reuse all earlier results):**
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+
+python3 -m unittest discover -s tests \
+  -p 'test_gateA1p_nnlo_finite_functions.py' -v
+
+bash scripts/gateA1p_run_nnlo_finite_audit.sh \
+  /home/aalida/zee/work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  work/gateA1p_hepfit_typeii_v1
+
+cat work/gateA1p_hepfit_typeii_v1/nnlo_finite_function_audit.json
+```
+
+Expected **diagnostic-only** status
+`GATE_A1P_C7_C8_FINITE_THREE_LOOP_DISCREPANCY_DECOMPOSED_NOT_NNLO_VALIDATED`.
+The program records all original inputs and the two independent
+Yukawa-structure components at 300/700/1000/2000 GeV. The optional
+`hepfit_runtime_library_paths.txt` created by the A1P resume runner
+supplies the previously resolved Key4hep GSL/OpenBLAS runtime paths.
+If absent and the HEPfit executable cannot run, restore that
+environment and rerun the same finite audit.
+
+**Strict scientific limitation:** Agreement in any of these
+components at four masses does not prove the original 2012
+piecewise approximation precision, the theoretically correct
+C3/C4 logarithmic prescription, physical BR or a Zee exclusion.
+The original authors' `c2HDM.m` predictions and full observable
+comparison must still be validated. A disagreement is documented,
+not silently patched.
+
+## Critical erratum: HEPfit uses z5=-20 in its NNLO C8 source
+
+**The prior Gate A1P “matched direct/effective” C8 table was not
+actually like-for-like.** Our own audit assumed HEPfit's
+NNLO returned C8 used the authors' standard effective-basis
+coefficient z5=+20. The pinned HEPfit source in fact contains:
+
+    CWbsgArrayNNLO[7] = ... + C3 - C4/6 - 20*C5 - 10*C6/3;
+
+while the original 2012 authors' [c2HDM.m supplementary
+readme](https://www.ttp.kit.edu/Progdata/ttp12/ttp12-029/readme.pdf)
+defines the effective-operator coefficient vector as
+
+    z=(0,0,1,-1/6,+20,-10/3).
+
+The same authors' C5 term is constructed from C3 and NLO C4
+using the conventional relation in both HEPfit and SuperIso.
+Therefore the HEPfit program's C8 coefficient is **not in
+the original paper's stated standard effective basis**. This
+is an apparent inconsistency in HEPfit's THDMMatching implementation,
+potentially a sign mistake; before reporting this upstream
+it still deserves a complete convention/normalization audit.
+
+At NNLO (within the source's own perturbative normalization):
+
+    C8eff_paper = C8code_HEPfit + 40 * C5_HEPfit.
+
+To compare *raw* coefficients, undo HEPfit's **actual** shift
+with z5=-20; to compare author's standard effective coefficients,
+apply z5=+20 to the recovered raw HEPfit C8. The previous audit
+undid the **wrong** shift (z5=+20) and therefore reported
+misleading C8 discrepancies. Corrected program:
+
+    scripts/gateA1p_audit_effective_operator_basis.py
+
+The program now explicitly verifies the pinned HEPfit source
+uses z5=-20 and the A1M SuperIso uses z5=+20, then outputs
+both reconstructed direct and standard-effective coefficients.
+It keeps original, now-labeled INVALID, C8 differences for
+traceability and adds a **40*C5_HEPfit** closure assertion.
+It does not edit SuperIso or HEPfit.
+
+Preliminary analytic expectations using the published A1P residuals
+and HEPfit's independent C3/C4/C5 formulas:
+
+    mH[GeV]  old_C8_direct   corrected_C8_direct  old_C8_eff    corrected_C8_eff
+       300    -0.045329      -0.000322             -0.045566     -0.000558
+       700    -0.038827      -0.013004             -0.039874     -0.014051
+      1000    -0.028097      -0.009582             -0.029138     -0.010622
+      2000    -0.012609      -0.004112             -0.013305     -0.004808
+
+These are **expected** recalculations, not yet independently
+executed by the corrected script on AF. In particular, the
+newly visible 700–2000 GeV residuals may reflect a distinct
+NNLO scale prescription, finite three-loop interpolation, or
+another implementation problem. The 300 GeV discrepancy
+mostly originates from the HEPfit z5 sign difference.
+
+AF: rerun the existing dipole-basis audit command below, in a
+fresh pull of the same branch. Run the updated 10-test suite.
+The output status must be
+`GATE_A1P_HEPFIT_C8_Z5_SIGN_MISMATCH_AUDITED_NOT_NNLO_PASS`.
+
+**Never modify the original HEPfit code to force agreement.
+No NNLO physics validation, model exclusion or branching-ratio
+accuracy claim follows from this diagnosis.**
+
+# Gate A1P — independent HEPfit Type-II LO/NLO/NNLO matching benchmark
+
+**Scope:** Independent matching-level comparison for the Type-II charged-Higgs
+contributions to B -> Xs gamma at 300, 700, 1000 and 2000 GeV.
+**Not** a complete independent NNLO branching-ratio prediction, and
+**not** a Zee benchmark exclusion.
+
+## Literature and independent reference
+
+Thomas Hermann, Mikołaj Misiak and Matthias Steinhauser,
+[arXiv:1208.2788](https://arxiv.org/abs/1208.2788),
+JHEP 11 (2012) 036, computed three-loop charged-Higgs matching.
+The HEPfit Collaboration independently implements the Type-II
+LO/NLO/NNLO Wilson coefficients in THDMMatching::setWCbsg:
+https://github.com/silvest/HEPfit/blob/master/THDM/src/THDMMatching.cpp.
+
+HEPfit indices 6 and 7 in its 0-based Misiak operator basis
+correspond to C7 and C8. We compare C7 and C8 at all three orders,
+C4 at NLO, and C3-C6 at NNLO: **44 comparisons** over four masses.
+
+HEPfit's code is GPL. Gate A1P fetches only the original source file
+at runtime under the ignored work/ folder, pins its Git blob to
+8029be52c3e2f83490dfe3199f80e5db484dd23b, extracts the
+unaltered upstream method, and generates a small self-contained
+C++ test harness linked to GSL. The original third-party source
+is not copied into this Zee GitHub repository.
+See upstream HEPfit doc/COPYING for terms.
+
+This procedure constitutes an independent **matching formula**
+implementation, not an independent RG or inclusive decay-rate code.
+
+## Inputs, conventions and caveats
+
+- Frozen Type-II Yukawa texture: lambda_u=cot(beta),
+  lambda_d=-tan(beta); beta=1.394 radians.
+- muW=2*mW=160.7384 GeV.
+- Candidate running mt(muW)=163.10709645657502 GeV. **Important:
+  this number was inferred from SuperIso LO C7 matching**, and
+  has NOT been independently checked against SuperIso's
+  running-top prescription. All NLO/NNLO coefficient comparisons
+  at this stage are conditional on that common mass input.
+- The A1M isolated SuperIso 5.0 library includes the confirmed
+  four-line NLO clipping correction. The official vendor tree
+  is not modified.
+- HEPfit original values and A1M charged-Higgs delta coefficients
+  are compared at the same parameters and on the same Ci^(n)
+  basis, before multiplication by powers of alpha_s/(4 pi).
+- The SuperIso A1L driver is run at gamma=0, so the light
+  charged Higgs contribution is the pure Type-II limit.
+- Pilot comparison tolerances: LO abs 1e-7 / rel 1e-6;
+  NLO abs 0.002 / rel 0.5%; NNLO abs 0.35 / rel 3%.
+  **These exploratory tolerances are not publication-level
+  precision standards**. Every NNLO residual exceeding 1% relative
+  (when its coefficient magnitude exceeds 1e-3) is separately
+  recorded as a precision-review flag, even if the broad pilot
+  tolerance technically passes. Any discrepancy must be audited
+  for scheme and NNLO expansion differences before final validation.
+
+## AF run
+
+Requires Python, GNU C/C++, curl, GSL headers/library, and the
+existing Gate A1M source and static library. Activate a CERN LCG
+view providing GSL if the host C++ environment lacks it.
+
+    cd /home/aalida/zee
+    git fetch origin gateA1p-independent-hepfit-typeii-matching
+    git switch gateA1p-independent-hepfit-typeii-matching
+
+    python3 -m unittest discover -s tests \
+      -p 'test_gateA1p_hepfit_typeii_matching.py' -v
+
+    bash scripts/gateA1p_run_hepfit_matching.sh \
+      /home/aalida/zee/work/gateA1m_isolated_nlo_v1/isolated_superiso \
+      work/gateA1p_hepfit_typeii_v1
+
+    cat work/gateA1p_hepfit_typeii_v1/result.json
+
+Runner provenance: SHA for original HEPfit source and generated
+reference, build logs, standalone ref program output per mass,
+SuperIso A1M matching program output per mass, comparison JSON,
+and source/binary hashes.
+
+To verify the actual SuperIso mt(muW) before a stronger physics
+claim, inspect the top running-mass expression in the audited
+SuperIso src/wilson.c. Once verified, rerun in a fresh output
+directory with this optional environment variable:
+
+    GATE_A1P_MT_MUW_GEV=<verified_mt_muW> \
+      bash scripts/gateA1p_run_hepfit_matching.sh \
+      /home/aalida/zee/work/gateA1m_isolated_nlo_v1/isolated_superiso \
+      work/gateA1p_hepfit_typeii_verified_mass
+
+The comparator writes a result JSON and returns a nonzero status
+when matching differences exceed the tolerances. Do not silence
+mismatches with an undocumented common scale factor.
+
+## AF recovery: reference compiled, runtime GSL missing
+
+The first AF attempt successfully downloaded and SHA-validated the
+HEPfit source and compiled the C++ reference, but execution stopped
+with:
+
+    ./hepfit_matching: error while loading shared libraries:
+    libgsl.so.28: cannot open shared object file
+
+This is a missing **runtime loader search path** for the linked GSL
+SONAME, not a physics result. The generated matching executable and
+source are already present, so do **not** rerun source preparation
+into the original output directory.
+
+The repair is in
+`scripts/gateA1p_resume_hepfit_matching.sh`: it checks the same
+pinned HEPfit source/provenance, detects the exact GSL SONAME,
+searches the GSL pkg-config package location, gsl-config prefix,
+compiler paths and inherited library paths, then sets an
+environment-scoped LD_LIBRARY_PATH. It refuses missing dependencies
+rather than replacing the GSL formula with a different implementation.
+
+The new runner also compiles
+`gateA1p_superiso_top_mass.c` against the same A1M SuperIso library,
+evaluating **the actual function from wilson.c:1599**:
+
+    running_mass(param->mtmt, param->mtmt, mu_W,
+                 param->mass_top_pole, param->mass_b, param)
+
+This measured value replaces the provisional LO-inferred
+163.10709645657502 GeV value in the independent HEPfit matching
+program. The old and new values are compared in a separate
+`mass_input_provenance.json` file.
+
+Run on the **existing AF directory**:
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+
+bash scripts/gateA1p_resume_hepfit_matching.sh \
+  /home/aalida/zee/work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  work/gateA1p_hepfit_typeii_v1
+
+cat work/gateA1p_hepfit_typeii_v1/mass_input_provenance.json
+cat work/gateA1p_hepfit_typeii_v1/result.json
+```
+
+If the required exact SONAME remains missing in the configured
+library roots, first inspect:
+
+```bash
+ldd work/gateA1p_hepfit_typeii_v1/hepfit_matching
+pkg-config --variable=libdir gsl
+pkg-config --libs gsl
+```
+
+Find the directory containing the required `libgsl.so.28` and
+pass it to the same resume command as:
+
+```bash
+GATE_A1P_GSL_LIBDIR=/absolute/directory/containing/libgsl.so.28 \
+  bash scripts/gateA1p_resume_hepfit_matching.sh \
+  /home/aalida/zee/work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  work/gateA1p_hepfit_typeii_v1
+```
+
+The code requires the matching **real** GSL SONAME and does not
+substitute a symlink to a mismatched ABI. The upstream HEPfit matching
+formulas are not modified.
+
+## AF GSL -> OpenBLAS loader follow-up (19:05)
+
+The AF runtime check resolved the exact GSL SONAME:
+`libgsl.so.28` from the Key4hep 2026-02-01 GCC 14.2.0 build.
+The next missing transitive library is `libopenblas.so.0`, even
+though the loader output identifies its real installation:
+
+```text
+/cvmfs/sw.hsf.org/key4hep/releases/2026-02-01/x86_64-almalinux9-gcc14.2.0-opt/openblas/0.3.30-fvauzm/lib/libopenblas.so.0
+```
+
+The continuation runner now resolves **both** exact libraries
+from the same architecture/release build, checks all remaining
+shared-library dependencies, and writes
+`hepfit_runtime_library_paths.txt` and
+`hepfit_runtime_ldd.log`. It does not relink or alter the
+original HEPfit formulas. The previous run stopped before writing
+the top mass or coefficient-comparison JSON.
+
+Use the **same** existing source/executable output directory
+(no re-download or A1M rebuild):
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+
+GATE_A1P_OPENBLAS_LIBDIR=/cvmfs/sw.hsf.org/key4hep/releases/2026-02-01/x86_64-almalinux9-gcc14.2.0-opt/openblas/0.3.30-fvauzm/lib \
+bash scripts/gateA1p_resume_hepfit_matching.sh \
+  /home/aalida/zee/work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  work/gateA1p_hepfit_typeii_v1
+
+cat work/gateA1p_hepfit_typeii_v1/mass_input_provenance.json
+cat work/gateA1p_hepfit_typeii_v1/result.json
+```
+
+The explicit OpenBLAS path is optional if automatic discovery
+succeeds; it is recommended in this AF environment because the
+path was established by the actual loader report. If the loader
+still fails, inspect the saved final ldd log before changing
+any scientific settings.
+
+## AF independent comparison: 44 rows, genuine NNLO discrepancies
+
+The independent AF run now reaches all 44 comparisons. The exact
+running top from SuperIso is `163.10709645657508 GeV`, differing
+from the previous LO-inferred value by `5.68e-14 GeV`. The LO and
+NLO charged-Higgs Wilson coefficients reproduce independent HEPfit
+to machine precision at 300, 700, 1000, and 2000 GeV.
+
+However, the old output `INDEPENDENT_HEPFIT_MATCHING_PILOT_WITH_NNLO_PRECISION_FLAGS`
+had **13 serious NNLO precision flags but zero failures**, solely
+because its NNLO pilot absolute tolerance was an excessive 0.35.
+This could be misread as a successful NNLO physics validation.
+
+Observed NNLO differences (SuperIso minus HEPfit):
+- 300 GeV: C3=-0.00748607, C4=+0.01826369,
+  C7=-0.02254191, C8=-0.04409420 (4.66% relative C8).
+- 700 GeV: C3=-0.00733374, C4=+0.02278235,
+  C7=+0.00047316, C8=-0.03832802 (1.29% relative C8).
+- 1000 GeV: C3=-0.00580022, C4=+0.01929193,
+  C7=+0.00025675, C8=-0.02784503.
+- 2000 GeV: C3=-0.00299341, C4=+0.01091455,
+  C7=-0.00004363, C8=-0.01259418.
+
+At **all four masses** we independently verified:
+
+    ΔC5^(2) = -ΔC3^(2)/10
+    ΔC6^(2) = -3 ΔC3^(2)/16
+
+(to numerical precision, where Δ means SuperIso minus HEPfit).
+The C5 and C6 differences are thus downstream algebraic
+consequences of the C3 difference. The independent discrepancies
+to audit are C3, C4, and the dipole remainders at NNLO.
+
+The A1P checker now reports
+`INDEPENDENT_HEPFIT_NNLO_DISCREPANCIES_BLOCK_PHYSICS_VALIDATION`
+with **nonzero** exit status for any >1% flagged NNLO
+coefficient, even when the exploratory tolerance count is zero.
+It does **not** rescale/patch any physical coefficient. A new
+source-only postprocessor reads the already completed A1P
+`result.json`, displays the C3->C5/C6 identities and source
+lines in both source files, verifies hashes, and writes
+`nnlo_diagnostic.json` and `nnlo_matching_source_excerpts.txt`.
+
+No library rebuild or HEPfit rerun is needed:
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_gateA1p_nnlo_discrepancy_diagnosis.py' -v
+python3 scripts/gateA1p_diagnose_nnlo_discrepancies.py \
+  --existing-result work/gateA1p_hepfit_typeii_v1/result.json \
+  --superiso-a1m-source work/gateA1m_isolated_nlo_v1/isolated_superiso/src/wilson.c \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --hepfit-source work/gateA1p_hepfit_typeii_v1/HEPfit_THDMMatching.cpp \
+  --hepfit-provenance work/gateA1p_hepfit_typeii_v1/hepfit_provenance.json \
+  --output work/gateA1p_hepfit_typeii_v1/nnlo_diagnostic.json \
+  --source-excerpts work/gateA1p_hepfit_typeii_v1/nnlo_matching_source_excerpts.txt
+
+cat work/gateA1p_hepfit_typeii_v1/nnlo_diagnostic.json
+cat work/gateA1p_hepfit_typeii_v1/nnlo_matching_source_excerpts.txt
+```
+
+The excerpts allow checking exact v5 C3/C4 terms and
+HEPfit's independent analytic expressions without changing
+either vendor source. Relative mismatch alone does not imply
+a large change in the final observable: all coefficients are
+defined at their perturbative order and their contributions
+carry powers of alpha_s/(4 pi). Conversely, small absolute
+numbers do not excuse lack of matching validation.
+
+**Status: NNLO matching unresolved; physical BR and Zee
+allowed/excluded decisions remain blocked.**
+
+## Analytic follow-up: C3/C4 residual is entirely from matching logarithms
+
+Using the directly evaluated `mt(muW)=163.10709645657508` GeV,
+`muW=160.7384` GeV and the four exact charged masses, an independent
+analytic calculation reproduces every observed NNLO C3 and C4
+SuperIso-minus-HEPfit difference to better than 1e-12. This uses the
+explicit rational functions `cd32ct(x)` and `cd42ct(x)` in HEPfit.
+
+**Observed structural distinction (still requires auditing EXACT v5 source):**
+
+    HEPfit:   Ci^(2) = [ n_i(x) + d_i(x) ln(muW^2/mt(muW)^2) ] / tanbeta^2
+    SuperIso: Ci^(2) = [ n_i(x) - d_i(x) ln(muW^2/mH^2) ] / tanbeta^2
+
+where i=3,4, x=mt(muW)^2/mH^2. This implies
+
+    SuperIso - HEPfit =
+      -(d_i(x)/tanbeta^2) *
+       [ln(muW^2/mH^2) + ln(muW^2/mt(muW)^2)].
+
+Independent numerical check of this equation at the four masses:
+
+    mass_GeV    observed ΔC3       predicted ΔC3     observed ΔC4       predicted ΔC4
+       300     -0.00748606876     -0.00748606876     +0.01826369180     +0.01826369180
+       700     -0.00733374263     -0.00733374263     +0.02278235277     +0.02278235277
+      1000     -0.00580022110     -0.00580022110     +0.01929192874     +0.01929192874
+      2000     -0.00299341441     -0.00299341441     +0.01091454519     +0.01091454519
+
+The public SuperIso mirror (older version) has the indicated
+`C3H_2 = G3H + Delta3H * ln(muW^2/mH^2)` and analogous C4,
+with the opposite sign for the HEPfit `cd32ct/cd42ct` terms.
+The *actual patched 5.0 source* must be checked before asserting
+that the old mirror remains identical. The new script verifies
+both precise log/sign contracts and independent source hashes.
+
+Run against the **already produced AF results**:
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+
+python3 -m unittest discover -s tests \
+  -p 'test_gateA1p_nnlo_log_difference.py' -v
+
+python3 scripts/gateA1p_verify_nnlo_log_difference.py \
+  --existing-result work/gateA1p_hepfit_typeii_v1/result.json \
+  --mass-provenance work/gateA1p_hepfit_typeii_v1/mass_input_provenance.json \
+  --superiso-source work/gateA1m_isolated_nlo_v1/isolated_superiso/src/wilson.c \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --hepfit-source work/gateA1p_hepfit_typeii_v1/HEPfit_THDMMatching.cpp \
+  --hepfit-provenance work/gateA1p_hepfit_typeii_v1/hepfit_provenance.json \
+  --output work/gateA1p_hepfit_typeii_v1/nnlo_log_difference.json
+
+cat work/gateA1p_hepfit_typeii_v1/nnlo_log_difference.json
+```
+
+This does **not** establish that HEPfit's or SuperIso's
+prescription is the theoretically correct NNLO expression;
+the matching scale/log derivative must be checked against the
+original 2HDM NNLO theory and operator definitions. **No
+automatic Wilson replacement is permitted.** In particular,
+the remaining C7/C8 residuals need separate analysis of the
+direct three-loop functions, four-quark recombination, and
+interpolation/truncation schemes. Full observable-level
+comparison and theory errors remain pending.
+
+## AF source-regex regression: compiled-helper sign gate (latest)
+
+The synthetic three-test log for `test_gateA1p_nnlo_log_difference.py`
+passed, but the source-only verifier stopped on
+`SuperIso_C3_delta_negative` and `SuperIso_C4_delta_negative`.
+These two checks **incorrectly assumed** that every SuperIso v5
+`Delta3H/Delta4H` definition literally begins
+`return -lu*lu`. Equivalent functions can distribute their
+overall sign into the parenthesized rational expressions, or
+use a different multiplication/power notation. Source-text
+factorization is not a reliable proof of the mathematical sign.
+
+The updated verifier now requires the provenance-pinned v5.0
+source **definitions** plus their actual C3/C4 matching call
+structure, and additionally requires numerical values from
+`Delta3H(x,cot(beta))` and `Delta4H(x,cot(beta))`
+compiled directly against the existing A1M SuperIso library.
+For every mass, those values must equal
+`-cd32ct(x)/tanbeta**2` and `-cd42ct(x)/tanbeta**2`
+from independently sourced HEPfit at strict floating-point
+tolerances. Eight published matching differences must *still*
+be reproduced; no formula is silently changed.
+
+Run a **single read-only audit** in the existing A1P directory
+(no GSL, HEPfit recompile or SuperIso source changes):
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+
+python3 -m unittest discover -s tests \
+  -p 'test_gateA1p_nnlo_log_difference.py' -v
+
+bash scripts/gateA1p_run_nnlo_log_audit.sh \
+  /home/aalida/zee/work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  work/gateA1p_hepfit_typeii_v1
+
+cat work/gateA1p_hepfit_typeii_v1/nnlo_log_difference.json
+```
+
+**Do not** infer a source-sign identity merely from
+`test_gateA1p_nnlo_log_difference.py` passing. Those are
+synthetic numerical controls. Only the actual pinned compiled
+SuperIso helper check, the real source contract and the AF
+matching residuals together constitute a diagnosis. If any
+helper disagrees, the audit deliberately aborts: do not accept
+the previous claimed analytic source explanation.
+
+## Primary literature cross-check and dipole operator basis (October 12, 2026)
+
+The original paper by Hermann, Misiak and Steinhauser
+([arXiv:1208.2788](https://arxiv.org/abs/1208.2788);
+JHEP 11 (2012) 036), Sec. 2.3 explicitly states that its
+two-loop C3-C6 charged-Higgs results reproduce the independent
+calculation of Bobeth, Buras and Ewerth (Nucl. Phys. B 713
+(2005) 522), and that all lower-order functions use the running
+top mass `mt(mu0)`. The three-loop C7/C8 scale terms are
+defined as logarithms `ln(mu0^2/mt(mu0)^2)` in Eqs. (14)-(17).
+
+The authors also released **the original computer-readable results**:
+[original supplementary readme](https://www.ttp.kit.edu/Progdata/ttp12/ttp12-029/readme.pdf)
+refers to `c2HDM.m`, and explicitly defines both raw and
+effective Wilson coefficient conventions. This is the preferred
+authoritative next cross-check for C3/C4 correctness and C7/C8
+matching. We have NOT yet evaluated `c2HDM.m` or proven one
+implementation correct for C3/C4 — even though the observed
+difference is fully attributed to the different explicit logs.
+
+**Important basis mismatch in initial A1P raw-C7/C8 comparisons:**
+HEPfit's `THDMMatching::setWCbsg` at NNLO constructs its dipole
+results with the four-quark effective basis shift included, while
+SuperIso's `CW_calculator` returns raw C7/C8 and its
+`C_calculator_base1` applies the shift *during RG evolution*.
+The same transformations, documented by the 2012 author
+supplement, are:
+
+    C7_eff = C7 - C3/3 - 4*C4/9 - 20*C5/3 - 80*C6/9
+    C8_eff = C8 + C3 - C4/6 + 20*C5 - 10*C6/3
+
+Thus, comparing A1P's SuperIso raw C7/C8 directly to HEPfit
+effective C7/C8 is a **mixed-basis comparison**. Its reported
+C7/C8 NNLO residuals are genuine arithmetic but must not
+be interpreted as like-for-like coefficient mismatches.
+
+The source-hashed read-only diagnostic
+`gateA1p_audit_effective_operator_basis.py` uses existing
+A1P results and source provenance to compute BOTH common-basis
+comparisons:
+
+    direct:    SuperIso raw - [HEPfit effective - shift(HEPfit C3-C6)]
+    effective: [SuperIso raw + shift(SuperIso C3-C6)] - HEPfit effective
+
+The two residuals differ *precisely* by the already-confirmed
+C3/C4 NNLO mismatch acting through the basis shift.
+They must not be conflated. No matching source or numeric
+Wilson vector is modified.
+
+Run on the AF, using existing data (no build):
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_gateA1p_effective_basis_audit.py' -v
+python3 scripts/gateA1p_audit_effective_operator_basis.py \
+  --existing-result work/gateA1p_hepfit_typeii_v1/result.json \
+  --superiso-source work/gateA1m_isolated_nlo_v1/isolated_superiso/src/wilson.c \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --hepfit-source work/gateA1p_hepfit_typeii_v1/HEPfit_THDMMatching.cpp \
+  --hepfit-provenance work/gateA1p_hepfit_typeii_v1/hepfit_provenance.json \
+  --output work/gateA1p_hepfit_typeii_v1/dipole_basis_audit.json
+cat work/gateA1p_hepfit_typeii_v1/dipole_basis_audit.json
+```
+
+A preliminary conversion from A1P data indicated NNLO differences,
+but its C8 values were **incorrect because the HEPfit implementation
+uses z5=-20 at NNLO**. Refer to the critical erratum at the top and
+rerun the corrected source-verified comparator.
+The independent original supplementary result and the full
+basis/scheme evolution remain necessary before trusting physical
+NNLO predictions.
+
+## AF regression: installed SuperIso 5 uses complex Wilson coefficients
+
+The first dipole basis source audit passed its four algebraic
+unit tests but stopped at two source-format guards:
+`SuperIso_RG_effective_C7` and `SuperIso_RG_effective_C8`.
+The verifier expected a literal `double C2w7`/`double C2w8`
+declaration. The SuperIso 5-compatible source uses
+`double complex C2w7`/`double complex C2w8`. This is a
+source-code **type-declaration mismatch** in our regex, not
+evidence that the operator transformation is absent.
+
+The corrected verifier accepts both `double` and
+`double complex`, but now checks every term in the complete
+NNLO effective-basis assignments (not only the leading C3 term).
+It will **still reject** changes of the signs or coefficients
+in front of C3, C4, C5 or C6. Four new synthetic tests exercise
+both accepted declarations, sign changes, coefficient changes
+and missing/duplicate definitions.
+
+Rerun, without rebuilding SuperIso/HEPfit:
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+
+python3 -m unittest discover -s tests \
+    -p 'test_gateA1p_effective_basis_audit.py' -v
+
+python3 scripts/gateA1p_audit_effective_operator_basis.py \
+    --existing-result work/gateA1p_hepfit_typeii_v1/result.json \
+    --superiso-source work/gateA1m_isolated_nlo_v1/isolated_superiso/src/wilson.c \
+    --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+    --hepfit-source work/gateA1p_hepfit_typeii_v1/HEPfit_THDMMatching.cpp \
+    --hepfit-provenance work/gateA1p_hepfit_typeii_v1/hepfit_provenance.json \
+    --output work/gateA1p_hepfit_typeii_v1/dipole_basis_audit.json
+```
+
+An unchanged output status
+`GATE_A1P_EFFECTIVE_OPERATOR_BASIS_CONSISTENCY_AUDIT_NOT_NNLO_PASS`
+must **not** be interpreted as theory validation.
+
+## Independent external physics validation STILL necessary
+
+1. Check exact top-mass scheme and scale, basis and perturbative
+   normalization across both implementations; repeat matching
+   around NNLO interpolation boundaries.
+2. Obtain a **full independent Type-II NNLO B -> Xs gamma curve**
+   (with documented SM masses, alpha_s, photon-energy threshold,
+   nonperturbative terms, QCD evolution and uncertainties).
+   Matching-only agreement does not verify a final branching ratio.
+3. Check all primed coefficients and contributions outside the
+   projected quark sector of the Zee model.
+4. Quantify matching/low-scale variations, experimental averages,
+   and correlated theory uncertainties before deriving exclusions.
+
+Misiak and Steinhauser, [arXiv:1702.04571](https://arxiv.org/abs/1702.04571),
+EPJC 77 (2017) 201, report Type-II 95%-CL lower mass bounds
+570–800 GeV depending on statistical construction (583 GeV
+conservative two-sided). Those bounds are **not** a numeric
+rate reference and cannot be imposed directly on the mixed
+two-charged-state Zee model.
+
+**Status: independent Type-II matching test created, AF execution
+pending; Zee BR remains a provisional candidate.**

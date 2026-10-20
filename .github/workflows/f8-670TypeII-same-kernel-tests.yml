@@ -1,0 +1,24 @@
+name: F8 309 TypeII670 Same Kernel Counterfactual Regressions
+
+on:
+  push:
+    branches:
+      - gateA1p-independent-hepfit-typeii-matching
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  f8-source-safe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile source
+        run: |
+          python -m py_compile scripts/zee_gateF8_309_670TypeII_same_legacy_kernel_and_mixing.py tests/test_zee_gateF8_309_670TypeII_same_legacy_kernel_and_mixing.py
+      - name: All eight same-legacy physical-accounting regressions
+        run: |
+          python -m unittest discover -s tests -p 'test_zee_gateF8_309_670TypeII_same_legacy_kernel_and_mixing.py' -v

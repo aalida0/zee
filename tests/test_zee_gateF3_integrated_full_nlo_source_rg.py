@@ -1,0 +1,156 @@
+"""F3 one integrated 27 Zee + dense Type-II contract test.
+
+The fake RG/EOS in this file is an EXPLICITLY synthetic test double:
+it verifies source-identity, three-order coefficient accounting, high
+matching, full NLO four-quark terms and failure to validate wrong
+sign/basis. It CANNOT certify the physical 95%CL bound.
+"""
+import math
+import sys
+import unittest
+from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import patch
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
+import zee_gateF3_fullNLO_source_RG_27 as f
+
+def synthetic_source(m1,m2,t,g):
+    w=math.cos(g)**2
+    a={}
+    for n in range(1,9):
+        c=(-.04 if n==7 else -.02 if n==8 else 0.)
+        one=c/(1.+m1/600.)
+        two=c/(1.+m2/600.)
+        a[0,n]=(one,two)
+        if n==4:c=-.008
+        a[1,n]=(c/(1.+m1/600.),c/(1.+m2/600.))
+        a[2,n]=(0.,0.)
+    return a
+
+def fake_rg(m1,m2,t,g):
+    w=math.cos(g)**2
+    source=synthetic_source(m1,m2,t,g)
+    a={}
+    for mode in range(3):
+        for n in range(1,9):
+            high0=sum((w*source[0,n][0],(1-w)*source[0,n][1]))
+            high1=(w*source[1,n][0]+(1-w)*source[1,n][1]
+                   if mode==2 or (mode==1 and n in (7,8)) else 0.)
+            a[mode,n]={
+                "high_LO":high0,"high_NLO":high1,
+                "low_LO":high0,"low_NLO":high1,
+                "low_SM_LO":0.,"low_SM_NLO":0.}
+    return a
+
+class FakePair:
+    eos_sm=3.2e-4
+    as4pi=.008
+    def __init__(self):
+        self.par={}
+        run=SimpleNamespace(get_alpha=lambda *_args,**_kwargs:{"alpha_s":.224})
+        self.flavio=SimpleNamespace(physics=SimpleNamespace(
+            running=SimpleNamespace(running=run)))
+    def prepare(self):pass
+    def eos_rate(self,low):
+        return self.eos_sm-8e-4*low.get(7,0.)-2e-4*low.get(8,0.)-2e-5*low.get(4,0.)
+    def wc(self,high):
+        return None,{n:high.get(n,0.) for n in range(1,9)}
+
+class F3Integrated(unittest.TestCase):
+    @patch("builtins.print")
+    def test_27_zee_64_typeii_complete_nlo_source_and_failclosed(self,_print):
+        models=[];rows={};f2rows=[]
+        for i in range(27):
+            m1=240.+6*i;m2=670.+12*i;t=5.6+.001*i;g=1.+.001*i
+            name=f"B4_{300+i:07d}"
+            models.append({"candidate_id":name,"mH1_GeV":m1,
+                           "mH2_GeV":m2,"tanbeta":t,"gamma":g})
+            source=synthetic_source(m1,m2,t,g)
+            w=math.cos(g)**2
+            rows[name]={(o,f"C{n}"):[
+                0.,source[o,n][0],source[o,n][1],
+                w*source[o,n][0]+(1.-w)*source[o,n][1]]
+                for o in range(3) for n in range(1,9)}
+            d=fake_rg(m1,m2,t,g)
+            pair=FakePair()
+            lo=f.net_low(d,0,.224/(4*math.pi))
+            f2rows.append({"candidate_id":name,
+                           "input_matching_order":"LO",
+                           "eos_NLO_BR":pair.eos_rate(lo)})
+        fakef2={"Zee_27_by_matching_order":f2rows}
+        # Production probe(exe, m1, m2, tanbeta, gamma) accepts a
+        # compiled-binary path first; the synthetic RG fixture models
+        # only its four physics inputs. Keep a strict adapter so the
+        # unittest checks the real call signature.
+        def mocked_probe(exe, m1, m2, tanbeta, gamma):
+            self.assertEqual(exe, Path("/no/exe"))
+            return fake_rg(m1, m2, tanbeta, gamma)
+        # The production implementation additionally calls the real
+        # wilson WCxf RGE with QED switched off. The synthetic fake has
+        # no external libraries: mock ONLY this dependency boundary.
+        with patch.object(f,"probe",side_effect=mocked_probe), patch.object(
+            f,"independent_wilson_qed_off",
+            side_effect=lambda pair,high:pair.wc(high)[1]):
+            report=f.calc(FakePair(),Path("/no/exe"),models,rows,fakef2)
+        self.assertEqual(report["status"],f.STATUS)
+        self.assertEqual(len(report["Zee_27_results"]),27)
+        self.assertEqual(len(report["TypeII_dense_results"]),2*len(f.DENSE_MASS))
+        self.assertFalse(report["summary"]["paper_ready_Zee_95CL_exclusions"])
+        self.assertFalse(report["summary"][
+            "EOS_and_SuperIso_operator_basis_fully_certified"])
+        self.assertGreater(report["summary"][
+            "max_abs_fourquark_rate_shift_conditional"],0.)
+        # New F3 QCD-order diagnosis must always emit both source
+        # LO-only and LO-plus-NLO evolution numbers. Synthetic
+        # source C1b=0 in the LO input mode, so the difference is zero
+        # by construction; a real SuperIso run determines its size.
+        self.assertIn("max_relative_QCD_LO_only_C7_C8_source_vs_wilson",
+                      report["summary"])
+        self.assertIn("max_relative_QCD_LO_only_RG_vs_F2_EOS_deltaBR",
+                      report["summary"])
+        self.assertTrue(all(
+            "EOS_source_LO_QCD_RG_ONLY_BR_conditional" in rec
+            and "EOS_source_NLO_running_shift_at_LO_matching_conditional" in rec
+            for rec in report["Zee_27_results"]))
+        self.assertTrue(report["summary"][
+            "NLO_ADM_order_not_equated_to_wilson_default_LO_QCD"])
+        self.assertTrue(report["summary"][
+            "independent_WET_wilson_QCD_LO_QED_ON_OFF_compared"])
+        self.assertIn(
+            "max_relative_QCD_LO_only_C7_C8_source_vs_wilson_QED_OFF",
+            report["summary"])
+        self.assertIn(
+            "max_relative_QCD_LO_only_RG_vs_wilson_QED_OFF_EOS_deltaBR",
+            report["summary"])
+        self.assertTrue(all("EOS_wilson_default_QED_OFF_LO_NP_conditional" in
+            row for row in report["Zee_27_results"]))
+        self.assertIsNone(report["Zee_allowed_or_excluded"])
+        x=synthetic_source(240.,700.,5.6,1.)
+        bad=fake_rg(240.,700.,5.6,1.)
+        bad[2,4]["high_NLO"]+=.01
+        with self.assertRaisesRegex(ValueError,"high NLO source mismatch"):
+            f.check_high(x,bad,math.cos(1.)**2)
+        with self.assertRaisesRegex(ValueError,"incomplete"):
+            # The real parser must fail if any (mode, operator)
+            # is missing from the external source stdout.
+            fake_lines=[
+                "STATUS F3_SOURCE_PINNED_NLO_RG_DIAGNOSTIC_NOT_BR_OR_EXCLUSION",
+                "INPUT mass1=240 mass2=700 tanbeta=5.6 gamma=1 "
+                "muW=160 mub=4.2 w1=0.2919265817264289 "
+                "w2=0.7080734182735711",
+            ]
+            for (mode,n),v in fake_rg(240.,700.,5.6,1.).items():
+                if (mode,n)==(2,4):continue
+                fake_lines.append(
+                    f"WC mode={mode} op={n} hiLO={v['high_LO']} "
+                    f"hiNLO={v['high_NLO']} loLO={v['low_LO']} "
+                    f"loNLO={v['low_NLO']} SMloLO=0 SMloNLO=0")
+            fake_lines += [
+                "F3_WC_XF_FOURQUARK_TRANSLATION_ASSUMED false",
+                "F3_EXCLUSION UNKNOWN"]
+            sub=SimpleNamespace(returncode=0,stdout="\n".join(fake_lines),
+                                stderr="")
+            with patch.object(f.subprocess,"run",return_value=sub):
+                f.probe(Path("/synthetic/never-executed"),240.,700.,5.6,1.)
+
+if __name__=="__main__":unittest.main()

@@ -1,0 +1,1296 @@
+# Q4 generator-input gate — general complex Zee UV model
+
+**19 October 2026. Status: SOURCE-DERIVED PyR@TE 3 MODEL CANDIDATE; GENERATOR NOT RUN; NO FULL BETA COEFFICIENTS VALIDATED.**
+
+## Validation handoff
+
+User-run Q3 integrated validation completed successfully: **135/135 required** + **16/16 SciPy-dependent** tests and 20/20 old B2 cases; the report is `work/zee_section8_Q3_integrated_v1/summary.json` on AF, not committed/uploaded. Q2e restricted Kanemura real-f ratio 0.965917428; Q3 exact singlet quartic minimization and synthetic counterexample checks pass. This report is numerical software consistency only, not an allowed physics point.
+
+## Source-audited generator route
+
+- **Primary:** PyR@TE 3 by Sartore–Schienbein, [arXiv:2007.12700](https://arxiv.org/abs/2007.12700), [official code](https://github.com/LSartore/pyrate). In `models/THDM.model`, the provided 2HDM already contains both doublet Yukawa tensors and lambda1..lambda7 operators. **Its illustrative `Substitutions` set lambda6=lambda7=0, impose Type-II textures and GUT-normalize g1; none of these substitutions can be copied into the general Zee UV model.**
+- Specifically, `src/Core/Lagrangian.py` lines 552–555 and 594–644 use `handleSymmetricYukawa` to infer **antisymmetric** flavor Yukawa matrices from repeated identical fermions with antisymmetric contractions. This is a critical *source-observed PyR@TE 3 capability*, unlike warnings in historical PyR@TE 1 documentation. It does NOT prove the Zee f normalization works correctly until tested against the explicit source equation.
+- In `src/Core/Lagrangian.py` lines 651–715, candidate complex scalar terms may generate conjugate terms automatically; inspect the resulting mapped Lagrangian to ensure lambda5,lambda6,lambda7,lambda10, m12, muZee and their h.c. are neither absent nor double-counted.
+- **Independent generator:** RGBeta by Thomsen, [arXiv:2101.08265](https://arxiv.org/abs/2101.08265), [official package](https://github.com/aethomsen/RGBeta). A complete separate RGBeta model file and independent one-loop outputs still have to be built. Package capability alone is not an independent validation.
+
+## Staged source-derived candidate
+
+File: `rge_models/GeneralZee_PyRATE3_CANDIDATE_NOT_VALIDATED.model`.
+
+Field content: SM quarks/leptons with three generations, two complex SU(2) doublets with Y=+1/2 and one complex SU(2) singlet `chi` with Y=+1. Includes general complex Yu1/Yu2, Yd1/Yd2, Ye1/Ye2; `f LL LL chi`; lambda1..lambda7, lambda_h, lambda8/9/10; m1, m2, m12, mchi and the Zee trilinear muZee. Conventions follow [Schmidt–Vandeleur arXiv:2512.17235v2](https://arxiv.org/html/2512.17235v2), Eqs. (3) and (4), except that the candidate is written in the standard unbroken symmetry basis rather than imposing physical alignment.
+
+Independent hypercharge checks: `LL LL chi`: (-1/2) + (-1/2) +1=0; `Phi1 Phi2 chibar`: +1/2 +1/2 -1=0; `chibar chi Phi1bar Phi2`: (-1+1) + (-1/2+1/2)=0. The Weyl contractions and f flavor index antisymmetry are NOT certified merely by hypercharge invariance.
+
+**Open normalization check:** in literature the f interaction may be defined with or without a 1/2 when summing over antisymmetric generation pairs. Match the physical matrix beta and interaction normalization to Kanemura et al., PRD64 (2001) 053007, Appendix A (A13), in the restricted real-f/top-only limit before interpreting an f beta from PyR@TE. Verify the full complex f antisymmetry under running.
+
+**Open source-to-source comparison:** exactly reproduce Ferreira–Lavoura–Silva [arXiv:1001.2561](https://arxiv.org/abs/1001.2561), Eqs. (3)–(5), by setting f=0 and removing singlet interactions, in the SAME normalization and Yukawa tensor orientation. Verify gauge coefficients in the full Zee field content b=(22/3,-3,-7), g1=gprime not GUT normalized. Validate scalar quartic (all complex couplings) and trilinear dimensions separately.
+
+## Acceptance requirements for Q4 (not yet met)
+
+1. Execute PyR@TE 3 on the candidate with its supported version and record exact generator HEAD, Python dependencies, machine/environment, input SHA256, expanded interaction tensors, independent gauge-invariance checks, and raw one-loop outputs. Any parser failure, duplicate coupling, missing f, nonantisymmetric f, or unexpected complex/h.c. assumption is a hard stop.
+2. Check the THREE source limits independently: full gauge b, f->0 FLS lepton/quark matrices, restricted real-f Kanemura A13. In addition verify lambda6/lambda7/10 and scalar self/portal source limits, dimensionful muZee and masses.
+3. Independently generate the same model in RGBeta (or a documented independent equivalent). Compare beta components numerically at randomly seeded **complex** Yukawa and quartic points, subject to consistent field and coupling conventions, and report discrepancy values; never silently rescale f to force agreement.
+4. Only then add the accepted beta functions to the repository's full UV coupled integrator, run on a single complete physical parameter set with documented threshold scheme, and only after fitting full neutrino+LFV compute physical quark FCNCs. Existing B2 matrices remain unfitted inputs.
+5. At the end of this Q4 stage, use **one integrated new AF run** for all necessary source checks, independent comparator and model-aware numerics. Do not rerun Q3 merely to accumulate more tests.
+
+## Decision
+
+The model candidate is an actionable **generator input**, not generated beta functions. Full Zee RGEs and physically allowed Zee benchmarks are **UNKNOWN / NOT ESTABLISHED**. An untested PyR@TE file must not be promoted to a physical result.
+
+
+## Q4 executable source-input gate (19 October 2026)
+
+New code:
+- `scripts/zee_section8_Q4_pyrate_generator_gate.py` — pinned official PyR@TE 3 checkout and CLI runner; exact field inventory and hypercharge/gauge b check; output SHA256; fail-closed JSON; does **not** claim full beta validation.
+- `tests/test_zee_section8_Q4_pyrate_generator_gate.py` — 13 unit checks for field/operator inventory, source hypercharge, gauge coefficients, missing f/portal, noninvariant f, absent epsilon, unwanted lambda6/7 or GUT substitutions, output hygiene, and absence of false physics claims.
+
+Local reproduction of the static input gate: **13/13 tests PASS** using Python 3.13 with PyYAML; generator execution and exported beta consistency **NOT RUN HERE** because the local shell has no network access to clone PyR@TE, and no AF session or Mathematica kernel is connected.
+
+Verified official PyR@TE 3 source on GitHub:
+- `LSartore/pyrate` pinned master HEAD `04b219c2016f3fc4f2371d72607edc26a7e06364` (2024-05-02).
+- Entrypoint `pyR@TE.py` with CLI flags `--Model`, `--Loops`, `--Results`, `--CheckGaugeInvariance`, `--PythonOutput`, `--no-LatexOutput`, `--no-MathematicaOutput`, from `src/IO/Inputs.py` lines 127–183.
+- Model parser accepts `ComplexScalars`; `src/IO/Inputs.py` aliases the example-file spelling `CplxScalars`.
+- `src/Core/Lagrangian.py` lines 594–644 detects symmetric/antisymmetric same-field Yukawa tensors. The Zee-specific `f` input **has not been parsed by PyR@TE itself**.
+
+One command for a new substantive AF stage (after `git pull --ff-only`; keep all output in `work/`):
+
+```bash
+python3 scripts/zee_section8_Q4_pyrate_generator_gate.py \
+    --output-dir work/zee_section8_Q4_pyrate_v1
+```
+
+This runner performs the 13 Q4 contract tests first, executes the static source gate, shallow-fetches exactly the pinned upstream revision, then requests one-loop generation with gauge-invariance check and Python output. It writes `summary.json`, unit-test logs and generator logs. A nonzero return code is a hard blocker, not a passed result. **Even if the generator finishes, statuses remain `GENERATOR_EXECUTED_BUT_COMPLEX_BETAS_UNVALIDATED` and `full_Zee_RGE_calculation_accepted: false`.** No Q3 rerun is included.
+
+Full Q4 acceptance is deferred until the generator's emitted f, Pi, lambda6/7/10, other quartics and muZee/mass equations are inspected; Kanemura A13 and FLS Eqs. (3)–(5) are exactly reproduced in explicitly normalized limits; and the independent RGBeta implementation agrees at general complex points. Important: simple hypercharge/operator checks do not prove the PyR@TE Weyl spinor normalization, flavor-index orientation, SU(2) epsilon/sign or automatic Hermitian-conjugate treatment.
+
+
+## Q4v2 — confirmed Key4hep/PyR@TE import collision and isolation repair
+
+User-run Q4v1 AF status: static source/input tests **13/13 PASS**, gauge coefficients **(22/3,-3,-7) PASS**, but upstream PyR@TE exited 1 before model expansion. The exact traceback was:
+
+```text
+from ModelsClass import Model
+from Particles import Particle, ComplexScalar
+ImportError: cannot import name 'ComplexScalar' from 'Particles'
+(/cvmfs/sw.hsf.org/key4hep/releases/.../k4generatorsconfig/.../python/Particles.py)
+```
+
+This is **not a physics constraint or evidence the candidate Zee model was accepted by the generator**. The pinned upstream `pyR@TE.py` launcher appends its own `src/Core` path to Python's search path, allowing contaminated Key4hep `PYTHONPATH` to select an unrelated `Particles.py` first. Upstream has the expected `src/Core/Particles.py`.
+
+Repair confined to our runner (`scripts/zee_section8_Q4_pyrate_generator_gate.py`):
+1. Launch via `python -I -c ...` to ignore user Python environment search paths.
+2. Explicitly prepend the *pinned* PyR@TE source directories, assert that `importlib.util.find_spec('Particles').origin` resolves to the exact `src/Core/Particles.py`, then execute the *unmodified* pinned `pyR@TE.py` via `runpy.run_path(..., run_name='__main__')`.
+3. Drop `PYTHONPATH`, `PYTHONHOME` and `PYTHONSTARTUP` only for the child process; preserve necessary native-library environment settings and the user's shell.
+4. Extend the Q4 unit suite from 13 to **16 tests**, including synthetic pinned-vs-Key4hep `Particles` collision, missing source module fail-closed behavior and environment-scoping checks. The equivalent import-isolation smoke experiment was independently reproduced **locally** (pinned source selected when present; hard failure when absent). Actual AF full generator completion is still **unverified**.
+
+**One Q4 AF retry, reusing the prior pinned source instead of recloning:**
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 scripts/zee_section8_Q4_pyrate_generator_gate.py \
+  --pyrate-root work/zee_section8_Q4_pyrate_v1/pyrate3_src \
+  --output-dir work/zee_section8_Q4_pyrate_v2
+```
+
+If the isolated interpreter lacks scientific dependencies previously supplied through Key4hep PYTHONPATH, this may reveal a new **environment** failure; do not add Key4hep to PYTHONPATH again. Instead use an appropriate isolated interpreter/venv with PyR@TE's documented requirements. A successful execution remains **UNVALIDATED PHYSICS** until source limits and independent cross-checks pass.
+
+
+
+## Q4v3 — PyYAML hidden by Python -I (user AF failure, diagnosed)
+
+User-run Q4v2: `Q4_SOURCE_INPUT_CONTRACT_TESTS_PASS 16`, `Q4_PREFLIGHT_PASS True`, `Q4_GAUGE_1LOOP_B ['22/3', '-3', '-7']`; PyR@TE stdout only displayed its banner and stderr reported **`Error while importing PyYAML`**. The pinned generator launcher imports `yaml` before parsing the Zee model. This is a Python environment regression caused by the deliberately isolated `-I` mode hiding package roots originally provided through `PYTHONPATH`, **not** a failed Zee beta calculation.
+
+Q4v3 repair in the local wrapper (no upstream/source physics changes):
+- Resolve `yaml,sympy,numpy,scipy,h5py,matplotlib` via `importlib.util.find_spec` using the parent interpreter. All are documented requirements of the official PyR@TE 3 release.
+- Pass precisely their package roots and expected absolute origins to the `python -I -c` bootstrap. Prepend pinned PyR@TE internal `src/Core`, `src/IO`, `src/PyLie`, `src/GroupTheory`, `src` first, then add only the discovered dependency roots. Drop `PYTHONPATH`, `PYTHONHOME`, `PYTHONSTARTUP` for the subprocess; retain other environment variables needed by native libraries.
+- Assert PyR@TE's internal `Particles` origin and the exact source origin of each allowed dependency before running the original upstream entrypoint. Record `pyrate3_python_dependency_provenance.json` and stdout `Q4_IMPORT_PROVENANCE`.
+- Q4 input suite extended to **19 regression tests**, including discovery of parent PyYAML, hidden third-party package import under isolated mode, and a mismatched dependency-origin fail-closed test. The bootstrap was independently smoke-tested locally with a synthetic Key4hep module collision and a hidden trusted PyYAML package; all three targeted trials passed, including import of the six real installed scientific packages in an isolated subprocess. **Full PyR@TE on AF remains unverified**.
+
+One new AF invocation, reusing existing source:
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 scripts/zee_section8_Q4_pyrate_generator_gate.py \
+    --pyrate-root work/zee_section8_Q4_pyrate_v1/pyrate3_src \
+    --output-dir work/zee_section8_Q4_pyrate_v3
+```
+
+A successful subprocess run permits inspecting generated expressions but **does not certify** full Zee RGEs. Continue checking the Kanemura A13 and FLS f=0 limits, scalar trilinear/complex conjugation, and independent RGBeta output before physics acceptance. If other dependencies are unavailable in the parent interpreter, fail closed with a precise missing-package message rather than modifying the Zee model.
+
+
+## Q4v3 AF generator returned 0, but no RGE files (diagnostic pending)
+
+AF terminal output reported `Q4_SOURCE_INPUT_CONTRACT_TESTS_PASS 19`, `Q4_PREFLIGHT_PASS True`, correct `(22/3,-3,-7)` gauge coefficients, followed by `Q4_FAIL_CLOSED RuntimeError('PyR@TE produced no output files')`. The original run's `pyrate3_stdout.log` and `pyrate3_stderr.log` have not yet been provided. **The precise reason is therefore NOT YET DETERMINED.**
+
+Source audit of pinned upstream `LSartore/pyrate`:
+- `src/IO/Dependencies.py` uses `exit()` (zero exit status) after logging missing mandatory dependencies.
+- `src/Core/ModelsClass.py` and `src/IO/Inputs.py` have several other validation paths with `exit()` (again no guaranteed nonzero return code).
+- `src/IO/Exports.py` would produce Python RGE files in `Results/[model name]/` if it reaches successful export, so an empty recursive results directory cannot count as a successful generator run.
+- The Q4 wrapper appropriately uses a **fail-closed** artifact check. The new runner records `no_files_despite_zero_returncode`, prints the last 70 lines of both generator streams whenever no files appear, and archives PyR@TE's contemporaneous `log/PyLog*.log` files. This is DIAGNOSTIC ONLY; it changes no interaction or beta coefficient.
+
+**Do not rerun Q4 or change the Lagrangian until reviewing these existing logs:**
+
+```bash
+cd /home/aalida/zee
+echo "========== PYRATE STDOUT v3 =========="
+tail -n 120 work/zee_section8_Q4_pyrate_v3/pyrate3_stdout.log
+echo "========== PYRATE STDERR v3 =========="
+tail -n 120 work/zee_section8_Q4_pyrate_v3/pyrate3_stderr.log
+echo "========== LATEST UPSTREAM PYRATE LOG =========="
+find work/zee_section8_Q4_pyrate_v1/pyrate3_src/log -maxdepth 1 -type f -name 'PyLog*.log' -printf '%T@ %p\n' 2>/dev/null | sort -nr | head -n 3
+```
+
+Q4 full complex Zee beta functions, source limits, independent RGBeta agreement and phenomenological acceptance remain unverified.
+
+
+## Q4v4 — diagnosed missing transitive dependencies (19 October 2026)
+
+AF Q4v3 successfully resolved source provenance for pinned `Particles.py` and the six direct packages, but produced **zero** RGE files with subprocess return code 0. Its actual PyR@TE stdout revealed:
+
+```text
+Error: some dependencies are missing/outdated.
+    -sympy >= 1.5 (current: None)
+Warning: some optional dependencies are missing/outdated.
+    -matplotlib >= 3.1 (current: None)
+```
+
+Their paths show *installed* SymPy 1.13.3 and Matplotlib 3.10.7 from Key4hep Python 3.13; PyR@TE's `src/IO/Dependencies.py` catches arbitrary import exceptions and reports a failed import as version `None`. Consequently the packages were found by `find_spec` but couldn't fully import under `python -I` when secondary package roots (e.g. SymPy's `mpmath`, Matplotlib's `packaging`, etc.) were absent. The precise first transitive module was not in PyR@TE's log; `mpmath` is a plausible, not directly observed, cause.
+
+Repair: keep `python -I` and all pinned PyR@TE internal source paths first. Restore absolute directory entries from the parent's Python `sys.path` *after* the six explicit scientific package roots. Exclude empty/relative entries and all directories with an unrelated top-level `Particles.py` to prevent the original Key4hep collision. The child now actually imports all six declared packages and checks their `__version__` and exact `find_spec` origins **before** running upstream PyR@TE. An import failure now includes the underlying exception, avoiding PyR@TE's misleading `None`. Log restored roots to `pyrate3_transitive_import_roots.json`. This expands the admitted dependency search roots beyond the six primary packages, so the pinned package-origin checks and Key4hep collision filter remain necessary.
+
+Three additional tests cover filtering colliding module roots, successful loading of a package requiring a separately located transitive dependency, and fail-closed reporting of a missing nested dependency. Q4 source-input suite is now **22** tests (19 previously passed on AF, three newly committed). The isolated dependency-chain behavior was independently reproduced locally, including both fail-before and succeed-after cases. The new complete AF run has not yet been executed.
+
+**Single AF Q4v4 retry (use existing pinned source):**
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 scripts/zee_section8_Q4_pyrate_generator_gate.py \
+  --pyrate-root work/zee_section8_Q4_pyrate_v1/pyrate3_src \
+  --output-dir work/zee_section8_Q4_pyrate_v4
+```
+
+The expected preliminary checks are `Q4_SOURCE_INPUT_CONTRACT_TESTS_PASS 22`, `Q4_PREFLIGHT_PASS True`, `Q4_GAUGE_1LOOP_B ['22/3','-3','-7']` and `Q4_IMPORT_PROVENANCE`. **No equations are certified or model point accepted just because these checks pass.** A generator run that returns 0 without substantive RGE artifacts is still rejected, and a successful artifact must be compared with Kanemura, FLS and independent RGBeta.
+
+
+## Q4v4 actual generator result — successful beta generation, optional post-export failure
+
+The AF `work/zee_section8_Q4_pyrate_v4` execution passed 22 source/input unit tests. The pinned PyR@TE 3 upstream log confirms:
+
+- Lagrangian expansion and mapping completed;
+- gauge-invariance check **All OK**;
+- **one-loop RGEs generated** for gauge, Yukawa, quartic, scalar mass, and trilinear sectors;
+- RGE recombination completed;
+- substitutions applied;
+- `Exporting to Python... Done.`
+
+Upstream then attempted its unrelated default `EndCommands: pdflatex [name].tex`, even though the runner disabled the LaTeX output option, and raised `FileNotFoundError: 'pdflatex'`. The runner therefore correctly failed on subprocess exit 1, **but the generated Python output may already be complete**. Do NOT interpret this as a model RGE failure and do NOT rerun solely to satisfy pdflatex. Inspect files under `work/zee_section8_Q4_pyrate_v4/generator_output/GeneralZee_CANDIDATE_NOT_VALIDATED/PythonOutput/`.
+
+A new non-executing static audit `scripts/zee_section8_Q4_audit_existing_pyrate_exports.py` inventories the already generated `RGEs.py`, model solver module, and `run.py`. It uses AST parsing without importing or running the generated scripts, hashes each export, lists beta functions, and enforces presence of gauge 3, Yukawa 7 (including f, Ye1, Ye2), quartic 11 (including l6, l7, l10), scalar mass 4, and trilinear 1. It does not establish that coefficients, normalization or complex tensor symmetries are correct. Companion synthetic regression tests intentionally omit f / complex scalar couplings and verify fail-closed behavior.
+
+**One AF command, no repeat RGE generation:**
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \\
+    -p 'test_zee_section8_Q4_audit_existing_pyrate_exports.py' -v &&
+python3 scripts/zee_section8_Q4_audit_existing_pyrate_exports.py \\
+    --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \\
+    --report work/zee_section8_Q4_pyrate_v4/export_inventory.json
+```
+
+The audit result may be `INCOMPLETE` for several physically interesting reasons (e.g. no valid f beta was exported). That must be investigated from raw RGEs rather than relaxed by renaming/masking couplings.
+
+**Current physics classification**: full one-loop general Zee equations **symbolically generated by PyR@TE 3 under our input conventions**, export file completeness **awaiting audit**, Kanemura restricted-real f and FLS f→0 normalization/coupled Yukawa checks **not performed**, independent RGBeta **not performed**, phenomenological acceptance **not established**.
+
+
+## Q4v5 — 26 exported equations present; begin source-limit comparisons
+
+AF user verified Q4v4 generated export inventory:
+
+```text
+Q4_EXPORTED_BETA_FUNCTION_COUNT 26
+Q4_STATIC_EXPECTED_BETA_INVENTORY PASS
+Q4_FULL_COMPLEX_ZEE_PHYSICS_VALIDATION False
+```
+
+Function list includes beta_gp, beta_g2, beta_g3; beta_Yu1/Yu2, beta_Yd1/Yd2, beta_Ye1/Ye2, beta_f; beta_l1..l7, beta_l8..l10, beta_lh; beta_m1/m2/m12/mchi, beta_muZee. This proves AST parseability and function-name coverage **only**. In particular, scalar complex conjugation/coefficients, operator f conventions and flavor tensor maps are not certified.
+
+New first physics-source probe `scripts/zee_section8_Q4_generated_source_limit_probe.py` loads *only* the previously generated `RGEs.py`, never its `run.py`. It calls one-loop beta functions at deterministic points and compares:
+
+1. Gauge: beta_gp=(22/3) gp^3, beta_g2=−3 g2^3, beta_g3=−7 g3^3, SM non-GUT hypercharge.
+2. Kanemura 2001 Appendix A (A13): source-reduced **real antisymmetric** 3×3 f, zero ordinary Yukawas. This comparison is strictly conditional on the generator input's f normalization matching the historical convention. A mismatch is NOT automatically an incorrect beta—it requires a physical operator-normalization audit. No silent rescaling.
+3. Gauge/real-f/complex-f antisymmetry, f=0 fixed subspace.
+4. Ferreira–Lavoura–Silva 2010 multi-doublet quark Yukawa beta equations, with complex general Yu1/Yu2, Yd1/Yd2, Ye1/Ye2, f=0. Compares all four matrices directly at a fixed deterministic seed. Discrepancies demand tensor orientation, conjugation and convention audits.
+
+It emits each residual, signature mapping, export SHA-256 and statuses in JSON; returns nonzero for mismatches or errors, and **never** marks complete Zee UV RGEs or allowed benchmarks as established. Nine synthetic tests validate positive reference functions and rejection of wrong gauge/f factors, unknown parameters, missing functions and wrong shapes. The nine new tests and this numerical comparison have **not yet run against the AF generator export**.
+
+**AF command, no generation rerun:**
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests -p 'test_zee_section8_Q4_generated_source_limit_probe.py' -v &&
+python3 scripts/zee_section8_Q4_generated_source_limit_probe.py \
+  --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+  --report work/zee_section8_Q4_pyrate_v4/source_limit_probe_v1.json
+```
+
+Even all source-limit checks passing **does not** prove the general complex beta_f, general beta_Ye1/Ye2, beta_l6/l7/l10, muZee mass sector or RGBeta agreement. The next rigorous stage must inspect the explicit symbolic tensors and independently derive/compare these components.
+
+
+## Q4v6 — lepton Yukawa and full-complex covariance gate
+
+AF Q4v5: 9/9 synthetic tests and 11/11 source-limit comparisons PASS. Gauge exact; historical real-f beta reproduces Kanemura A13 (normalized residual 2.76e-16); complex f antisymmetry residual about 1e-18 absolute; four general quark Yukawas reproduce FLS 2010 at f=0 with normalized residuals below 8e-16. Existing NumPy matrix subclass warnings are cosmetic; the generated source uses matrix-specific multiplication and .H and must not be blindly converted to ndarray.
+
+New script: scripts/zee_section8_Q4_complex_lepton_scalar_covariance_gate.py
+New tests: tests/test_zee_section8_Q4_complex_lepton_scalar_covariance_gate.py (11 synthetic unit cases). AF validation remains pending.
+
+- Implement independently FLS 2010 Eq(5a-c) for both lepton Yukawa matrices Pi1/Pi2 with all six generic complex doublet Yukawas at f=0; a_Pi = -9/4 g2² - 15/4 gp².
+- Evaluate all 26 beta functions under Phi2_new=e^{i theta} Phi2_old and chi_new=e^{i psi} chi_old. Coupling weights: Yu2:+theta, Yd2/Ye2:-theta, f:-psi, l5:-2theta, l6/l7/l10/m12:-theta, muZee:-theta+psi, others invariant. Check H2 only, chi only and combined rephasings.
+- Check complex-conjugation covariance for all 26 and numerical reality of 13 beta functions for manifestly real couplings.
+- Test generic one-loop f-feedback in both charged-lepton Yukawas: nonzero with generic f, invariant under f phase and quadratic under f→2f. Quark beta functions must not have direct f dependence at one loop. Check the only dimension-one scalar coupling muZee=0 remains zero under RGEs.
+- Fail closed on any discrepancy; preserve raw source hashes and residuals. This is a model symmetry and FLS limiting-equation check, NOT an independent complete beta-function derivation or RGBeta validation.
+
+AF invocation (reuses existing generated RGEs; does NOT rerun PyR@TE or Q3):
+
+    cd /home/aalida/zee
+    git pull --ff-only
+    python3 -m unittest discover -s tests -p 'test_zee_section8_Q4_complex_lepton_scalar_covariance_gate.py' -v &&
+    python3 scripts/zee_section8_Q4_complex_lepton_scalar_covariance_gate.py --generator-output work/zee_section8_Q4_pyrate_v4/generator_output --report work/zee_section8_Q4_pyrate_v4/complex_covariance_v1.json
+
+Full complex Zee RGEs and physical point acceptance remain unverified.
+
+
+## Q4v7 — independent pure-scalar one-loop quartic beta calculation (19 October 2026)
+
+User-run Q4v6 reported **156/156 PASS**: rephasing covariance in the complete complex Zee scalar-Yukawa system, conjugation covariance, reality of real beta functions, both independent FLS 2010 lepton Yukawa f=0 limits, nonzero f-induced lepton Yukawa feedback obeying phase and quadratic scaling, zero direct quark f feedback, and muZee=0 multiplicative protection. Together with the Q4v5 11/11 published source-limit comparisons, **167 numerical source/symmetry checks passed**. None independently compared the genuine Zee scalar quartic coefficients.
+
+**New genuinely independent calculation** (not RGBeta): `scripts/zee_section8_Q4_independent_scalar_hessian_gate.py`. The general Zee quartic potential is reconstructed as `V4 = q^T C q` with five gauge-invariant real bilinears `q=(Phi1†Phi1, Phi2†Phi2, chi†chi, Re(Phi1†Phi2), Im(Phi1†Phi2))` and ten canonically normalized real scalar components. The one-loop **pure-scalar** (all gauge and fermion Yukawa couplings switched off) effective-potential divergence gives
+
+```text
+16*pi^2 beta(V4)|_scalar = 1/2 * Tr[(d^2 V4/d r_i d r_j)^2].
+```
+
+This is the standard one-loop quartic scalar contribution, related to general scalar RGE calculations such as Machacek–Vaughn NPB249 (1985) 70–92, DOI 10.1016/0550-3213(85)90040-9. The Hessian and real-orbit sampling are written independently of the PyR@TE tensor/diagram rules. An overconstrained, full-rank real-field projection recovers **all 15 real components** of `l1,l2,l3,l4,l5,l6,l7,lh,l8,l9,l10` (four complex parameters l5/l6/l7/l10). The field design uses 96 seeded configurations and checks rank, conditioning and polynomial closure. Two analytic checks are reproduced locally, with all other interactions zero: `beta_l1 = 12*l1^2` for O(4) Higgs-doublet quartic and `beta_lh = 20*lh^2` for O(2) complex-singlet quartic. The analytic Hessian code's projection residual was <1e−15 for the synthetic full-complex test point; **this does not claim AF PyR@TE agreement yet**.
+
+The new comparison evaluates the existing generated PyR@TE quartic functions with gauge=all Yukawa=f=all dimensionful terms=0 at six coupling sets: two full-complex examples, one pure-doublet, one pure-singlet, one pure Zee-portal complex example, and one general mixed-doublet complex example. Expected **66 independent beta comparisons** (6 x 11 physical quartic couplings), with all complex components compared, a fail-closed tolerance and per-case JSON residuals. Twelve companion unit tests validate bilinear definitions, independent potential reconstruction, Hessian finite-differences, rank/closure, O(4)/O(2) coefficients, full-complex projections, and mutated portal-beta rejection.
+
+**AF command; NO RGE regeneration and NO Q3 rerun:**
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_section8_Q4_independent_scalar_hessian_gate.py' -v &&
+python3 scripts/zee_section8_Q4_independent_scalar_hessian_gate.py \
+  --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+  --report work/zee_section8_Q4_pyrate_v4/scalar_hessian_v1.json
+```
+
+**Acceptance:** Even 66/66 PASS validates **only** the pure-scalar contributions to all 11 one-loop quartic beta functions and their complex components. Gauge/Yukawa-f-mediated scalar terms, beta_f complex nontrivial Yukawa structures, dimensionful masses/muZee, and the independent full RGBeta cross-check remain unverified; no fully allowed Zee point has been found.
+
+
+## Q4v8 — independent electroweak gauge contributions to 11 Zee quartic RGEs
+
+User-run Q4v7 results: **66/66 PASS** of the independent one-loop pure-scalar quartic Hessian comparison across six quartic configurations. The max values in the previous normalized-difference field (as high as 1.8e-3 on isolated benchmarks) are driven by the 1e-12 numerical normalization floor for analytically vanishing coefficients; the actual pass criterion uses absolute differences and a max(1,|beta|) scale. Do not describe those as 0.18%-level disagreements in physical nonzero beta coefficients. Independent pure-scalar part is validated only at the six tested configurations; it is not a proof of every full-complex parameter combination.
+
+**New independent gauge calculation:** scripts/zee_section8_Q4_independent_gauge_quartic_gate.py. Start from two canonically normalized SU(2) doublets with Y=1/2 and one canonically normalized electrically charged singlet with Y=1. In arbitrary ten-real-field backgrounds, construct the 4x4 gauge-boson mass-squared matrix M_V² in basis (W1,W2,W3,B) by expanding the covariant kinetic terms. The one-loop gauge contribution to the scalar quartic polynomial is the vector Coleman-Weinberg UV divergence (3/2) Tr[(M_V²)^2] plus universal external-scalar gauge anomalous dimension terms. Coupling-level gauge-linear terms are: l1..l7: -(9 g2²+3 gp²) lambda; lh: -12 gp² lh; l8,l9,l10: -(9/2 g2²+15/2 gp²) lambda. The gauge quartic polynomial is projected onto all 15 real components of the 11 quartic couplings with the independently verified scalar-bilinear design matrix.
+
+**Analytic limits verified in the construction:** with quartics=0,
+beta_l1(beta_l2) = 3/4(3g2^4+2g2² gp²+gp^4),
+beta_l3 = 3/4(3g2^4-2g2² gp²+gp^4),
+beta_l4=3g2² gp²,
+beta_lh=6 gp^4,
+beta_l8=beta_l9=3 gp^4.
+No pure gauge constant term seeds complex l5,l6,l7,l10.
+These follow independently from the gauge kinetic representation, and are checked by dedicated regression tests.
+
+**AF comparison:** With all Yukawa, f and dimensional scalar terms zero, compare
+ beta_l^generated(gp,g2,quartics) - beta_l^generated(0,0,quartics)
+against the independent gauge expression. This isolates g^4 and lambda*g² without counting the scalar Hessian contribution twice. Six gauge/quartic cases yield **66 comparisons**, with tolerance absdiff <= 2e-9*max(1,|got|,|expected|). Fourteen synthetic/analytic tests validate gauge boson masses, electroweak/charged-singlet limits, projections, covariance of portal coefficients, and rejection of a deliberately modified gauge beta. The new 14 tests and actual 66 AF comparisons have **not yet been executed on AF**.
+
+**Single AF command (reuse prior generated RGEs, do not rerun Q3 or PyR@TE):**
+
+    cd /home/aalida/zee
+    git pull --ff-only
+    python3 -m unittest discover -s tests -p 'test_zee_section8_Q4_independent_gauge_quartic_gate.py' -v &&
+    python3 scripts/zee_section8_Q4_independent_gauge_quartic_gate.py --generator-output work/zee_section8_Q4_pyrate_v4/generator_output --report work/zee_section8_Q4_pyrate_v4/gauge_quartic_v1.json
+
+Even 66/66 PASS would establish only the gauge-dependent quartic contributions in addition to the previous pure-scalar limits. The complete Yukawa-dependent quartic beta terms, full complex f/charged-lepton mixing betas, trilinear/mass betas and independent RGBeta full-theory agreement remain unvalidated. No physical Zee point has been established.
+
+
+## Q4v9 — Independent f=0 fermion-box and mixed quartic-Yukawa RGE stage
+
+User-run AF Q4v8 **66/66 PASS** for independent electroweak-gauge contributions to all eleven Zee quartic beta functions at six parameter configurations. Maximum absolute difference among reported cases ~1.61e-15. This validates tested scalar-gauge g^4 and lambda*g² contributions on top of Q4v7's 66/66 independent scalar-only checks. Overall previously reported numeric gauge/FLS/Kanemura source limits 11/11, complex covariance 156/156, scalar Hessian 66/66, and gauge quartic 66/66 have passed: **299 numeric checks** across complementary tests. This is NOT an independent verification of the entire 26-function beta system.
+
+The new independent Q4v9 script `scripts/zee_section8_Q4_independent_yukawa_quartic_gate.py` calculates **fermionic Yukawa effects in the f=0 limit**, without reusing PyR@TE loop formulas. With arbitrary complex Yukawa matrices Yu1/Yu2, Yd1/Yd2, Ye1/Ye2 and arbitrary charged + neutral Higgs backgrounds, build the quark (uL,dL) × (uR,dR) 6×6 Dirac mass matrix and lepton (nuL,eL) × eR 6×3 mass matrix from the Higgs/Yukawa Lagrangian. The one-loop fermionic Coleman–Weinberg quartic divergence is
+
+```text
+(16*pi²) beta(V4)|ferm_box = -2 [3 Tr((Mq†Mq)^2) + Tr((Me†Me)^2)].
+```
+
+The independent Higgs wavefunction mixing matrix `T_kl = 3Tr(Yd_k Yd_l† + Yu_k† Yu_l) + Tr(Ye_k Ye_l†)` comes from the FLS 2010 multi-doublet Yukawa formalism; apply `delta(Phi_l) = sum_k T_kl Phi_k` to the general Zee quartic potential and add `delta V4` for its one-loop lambda*Y² contributions. No additional f wavefunction contribution is included because **f is explicitly zero**.
+
+Project the total fermionic quartic polynomial onto the **15 real quartic components** using the independently verified 10-real-field design. Compare against `beta_l[PyR@TE](Y) - beta_l[PyR@TE](Y=0)` with gauge=0, f=0 and dimensions=0; pure-scalar terms cancel. Seven configurations (isolated top, lepton, full-complex quark/lepton, nonzero general scalar quartics and complex portals) yield **77 comparisons** covering all eleven quartic functions. Seventeen synthetic/analytic tests verify standard top-only beta_l2=-12yt^4 and +12lambda2 yt², lepton beta_l1=-4ye^4 and +4lambda1 ye², charged portal l8 contribution +6 yt² l8, complex projection, quartic scaling, full-doublet-rephasing invariance, charged-singlet decoupling at f=0, and mutated lambda10 comparator rejection.
+
+**This is NOT the nonzero-f full Zee Yukawa/portal validation**. Do not claim full model RGEs accepted if Q4v9 passes. Next source-independent physics step is the f-dependent quartic contributions and full complex lepton/f beta coefficients, then dimensionful scalar beta terms and RGBeta.
+
+One AF command, reusing existing PyR@TE export:
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+ -p 'test_zee_section8_Q4_independent_yukawa_quartic_gate.py' -v &&
+python3 scripts/zee_section8_Q4_independent_yukawa_quartic_gate.py \
+ --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+ --report work/zee_section8_Q4_pyrate_v4/yukawa_quartic_f_zero_v1.json
+```
+
+Pending AF evaluation. The generator is NOT rerun. Complete Zee beta validation remains FALSE, and physical point acceptance UNKNOWN/NOT EVALUATED.
+
+
+## Q4v10 — 77/77 Yukawa quartics PASS, independent Zee f-dependent quartics
+
+User-run Q4v9 on AF yielded **77/77 PASS** for all eleven scalar quartic beta functions, including two generic-complex Yukawa/full-quartic random seeds, charged-singlet portals, a top-only sector, and a charged-lepton-only sector. Maximum absolute residual across the seven cases was approximately 9.38e-14. Combined Q4v5...v9 report: 11 + 156 + 66 + 66 + 77 = **376 numerical validations PASS**. This is evidence for all 11 quartic coefficients in pure scalar, gauge, and general f=0 Yukawa limits at tested points. It does not test f-dependent quartic terms.
+
+New Q4v10 scripts:
+
+- scripts/zee_section8_Q4_independent_f_quartic_gate.py
+- tests/test_zee_section8_Q4_independent_f_quartic_gate.py (17 synthetic and analytic regression tests).
+
+**Physics derivation.** In an arbitrary ten-real-scalar background, construct the complex symmetric 9x9 mass matrix for the nine left Weyl leptons (nu_L,e_L,e_R^c), three flavors each. Write the 6x6 LL mass subblock from the antisymmetric Zee interaction as M_{nu,eL}=2 f chi; the coefficient 2 is fixed by Kanemura's reduced real-f normalization in Appendix A, Eqs A9–A11. The L−eR^c mass block equals complex-conjugated Pi_k Phi_k in the 2-component convention, with generic complex Pi1/Pi2. The resulting f-dependent fermionic one-loop quartic counterterm is computed independently from the field-dependent mass spectrum as
+
+```text
+(16 pi²) beta(V4)|f-fermion-box
+ = -Tr[(M†M)^2 - (M0†M0)^2],
+M0=M(f=0) with every other coupling unchanged.
+```
+
+The charged-singlet wavefunction contribution is
+
+```text
+(16 pi²) beta(V4)|f-chi-wave
+  = 8 Tr(f†f) s dV4/ds,
+s=|chi|².
+```
+
+This wavefunction coefficient is independently **source-normalized** (but not independently diagram-derived) against Kanemura A9-A11. At Ye=0 the method reproduces:
+ beta_lh|f = 16 lh Tr(f†f) −32 Tr[(f†f)^2],
+ beta_l8|f = 8 l8 Tr(f†f),
+ beta_l9|f = 8 l9 Tr(f†f),
+ beta_l10|f = 8 l10 Tr(f†f).
+The raw box is fully independent of PyR@TE's loop expressions. Generic complex Ye1,Ye2 and complex f produce both box-interference quartic terms and wavefunction contributions.
+
+Project onto 15 real quartic components using the independent real-field scalar-orbit basis (96-128 samples, overconstrained rank checked). Eight configurations include historical real f with/without singlet quartic, pure complex f, complex f with portals, generic complex f and nonzero lepton Yukawas, two complex quartic seeds, and a mixed-portal case. Compare beta_l(f)−beta_l(f=0) from existing generated RGEs against the independent construction, with all gauge and dimensional parameters zero. Expected **88 comparisons** (eight x eleven). Zero effect on the seven pure-doublet quartic beta functions is a falsifiable consequence at one loop. The 17 regression tests check source-normalized f quartic coefficients, f flavor antisymmetry, 9x9 Weyl mass symmetry, correct phase covariance, f^4 and f² scaling, mixed complex projection closure, and synthetic mutated-coefficient rejection.
+
+**One AF run, NO new PyR@TE generation and no Q3 rerun:**
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests -p 'test_zee_section8_Q4_independent_f_quartic_gate.py' -v &&
+python3 scripts/zee_section8_Q4_independent_f_quartic_gate.py \
+    --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+    --report work/zee_section8_Q4_pyrate_v4/f_dependent_quartic_v1.json
+```
+
+Q4v10 script and regression tests are committed but **AF tests and real comparison remain pending**. Any mismatch is to be investigated at the Weyl flavor ordering/complex-conjugation/operator-normalization level, not silently repaired with a factor. Even 88/88 PASS does not certify full complex beta_f, f-dependent beta_Pi1/Pi2, dimensionful scalar RGEs, threshold matching, independent RGBeta or physically allowed model points.
+
+
+## Q4v11 — 88/88 nonzero-f quartic agreement; new scalar-only dimensionful beta comparison
+
+AF Q4v10 outcome: **88/88 PASS** across eight f and complex lepton-Yukawa scenarios, max reported absolute difference ~5.63e-16. Combining all previously recorded v5...v10 11+156+66+66+77+88 gives **464 numerical source/metamorphic/reference comparisons PASS**. This does not guarantee full UV RGEs, threshold implementation, or physical model viability.
+
+New independent scalar-only dimensionful RGE code:
+  scripts/zee_section8_Q4_independent_dimensional_scalar_gate.py
+Companion tests:
+  tests/test_zee_section8_Q4_independent_dimensional_scalar_gate.py (13).
+
+With ten canonically normalized real scalar fields r and bilinears q=(Phi1†Phi1,Phi2†Phi2,chi†chi,Re Phi1†Phi2,Im Phi1†Phi2), reconstruct
+  V2=m1*q1 + m2*q2 + mchi*q3 - 2 Re[m12*(q4+i q5)],
+  V3=2 Re[muZee*epsilon_ij Phi1_i Phi2_j chi*],
+  V4=all 11 general quartic couplings (previously tested).
+
+The independently derived Hessian H(V) splits as H2+H3+H4, homogeneous in background fields with degrees 0, 1, 2. One-loop pure-scalar counterterms of degrees 2 and 3 from (1/2) Tr(H(V)^2) are:
+  degree2: Tr(H2 H4) + (1/2) Tr(H3^2);
+  degree3: Tr(H3 H4).
+
+Project onto the **five real quadratic coefficients** (m1,m2,mchi,Re m12,Im m12) and **two real cubic coefficients** (Re muZee,Im muZee), using 128 overconstraining real-field backgrounds, full-rank verification, and separate polynomial closure tests. Independently test analytic single-field limits:
+  beta_m1(scalar) = 6*l1*m1 (all other couplings zero);
+  beta_mchi(scalar) = 8*lh*mchi (all others zero);
+  pure muZee cubic induces additive scalar masses even with all quadratic terms zero, with beta_mchi=2 beta_m1=2 beta_m2;
+  trilinear beta is proportional to muZee and zero at muZee=0.
+Note: these analytic limits are conditional on the model potential normalization and do NOT cover gauge, f or ordinary Yukawa contributions.
+
+Seven scalar coupling/spectrum cases compare each generated PyR@TE scalar mass/trilinear beta (with gauge/Yukawas/f=0) to this independent Hessian prediction. Expected **35 comparisons** against existing RGEs, without rerunning PyR@TE, including complex offdiagonal mass m12 and trilinear muZee. Synthetic tests verify finite-difference quadratic/cubic Hessians, 7-real-component projection, complex rephasing of full potential, isolated O(4)/O(2) mass limits, pure Zee-cubic additive mass effects, projection closure, and deliberate beta mismatch. These 13 tests have NOT YET BEEN RUN on AF.
+
+**Single AF command:**
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_section8_Q4_independent_dimensional_scalar_gate.py' -v &&
+python3 scripts/zee_section8_Q4_independent_dimensional_scalar_gate.py \
+  --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+  --report work/zee_section8_Q4_pyrate_v4/scalar_dimensional_v1.json
+```
+
+This is an independent scalar-loop coefficient cross-check, **not** a complete calculation of dimensionful Zee RGEs. Priority after Q4v11: full complex beta_f and f-dependent beta_Pi1/Pi2 using a independently derived or separate-engine one-loop general Weyl-Yukawa tensor, then gauge/Yukawa/f contributions to dimensionful scalar running and independent RGBeta full-source matching. Do not run scale evolution on physical benchmark candidates until all essential sectors are certified.
+
+
+## Q4v12 — 35/35 scalar-only dimensionful PASS; new independent complex Weyl Yukawa RGE gate
+
+AF Q4v11: **35/35 PASS** (7 cases x 5 dimensionful parameters m1,m2,m12,mchi,muZee). Max absolute difference ~1.05e-9 in the mass-squared coefficients (nominal mass-squared scale ~1e5 GeV²); all passed the explicit scale-aware tolerance. Thus Q4v5–Q4v11: 11+156+66+66+77+88+35 = **499** passed numeric source/consistency comparisons. The tested contributions to scalar mass and trilinear RGEs are PURE SCALAR, not the gauge or f/Yukawa contributions.
+
+**New substantive independent one-loop Yukawa calculation**:
+- scripts/zee_section8_Q4_independent_complex_weyl_yukawas.py
+- tests/test_zee_section8_Q4_independent_complex_weyl_yukawas.py (17 synthetic/source-limit tests).
+
+Physics source: Schienbein, Staub, Steudtner, Svirina, NPB939 (2019) 1–48, Eq.(5.11), arXiv:1809.06797. Cross-reference Chankowski, Lewandowski, Meissner, JHEP11(2016)105, Eq.(7.26). In a real-scalar + left-handed Weyl fermion representation, the general symmetric Yukawa tensors Y_a=d M_F/d phi_a satisfy the one-loop formula
+
+```text
+beta_Ya|Yuk = 1/2 (F.T @ Ya + Ya @ F)
+             + 2 sum_b [ Yb @ Ya† @ Yb ]
+             + sum_b [ S_ab * Yb ],
+F = sum_b Yb† @ Yb;
+S_ab = Re Tr(Ya† @ Yb).
+```
+
+All betas here are 16*pi² d/d ln(mu) coefficients. For two-component Weyl fermions κ=1/2, giving the scalar-wavefunction term above. Use the already independently derived 9x9 symmetric field-dependent Zee lepton mass tensor from Q4v10, with ten canonically normalized real scalars, general complex Ye1/Ye2, and complex antisymmetric f with f chi coupling 2 f chi. Construct and process ten Y_a tensors at once and project beta tensors back to beta_f, beta_Ye1 and beta_Ye2 through **four independent doublet components and two complex-singlet components**, rejecting mismatched flavor orientation/conjugation/antisymmetry. Include independent fermion Casimir gauge factors: beta_f gauge=−(3/2 gp²+9/2 g2²)f; beta_Ye gauge=−(15/4 gp²+9/4 g2²)Ye.
+
+The generic Weyl implementation was independently prototyped locally and reproduces both published limits:
+- f=0: **both** general complex FLS charged-lepton Yukawa beta matrices, for noncommuting Ye1/Ye2.
+- Ye1=Ye2=0 and real antisymmetric f: historical Kanemura 2001 beta_f = [−3/2 gp²−9/2 g2²+12 sum_{i<j} f_ij²] f.
+
+Q4v12 checks generated beta_f, beta_Ye1, beta_Ye2 at seven lepton configurations (zero and nonzero gauge, real and complex f, three complex Ye+f seeds), including direct f-dependent Ye increments relative to f=0 (7x5=35). At three more configurations with all **six** quark and lepton Yukawas generic complex, verify beta_f has no direct quark dependence and the f-induced increments of beta_Ye1 and beta_Ye2 agree after f=0 subtraction (3x3=9); total expected **44 numerical comparisons** on existing PyR@TE export. Full complex Yukawa/field conjugation projection checks and source-limit regressions accompany the code. This stage does not regenerate PyR@TE or modify generated equations. A nonzero residual is investigated, not repaired with hidden factor adjustments.
+
+**One AF invocation (source-limit crosscheck, no regeneration):**
+
+```bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_section8_Q4_independent_complex_weyl_yukawas.py' -v &&
+python3 scripts/zee_section8_Q4_independent_complex_weyl_yukawas.py \
+  --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+  --report work/zee_section8_Q4_pyrate_v4/complex_weyl_v1.json
+```
+
+This would independently test the remaining complex f and f-dependent lepton Yukawa coefficients, but even a full 44/44 PASS would not alone certify the **complete general Zee RGEs**: the gauge/Yukawa/f contributions to all dimensionful scalar beta functions, full multiengine RGBeta or equivalent comparison, and threshold matching are still pending. No model parameter point has been certified against full neutrino+LFV+flavor+Higgs/vacuum constraints.
+
+
+## Q4v13 — LARGE integrated one-loop 26-beta and short-flow verification
+
+AF Q4v12 outcome supplied by user: **44 / 44 PASS** for independent Schienbein symmetric-Weyl lepton/f tensor beta functions, including complex f, Ye1/Ye2, and f-induced increments with generic complex quark Yukawa matrices. The earlier 499 checks plus 44 yield **543 cumulative reported numerical matches**. One-loop full-Zee source comparison is NOT automatically certified: Q4v5...v12 mostly checked separate sectors and limits.
+
+**Q4v13 is a single large integrated verification**, to avoid proliferating numerous narrow gates.
+
+New files:
+- \`scripts/zee_section8_Q4_large_integrated_one_loop_gate.py\`
+- \`tests/test_zee_section8_Q4_large_integrated_one_loop_gate.py\`
+
+Build a **complete independent one-loop reference for all 26 betas at the SAME complex point** using the previously source-checked independent ingredients:
+1. gauge betas [22/3,−3,−7]; quarks via FLS 2010 full complex 2HDM Yukawa matrices;
+2. general complex lepton/f Yukawas from symmetric 9-Weyl Schienbein tensor, supplemented with the independent FLS quark-trace contribution to beta_Ye1,Ye2;
+3. all eleven quartics: independently computed scalar-field Hessian + electroweak gauge-boson mass/linear wave contribution + full complex quark/lepton mass-box and doublet Yukawa-wave contribution + complex Zee f/lepton Weyl box and charged-singlet-wave contribution;
+4. **NEW dimensionful mixed contribution check**: prior pure scalar 10-real-field quadratic/cubic Hessian, plus gauge and fermionic external-scalar wavefunction effects. Gauge factors for doublet quadratic operators are −(9g2²+3gp²)/2, and for singlet mass −6gp². Zee-cubic gauge is −(9g2²+9gp²)/2. Yukawa doublet wave uses the full complex 2×2 FLS trace matrix T_kℓ and the induced bilinear variations. f singlet wave is +8 Tr(f†f) in beta_mchi and +4 Tr(f†f) in beta_muZee. In particular beta_muZee gets Tr(T) + 4 Tr(f†f) minus the gauge factor. These are one-loop **MS-bar** coefficients, source-convention-dependent and unvalidated at mixed points until the new AF run is performed.
+
+An overconstrained 96-background scalar orbit basis independently projects the scalar potential coefficient polynomials. Comparison with PyR@TE's **unchanged generated RGEs.py** is component-wise for 26 functions, including complex matrix entries, with explicit max-abs and scale-aware tolerance per function (3e−9 +3e−9*max(1,|got|,|expected|)). Cases: **12** independently seeded full complex points, **4** independently phased equivalent full complex points, and **2 eight-step generated-RK4 trajectories**, one generic and one starting at a Type-II quark texture with generic nonzero lepton Yukawas. Compare to independent reference at **5 checkpoints each** (steps 0,2,4,6,8). Thus **(12+4+5+5)×26 = 676 full beta comparisons**, plus 2×8 RK4 source-evolution steps (64 full beta-vector source evaluations) and 11 focused sanity/negative controls. If any direct comparison fails, fail closed, skip trajectory and record which beta functions mismatch instead of hiding the discrepancy. Tracks whether wrong-doublet quark Yukawa textures are radiatively generated, without claiming any FCNC limit.
+
+**One AF command** (runs only saved RGEs; NO new generation or Q3 rerun):
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+ -p 'test_zee_section8_Q4_large_integrated_one_loop_gate.py' -v &&
+python3 scripts/zee_section8_Q4_large_integrated_one_loop_gate.py \
+ --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+ --report work/zee_section8_Q4_pyrate_v4/large_integrated_v1.json
+\`\`\`
+
+**Current state:** Q4v13 code committed, NOT executed on UChicago AF; 676 comparisons are pending. Even 676/676 would certify only **tested one-loop full-complex RHS numerical consistency and short integration**, NOT RG threshold matching, independent 2-loop terms, global vacuum stability, physical neutrino/LFV/flavor/Higgs constraints, or permission to call candidates 0/32 viable. Physical Zee allowed=UNKNOWN. Follow-up after success should be first a scale-running/threshold prescription and then actual flavour/viability pipeline; avoid endless Q4 check proliferation.
+
+
+## Q4v13 AF PASSED: integrated 26-function one-loop numerical agreement
+
+**Actual UChicago AF output from user:** all 26 one-loop generated beta functions agree at **12 generic complex points + 4 independently rephased complex points + 5 points on each of two short numerical RG trajectories**. This is **676/676 PASS**. Largest absolute difference across the logged points is about 1.28e-9 on dimensionful coefficients, within the explicit scale-aware tolerance. The Type-II-start Yukawa trajectory from 700 to 2000 GeV induced Frobenius norms |Yd2|_F = 5.492237841e-7, |Yu1|_F = 5.069945239e-6, even though both vanished initially. These are sources of wrong-doublet couplings and NOT neutral meson FCNC likelihoods or exclusions.
+
+Total prior Q4v5..v12 543 checks + Q4v13 676 = **1219/1219 source/limit/metamorphic numerical comparisons PASS**. Full 26-equation one-loop RHS is now strongly cross-validated at tested complex points, including the dimensionful gauge+Yukawa+f terms, and a modest coupled one-loop integration. This is enough to stop adding serial *coefficient-only* gates. **No complete physics acceptance is established**: potential EFT thresholds, full BFB along complex RGE flows, global vacuum, collider tools, matched NNLO b->s gamma, CKM and precision quark input scheme, neutrino parameter likelihood and all LFV amplitudes remain incomplete. Continue the Paper 1 model/flavor physics program.
+
+## Next single *physics-connected* pilot: Gate C1 joined scalar/neutrino/full-one-loop UV diagnostics
+
+- Script: \`scripts/zee_gateC1_joined_uv_pilot.py\`
+- Regression suite: \`tests/test_zee_gateC1_joined_uv_pilot.py\` (17 unittest methods).
+- Output: \`work/gateC1_joined_uv_v1/summary.json\` and \`joined_uv_diagnostics_NOT_ALLOWED.csv\`.
+
+Use the EXISTING B4 scalar/EWPO screened thirty spectra and corresponding B2 neutrino-closed (f,Y) solutions, not new random, unproven potential points. Build **one coherent renormalizable lagrangian at matching scale mu0=mH2** for each tested solution.
+
+**SCALAR:** explicitly map restricted CP-conserving Florentino et al. (2021) Eq.16 into PyR@TE's general complex UV basis:
+
+\`\`\`text
+l1..5 = lambda1..lambda5 from Gate6 inverse spectrum
+l6=l7=0; lh=lc; l8=k1; l9=k2; l10=-k12
+m12=m12sq; mchi=mc2; muZee=mu4;
+m1=m12sq*tan(beta)-v²/2*(lambda1*cos²(beta)+lambda345*sin²(beta))
+m2=m12sq*cot(beta)-v²/2*(lambda2*sin²(beta)+lambda345*cos²(beta))
+\`\`\`
+
+Match all reconstructed neutral, pseudoscalar and charged masses and check the B4 serialized quartics; require Gate6 sufficient BFB and tree unitarity at mu0. Complex \`l6,l7\`, \`l10\` and wrong-doublet quark Yukawa couplings may be generated under coupled RG flow; DO NOT artificially project them back to the restricted subspace at each step.
+
+**LEPTON:** B2's Chen/Herrero charged-lepton mass/Higgs-basis Y is the coefficient of \`-sqrt(2)*bar(ell_R) Y nu_L H_perp^-\`. The symmetry-basis Yukawas used by generated RGE are instead \`Ye1=cos(beta)*kappa_e-sin(beta)*rho_e\`, \`Ye2=sin(beta)*kappa_e+cos(beta)*rho_e\`, where \`kappa_e=sqrt(2)*Mell/v\`, \`rho_e=sqrt(2)*Y†\` with the Hermitian conjugation ESSENTIAL to preserve flavor orientation. Preserve the antisymmetric B2 f with the model's charged-singlet phase convention. Require neutrino mass-matrix closure against the same one fixed illustrative NO target and verify saved B2 closure roundtrips.
+
+**QUARK and EW GAUGE input scope:** illustrative diagonal CKM=I Type-II quark Yukawa boundary, approximate dimensionless SM Yukawa eigenvalues (top .93 etc) divided by sin(beta)/cos(beta) respectively, and approximate gauge couplings. These are NOT precise running MS-bar Yukawas or a physical CKM/flavor fit and must be replaced before any quantitative UV cutoff or FCNC exclusion result. This deliberate scope limitation avoids presenting an arbitrary quark boundary as physics.
+
+**PROVENANCE LOCK:** C1 refuses to run unless the user-produced Q4v13 report certifies exactly 676/676 passed source comparisons and its stored SHA256 matches the unmodified generated `RGEs.py`. This is a source integrity requirement, not a physical model acceptance claim.\n\n**FLOW:** RK4 over all 26 real/complex matrices and couplings, from mu0=mH2 to 10 TeV, with 24 time steps and an independently repeated 48-step run. Record the coarse/refined terminal mismatch (must be <=2e-4 on max-scaled coefficient) if both reach the endpoint; if a threshold is crossed, retain both paths as diagnostic stopping cases, not UV exclusion. Heuristic stopping diagnostics: quartic absolute value reaches 4*pi or Yukawa entry abs reaches sqrt(4*pi), or gauge input >=3. These are deliberately NOT rigorous perturbativity/unitarity/BFB conditions and not physical UV scales; no decoupling or thresholds. Output per-solution status, last mu, generated lambda6/7, wrong-doublet Yukawa norms, B2 neutrino closure, initial scalar BFB, and every incomplete physical constraint as NOT_EVALUATED.
+
+**One AF run (NO PyR@TE regeneration):**
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateC1_joined_uv_pilot.py' -v &&
+python3 scripts/zee_gateC1_joined_uv_pilot.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+  --q4v13-report work/zee_section8_Q4_pyrate_v4/large_integrated_v1.json \
+  --top-candidates 3 --solutions-per-candidate 2 --steps 24 \
+  --upper-GeV 10000 \
+  --output-dir work/gateC1_joined_uv_v1
+\`\`\`
+
+This is a **large physical mapping and coupled flow exercise**, not another coefficient-by-coefficient validation. Gate C1 does **not** implement full lepton flavor or meson likelihoods, HiggsTools, global vacuum or threshold matching; those are the next actual paper constraints. NO output receives an "allowed" label.
+
+
+## Gate C1 v1 AF outcome — six joined RGE paths hit a heuristic scale boundary
+
+AF logs from user confirm six successful B4/B2/full-one-loop runs, each
+without unhandled errors; all six stopped by an **unclassified numerical
+perturbativity diagnostic** before the chosen 10 TeV endpoint:
+
+| B4 spectrum | neutrino ranks | last RECORDED checkpoint GeV | last checkpoint max abs quartic |
+|---|---|---:|---:|
+| B4_0000648 | 1,2 | 2607.6263585 | 9.3088956 |
+| B4_0000318 | 1,2 | 1676.5482280 | 11.4383770 |
+| B4_0001151 | 1,2 | 1684.7207798 | 8.95836135 |
+
+**DO NOT CALL THESE LAST CHECKPOINT SCALES THE CUTOFF.**
+Existing pilot records an accepted history point every four RK4 steps
+and aborts after a later step that violates one of three numerical
+heuristics: max_i |lambda_i| >=4pi, max_ij |Y_ij or f_ij| >=sqrt(4pi),
+or an extreme gauge coupling >=3. The stdout did not identify which
+criterion was violated or its crossing scale. Similar stopping between
+ranks 1,2 at fixed B4 scalar point is EVIDENCE of predominantly scalar
+running, but the specific driver is not known until recorded.
+No global vacuum or full-LFV/meson flavor/HiggsTools exclusions
+were imposed. No threshold matching; quark Yukawas and gauge
+couplings were approximate CKM-identity illustrative inputs.
+Thus these results are **not physical UV cutoffs or constraints**.
+
+### C1 v2 — One larger multi-spectrum diagnostic, not more RGE tests
+
+Expanded the existing script \`scripts/zee_gateC1_joined_uv_pilot.py\`
+to report the **FIRST coupling** exceeding the heuristic cutoff at a
+localized within-step boundary, not an old checkpoint. For a crossing,
+bisect the full one-loop RK4 step for 12 iterations, record accepted and
+rejected scale bracket and the first crossing's leading couplings,
+including whether the trigger is quartic, Yukawa/f, or gauge. Reject
+non-finite evolution as a separate numerical failure, not a
+perturbativity exclusion. Independently evolve 24 and 48 RK4 steps;
+when both reach the endpoint demand max-scaled difference <2e-4,
+and when both reach a heuristic crossing demand their crossing scales
+agree within 5% and driver names match. These are **solver** checks,
+not theoretical uncertainties. New regressions compare the bisection
+algorithm with the **analytic Riccati flow**
+\`16pi² d(lambda)/dlogmu =20 lambda²\` and ensure modified output
+preserves all missing-physics constraint flags.
+
+Run the **entire 30-spectrum B4 shortlist** with the **first three
+neutrino-family solutions per spectrum**, 90 joined RG trajectories
+plus 90 independently refined 48-step trajectories. Aggregate
+\`lambda_c(mu0)\`, \`lambda1(mu0)\`, the triggering quartic and
+localized numerical crossing \`mu_heuristic\` into a per-spectrum
+CSV and a diagnostic cohort summary; all plots/quantiles are
+explicitly **biased B4-screened sample diagnostics**, not the
+allowed fraction or a prior-independent distribution of cutoff scales.
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateC1_joined_uv_pilot.py' -v &&
+python3 scripts/zee_gateC1_joined_uv_pilot.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+  --q4v13-report work/zee_section8_Q4_pyrate_v4/large_integrated_v1.json \
+  --top-candidates 30 --solutions-per-candidate 3 --steps 24 \
+  --upper-GeV 10000 \
+  --output-dir work/gateC1_joined_uv_v2_cohort
+\`\`\`
+
+New outputs:
+- \`summary.json\`: all 90 per-solution coarse/refined diagnostic
+  boundary brackets, full model-mapping provenance, and driver counts.
+- \`joined_uv_diagnostics_NOT_ALLOWED.csv\`: each solution with
+  first-limiting coupling, numerical boundary estimate/bracket,
+  RGE solver scale-convergence, and missing physics.
+- \`cohort_by_scalar_spectrum_NOT_ALLOWED.csv\`: candidate-by-candidate
+  spread across three neutrino-family ranks.
+
+The **paper-level UV program after this exploratory cohort** must
+first settle the model's consistent Type-II quark alignment/symmetry,
+include CKM and properly matched running quark inputs, and implement
+full general-complex quartic BFB/unitarity/vacuum and thresholds along
+the flow. Full neutrino likelihood, complete LFV (not just partial
+amplitudes), modern two-charged b->s gamma and HiggsTools also remain
+required for Paper 1. Do not extrapolate a 90-case diagnostic cohort
+into model-wide exclusion, discoverability or publication-level
+statistical conclusions.
+
+
+## C1 v2 AF result: scalar quartic UV diagnostics fail for ALL 30 selected spectra
+
+**Actual user-provided 2026-10-19 log:** C1 v2 ran 30 distinct B4 scalar spectra with three independent B2 neutrino-Yukawa representatives each, 90 joined full 26-one-loop-RGE trajectories and their numerical step-doubling controls. All **90/90** trajectories reached the **heuristic** \`max(|lambda_i|)=4*pi\` cutoff before the 10 TeV target. All 30 distinct scalar-spectrum cutoff estimates are in the range **1308.699–3605.650 GeV**, with median ~**1608.941 GeV**. **23/30** spectra cross below 2 TeV. First limiter: \`lh\` (the complex charged singlet self-quartic) in **18 spectra / 54 runs** and \`l1\` (the first Higgs-doublet quartic) in **12 spectra / 36 runs**. Leptonic solution ranks 1,2,3 have identical displayed limiting scales (high precision) for every spectrum. Coarse/fine boundary agreement metrics ~6.7e-6 to 2.04e-5, but **these quantify RK4 step-size sensitivity, not theoretical scale errors**.
+
+This is a useful **negative result in the biased, large-cascade B4 local sample**; NOT a universal constraint on the Zee model, NOR a full-theory UV bound. The initial \`lc~4.5\` is large in the original 2021-inspired benchmarks, and \`lambda1\` is sensitive to the neutral-scalar soft parameter. Do not conflate an arbitrary \`4*pi\` criterion with a Landau pole, or conclude that neutrino/LFV requirements intrinsically force the early scalar divergence without a general viable flavor fit.
+
+## Gate C2: 240-point PAIRED quartic UV-rescue experiment
+
+New driver \`scripts/zee_gateC2_paired_uv_rescue.py\` and tests \`tests/test_zee_gateC2_paired_uv_rescue.py\`. **C2 is deliberately a large physics-controlled study, not another small source-level coefficient gate.**
+
+For each of the same **30 B4 charged/neutral scalar spectra**, evaluate EIGHT systematically selected, mass-spectrum-preserving potentials (8×30=**240 initial spectrum-potentials**) at the **same** charged H1/H2 masses and charged mixing gamma, fixed neutral h,H,A masses, alpha,beta, tanbeta, k1,k2,k12, fixed same B2 neutrino f,Y family (rank 1).
+
+Interventions, performed as precise counterfactuals:
+1. unmodified C1 baseline, exactly reproducing its first crossing and driver;
+2. cap charged-singlet self quartic \`lh=lc<=1.0\`;
+3. cap \`lh<=0.4\`;
+4. tune \`lambda1=1.0\`;
+5. tune \`lambda1=0.5\`;
+6. combine \`lh<=1\` and \`lambda1=1\`;
+7. combine \`lh<=0.4\` and \`lambda1=1\`;
+8. combine \`lh<=0.4\` and \`lambda1=0.5\`.
+
+Tuning lambda1 is done exactly by inverse CP-even tree-mass reconstruction, at unchanged \`alpha,beta,mh125,mH\`:
+\`\`\`text
+m12sq = [mh125^2*cos(alpha)^2 + mH^2*sin(alpha)^2
+         - lambda1_target * v^2*cos(beta)^2]/tan(beta)
+\`\`\`
+Then recompute *all* 2HDM quartics and scalar-mass terms in the same fixed renormalizable potential; the charge/neutral scalar spectrum is unchanged but scalar interactions and all potential-sensitive bosonic decay widths can change. Simply replacing lambda1 in the RGE boundary without changing this underlying potential is NOT allowed.
+
+Lowering positive lh independently of the mass spectrum is possible because the charged singlet has no VEV. Recheck **exact scalar eigenmasses, Gate6 sufficient BFB, tree unitarity**. Original scalar S,T,U predictions depend on masses and mixing rather than lh or m12sq directly, so these on-shell oblique inputs stay unchanged under the paired intervention; other collider and precision observables can change and are explicitly NOT inherited.
+
+Use the saved B2 rank1 neutrino f,Y pair and recalculate neutrino matrix closure (it depends on mH1,mH2,gamma, unchanged); convert Higgs-basis Y into symmetry-basis Ye1/Ye2 exactly; evaluate provisional B3 included-channel charged branching fractions for the new potential; evolve *all 26 one-loop Zee couplings* using Q4v13 source-provenance lock with twice-refined RK4 to **10 TeV**. Numerically bracket any first |quartic|=4pi (or Yukawa/gauge heuristic) crossing and test numerical stability. Comparison baseline (unmodified) is also provenance-locked against saved **C1 v2 90-solution report**, with identical SHA hashes of B4/B2/RGEs and first crossing scales/drivers.
+
+**One AF command (do not reuse an old output directory):**
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateC2_paired_uv_rescue.py' -v &&
+python3 -u scripts/zee_gateC2_paired_uv_rescue.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+  --q4v13-report work/zee_section8_Q4_pyrate_v4/large_integrated_v1.json \
+  --c1-cohort-summary work/gateC1_joined_uv_v2_cohort/summary.json \
+  --max-spectra 30 --steps 24 --upper-GeV 10000 \
+  --output-dir work/gateC2_paired_uv_rescue_v1
+\`\`\`
+Outputs \`summary.json\` and \`paired_uv_rescue_diagnostics_NOT_ALLOWED.csv\`; summary shows per-variant tree acceptance, numerically stable UV trajectories, heuristic 10 TeV survival, limiting couplings, and per-spectrum paired rescue outcomes. If none survives, that is valuable evidence that simply decreasing lh/l1 is insufficient *in this particular high-cascade sample*. If some survive, advance these specifically to **full running BFB and tree unitarity, complete flavor/neutrino constraints and non-toy CKM matching**, before any allowed benchmark or high-scale bound. Recompute any altered cascade branching fractions and do not claim original phenomenological fit remains unchanged.
+
+**Crucial:** these 240 are **constructed modifications of a biased 30-spectrum shortlist**, not a random prior or exclusion limit for the general Zee theory. Physical allowed remains UNKNOWN; all full-LFV/HiggsTools/modern b->s gamma/global vacuum/CKM/threshold conditions NOT_EVALUATED.
+
+
+
+## C2 AF result — near-total rescue of heuristic 10 TeV perturbativity by paired quartic tuning (2026-10-19)
+
+Actual AF \`Pasted text(7).txt\` logs: C2 completed **240/240 paired potential configurations**, 30 B4 scalar spectra × 8 scalar counterfactuals, each with tree-level BFB sufficient and tree unitarity at matching and numerically stable full 26 one-loop diagnostic flow. All 30 unmodified baselines violate the chosen \`|lambda_i|<4*pi\` bound below 10 TeV (C1 reproduced). Among counterfactuals:
+
+\`\`\`text
+baseline                    0/30 reach 10 TeV
+cap_lh_1                    7/30
+cap_lh_0p4                  7/30
+target_l1_1                 0/30
+target_l1_0p5               0/30
+both_lh1_l1_1              29/30
+both_lh0p4_l1_1            29/30
+both_lh0p4_l1_0p5          29/30
+\`\`\`
+
+The only exception among joint changes: \`B4_0000827\`, which first crosses \`l3\` at ~6.376, 6.379 or 7.235 TeV, depending on the intervention. For all other paired targets the one-loop heuristic 10 TeV goal is met. **This shows the original low crossing scale is NOT intrinsic to the fixed charged-Higgs mass+mixing spectrum under the existing approximate quark boundary.** It does NOT prove UV consistency, global vacuum stability, full multiscalar unitarity, threshold/CKM matching, LFV or experimental viability. Percentages are conditional on an intentionally selected local B4 cohort and should never be read as an allowed fraction of the general Zee model. B3 included-channel cascade proxies are recalculated by C2 but the stdout contains no summary of their values; do not assume unchanged signal rates.
+
+## C3 — One larger running-BFB test of complete complex Zee scalar quartics
+
+Script \`scripts/zee_gateC3_running_complex_bfb.py\`; tests \`tests/test_zee_gateC3_running_complex_bfb.py\` (16). Probe **60 full complex Zee RGE paths**: 30 scalar spectra × two combined C2 counterfactuals, \`both_lh1_l1_1\` and \`both_lh0p4_l1_0p5\`, each toward 10 TeV, evaluating full complex quartic BFB at **25** logarithmically spaced scales per trajectory (for 24 steps). This is NOT another 26-beta numerical coefficient gate; Q4v13 already completed 676/676.
+
+For x=Φ1†Φ1, y=Φ2†Φ2, s=|χ|², z=Φ1†Φ2 with |z|≤sqrt(xy), use the EXACT general complex 11-quartic polynomial in the previously validated PyR@TE field convention:
+
+\`\`\`text
+V4=.5*l1*x²+.5*l2*y²+l3*xy+l4*|z|²
+   +Re(l5*z²)+2Re[(l6*x+l7*y+l10*s)*z]
+   +lh*s²+l8*x*s+l9*y*s.
+\`\`\`
+
+A rigorous but possibly too conservative lower bound via complex modulus, triangle inequality and AM-GM \`2x sqrt(xy)<=x²+xy\` reads \`V4 >= (x,y,s)·M·(x,y,s)^T\` with
+
+\`\`\`text
+M11 = .5*l1-|l6|
+M22 = .5*l2-|l7|
+M33 = lh
+2*M12 = l3 + min(0,l4-|l5|) - |l6|-|l7|
+2*M13 = l8-|l10|
+2*M23 = l9-|l10|
+\`\`\`
+
+If the real symmetric 3×3 M is strictly copositive (using the well-known Hadeler criteria), **BFB of the full 10-real-scalar complex quartic is rigorously certified at that scale**. Failure of this conservative sufficient test is NOT instability. Independently sample ≥2048 reproducibly chosen PHYSICAL gauge-invariant field-space orbits, \`x+y+s=1, |z|²<=xy\`, including pure fields, mixed boundaries, generic complex phases. A sampled \`V4<0\` is a **genuine quartic unbounded-from-below witness**; no negative orbit detected is NOT BFB certification. Each scale gets precisely one of \`BFB_SUFFICIENT_CERTIFIED\`, \`BFB_NEGATIVE_WITNESS\`, \`BFB_INCONCLUSIVE\`. Paths that encounter an actual negative direction stop early; inconclusive do not become passes.
+
+Accept only saved Q4v13 complete source hash and a saved C2 summary containing 240 interventions with identical B4/B2/RGE inputs and stable RK4 solver. This is a scale-sampled one-loop quartic BFB test, NOT a full global vacuum or general-complex coupled-channel tree unitarity certification, and it still lacks full LFV/mesons/HiggsTools, threshold matching, CKM and a physical UV cutoff.
+
+**Single AF command:**
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateC3_running_complex_bfb.py' -v &&
+python3 -u scripts/zee_gateC3_running_complex_bfb.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+  --q4v13-report work/zee_section8_Q4_pyrate_v4/large_integrated_v1.json \
+  --c2-summary work/gateC2_paired_uv_rescue_v1/summary.json \
+  --max-spectra 30 --steps 24 --orbit-samples 2048 \
+  --upper-GeV 10000 \
+  --output-dir work/gateC3_running_complex_bfb_v1
+\`\`\`
+
+Pending AF result. File outputs:
+  \`summary.json\` with per-variant rigorous-sufficient and negative-witness counts, plus \`running_BFB_diagnostics_NOT_ALLOWED.csv\`. Most important distinctions: which of the 29/30 RGE-perturbative paths are also rigorously sufficiently BFB throughout the sampled scales, explicitly unstable, or mathematically INCONCLUSIVE. At sampling time only; stability between steps and dimensionful charge-breaking global vacuum not certified.
+
+
+
+## C3 AF outcome — 58/60 rescued coupled trajectories sufficiently BFB, 0 negative witnesses
+
+Actual AF log supplied 2026-10-19 (Pasted text (8)): all 60 paths (30 B4 scalar spectra, 2 paired C2 counterfactuals) were executed against the unchanged 26 one-loop RGEs. C3 reports **29/30 COMPLETE_TO_TARGET with sufficient copositivity BFB at EVERY sampled scale for each intervention**, hence 58/60 successful running-BFB diagnostic paths (24 steps + matching scale per case = **1450 certified field-independent sufficient checks**). No negative quartic gauge-invariant orbit witness was found. Only B4_0000827 stopped at the preexisting C2 perturbativity threshold, so its lack of a full 10 TeV BFB certificate is **not a demonstrated unstable vacuum**. These checks are strong enough to establish mathematically sufficient lower bounds on V4 at sampled scales, but do not prove scale-continuous BFB, global charge-breaking vacuum stability including dimensionful terms, or physically viable spectra. Neutrino f,Y closure was checked against one illustrative target, not a full fit.
+
+## Gate C4 — full 55-channel general complex scalar tree unitarity + running-BFB joint test
+
+Reason: **C3 alone cannot establish theoretical UV consistency**, because scattering-matrix unitarity can fail even when the individual |quartic|<4π and a BFB lower bound are satisfied.
+
+New \`scripts/zee_gateC4_running_55channel_unitarity.py\` and
+\`tests/test_zee_gateC4_running_55channel_unitarity.py\` (18 regression tests).
+Instead of relying on the original 2021 Appendix C restricted Q,Y blocks,
+compute the exact high-energy 55×55 symmetric two-real-scalar scattering
+matrix from all TEN real scalar components of \`Phi1, Phi2, chi\`, including
+radiatively induced complex l5,l6,l7,l10. There are 10×11/2=55 normalized
+symmetric two-particle states |ij>/sqrt(1+δ_ij). For V4=q^T C q and
+q_a=.5 phi_i A^a_ij phi_j, derive contact vertex tensor:
+
+\`\`\`text
+T_ijkl = 2 C_ab [A^a_ij A^b_kl + A^a_ik A^b_jl + A^a_il A^b_jk]
+M_(ij),(kl) = T_ijkl / sqrt[(1+δ_ij)(1+δ_kl)]
+a0_eigen = - M_eigen / (16π)
+tree-unitarity requirement: max |M_eigen| < 8π.
+\`\`\`
+
+**Independent normalization validation**: the restricted Gate6 benchmark
+from Florentino et al 2021 Appendix C predicts max
+|M_eigen| = **18.13677908573045**; the independent full 55-real-channel
+construction returns the same maximum to machine precision, confirmed
+by a standalone NumPy calculation. Additional exact analytic limits:
+lambda1-only max eigen=3 λ1, lambda2-only=3 λ2, singlet lh-only=4 lh.
+The matrix/eigenspectrum remains invariant under general complex
+Higgs-doublet rephasing.
+
+Trace the **same 60** paired C2/C3 counterfactuals under the full
+complex 26-one-loop Zee flow, using 24 and 48 logarithmic RK4 steps
+toward 10 TeV. Evaluate all 55 eigenvalues and the full C3 conservative
+BFB sufficient proof at EVERY sampled step on both grids. RK4
+step-bisect any first |eigen|=8π crossing, check its stability against
+a 48-step calculation (<=5% crossing-scale difference), and report
+the first theoretical numerical warning (tree unitarity vs the
+earlier |quartic|=4π heuristic). Require *exact* Q4v13/C2/C3
+source and B4/B2 provenance. Fail closed if C4 contradicts
+C2's 10 TeV heuristic or C3's original 24-step BFB outcomes.
+The reported number of 10 TeV survivors must meet ALL tested
+heuristic perturbativity, sufficient BFB and complete 55-channel
+tree unitarity on both grids.
+
+**One AF command:**
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateC4_running_55channel_unitarity.py' -v &&
+python3 -u scripts/zee_gateC4_running_55channel_unitarity.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+  --q4v13-report work/zee_section8_Q4_pyrate_v4/large_integrated_v1.json \
+  --c2-summary work/gateC2_paired_uv_rescue_v1/summary.json \
+  --c3-summary work/gateC3_running_complex_bfb_v1/summary.json \
+  --max-spectra 30 --steps 24 --orbit-samples 2048 \
+  --upper-GeV 10000 \
+  --output-dir work/gateC4_55channel_running_unitarity_v1
+\`\`\`
+
+The user-supplied C3 AF run is complete and did not run C4 yet.
+C4 reports \`summary.json\` and \`running_55channel_unitarity_NOT_ALLOWED.csv\`.
+This remains an approximate, tree/one-loop, no-threshold theory screen,
+not a global vacuum or full RG-consistent allowed-parameter fit. In
+particular no full modern two-charged-state b→sγ, Barr–Zee LFV, CKM
+meson FCNC, HiggsTools or charge-breaking global extrema constraints
+have been applied to these 60 counterfactuals. Never label
+“full Zee point allowed” based on C4 alone.
+
+
+
+## C4 AF outcome (2026-10-19): complete running 55-channel scalar unitarity
+
+The user-provided C4 stdout \`Pasted text (9)\` confirms **all 60 trajectories analyzed** with complete 55×55 high-energy scalar contact scattering, both 24- and 48-step integration, and previously certified C3 sampled-scale BFB.
+
+\`\`\`text
+Intervention                           tree BFB to 10 TeV   55ch unitarity to 10 TeV   combined
+both_lh1_l1_1                          29/30                28/30                     28/30
+both_lh0p4_l1_0p5                      29/30                29/30                     29/30
+\`\`\`
+
+**All 60 match-scale initial conditions pass tree unitarity**; all C4 outputs explicitly \`physical_allowed_UNKNOWN\`. With \`both_lh1_l1_1\`, B4_0000755 first crosses the *8π full scattering eigenvalue criterion* around **9338.5709 GeV**, despite its |lambda|<4π and BFB tests passing up to 10 TeV. With B4_0000827, the full scattering eigenvalue crossing occurs around **4622.6779 GeV** in \`both_lh1_l1_1\` or **5532.3859 GeV** in \`both_lh0p4_l1_0p5\`; these are earlier than C2's already-known ~6.38/7.23 TeV quartic heuristic crossings. Other candidates satisfy all three one-loop/high-energy tree screening criteria at sampled scales to 10 TeV.
+
+**Scientific interpretation:** Most of the original cascade-spectrum shortlist can be scalar-rescued, AND the complete scalar scattering matrix removes additional cases missed by the single-coupling heuristic. Neither this success nor its percentages are evidence of complete physical viability, because Type-II quark boundary CKM is toy, threshold matching is missing, and LFV, meson flavor, HiggsTools and the global vacuum have not been integrated.
+
+## Gate C5: LARGE full tree Zee charge-breaking/CP/alternative-neutral vacuum search
+
+A major remaining theoretical gap: running **quartic** BFB ensures V4 does not trend negative at large fields, but it does not ensure the **dimensionful** Zee scalar potential's physical electroweak stationary point is the deepest minimum. The Zee trilinear \`muZee Phi1^T epsilon Phi2 chi†\` can favor a charge-breaking vacuum even if V4 is BFB and all scalar scattering eigenvalues satisfy the 8π tree bound.
+
+New driver: \`scripts/zee_gateC5_charge_breaking_vacuum_search.py\`; 16 regressions \`tests/test_zee_gateC5_charge_breaking_vacuum_search.py\`. Explore **30 B4 scalar mass spectra × 2 C2-rescued quartic potentials = 60** full 10-real-field renormalizable potentials at the *matching scale*. Each run uses **128 multistart seeds** + the EW reference and its signed partner (130 optimizations each, **7800 minimizations**), spanning neutral, charged-doublet, charged-singlet and mixed directions. Exact six-real-component gauge fixing \`Phi1=(0,v1)/sqrt(2)\`, \`Phi2=(u,v2+i v3)/sqrt(2)\` with real u using remaining QED phase, \`chi=(sR+i sI)/sqrt(2)\`, covers generic charge/CP-breaking orbits. The exact potential is evaluated using the independent ten-real scalar invariant/tensor representation with analytical gradients, and physical EW Hessian eigenvalues are compared to the expected three Goldstones plus seven real physical modes (125², heavy neutral², pseudoscalar², doubly degenerate charged H1/H2²). Scalar C2 reconstructed masses and B2 neutrino closure are rechecked. C4 report of all 60 scanned cases is required, with unchanged B4/B2/C2/C3 hashes.
+
+**Crucial logical outputs:**
+- \`EXPLICIT_DEEPER_TREE_POTENTIAL_WITNESS\`: a reproducible physical scalar field configuration has V(field) < V(EW) − 1e−6 v⁴, which unambiguously disproves the EW vacuum being the **global tree-level** minimum (though whether the EW state can be long-lived metastable is a separate question).
+- \`NO_DEEPER_WITNESS_FOUND_NOT_GLOBAL_CERTIFICATE\`: large multistart search found nothing deeper; **not** a global-minimum mathematical proof, and not a label of physical acceptance.
+- \`EW stationary or physical mass-squared Hessian closure failure\`: fail closed; do not search an incorrectly matched potential.
+
+**ONE AF run, fresh output directory, no RGE regeneration:**
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateC5_charge_breaking_vacuum_search.py' -v &&
+python3 -u scripts/zee_gateC5_charge_breaking_vacuum_search.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --c2-summary work/gateC2_paired_uv_rescue_v1/summary.json \
+  --c3-summary work/gateC3_running_complex_bfb_v1/summary.json \
+  --c4-summary work/gateC4_55channel_running_unitarity_v1/summary.json \
+  --max-spectra 30 --multistart 128 --maxiter 1000 \
+  --seed 20261019 \
+  --output-dir work/gateC5_charge_breaking_vacuum_v1
+\`\`\`
+
+Report: \`summary.json\`, \`charge_breaking_vacuum_screen_NOT_ALLOWED.csv\`. Interpretation: if explicit deeper potential witnesses appear, they are robust objections to **global EW vacuum** for those points (not lifetime/metastability exclusions). If none are found, next upgrade is a complete set of all polynomial stationary points or independently certified global optimization. Quantitative Paper 1 physics still depends on full neutrino/LFV, CKM matched b→s gamma, HiggsTools and consistent threshold schemes; no allowed Zee point established.
+
+
+
+## C5 AF result: 4 explicit deeper charge-breaking vacuum witnesses in 60 model potentials
+
+User ran all **60 C5 multistart scalar minimizations**, using **130 minimizations per potential** (128 generated + 2 EW reference orientations = **7800 total**). All report \`C5_PHYSICAL_ZEE_ALLOWED UNKNOWN\`. Four **explicit deeper charge-breaking** configurations were identified, affecting two distinct B4 spectra and BOTH paired scalar-quartic counterfactuals:
+
+\`\`\`text
+B4_0000822 both_lh1_l1_1       ΔV/v^4 = -1.3508153892822872
+B4_0000822 both_lh0p4_l1_0p5   ΔV/v^4 = -5.365828674616401
+B4_0001150 both_lh1_l1_1       ΔV/v^4 = -0.2056624990629435
+B4_0001150 both_lh0p4_l1_0p5   ΔV/v^4 = -3.253198537566649
+\`\`\`
+
+These are **far beyond numerical noise** (the numerical-optimization acceptance/witness threshold is 1e-6 v^4), so they are robust counterexamples to GLOBAL EW tree-potential minimality (though no metastable lifetime is computed). The other 56 cases found no lower potential within finite multistart search, which is NOT rigorous global-vacuum certification. In addition, first C4 variant fails the full running unitarity for B4_0000755, and BOTH variants fail for B4_0000827. Therefore \`C4_pass && no_C5_deeper_witness_found\` is **26/30** first variant and **27/30** second, but **neither count measures physically allowed points**. These 53 potential realizations correspond to 27 unique scalar spectra; shared spectra across variants and shared B2 Yukawa families should not be double-counted. Note that C5 is matching-scale *tree-level* vacuum only, not a loop-corrected or running vacuum analysis. The reported minimum energy differences are physical scalar potential comparisons within the fixed model convention; no off-shell gauge loop-correction claims.
+
+**Scientific takeaway:** Previously unexamined dimensionful Zee interactions make charged-breaking minima an independently relevant restriction: quartic positivity and complete 55-channel unitarity alone did NOT identify B4_0000822 or B4_0001150.
+
+## Gate D1 — one large neutrino/LFV partial-amplitude audit over all 300 B2 solutions
+
+Next shift to FLAVOR physics (rather than serial additional scalar checks).
+
+Files:
+- \`scripts/zee_gateD1_joint_300_neutrino_lfv_inventory.py\`
+- \`tests/test_zee_gateD1_joint_300_neutrino_lfv_inventory.py\` (15 regression methods).
+
+Use ALL TEN complex neutrino-family matrices (f,Y) for EACH of the same 30 B4 spectra = **300 independent saved f/Y configurations**, not 600 points because paired C2 potential interventions leave physical masses, alpha/beta/gamma and *current implemented* LFV amplitudes unchanged. The C2-based scalar potentials are reconstructed, C5 60-point outcomes and C4 55-channel theory flags imported with exact B4/B2/C2/C3/C4/C5 source hashes. Scalar-theory preselection remains a **screen**: the union has 27 unique spectra with both/one potential having successful running theory and NO OBSERVED deeper C5 witness; two spectra have definite C5 tree charge-breaking witness, one has C4 10 TeV failure in both variants.
+
+For EVERY neutrino-family solution, re-evaluate mass-matrix closure, coherently sum full currently implemented **one-loop** scalar dipoles (\`h,H,A + physical charged-doublet Y + charged-singlet f\`), add validated-but-incomplete **fermion-photon Barr-Zee** top/bottom/tau subset in the same external chirality and phase convention, and compute neutral tree-only \`mu->3e\`, \`tau->3e\`, \`tau->3mu\`, \`tau->mu ee\`, \`tau->e mumu\` and f-only charged current lepton-universality shifts. Individual one-loop scalar BR must numerically reproduce source B2 saved values; fail closed on numerical/provenance/normalization mismatches. Re-rank ten solutions per spectrum by the largest of the three partial radiative (one-loop + fermion-photon BZ coherently combined) ratio-to-reference-experiment bound and the five tree-only 3-body ratios. This is a **cohort priority score and NOT an experimental exclusion/pass**. Re-rank even if the B2 partial-only initial ranks are different; compare the influence of fermion-photon BZ amplitudes. All physical LFV, modern B->Xs gamma, CKM and running quark masses, HiggsTools, global vacuum and physical viable state stay NOT COMPUTED/UNKNOWN.
+
+**One AF command** (output dir MUST be new):
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateD1_joint_300_neutrino_lfv_inventory.py' -v &&
+python3 -u scripts/zee_gateD1_joint_300_neutrino_lfv_inventory.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --c2-summary work/gateC2_paired_uv_rescue_v1/summary.json \
+  --c3-summary work/gateC3_running_complex_bfb_v1/summary.json \
+  --c4-summary work/gateC4_55channel_running_unitarity_v1/summary.json \
+  --c5-summary work/gateC5_charge_breaking_vacuum_v1/summary.json \
+  --solution-limit 10 \
+  --output-dir work/gateD1_joint_300_neutrino_lfv_v1
+\`\`\`
+
+Outputs:
+\`summary.json\` complete 300 per-solution partial LFV diagnostics, with explicit missing-physics flags; \`incomplete_flavor_diagnostics_300_NOT_ALLOWED.csv\` 300 flat rows; \`spectrum_flavor_shortlist_NOT_ALLOWED.csv\` 30 independently re-ranked spectra. No updated experimental limits are claimed, all experimental reference 90% limits are pinned to existing source code and must be checked before publication.
+
+The ultimate Paper 1 viability problem remains open. If all sampled B2 families have severe partial flavor tension, do not conclude general Zee excluded: these were only 300 PRE-RANKED restricted B2 samples with fixed central NO neutrino target, not globally fitted Yukawas. Next substantive work would be completing *missing dipole/3-body/conversion amplitudes*, then a proper global fit optimized over neutrino flavor while simultaneously imposing quark precision and Higgs constraints. Stop adding new RGE source checks unless new physics identifies a bug.
+
+
+
+## D1 input-shape correction: saved B2 Yukawa counts can be smaller than 10
+
+**Actual user AF error 2026-10-19:** initial D1 15/15 small tests passed after the earlier regex correction but the first production run stopped: \`D1_FAIL_CLOSED ValueError('Require all TEN saved B2 neutrino solutions for B4_0000648')\`. This was a **script assumption error**, not a neutrino mass failure. B2 generates 300 trial flavors and retains only solutions passing numerical and individual perturbativity checks. Its \`--top=10\` is an UPPER LIMIT, not an assurance that ten solutions survived for every scalar spectrum. The original C1 only needed three saved per spectrum and succeeded.
+
+**Correction implemented:** D1's \`load_cohort\` now requires **30 exact B4/B2 spectrum identifiers** and **1..10 saved solution dicts per spectrum** with matching IDs. Empty, >10, missing/incorrect or malformed entries fail closed. D1 enumerates **all actual saved solutions**, dynamically checks row total against \`sum(len(B2[id]))\`, and prints/stores the population histogram and per-spectrum counts. All 30 scalar-model preflight and full f/Y numerical closure checks remain; no solutions are artificially generated or duplicated. The input SHA hashes are unchanged, preserving all previous C2–C5 provenance. Output filenames and status now denote **available**, not the unjustified exact 300 assumption. No flavor distribution is claimed to contain 300 observations unless the saved input truly does.
+
+Tests updated to **19**, including balanced 30×10 complete-case, variable 30×(1..10), zero and >10 rejection and wrong-identity controls. Initial old output directory \`work/gateD1_joint_300_neutrino_lfv_v1\` contains a fail-closed summary and MUST NOT be reused; choose a fresh V2 path.
+
+Run:
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateD1_joint_300_neutrino_lfv_inventory.py' -v &&
+python3 -u scripts/zee_gateD1_joint_300_neutrino_lfv_inventory.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --c2-summary work/gateC2_paired_uv_rescue_v1/summary.json \
+  --c3-summary work/gateC3_running_complex_bfb_v1/summary.json \
+  --c4-summary work/gateC4_55channel_running_unitarity_v1/summary.json \
+  --c5-summary work/gateC5_charge_breaking_vacuum_v1/summary.json \
+  --solution-limit 10 \
+  --output-dir work/gateD1_joint_available_neutrino_lfv_v2
+\`\`\`
+
+Now prints \`D1_B2_SAVED_SOLUTION_COUNTS {...} D1_TOTAL_SAVED N\`, \`D1_FLAVOR_FAMILY...\`, and \`D1_TOTAL_NEUTRINO_LFV_CONFIGURATIONS N OF_MAXIMUM_POSSIBLE 300\`. Report has original B2 population and per-spectrum counts. Full-LFV/experimental/physical allowed remains **UNKNOWN**. If a larger/specified 300-solution cohort is scientifically needed later, that is a **new B2 generation experiment**, which changes input hashes and requires re-linking/revalidating dependent C2–C5 provenance; do not silently regenerate B2 for this D1 join.
+
+
+
+## D1 AF SUCCESS 150 actual B2 solutions; D2 exact-neutrino continuous partial-LFV optimization
+
+**Actual D1 user stdout (Oct 19, 2026):** 30 spectra each had EXACTLY five B2 saved f/Y solutions, yielding 150 independent Yukawa configurations, not 300. Uniform five likely means the upstream B2 was invoked with \`--top 5\`; do not assume rejection reduced each candidate from ten to five without the B2 command/summary. All 30 analyzed; D1 report \`work/gateD1_joint_available_neutrino_lfv_v2/summary.json\`. Twenty-seven unique spectra have at least one C4 10 TeV theory-screened potential with no C5 deeper tree vacuum witness, while three have no such potential (B4_0000822 and B4_0001150: deeper tree charge-breaking, B4_0000827: incomplete C4 running theory). Conditional on these 150 PRE-RANKED fixed PMNS central-target textures, **none** had D1's INCOMPLETE LFV diagnostic score <1. Across the 30 spectra, best-score min 1.1668263540854733 (B4_0001049), median 7.500504789917159 and max 48.53404904275761; near-min B4_0000404 1.367815576716, B4_0000676 2.217927214987. These are NOT full rate/likelihood exclusions, and missing components could interfere. Do not extrapolate to model-wide impossibility.
+
+**New Gate D2:** \`scripts/zee_gateD2_neutrino_exact_partial_LFV_optimization.py\`, \`tests/test_zee_gateD2_neutrino_exact_partial_LFV_optimization.py\` (12 tests). ONE physics optimization experiment, replacing nonconclusive LFV random-ranking with *continuous, neutrino-exact* minimization over the FOUR COMPLEX homogeneous Yukawa degrees of freedom (8 real) PLUS f overall positive rescaling (1 real). For fixed antisymmetric f0, construct rank-5 complex neutrino operator A and null basis N (9×4), minimum norm Y0, and parameterize
+
+\`\`\`text
+f = r f0,
+Y = Y0 / r + unvec[ N z ], r = exp(t), z in C^4,
+Mnu(f,Y) = Mnu(f0,Y0) exactly (within numerical roundoff).
+\`\`\`
+
+At every objective evaluation, recompute the **same** coherent scalar one-loop + top/bottom/tau *photon* Barr–Zee subset for the three dipole modes and the five neutral *tree-only* 3-body decay rates as D1, taking log10(max[channel BR/reference bound]) as a numerical LFV-tension score. Reject any |fij| or |Yij|≥√(4π). The expensive f(z),g(z) integrals are memoized in-process: their arguments depend only on the fixed physical scalar masses and internal fermion masses, not the candidate Yukawas. Full rate and numerical closure are independently reconstructed using unmodified B2 + D1 backends for every retained finalist (differences >2e-8 fail closed); enforce exact saved D1 input SHA match, 30×5 B2 population, and C4/C5 scalar-theory shortlist.
+
+D2 chooses the **27 distinct scalar spectra** satisfying C4 screen and no C5 deeper witness, starts at the **2 best of the 5 B2 stored Yukawa textures for each spectrum** (54 local optimizations), uses bounded Powell with at most 240 function evaluations/start (configurable), always retains the starting root as valid fallback, and reports best matched partial score per spectrum; cannot establish a global minimum. The scope covers 9 real degrees within each fixed B2 f-null orientation, not the continuous two-complex-dimensional f orientation space or PMNS uncertainties. Any optimized Yukawa different from the saved C1/C4 rank-1 texture **must have full 26 one-loop RGE rerun** before a theoretically screened benchmark can be claimed: large lepton Yukawas change scalar beta functions, so prior C4 'passes' cannot automatically be transferred to optimized f/Y.
+
+**Single AF run** (fresh dir, no modified original B2 / C2..C5 inputs):
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateD2_neutrino_exact_partial_LFV_optimization.py' -v &&
+python3 -u scripts/zee_gateD2_neutrino_exact_partial_LFV_optimization.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --c2-summary work/gateC2_paired_uv_rescue_v1/summary.json \
+  --c3-summary work/gateC3_running_complex_bfb_v1/summary.json \
+  --c4-summary work/gateC4_55channel_running_unitarity_v1/summary.json \
+  --c5-summary work/gateC5_charge_breaking_vacuum_v1/summary.json \
+  --d1-summary work/gateD1_joint_available_neutrino_lfv_v2/summary.json \
+  --max-spectra 27 --starts-per-spectrum 2 --max-evals 240 \
+  --output-dir work/gateD2_neutrino_exact_partial_LFV_v1
+\`\`\`
+
+Main output \`summary.json\` includes final complex f,Y for each optimized spectrum, original vs optimized partial rates, dominant LFV contribution, precise neutrino closure, and every missing phenomenology/running constraint. Flat \`optimized_partial_LFV_cohort_NOT_ALLOWED.csv\` summarizes 27 flavors; NO "allowed" label even if partial score <1. If successful, next physics task should implement the missing complete amplitudes and rerun full theory constraints for any optimized f/Y before a global fit with neutrino oscillation parameter uncertainties, CKM and matched b->s gamma, HiggsTools.
+
+Note: the current archived B2 sample is **exactly five per spectrum**, which is consistent with an intentional \`--top 5\`. These are a selectively ranked sample, not evidence that only five neutrino solutions exist.
+
+
+
+## D2 AF SUCCESS — 27/27 neutrino-exact optimized partial LFV scores <1; D3 full-theory rerun
+
+Actual user AF D2 stdout (2026-10-19): all **27** spectra with at least one C4 passing (sampled) running scalar-theory model and no C5 deeper tree charge-breaking witness were subjected to two locally optimized neutrino-Yukawa textures each. **All 27** achieved D2's MAXIMUM COHERENT *PARTIAL* LFV observable-to-reference-limit score below 1, while preserving the same fixed neutrino target. All have leading remaining partial channel **mu->e gamma**. Scores range **4.2158479641905944e-05** (B4_0000940) to **0.013874375000513412** (B4_0000469); median improvement **42,221.954289408786** and maximum improvement **357,230.28314088617** (B4_0000759). Examples: B4_0001049 original 1.1668263540854733 -> 5.8200706093975896e-05; B4_0000404 original 1.3678155767162739 -> 0.00014754708129610436; B4_0000940 new 4.2158479641905944e-05.
+
+This establishes **a failure of B2's five-per-spectrum *partial-amplitude-sampled* LFV optimization, not an experimental flavor acceptance**. Nine exactly-neutrino-constrained real f/Y directions generated up to 10^3-10^5 improvements relative to these old random samples. D2's score <1 is *NOT* a complete LFV rate; W and scalar mediated two-loop Barr-Zee, other virtual corrections and 3-body penguin/box contributions, mu->e conversion, full oscillation likelihood remain uncomputed. Cancellation stability/fine tuning should be investigated and not assumed, especially with huge score changes. The saved C1--C4 full-RGE curves had DIFFERENT lepton Yukawas (B2 rank1); they cannot be transferred to these D2 solutions.
+
+## Gate D3 — re-evaluate 27×2 complete scalar/optimized-flavor running theory and local LFV sensitivity
+
+New driver \`scripts/zee_gateD3_optimized_flavor_full_theory_rerun.py\` and \`tests/test_zee_gateD3_optimized_flavor_full_theory_rerun.py\` (15 regressions). This is a large joined 54-complete-RGE-model *physics* verification.
+
+- Require exact D2 27-spectrum/54-start record, per-candidate f,Y identity, best-score closure, D1/B4/B2/C2/C3/C4/C5 input SHA matches, and unchanged Q4v13 676/676 RGEs SHA. Recompute every optimized partial LFV score using the original D1 backend; disagreeing scores fail closed.
+- Rebuild BOTH C2 rescued scalar-potential variants for every optimized spectrum; reconstruct scalar eigenmasses, full 26-one-loop Zee initial model and *optimized* Ye1,Ye2 and f, no inheritance from B2 rank1. Verify original C5 scalar-only matching-scale charge-breaking results match their original scalar potentials (tree level independent of f,Y).
+- Evolve ALL 26 RGEs on both a 24- and independently refined 48-step log grid up to 10 TeV; check full general-complex quartic sufficient BFB and 55-channel tree unitarity on both grids using existing C3/C4 validators. Report per variant if perturbativity, BFB, or unitarity survives, and detect numerical coarse/refined unitarity crossing disagreement >5%; do not call screen a rigorous physical UV cutoff.
+- Around each D2 optimized solution, probe 12 random normalized null-coordinate directions at radius 1e-3 and 1e-2 (24 additional LFV evaluations/spectrum), verifying neutrino mass matrix remains exact. Record how often the **partial** score stays <1 and the maximum drift. These are *local sensitivity diagnostics*, not statistical experimental uncertainties or proof of absence of accidental cancellations.
+- Summarize which of the 27 unique scalar-theory candidate spectra retains ≥1 fully re-evaluated one-loop theory-screen survivor **with its D2 f/Y**, in addition to the independently observed absence of a C5 deeper charge-breaking tree witness. It remains unknown whether any spectrum is a fully physical Zee allowed point, because even D3 lacks full LFV/mu-e conversion, CKM quark matching, matched two-charged b->s gamma, HiggsTools, full PMNS/phase fit and global vacuum proof.
+
+**One UChicago AF command**, fresh output directory, no regenerated B2:
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateD3_optimized_flavor_full_theory_rerun.py' -v &&
+python3 -u scripts/zee_gateD3_optimized_flavor_full_theory_rerun.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --c2-summary work/gateC2_paired_uv_rescue_v1/summary.json \
+  --c3-summary work/gateC3_running_complex_bfb_v1/summary.json \
+  --c4-summary work/gateC4_55channel_running_unitarity_v1/summary.json \
+  --c5-summary work/gateC5_charge_breaking_vacuum_v1/summary.json \
+  --d1-summary work/gateD1_joint_available_neutrino_lfv_v2/summary.json \
+  --d2-summary work/gateD2_neutrino_exact_partial_LFV_v1/summary.json \
+  --generator-output work/zee_section8_Q4_pyrate_v4/generator_output \
+  --q4v13-report work/zee_section8_Q4_pyrate_v4/large_integrated_v1.json \
+  --steps 24 --orbit-samples 2048 --local-trials 12 --upper-GeV 10000 \
+  --output-dir work/gateD3_optimized_fY_full_theory_v1
+\`\`\`
+
+Report \`summary.json\` including per-candidate local partial-LFV variation and 54 theory flows; flat \`revalidated_optimized_fY_theory_NOT_ALLOWED.csv\`. Expected output \`D3_OPTIMIZED_FY_FULL_RGE ...\`, \`D3_FULL_THEORY_COHORT {...}\`, \`D3_FULL_ZEE_ALLOWED UNKNOWN\`. This code has NOT been executed on AF yet. If many optimized Yukawas fail 10 TeV theory, the next scientific step is a *joint flavor-plus-UV optimization*, not a claim of exclusion. If many survive, the next scientific step is completing the missing LFV amplitudes and meson matching, not declaring allowed points.
+
+
+
+## D3 AF SUCCESS: all 27 neutrino-exact LFV-optimized spectra retain a 10-TeV theory-screen variant
+
+User's \`Pasted text (10).txt\`, 2026-10-19: D3 completed all **54** complete full one-loop 26-RGE trajectories for the **27 distinct D2 optimized complex f/Y neutrino solutions**, two scalar-potential variants each. D3 repeated 24/48-step integrator, full complex quartic conservative BFB, 55-channel high-energy tree unitarity, rechecked D2 partial LFV and exact neutrino matrix. RGE reaches 10 TeV: 27/27 BOTH variants. Sufficient running BFB at every sampled scale: 27/27 BOTH variants. Running complete unitarity passes 26/27 for \`both_lh1_l1_1\` and 27/27 for \`both_lh0p4_l1_0p5\`. Hence **53/54** complete model configurations pass all sampled 10-TeV screens; **27/27 unique scalar spectra** have at least one passing variant. The only unsuccessful variant is B4_0000755 with first quartic intervention, consistent with old C4. The 27 optimized partial LFV maxima range 4.21585e-5 through 0.0138744; these cannot be used as full physical bounds.
+
+D3 stdout does NOT show the 1%-flavor-perturbation robustness diagnostics (they are stored in \`work/gateD3_optimized_fY_full_theory_v1/summary.json\`), so do not invent conclusions regarding fine-tuning from the console-only results. Crucially still no physical allowed Zee point because full W-photon, charged-scalar two-loop, Z-penguin, 3-body loop interference, mu-e conversion, meson FCNC, matched b->s gamma, HiggsTools, global vacuum and RG thresholds remain undone.
+
+## Gate D4: ADD the missing W-PHOTON Barr-Zee amplitude to 27 D3-optimized models
+
+Motivation: A 10^4–10^5 suppression of the *previous incomplete* dipole rate can be overturned by an absent **non-fermionic two-loop** amplitude. S. Davidson, EPJC 76 (2016) 258 arXiv:1601.01949 Eq.(24), based on Chang-Hou-Keung (1993), gives the CP-even neutral W-photon Barr-Zee factor, and arXiv:2111.10464 Appendix B.28 independently gives the exact same **photonic W term**. In the existing source-converted 1loop/fermion-BZ C_L,C_R [GeV^-2] convention and A1D CP-even scalar basis:
+
+\`\`\`text
+C^Wgamma_{L,R} =
+  alpha_em/(16*pi^3*m_parent*v) *
+  sum_{phi=h,H} [g_{phi WW} C^{phi,L/R}_{daughter,parent} *
+                  K(mW²/mphi²)]
+g_hWW=cos(beta-alpha), g_HWW=sin(beta-alpha)
+K(z)=3 f(z) + 23/4*g(z) + 3/4*h(z) + (f(z)-g(z))/(2*z)
+f(z)=z*(2+ln z)+(1-2*z)g(z)
+h(z)=z*(2*g(z)+ln z)/(1-4*z)  (direct integral at z=1/4).
+\`\`\`
+
+The new code \`scripts/zee_gateD4_W_photon_barr_zee_27.py\` (tests \`tests/test_zee_gateD4_W_photon_barr_zee_27.py\`, 15 regression methods) computes f,g,h with independent Haber g/h integral and identity cross-checks, CP-even vs CP-odd selection, both exact-alignment and CP-even degenerate-mass cancellations, complex lepton flavor-chirality transformations, and the previous exact D1/D2 coherent rates. It coherently adds \`C_one_loop + C_top,b,tau-photon_BZ + C_W-photon_BZ\` for the three radiative modes, still includes all previously evaluated five neutral tree-only 3-lepton BR subsets in the \`max\` partial objective, and cross-checks previous D2 rates BEFORE any new numerical result. Exact D2 and D3 SHA/54-RGE-case locks: no regenerated previous inputs. **One complete 27-texture experiment**, not isolated RGE tests.
+
+**ONE AF command** (fresh output directory):
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateD4_W_photon_barr_zee_27.py' -v &&
+python3 -u scripts/zee_gateD4_W_photon_barr_zee_27.py \
+  --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+  --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+  --c2-summary work/gateC2_paired_uv_rescue_v1/summary.json \
+  --c3-summary work/gateC3_running_complex_bfb_v1/summary.json \
+  --c4-summary work/gateC4_55channel_running_unitarity_v1/summary.json \
+  --c5-summary work/gateC5_charge_breaking_vacuum_v1/summary.json \
+  --d1-summary work/gateD1_joint_available_neutrino_lfv_v2/summary.json \
+  --d2-summary work/gateD2_neutrino_exact_partial_LFV_v1/summary.json \
+  --d3-summary work/gateD3_optimized_fY_full_theory_v1/summary.json \
+  --output-dir work/gateD4_W_photon_Barr_Zee_v1
+\`\`\`
+
+The report \`summary.json\` and \`27_W_photon_extended_LFV_diagnostics_NOT_ALLOWED.csv\` compare D2 vs D4 old/new partial score, flavor channel and relative W-to-prior amplitude. Individual contributions returned in \`per_channel_amplitude_parts\`. No physical LFV "pass" or exclusion: absent W-Z, charged-Higgs scalar-loop/Barr-Zee, full loop-3lepton and mu-e conversion; and input quark matching is only Type-II nominal. The applied W-photon formula should still be independently convention-benchmarked against a published complete 2HDM decay for publication claims. If D4 destroys most D2 subtotal gains, next step should be optimizing f/Y with this new W amplitude included and subsequently rerunning RGE, not inferring model exclusion. If W term is small and leaves gains, next step is charged scalar and Z-exchange bosonic two-loop amplitudes and complete lepton flavor likelihood.
+
+
+## D4 AF outcome (Oct 19, 2026) and D5 direct Higgs LFV
+
+D4 user stdout: 27/27 D3-optimized Zee neutrino-closed spectra retain an incomplete coherent LFV score below 1 after adding the real W-photon Barr-Zee contribution. Median new partial score 0.0022783299761540577; minimum 3.678069679209149e-05 (B4_0000733); maximum 0.13781658523844337 (B4_0001097); largest rate-score amplification 1352.4078051972074. This is NOT a physical acceptance or complete LFV calculation. Certain models have large W-induced shifts (B4_0000874 and B4_0001097); others show destructive interference. The shared D3 26-beta full Zee running/BFB/55channel 10-TeV screens remained successful in at least one quartic variant per spectrum.
+
+Gate D5 ADDITIONAL PHYSICS test (new script scripts/zee_gateD5_h125_direct_LFV_27.py and 16 regression tests in tests/test_zee_gateD5_h125_direct_LFV_27.py): For the 27 original D2 Yukawa matrices, compute genuine tree physical 125 GeV Higgs charged lepton flavor violating widths h->e mu, e tau, mu tau, including both charge conjugate final states and exact finite lepton masses. Use the A1D Higgs-basis physical scalar couplings C_h, and verify the analytic massless limit and pure-diagonal-SM limit. As C2 quartic choices fix scalar masses/mixing/alpha/beta, do NOT double count identical h LFV predictions as two independent flavor points.
+
+Reference observed direct 95% CL limits: CMS HIG-22-002 h->e mu < 4.4e-5 (PhysRevD108 072004, 2023); ATLAS JHEP 07 (2023) 166 h->e tau < 0.0020, h->mu tau < 0.0018. URLs respectively https://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-22-002/index.html and https://link.springer.com/article/10.1007/JHEP07(2023)166 . Note these experimental bounds use SM-like production admixtures. Report gamma_h divided by 4.07 MeV nominal reference AND a proxy where only charged lepton diagonal and new LFV widths are updated. Leave nonleptonic Higgs widths, charged scalar hγγ loops, production, signal strengths, HiggsTools and full total-width uncertainty explicitly NOT computed. Even ratios >1 should be called direct-Higgs-LFV reference TENSION, NOT complete model experimental exclusions. A ratio <1 is not evidence of physically allowed.
+
+AF command, fresh output:
+
+    cd /home/aalida/zee
+    git pull --ff-only
+    python3 -m unittest discover -s tests -p 'test_zee_gateD5_h125_direct_LFV_27.py' -v &&
+    python3 -u scripts/zee_gateD5_h125_direct_LFV_27.py \
+      --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+      --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+      --c2-summary work/gateC2_paired_uv_rescue_v1/summary.json \
+      --c3-summary work/gateC3_running_complex_bfb_v1/summary.json \
+      --c4-summary work/gateC4_55channel_running_unitarity_v1/summary.json \
+      --c5-summary work/gateC5_charge_breaking_vacuum_v1/summary.json \
+      --d1-summary work/gateD1_joint_available_neutrino_lfv_v2/summary.json \
+      --d2-summary work/gateD2_neutrino_exact_partial_LFV_v1/summary.json \
+      --d3-summary work/gateD3_optimized_fY_full_theory_v1/summary.json \
+      --d4-summary work/gateD4_W_photon_Barr_Zee_v1/summary.json \
+      --output-dir work/gateD5_h125_direct_LFV_v1
+
+Output summary.json and a 27-row h125 direct LFV comparison CSV. Code not yet executed on AF. Following D5, a real complete LFV+HiggsTools+matched quark flavor likelihood is required before any physical Zee allowed benchmark or Paper 1 quantitative conclusion.
+
+
+
+## D5 AF SUCCESS — direct h125 LFV far below reference bounds (2026-10-19)
+
+D5 completed all **27** D2 Yukawa solutions: all three charged-conjugate summed tree h125->eμ,eτ,μτ widths, finite lepton masses and updated leptonic widths. D5 outputs **27/27** with all three *proxy* reference BR ratios <1, no observed direct Higgs LFV reference tension. Largest reference-limit ratio is **6.306688396325444e-7** (B4_0001097). Per-mode maxima from user stdout: BR(h->eμ)=**2.7749428943831953e-11**; BR(h->eτ)=**9.892517009756622e-10**; BR(h->μτ)=**1.2517678032638578e-10**. This is under the explicit D5 assumption of SM-like production, non-leptonic Higgs widths held at the reference and only charged leptonic widths updated. No physical HiggsTools allowed classification, no new scalar hγγ loops, no full total width / signal-strength fit.
+
+The enormous suppression is fully consistent with the B4 scalar mixing input alpha approximately beta: for physical h SM alignment, the off-diagonal Higgs-basis Yukawa coupling is proportional to sin(beta-alpha). One should not extrapolate direct h LFV suppression to generic alpha or non-alignment parameter space. The existing optimized Zee Yukawas STILL require full low-energy LFV and quark flavor matching.
+
+## Gate E1 — physics-selected 27-spectra coherent two-charged SuperIso-v5 legacy B->Xs gamma audit
+
+Files:
+- scripts/zee_gateE1_joined_27_legacy_bsgamma.py
+- tests/test_zee_gateE1_joined_27_legacy_bsgamma.py (13 tests).
+
+This is the first joined quark-flavor evaluation for all **27 D5-checked spectra**. It reuses the existing rigorously audited A1U/A1V source-pinned SuperIso-v5 observable interface. Source-level nested helper high-scale C7/C8 reload bug in the original external two-state wrapper was already corrected in A1U, which AF validated against single charged-state gamma=0,pi/2 and equal-mass controls. Do NOT assume the legacy rate is a current NNLO prediction or Zee experimental exclusion. Recent independent SM NNLO study (Misiak et al arXiv:2608.29863, Aug 2026): SM B(Egamma>1.6)=(3.54±0.14)*1e-4, whereas old SuperIso source A1R SM=3.382457724e-4. HFLAV reference BR_exp=(3.49±0.19)*1e-4. These SM references have different calculational frameworks, schemes and theory correlations; do NOT splice modern SM onto legacy SuperIso NP rates without matched perturbative/mass-scheme treatment.
+
+At each charged-Higgs spectrum read exact mH1,mH2,gamma,tanbeta from original B4 and Type-II quark assumptions, generate a 27-point A1V grid and independently calculate the full mixed-Wilson-coefficient BR. Inspect each A1V response linear and quadratic NP decomposition. In addition, calculate pure-light gamma=0, pure-heavy gamma=pi/2 and equal-mass gamma-dependent controls per spectrum; if any fail threshold 5e-10 BR, halt. If any of the original D5/B2/C2/C3/C4/C5/D1/D2/D3/D4 ancestry hashes are altered, halt. Retain D4 partial LFV and D5 direct h LFV relative diagnostics in each final row. Output a comparison to the HFLAV reference and a ratio to its experimental-only uncertainty explicitly marked **NOT a pull, CL, acceptance, or exclusion**. The C1..D5 benchmark family is cascade-selected and non-prior-independent.
+
+AF command (requires prior *actual* source-pinned A1U result and isolated A1M vendor):
+
+    cd /home/aalida/zee
+    git pull --ff-only
+    python3 -m unittest discover -s tests -p 'test_zee_gateE1_joined_27_legacy_bsgamma.py' -v &&
+    python3 -u scripts/zee_gateE1_joined_27_legacy_bsgamma.py \
+      --b4-csv work/gateB4_zee_adaptive_pilot/diverse_candidates_for_B2_NOT_ALLOWED.csv \
+      --b2-json work/gateB4_zee_adaptive_pilot/B2_flavour/top_neutrino_Yukawa_matrices_NOT_ALLOWED.json \
+      --c2-summary work/gateC2_paired_uv_rescue_v1/summary.json \
+      --c3-summary work/gateC3_running_complex_bfb_v1/summary.json \
+      --c4-summary work/gateC4_55channel_running_unitarity_v1/summary.json \
+      --c5-summary work/gateC5_charge_breaking_vacuum_v1/summary.json \
+      --d1-summary work/gateD1_joint_available_neutrino_lfv_v2/summary.json \
+      --d2-summary work/gateD2_neutrino_exact_partial_LFV_v1/summary.json \
+      --d3-summary work/gateD3_optimized_fY_full_theory_v1/summary.json \
+      --d4-summary work/gateD4_W_photon_Barr_Zee_v1/summary.json \
+      --d5-summary work/gateD5_h125_direct_LFV_v1/summary.json \
+      --vendor-root work/gateA1m_isolated_nlo_v1/isolated_superiso \
+      --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+      --a1u-result work/gateA1u_legacy_zee_br_v1/legacy_two_state_br.json \
+      --output-dir work/gateE1_joined_27_legacy_bsgamma_v1
+
+Writes summary.json, A1V_grid_27.csv, A1V_source_pinned_kernel/gateA1v_legacy_response.json and 27_model_joined_legacy_bsgamma_NOT_EXCLUSION.csv; stdout E1_LEGACY_BSGAMMA ... E1_27_LEGACY_BSGAMMA_COHORT. Source-pinned AF execution PENDING as of this doc update. If A1U/A1M files missing, stop and restore correct original source-pinned inputs (not unsourced SuperIso from CVMFS). A1V itself has source audit and rejects invalid helper signatures.
+
+**Physics target:** determine the size and sign of coherent two-charged-Higgs Wilson contributions across the existing neutrino/LFV/scalar-cascade preferred sample. Any large discrepancy from experiment is a **legacy sensitivity/tension indicator**, not exclusion. Publication-level Paper 1 requires a coherent modern NNLO observable with uncertainty treatment, plus full lepton flavor, HiggsTools, and global vacuum.
+
+
+
+## E1 AF SUCCESS — 27/27 positive two-state legacy B->Xs gamma NP, and E2 charged-mixing/cascade physics tradeoff
+
+The user supplied full **27/27 E1 AF log** (Oct 19, 2026), all source-pinned pure-light/pure-heavy and equal-mass endpoints successful. Data:
+- LEGACY SuperIso predicted two-state BR range **[0.00038632835890417316, 0.0004041932539836534]**; median **0.0003914422634967018**.
+- All **27/27** positive NP BR shifts relative to the SAME **legacy** SM baseline. Median NP shift **5.3196491092622226e-05** = **15.7%** of original E1 legacy SM 0.00033824577.
+- Under ONLY HFLAV experimental uncertainty (no theory error included), raw |BR_legacy-BR_exp|/sigma_exp from **1.96465** to **2.90491**, median **2.23380**. These numbers are **not true standard deviation pulls, exclusions or an allowed fraction**; 2026 NNLO B->Xs gamma SM differs from SuperIso legacy calculation and must NOT be naively spliced with old NP rate. All 27 linear (interference) pieces are positive and larger than the positive quadratic NP contributions.
+- Example B4_0000820 lowest legacy BR ~3.8633e-4; B4_0000874 highest ~4.0419e-4. Favoring the large off-diagonal charged Z cascade leads to potential quark-flavor pressure; quantified modern EFT matching remains necessary.
+
+**Gate E2** is a *physical tradeoff* diagnostic, not a repeat full scan or a 2026 flavor exclusion. Driver \`scripts/zee_gateE2_flavor_cascade_mixing_frontier.py\` with 14 regressions in \`tests/test_zee_gateE2_flavor_cascade_mixing_frontier.py\`.
+
+At fixed masses/tanβ use exact A1V Wilson mixing \`C^(Zee)_i=C^SM_i+cos²γ C^H1_i+sin²γ C^H2_i\`. The source-pinned SuperIso observable is quadratic in NP-strength \`k\` (already verified in A1V), so BR_legacy is mathematically quadratic in \`x=cos²γ\`: \`BR=A+B x+C x²\`. Construct the unique polynomial from each E1 original γ result, pure-light γ=0 and pure-heavy γ=π/2 controls. This costs no approximate Wilson data inference; the quadratic structure is source-verified and then independently checked via **4 fresh compiled-and-audited vendor evaluations per spectrum**: γ=0.31,0.79,1.33 and original γ (27×4=**108 vendor checks**). Fail closed if any BR disagreement >1e-10. Rebuild the A1V executable directly from the original SHA256-pinned A1M isolated library and compare rebuilt lib / C-driver hashes against the saved E1/A1V report. Lock E1/A1M/A1U SHA provenance.
+
+The off-diagonal charge-cascade vertex \`g_ZH1H2~sin2gamma\` gives normalized coupling strength squared \`S_Z=sin²(2gamma)=4x(1-x)\`. **S_Z is NOT BR(H2→H1Z)**: full decay competition, neutrino matrix reconstruction, scalar-potential mass matching, global vacuum and 26-beta UV running ALL change when γ changes. Mathematically minimize BR_legacy over allowed γ at each of five retention levels \`S_Z ≥ {0,.25,.50,.75,1} × S_Z(original)\`, including exact analytic quadratic minimum and degenerate roots. Export per-spectrum the optimum γ, retained vertex strength and flavor NP-rate tradeoff, no experimental cut or allowed/excluded label. Thus this stage answers: **can the legacy quark-flavor pressure be relieved by moving toward a mostly singlet lighter charged scalar without destroying the distinctive off-diagonal Z coupling?** A successful counterfactual would THEN require a real full-model scalar/neutrino/LFV re-fit and theory matching before any allowed claim.
+
+**One AF command**, fresh directory:
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m py_compile \
+    scripts/zee_gateE2_flavor_cascade_mixing_frontier.py \
+    tests/test_zee_gateE2_flavor_cascade_mixing_frontier.py
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateE2_flavor_cascade_mixing_frontier.py' -v &&
+python3 -u scripts/zee_gateE2_flavor_cascade_mixing_frontier.py \
+  --e1-summary work/gateE1_joined_27_legacy_bsgamma_v1/summary.json \
+  --vendor-root work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --a1u-result work/gateA1u_legacy_zee_br_v1/legacy_two_state_br.json \
+  --output-dir work/gateE2_flavor_cascade_mixing_frontier_v1
+\`\`\`
+
+Output \`summary.json\` with original-vs-minimum legacy flavor BR and five coupling-retention minima per spectrum, and \`mixing_Zvertex_vs_legacy_bsgamma_27_NOT_ALLOWED.csv\`. Expected stdout \`E2_FLAVOR_CASCADE_ANGLE 1/27 ...\`, \`E2_COHORT {...}\`, \`E2_PHYSICAL_ZEE_ALLOWED UNKNOWN\`. Not yet run on AF. Source literature: Florentino/Romão/Silva EPJC81 (2021) 1148 equations for off-diagonal Z coupling, arXiv:2106.08332; Misiak et al. 2026 modern SM B->Xs gamma arXiv:2608.29863. No model experimental exclusions from E1 or E2.
+
+
+
+## E2 AF SUCCESS — mixing tradeoff 27/27; E3 full cohort at modern 2026 LO Wilson Eq4
+
+Actual E2 AF stdout (Oct 19, 2026), all **27** original E1 spectra, **108** independently recomputed A1V SuperIso legacy response points. Max absolute interpolated vs direct SuperIso BR residual = **3.198396408832238e-17**. No source endpoint mismatches. All 27 original mixing angles at fixed mass/tanβ are at the *lowest legacy BR attainable while retaining the same or larger squared off-diagonal Z coupling*, i.e. **0/27** BR improvements with no reduction of S_Z. If instead preserve >=50% of the original S_Z, ALL 27 can reduce legacy BR. Median original BR=3.914422634967018e-4, median optimal at half-Z-coupling squared=3.846942973744442e-4, difference ~0.0675e-4 (~1.7% original BR). Even this half-vertex preservation does not produce a properly accepted Zee quark-flavor configuration, and S_Z is not BR(H2->H1 Z). Gamma-only counterfactuals must not inherit the original neutrino, LFV, 10-TeV RG or vacuum certification.
+
+**E3 motivation**: A1S already existed and was USER-RUN in Oct 2026 on AF. Crucially, the NEW Misiak et al arXiv:2608.29863 (Aug 2026), Section IV **Eq.(4)** provides exactly:
+\`\`\`text
+(10^4) BR(Bbar->Xs gamma) ~= 3.54 - 8.51*DeltaC7(mu0=160GeV)
+                                  - 2.16*DeltaC8(mu0=160GeV)
+\`\`\`
+for matching-scale LO NP Wilson coefficients, neglecting quadratic NP and higher-order matching. Explicit author warning: 2026 2HDM-II 670GeV 95% CL lower bound uses **complete 2HDM-II NNLO**, not Eq4. Re-do the E2 mixing-vs-cascade tradeoff for all 27 selected Zee spectra using that *modern, independently normalized observable expansion*, not grafting E1's old SuperIso NP BR shift onto 2026 SM. This directly tests whether the **QUALITATIVE** positive flavor-vs-vertex tradeoff is stable across perturbative prescriptions.
+
+New script: \`scripts/zee_gateE3_2026_eq4_27_wilson_frontier.py\`; 15 regression methods \`tests/test_zee_gateE3_2026_eq4_27_wilson_frontier.py\`.
+
+Read the source-locked E1/E2 27 spectrum reports plus source fingerprints for A1M SuperIso and A1U; compile existing unmodified A1S LO C7/C8 driver against exact pinned isolated SuperIso-v5 lib and rerun it for each physical mH1,mH2,tanβ pair at EXACT mu0=160GeV. Cache exact repeated (mass,tanβ) combinations. For 27 two-state spectra, up to **54 unique LO matching probes**; exactly 54 input positions assembled even if cache reuse means fewer unique actual C subprocess calls. LO C7,C8 of Zee = cos²γ*(light) + sin²γ*(heavy). Use 2026 Eq4 *once* on the combined Wilson coefficients, never average full BRs. Eq4 BR is mathematically AFFINE in x=cos²γ (unlike E2's quadratic legacy observable); minimize exactly for the same FIVE normalized cascade Z vertex squared retention thresholds 0%,25%,50%,75%,100%. Include each E2 legacy optimum gamma and both separate BR values side-by-side (different schemes/units), **never sum or equate to model CLs**. Source A1S 300/700/tanβ=5.597 validation probe result from the user's earlier AF A1S: DeltaC7_Zee ~-0.0592117200769, DeltaC8_Zee ~-0.0626838511569, Eq4 linearized BR~4.17928885635e-4; a regression anchors these results.
+
+**One AF command**, fresh output:
+
+\`\`\`bash
+cd /home/aalida/zee
+git pull --ff-only
+python3 -m py_compile scripts/zee_gateE3_2026_eq4_27_wilson_frontier.py \
+  tests/test_zee_gateE3_2026_eq4_27_wilson_frontier.py
+python3 -m unittest discover -s tests \
+  -p 'test_zee_gateE3_2026_eq4_27_wilson_frontier.py' -v &&
+python3 -u scripts/zee_gateE3_2026_eq4_27_wilson_frontier.py \
+  --e1-summary work/gateE1_joined_27_legacy_bsgamma_v1/summary.json \
+  --e2-summary work/gateE2_flavor_cascade_mixing_frontier_v1/summary.json \
+  --vendor-root work/gateA1m_isolated_nlo_v1/isolated_superiso \
+  --a1m-provenance work/gateA1m_isolated_nlo_v1/source_patch_provenance.json \
+  --a1u-result work/gateA1u_legacy_zee_br_v1/legacy_two_state_br.json \
+  --output-dir work/gateE3_modern_2026_eq4_27_wilson_frontier_v1
+\`\`\`
+
+Outputs \`summary.json\`, \`2026_Eq4_LO_27_flavor_cascade_NOT_EXCLUSION.csv\`, \`A1S_54_charged_LO_matching_raw.log\` (can contain fewer distinct probes when mass/tanβ are identical). Prints \`E3_MODERN_EQ4_WILSON_FRONTIER\`, \`E3_COHORT\`, \`E3_FULL_ZEE_ALLOWED UNKNOWN\`. Source-verified original E2 angular continuation enables comparison at five same vertex thresholds. E3 does NOT supply the missing full 2026 NNLO two-state BR or flavor likelihood, nor full Zee physical allowed models. At large NP DeltaC~0.05-0.1, Eq4 truncation uncertainty must be assessed, preferably using independent full-TypeII NNLO benchmark and new Wilson/RG/BR coupling, before publication. Paper 1 bottleneck remains modern matched quark flavor, full lepton flavor, global vacuum and HiggsTools.
+
+
+## E3 AF success and E4 precision-flavor decision (2026-10-19)
+
+E3 completed all 27 original Zee spectra with 48 unique modern 2026 Eq.(4) LO matching probes (54 state inputs; six cache reuses): source-based original Eq.(4) BR range (4.1076–4.2939)×10^-4, median 4.1615×10^-4; best BR with 50% original squared Z-cascade vertex median 4.0901×10^-4. All 27 E3 angular minima agree with the legacy E2 minima; no spectrum lowers BR at equal or higher squared Z vertex, all 27 lower at half-vertex retention. NO full modern NNLO prediction, model exclusion or allowed benchmark exists. 
+
+**Do not run another legacy vs linearized re-centering gate.** Implementing the actual publication-level 2026 prediction requires the missing full modern observable and common Wilson-level NP interference plus Type-II 670-GeV/95%-CL validation. The source-verified P0–P4 acceptance criteria and detailed references are recorded in [`docs/gateE4_precision_two_charged_bsgamma_requirements.md`](gateE4_precision_two_charged_bsgamma_requirements.md). The next useful task is obtaining/implementing the modern full two-charged kernel, independently reproducing the full 2HDM Type-II curve/likelihood, *then* using the 27 originally matched spectra for a real constraint.
+
+
+## E4A — one executable large 27-Zee plus 18-Type-II precision matching experiment
+
+At user request (prefer ONE large test over serial small gates), E4A is implemented:
+`scripts/zee_gateE4a_full_order_matching_probe.c` with exact A1M source-pinned SM + two charged Type-II matching at LO,NLO,NNLO for eight Wilson operators at mu0=160GeV; `scripts/zee_gateE4a_integrated_precision_matching_calibration.py` rechecks all original E1/E2/E3 source hashes, numerically reproduces the E3 2026 linearized C7,C8 LO result for each of 27 spectra, recomputes 27×6=162 gamma source probes, and 9 mass×2 tanbeta×3 angle=54 pure Type-II controls including mH=670GeV. 216 original source evaluations ×24 Wilson entries=5184 numerical operator/order entries, plus A1Q author's original 48-row Mathematica source comparison rechecked *inside the same large physics program*. ONE integrated cohort test `tests/test_zee_gateE4a_integrated_source.py` exercises the entire 216-call interface with deterministic source stand-ins, opposite-field negative controls, and 2026 Eq4 mismatch rejection.
+
+Explicit scientific blocker: no public validated general 2026 upgraded inclusive BR kernel, full matrix-element rate and covariance is present in this setup; 2026 published Eq4 is a LO linearized generic matching screen only, while 670 GeV TypeII bound is from the authors' full higher-order Type-II analysis. E4A **does not claim the 670GeV limit independently reproduced** and **does not exclude Zee points**. Its successful status means MATCHING algebra and source provenance checked, with `precision_exclusion_readiness=BLOCKED_MISSING_2026_FULL_NNLO_MATRIX_ELEMENTS_AND_LIKELIHOOD`.
+
+One AF command and input paths are provided in `docs/gateE4_precision_two_charged_bsgamma_requirements.md` under E4A section. Outputs work/gateE4a_large_matching_typeII_27_v1/summary.json and 3 CSVs. This is a significant concrete numerical source integration experiment but NOT a finalized NNLO quark-flavor measurement or exclusion.
+
+
+## Gate E4B, 2026-10-19: full 2026 observable acceptance interface but missing actual source
+
+After E4A completed 216 source calls, E4B was implemented to validate the WHOLE 2026 B→Xsγ observable, not more LO/NLO/NNLO matching coefficients. The full modern 2026 QCD+kinetic/HQE/nonperturbative arbitrary Wilson-coefficient rate and correlated theory/experimental likelihood was NOT available in audited arXiv:2608.29863v1 or the publicly surfaced partial four-body sources. The paper publishes Eq4 only as a LINEARIZED LO NP expansion, while the single charged Type-II >670 GeV 95% CL bound uses a much fuller prediction. No equivalence can be assumed.
+
+New source scripts/zee_gateE4b_2026_observable_validation.py implements strict E4A 648 Wilson-row source fingerprint intake and a generic full 2026 author-code JSON adapter. It mandates (1) original SM 3.54 ± 0.14 × 10^-4 reproduction, (2) independent ≥6 numeric Type-II author mass-curve holdouts, (3) full published 670 GeV likelihood-bound reproduction with the author procedure, (4) independent actual SuperIso A1M raw 3-QCD-order basis conversion and pure-Type-II closure γ=0,π/2 for all 27 spectra, (5) coherent final two-mixed-scalar rate from ONE validated observable, preserving correlated uncertainty. No full global Zee allowed status is ever asserted.
+
+One joined test tests/test_zee_gateE4b_large_observable_acceptance.py exercises 27 mock models, 81 pure-state and mixed requests, author-curve/SM/670CL controls, and deliberate fake bad-source rejections. Synthetic test values are **not** author data nor physical 2026 NNLO results. Full source protocol, AF command and draft author data request in docs/gateE4b_2026_precision_observable_author_intake.md. No email was sent.
+
+Current blocked result: no validated complete 2026 arbitrary-Wilson observable package + author numeric Type-II holdout table = **NO 2026 two-state NNLO rate, NO Type-II 670GeV independent reproduction, NO physical Zee allowed/excluded state**. An E4B --audit-only run will generate an explicit blocked summary from original E4A SHA-locked output and exit normally for source inventory. Do not replace the missing kernel by 2026 SM central value + old SuperIso NP or by Eq4 + assumed quadratic term.
+
+
+## Gate F1, 2026-10-19: genuine 2015-era flavio inclusive rate, LO charged NP only
+
+The missing 2026 full-NNLO rate in E4B is no longer the paper's only software path. Independent source audit established public `flavio/physics/bdecays/bxgamma.py` includes a quadratic `C1...C8` weak-effective rate response with NLO and **selected** NNLO K matrices, reference Misiak et al. PRL 114 (2015) 221801, while `wilson` RG evolves explicit NP `C7_bs`, `C8_bs` from 160 GeV. EOS's published NLO engine is separately available but not yet connected as an F1 runnable comparator. SuperIso source still has known C3-C6 NNLO matching discrepancies against original author source.
+
+F1 code `scripts/zee_gateF1_peerreviewed_flavio_27_observable.py` is implemented as ONE end-to-end real flavio/wilson 27 original Zee + 18 pure-TypeII matching-mass observable run from E4A SHA-locked 648 source vectors and optionally original E1 SHAs. **Exact perturbative accuracy declared:** LO new-physics C7/C8 at mu0=160 GeV injected into published-era flavio inclusive rate with quadratic NP interference and selected higher-order SM rate input. Do **NOT** pass E4A's disputed NNLO source C3-C6 into a different basis or label the hybrid full NNLO BSM. Checks 2015 SM (3.36±0.23)×10^-4, independent 2015 Eq10 local dBR/dC7=-8.22×10^-4 and dBR/dC8=-1.99×10^-4 with explicit exploratory tolerances, TypeII constructive trend and 27 per-spectrum pure endpoint / degenerate-mass closure. Outputs 27 BRs and 18 pure TypeII BRs, side-by-side original legacy SuperIso E1, experimental-only and exp+old-theory numerical pulls labeled DIAGNOSTIC, not exclusions. Published 2017 580GeV Type-II exclusion is **not** automatically reproduced by such hybrid code or applied to Zee charged masses.
+
+One full F1 synthetic offline interface regression `tests/test_zee_gateF1_single_integrated_flavio_observable.py` covers 27+18 workflows and injected basis/source corruption but NOT real flavio engine; actual AF numeric validation must be run. Complete one-command AF venv + actual scan instructions in `docs/gateF1_peerreviewed_flavio_LO_matching_27_guide.md`. At time of commit, NO actual AF F1 runtime output received. Full Zee experimental allowed/excluded = UNKNOWN until the perturbative accuracy, source basis and likelihood have been appropriately validated. Keep 2026 preprint entirely out of F1 quantitative inputs.

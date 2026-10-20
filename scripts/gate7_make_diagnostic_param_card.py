@@ -22,8 +22,13 @@ ONE_INDEX_BLOCKS = frozenset((
 ))
 
 
-def replacements(beta=1.394, mH1=300., mH2=700.):
-    point = map_point(beta, mH1, mH2)
+def replacements(beta=1.394, mH1=300., mH2=700.,**scalar_overrides):
+    """Physical B4 scalar mapping, UNFITTED Type-II lepton diagnostic limit.
+
+    The charged singlet f=0 means radiative Zee neutrino masses vanish.
+    Intended only for MG5 tree-level gauge amplitude closure.
+    """
+    point = map_point(beta, mH1, mH2, **scalar_overrides)
     values = {
         (name, int(code)): float(value)
         for name, block in point["map"].items()

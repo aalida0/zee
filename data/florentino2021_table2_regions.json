@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "source": {
+    "title": "Off diagonal charged scalar couplings with the Z boson: Zee-type models as an example",
+    "authors": "R. R. Florentino, J. C. Romão, J. P. Silva",
+    "journal": "EPJC 81 (2021) 1148",
+    "doi": "10.1140/epjc/s10052-021-09956-2",
+    "url": "https://link.springer.com/content/pdf/10.1140/epjc/s10052-021-09956-2.pdf",
+    "table": "Table 2, final published version, printed PDF page 14 (zero-index PDF page 13)"
+  },
+  "model": {
+    "scalar": "CP conserving, 2 doublets + 1 charged singlet, potential Eq. 17; lambda6=lambda7=0",
+    "quark_yukawas": "Type-II-like; full Zee general-lepton completion not fitted in source",
+    "source_benchmark_type": "REGION not fully specified point",
+    "beta": "Table 2 prose says beta ~ alpha at about 1%; beta is not given as one specific numeric input. Negative alpha entries require angle-convention audit before mapping to code."
+  },
+  "table_conventions": {
+    "lambda_c": "printed as 100*lambda_c",
+    "k2": "printed as 100*k2",
+    "k12": "printed as 100*k12",
+    "k1": "printed without factor",
+    "mH1_mH2": "ranges in GeV, not single fixed masses"
+  },
+  "benchmarks": {
+    "P1": {
+      "mh125_GeV": 125,
+      "mh2_GeV": 715,
+      "ma_GeV": 767.4,
+      "mH1_interval_GeV": [
+        550,
+        700
+      ],
+      "mH2_interval_GeV": [
+        750,
+        900
+      ],
+      "m12sq_GeV2": 83000,
+      "alpha_rad": 1.391,
+      "gamma_rad": 0.894,
+      "lambda_c": 0.4363,
+      "k1": 0.4633,
+      "k2": 0.4633,
+      "k12": 0.0543
+    },
+    "P2": {
+      "mh125_GeV": 125,
+      "mh2_GeV": 580.7,
+      "ma_GeV": 633.7,
+      "mH1_interval_GeV": [
+        250,
+        360
+      ],
+      "mH2_interval_GeV": [
+        635,
+        800
+      ],
+      "m12sq_GeV2": 58000,
+      "alpha_rad": 1.398,
+      "gamma_rad": 1.089,
+      "lambda_c": 4.473,
+      "k1": 1.082,
+      "k2": 0.00398,
+      "k12": 0.01267
+    },
+    "P3": {
+      "mh125_GeV": 125,
+      "mh2_GeV": 728.3,
+      "ma_GeV": 720.5,
+      "mH1_interval_GeV": [
+        260,
+        470
+      ],
+      "mH2_interval_GeV": [
+        710,
+        900
+      ],
+      "m12sq_GeV2": 95000,
+      "alpha_rad": 1.401,
+      "gamma_rad": -1.145,
+      "lambda_c": 0.0267,
+      "k1": 7.15,
+      "k2": 0.01425,
+      "k12": 0.0129
+    },
+    "P4": {
+      "mh125_GeV": 125,
+      "mh2_GeV": 314.9,
+      "ma_GeV": 651.3,
+      "mH1_interval_GeV": [
+        250,
+        525
+      ],
+      "mH2_interval_GeV": [
+        660,
+        680
+      ],
+      "m12sq_GeV2": 19000,
+      "alpha_rad": -1.402,
+      "gamma_rad": -1.421,
+      "lambda_c": 0.02,
+      "k1": 0.014,
+      "k2": 0.432,
+      "k12": -0.0096
+    }
+  },
+  "reproduction_status": "SOURCE_EXTRACTED_NOT_YET_CODE_VALIDATED_OR_2026_ALLOWED"
+}
