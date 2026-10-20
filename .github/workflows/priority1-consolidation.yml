@@ -73,3 +73,9 @@ jobs:
       - name: Reconstruct all 24 original E3 complex f/Y SLHA entries exactly
         run: |
           python -m unittest discover -s tests -p 'test_zee_p1_e3_complex_flavor_fragments.py' -v
+      - name: Exact original P2 to YangWu full SU2 scalar potential quartic and portal mapping
+        run: |
+          python -m unittest discover -s tests -p 'test_zee_p1_scalar_higgs_basis_map.py' -v
+      - name: Physical original scalar spectrum and quartics SLHA source mapping
+        run: |
+          python -m unittest discover -s tests -p 'test_zee_p1_scalar_slha_fragments.py' -v
