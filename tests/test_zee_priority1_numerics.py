@@ -50,6 +50,25 @@ class TestActualNumericalComponents(unittest.TestCase):
   self.assertAlmostEqual(p["delta_CP_rad"],1.2,places=9)
   self.assertAlmostEqual(p["dm21_sq_eV2"],.013**2-.01**2,places=10)
 
+ def test_massless_lightest_Majorana_neutrino_supported(self):
+  U=pmns()
+  for ordering,masses in (("NO",[0.,.0086,.05]),
+                           ("IO",[.05,.0508,0.])):
+   M=U.conj()@np.diag(masses)@U.conj().T
+   out=n.parameters(M,ordering)
+   self.assertAlmostEqual(min(out["masses_eV"]),0.,places=8)
+   self.assertAlmostEqual(out["s13_sq"],math.sin(.15)**2,places=8)
+
+ def test_unphysical_Majorana_column_phases_do_not_change_PMNS_angles(self):
+  U=pmns()
+  m=np.asarray([.01,.013,.051])
+  x=U.conj()@np.diag(m)@U.conj().T
+  V=U@np.diag(np.exp(1j*np.array([.3,1.2,2.1])))
+  y=V.conj()@np.diag(m)@V.conj().T
+  a=n.parameters(x,"NO"); bb=n.parameters(y,"NO")
+  for key in ("s12_sq","s13_sq","s23_sq","delta_CP_rad"):
+   self.assertAlmostEqual(a[key],bb[key],places=8)
+
  def test_reference_covariance_gaussian_proxy_chi2(self):
   p=n.parameters(matrix("IO"),"IO")
   ref=osc_ref(p)
