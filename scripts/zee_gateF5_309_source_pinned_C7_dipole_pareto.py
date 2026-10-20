@@ -14,7 +14,6 @@ from __future__ import annotations
 import argparse,csv,hashlib,json,math,sys,traceback
 from pathlib import Path
 from zee_gateF4b_fixed_order_dipole_projector import projector
-from zee_gateF3_fullNLO_source_RG_27 import probe
 STATUS="F5_309_TWO_CHARGED_C7EFF_PROJECTOR_NLO_MATCHING_NOT_BRGAMMA_OR_EXCLUSION"
 BLOCK="F5_BLOCKED_NO_BRGAMMA_OR_EXCLUSION"
 ROOT=Path(__file__).resolve().parents[1]
@@ -179,7 +178,7 @@ def check_f4b_controls(probe_func,exe,alpha,controls):
   matched+=1
  return matched
 
-def apply(rows,exe,alpha,probe_func=probe):
+def apply(rows,exe,alpha,probe_func):
  out=[]
  for index,name in enumerate(sorted(rows),1):
   z=rows[name]
@@ -288,8 +287,9 @@ def main():
  try:
   rows,provenance=source_e7(args.e7_dir.resolve())
   exe,alpha,controls,ref=source_f4b(args.f4b_summary.resolve())
+  from zee_gateF3_fullNLO_source_RG_27 import probe
   n=check_f4b_controls(probe,exe,alpha,controls)
-  complete=apply(rows,exe,alpha)
+  complete=apply(rows,exe,alpha,probe)
   source={**provenance,**ref,"F5_driver_SHA256":sha(Path(__file__)),
           "F3_probe_wrapper_SHA256":sha(
               ROOT/"scripts/zee_gateF3_fullNLO_source_RG_27.py"),
