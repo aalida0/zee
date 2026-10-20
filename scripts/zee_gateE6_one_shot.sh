@@ -41,14 +41,14 @@ p=Path("work/zee_E6_309_charged_gamma_HS_20261020_v1/summary.json")
 r=json.loads(p.read_text())
 assert r["updated_HiggsSignals_hgamma_gamma_models"]==309
 assert r["full_Zee_allowed_or_excluded"] is None
-assert r["full_h_to_Zgamma_NOT_completed"] is True
+assert r["full_h_to_Zgamma_one_loop_scalar_subset_with_mixed_mass_completed"] is True
 print("E6_FINAL",r["status"])
 print("E6_OLD_MEDIAN",r["old_E5_delta_chi2_median"])
-print("E6_NEW_MEDIAN",r["scalar_gamma_corrected_delta_chi2_median"])
-print("E6_NEW_RANGE",r["scalar_gamma_corrected_delta_chi2_min"],
-      r["scalar_gamma_corrected_delta_chi2_max"])
+print("E6_NEW_GAMMA_ZGAM_MEDIAN",r["scalar_gamma_Zgamma_corrected_delta_chi2_median"])
+print("E6_NEW_GAMMA_ZGAM_RANGE",r["scalar_gamma_Zgamma_corrected_delta_chi2_min"],
+      r["scalar_gamma_Zgamma_corrected_delta_chi2_max"])
 print("E6_PRIORITY_BENCHMARKS",[(tag,round(
    z["delta_chisq_vs_same_SM"],6)) for tag,z in r["target_benchmarks"].items()])
-print("E6_ZGAM_OFFDIAGONAL_MIXED_LOOP_PENDING",True)
+print("E6_ZGAM_OFFDIAGONAL_MIXED_LOOP_INCLUDED",True)
 print("E6_FULL_ZEE_ALLOWED_UNKNOWN",True)
 PY
