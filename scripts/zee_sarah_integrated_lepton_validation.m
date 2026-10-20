@@ -50,7 +50,8 @@ If[!And@@(NumericQ/@{v1val,v2val})||v1val<=0||v2val<=0,
  setGate["GATE6_VEV_INVALID"];Exit[8]];
 zpOrth=Max[Abs[Flatten[zp.Transpose[zp]-IdentityMatrix[3]]]];
 zhOrth=Max[Abs[Flatten[zh.Transpose[zh]-IdentityMatrix[2]]]];
-massCharged=N[SARAH`MassMatrix[Hm] /. zeeGate6Rules];
+massCharged=N[(SARAH`MassMatrix[Hm] /.
+ HoldPattern[SARAH`RXi[___]] :> 0) /. zeeGate6Rules];
 massNeutral=N[SARAH`MassMatrix[hh] /. zeeGate6Rules];
 If[!MatrixQ[massCharged,NumericQ]||!MatrixQ[massNeutral,NumericQ],
  setGate["SCALAR_MASSES_NOT_NUMERIC"];Exit[9]];
@@ -122,6 +123,7 @@ evaluate[expr_,fmat_,vmat_,umat_,ymat_,y2_]:=Module[{x},
    All nonzero vertices must carry their source parameter family. *)
 vertexCoeff[fields_List,basis_,chir_,required_] := Module[{vtx,parts},
  vtx=CheckAbort[SARAH`Vertex[fields,Eigenstates->basis],$Aborted];
+ If[vtx===0&&required===None,Return[0]];
  If[vtx===$Aborted||!ListQ[vtx]||Length[vtx]<2,
   Print["FAIL VERTEX_RETURN ",InputForm[fields]," ",InputForm[vtx]];
   Return[$Failed]];
@@ -139,68 +141,72 @@ vertexCoeff[fields_List,basis_,chir_,required_] := Module[{vtx,parts},
 (* Query all needed distinct component vertices ONCE. *)
 pairs={{1,2},{2,1},{1,1},{2,3}};
 queries={};
-addQuery[name_String,fields_List,basis_,chir_,required_,expectedFn_]:=
- AppendTo[queries,{name,fields,basis,chir,required,expectedFn}];
+addQuery[name_String,fields_List,basis_,chir_,required_,
+         kind_String,aa_Integer,bb_Integer,kk_Integer]:=
+ AppendTo[queries,{name,fields,basis,chir,required,kind,aa,bb,kk}];
 
 Do[
  a=pp[[1]];b=pp[[2]];
  addQuery["f_gauge_"<>ToString[a]<>ToString[b],
-  {eL[{a}],vL[{b}],Sp},GaugeES,1,
-  If[a===b,None,Fzee],
-  Function[{fmat,vmat,umat,ymat,y2},
-   I*fmat[[a,b]]]],
- {pp,{{1,2},{2,1},{1,1},{2,3}}}
+  {eL[{a}],vL[{b}],Sp},GaugeES,1,If[a===b,None,Fzee],
+  "f_gauge",a,b,0],
+ {pp,pairs}
 ];
 Do[
  a=pp[[1]];b=pp[[2]];
  Do[
   k=kk;
   addQuery["f_plus_"<>ToString[a]<>ToString[b]<>"_"<>ToString[k],
-    {Fe[{a}],Fv[{b}],conj[Hm[{k}]]},EWSB,PL,
-    If[a===b,None,Fzee],
-    Function[{fmat,vmat,umat,ymat,y2},
-     I*zp[[k,3]]*Sum[Conjugate[vmat[[a,j]]]*fmat[[j,b]],
-       {j,1,3}]]];
+    {Fe[{a}],Fv[{b}],conj[Hm[{k}]]},EWSB,PL,Fzee,
+    "f_plus",a,b,k];
   addQuery["f_hc_"<>ToString[a]<>ToString[b]<>"_"<>ToString[k],
-    {bar[Fe[{a}]],bar[Fv[{b}]],Hm[{k}]},EWSB,PR,
-    If[a===b,None,Fzee],
-    Function[{fmat,vmat,umat,ymat,y2},
-     I*zp[[k,3]]*Sum[vmat[[a,j]]*Conjugate[fmat[[j,b]]],
-       {j,1,3}]]];
+    {bar[Fe[{a}]],bar[Fv[{b}]],Hm[{k}]},EWSB,PR,Fzee,
+    "f_hc",a,b,k];
   addQuery["Y_hminus_"<>ToString[a]<>ToString[b]<>"_"<>ToString[k],
     {bar[Fe[{a}]],Fv[{b}],Hm[{k}]},EWSB,PL,Ye2,
-    Function[{fmat,vmat,umat,ymat,y2},
-     -I*Sum[Conjugate[umat[[a,j]]]*
-      (zp[[k,1]]*ymat[[j,b]]+zp[[k,2]]*y2[[j,b]]),
-       {j,1,3}]]];
+    "Y_hminus",a,b,k];
   addQuery["Y_hplus_"<>ToString[a]<>ToString[b]<>"_"<>ToString[k],
     {bar[Fv[{b}]],Fe[{a}],conj[Hm[{k}]]},EWSB,PR,Ye2,
-    Function[{fmat,vmat,umat,ymat,y2},
-     -I*Sum[umat[[a,j]]*
-       (zp[[k,1]]*Conjugate[ymat[[j,b]]]+
-        zp[[k,2]]*Conjugate[y2[[j,b]]]),
-       {j,1,3}]]],
+    "Y_hplus",a,b,k],
   {kk,{2,3}}];
  Do[
   n=nn;
   addQuery["Y_neutralPL_"<>ToString[a]<>ToString[b]<>"_"<>ToString[n],
     {bar[Fe[{a}]],Fe[{b}],hh[{n}]},EWSB,PL,Ye2,
-    Function[{fmat,vmat,umat,ymat,y2},
-      -I/Sqrt[2]*Sum[
-         Conjugate[umat[[a,r]]]*Conjugate[vmat[[b,l]]]*
-         (zh[[n,1]]*ymat[[r,l]]+zh[[n,2]]*y2[[r,l]]),
-         {r,1,3},{l,1,3}]]];
+    "Y_neutralPL",a,b,n];
   addQuery["Y_neutralPR_"<>ToString[a]<>ToString[b]<>"_"<>ToString[n],
     {bar[Fe[{a}]],Fe[{b}],hh[{n}]},EWSB,PR,Ye2,
-    Function[{fmat,vmat,umat,ymat,y2},
-      -I/Sqrt[2]*Sum[
-         umat[[b,r]]*vmat[[a,l]]*
-         (zh[[n,1]]*Conjugate[ymat[[r,l]]]+
-          zh[[n,2]]*Conjugate[y2[[r,l]]]),
-         {r,1,3},{l,1,3}]]],
+    "Y_neutralPR",a,b,n],
   {nn,{1,2}}],
  {pp,pairs}
 ];
+(* Independent expected coefficients from the component Lagrangian,
+   not from the SARAH vertex expression. Indices are frozen numerically
+   in each query to avoid late-bound Mathematica Function closures. *)
+independentExpected[kind_String,a_Integer,b_Integer,k_Integer,
+                    fm_,vm_,um_,yy_,y2_]:=
+ Switch[kind,
+ "f_gauge",I*fm[[a,b]],
+ "f_plus",I*zp[[k,3]]*Sum[
+    Conjugate[vm[[a,j]]]*fm[[j,b]],{j,1,3}],
+ "f_hc",I*zp[[k,3]]*Sum[
+    vm[[a,j]]*Conjugate[fm[[j,b]]],{j,1,3}],
+ "Y_hminus",-I*Sum[Conjugate[um[[a,j]]]*
+    (zp[[k,1]]*yy[[j,b]]+zp[[k,2]]*y2[[j,b]]),{j,1,3}],
+ "Y_hplus",-I*Sum[um[[a,j]]*
+    (zp[[k,1]]*Conjugate[yy[[j,b]]]+
+     zp[[k,2]]*Conjugate[y2[[j,b]]]),{j,1,3}],
+ "Y_neutralPL",-I/Sqrt[2]*Sum[
+    Conjugate[um[[a,r]]]*Conjugate[vm[[b,l]]]*
+     (zh[[k,1]]*yy[[r,l]]+zh[[k,2]]*y2[[r,l]]),
+    {r,1,3},{l,1,3}],
+ "Y_neutralPR",-I/Sqrt[2]*Sum[
+    um[[b,r]]*vm[[a,l]]*
+     (zh[[k,1]]*Conjugate[yy[[r,l]]]+
+      zh[[k,2]]*Conjugate[y2[[r,l]]]),
+    {r,1,3},{l,1,3}],
+ _, $Failed
+ ];
 Print["ZEE_INTEGRATED_VERTEX_QUERIES ",Length[queries]];
 raw=vertexCoeff[#[[2]],#[[3]],#[[4]],#[[5]]]&/@queries;
 If[MemberQ[raw,$Failed],
@@ -261,7 +267,9 @@ Do[
   setGate["LEPTON_FLAVOR_INPUT_OR_MASS_CLOSURE_FAILED"];Exit[14]];
  Do[
   measured=evaluate[raw[[qi]],fm,vm,um,yy,y2];
-  want=N[queries[[qi,6]][fm,vm,um,yy,y2]];
+  want=N[independentExpected[
+    queries[[qi,6]],queries[[qi,7]],queries[[qi,8]],queries[[qi,9]],
+    fm,vm,um,yy,y2]];
   record[label,queries[[qi,1]],measured,want],
   {qi,Length[queries]}],
  {ix,Length[physicsCases]}
