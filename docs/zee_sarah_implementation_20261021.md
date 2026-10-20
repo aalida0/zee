@@ -417,6 +417,67 @@ This is **not a reported result yet**, and even if obtained would
 not validate the E3 field-basis mapping, complete neutrino-loop
 amplitudes, LFV, or an allowed point.
 
+## Consolidated complex lepton validation (single gate, 2026-10-21)
+
+**Previous numerical f-only probe failure:** The first local
+`zee_sarah_fzee_numeric_audit.m` run stopped with
+`FAIL FZEE_ABSENT gauge11`. For identical gauge-basis flavors the
+model yields `I/2 (f11-f11) = 0` by algebra; SARAH legitimately
+removes the symbol `Fzee` from that identically zero amplitude.
+The probe was at fault, not the physics. The legacy script has been
+corrected, but it is **superseded** as the recommended acceptance test.
+
+At user request, further tree-level lepton checks have been
+**consolidated into ONE comprehensive gate**:
+
+`scripts/zee_sarah_integrated_lepton_validation.m`, run via
+
+```bash
+cd ~/zee
+git pull --ff-only
+bash scripts/zee_sarah_one_shot_lepton_validation.sh
+```
+
+This single command performs static source checks, regenerates the
+Gate6 fixture (now including the physically consistent CP-even alpha),
+and runs the local SARAH 4.15.4 amplitude audit.
+
+The integrated audit independently tests:
+
+1. Gate6 charged and CP-even scalar mixing diagonalization.
+2. `Fzee` antisymmetry metadata; gauge-basis off-diagonal f
+   vertices; **zero diagonal** gauge vertices without demanding a
+   nonzero symbol inside them.
+3. Both physical charged Higgses' singlet-origin f vertices, their
+   complex conjugates, and the corresponding expected Weyl chirality.
+4. General independent complex `Ye2` together with `Ye`, derived
+   consistently from charged lepton masses and separately chosen
+   **left- and right-handed unitary flavor rotations**.
+5. Direct 3x3 lepton mass-matrix numerical closure, its physical
+   biunitary diagonalization, and SM mass proportionality of the
+   VEV-aligned neutral Yukawa combination.
+6. Charged-Higgs doublet-origin Yukawa vertices of both charges and
+   both physical states.
+7. CP-even neutral scalar `hh[1]` and `hh[2]` charged lepton
+   vertices with independent PL/PR complex amplitude predictions.
+
+The benchmark configurations include a trivial and a nontrivial
+complex flavor rotation, two full complex antisymmetric f matrices,
+and two independent complex Ye2 matrices. The comparison uses exact
+SARAH-extracted vertices but **independent component-Lagrangian
+coefficients** as numerical reference. All individual complex
+residuals are saved to
+`work/sarah_zee/integrated_lepton_residuals.txt`, with an aggregate
+status in `work/sarah_zee/integrated_lepton_status.txt`.
+
+Intended successful status **if it passes locally**:
+`SARAH_ZEE_INTEGRATED_TREE_LEPTON_COMPLEX_PASS_E3_LOOP_UNMATCHED`.
+No such result has yet been observed. Errors are fail-closed and
+retain diagnostic output. This remains only a tree-level synthetic
+flavor validation; full source-to-source E3 flavor basis/normalization,
+one-loop neutrino mass, Barr-Zee, CLFV and source-complete RGEs are
+all **unvalidated**.
+
 ## Unresolved physics / blockers
 
 1. Check the SU(2) dot contraction and sign of the Zee trilinear in SARAH
