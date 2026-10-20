@@ -110,10 +110,33 @@ def calculate(point,original,*,backend=None):
   "experimentally_allowed_or_excluded":None,
  }
 
+def verify_e2_e3_same_source(points,e3_file):
+ """Require source E2 CSV, original E2 summary AND E3 archived E2 hashes."""
+ points=Path(points)
+ original_e2=points.parent
+ e2_report=json.loads((original_e2/"summary.json").read_text())
+ e3_report=json.loads((Path(e3_file).parent/"summary.json").read_text())
+ source_proof=e3_report.get("E2_provenance",{})
+ hashes=source_proof.get("E2_inputs_sha256",{})
+ # Reject reproductions based on coincidental matching of 309 IDs.
+ if (points.name!="E2_all_original_B4_no_deeper_witness_NOT_ALLOWED.csv"
+     or e2_report.get("no_deeper_tree_vacuum_witness_found")!=309
+     or e2_report.get("global_tree_vacuum_certified") is not False
+     or e2_report.get("full_Zee_experimental_allowed_or_excluded") is not None
+     or hashes.get(points.name)!=hashfile(points)
+     or e2_report.get("output_SHA256",{}).get(points.name)!=hashfile(points)
+     or source_proof.get("E2_summary_SHA256")!=hashfile(
+        original_e2/"summary.json")):
+  raise ValueError("Original E2 and optimized E3 source SHA/potential provenance mismatch")
+ return {"E2_summary_SHA256":hashfile(original_e2/"summary.json"),
+         "E2_309_CSV_SHA256":hashfile(points),
+         "E3_original_E2_SHA_verified":True}
+
 def execute(points,e3_file,out):
  from gateB3_general_zee_charged_lepton_widths import read_b1
- inputs=read_b1(points)
  source,proof=read_e3(e3_file)
+ e2proof=verify_e2_e3_same_source(points,e3_file)
+ inputs=read_b1(points)
  if set(inputs)!=set(source) or len(inputs)!=309:
   raise ValueError("Original scalar points must be precisely the source E3 309 cohort")
  rec=[calculate(inputs[k],source[k]) for k in sorted(source)]
@@ -125,7 +148,7 @@ def execute(points,e3_file,out):
  payload={
   "schema_version":1,"stage":"decays",
   "provenance":{"source":"original E3 optimized f/Y + B3 full general-Zee leptons and Gate6 boson/quark included LO",
-                **proof,"B3_script_SHA256":hashfile(Path(__file__).with_name(
+                **proof,**e2proof,"B3_script_SHA256":hashfile(Path(__file__).with_name(
                   "gateB3_general_zee_charged_lepton_widths.py")),
                 "Gate6_script_SHA256":hashfile(Path(__file__).with_name("gate6_width_inventory.py")),
                 "original_scalar_input_SHA256":hashfile(points),
