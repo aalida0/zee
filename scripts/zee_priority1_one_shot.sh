@@ -18,6 +18,10 @@ python3 -m unittest discover -s tests \
  -p 'test_zee_priority1_numerics.py' -v
 python3 -m unittest discover -s tests \
  -p 'test_zee_priority1_unification.py' -v
+python3 -m unittest discover -s tests \
+ -p 'test_gateB3_general_zee_charged_lepton_widths.py' -v
+python3 -m unittest discover -s tests \
+ -p 'test_zee_priority1_real_charged_widths.py' -v
 mkdir -p work
 TEMP="$(mktemp -d /home/aalida/zee/work/priority1_contracts_smoke_XXXXXX)"
 cat > "$TEMP/points.csv" <<'CSV'
