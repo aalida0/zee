@@ -56,7 +56,6 @@ def archived_n1(n1_dir):
   rows[key]=row
  if len(rows)!=309:
   raise ValueError("N2 previous N1 archive does not have 309 unique source records")
- e2=Path(proof["E2_original_309_SHA256"]) if False else None
  return rows,{
    "N1_summary_SHA256":hashfile(n1_dir/"summary.json"),
    "N1_archive_SHA256":hashfile(file),
