@@ -6,6 +6,7 @@ E6/SM-reference closure is checked by the runner against real saved E5 rows.
 from __future__ import annotations
 import json,math,sys,tempfile,unittest
 from pathlib import Path
+from unittest.mock import patch
 import numpy as np
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 import zee_gateE6_309_charged_gamma_higgssignals as x
@@ -73,6 +74,18 @@ class E6Unit(unittest.TestCase):
   self.assertAlmostEqual(G["g_h_H1plus_H1minus_GeV"],-397.48554434,places=5)
   self.assertAlmostEqual(G["g_h_H2plus_H2minus_GeV"],1073.50939332,places=5)
   self.assertAlmostEqual(G["g_h_H1plus_H2minus_GeV"],110.51063744,places=5)
+
+ def test_original_B4_singlet_quartics_forwarded_without_defaults(self):
+  # B4 original point has lc,k1,k2,k12; benchmark["inputs"] does not.
+  p={**self.scalar(), "lc":2.27, "k1":.83, "k2":.19, "k12":-.0127}
+  with patch.object(x,"map_point", wraps=x.map_point) as traced:
+   triple=x.hcharged_trilinears(p)
+  self.assertEqual(traced.call_count,1)
+  kw=traced.call_args.kwargs
+  for key in ("alpha","gamma","m12sq","mh2","ma",
+              "lc","k1","k2","k12"):
+   self.assertEqual(kw[key],p[key])
+  self.assertLess(triple["hessian_Higgs_basis_max_abs_residual_GeV"],1e-4)
 
  def test_independent_near_alignment_mu_and_charged_singlet_rotation(self):
   for offset in (0.,.002,-.075,.13):
