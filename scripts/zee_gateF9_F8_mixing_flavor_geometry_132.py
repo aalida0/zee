@@ -12,7 +12,7 @@ nor a modern 2026 CL. Gauge/production geometry is NOT a cross section,
 physical branching fraction or cascade signal.
 """
 from __future__ import annotations
-import argparse,csv,hashlib,json,math,sys,traceback
+import argparse,csv,hashlib,json,math,statistics,sys,traceback
 from pathlib import Path
 from zee_gateF8_309_670TypeII_same_legacy_kernel_and_mixing import (
  STATUS as F8_STATUS, PRIORITY, ROOT, gauge_geometry)
@@ -338,7 +338,7 @@ def output(out,actual,grid,pareto_rows,summaries,source):
     float(x["NP_shift_Zee_over_TypeII670_legacy_ratio_NOT_CL"])<1
     for x in actual.values()),
   "six_priority_gamma_counts_below_reference_with_retention":counts,
-  "all_132_gamma_ratio_min_median_max":[minratio[0],minratio[66],minratio[-1]],
+  "all_132_gamma_ratio_min_median_max":[minratio[0],statistics.median(minratio),minratio[-1]],
   "counterfactual_gauge_vs_flavor_Pareto_records":len(pareto_rows),
   "six_priority_summaries":summaries,
   "modern_2026_Zee_B_to_Xs_gamma_complete_model_likelihood_evaluated":False,
