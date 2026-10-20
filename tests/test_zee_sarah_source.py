@@ -134,6 +134,29 @@ class TestSarahZeeSource(unittest.TestCase):
         for bad in ("SA`Start[", "SA`ModelLoaded", "SA`AbortStart", "SA`Vertex["):
             self.assertNotIn(bad, probe)
 
+    def test_fzee_complex_numeric_amplitude_gate(self):
+        src = (ROOT / "scripts" / "zee_sarah_fzee_numeric_audit.m").read_text()
+        for marker in (
+            "FZEE_COMPLEX_NUMERIC_NOT_VALIDATED",
+            "FZEE_NUMERIC_EVALUATION_FAILED",
+            "FZEE_COMPLEX_NUMERIC_MISMATCH",
+            "SARAH_ZEE_F_COMPLEX_VERTEX_NORMALIZATION_PASS_E3_UNMATCHED",
+            "ZEE_F_COMPLEX_MAX_RESIDUAL",
+            "makeF[f12_,f13_,f23_]",
+            "makeVe[theta_,phase_]",
+            "Conjugate[vm[[1,j]]]",
+            "fm+Transpose[fm]",
+            "bar[Fe[{1}]],bar[Fv[{2}]],Hm[{2}]",
+            "eL[{1}],vL[{2}],Sp",
+            "fzee_numeric_results.txt",
+        ):
+            self.assertIn(marker, src)
+        self.assertIn('SARAH`Start["ZeeTypeII"]', src)
+        self.assertIn("SARAH`Vertex[", src)
+        self.assertNotIn("SA`Start[", src)
+        self.assertNotIn("SA`Vertex[", src)
+        self.assertNotIn("FZEE_FULL_ZEE_ALLOWED", src)
+
     def test_no_false_validation_claims(self):
         self.assertIn("SOURCE_IMPLEMENTED_NOT_VALIDATED", self.model)
         self.assertNotIn("MakeSPheno[]", self.model)
