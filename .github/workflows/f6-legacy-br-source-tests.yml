@@ -1,0 +1,22 @@
+name: F6 Legacy Full BR 309 Source-Safe Tests
+
+on:
+  push:
+    branches:
+      - gateA1p-independent-hepfit-typeii-matching
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  f6-source-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: F6 source compile
+        run: python -m py_compile scripts/zee_gateF6_309_full_legacy_bsgamma.py tests/test_zee_gateF6_309_full_legacy_bsgamma.py
+      - name: F6 source-safe archived inputs and full legacy BR validation
+        run: python -m unittest discover -s tests -p 'test_zee_gateF6_309_full_legacy_bsgamma.py' -v
