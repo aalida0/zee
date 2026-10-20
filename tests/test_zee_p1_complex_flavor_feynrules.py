@@ -16,7 +16,7 @@ def fragment():
    f"  OrderBlock -> {index},\n"
    f"  Value -> 1,\n"
    f"  InteractionOrder -> {{ZEE,1}},\n"
-   f"  Description -> \\"Old flavor\\" }},\n")
+   f'  Description -> "Old flavor" }},\n')
  output+="};\n"
  return output
 
