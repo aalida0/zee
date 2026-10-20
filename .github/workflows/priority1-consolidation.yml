@@ -67,3 +67,6 @@ jobs:
       - name: N3 original five-state N2-to-N3 source join and canonical P1 incomplete-HiggsBounds guard
         run: |
           python -m unittest discover -s tests -p 'test_zee_priority1_N3_original_N2_join.py' -v
+      - name: Reconstruct all 24 original E3 complex f/Y SLHA entries exactly
+        run: |
+          python -m unittest discover -s tests -p 'test_zee_p1_e3_complex_flavor_fragments.py' -v
