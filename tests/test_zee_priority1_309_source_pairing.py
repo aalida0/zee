@@ -57,7 +57,7 @@ class P1E2E3Provenance(unittest.TestCase):
   with tempfile.TemporaryDirectory() as d:
    fake_pair(d,1)
    fake_pair(d,2)
-   with self.assertRaisesRegex(ValueError,"found 2"):
+   with self.assertRaisesRegex(ValueError,"Need precisely one E2/E3"):
     locate(Path(d))
 
  def test_candidate_file_must_be_genuine_E2_named(self):
