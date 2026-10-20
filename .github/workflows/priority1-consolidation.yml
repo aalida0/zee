@@ -34,6 +34,9 @@ jobs:
       - name: General Zee five-particle UFO actual interaction and complex-input static gate
         run: |
           python -m unittest discover -s tests -p 'test_zee_p1_ufo_model_audit.py' -v
+      - name: Actual MadWidth generator deck and five-state SLHA source parser
+        run: |
+          python -m unittest discover -s tests -p 'test_zee_p1_madwidth_driver.py' -v
 
   original-B3-physics:
     runs-on: ubuntu-latest
