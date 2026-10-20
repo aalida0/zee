@@ -16,6 +16,7 @@ from zee_priority1_charged_width_export import (
  verify_e2_e3_same_source)
 from zee_priority1_neutral_309_one_shot import old_sources
 from zee_p1_e3_complex_flavor_fragments import write_all
+from zee_p1_scalar_slha_fragments import produce as scalar_fragments
 from zee_p1_prepare_complex_flavor_feynrules import prepare
 from zee_p1_ufo_model_audit import audit
 from zee_priority1_contracts import hashfile
@@ -35,6 +36,7 @@ def execute(prior,out,typeii_source,ufo):
  verify_e2_e3_same_source(e2,e3)
  out.mkdir(parents=True,exist_ok=False)
  flavor=write_all(e2,e3,out/"E3_complex_flavor_309")
+ scalar=scalar_fragments(e2,e3,out/"E2_YangWu_scalar_309")
  fr_info={"status":"MISSING_TYPEII_FEYNRULES_SOURCE_ON_AF",
           "out_path":None}
  if typeii_source is not None and typeii_source.is_dir():
@@ -57,20 +59,28 @@ def execute(prior,out,typeii_source,ufo):
    "source_E3_SHA256":hashfile(e3),
    "original_charged_E3_source_provenance":sourceproof,
    "real_309_complex_lepton_Y_f_exported":True,
+   "exact_309_P2_to_YangWu_scalar_quartic_mapping":True,
+   "original_E2_complex_SU2_potential_trials":scalar[
+     "quartic_full_SU2_complex_doublet_and_charged_singlet_tests"],
+   "max_scalar_potential_relative_rotation_residual":scalar[
+     "max_relative_quartic_potential_rotation_residual"],
+   "scalar_parameter_fragments_SHA256":hashfile(
+      out/"E2_YangWu_scalar_309"/"summary.json"),
    "flavor_export_summary_SHA256":hashfile(
      out/"E3_complex_flavor_309"/"summary.json"),
    "max_abs_E3_Y_imaginary":flavor["max_abs_imag_Y_UFO_convention"],
    "max_abs_E3_f_imaginary":flavor["max_abs_imag_f"],
    "feynrules_complex_typeII_source":fr_info,
    "ufo_audit":ufo_info,
-   "full_scalar_potential_Higgs_basis_mapping_validated":False,
+   "scalar_quartic_Higgs_basis_mapping_numerically_validated":True,
+   "full_scalar_FeynRules_UFO_physical_vertex_mapping_validated":False,
    "independent_exact_tree_width_MadWidth_crosscode_validation":False,
    "modern_NNLO_bsgamma_complete":False,
    "complete_LFV_and_muon_conversion":False,
    "five_state_full_HiggsTools_production_and_widths_complete":False,
    "full_Zee_allowed_or_excluded":None,
    "blocking_next":["FeynRules export of full complex TypeII Zee UFO",
-     "numerical Florentino physical-to-Higgs-basis scalar/trilinear mapping",
+     "cross-check generated full scalar trilinear FeynRules amplitudes vs mapped E2",
      "source-wise point E3 Yukawa amplitude normalization matching",
      "MG5 MadWidth two/three-body widths with matched full parameter card",
      "physical SM-loop/QCD corrections and independent amplitude validation",
@@ -80,6 +90,7 @@ def execute(prior,out,typeii_source,ufo):
  (out/"summary.json").write_text(
     json.dumps(report,indent=2,sort_keys=True,allow_nan=False)+"\n")
  print("P1_N4_STATUS",STATUS,"E3_COMPLEX_FLAVOR_EXPORTED 309",
+       "SCALAR_SU2_ROTATION_TRIALS",report["original_E2_complex_SU2_potential_trials"],
        "MAX_IMAG_Y",report["max_abs_E3_Y_imaginary"],
        "FR_SOURCE",fr_info["status"],
        "UFO",ufo_info["status"],
