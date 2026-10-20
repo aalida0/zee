@@ -322,6 +322,17 @@ grep -E 'ZEE_F_QUERY_RESULT|ZEE_F_FOUND_VERTEX|ZEE_F_MATCH|ZEE_F_SYMMETRY' \
   work_sarah_fzee_orientation_console.log
 ```
 
+**Local probe attempt (2026-10-21):** First run returned
+`SARAH_START_FAILED` immediately after loading the SARAH banner;
+no `Preparing arrays` output and no f-vertex results appeared.
+This was traced to the probe's incorrect use of `SA`Start`,
+`SA`ModelLoaded`, `SA`AbortStart`, and `SA`Vertex`.
+The public symbols are `SARAH`Start`, `SARAH`ModelLoaded`,
+`SARAH`AbortStart`, and `SARAH`Vertex`.
+The probe was corrected in GitHub; its result must be rerun locally.
+The correct `SA`Version` symbol was not changed.
+No failure of the physical Zee interaction is implied by this event.
+
 This step is **not** a numerical amplitude normalization test.
 After identifying the correct nonzero f vertices, construct
 an independent simple complex `f_{e\mu}` fixture, derive the
