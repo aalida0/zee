@@ -181,7 +181,7 @@ class E6Unit(unittest.TestCase):
        "full_h_to_Zgamma_one_loop_scalar_subset_with_mixed_mass_completed"])
    self.assertTrue(summ[
        "full_h_to_Zgamma_higher_order_model_prediction_NOT_completed"])
-   self.assertTrue((out/"E6_309_gamma_loop_HS_ranked_NOT_ALLOWED.csv").exists())
+   self.assertTrue((out/"E6_309_gamma_Zgamma_loop_HS_ranked_NOT_ALLOWED.csv").exists())
    with self.assertRaisesRegex(ValueError,"partial cohort"):
     x.finish(out,dict(list(rows.items())[:-1]),cohort,{},153.,159)
 
