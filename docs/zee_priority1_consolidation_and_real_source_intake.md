@@ -64,3 +64,24 @@ This reruns original feature contracts and numeric regressions, plus seven new s
 5. Actual validated hadronic cross sections across relevant LHC channels, with complete production-mode coverage and scheme/PDF/scale uncertainties.
 
 **No model is certified allowed or excluded, and no complete physical HiggsBounds run is yet possible.** This merge creates one coherent engineering foundation without manufacturing missing physics.
+
+
+## AF continuation after synthetic smoke: actual 309 neutrino-closed B3 charged widths
+
+The 1-point P1 smoke verifies only the pipeline. Real legacy E2/E3 calculated physics requires the following command:
+
+~~~bash
+cd /home/aalida/zee
+git switch feature/global-scan-priority1
+git pull --ff-only
+source .venv-flavor-f1/bin/activate
+python -u scripts/zee_priority1_real_309_one_shot.py
+~~~
+
+The runner discovers the unique SHA-linked E2 309 original-scalar CSV and completed E3 309 optimized-neutrino JSONL under the original work tree. An ambiguous source pair fails closed. If there are multiple identical archive copies, supply --e2-csv and --e3-jsonl with the original existing paths explicitly.
+
+It verifies exact original E2 scalar source SHA in both E2 and E3 completion summaries, runs the unchanged B3 general-Zee leptonic and Gate6 included-channel LO calculations for each E3 source f,Y, checks neutrino matrix closure, then joins its partial decays export into the canonical P1 five-gate CLI. Previous archived files are read-only.
+
+New output: work/p1_original_309_E3_B3_charged_included_LO_20261020_v1/summary.json and a 309-point full included-channel partial-width export. The required final P1 status is 309 decays records BLOCKED_DECAY_CHANNEL_COMPLETENESS, because missing neutral/offshell/QCD physical channels are not assumed to have zero width. No HiggsBounds result or experimental exclusion is computed.
+
+The five regression tests in tests/test_zee_priority1_309_source_pairing.py verify source linkage, modifications, and ambiguity fail-closed. Unit and GitHub CI success do not replace a completed AF run on real 309 source data.
