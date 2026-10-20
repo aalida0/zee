@@ -30,7 +30,7 @@ bash scripts/zee_priority1_N2_one_shot.sh
 
 The runner executes original B3 and N1 tests, seven numerical N2 gauge/pair source regressions and five N1-to-N2 preservation tests; checks the original N1 summary/export SHA and source-unchanged original E2/E3/charged 309 parent source; computes N2 additional modes for ALL ORIGINAL 309 points; and builds a *new* source-pinned five-state partial decay export joined through the canonical Priority-1 CLI.
 
-Output directory: work/p1_original_309_neutral_bosonic_N2_20261020_v1/
+Output directory: work/p1_original_309_neutral_bosonic_N2_20261020_v2/
 - P1_N2_309_h_H_A_H1_H2_MORE_PARTIAL_LO_NOT_COMPLETE.json
 - joined_five_gate_report/summary.json
 - summary.json (N1-vs-N2 neutral sums and new H1H1, H1W widths for the eight original priority benchmarks)
@@ -38,3 +38,7 @@ Output directory: work/p1_original_309_neutral_bosonic_N2_20261020_v1/
 Expected P1 gate: 309 BLOCKED_DECAY_CHANNEL_COMPLETENESS, zero HiggsBounds calculations, no allowed/excluded model claims. Previous E2/E3/B3/N1 files are only read, never changed.
 
 The next priority within scalar widths is deriving and validating H->hh and H->AA from the full neutral potential; then realistic off-shell/loop/QCD corrections, validated full production and HiggsBounds. None is claimed complete by N2.
+
+## 20 October AF N2 source-provenance recovery
+
+The first 309-point N2 AF attempt completed the per-spectrum calculation and emitted partial width records, but the final canonical P1 CLI failed at the export-input preflight: `P1_ERROR ValueError('missing independent backend provenance')`. The source export lacked the required `provenance.source` string even though the original source SHA values were present. The new N2 schema payload explicitly identifies the original, internally SHA-verified Zee sources while retaining `independent_external_width_validation_completed=false`, so this does NOT assert a separate cross-code physics audit. A dedicated regression invokes the actual canonical `load_export` and `evaluate` on the N2 payload, preserving `BLOCKED_DECAY_CHANNEL_COMPLETENESS` and a null allowed/excluded result. Re-run into the fresh v2 directory through the same one-shot; the old v1 directory must not be deleted or modified. The failed first run does not establish an N2 final 309-point completion.
