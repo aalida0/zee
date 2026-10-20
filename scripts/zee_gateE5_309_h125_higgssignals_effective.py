@@ -204,6 +204,31 @@ def sm_baseline(HP,HS,dataset):
     if signals.observableCount()<=0:
         raise ValueError("HiggsSignals dataset contains no loaded observables")
     chi2=finite(signals(reference),"HiggsSignals exact SM chi2")
+    # Strong interface sanity test against *actual* HiggsTools: inputting
+    # every normalized coupling as 1, with zero exotic partial widths,
+    # MUST reproduce its own smLikeEffCouplings reference point.
+    # This catches silent Python binding/enum/default-input mismatches.
+    one={
+      "uu":1+0j,"dd":1+0j,"cc":1+0j,"ss":1+0j,
+      "tt":1+0j,"bb":1+0j,"ee":1+0j,"mumu":1+0j,
+      "tautau":1+0j,"WW":1.,"ZZ":1.,"Zgam":1.,
+      "gamgam":1.,"gg":1.,"lam":1.,
+    }
+    control={"effective_couplings":one,
+             "h125_exact_LFV_GeV":{key:0. for key in HDECAYS}}
+    pred_test,h_test,unused,width=build_predictions(HP,control)
+    chi_control=finite(signals(pred_test),"HS all-unity source-closure chi2")
+    width_reference=finite(h.totalWidth(),"SM reference total width")
+    if (not math.isclose(chi_control,chi2,rel_tol=1e-10,abs_tol=1e-7)
+        or not math.isclose(width,width_reference,
+                            rel_tol=1e-10,abs_tol=1e-11)):
+        raise ValueError(
+            "HiggsTools smLikeEffCouplings do not agree with "
+            "explicit all-unity normalized E5 effective couplings")
+    for key in ("bb","WW","ZZ","tautau","gamgam","gg"):
+        if not math.isclose(float(h_test.br(key)),float(h.br(key)),
+                            rel_tol=2e-9,abs_tol=1e-12):
+            raise ValueError("HiggsTools SM width/BR closure failed: "+key)
     return signals,chi2,int(signals.observableCount())
 
 
