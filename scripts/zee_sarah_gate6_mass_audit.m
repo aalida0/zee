@@ -61,10 +61,10 @@ Do[
    If[!NumericQ[actual[[irow,j]]],
     Print["ZEE_MASS_NONNUMERIC ",labels[[i]],
       " row=",irow," col=",j,
-      " expr=",InputForm[actual[[i,j]]]];
+      " expr=",InputForm[actual[[irow,j]]]];
     Print["ZEE_MASS_NONNUMERIC_VARIABLES ",labels[[i]],
       " row=",irow," col=",j,
-      " symbols=",InputForm[Variables[actual[[i,j]]]]]
+      " symbols=",InputForm[Variables[actual[[irow,j]]]]]
    ],
    {irow,1,dims[[i,1]]},{j,1,dims[[i,2]]}
   ],
