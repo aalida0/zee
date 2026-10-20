@@ -69,8 +69,8 @@ class NeutralPartialPhysics(unittest.TestCase):
   self.assertEqual(report["tree_level_included_modes_GeV"]["h"][
       "mu_tau_both_charges"],0.)
   for lepton,c in zip(N.LEPTONS,N.LEPTON_MASSES):
-   expected=N.quark_two_body(125.,c,c/N.VEV,"even")/3.
-   # quark_two_body has Nc=3, while leptons have Nc=1
+   expected=125./(8*math.pi)*(c/N.VEV)**2*(
+       1-4*(c/125.)**2)**1.5
    self.assertAlmostEqual(report["tree_level_included_modes_GeV"]["h"][
         lepton+"_"+lepton],expected,places=13)
 
