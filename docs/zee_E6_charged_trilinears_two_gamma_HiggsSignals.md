@@ -100,3 +100,25 @@ work/zee_E6_309_charged_gamma_HS_20261020_v1_run.log
 ## Remaining non-negotiable publication blockers
 
 The complete **physical** Zee h125 HiggsSignals prediction requires cross-validation of the modified W/fermion \(Z\gamma\) amplitudes and consistent matching to higher-order SM baseline and production definitions, plus full-model heavy-state **HiggsBounds** (with production and all relevant decays), a completed neutrino/mu-e conversion/complete CLFV likelihood, matched two-charged precision \(B\to X_s\gamma\), charged scalar widths and cross sections, and rigorous global vacuum/UV consistency. The source B4 cascade number is a *proxy upper bound*, **not** a physical BR or event yield. No \(\Delta\chi^2\) cut is calibrated into a complete-model CL; **zero points are certified fully allowed** by E6 alone.
+
+
+## Published-paper equation-number correction and completed E6 results (20 October 2026)
+
+**Bibliographic clarification (no physics-code modification):** In the original **arXiv:2106.08332v1** (40-page 15 June 2021 preprint), the loop formulas are **Appendix B, Eqs. (B5)–(B6)**. In the final peer-reviewed **EPJC 81 (2021) 1148** (24 pages, 31 December 2021), the corresponding formulas are **Appendix D, Eqs. (D.19)–(D.20)**, with widths in **Eq. (D.21)**. The E6 source files refer to the arXiv v1 numbering; this is a correct reference to THAT version but should not be labeled as equation numbering in the published article. Source: https://link.springer.com/article/10.1140/epjc/s10052-021-09956-2 and https://arxiv.org/pdf/2106.08332 .
+
+**Completed E6 numerical AF campaign** (user log, no new source modifications; `E6_STATUS ... COMPLETED 309`):
+- All 309/309 original Zee source points evaluated; prior E5 chi2 reproduced.
+- Median `delta_chi2_vs_SM` 112.98944249 -> **109.99110990**; minimum **-0.90407122**; maximum **1094.78648907**.
+- Corrected E6 vs original E5 fit improved for **173/309**, worsened for **136/309**. Median per-model shift **-0.27473626**, mean **-1.82918363**. Do not confuse the median of individual shifts with the difference of sample medians.
+- Descriptive models with `delta_chi2<1`: E5 **16**, E6 **14**; `<4`: E5 **29**, E6 **28**; `<10`: E5 **50**, E6 **47**. These are NOT physical CL/exclusion counts.
+- Charged scalar diphoton **partial width ratio** `R_gamgam`: min **0.88658605**, median **0.99553456**, max **1.10604864**.
+- Whole-loop source `Zgamma` relative SM-reference width ratio `R_Zgam`: min **0.94445782**, median **0.98854653**, max **1.02380966**. Unlike `R_gamgam`, the `R_Zgam` factor includes the modified SM W/fermion amplitudes as well as charged-scalar loops and **is not a charged-scalar-only ratio**.
+- Top five **Higgs-only** conditional fit scores are `B4_0017640` -0.90407, `B4_0017589` -0.90272, `B4_0017346` -0.37125, `B4_0017226` -0.27258, `B4_0017310` -0.25608. Their cascade proxies were **not present in the stdout**, so none should automatically displace the cascade-priority benchmark without checking the saved E6 CSV.
+- Primary cascade candidate `B4_0004143`: E5 0.81644366 -> E6 **0.77087532**; `R_gamgam=1.00432390`, `R_Zgam=0.98920456`, prior cascade proxy 0.5939.
+- Alternatives `B4_0003582` E6 **0.29666585**, proxy 0.5347; `B4_0004173` E6 **0.81498312**, proxy 0.5858. Prior original `B4_0006862` E6 25.04921041 and `B4_0006962` E6 143.58177566, both disfavored **descriptively** relative to the current three.
+- Best E5 h125-only point `B4_0011305` shifts from 0.07766 to **2.68666** after loop corrections, demonstrating why E5 ranking should not be frozen.
+
+**Scientific status:** E6 is an *actual completed* 309-point **conditional effective-model** HiggsSignals calculation with LO charged-scalar (h\gamma\gamma) and (hZ\gamma) amplitudes, including unequal-mass offdiagonal loops. It is **not** a globally allowed Zee population. In particular, the ratio grafting onto HiggsTools SM-reference widths still needs independent full normalization/sign/convention validation with a second matrix-element/PV backend, and there is no complete heavy-state HiggsBounds, B/Xs gamma, LFV likelihood, or globally proven vacuum.
+
+**Reproducibility:** Keep the original E6 source scripts byte-identical to the completed E6 source hashes; only this **documentation** was edited after the successful run. Do not rerun E6 or overwrite `work/zee_E6_309_charged_gamma_HS_20261020_v1` merely to update the paper equation numbers. The complete 309-point results already exist in the saved CSV, JSONL and summary.
+
