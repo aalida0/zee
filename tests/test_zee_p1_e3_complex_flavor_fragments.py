@@ -20,7 +20,14 @@ class P1E3FlavorCards(unittest.TestCase):
   result=E.entries(f,Y)
   self.assertEqual(set(result),set(E.BLOCKS))
   reconstructed=np.array(result["ZEEYR"])+1j*np.array(result["ZEEYI"])
-  self.assertTrue(np.allclose(reconstructed.reshape(3,3),Y))
+  self.assertTrue(np.allclose(reconstructed.reshape(3,3),
+                                math.sqrt(2)*Y.conj().T))
+  self.assertTrue(np.allclose(
+      reconstructed.reshape(3,3).conj().T/math.sqrt(2),Y))
+  for ell in range(3):
+   self.assertAlmostEqual(float(np.sum(
+      abs(reconstructed.reshape(3,3)[:,ell])**2)),
+      2*float(np.sum(abs(Y[ell,:])**2)),places=12)
   anti=np.array(result["ZEEFR"])+1j*np.array(result["ZEEFI"])
   self.assertTrue(np.allclose(anti,[f[0,1],f[0,2],f[1,2]]))
   self.assertEqual(E.fragment(result).count("BLOCK "),4)
