@@ -1,6 +1,6 @@
 # ZeeTypeII SARAH model — first source implementation (2026-10-21)
 
-**Status: SARAH_TREE_SCALAR_GATE6_BENCHMARK_MASS_AUDIT_PASS; FULL_ZEE_NOT_VALIDATED.**
+**Status: SARAH_TREE_SCALAR_AND_CHARGED_GAUGE_BENCHMARK_TESTS_PASS; FULL_ZEE_NOT_VALIDATED.**
 User's first local SARAH 4.15.4 run (2026-10-21) initialized ZeeTypeII
 in 6.21 s and completed CheckModel in 4.02 s. This is not
 SARAH_CHECKMODEL_PASS and not model/physics validation.
@@ -190,6 +190,84 @@ photon coefficients `-i*g2*sin(thetaW)`.
 Passing the source-level tests does NOT establish that this audit has
 run, and the status must remain `Z_VERTEX_NUMERIC_NOT_VALIDATED`
 until the local Mathematica output is inspected.
+
+## Charged scalar Z and photon vertices: local numeric result (2026-10-21)
+
+The local Mathematica 15.0.1 + SARAH 4.15.4 numerical audit successfully
+reproduced the independently defined Gate6 mixing and gauge-coupling
+expectations. User-reported status:
+
+```text
+SARAH_GATE6_CHARGED_GAUGE_VERTEX_NUMERIC_PASS
+```
+
+At `beta=1.394`, `gamma=1.089`, `g2=0.652` and
+`sin^2(thetaW)=0.23122`:
+
+| Check | Local result |
+|---|---:|
+| Orthogonality `ZP ZP^T - I` | 4.961524821582043e-17 |
+| `ZP M_C^2 ZP^T - diag(0,90000,490000)` (GeV^2) | 3.423047989924873e-11 |
+| `Z H1+ H2-` coefficient | `+0.15267229094984194 I` |
+| `Z H2+ H1-` coefficient | `+0.15267229094984194 I` |
+| off-diagonal photon coefficient | `-1.3877787807814457e-17 I` |
+| diagonal photon coefficient | `-0.313516422026024 I` |
+| largest coefficient residual against analytic EW mixing relations | 1.1102230246251565e-16 |
+
+All extracted structures are the expected two charged-scalar momenta
+with opposite signs. This validates the **tree-level charged-scalar
+gauge vertices at this benchmark**, not the full partial widths,
+flavor-dependent couplings, quantum corrections or experimental
+allowed/excluded status. Under our charged-state phase convention,
+`gZ12 = g2*sin(2 gamma)/(4 cos(thetaW))`; the sign can change under
+a field rephasing without changing the decay rate.
+
+## Next: charged-lepton and antisymmetric Zee vertices
+
+The source's `Fzee/2 l.l.Splus` term and its stated
+`Form -> AntiSymmetric` option have not yet been shown to generate
+correct physical flavor amplitudes. In particular, a successful
+`CheckModel[]` or mass-matrix test does **not** prove that SARAH has
+enforced `f_{ij}=-f_{ji}`, vanishing diagonal elements, or the factor
+of 2 in a charged-singlet neutrino/charged-lepton vertex.
+
+The source convention for earlier E3 results was explicitly recorded in
+`scripts/zee_p1_e3_complex_flavor_fragments.py`:
+
+```text
+E3 Y: rows=charged leptons; columns=neutrinos.
+Yang/Wu FeynRules ylz_UFO[nu,lep] = sqrt(2) * conj(Y_E3[lep,nu]).
+```
+
+**This is a previously proposed E3-to-FeynRules conversion, not
+an established SARAH Ye2 mapping.** The SARAH weak-basis lepton Yukawa
+matrices `Ye` and `Ye2` jointly generate the charged-lepton
+mass matrix; matching them to E3 must account for all
+flavor-basis rotations and chiral conventions.
+
+A diagnostic-only probe is now available:
+
+```bash
+cd ~/zee
+git pull --ff-only
+
+python3 -m unittest discover -s tests \
+  -p 'test_zee_sarah_source.py' -v
+
+set -o pipefail
+math -script scripts/zee_sarah_lepton_vertex_probe.m \
+  2>&1 | tee work_sarah_lepton_vertex_console.log
+
+cat work/sarah_zee/lepton_vertex_probe_status.txt
+cat work/sarah_zee/lepton_vertices_raw.txt
+```
+
+Its expected end label if extraction completes is
+`LEPTON_VERTEX_EXPRESSIONS_EXTRACTED_NOT_VALIDATED`, **not** a
+physical Yukawa-sector pass. Inspect antisymmetry, the charged-lepton
+mass matrix, all chiral structures and the relative f/Y terms next.
+No `MakeSPheno[]` or complete Zee UFO generation until this gate is
+resolved.
 
 ## Unresolved physics / blockers
 
