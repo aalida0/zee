@@ -16,7 +16,16 @@ ParticleDefinitions[GaugeES] = {
  {VWB,{Description -> "W-Bosons"}},
  {gB,{Description -> "B-Boson Ghost"}},
  {gG,{Description -> "Gluon Ghost"}},
- {gWB,{Description -> "W-Boson Ghost"}}
+ {gWB,{Description -> "W-Boson Ghost"}},
+ (* Conventional SARAH names from Models/particles.m.
+    Needed for gauge-eigenstate Dirac-spinor metadata in CheckModel. *)
+ {Fd1,{Description -> "Dirac Left Down-Quark"}},
+ {Fd2,{Description -> "Dirac Right Down-Quark"}},
+ {Fu1,{Description -> "Dirac Left Up-Quark"}},
+ {Fu2,{Description -> "Dirac Right Up-Quark"}},
+ {Fe1,{Description -> "Dirac Left Electron"}},
+ {Fe2,{Description -> "Dirac Right Electron"}},
+ {Fv1,{Description -> "Dirac Left Neutrino"}}
 };
 
 ParticleDefinitions[EWSB] = {
