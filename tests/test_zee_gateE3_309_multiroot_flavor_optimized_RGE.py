@@ -98,9 +98,13 @@ class E3Contracts(unittest.TestCase):
         from zee_gateC1_joined_uv_pilot import build_model_state
         def keys(fn):
             node=ast.parse(textwrap.dedent(inspect.getsource(fn)))
-            literals=[z.value for z in ast.walk(node)
-                      if isinstance(z,ast.Return) and isinstance(z.value,ast.Dict)]
-            return {x.value for d in literals for x in d.keys
+            # Real build_model_state returns (state, {checks}), rather
+            # than returning a dict directly; inspect dict literals nested
+            # anywhere in each return expression, including tuple items.
+            dictionaries=[d for z in ast.walk(node)
+                          if isinstance(z,ast.Return) and z.value is not None
+                          for d in ast.walk(z.value) if isinstance(d,ast.Dict)]
+            return {x.value for d in dictionaries for x in d.keys
                     if isinstance(x,ast.Constant) and isinstance(x.value,str)}
         self.assertTrue({
             "seed_original_score","best_score","solution",
