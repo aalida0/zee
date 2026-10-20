@@ -36,16 +36,50 @@ rawDump=StringRiffle[{
 },"\n\n"];
 Export[FileNameJoin[{logDir,"mass_matrices_raw.txt"}],rawDump,"Text"];
 
-actual={N[massHHRaw/.zeeGate6Rules],
- N[massAhRaw/.zeeGate6Rules],N[massHmRaw/.zeeGate6Rules]};
+(* SARAH includes gauge-fixing-dependent Goldstone masses in R_xi gauge.
+   Gate6 compares the Hessian of the SCALAR POTENTIAL, so set xi=0
+   (Landau gauge) before evaluating the CP-odd and charged matrices.
+   Do not silently set any OTHER unresolved symbol to zero. *)
+landauRaw = {massHHRaw,massAhRaw,massHmRaw} /.
+  HoldPattern[SARAH`RXi[___]] :> 0;
+Print["ZEE_MASS_AUDIT_GAUGE Landau_Rxi_equal_zero"];
+actual=N[#/.zeeGate6Rules]& /@ landauRaw;
 expected={zeeGate6ExpectedHH,zeeGate6ExpectedAh,zeeGate6ExpectedHm};
 labels={"hh","Ah","Hm"};
 dims={{2,2},{2,2},{3,3}};
+
+(* Record the actual post-gauge-fixing, post-fixture expressions BEFORE
+   any pass/fail check. This is essential for distinguishing a SARAH
+   convention issue from a missing fixture substitution. *)
+diagPath=FileNameJoin[{logDir,"mass_matrices_substituted.txt"}];
+Export[diagPath,StringRiffle[Table[
+ labels[[i]]<>":\n"<>ToString[InputForm[actual[[i]]]],
+ {i,1,3}], "\n\n"],"Text"];
+Do[
+ If[MatrixQ[actual[[i]]] && Dimensions[actual[[i]]]===dims[[i]],
+  Do[
+   If[!NumericQ[actual[[irow,j]]],
+    Print["ZEE_MASS_NONNUMERIC ",labels[[i]],
+      " row=",irow," col=",j,
+      " expr=",InputForm[actual[[i,j]]]];
+    Print["ZEE_MASS_NONNUMERIC_VARIABLES ",labels[[i]],
+      " row=",irow," col=",j,
+      " symbols=",InputForm[Variables[actual[[i,j]]]]]
+   ],
+   {irow,1,dims[[i,1]]},{j,1,dims[[i,2]]}
+  ],
+  Print["ZEE_MASS_INVALID_DIMENSIONS ",labels[[i]],
+    " got=",InputForm[Dimensions[actual[[i]]]]]
+ ],
+ {i,1,3}
+];
 If[!And@@Table[
  MatrixQ[actual[[i]],NumericQ] && Dimensions[actual[[i]]]===dims[[i]],
  {i,1,3}],
  Print["FAIL MASS_MATRIX_SHAPE_OR_NUMERIC_EVALUATION ",
  InputForm[Dimensions/@actual]];
+ Print["ZEE_MASS_DIAGNOSTICS ",diagPath];
+ Print["ZEE_MASS_RAW_FILE ",FileNameJoin[{logDir,"mass_matrices_raw.txt"}]];
  setMassStatus["MASS_MATRIX_SHAPE_OR_SUBSTITUTION_FAILED"];Exit[6]
 ];
 delta=Table[Max[Abs[Flatten[actual[[i]]-expected[[i]]]]],{i,1,3}];
