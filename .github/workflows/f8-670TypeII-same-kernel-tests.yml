@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - gateA1p-independent-hepfit-typeii-matching
+  pull_request:
   workflow_dispatch:
 
 jobs:
