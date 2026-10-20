@@ -13,6 +13,7 @@ for gate in \
 done
 python -c 'import numpy,Higgs.predictions,Higgs.signals;print("E6_AF_DEPS_OK")'
 python -m py_compile \
+ scripts/zee_gateE6_zgamma_mixed_PV.py \
  scripts/zee_gateE6_309_charged_gamma_higgssignals.py \
  tests/test_zee_gateE6_309_charged_gamma_higgssignals.py
 python -m unittest discover -s tests \
@@ -42,6 +43,7 @@ r=json.loads(p.read_text())
 assert r["updated_HiggsSignals_hgamma_gamma_models"]==309
 assert r["full_Zee_allowed_or_excluded"] is None
 assert r["full_h_to_Zgamma_one_loop_scalar_subset_with_mixed_mass_completed"] is True
+assert r["full_h_to_Zgamma_higher_order_model_prediction_NOT_completed"] is True
 print("E6_FINAL",r["status"])
 print("E6_OLD_MEDIAN",r["old_E5_delta_chi2_median"])
 print("E6_NEW_GAMMA_ZGAM_MEDIAN",r["scalar_gamma_Zgamma_corrected_delta_chi2_median"])
