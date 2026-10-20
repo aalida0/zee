@@ -82,3 +82,27 @@ When ready, configure BSMArt explicit paths to compiled SPheno/FlexibleSUSY/Higg
 A working SARAH/SPheno compilation is **not** yet an experimentally viable general Zee model. Check for the TypeII quark Yukawa structure, two charged states and mixing, full complex antisymmetric f + complex general Y, exact one-loop neutrino mass, scalar potential and trilinears, all necessary gauge/Goldstone interactions, comparison with the independent FeynRules/MadWidth vertices and decay modes, and 2026 flavor order matching.
 
 The transfer script includes no private data other than contents of model source you choose to bundle; do not pack SSH credentials, tokens, personal files, confidential MC data or external licenses.
+
+## Confirmed user installation state, 21 October 2026
+
+Do not reinstall existing packages merely because BSMArt cannot import them from its own environment.
+
+- Local Mathematica 15.0.1 loads SARAH 4.15.4 successfully; DirectoryQ[$sarahDir] is True and ShowModels lists stock THDM-II, THDM-III, and THDM-IInoZ2.
+- Custom ZeeTypeII does not yet exist as a SARAH model. The stock THDM-II is a control/reference for a new charged-singlet plus two-doublet model, not a physically complete Zee implementation.
+- AF environment .venv-flavor-f1 has the HiggsTools distribution version 1.3.0 and its actual Higgs Python module. This was used by the E5/E6 calculations.
+- AF environment .venv-bsmart has BSMArt but not HiggsTools. Different virtual environments are isolated; this is expected and does NOT indicate HiggsTools is missing on AF.
+
+Test installed stock SARAH model locally before any new Zee code:
+
+    Needs["SARAH`"];
+    Start["THDM-II"];
+    CheckModel[];
+
+Verify existing AF HiggsTools with the known working interpreter:
+
+    cd /home/aalida/zee
+    .venv-flavor-f1/bin/python -c 'import Higgs, Higgs.predictions, Higgs.bounds, Higgs.signals; import importlib.metadata as m; print(m.version("higgstools"),Higgs.__file__)'
+
+For a future BSMArt + HiggsTools same-process integration, pin HiggsTools 1.3.0 into the isolated .venv-bsmart, or implement a clearly documented subprocess bridge to the existing flavor Python. Avoid setting PYTHONPATH to another whole virtualenv: compiled libraries and Python/NumPy version mismatches make this fragile. BSMArt dependency checks only test packages available in its own interpreter.
+
+Before Start["ZeeTypeII"] or BSMArt-PrepareModel on the Zee model: create and validate actual SARAH gauge-invariant model source with two doublets, hypercharge +1 charged singlet, full charged mixing and complex f/Y structure, physically matched mass/charged-lepton basis, and independent FeynRules amplitude checks.
