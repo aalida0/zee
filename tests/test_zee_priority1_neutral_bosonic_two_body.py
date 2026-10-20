@@ -86,7 +86,7 @@ class N2RealPhysics(unittest.TestCase):
   self.assertEqual(z2["A"]["H_Z"],0.)
 
  def test_gauge_weight_as_gamma_goes_to_doublet_or_singlet(self):
-  p=point(mh2=700.,ma=730.,mH1=230.,mH2=300.,gamma=.00001)
+  p=point(mh2=700.,ma=730.,mH1=230.,mH2=230.,gamma=.00001)
   first=N.gauge_subset(p)
   p["gamma"]=math.pi/2-.00001
   second=N.gauge_subset(p)
@@ -95,7 +95,7 @@ class N2RealPhysics(unittest.TestCase):
                          places=8)
   self.assertAlmostEqual(first["A"]["H2_W_both_charge_modes"],
                          second["A"]["H1_W_both_charge_modes"],
-                         places=8) if p["mH1"]==p["mH2"] else None
+                         places=8)
 
  def test_invalid_masses_and_mixing_refused(self):
   with self.assertRaisesRegex(ValueError,"charged mixing"):
