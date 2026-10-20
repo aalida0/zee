@@ -115,11 +115,42 @@ class TestE5A(unittest.TestCase):
             manifest={"source_cohort_ids":sorted(cohort),
                       "source_E5_provenance":{"synthetic":True}}
             summary=a.finalize(Path(tmp),cohort,{},manifest,100.,159)
+            self.assertIsNone(
+                summary["pearson_approx_chisq_vs_abs_bottom_deviation"])
+            self.assertFalse(
+                summary["pearson_approx_chisq_vs_abs_bottom_deviation_defined"])
+            self.assertIsNone(
+                json.loads((Path(tmp)/"summary.json").read_text())[
+                    "pearson_approx_chisq_vs_abs_bottom_deviation"])
             self.assertEqual(summary["models"],309)
             self.assertIsNone(summary["full_Zee_allowed_or_excluded"])
             self.assertTrue((Path(tmp)/"E5A_309_ranked_drivers_NOT_ALLOWED.csv").exists())
             with self.assertRaisesRegex(ValueError,"incomplete"):
                 a.finalize(Path(tmp),dict(list(cohort.items())[:-1]),{},manifest,100.,159)
+
+    def test_nonconstant_309_cohort_gives_finite_pearson(self):
+        model=self.package()
+        s=Fakes.Signals()
+        old=s(a.e5.build_predictions(Fakes.HP,model)[0])
+        ref={"h125_effective_HiggsSignals_chi2":old,
+             "delta_chi2_vs_SM_same_dataset_NOT_calibrated_CL":old-100.,
+             "h125_total_width_with_h_LFV_GeV":.004}
+        base=a.compute(s,Fakes.HP,model,ref,100.)
+        rows={}
+        for i in range(309):
+            tag=f"B4_{i:07d}"
+            # Synthetic nondegenerate collection, strictly a summary test.
+            rows[tag]={**base, "candidate_id":tag,
+                       "delta_chi2_vs_fixed_SM":i*.25,
+                       "kappaBottom":0.5 + i/1000.}
+        with tempfile.TemporaryDirectory() as tmp:
+            manifest={"source_cohort_ids":sorted(rows)}
+            summary=a.finalize(Path(tmp),rows,{},manifest,100.,159)
+            self.assertTrue(summary[
+                "pearson_approx_chisq_vs_abs_bottom_deviation_defined"])
+            self.assertTrue(math.isfinite(summary[
+                "pearson_approx_chisq_vs_abs_bottom_deviation"]))
+            self.assertIsNone(summary["full_Zee_allowed_or_excluded"])
 
     def test_checkpoint_rejects_duplicate_and_exclusion(self):
         actual=Fakes.Signals()(a.e5.build_predictions(Fakes.HP,self.package())[0])
