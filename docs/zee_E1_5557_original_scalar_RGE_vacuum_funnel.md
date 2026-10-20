@@ -73,3 +73,36 @@ The new output directory must be empty; do not overwrite the completed B4, C1–
 The scan tests a *single* reconstructed, exact-central-neutrino (f,Y) realization for a scalar spectrum, so failure may reflect that choice, and is not a complete theory exclusion. The unitarity condition is tree level applied along one-loop, approximately matched running; gauge and quark Yukawa matching remain illustrative. The zero-witness vacuum result is finite-field numerical evidence, not a rigorous proof. The NLO/NNLO (B\to X_s\gamma) flavor likelihood, complete two-loop LFV, neutrino likelihood with uncertainties and ordering, full HiggsTools and physical widths and cross sections remain pending. Even a 5,557-point success must not be reported as physical allowed Zee parameter space.
 
 **Do not interpret 10 TeV as a fundamental required UV cutoff.** An interesting collider benchmark may still be predictive in a more restricted validity domain. If the E1 survivor count is sparse, the later scan should *sample preferentially from surviving original B4 quartic configurations* instead of maximizing the cascade proxy alone.
+
+
+## E1 regression hotfix — post-RGE ranking uses candidate_id
+
+The first synthetic E1 full-path test reached the mock vacuum evaluation but
+failed at the shortlist ranking with `KeyError('id')`. Root cause: the
+original B4 CSV uses `id`, while the E1 intermediate evidence and post-RGE
+records use `candidate_id`. `rank_pool` was incorrectly sorting the
+post-RGE records on `id`.
+
+Fix: rank on `candidate_id`, reject duplicate/blank intermediate IDs and
+invalid shortlist limits. Amend the synthetic rank fixture to reflect the
+actual intermediate schema, retain the full-path synthetic E1 write check,
+and add a dedicated malformed/duplicate-ID regression.
+
+This is a **source-code interface fix only**, not an additional successful
+5,557-point physics scan. The synthetic test must pass on AF before running
+the expensive one-shot E1 campaign.
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+source .venv-flavor-f1/bin/activate
+python -m unittest discover -s tests \
+  -p 'test_zee_gateE1_original_5557_running_funnel.py' -v
+```
+
+If and only if the tests pass, execute the original E1 command above.
+The earlier failing unittest used a temporary output directory and
+typically leaves `work/zee_E1_all_5557_original_running_20261020_v1`
+untouched; if that directory is nevertheless nonempty, use a NEW
+`v2` directory. Never overwrite an existing physics scan artifact.
