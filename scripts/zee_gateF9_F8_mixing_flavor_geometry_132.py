@@ -337,6 +337,17 @@ def output(out,actual,grid,pareto_rows,summaries,source):
   "num_original_source_models_vs_same_legacy_TypeII670_below":sum(
     float(x["NP_shift_Zee_over_TypeII670_legacy_ratio_NOT_CL"])<1
     for x in actual.values()),
+  "original_source_models_below_same_legacy_TypeII670_reference_NOT_ALLOWED":[
+    {"candidate_id":q["candidate_id"],
+     "legacy_NP_Zee_over_TypeII670_ratio":float(q[
+       "NP_shift_Zee_over_TypeII670_legacy_ratio_NOT_CL"]),
+     "E6_HiggsSignals_delta_chi2_NOT_CL":float(q[
+       "E6_HS_delta_chi2_NOT_CL"]),
+     "E7_cascade_proxy_NOT_signal":float(q[
+       "E7_cascade_included_channels_proxy_NOT_rate"])}
+    for q in sorted(actual.values(),key=lambda z:float(
+       z["NP_shift_Zee_over_TypeII670_legacy_ratio_NOT_CL"]))
+    if float(q["NP_shift_Zee_over_TypeII670_legacy_ratio_NOT_CL"])<1],
   "six_priority_gamma_counts_below_reference_with_retention":counts,
   "all_132_gamma_ratio_min_median_max":[minratio[0],statistics.median(minratio),minratio[-1]],
   "counterfactual_gauge_vs_flavor_Pareto_records":len(pareto_rows),
@@ -372,6 +383,10 @@ def main():
   print("F9_STATUS",STATUS,"COMPLETED",len(actual),
         "GAMMA_POINTS",len(grid),"COUNTERFACTUAL_PARETO",len(front),
         "NO_PHYSICAL_ZEE_EXCLUSIONS",flush=True)
+  for candidate in report[
+     "original_source_models_below_same_legacy_TypeII670_reference_NOT_ALLOWED"]:
+   print("F9_ORIGINAL_SOURCE_BELOW_LEGACY_TYPEII670_NOT_ALLOWED",
+         candidate,flush=True)
   for k in PRIORITY:
    x=report["six_priority_summaries"][k]
    print("F9_PRIORITY",k,
