@@ -60,6 +60,7 @@ def main():
       "zeeGate6Rules = "+rules+";",
       "zeeGate6Beta = "+wl(b)+";",
       "zeeGate6Gamma = "+wl(p["gamma"])+";",
+      "zeeGate6Alpha = "+wl(alpha)+";",
       "zeeGate6ExpectedHH = "+wlmatrix(mhh)+";",
       "zeeGate6ExpectedAh = "+wlmatrix(maa)+";",
       "zeeGate6ExpectedHm = "+wlmatrix(mcharged)+";",
