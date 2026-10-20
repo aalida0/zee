@@ -157,6 +157,40 @@ class TestSarahZeeSource(unittest.TestCase):
         self.assertNotIn("SA`Vertex[", src)
         self.assertNotIn("FZEE_FULL_ZEE_ALLOWED", src)
 
+    def test_consolidated_lepton_gate_is_one_shot_and_fail_closed(self):
+        audit = (ROOT / "scripts" / "zee_sarah_integrated_lepton_validation.m").read_text()
+        shell = (ROOT / "scripts" / "zee_sarah_one_shot_lepton_validation.sh").read_text()
+        fixture = (ROOT / "scripts" / "zee_sarah_gate6_fixture.py").read_text()
+        self.assertIn("zeeGate6Alpha", fixture)
+        for key in (
+            "INTEGRATED_TREE_LEPTON_NOT_VALIDATED",
+            "ZEE_INTEGRATED_VERTEX_QUERIES",
+            "LEPTON_FLAVOR_INPUT_OR_MASS_CLOSURE_FAILED",
+            "INTEGRATED_TREE_LEPTON_COMPLEX_MISMATCH",
+            "SARAH_ZEE_INTEGRATED_TREE_LEPTON_COMPLEX_PASS_E3_LOOP_UNMATCHED",
+            "independentExpected",
+            "Conjugate[vm].computedM.ConjugateTranspose[um]",
+            "f_gauge",
+            "f_plus",
+            "f_hc",
+            "Y_hminus",
+            "Y_hplus",
+            "Y_neutralPL",
+            "Y_neutralPR",
+            "fzee_numeric_results",
+        ):
+            if key == "fzee_numeric_results":
+                self.assertIn("integrated_lepton_residuals.txt", audit)
+            else:
+                self.assertIn(key, audit)
+        self.assertIn("If[a===b,None,Fzee]", audit)
+        self.assertIn("math -script scripts/zee_sarah_integrated_lepton_validation.m", shell)
+        self.assertIn("set -euo pipefail", shell)
+        self.assertIn("python3 scripts/zee_sarah_gate6_fixture.py", shell)
+        self.assertNotIn("SA`Start[", audit)
+        self.assertNotIn("SA`Vertex[", audit)
+        self.assertNotIn("FULL_ZEE_ALLOWED", audit)
+
     def test_no_false_validation_claims(self):
         self.assertIn("SOURCE_IMPLEMENTED_NOT_VALIDATED", self.model)
         self.assertNotIn("MakeSPheno[]", self.model)
