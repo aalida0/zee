@@ -72,6 +72,7 @@ def validate_e6_archive(folder,ids,proof):
      not summary.get("full_h_to_Zgamma_one_loop_scalar_subset_with_mixed_mass_completed")
      or not summary.get("full_h_to_Zgamma_higher_order_model_prediction_NOT_completed")
      or manifest.get("status")!=proof["e6_status"] or
+     manifest.get("source",{}).get("source")!=proof["e6_source"] or
      manifest.get("summary_SHA256")!=digest(folder/"summary.json")):
   raise ValueError("E6 completion/provenance/status mismatch")
  if summary.get("source")!=proof["e6_source"]:
