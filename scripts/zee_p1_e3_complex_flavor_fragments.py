@@ -4,6 +4,10 @@
 For every original E3 optimized f,Y pair generate 4 blocks:
  ZEEFR, ZEEFI (3 antisymmetric f components),
  ZEEYR, ZEEYI (9 charged lepton Y components).
+The complex charged-lepton Y is converted to the Yang/Wu weak-basis
+lepton Yukawa convention: ylz_UFO[nu,ell]=sqrt(2)*conj(Y_E3[ell,nu]).
+This follows original source LYukawa and H2[2] field expansion, and
+must still be confirmed by generated amplitude crosschecks.
 No scalar parameter card is fabricated: Florentino<->YangWu scalar
 potential mapping remains unvalidated. The imaginary parts are always
 kept, even if numerically tiny; the real-only original Zee UFO cannot
@@ -39,7 +43,13 @@ def entries(f,Y):
  if np.max(abs(np.diag(f)))>=2e-12:
   raise ValueError("E3 f has nonzero diagonal")
  anti=[f[0,1],f[0,2],f[1,2]]
- yu=[Y[i,j] for i in range(3) for j in range(3)]
+ # Source Yang/Wu Yukawa term: -ylz[nu,left, ell,right] * Lbar ell_R H2.
+ # Original B3 E3 Y has ROW=charged lepton, COLUMN=neutrino.
+ # Neutral H2 contains 1/sqrt(2); therefore
+ #    ylz_UFO[nu,ell] = sqrt(2) * conj(Y_E3[ell,nu]).
+ # Conjugation matches A1D L=-S bar ell_i [C_ij PL + C_ji* PR] ell_j.
+ yu=[math.sqrt(2)*Y[j,i].conjugate()
+     for i in range(3) for j in range(3)]
  return {
   "ZEEFR":[float(x.real) for x in anti],
   "ZEEFI":[float(x.imag) for x in anti],
@@ -102,8 +112,10 @@ def write_all(e2,e3,out):
  summary_json={
   "status":STATUS,"models":len(rendered),
   "all_source_E3_complex_fY_preserved":True,
-  "max_abs_imag_f":abs(maxfi),"max_abs_imag_Y":abs(maxyi),
+  "max_abs_imag_f":abs(maxfi),"max_abs_imag_Y_UFO_convention":abs(maxyi),
   "flavor_blocks":list(BLOCKS),
+  "E3_Y_to_UFO_ylz_map":"sqrt(2) * hermitian_conjugate(E3_Y)",
+  "E3_f_to_UFO_f_map":"same antisymmetric input; external vertex amplitude validation pending",
   "not_complete_MadGraph_param_cards":True,
   "Yukawa_field_basis_and_Zee_scalar_potential_matching_validated":False,
   "original_E2_SHA256":hashfile(e2),
@@ -125,6 +137,6 @@ def main():
  a=parser.parse_args()
  z=write_all(a.e2_csv,a.e3_jsonl,a.out)
  print("P1_E3_COMPLEX_FLAVOR",z["status"],"MODELS",z["models"],
-       "MAX_IMAG_F",z["max_abs_imag_f"],"MAX_IMAG_Y",z["max_abs_imag_Y"],
+       "MAX_IMAG_F",z["max_abs_imag_f"],"MAX_IMAG_Y",z["max_abs_imag_Y_UFO_convention"],
        "FULL_UFO_CARDS",False,"MODEL_ALLOWED",None)
 if __name__=="__main__":main()
