@@ -1,6 +1,7 @@
 """Priority1 consolidated CLI, actual-source widths and generator rate ingestion."""
 import contextlib,csv,io,json,math,sys,tempfile,unittest
 from pathlib import Path
+from unittest import mock
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 import zee_priority1_streaming as stream
 import zee_priority1_charged_width_export as widths
@@ -48,7 +49,7 @@ class TestP1Unification(unittest.TestCase):
   row={"id":"SCALAR"}
   row.update({v:1. for v in stream.SCALAR_FIELDS})
   row["mH1"]=220;row["mH2"]=710;row["gamma"]=1.
-  with unittest.mock.patch.dict(sys.modules,{"gateB4_adaptive_zee_scalar_scan":fake}):
+  with mock.patch.dict(sys.modules,{"gateB4_adaptive_zee_scalar_scan":fake}):
    self.assertEqual(stream.structural(row,True)["scalar_EWPO_screen"],
      "PASSED_IMPLEMENTED_SCALAR_AND_STU_NOT_MODEL_ALLOWED")
   row.pop("k12")
