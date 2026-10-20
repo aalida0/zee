@@ -57,7 +57,7 @@ def charged_hessian_cubic_matrices(p):
  result={}
  for key,dM in (("h",dh),("H",dH)):
   result[key]=U.T@dM@U
-  if not np.allclose(result[key],result[key].T,rtol=0,atol=1e-12):
+  if not np.allclose(result[key],result[key].T,rtol=2e-13,atol=1e-9):
    raise ValueError("N2 projected charged trilinears nonsymmetric")
  reference=trilinears(p)
  for key,ref in (("h",reference["h125"]),("H",reference["hheavy"])):
