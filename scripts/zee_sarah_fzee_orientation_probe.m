@@ -18,8 +18,8 @@ If[!TrueQ[loaded]||!ValueQ[SA`Version],
  setFStatus["SARAH_LOAD_FAILED"];Exit[3]];
 SARAH[InputDirectories]=Prepend[SARAH[InputDirectories],
  FileNameJoin[{root,"models","SARAH"}]];
-SA`Start["ZeeTypeII"];
-If[!TrueQ[SA`ModelLoaded]||TrueQ[SA`AbortStart],
+SARAH`Start["ZeeTypeII"];
+If[!TrueQ[SARAH`ModelLoaded]||TrueQ[SARAH`AbortStart],
  setFStatus["SARAH_START_FAILED"];Exit[4]];
 
 (* SARAH's symmetry rules can be guarded by UseSymmASymm == True.
@@ -62,7 +62,7 @@ results={};
 Do[
  label=item[[1]]; fields=item[[2]]; basis=item[[3]];
  Print["ZEE_F_QUERY_BEGIN ",label];
- value=CheckAbort[SA`Vertex[fields,Eigenstates->basis],$Aborted];
+ value=CheckAbort[SARAH`Vertex[fields,Eigenstates->basis],$Aborted];
  hasF=!FreeQ[value,Fzee];
  Print["ZEE_F_QUERY_RESULT ",label," HAS_FZEE=",hasF,
  " HAS_YE=",!FreeQ[value,Ye],
