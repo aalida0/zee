@@ -9,6 +9,7 @@ from pathlib import Path
 import numpy as np
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 import zee_gateE6_309_charged_gamma_higgssignals as x
+import zee_gateE6_zgamma_mixed_PV as zpv
 
 
 class FakeH:
@@ -139,8 +140,12 @@ class E6Unit(unittest.TestCase):
   self.assertAlmostEqual(
     record["h125_corrected_total_width_GeV"],
     total-record["gamma_gamma_original_partial_GeV"]+
-           record["gamma_gamma_corrected_partial_GeV"])
-  self.assertFalse(record["h_Zgamma_FULL_prediction_computed"])
+           record["gamma_gamma_corrected_partial_GeV"]-
+           record["Zgamma_original_partial_GeV"]+
+           record["Zgamma_corrected_partial_GeV"])
+  self.assertTrue(record["h_Zgamma_full_one_loop_charged_scalar_mixed_mass_completed"])
+  self.assertTrue(record["Zgamma_full_mixed_mass_PV_amplitudes"][
+      "full_offdiagonal_ZH1H2_included"])
   self.assertIsNone(record["full_Zee_allowed_or_excluded"])
   bad={**oldref,"h125_effective_HiggsSignals_chi2":oldref[
         "h125_effective_HiggsSignals_chi2"]+1.}
@@ -172,10 +177,43 @@ class E6Unit(unittest.TestCase):
    summ=x.finish(out,rows,cohort,{"synthetic":True},153.,159)
    self.assertEqual(summ["updated_HiggsSignals_hgamma_gamma_models"],309)
    self.assertIsNone(summ["full_Zee_allowed_or_excluded"])
-   self.assertTrue(summ["full_h_to_Zgamma_NOT_completed"])
+   self.assertTrue(summ[
+       "full_h_to_Zgamma_one_loop_scalar_subset_with_mixed_mass_completed"])
+   self.assertTrue(summ[
+       "full_h_to_Zgamma_higher_order_model_prediction_NOT_completed"])
    self.assertTrue((out/"E6_309_gamma_loop_HS_ranked_NOT_ALLOWED.csv").exists())
    with self.assertRaisesRegex(ValueError,"partial cohort"):
     x.finish(out,dict(list(rows.items())[:-1]),cohort,{},153.,159)
+
+ def test_Zgamma_mixed_PV_matches_analytic_I1_and_symmetric_B0_C0(self):
+  for mass in (80.379,200.,300.,700.,1200.):
+   self.assertTrue(zpv.crosscheck_equal_mass(mass))
+  for mi,mj in ((250.,700.),(200.,1000.),(625.,260.)):
+   self.assertAlmostEqual(zpv.mixed_mass_F(mi,mj),
+                          zpv.mixed_mass_F(mj,mi),places=10)
+  t=self.pak()
+  G=x.hcharged_trilinears(t["scalar"])
+  z=zpv.zgam_ratio(t,G)
+  self.assertTrue(z["full_offdiagonal_ZH1H2_included"])
+  self.assertTrue(z["PV_32_48_quadrature_and_equal_mass_I1_checked"])
+  self.assertAlmostEqual(
+      z["ordered_mixed_H1H2_and_H2H1_amplitudes"][0],
+      z["ordered_mixed_H1H2_and_H2H1_amplitudes"][1],places=10)
+  self.assertGreater(z[
+      "full_charged_scalar_plus_modified_SM_LO_hZgamma_over_SM_LO_width"],0.)
+  self.assertGreater(abs(z[
+      "ordered_mixed_H1H2_and_H2H1_amplitudes"][0]),0.)
+
+ def test_Zgamma_no_couplings_recovers_SM_reference_exactly(self):
+  pack=self.pak()
+  G=x.hcharged_trilinears(pack["scalar"])
+  n={**G,"g_h_H1plus_H1minus_GeV":0.,
+     "g_h_H2plus_H2minus_GeV":0.,
+     "g_h_H1plus_H2minus_GeV":0.}
+  q=zpv.zgam_ratio(pack,n)
+  self.assertAlmostEqual(
+      q["full_charged_scalar_plus_modified_SM_LO_hZgamma_over_SM_LO_width"],
+      1.,places=12)
 
  def test_fail_closed_on_bad_higgs_potential_and_loop_mass(self):
   with self.assertRaises(ValueError):x.hcharged_trilinears(
