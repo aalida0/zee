@@ -32,9 +32,46 @@ def main(argv=None):
     ap.add_argument("--higgssignals-data",type=Path)
     ap.add_argument("--require-all-inputs",action="store_true")
     ap.add_argument("--dry-run",action="store_true")
+    ap.add_argument("--stream-coverage",action="store_true",
+                    help="Read millions of CSV/JSONL points sequentially with disk-backed ID checking; no full physics exclusions")
+    ap.add_argument("--scalar-physics",action="store_true",
+                    help="With --stream-coverage, actually run original GateB4 scalar BFB/unitarity and correlated STU screens")
     a=ap.parse_args(argv)
     if bool(a.higgsbounds_data)!=bool(a.higgssignals_data):
         ap.error("HiggsBounds and HiggsSignals datasets must be specified together")
+    if a.stream_coverage:
+        if (any(getattr(a,stage) is not None for stage in REQUIRED)
+            or a.higgsbounds_data or a.higgssignals_data
+            or a.require_all_inputs):
+            ap.error("stream-coverage is structural/scalar-only; external physics exports and datasets require the full nonstreaming evaluator")
+        from zee_priority1_streaming import scan
+        out=a.out.resolve()
+        if out.exists():
+            ap.error("Output path must be new; never overwrite prior reports")
+        if a.dry_run:
+            print("P1_STREAM_PLAN",STATUS,"POINTS",str(a.points),
+                  "REAL_SCALAR_PHYSICS",a.scalar_physics)
+            return 0
+        out.mkdir(parents=True,exist_ok=False)
+        try:
+            summary=scan(a.points,out/"per_candidate.jsonl",
+                         scalar_physics=a.scalar_physics)
+            save(out/"summary.json",summary)
+            save(out/"manifest.json",{
+                "status":summary["status"],
+                "summary_sha256":hashfile(out/"summary.json"),
+                "canonical_driver_SHA256":hashfile(Path(__file__))})
+            print("P1_STREAM_STATUS",summary["status"],"POINTS",
+                  summary["original_candidate_count"],"EXCLUSIONS",0)
+            print("P1_STREAM_REPORT",out/"summary.json")
+            return 0
+        except Exception as exc:
+            save(out/"error.json",{"status":"P1_STREAM_FAIL_CLOSED",
+                 "error":repr(exc),"Zee_allowed_or_excluded":None})
+            print("P1_STREAM_ERROR",repr(exc),file=sys.stderr)
+            return 1
+    if a.scalar_physics:
+        ap.error("--scalar-physics currently requires --stream-coverage")
     points=read_points(a.points)
     paths={name:getattr(a,name) for name in REQUIRED}
     if a.require_all_inputs and any(x is None for x in paths.values()):
