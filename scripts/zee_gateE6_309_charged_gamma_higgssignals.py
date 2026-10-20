@@ -363,7 +363,7 @@ def resume_read(file,ids):
 def finish(folder,rows,cohort,proof,smchi,nobs):
  if len(rows)!=309 or set(rows)!=set(cohort):
   raise ValueError("E6 cannot finalize partial cohort")
- js=folder/"E6_309_gamma_loop_corrected_HS_NOT_ALLOWED.jsonl"
+ js=folder/"E6_309_gamma_Zgamma_loop_corrected_HS_NOT_ALLOWED.jsonl"
  with js.open("w") as f:
   for key in sorted(rows):
    f.write(json.dumps(rows[key],sort_keys=True,allow_nan=False)+"\n")
@@ -375,7 +375,7 @@ def finish(folder,rows,cohort,proof,smchi,nobs):
    "gamma":scal["gamma"],"alpha_minus_beta":scal["alpha"]-scal["beta"],
    "cascade_proxy_NOT_event_yield":cohort[key]["cascade_proxy_not_xsec"],
    "old_HiggsSignals_delta_vs_SM":entry["E5_original_delta_chisq_vs_SM"],
-   "gamma_loop_corrected_delta_vs_SM":entry["delta_chisq_vs_same_SM"],
+   "gamma_Zgamma_loop_corrected_delta_vs_SM":entry["delta_chisq_vs_same_SM"],
    "delta_chisq_change_gamma_and_Zgamma_loops":entry["delta_chisq_vs_original_E5"],
    "delta_chisq_additional_Zgamma":
        entry["delta_chisq_additional_from_full_mixed_Zgamma"],
@@ -388,13 +388,13 @@ def finish(folder,rows,cohort,proof,smchi,nobs):
    "ghH2H2_GeV":entry["charged_scalar_trilinears"]["g_h_H2plus_H2minus_GeV"],
    "g_hH1H2_GeV":entry["charged_scalar_trilinears"]["g_h_H1plus_H2minus_GeV"],
    "full_Zee_allowed":None})
- data.sort(key=lambda p:(p["gamma_loop_corrected_delta_vs_SM"],
+ data.sort(key=lambda p:(p["gamma_Zgamma_loop_corrected_delta_vs_SM"],
                           -p["cascade_proxy_NOT_event_yield"]))
- csvfile=folder/"E6_309_gamma_loop_HS_ranked_NOT_ALLOWED.csv"
+ csvfile=folder/"E6_309_gamma_Zgamma_loop_HS_ranked_NOT_ALLOWED.csv"
  with csvfile.open("w",newline="") as f:
   writer=csv.DictWriter(f,fieldnames=list(data[0]))
   writer.writeheader();writer.writerows(data)
- delta=np.array([x["gamma_loop_corrected_delta_vs_SM"] for x in data])
+ delta=np.array([x["gamma_Zgamma_loop_corrected_delta_vs_SM"] for x in data])
  old=np.array([x["old_HiggsSignals_delta_vs_SM"] for x in data])
  rate=np.array([x["gamma_partial_width_ratio"] for x in data])
  zrate=np.array([x["Zgamma_LO_over_SM_width_ratio"] for x in data])
@@ -403,16 +403,16 @@ def finish(folder,rows,cohort,proof,smchi,nobs):
   "updated_HiggsSignals_hgamma_gamma_models":309,
   "SM_chi2_reference":smchi,"same_HiggsSignals_observables":nobs,
   "old_E5_delta_chi2_median":float(np.median(old)),
-  "scalar_gamma_corrected_delta_chi2_min":float(np.min(delta)),
-  "scalar_gamma_corrected_delta_chi2_median":float(np.median(delta)),
-  "scalar_gamma_corrected_delta_chi2_max":float(np.max(delta)),
+  "scalar_gamma_Zgamma_corrected_delta_chi2_min":float(np.min(delta)),
+  "scalar_gamma_Zgamma_corrected_delta_chi2_median":float(np.median(delta)),
+  "scalar_gamma_Zgamma_corrected_delta_chi2_max":float(np.max(delta)),
   "scalar_gamma_partial_width_ratio_min_median_max":[
        float(np.min(rate)),float(np.median(rate)),float(np.max(rate))],
   "full_mixed_scalar_Zgamma_LO_width_ratio_min_median_max":[
        float(np.min(zrate)),float(np.median(zrate)),float(np.max(zrate))],
-  "descriptive_gamma_corrected_delta_less_than_1":int(np.sum(delta<1)),
-  "descriptive_gamma_corrected_delta_less_than_4":int(np.sum(delta<4)),
-  "descriptive_gamma_corrected_delta_less_than_10":int(np.sum(delta<10)),
+  "descriptive_gamma_Zgamma_corrected_delta_less_than_1":int(np.sum(delta<1)),
+  "descriptive_gamma_Zgamma_corrected_delta_less_than_4":int(np.sum(delta<4)),
+  "descriptive_gamma_Zgamma_corrected_delta_less_than_10":int(np.sum(delta<10)),
   "target_benchmarks":{tag:rows[tag] for tag in TARGETS},
   "no_cut_is_a_physical_exclusion":True,
   "full_h_to_Zgamma_one_loop_scalar_subset_with_mixed_mass_completed":True,
@@ -481,7 +481,7 @@ def main():
     stream.write(json.dumps(row,sort_keys=True,allow_nan=False)+"\n")
     stream.flush();os.fsync(stream.fileno())
     done[key]=row
-    print("E6_GAMMA_LOOP_HS",idx,"/309",key,
+    print("E6_GAMMA_ZGAM_LOOP_HS",idx,"/309",key,
           "DCHI2_OLD",row["E5_original_delta_chisq_vs_SM"],
           "DCHI2_UPDATED",row["delta_chisq_vs_same_SM"],
           "R_GAMGAM",row["loop_amplitudes"][
