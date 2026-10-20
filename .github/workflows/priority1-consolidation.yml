@@ -37,6 +37,9 @@ jobs:
       - name: No fake SARAH SPheno BSMArt FlexibleDecay model validation from path detection
         run: |
           python -m unittest discover -s tests -p 'test_zee_p1_standard_stack_audit.py' -v
+      - name: Mathematica workstation to AF generated model source handoff SHA checks
+        run: |
+          python -m unittest discover -s tests -p 'test_zee_p1_local_af_handoff.py' -v
       - name: Actual MadWidth generator deck and five-state SLHA source parser
         run: |
           python -m unittest discover -s tests -p 'test_zee_p1_madwidth_driver.py' -v
