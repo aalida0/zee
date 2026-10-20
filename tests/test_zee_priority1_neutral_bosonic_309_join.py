@@ -1,5 +1,5 @@
 """N2 original N1 partial-width preservation and fail-closed Bosonic merge."""
-import copy,math,sys,unittest
+import copy,json,math,sys,tempfile,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 import zee_priority1_neutral_bosonic_309_one_shot as W
@@ -68,5 +68,36 @@ class N2OriginalSourceJoin(unittest.TestCase):
   merged=W.merge_one(point(),n1())
   self.assertEqual(validate_decays(merged,{}),
                    "BLOCKED_DECAY_CHANNEL_COMPLETENESS")
+
+ def test_n2_canonical_export_provenance_and_blocked_higgsbounds(self):
+  """Regress actual AF error: the *export*, not just its record, must load."""
+  from zee_priority1_contracts import load_export,validate_decays,evaluate
+  source=W.merge_one(point(),n1())
+  names={point()["id"]:{"H":point()["mh2"],"A":point()["ma"],
+                         "h":125.,"H1":point()["mH1"],"H2":point()["mH2"]}}
+  export=W.decay_export_payload([source],{"N1_test_SHA":"c"*64},
+                                  {"E3_test_SHA":"e"*64})
+  self.assertIn("source",export["provenance"])
+  self.assertFalse(export["provenance"][
+      "independent_external_width_validation_completed"])
+  with tempfile.TemporaryDirectory() as d:
+   dst=Path(d)/"n2_partial.json"
+   dst.write_text(json.dumps(export))
+   records,proof=load_export(dst,"decays",names)
+   self.assertEqual(set(records),set(names))
+   self.assertIn("N2_bosonic_source_SHA256",proof)
+   self.assertEqual(validate_decays(records[point()["id"]],{}),
+                    "BLOCKED_DECAY_CHANNEL_COMPLETENESS")
+   result=evaluate(names,{"decays":records})
+   self.assertEqual(len(result),1)
+   self.assertIsNone(result[0]["experimental_Zee_allowed_or_excluded"])
+   self.assertFalse(result[0]["all_priority1_backend_inputs_complete"])
+   self.assertEqual(result[0]["stages"]["decays"],
+                    "BLOCKED_DECAY_CHANNEL_COMPLETENESS")
+   export["provenance"].pop("source")
+   dst.write_text(json.dumps(export))
+   with self.assertRaisesRegex(ValueError,
+                               "missing independent backend provenance"):
+    load_export(dst,"decays",names)
 
 if __name__=="__main__":unittest.main()
