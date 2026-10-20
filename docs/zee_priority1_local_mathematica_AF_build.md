@@ -4,10 +4,10 @@ The user's UChicago AF audit found gfortran and cmake, but no Wolfram kernel, no
 
 ## Workstation (Mathematica): derive code, no production scan
 
-1. Check Mathematica and SARAH/FeynRules locally. For SARAH, inside Mathematica: Needs["SARAH\`"]. The script must load an **actually implemented** ZeeTypeII model; our prior audit showed no such model in the current AF repository. Do not invoke the sample below pretending a model exists. FeynRules uses the separately derived TypeII complex Zee source and original scripts/gate7_export_typeii_ufo.m.
+1. Check Mathematica and SARAH/FeynRules locally. For SARAH, inside Mathematica: Needs["SARAH`"]. The script must load an **actually implemented** ZeeTypeII model; our prior audit showed no such model in the current AF repository. Do not invoke the sample below pretending a model exists. FeynRules uses the separately derived TypeII complex Zee source and original scripts/gate7_export_typeii_ufo.m.
 2. Once the SARAH source model is implemented under SARAH/Models/ZeeTypeII, run locally (in Mathematica):
 
-   Needs["SARAH\`"];
+   Needs["SARAH`"];
    Start["ZeeTypeII"];
    CheckModel[];
    MakeSPheno[];
