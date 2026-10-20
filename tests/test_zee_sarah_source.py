@@ -46,6 +46,15 @@ class TestSarahZeeSource(unittest.TestCase):
         self.assertIn("Goldstone -> Hm[{1}]", self.part)
         self.assertIn("Goldstone -> Ah[{1}]", self.part)
 
+    def test_batch_loader_finds_local_sarah_and_records_failure(self):
+        runner = (ROOT / "scripts" / "zee_sarah_check.m").read_text()
+        self.assertIn('SARAH-4.15.4", "SARAH.m"', runner)
+        self.assertIn("Get[sarahSource]", runner)
+        self.assertIn('writeStatus["SOURCE_IMPLEMENTED_NOT_VALIDATED"]', runner)
+        self.assertIn('writeStatus["SARAH_SOURCE_NOT_FOUND"]', runner)
+        self.assertIn('writeStatus["SARAH_LOAD_FAILED"]', runner)
+        self.assertIn("AppendTo[$Messages, messageStream]", runner)
+
     def test_no_false_validation_claims(self):
         self.assertIn("SOURCE_IMPLEMENTED_NOT_VALIDATED", self.model)
         self.assertNotIn("MakeSPheno[]", self.model)
