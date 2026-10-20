@@ -54,6 +54,11 @@ class TestSarahZeeSource(unittest.TestCase):
         self.assertIn('writeStatus["SARAH_SOURCE_NOT_FOUND"]', runner)
         self.assertIn('writeStatus["SARAH_LOAD_FAILED"]', runner)
         self.assertIn("AppendTo[$Messages, messageStream]", runner)
+        self.assertIn("writeStatus[zeeState_String]", runner)
+        self.assertNotIn("Check[Get[sarahSource], $Failed]", runner)
+        self.assertNotIn("writeStatus[s_String]", runner)
+        self.assertIn("DownValues[SARAH`Start]", runner)
+        self.assertIn('startResult = SARAH`Start["ZeeTypeII"]', runner)
 
     def test_no_false_validation_claims(self):
         self.assertIn("SOURCE_IMPLEMENTED_NOT_VALIDATED", self.model)
