@@ -13,6 +13,8 @@ import textwrap
 import json
 import math
 from pathlib import Path
+from unittest.mock import patch
+import numpy as np
 import sys
 import tempfile
 import unittest
@@ -115,6 +117,86 @@ class E1IntegrityContract(unittest.TestCase):
         self.assertTrue({
             "status","most_negative_witness","successful_field_evaluations",
             "lowest_point_found"}<=literal_keys(evaluate_multistart))
+
+    def test_two_original_points_full_funnel_synthetic_evidence(self):
+        """Exercise the complete E1 data-writing path with mock physics.
+
+        Real 5,557-point numerical validation still MUST run on AF.
+        """
+        points=[]
+        for i in range(2):
+            p={"id":f"B4_SYNTH_{i}",
+               "mH1":300.+i*45.,"mH2":680.+i*45.,
+               "beta":1.2,"gamma":1.1,
+               "production_weighted_nonleptonic_cascade_upper_proxy":.70-.1*i}
+            points.append(p)
+
+        def fake_run(mod,state,mu0,upper,steps,orbits):
+            passed=(state["id"]=="B4_SYNTH_0")
+            return {
+                "status":"COMPLETE_TO_10TEV" if passed else "STOPPED_SAMPLE",
+                "reached_end_scale":passed,
+                "BFB_sufficient_at_all_sampled_steps":True,
+                "tree_unitarity_8pi_at_all_sampled_steps":passed,
+                "BFB_negative_witness":False,
+                "first_BFB_uncertified_scale_GeV":None,
+                "first_tree_unitarity_uncertified_scale_GeV":None if passed else 800.,
+                "maximum_scattering_eigenvalue_encountered":9.0 if passed else 30.}
+        mock_solution={
+            "status":"NEUTRINO_CLOSED_PARTIAL_LFV_ONLY_NOT_ALLOWED",
+            "partial_LFV_score_NOT_EXCLUSION":.002,
+            "f":{"real":[[0.]*3]*3,"imag":[[0.]*3]*3},
+            "Y":{"real":[[0.]*3]*3,"imag":[[0.]*3]*3}}
+        mock_vac={
+            "status":"NO_DEEPER_WITNESS_FOUND_NOT_GLOBAL_CERTIFICATE",
+            "most_negative_witness":None,
+            "successful_field_evaluations":128,
+            "lowest_point_found":{"difference_from_EW_over_v4":0.}}
+        patches=[
+            patch("zee_section8_Q4_generated_source_limit_probe.load_generated",
+                  return_value=object()),
+            patch("zee_gateC1_joined_uv_pilot.scalar_lagrangian",
+                  return_value=({"l1":.1},{})),
+            patch("zee_gateC1_joined_uv_pilot.build_model_state",
+                  side_effect=lambda p,sol:({"id":p["id"]},{})),
+            patch("zee_gateC3_running_complex_bfb.quartic_bfb",
+                  return_value={"verdict":"BFB_SUFFICIENT_CERTIFIED"}),
+            patch("zee_gateC4_running_55channel_unitarity.scattering_limit",
+                  return_value={"passes_strict_8pi":True,"ratio_to_8pi":.4}),
+            patch("zee_gateC4_running_55channel_unitarity.full_trajectory",
+                  side_effect=fake_run),
+            patch("zee_gateC5_charge_breaking_vacuum_search.candidate_starts",
+                  return_value=np.zeros((128,6))),
+            patch("zee_gateC5_charge_breaking_vacuum_search.evaluate_multistart",
+                  return_value=mock_vac),
+            patch("gateA1b_hierarchical_no_seed.target_neutrino_matrix",
+                  return_value=(np.eye(3),np.ones(3))),
+            patch("gateA1b_hierarchical_no_seed.antisymmetric_f_with_null_condition",
+                  return_value=(np.zeros((3,3)),None)),
+            patch("gateB2_zee_neutrino_family_scan.solve_point",
+                  return_value=mock_solution),
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            for obj in patches:
+                obj.start()
+                self.addCleanup(obj.stop)
+            counts,npass,short=e.run(
+                points,Path("/mock/pinned-Q4-source"),24,np.zeros((300,5)),
+                np.zeros((128,6)),500,20261020,Path(tmp),150)
+            self.assertEqual(npass,1)
+            self.assertEqual(counts["RGE_two_resolution_pass"],1)
+            self.assertEqual(counts["RGE_coarse_not_pass"],1)
+            self.assertEqual(counts["original_vacuum_cases_tested"],1)
+            self.assertEqual(len(short),1)
+            self.assertEqual(short[0]["candidate_id"],"B4_SYNTH_0")
+            with (Path(tmp)/"E1_all_5557_original_model_scalar_RGE_diagnostics.jsonl").open() as f:
+                ledger=[json.loads(line) for line in f]
+            self.assertEqual(len(ledger),2)
+            self.assertTrue(all(z["full_Zee_experimental_allowed_or_excluded"] is None
+                                for z in ledger))
+            self.assertTrue((Path(tmp)/
+                "E1_source_exact_neutrino_solutions_for_100_ranked_NOT_ALLOWED.json"
+                ).exists())
 
     def test_unimplemented_observables_are_explicitly_unavailable(self):
         self.assertIn("HiggsTools"," ".join(e.EVIDENCE_CONSTRAINTS_NOT_IMPLEMENTED))
