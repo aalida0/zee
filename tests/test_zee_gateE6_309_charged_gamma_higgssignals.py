@@ -116,7 +116,7 @@ class E6Unit(unittest.TestCase):
   # But the offdiagonal Z current is present: Zgamma cannot be
   # computed by adding only equal-mass scalar loop functions.
   self.assertGreater(abs(G["Z_generator_T3_minus_sW2_mass_basis"][0][1]),0.)
-   self.assertAlmostEqual(
+  self.assertAlmostEqual(
        G["Z_generator_T3_minus_sW2_mass_basis"][0][1],
        -.25*math.sin(2*pack["scalar"]["gamma"]),places=12)
 
