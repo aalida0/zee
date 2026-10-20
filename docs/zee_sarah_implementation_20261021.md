@@ -341,6 +341,82 @@ source conventions (including charge conjugation, factorials,
 mixing angles and lepton rotations), and compare both
 complex components at two parameter points.
 
+## Antisymmetric Zee singlet coupling located in physical vertices
+
+The 2026-10-21 local SARAH 4.15.4 output for
+`scripts/zee_sarah_fzee_orientation_probe.m` reports
+
+```text
+ZEE_F_SYMMETRY_SWITCH_VALUE UseSymmASymm False
+ZEE_F_MATCH_COUNT 10
+ZEE_F_ORIENTATION_STATUS FZEE_PRESENT_IN_PROBED_VERTICES_NORMALIZATION_NOT_VALIDATED
+```
+
+Of the 17 vertex orientations queried, **ten** contain `Fzee`.
+The gauge-basis extraction is
+
+```text
+Vertex[{eL_i,vL_j,Sp}] = I/2 * (Fzee[i,j] - Fzee[j,i])
+```
+
+so with an explicitly antisymmetric `f` this is `I*f[i,j]`
+and the same-flavor vertex is zero. The apparent unevaluated
+`Fzee[1,1]` in the earlier probe is explained by the current
+`UseSymmASymm=False` mode, not by absence of the symmetry metadata.
+
+The mass-basis `Fe_a Fv_b Hm_k^+` charged-singlet vertex has
+
+```text
+PL: I/2 * sum_j conj(Ve[a,j])*(Fzee[j,b]-Fzee[b,j])*ZP[k,3]
+PR: 0
+```
+
+and the conjugate `bar[Fe_a] bar[Fv_b] Hm_k^-` vertex has
+
+```text
+PL: 0
+PR: I/2 * sum_j Ve[a,j]*(conj(Fzee[j,b])-conj(Fzee[b,j]))*ZP[k,3].
+```
+
+With antisymmetric `f`, these become
+`I*ZP[k,3]*sum_j conj(Ve[a,j])*f[j,b]` and
+`I*ZP[k,3]*sum_j Ve[a,j]*conj(f[j,b])`, respectively.
+`ZP[2,3]=sin(gamma)`, `ZP[3,3]=cos(gamma)`
+in the already-tested Gate6 convention.
+
+The present result proves the **presence** and expected symbolic
+antisymmetric difference structure of the generated f interaction;
+it does not itself verify any complex numeric amplitude or E3 convention.
+
+### Next local numerical check
+
+Added `scripts/zee_sarah_fzee_numeric_audit.m`.
+It compares eight independent SARAH-generated component vertices
+at each of two explicitly antisymmetric **complex** f fixtures,
+including a nontrivial complex unitary charged-lepton rotation,
+against the direct Lagrangian expressions. It checks both charged
+physical scalars, both chiral orientations, exchange antisymmetry,
+the zero diagonal, and complex conjugation.
+
+```bash
+cd ~/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_sarah_source.py' -v
+python3 scripts/zee_sarah_gate6_fixture.py
+set -o pipefail
+math -script scripts/zee_sarah_fzee_numeric_audit.m \
+  2>&1 | tee work_sarah_fzee_numeric_console.log
+cat work/sarah_zee/fzee_numeric_status.txt
+cat work/sarah_zee/fzee_numeric_results.txt
+```
+
+Successful evaluation would report
+`SARAH_ZEE_F_COMPLEX_VERTEX_NORMALIZATION_PASS_E3_UNMATCHED`.
+This is **not a reported result yet**, and even if obtained would
+not validate the E3 field-basis mapping, complete neutrino-loop
+amplitudes, LFV, or an allowed point.
+
 ## Unresolved physics / blockers
 
 1. Check the SU(2) dot contraction and sign of the Zee trilinear in SARAH
