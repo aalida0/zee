@@ -46,6 +46,21 @@ class TestSarahZeeSource(unittest.TestCase):
         self.assertIn("Goldstone -> Hm[{1}]", self.part)
         self.assertIn("Goldstone -> Ah[{1}]", self.part)
 
+    def test_gauge_es_spinor_metadata(self):
+        for name in ("Fd1", "Fd2", "Fu1", "Fu2", "Fe1", "Fe2", "Fv1"):
+            self.assertRegex(self.part, r"\{" + name +
+                             r",\{Description\s*->\s*\"Dirac")
+
+    def test_gate6_independent_mass_audit_sources(self):
+        fixture = (ROOT / "scripts" / "zee_sarah_gate6_fixture.py").read_text()
+        audit = (ROOT / "scripts" / "zee_sarah_gate6_mass_audit.m").read_text()
+        self.assertIn("from gate6_benchmark import benchmark", fixture)
+        self.assertIn("zeeGate6ExpectedHm", fixture)
+        for name in ("hh", "Ah", "Hm"):
+            self.assertIn("MassMatrix[" + name + "]", audit)
+        self.assertIn("SARAH_GATE6_TREE_MASS_MATRICES_NUMERIC_PASS", audit)
+        self.assertIn("mass_matrices_raw.txt", audit)
+
     def test_batch_loader_finds_local_sarah_and_records_failure(self):
         runner = (ROOT / "scripts" / "zee_sarah_check.m").read_text()
         self.assertIn('SARAH-4.15.4", "SARAH.m"', runner)
