@@ -136,11 +136,14 @@ def hcharged_trilinears(point):
  if not math.isclose(G_num[0,1],previous,rel_tol=2e-7,abs_tol=1e-5):
   raise ValueError("Existing Gate6 offdiagonal charged trilinear differs")
  # Photon charge generator is proportional to identity -> only diagonal g.
- # Nonzero h12 nevertheless couples to offdiagonal Z12 (Zgamma pending).
+ # Nonzero h12 couples to Z12 in full mixed-mass Zgamma.
  z_D=(.5-SW2);z_S=-SW2
  Z=R.T@np.diag([z_D,z_S])@R
  if abs(Z[0,1])<1e-8:
   raise ValueError("Offdiagonal Zee Z current unexpectedly absent")
+ if not math.isclose(float(Z[0,1]),-.25*math.sin(2*g),
+                     rel_tol=2e-12,abs_tol=1e-13):
+  raise ValueError("Offdiagonal ZH1H2 current violates gauge rotation identity")
  if not np.isfinite(G_num).all():
   raise ValueError("Nonfinite hH+H- vertex")
  return {
@@ -226,7 +229,7 @@ def gamma_ratio(package,trilinears):
   "H2_charged_scalar_LO_amplitude":[scalar[1].real,scalar[1].imag],
   "new_over_old_h_gamma_gamma_partial_width_LO_amplitude_ratio":ratio,
   "charged_scalar_amplitudes_with_BOTH_mass_eigenstates":True,
-  "Z_gamma_offdiagonal_Z_H1_H2_loop_not_included":True,
+  "Zgamma_offdiagonal_loop_not_part_of_diphoton_subamplitude":True,
  }
 
 
@@ -292,7 +295,7 @@ def evaluate(signals,HP,pack,original,SM_reference_width):
  return {
   "candidate_id":pack["candidate_id"],
   "E5_original_chisq_reproduced":base_chi,
-  "h_gamma_gamma_scalar_corrected_chisq":newchi,
+  "h_gamma_gamma_and_Zgamma_scalar_corrected_chisq":newchi,
   "delta_chisq_vs_original_E5":newchi-base_chi,
   "chi2_after_charged_gamma_only":gammachi,
   "delta_chisq_additional_from_full_mixed_Zgamma":newchi-gammachi,
@@ -311,7 +314,7 @@ def evaluate(signals,HP,pack,original,SM_reference_width):
   "h125_corrected_total_width_GeV":total,
   "delta_chisq_vs_same_SM":
       newchi-SM_reference_width["smchi"],
-  "source_type":"h125 one-loop charged scalar gamma only + E5 HiggsTools",
+  "source_type":"h125 LO charged scalar diphoton and mixed-mass Zgamma subsets plus E5 HiggsTools",
   "h_Zgamma_full_one_loop_charged_scalar_mixed_mass_completed":True,
   "h_Zgamma_higher_order_matching_uncertified":True,
   "charged_scalar_QED_photon_offdiagonal":False,
