@@ -127,10 +127,13 @@ def execute(n1,charged,out):
  target=out/"P1_N2_309_h_H_A_H1_H2_MORE_PARTIAL_LO_NOT_COMPLETE.json"
  target.write_text(json.dumps({
   "schema_version":1,"stage":"decays",
-  "provenance":{**archive_proof,**charged_proof,
+  "provenance":{
+    "source":"Original SHA-verified E2/E3/charged/N1 archives; Gate6 scalar Hessian and gauge-kinetic N2 source implementation (same repository, not independent cross-code validation)",
+    **archive_proof,**charged_proof,
     "N2_bosonic_source_SHA256":hashfile(
         ROOT/"scripts"/"zee_priority1_neutral_bosonic_two_body.py"),
-    "N2_runner_SHA256":hashfile(Path(__file__))},
+    "N2_runner_SHA256":hashfile(Path(__file__)),
+    "independent_external_width_validation_completed":False},
   "records":result,
   "full_Zee_allowed_or_excluded":None,
   "usable_as_complete_HiggsBounds_five_state_input":False,
@@ -197,7 +200,7 @@ def main():
  p.add_argument("--prior-n1",type=Path,default=PRIOR)
  p.add_argument("--prior-charged",type=Path,default=PRIOR_CHARGED)
  p.add_argument("--out",type=Path,default=ROOT/"work"/
-  "p1_original_309_neutral_bosonic_N2_20261020_v1")
+  "p1_original_309_neutral_bosonic_N2_20261020_v2")
  a=p.parse_args()
  execute(a.prior_n1.resolve(),a.prior_charged.resolve(),a.out.resolve())
 if __name__=="__main__":main()
