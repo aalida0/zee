@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""E6: original-potential hH+H- tree trilinears and charged-scalar h->gamma gamma.
+"""E6: original-Zee cubic scalar hgamma gamma and full mixed-mass hZgamma LO.
 
-Full two charged-mass-eigenstate *scalar* one-loop gamma-gamma contribution
-interferes with SM particle amplitudes at leading order. E5 base HiggsTools
-rates and LFV widths are reproduced, then its gamma-gamma partial width is
-replaced by a scalar-added amplitude RATIO preserving its improved SM rates.
-One 309-spectrum, source-locked, resumable HiggsSignals run.
+Both charged Higgs scalar one-loop subsets are included; the hZgamma
+finite mixed-mass PV formula includes offdiagonal Z H1 H2 couplings.
+HiggsTools original E5 chi2 and full widths are reproduced first.
+The gamma gamma correction is a charged-scalar amplitude ratio applied to
+HiggsTools base width; Zgamma uses the full LO ratio including modified
+W/fermion and all charged-scalar loops over the higher-order SM width.
 
-NOT full Zee HiggsSignals: h->Zgamma requires ALSO mixed H1/H2 masses since
-Z H1 H2 is off diagonal. The diagonal Z couplings and mixed h trilinear are
-saved as an audit, but NO fake full Zgamma amplitude is inserted.
-Heavy-state HiggsBounds, B->Xs gamma, complete LFV, global vac also absent.
+This remains a conditional mixed-order 125 GeV HiggsSignals fit:
+heavy HiggsBounds, higher-order loop matching, complete CLFV,
+B->Xs gamma, exact neutrino likelihood, global vac all remain absent.
 """
 from __future__ import annotations
 import argparse,cmath,csv,hashlib,json,math,os,sys,traceback
@@ -19,9 +19,10 @@ import numpy as np
 from gate6_benchmark import benchmark
 from gate6_width_inventory import trilinears
 from gate7_map_p2_to_yangwu import map_point
+from zee_gateE6_zgamma_mixed_PV import zgam_ratio
 import zee_gateE5_309_h125_higgssignals_effective as e5
 
-STATUS="E6_309_ZEE_CHARGED_SCALAR_HGAMGAM_HS_ZGAM_MIXED_PENDING_NOT_ALLOWED"
+STATUS="E6_309_ZEE_CHARGED_SCALAR_GAMGAM_ZGAM_MIXEDPV_HS_NOT_ALLOWED"
 MH=125.0
 VEV=246.21965
 MZ=91.1876
@@ -32,8 +33,7 @@ TARGETS=("B4_0004143","B4_0003582","B4_0004173",
 SCALAR_KEYS=("alpha","beta","gamma","m12sq","mH1","mH2","mh2","ma",
              "lc","k1","k2","k12")
 EXPERIMENTAL_NOT_COMPLETED=(
- "h_to_Zgamma_offdiagonal_two_different_charged_mass_scalar_loops",
- "complete_h_to_Zgamma_SM_and_Zee_loop_amplitude",
+ "full_hZgamma_higher_order_SM_BSM_EWQCD_matching",
  "heavy_neutral_charged_HiggsBounds",
  "complete_model_lepton_flavor_and_B_to_Xs_gamma_likelihood",
  "global_tree_vacuum_minimum_proof",
@@ -252,31 +252,48 @@ def evaluate(signals,HP,pack,original,SM_reference_width):
  loop=gamma_ratio(pack,tri)
  newgam=oldgam*loop["new_over_old_h_gamma_gamma_partial_width_LO_amplitude_ratio"]
  h.setDecayWidth("gamgam",newgam)
- total=e5.finite(h.totalWidth(),"HiggsTools post-gamma total")
- if not math.isclose(total,old_total-oldgam+newgam,
+ gammachi=e5.finite(signals(p),"HiggsSignals gamma-only corrected chi2")
+ # Complete charged Zee scalar Zgamma form factor includes unequal-mass
+ # i!=j loops and coherent SM W/fermion amplitudes, using Florentino D.20.
+ oldzgam=e5.finite(h.totalWidth()*h.br("Zgam"),"baseline Zgamma partial")
+ if oldzgam<=0:raise ValueError("HiggsTools baseline Zgamma width unavailable")
+ zloop=zgam_ratio(pack,tri)
+ zrat=zloop["full_charged_scalar_plus_modified_SM_LO_hZgamma_over_SM_LO_width"]
+ newzgam=oldzgam*zrat
+ h.setDecayWidth("Zgam",newzgam)
+ total=e5.finite(h.totalWidth(),"HiggsTools post-gamma+Zgamma total")
+ if not math.isclose(total,old_total-oldgam+newgam-oldzgam+newzgam,
                      rel_tol=2e-8,abs_tol=1e-9):
-  raise ValueError("HiggsTools total width not updated after gamma correction")
- if not math.isclose(h.br("gamgam"),newgam/total,
-                     rel_tol=2e-9,abs_tol=1e-12):
-  raise ValueError("HiggsTools new gamgam BR not propagated")
- newchi=e5.finite(signals(p),"HiggsSignals corrected gamma chi2")
+  raise ValueError("HiggsTools total width not updated after both loop corrections")
+ for key,val in (("gamgam",newgam),("Zgam",newzgam)):
+  if not math.isclose(h.br(key),val/total,
+                      rel_tol=2e-9,abs_tol=1e-12):
+   raise ValueError("HiggsTools loop decay BR not propagated: "+key)
+ newchi=e5.finite(signals(p),"HiggsSignals gamma+Zgamma corrected chi2")
  return {
   "candidate_id":pack["candidate_id"],
   "E5_original_chisq_reproduced":base_chi,
   "h_gamma_gamma_scalar_corrected_chisq":newchi,
   "delta_chisq_vs_original_E5":newchi-base_chi,
+  "chi2_after_charged_gamma_only":gammachi,
+  "delta_chisq_additional_from_full_mixed_Zgamma":newchi-gammachi,
   "E5_original_delta_chisq_vs_SM":
       original["delta_chi2_vs_SM_same_dataset_NOT_calibrated_CL"],
   "charged_scalar_trilinears":tri,
   "loop_amplitudes":loop,
+  "Zgamma_full_mixed_mass_PV_amplitudes":zloop,
   "gamma_gamma_original_partial_GeV":oldgam,
   "gamma_gamma_corrected_partial_GeV":newgam,
   "gamma_gamma_corrected_BR":float(h.br("gamgam")),
+  "Zgamma_original_partial_GeV":oldzgam,
+  "Zgamma_corrected_partial_GeV":newzgam,
+  "Zgamma_corrected_BR":float(h.br("Zgam")),
   "h125_corrected_total_width_GeV":total,
   "delta_chisq_vs_same_SM":
       newchi-SM_reference_width["smchi"],
   "source_type":"h125 one-loop charged scalar gamma only + E5 HiggsTools",
-  "h_Zgamma_FULL_prediction_computed":False,
+  "h_Zgamma_full_one_loop_charged_scalar_mixed_mass_completed":True,
+  "h_Zgamma_higher_order_matching_uncertified":True,
   "charged_scalar_QED_photon_offdiagonal":False,
   "full_Zee_allowed_or_excluded":None,
  }
@@ -326,6 +343,8 @@ def source_inputs(e2,e3,e4h,e5dir,hs):
   "input_source_E5":oldprov,
   "dataset_SHA256":measured["dataset_sha256_manifest"],
   "E6_script_SHA256":e5.sha256(Path(__file__)),
+  "E6_mixed_PV_source_SHA256":e5.sha256(
+      Path(__file__).with_name("zee_gateE6_zgamma_mixed_PV.py")),
  }
 
 
@@ -357,9 +376,14 @@ def finish(folder,rows,cohort,proof,smchi,nobs):
    "cascade_proxy_NOT_event_yield":cohort[key]["cascade_proxy_not_xsec"],
    "old_HiggsSignals_delta_vs_SM":entry["E5_original_delta_chisq_vs_SM"],
    "gamma_loop_corrected_delta_vs_SM":entry["delta_chisq_vs_same_SM"],
-   "delta_chisq_change_gamma_loop":entry["delta_chisq_vs_original_E5"],
+   "delta_chisq_change_gamma_and_Zgamma_loops":entry["delta_chisq_vs_original_E5"],
+   "delta_chisq_additional_Zgamma":
+       entry["delta_chisq_additional_from_full_mixed_Zgamma"],
    "gamma_partial_width_ratio":
      entry["loop_amplitudes"]["new_over_old_h_gamma_gamma_partial_width_LO_amplitude_ratio"],
+   "Zgamma_LO_over_SM_width_ratio":
+     entry["Zgamma_full_mixed_mass_PV_amplitudes"][
+       "full_charged_scalar_plus_modified_SM_LO_hZgamma_over_SM_LO_width"],
    "ghH1H1_GeV":entry["charged_scalar_trilinears"]["g_h_H1plus_H1minus_GeV"],
    "ghH2H2_GeV":entry["charged_scalar_trilinears"]["g_h_H2plus_H2minus_GeV"],
    "g_hH1H2_GeV":entry["charged_scalar_trilinears"]["g_h_H1plus_H2minus_GeV"],
@@ -373,6 +397,7 @@ def finish(folder,rows,cohort,proof,smchi,nobs):
  delta=np.array([x["gamma_loop_corrected_delta_vs_SM"] for x in data])
  old=np.array([x["old_HiggsSignals_delta_vs_SM"] for x in data])
  rate=np.array([x["gamma_partial_width_ratio"] for x in data])
+ zrate=np.array([x["Zgamma_LO_over_SM_width_ratio"] for x in data])
  obj={
   "status":STATUS,"original_source_models":309,
   "updated_HiggsSignals_hgamma_gamma_models":309,
@@ -383,12 +408,15 @@ def finish(folder,rows,cohort,proof,smchi,nobs):
   "scalar_gamma_corrected_delta_chi2_max":float(np.max(delta)),
   "scalar_gamma_partial_width_ratio_min_median_max":[
        float(np.min(rate)),float(np.median(rate)),float(np.max(rate))],
+  "full_mixed_scalar_Zgamma_LO_width_ratio_min_median_max":[
+       float(np.min(zrate)),float(np.median(zrate)),float(np.max(zrate))],
   "descriptive_gamma_corrected_delta_less_than_1":int(np.sum(delta<1)),
   "descriptive_gamma_corrected_delta_less_than_4":int(np.sum(delta<4)),
   "descriptive_gamma_corrected_delta_less_than_10":int(np.sum(delta<10)),
   "target_benchmarks":{tag:rows[tag] for tag in TARGETS},
   "no_cut_is_a_physical_exclusion":True,
-  "full_h_to_Zgamma_NOT_completed":True,
+  "full_h_to_Zgamma_one_loop_scalar_subset_with_mixed_mass_completed":True,
+  "full_h_to_Zgamma_higher_order_model_prediction_NOT_completed":True,
   "missing_physics":EXPERIMENTAL_NOT_COMPLETED,
   "full_Zee_allowed_or_excluded":None,
   "source":proof,
@@ -458,13 +486,16 @@ def main():
           "DCHI2_UPDATED",row["delta_chisq_vs_same_SM"],
           "R_GAMGAM",row["loop_amplitudes"][
               "new_over_old_h_gamma_gamma_partial_width_LO_amplitude_ratio"],
-          "Z_GAMMA_MIXED_LOOP_PENDING",flush=True)
+          "R_ZGAM",row["Zgamma_full_mixed_mass_PV_amplitudes"][
+            "full_charged_scalar_plus_modified_SM_LO_hZgamma_over_SM_LO_width"],
+          "FULL_MODEL_NOT_ALLOWED",flush=True)
   summary=finish(out,done,packs,proof,smchi,nobs)
   e5.save(out/"manifest.json",{"status":STATUS,"source":manifest,
                   "summary_SHA256":e5.sha256(out/"summary.json")})
   print("E6_STATUS",STATUS,"COMPLETED",309,
         "HIGGSSIGNALS_OLD_AND_NEW",True,
-        "Z_GAMMA_PHYSICS_INCOMPLETE",True,
+        "Z_GAMMA_OFFDIAGONAL_MIXED_SCALAR_LO_INCLUDED",True,
+        "HIGHER_ORDER_LOOPS_UNCALIBRATED",True,
         "FULL_ZEE_ALLOWED_UNKNOWN",flush=True)
   print("E6_SUMMARY",out/"summary.json",flush=True)
   return 0
