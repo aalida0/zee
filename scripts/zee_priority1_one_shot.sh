@@ -6,9 +6,13 @@ cd /home/aalida/zee
 python3 -m py_compile \
  scripts/zee_priority1_contracts.py \
  scripts/zee_priority1_higgstools.py \
- scripts/zee_priority1_cli.py
+ scripts/zee_priority1_cli.py \
+ scripts/zee_priority1_neutrino_gaussian.py \
+ scripts/zee_priority1_coherent_lfv.py
 python3 -m unittest discover -s tests \
  -p 'test_zee_priority1_global_contracts.py' -v
+python3 -m unittest discover -s tests \
+ -p 'test_zee_priority1_numerics.py' -v
 mkdir -p work
 TEMP="$(mktemp -d /home/aalida/zee/work/priority1_contracts_smoke_XXXXXX)"
 cat > "$TEMP/points.csv" <<'CSV'
