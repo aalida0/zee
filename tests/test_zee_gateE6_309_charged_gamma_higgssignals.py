@@ -191,9 +191,12 @@ class E6Unit(unittest.TestCase):
  def test_Zgamma_mixed_PV_matches_analytic_I1_and_symmetric_B0_C0(self):
   for mass in (80.379,200.,300.,700.,1200.):
    self.assertTrue(zpv.crosscheck_equal_mass(mass))
-  for mi,mj in ((250.,700.),(200.,1000.),(625.,260.)):
-   self.assertAlmostEqual(zpv.mixed_mass_F(mi,mj),
-                          zpv.mixed_mass_F(mj,mi),places=10)
+  for mi,mj in ((250.,700.),(200.,1000.),(625.,260.),(200.,1600.)):
+   self.assertAlmostEqual(zpv.mixed_mass_F(mi,mj,64),
+                          zpv.mixed_mass_F(mj,mi,64),places=10)
+   self.assertTrue(math.isclose(
+       zpv.mixed_mass_F(mi,mj,48),zpv.mixed_mass_F(mi,mj,64),
+       rel_tol=2e-7,abs_tol=1e-10))
   t=self.pak()
   G=x.hcharged_trilinears(t["scalar"])
   z=zpv.zgam_ratio(t,G)
