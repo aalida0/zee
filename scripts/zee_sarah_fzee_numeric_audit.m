@@ -1,4 +1,5 @@
-(* Independent complex numerical normalization of Zee f-induced vertices.
+(* LEGACY standalone test, superseded by zee_sarah_integrated_lepton_validation.m.
+   Independent complex numerical normalization of Zee f-induced vertices.
    SARAH 4.15.4 + Gate6 gamma fixture. E3 matching is NOT certified.
    Run: python3 scripts/zee_sarah_gate6_fixture.py
         math -script scripts/zee_sarah_fzee_numeric_audit.m *)
@@ -79,7 +80,9 @@ Do[
     Print["FAIL VERTEX_CHIRALITY ",spec[[1]],
      " observed=",InputForm[vtx]];
     setStatus["FZEE_CHIRAL_STRUCTURE_MISMATCH"];Exit[9]];
- If[FreeQ[vtx,Fzee],
+ (* An identically vanishing diagonal Zee vertex is expected to
+    lose every literal Fzee occurrence after symbolic cancellation. *)
+ If[FreeQ[vtx,Fzee] && spec[[1]]=!="gauge11",
     Print["FAIL FZEE_ABSENT ",spec[[1]]];
     setStatus["FZEE_NOT_IN_REQUIRED_VERTICES"];Exit[10]];
  AppendTo[raw,vtx[[spec[[4]],1]]],
