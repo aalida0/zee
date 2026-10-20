@@ -2,7 +2,7 @@
 """E6Z: complete one-loop Zee CHARGED-SCALAR h->Z gamma form factor.
 
 Implements the finite mixed-mass B0/C0 expression of
-Florentino, Romao & Silva EPJC81(2021)1148 Appendix D Eq(D.20),
+Florentino, Romao & Silva EPJC81(2021)1148 Appendix B Eq(B6),
 including i!=j H1/H2. Numerically independent check:
 equal-mass PV loop matches I1(a,b) from the standard scalar loop exactly.
 The SM W/fermion (CP-even and CP-odd) LO amplitudes follow standard
@@ -64,7 +64,7 @@ def c0_photon_pair(mi2,mj2,n=48):
 
 @functools.lru_cache(maxsize=8192)
 def mixed_mass_F(mi,mj,n=48):
- """Finite curly bracket of Florentino Eq(D.20), symmetric in i,j."""
+ """Finite curly bracket of Florentino Eq(B6), symmetric in i,j."""
  if not(mi>MH/2 and mj>MH/2 and math.isfinite(mi) and math.isfinite(mj)):
   raise ValueError("PV loop requires real charged masses above threshold")
  mi2=mi*mi;mj2=mj*mj
@@ -159,12 +159,12 @@ def scalar_zgam(p,tril):
  z=np.asarray(tril["Z_generator_T3_minus_sW2_mass_basis"],float)
  if h.shape!=(2,2) or z.shape!=(2,2):
   raise ValueError("Wrong Zee charged scalar mixing matrices")
- fine=np.array([[mixed_mass_F(float(mi),float(mj),48)
+ fine=np.array([[mixed_mass_F(float(mi),float(mj),64)
                  for mj in ms] for mi in ms])
  # Symmetry also tests the ordered (i,j)+(j,i) multiplicity.
  if not np.allclose(fine,fine.T,rtol=2e-10,atol=2e-12):
   raise ValueError("Mixed-mass Zgamma scalar loop symmetry failed")
- coarse=np.array([[mixed_mass_F(float(mi),float(mj),32)
+ coarse=np.array([[mixed_mass_F(float(mi),float(mj),48)
                  for mj in ms] for mi in ms])
  if not np.allclose(fine,coarse,rtol=2e-7,atol=1e-10):
   raise ValueError("Mixed-mass Zgamma loop quadrature disagrees")
@@ -179,8 +179,8 @@ def scalar_zgam(p,tril):
                                              float(contributions[1,0])],
   "mixed_PV_F_H1H2":float(fine[0,1]),
   "full_offdiagonal_ZH1H2_included":True,
-  "PV_32_48_quadrature_and_equal_mass_I1_checked":True,
-  "source":"Florentino/Romao/Silva EPJC81(2021)1148 Eq D20",
+  "PV_48_64_quadrature_and_equal_mass_I1_checked":True,
+  "source":"Florentino/Romao/Silva EPJC81(2021)1148 Appendix B Eq B6",
  }
 
 
