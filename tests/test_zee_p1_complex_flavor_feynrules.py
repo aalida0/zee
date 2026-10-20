@@ -29,7 +29,7 @@ class ComplexFlavorSource(unittest.TestCase):
    self.assertEqual(result.count("BlockName -> "+family),n)
   for n in REQUIRED:
    self.assertIn("Value -> (R"+n+" + I*I"+n+")",result)
-   self.assertEqual(len(re.findall(r"(?m)^\\s*"+re.escape(n)+r"\\s*==\\s*\\{",result)),1)
+   self.assertEqual(len(re.findall(r"(?m)^\s*"+re.escape(n)+r"\s*==\s*\{",result)),1)
 
  def test_no_yukawa_matrix_order_swap(self):
   result=patch(fragment())
