@@ -46,3 +46,6 @@ jobs:
       - name: Source-connected real E3-B3 Priority1 integration
         run: |
           python -m unittest discover -s tests -p 'test_zee_priority1_real_charged_widths.py' -v
+      - name: Neutral h H A 12-channel exact tree partial widths and B3 source join
+        run: |
+          python -m unittest discover -s tests -p 'test_zee_priority1_neutral_two_body.py' -v
