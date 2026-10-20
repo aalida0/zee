@@ -102,7 +102,7 @@ class NeutralPartialPhysics(unittest.TestCase):
    N.calculate(point(),np.ones((2,3)))
   with self.assertRaisesRegex(ValueError,"non-singular"):
    N.kappas(0.,1.)
-  with self.assertRaisesRegex(ValueError,"neutral mass"):
+  with self.assertRaisesRegex(ValueError,"neutral scalar mass"):
    N.calculate({**point(),"ma":-1.},np.zeros((3,3),complex))
 
  def test_source_B3_charged_vs_new_N1_neutral_charged_join(self):
