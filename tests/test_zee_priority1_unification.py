@@ -52,9 +52,9 @@ class TestP1Unification(unittest.TestCase):
   with mock.patch.dict(sys.modules,{"gateB4_adaptive_zee_scalar_scan":fake}):
    self.assertEqual(stream.structural(row,True)["scalar_EWPO_screen"],
      "PASSED_IMPLEMENTED_SCALAR_AND_STU_NOT_MODEL_ALLOWED")
-  row.pop("k12")
-  with self.assertRaises(KeyError):
-   stream.structural(row,True)
+   row.pop("k12")
+   with self.assertRaises(KeyError):
+    stream.structural(row,True)
 
  def test_e3_b3_partial_real_topology_is_not_complete_higgsbounds(self):
   name="B4_0004143"
