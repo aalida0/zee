@@ -21,7 +21,7 @@ python3 -u scripts/zee_priority1_neutral_bosonic_309_one_shot.py
 python3 - <<'PY'
 import json
 from pathlib import Path
-p=Path("work/p1_original_309_neutral_bosonic_N2_20261020_v1/summary.json")
+p=Path("work/p1_original_309_neutral_bosonic_N2_20261020_v2/summary.json")
 z=json.loads(p.read_text())
 assert z["original_source_points"]==309
 assert z["real_N2_neutral_bosonic_calculations"]==309
