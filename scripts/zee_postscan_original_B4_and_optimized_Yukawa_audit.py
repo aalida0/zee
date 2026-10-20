@@ -124,7 +124,7 @@ def running_result(source,mod,state,mass,steps,orbits):
         "first_uncertified_BFB_GeV":
             coarse["first_BFB_uncertified_scale_GeV"],
         "first_uncertified_tree_unitarity_GeV":
-            coarse["first_tree_unitarity_uncertified_sample_GeV"],
+            coarse["first_tree_unitarity_uncertified_scale_GeV"],
         "largest_55channel_eigenvalue_coarse":
             finite(coarse["maximum_scattering_eigenvalue_encountered"],
                    "largest C4 eigenvalue"),
