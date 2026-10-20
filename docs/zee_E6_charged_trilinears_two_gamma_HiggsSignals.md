@@ -1,114 +1,79 @@
-# E6: source-audited Zee \(hH_i^+H_j^-\), charged-scalar \(h\to\gamma\gamma\) and 309-point HiggsSignals
+# E6 — Original Zee charged-scalar loops in \(h\to\gamma\gamma\) and \(h\to Z\gamma\), 309-source HiggsSignals
 
-## Purpose and scientific status
+**Implementation status (20 October 2026):** E6 scripts, tests and the one-shot AF runner are committed. **The AF unit tests and full 309-point numerical E6 campaign have NOT been executed.** This is an improved *conditional* 125 GeV HiggsSignals calculation, **NOT** a complete experimentally allowed Zee fit.
 
-This gate continues the completed E2/E3/E4H/E5/E5A original-Zee scalar scan.
+## Physics motivation and source
 
-All **309** original scalar potentials had:
-- a selected exact-central-NO-neutrino \(f,Y^\ell\) texture optimized in the implemented partial low-energy LFV objective;
-- 24/48-point one-loop full-Zee RGE sampled BFB and 55-channel tree unitarity to chosen 10 TeV;
-- no deeper numerical tree vacuum FOUND (not global proof);
-- small direct \(h125\to e\mu,e\tau,\mu\tau\) branching ratio proxies;
-- a REAL 159-observable HiggsSignals effective-coupling \(\chi^2\) in E5.
+E2 established 309 of 395 10-TeV-running-theory-screened original scalar potentials with **no deeper tree vacuum found** in 128-start C5 finite searches (not global minima proofs). E3 optimized one neutrino-closed \`f,Y^\ell\` family per original potential, applied incomplete LFV (one-loop + selected two-loop terms), and reran 10 TeV sampled theory. E4H found tiny direct h(125) LFV branching-ratio proxies. E5 evaluated all 309 in **actual HiggsTools HiggsSignals, 159 observables**, with \(\chi^2_{\rm SM}=153.71818978\). In the E5 approximation \(\Delta\chi^2\) median **112.99** because the original Type-II-like κb can be very small. E5A source-closed all 309 and showed diagnostic bottom/down/strange coupling resets improve 306/309, with median reference shift to 0.659; **the resets are not physical Zee models**.
 
-E5A revealed down-type couplings drive the main HiggsSignals tension; our preferred source benchmark **B4_0004143** had original conditional \(\Delta\chi^2_{\rm HS}=0.8164\), \(\kappa_b=0.96657\), cascade upper proxy \(0.59388\). Original cascade priority B4_0006862 had \(23.1068\) and proxy \(0.60437\). Both remain *unvalidated physically allowed*.
+The preferred source benchmark **B4_0004143** has cascade *upper proxy* 0.5938792, κb=0.96657, E5 conditional \(\Delta\chi^2=0.81644\). Benchmark B4_0006862 has proxy 0.6043677 but \(\Delta\chi^2=23.1068\). Actual cascade production and full widths are NOT available.
 
-E6 derives **all \(hH_{1,2}^+H_{1,2}^-\) and \(hH_1^+H_2^-\) tree trilinears** from original Florentino Zee scalar potential; independently verifies them from the Higgs-basis map; computes BOTH charged-scalar one-loop \(h\to\gamma\gamma\) amplitudes; injects the interference into HiggsTools' original partial width, re-evaluates actual same-dataset HiggsSignals for all 309 spectra.
+The primary physics source for E6 is **Florentino, Romão and Silva**, *Off diagonal charged scalar couplings with the Z boson: the Zee model as an example*, Eur. Phys. J. C **81** (2021) 1148, arXiv:2106.08332, DOI https://doi.org/10.1140/epjc/s10052-021-09956-2. Especially **Appendix B, Eq. (B5)** (charged-scalar \(h\gamma\gamma\)) and **Eq. (B6)** (mixed-mass \(hZ\gamma\)). NOT Appendix D! The detailed scalar benchmark reconstruction is \`gate6_benchmark.benchmark()\`; Higgs basis mapping is \`gate7_map_p2_to_yangwu.map_point()\`.
 
-E6 does **NOT** compute a complete \(h\to Z\gamma\) correction: the off-diagonal \(ZH_1H_2\) current makes mixed-mass loops compulsory. The numerical source records this rather than adding an incorrectly diagonal-only rate. See Florentino, Romão, Silva *EPJC* **81 (2021) 1148**, DOI https://doi.org/10.1140/epjc/s10052-021-09956-2, **Appendix D, Eqs. (D.19–D.21)** for both on-shell decays including mixed-mass \(\Delta B_0\), \(C_0\) integrals and the nontrivial normalization. A generic 2018 hZγ one-loop paper is https://doi.org/10.1140/epjc/s10052-018-6349-0. A second nondegenerate-mass formula is https://doi.org/10.1140/epjc/s10052-022-10225-z.
+## Tree cubic couplings — two independent parameterizations
 
-**Do not claim “complete Zee gamma/Zgamma Higgs fit” or “model allowed” after E6.** This is a strictly improved *conditional h125 HiggsSignals* fit with a **complete LO charged-scalar \(\gamma\gamma\) loop subset**, but LO BSM amplitudes on top of HiggsTools' higher-order reference decay widths. The next independent validation must implement FULL hZγ off-diagonal mixed-mass amplitudes, fermion/W contributions at matching normalization, and compare to independent PV backend/old Florentino source limiting examples.
-
-## 1. Exact scalar conventions and independent cubic derivatives
-
-Use the **original gauge scalar potential** in \`docs/zee_full_ufo_implementation_contract.md\`, Eq. (16) of arXiv:2106.08332, and the full physical reconstruction in \`gate6_benchmark.py\`.
-
-The charged gauge basis is \((\phi_1^+,\phi_2^+,\chi^+)\), and the charged rotation is
-
+For fixed original Zee potential, charged gauge fields \((\phi_1^+,\phi_2^+,\chi^+)\), \(G^+=c_\beta\phi_1^+ +s_\beta\phi_2^+\), and
 \[
-G^+=c_\beta\phi_1^+ +s_\beta\phi_2^+,\quad
-H_1^+=c_\gamma(-s_\beta\phi_1^+ +c_\beta\phi_2^+)+s_\gamma\chi^+,
+H_1^+=c_\gamma(-s_\beta\phi_1^+ +c_\beta\phi_2^+)+s_\gamma\chi^+,\qquad
+H_2^+=-s_\gamma(-s_\beta\phi_1^+ +c_\beta\phi_2^+)+c_\gamma\chi^+.
 \]
+The 125 GeV physical scalar is \(h=c_\alpha\rho_1+s_\alpha\rho_2\). E6 reconstructs the full 3×3 gauge-basis charged mass Hessian with **fixed original quadratic Lagrangian masses** \(m_{11}^2,m_{22}^2,m_C^2\), and obtains
 \[
-H_2^+=-s_\gamma(-s_\beta\phi_1^+ +c_\beta\phi_2^+)+c_\gamma\chi^+ .
+g_{hij} = [U^T(c_\alpha\partial_{v_1}+s_\alpha\partial_{v_2})\mathcal{M}_+^2U]_{ij},
+\quad
+V\supset +g_{hij}\,hH_i^-H_j^+.
 \]
-
-For the CP-even 125 GeV scalar, \(h=\cos\alpha\,\rho_1+\sin\alpha\,\rho_2\).
-
-The potential's **fixed-Lagrangian-quadratics charged Hessian** is
-
+Numerical central differencing of the gauge-basis Hessian is independently compared to the **analytic Higgs-basis** charged doublet/singlet matrix:
 \[
-{\cal M}_+^2(v_1,v_2)=
+\partial_h\mathcal M_{+,(H_D,\chi)}^2 =
 \begin{pmatrix}
-m_{11}^2+\frac12(\lambda_1v_1^2+\lambda_3v_2^2)&
--m_{12}^2+\frac12(\lambda_4+\lambda_5)v_1v_2&
-+\mu_4 v_2/\sqrt2\\
-\cdot&m_{22}^2+\frac12(\lambda_2 v_2^2+\lambda_3v_1^2)&
--\mu_4 v_1/\sqrt2\\
-\cdot&\cdot&m_C^2+\frac12(k_1v_1^2+k_2v_2^2-2k_{12}v_1v_2)
+v(Z_3 c_\delta+ Z_7 s_\delta)&-\mu_4 c_\delta/\sqrt 2\\
+-\mu_4 c_\delta/\sqrt2&v(K_1 c_\delta+K_{12}s_\delta)
 \end{pmatrix},
+\quad \delta=\alpha-\beta.
 \]
-
-where the quadratic masses \(m_{11}^2,m_{22}^2\) were determined ONCE by the tadpoles at the original vacuum, then *held fixed* for differentiation:
-
+Further checks: 3×3 mass eigenvalues \(0,m_{H1}^2,m_{H2}^2\); source Gate6 preexisting offdiagonal \(hH_1H_2\) cubic; and exact \(Z_{12}=-\tfrac14\sin(2\gamma)\) in the basis \(Z=\mathrm{diag}(1/2-s_W^2,-s_W^2)\). For the original Gate6 nominal reference the algebraic independent benchmark is
 \[
-g_{hij}=\left[U^T(\cos\alpha\,\partial_{v_1}{\cal M}_+^2+
-\sin\alpha\,\partial_{v_2}{\cal M}_+^2)U\right]_{ij},\qquad i,j\in\{1,2\}.
+(g_{h11},g_{h22},g_{h12})\simeq(-397.485544,\ 1073.509393,\ 110.510637)\ {\rm GeV}.
 \]
+These are **tree potential** coefficients, not Feynman-rule signs.
 
-An independent Higgs-basis evaluation uses \(\delta=\alpha-\beta\), the actual source \`gate7_map_p2_to_yangwu.map_point\` quartics \(Z_3,Z_7,K_1,K_{12}\), and
+## One-loop charged scalar contribution to \(h\to\gamma\gamma\)
 
+With \(\tau_i=m_h^2/(4m_{H_i}^2)\) and \(A_0(\tau)=-[\tau-\arcsin^2\sqrt\tau]/\tau^2\),
 \[
-\partial_h{\cal M}_{+,(H_D,\chi)}^2 =
-\begin{pmatrix}
-v(Z_3\cos\delta+Z_7\sin\delta)&
--\mu_4\cos\delta/\sqrt2\\
--\mu_4\cos\delta/\sqrt2&
-v(K_1\cos\delta+K_{12}\sin\delta)
-\end{pmatrix}.
+\mathcal A_{H_i}^{\gamma\gamma}
+  ={v g_{hii}\over 2m_{H_i}^2}A_0(\tau_i).
 \]
+The photon charge matrix is the identity among mass eigenstates; hence offdiagonal \(hH_1 H_2\) cannot enter a two-photon scalar triangle. E6 sums BOTH diagonal charged scalar loops coherently with the altered LO W/top/bottom/charm/tau CP-even amplitude; CP-odd complex lepton Yukawas enter the squared rate separately. It scales HiggsTools' *saved E5 model* diphoton partial width by \((|A_{\rm even}+A_{H1}+A_{H2}|^2+|A_{\rm odd}|^2)/(|A_{\rm even}|^2+|A_{\rm odd}|^2)\), recomputes total width and HiggsSignals χ². It checks the LO SM-particle predicted ratio against the actual HiggsTools relative baseline within a diagnostic 8% tolerance, or fails closed.
 
-Compare these *numerically independent algebraic paths* to relative \(2\times10^{-6}\), verify 0/charged mass eigenvalues, and verify the existing Gate 6 \(hH_1H_2\) trilinear. The full charged scalar \(Z\) generator in the \((H_D,\chi)\) basis is \(\text{diag}(1/2-s_W^2,-s_W^2)\); after rotation the \(ZH_1H_2\) generator is nonzero for nonzero mixing.
+## One-loop \(h\to Z\gamma\): **mixed masses included**
 
-**Important:** trilinears here are **potential** coefficients in \(V\supset +g_{hij}hH_i^-H_j^+\), not Feynman-rule values; the interaction has \({\cal L}=-V\).
-
-## 2. Charged scalar \(h\gamma\gamma\) amplitude and HiggsSignals
-
-Using \(\tau_i=m_h^2/(4m_{H_i}^2)\), \(f(\tau)=\arcsin^2\sqrt\tau\) for \(\tau<1\),
-
+Z is not diagonal: \(Z_{12}=-\tfrac14\sin 2\gamma\). Thus both ordered mixed triangles \(H_1H_2\) and \(H_2H_1\) contribute, in addition to two diagonal charged loops. E6 source \`zee_gateE6_zgamma_mixed_PV.py\` implements **the finite unequal-mass \(B_0,C_0\) expression of Florentino Appendix B, Eq. (B6)** with Gauss–Legendre quadrature, retaining explicit ordering, and validates:
+- symmetry \(F(m_i,m_j)=F(m_j,m_i)\) and both mixed contributions;
+- independent **48/64-point** quadrature agreement;
+- independent analytic **equal-mass \(I_1(a,b)\) limit**
 \[
-A_0(\tau)=-[\tau-f(\tau)]/\tau^2,\qquad
-A_{H_i}=\frac{v g_{hii}}{2m_{H_i}^2} A_0(\tau_i).
+F(m,m)=-{m_h^2-M_Z^2\over2m^2}
+ I_1(4m^2/m_h^2,4m^2/M_Z^2);
 \]
+- exact vanishing of the scalar term when every \(g_{hij}\to0\), recovering the SM LO reference.
 
-The CP-even LO amplitude is \(A_W+A_t+A_b+A_c+A_\tau +A_{H_1}+A_{H_2}\); CP-odd contributions from complex diagonal \(Y^\ell\) enter quadratically **without interference** with CP-even scalars.
+The same helper implements LO SM W and complex fermionic CP-even/CP-odd terms using \(I_1,I_2\), then computes the full **LO charged-scalar-plus-modified-SM** \(Z\gamma\) rate divided by LO SM. That ratio scales the HiggsTools SM-reference \(\Gamma(h\to Z\gamma)\), since in E5 the effective \(Z\gamma\) coupling was deliberately fixed to 1. The hγγ and hZγ widths are updated *once each*, with exact total-width invariants, before recomputing the SAME 159-observable HiggsSignals correlated χ². Source/cubic/PV/W loop invariants are tested. **Higher-order matching of the SM and BSM Zgamma amplitudes remains approximate and has not been independently calibrated.**
 
-Define
+The 48/64 quadrature was independently checked in the extreme original source range \(m_{H1}=200\), \(m_{H2}=1600\) GeV, agreeing at the \(10^{-9}\) relative level. Exact unequal-mass corner cases outside this range should fail closed, not silently be relabeled as allowed.
 
-\[
-R_{\gamma\gamma}^{\rm scalar} =
-\frac{|A_{\rm SM-particle,even}^{LO}+A_{H_1}+A_{H_2}|^2
-+|A_{\rm SM-particle,odd}^{LO}|^2}
-{|A_{\rm SM-particle,even}^{LO}|^2+|A_{\rm SM-particle,odd}^{LO}|^2}.
-\]
+## Single AF run, **all 309 original spectra**, with source fingerprints
 
-HiggsTools' previous E5 \(\Gamma(h\to\gamma\gamma)\) is multiplied by \(R_{\gamma\gamma}^{\rm scalar}\) using \`h.setDecayWidth("gamgam",...)\` *after* one \`effectiveCouplingInput()\` call and all three LFV width additions. Check exact updated total width and gamgam BR consistency. The leading-order ratio is anchored to the *same* higher-order HiggsTools baseline so relative higher-order model dependence remains an approximation.
+Committed code:
+\`scripts/zee_gateE6_309_charged_gamma_higgssignals.py\`,
+\`scripts/zee_gateE6_zgamma_mixed_PV.py\`,
+\`tests/test_zee_gateE6_309_charged_gamma_higgssignals.py\`,
+\`scripts/zee_gateE6_one_shot.sh\`.
 
-Crucial: no off-diagonal H1-H2 loop in photon-photon because photon charge generator is an identity; h12 cubic cannot connect two diagonal photon current insertions. This is a physics cross-check in the source regression.
+All E2/E3/E4H/E5 data are **read-only** and source SHA verified. The original E5 per-candidate χ² must reproduce within \(5\times10^{-6}\) before any loop correction; 159 observed HiggsSignals observables and SM \(\chi^2=153.71819\) are independently checked. Saved checkpoint is resumable with source and both E6 code SHA fingerprints; every row has \`full_Zee_allowed_or_excluded: null\`.
 
-Actual HiggsSignals re-evaluates the SAME 159 HS observables and reference SM \(\chi^2=153.7181898\), reproducing EVERY E5 per-point \(\chi^2\) first to \(5\times10^{-6}\). Updated gamma width changes branching ratios of all other h decay channels and hence the correlated HS objective. Only the gamma channel is newly modified; the \(Z\gamma\) channel remains at the E5 effective approximation. The missing hZγ mixed scalar loops have NOT been faked or claimed negligible.
-
-The source constructs up to 309 input points; strict E2/E3/E4H/E5 manifest/data SHA and original E5 output-evidence checks before modifying predictions. Output checkpoint fsynced after every point, \`--resume\` requires the identical current script and source/data manifest. Every output sets \`full_Zee_allowed_or_excluded=null\`.
-
-## 3. ONE command for the entire AF job
-
-All required code already committed to the \`gateA1p-independent-hepfit-typeii-matching\` branch:
-
-- \`scripts/zee_gateE6_309_charged_gamma_higgssignals.py\`;
-- \`tests/test_zee_gateE6_309_charged_gamma_higgssignals.py\`;
-- \`scripts/zee_gateE6_one_shot.sh\`.
-
-On UChicago AF:
+One UChicago AF shell invocation:
 
 \`\`\`bash
 cd /home/aalida/zee
@@ -117,31 +82,21 @@ git pull --ff-only
 bash scripts/zee_gateE6_one_shot.sh
 \`\`\`
 
-This ONE command: activates existing \`.venv-flavor-f1\`, checks E2/E3/E4H/E5 and real HiggsTools/HSDataSet, runs source compilation checks and 8 unit tests, then re-evaluates original source E5 and scalar \(\gamma\gamma\) corrected HiggsSignals for all **309** source candidates with logging and completion assertions.
+This activates \`.venv-flavor-f1\` and HiggsTools, checks existing results, compiles three sources, runs E6 physics regression tests, completes the 309-point HiggsSignals run in a **fresh** \`work/zee_E6_309_charged_gamma_HS_20261020_v1/\`, and prints five priority benchmark updated χ² values.
 
-If interrupted, run \`bash scripts/zee_gateE6_one_shot.sh --resume\` *without modifying the source version*. On completion:
+On interruption run \`bash scripts/zee_gateE6_one_shot.sh --resume\` against unchanged source and inputs. Do not overwrite an already completed output.
 
+Outputs:
 \`\`\`text
 work/zee_E6_309_charged_gamma_HS_20261020_v1/
-  manifest.json
   E6_309_checkpoint.jsonl
-  E6_309_gamma_loop_corrected_HS_NOT_ALLOWED.jsonl
-  E6_309_gamma_loop_HS_ranked_NOT_ALLOWED.csv
+  E6_309_gamma_Zgamma_loop_corrected_HS_NOT_ALLOWED.jsonl
+  E6_309_gamma_Zgamma_loop_HS_ranked_NOT_ALLOWED.csv
+  manifest.json
   summary.json
 work/zee_E6_309_charged_gamma_HS_20261020_v1_run.log
 \`\`\`
 
-The final printed results contain the changed 309-sample median/range HiggsSignals statistic and exactly **five** priority source benchmarks: B4_0004143, B4_0003582, B4_0004173, B4_0006862 and B4_0006962.
+## Remaining non-negotiable publication blockers
 
-**Only E6 code and synthetic/gauge-closure tests are committed at authoring time**; they have not been executed on UChicago AF. Do not invent an AF HiggsSignals result before execution.
-
-## 4. Physical publication blockers after E6
-
-- Full mixed-mass \(Z H_1^\pm H_2^\mp\) charged-scalar hZγ loops, including exact two-/three-point PV functions B0,C0 and conventional SM W/fermion interference; compare analytically/numerically with Florentino EPJC 81 (2021) 1148 **Appendix D** and independent numerical PV library. A diagonal-only Zgamma guess must not enter HS.
-- Complete HiggsBounds for other CP-even, CP-odd, singly charged Zee scalar states, physical production/decay and experimental signatures.
-- Neutrino likelihood beyond exact central NO, full LFV—including mu-e conversion, complete two-loop/Barr-Zee and CP phases—and properly matched two-charged B→Xsγ.
-- Global vacuum certificate, perturbative UV scheme/thresholds and input EWPO uncertainties.
-
-Source science cannot yet mark a Zee configuration fully ALLOWED. The current cascade upper proxy is NOT an on-shell rate or \(\mathrm{BR}_{\rm physical}(H_2\to H_1 Z)\).
-
-If the charged \(\gamma\gamma\) update leaves B4_0004143 approximately SM Higgs-compatible, prioritize that benchmark for model-complete widths and production. If it changes the 125 fit substantially, use the corrected result—not E5—as the starting point for any proposed alignment scan. No \(\Delta\chi^2\) numerical threshold is automatically a 95% CL cut.
+The complete **physical** Zee h125 HiggsSignals prediction requires cross-validation of the modified W/fermion \(Z\gamma\) amplitudes and consistent matching to higher-order SM baseline and production definitions, plus full-model heavy-state **HiggsBounds** (with production and all relevant decays), a completed neutrino/mu-e conversion/complete CLFV likelihood, matched two-charged precision \(B\to X_s\gamma\), charged scalar widths and cross sections, and rigorous global vacuum/UV consistency. The source B4 cascade number is a *proxy upper bound*, **not** a physical BR or event yield. No \(\Delta\chi^2\) cut is calibrated into a complete-model CL; **zero points are certified fully allowed** by E6 alone.
