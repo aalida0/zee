@@ -1,13 +1,25 @@
 # ZeeTypeII SARAH model — first source implementation (2026-10-21)
 
-**Status: SARAH_INITIALIZED_CHECKMODEL_COMPLETED_WARNINGS_UNRESOLVED.**
+**Status: SARAH_TREE_SCALAR_GATE6_BENCHMARK_MASS_AUDIT_PASS; FULL_ZEE_NOT_VALIDATED.**
 User's first local SARAH 4.15.4 run (2026-10-21) initialized ZeeTypeII
 in 6.21 s and completed CheckModel in 4.02 s. This is not
 SARAH_CHECKMODEL_PASS and not model/physics validation.
 See `work_sarah_console.log` and `work/sarah_zee/checkmodel.log`
 on the local machine. The log reports `PossibleTerms::NonSUSY`
-and seven missing gauge-eigenstate fermion metadata entries. The
-metadata was subsequently corrected in source, pending local rerun.
+and seven missing gauge-eigenstate fermion metadata entries.
+The latter disappeared after the `particles.m` correction (confirmed
+in second local run). The `PossibleTerms::NonSUSY` warning persists.
+
+The third local run numerically compared the actual SARAH CP-even,
+CP-odd and charged matrices against the independent Gate6 fixture:
+`max|delta M2| = {3.64e-12, 1.82e-12, 0} GeV^2`;
+Goldstone residuals zero; scalar masses
+`{125, 580.7, 633.7, 300, 700} GeV`.
+Status: `SARAH_GATE6_TREE_MASS_MATRICES_NUMERIC_PASS`.
+An earlier per-entry diagnostic-index typo erroneously labeled numerical
+matrices as nonnumerical and printed Mathematica `Part::partw` warnings;
+the full-matrix numeric test and final PASS were correct. The index has
+since been repaired in source.
 
 ## Sources and precise scope
 
@@ -103,6 +115,33 @@ The loader finds installed `SARAH.m` explicitly because the batch
 Mathematica `$Path` differs from interactive mode; it does **not**
 modify the installed SARAH package. The initial run successfully
 located and started SARAH 4.15.4.
+
+## Next extraction: charged-Higgs Z and photon interactions
+
+At tree level the charged doublet and singlet have different
+Z charges, while their electric charge Q=+1 is equal. For a real
+2x2 mixing by gamma in (H_D+,s+), the model-independent magnitude of
+the off-diagonal derivative coupling is
+
+```text
+|g(Z H1+ H2-)| = g2 |sin(2 gamma)|/(4 cos(thetaW)).
+g(gamma H1+ H2-) = 0.
+```
+
+The sign and i factors depend on particle order and all-incoming
+momenta. The probe only extracts SARAH's exact vertex definitions:
+
+```bash
+cd ~/zee
+git pull --ff-only
+math -script scripts/zee_sarah_z_vertex_probe.m \
+  2>&1 | tee work_sarah_z_vertex_console.log
+cat work/sarah_zee/z_vertex_probe_status.txt
+cat work/sarah_zee/z_vertex_raw.txt
+```
+
+Only `Z_VERTEX_EXTRACTED_NOT_YET_PHYSICS_VALIDATED` is intended
+until the coefficients and momentum structures are checked.
 
 ## Unresolved physics / blockers
 
