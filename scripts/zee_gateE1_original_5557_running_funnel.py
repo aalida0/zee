@@ -143,15 +143,23 @@ def verify_prior(campaign, postscan, generator, q4):
 
 
 def rank_pool(rows, limit):
-    """Prioritize high cascade proxy but retain mass/mixing diversity.
+    """Rank completed *post-RGE* records, keyed by candidate_id.
 
-    The candidate cohort is selected *after* original potential RGE and
-    vacuum diagnostics. Ranking is a deliberate collider-oriented bias.
+    The original B4 input tables use 'id'; once the funnel builds its
+    diagnostic records, the canonical identifier is 'candidate_id'.
+    Never infer an alternate key here; malformed records fail closed.
     """
+    if not 0 <= limit <= len(rows):
+        raise ValueError("Invalid E1 shortlist limit")
+    keys=[x["candidate_id"] for x in rows]
+    if any(not isinstance(k,str) or not k for k in keys):
+        raise ValueError("Empty E1 diagnostic candidate_id")
+    if len(set(keys)) != len(keys):
+        raise ValueError("Duplicate E1 post-RGE candidate_id")
     rows=sorted(rows,key=lambda z:(
         -z["cascade_upper_proxy"],
         z["maximum_unity_ratio_to_8pi_along_run"],
-        z["id"]))
+        z["candidate_id"]))
     chosen=[]
     visited=set()
     for item in rows:
