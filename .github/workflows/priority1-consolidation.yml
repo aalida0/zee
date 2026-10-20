@@ -1,0 +1,27 @@
+name: Priority1 Consolidated Physics Intake
+on:
+  push:
+    branches:
+      - feature/global-scan-priority1-integration
+      - feature/global-scan-priority1
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  combined:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile all Priority1 source interfaces
+        run: |
+          python -m py_compile scripts/zee_priority1_cli.py scripts/zee_priority1_streaming.py scripts/zee_priority1_charged_width_export.py scripts/zee_priority1_production_lhe.py
+      - name: Existing feature branch contracts
+        run: |
+          python -m unittest discover -s tests -p 'test_zee_priority1_global_contracts.py' -v
+      - name: Seven unification and real-source ingestion regression tests
+        run: |
+          python -m unittest discover -s tests -p 'test_zee_priority1_unification.py' -v
