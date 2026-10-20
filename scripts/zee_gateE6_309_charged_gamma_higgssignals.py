@@ -248,6 +248,22 @@ def evaluate(signals,HP,pack,original,SM_reference_width):
  # First verify the gamma partial width supplied by source HiggsTools.
  oldgam=e5.finite(h.totalWidth()*h.br("gamgam"),"baseline gamma partial")
  if oldgam<=0:raise ValueError("Baseline HiggsTools gamgam width nonpositive")
+ # Cross-check the LO amplitude RATIO against the actual HiggsTools
+ # baseline gamma width scaling (higher-order differences permitted).
+ refgam=SM_reference_width.get("sm_gamma_GeV")
+ LO_ratio_deviation=None
+ if refgam is not None:
+  even,odd=gamma_lo_amplitudes(pack["effective_couplings"])
+  unity=dict(pack["effective_couplings"])
+  for key in ("tt","bb","cc","tautau"):
+   unity[key]=1+0j
+  unity["WW"]=1.
+  smeven,_=gamma_lo_amplitudes(unity)
+  approx=(abs(even)**2+abs(odd)**2)/abs(smeven)**2
+  actual=oldgam/e5.finite(refgam,"SM reference gamma width")
+  LO_ratio_deviation=abs(actual-approx)/max(1e-8,abs(actual))
+  if LO_ratio_deviation>.08:
+   raise ValueError("E5 HiggsTools vs LO SM-particle diphoton normalization drift")
  tri=hcharged_trilinears(pack["scalar"])
  loop=gamma_ratio(pack,tri)
  newgam=oldgam*loop["new_over_old_h_gamma_gamma_partial_width_LO_amplitude_ratio"]
@@ -257,6 +273,9 @@ def evaluate(signals,HP,pack,original,SM_reference_width):
  # i!=j loops and coherent SM W/fermion amplitudes, using Florentino D.20.
  oldzgam=e5.finite(h.totalWidth()*h.br("Zgam"),"baseline Zgamma partial")
  if oldzgam<=0:raise ValueError("HiggsTools baseline Zgamma width unavailable")
+ refz=SM_reference_width.get("sm_Zgamma_GeV")
+ if refz is not None and not math.isclose(oldzgam,refz,rel_tol=2e-8,abs_tol=1e-12):
+  raise ValueError("E5 Zgamma reference not SM-like despite effective Zgam=1")
  zloop=zgam_ratio(pack,tri)
  zrat=zloop["full_charged_scalar_plus_modified_SM_LO_hZgamma_over_SM_LO_width"]
  newzgam=oldzgam*zrat
@@ -281,6 +300,7 @@ def evaluate(signals,HP,pack,original,SM_reference_width):
       original["delta_chi2_vs_SM_same_dataset_NOT_calibrated_CL"],
   "charged_scalar_trilinears":tri,
   "loop_amplitudes":loop,
+  "HiggsTools_vs_LO_gamma_scaling_relative_deviation":LO_ratio_deviation,
   "Zgamma_full_mixed_mass_PV_amplitudes":zloop,
   "gamma_gamma_original_partial_GeV":oldgam,
   "gamma_gamma_corrected_partial_GeV":newgam,
@@ -463,6 +483,15 @@ def main():
   else:e5.save(out/"manifest.json",{"status":"E6_RUNNING_NOT_ALLOWED",
                                    "source":manifest})
   signals,smchi,nobs=e5.sm_baseline(HP,HS,a.hs_dataset.resolve())
+  smpred=HP.Predictions()
+  smh=smpred.addParticle(HP.BsmParticle("e6_SM",charge="neutral",cp="even"))
+  smh.setMass(float(MH))
+  HP.effectiveCouplingInput(smh,HP.smLikeEffCouplings)
+  smref={"smchi":smchi,
+         "sm_gamma_GeV":float(smh.totalWidth()*smh.br("gamgam")),
+         "sm_Zgamma_GeV":float(smh.totalWidth()*smh.br("Zgam"))}
+  if min(smref["sm_gamma_GeV"],smref["sm_Zgamma_GeV"])<=0:
+   raise ValueError("SM reference gamma/Zgamma widths missing")
   if nobs!=159 or not math.isclose(
       smchi,old_e5["HiggsSignals_chi2_SM_at_identical_125GeV_and_dataset"],
       rel_tol=1e-9,abs_tol=1e-6):
@@ -477,7 +506,7 @@ def main():
   with cp.open("a") as stream:
    for idx,key in enumerate(sorted(packs),1):
     if key in done:continue
-    row=evaluate(signals,HP,packs[key],old[key],{"smchi":smchi})
+    row=evaluate(signals,HP,packs[key],old[key],smref)
     stream.write(json.dumps(row,sort_keys=True,allow_nan=False)+"\n")
     stream.flush();os.fsync(stream.fileno())
     done[key]=row
