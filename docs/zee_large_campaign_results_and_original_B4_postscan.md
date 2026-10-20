@@ -79,3 +79,34 @@ The key output numbers are `original_B4_B2rank1_sampled_RGE_and_no_deeper_tree_w
 Even if all 30 original B4 points pass these numerical diagnostic tests, the Zee parameter-space **allowed/excluded** scan remains blocked by a calibrated two-charged (B\to X_s\gamma) likelihood, full CLFV, general neutrino oscillation fits, complete HiggsTools/decays, hadronic cross sections, global vacuum proof, and proper threshold-matched quark/RGE conventions.
 
 This is the decisive **interpretability repair** for the existing large scan, not a claim that more numerical optimization can by itself solve all missing physics.
+
+## Postscan source-schema hotfix (20 October 2026)
+
+The first real original-B4 postscan aborted with:
+`POSTSCAN_FAIL_CLOSED KeyError('first_tree_unitarity_uncertified_sample_GeV')`.
+
+**Cause:** The postscan's `running_result` read `full_trajectory` using a misspelled dictionary field `first_tree_unitarity_uncertified_sample_GeV`. The source-pinned C4 implementation actually returns `first_tree_unitarity_uncertified_scale_GeV`. This is a Python adapter/schema error, not evidence of a failed RGE, vacuum or flavor point.
+
+**Fix:** Correct the postscan key and the synthetic mock; add an AST/inspect-based regression that verifies the C4 and C5 return-dictionary literal fields against the actual functions in the checkout. The original regression duplicated the same typo in its mock and therefore did not detect the mismatch.
+
+**Re-execution:** The blocked run wrote its `result.json`; do **not** overwrite it. Use the same B4/C1-C5/D1-D2 saved campaign inputs with a **fresh** `--output-dir work/zee_postscan_original_B4_20261020_v2`. No need to rerun B4 or F4c.
+
+```bash
+cd /home/aalida/zee
+git switch gateA1p-independent-hepfit-typeii-matching
+git pull --ff-only
+source .venv-flavor-f1/bin/activate
+
+python -m unittest discover -s tests \
+  -p 'test_zee_postscan_original_B4_and_optimized_Yukawa_audit.py' -v
+
+set -o pipefail
+python -u scripts/zee_postscan_original_B4_and_optimized_Yukawa_audit.py \
+  --campaign-dir work/zee_large_integrated_20261020_v1 \
+  --output-dir work/zee_postscan_original_B4_20261020_v2 \
+  --uv-steps 24 --orbit-samples 2048 \
+  --vacuum-multistarts 128 --vacuum-maxiter 1000 \
+  2>&1 | tee work/zee_postscan_original_B4_20261020_v2_run.log
+```
+
+All scientific labels remain partial diagnostics and not model-wide exclusions.
