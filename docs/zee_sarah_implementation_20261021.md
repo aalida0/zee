@@ -52,8 +52,11 @@ source comments.
 
 Unlike SARAH THDM-II, `Ye2` is a general complex second-doublet
 charged-lepton Yukawa in addition to `Ye`; `Fzee` is a complex
-antisymmetric lepton-doublet coupling. In the mass basis:
-`M_e=(v1 Ye + v2 Ye2)/sqrt(2)` up to basis/index conventions.
+antisymmetric lepton-doublet coupling. SARAH's generated mass matrix, with mass-matrix rows carrying left
+flavor and columns carrying right flavor, is explicitly
+`M_e=(v1 Transpose[Ye] + v2 Transpose[Ye2])/sqrt(2)`.
+This fixes the SARAH array index ordering but does not yet establish
+the E3 weak-basis flavor rotation.
 Hence **do not** use the built-in THDM-II SPheno prescription
 `Ye = sqrt(2) m_e/v1` unless Ye2=0.
 
@@ -268,6 +271,64 @@ physical Yukawa-sector pass. Inspect antisymmetry, the charged-lepton
 mass matrix, all chiral structures and the relative f/Y terms next.
 No `MakeSPheno[]` or complete Zee UFO generation until this gate is
 resolved.
+
+## Lepton vertex orientation warning and follow-up (2026-10-21)
+
+The user's first local `zee_sarah_lepton_vertex_probe.m` run completed
+with `LEPTON_VERTEX_EXPRESSIONS_EXTRACTED_NOT_VALIDATED`.
+Key observations:
+
+- The scalar/Yukawa lepton mass matrix is 3x3 with
+  `M_e[i,j] = (v1 Ye[j,i] + v2 Ye2[j,i])/sqrt(2)`.
+  This transposition is **required** in source-to-source matching.
+- SARAH amended `Fzee` parameter metadata with
+  `Symmetry -> AntiSymmetric`, but bare
+  `Fzee[1,1]` and `Fzee[1,2]+Fzee[2,1]`
+  remained symbolic in the default evaluation mode.
+  SARAH's `UseSymmASymm` controls at least some parameter
+  simplification: the metadata result alone does not prove that the
+  physical f amplitudes have the intended antisymmetry/normalization.
+- Only `Ye` and `Ye2` appeared in the probed
+  `Vertex[{bar[Fe],Fv,Hm}]` and its conjugate, not `Fzee`.
+  These are *ordinary* lepton Yukawa fermion orientations.
+  The Zee operator involves two LH lepton doublets
+  `L^T C i sigma2 L s+`, so check SAME-orientation fermion
+  pairs (and HC) before concluding the interaction is absent.
+  The first probe did not test these structures.
+
+**Action taken:** Added diagnostic-only script
+`scripts/zee_sarah_fzee_orientation_probe.m` with a matrix
+of direct/generic and generation-specific vertex orientations:
+ordinary `bar[Fe] Fv Hm`, same-orientation
+`Fe Fv conj[Hm]`, `bar[Fe] bar[Fv] Hm` and reversals,
+plus Weyl `eL vL Sp` GaugeES queries. It logs all expressions
+to `work/sarah_zee/fzee_orientation_vertices.txt`.
+Its status is either `FZEE_PRESENT_IN_PROBED_VERTICES_NORMALIZATION_NOT_VALIDATED`,
+`FZEE_NOT_FOUND_IN_PROBED_ORIENTATIONS_NOT_VALIDATED`, or an
+explicit failure; none should be treated as a physics PASS.
+
+```bash
+cd ~/zee
+git pull --ff-only
+python3 -m unittest discover -s tests \
+  -p 'test_zee_sarah_source.py' -v
+
+set -o pipefail
+math -script scripts/zee_sarah_fzee_orientation_probe.m \
+  2>&1 | tee work_sarah_fzee_orientation_console.log
+
+cat work/sarah_zee/fzee_orientation_status.txt
+grep -E 'ZEE_F_QUERY_RESULT|ZEE_F_FOUND_VERTEX|ZEE_F_MATCH|ZEE_F_SYMMETRY' \
+  work_sarah_fzee_orientation_console.log
+```
+
+This step is **not** a numerical amplitude normalization test.
+After identifying the correct nonzero f vertices, construct
+an independent simple complex `f_{e\mu}` fixture, derive the
+same physical (s^+\bar\nu^c\ell) amplitude in both
+source conventions (including charge conjugation, factorials,
+mixing angles and lepton rotations), and compare both
+complex components at two parameter points.
 
 ## Unresolved physics / blockers
 
