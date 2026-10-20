@@ -152,7 +152,8 @@ class E5Contracts(unittest.TestCase):
    self.assertTrue((Path(td)/
        "E5_309_ranked_conditional_h125_HiggsSignals_NOT_ALLOWED.csv").exists())
    with self.assertRaisesRegex(ValueError,"incomplete"):
-    m.finish(Path(td),packs,{**rows,"B4_00000":None},{"TEST":True},70.,17)
+    m.finish(Path(td),packs,{k:v for k,v in rows.items()
+                               if k!="B4_00000"},{"TEST":True},70.,17)
 
  def test_fails_closed_on_duplicate_checkpoint_or_physical_label(self):
   with tempfile.TemporaryDirectory() as td:
