@@ -517,7 +517,7 @@ Do[
     potential convention discrepancies but NEVER pick the smallest
     as the declared physical answer. *)
  If[Max[{zeeABSymResidual,zeeABScaleResidual,
-  zeeABGaugeResidual,zeeABrMSResidual}]>1.*^-9,
+  zeeABGaugeResidual,zeeABrMSResidual}]>1.*^-15,
   AppendTo[zeeABMatrixErrors,
    "structure_or_null_"<>zeeABCase["Label"]]];
  Do[
@@ -532,7 +532,7 @@ Do[
      zeeABCase["Label"],"/",zeeABNull[[1]],
      " MAX_GEV=",InputForm[Max[
      Abs[Flatten[zeeABNullValue]]]]];
-   If[Max[Abs[Flatten[zeeABNullValue]]]>1.*^-9,
+   If[Max[Abs[Flatten[zeeABNullValue]]]>1.*^-15,
     AppendTo[zeeABMatrixErrors,
      "null_nonzero_"<>zeeABCase["Label"]<>"/"<>zeeABNull[[1]]]]],
   {zeeABNull,zeeABNullCases[zeeABCase]}];
