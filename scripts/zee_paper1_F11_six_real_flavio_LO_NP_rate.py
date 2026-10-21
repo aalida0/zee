@@ -17,12 +17,16 @@ import csv
 import json
 import math
 import os
+import subprocess
 from pathlib import Path
 import statistics
 import sys
 import traceback
 
 from gateA1r_run_br_pilot import compile_pilot
+from gateA1s_run_modern_2026_screen import (
+    linearized_2026,parse_probe as parse_a1s_probe,MODERN_SM,PDG_EXP,K7,K8,
+)
 from zee_gateE4a_integrated_precision_matching_calibration import (
     run_matching as e4a_run_matching,
 )
@@ -118,10 +122,17 @@ def compile_source(f6,summ_f10,output):
     driver=ROOT/"scripts"/"zee_gateE4a_full_order_matching_probe.c"
     path=output/"f11_same_source_E4A_matching"
     build=compile_pilot(vendor,path,driver,False)
+    cross_driver=ROOT/"scripts"/"gateA1s_probe_modern_2026_lo.c"
+    cross_path=output/"f11_independent_A1S_2026_EQ4_LO_matching"
+    cross_build=compile_pilot(vendor,cross_path,cross_driver,False)
+    if cross_build["library_SHA256"]!=build["library_SHA256"]:
+        raise ValueError("F11 A1S/E4A independent sources linked different libraries")
     if (build["library_SHA256"]!=load(f6/"summary.json")[
          "source_provenance"]["new_C_executable"]["vendor_library_sha256"]):
         raise ValueError("E4A matching static library differs from original F6")
-    return path,{"vendor_static_library_SHA256":build["library_SHA256"],
+    return path,cross_path,{"vendor_static_library_SHA256":build["library_SHA256"],
+                 "independent_A1S_driver_SHA256":cross_build["driver_SHA256"],
+                 "independent_A1S_binary_SHA256":digest(cross_path),
                  "matching_driver_SHA256":build["driver_SHA256"],
                  "matching_executable_SHA256":digest(path),
                  "historical_F6_executable_SHA256":pin["executable_SHA256"],
@@ -148,6 +159,24 @@ def matching(probe,m1,m2,t,g,runner=e4a_run_matching):
                   f"C{op} order{q} coherence",atol=4e-12)
     return obj
 
+def independent_a1s_coefficients(cross_probe,mass,tanbeta):
+    if cross_probe is None:
+        return None
+    call=[str(Path(cross_probe).resolve()),f"{mass:.17g}",f"{tanbeta:.17g}"]
+    result=subprocess.run(call,capture_output=True,text=True,timeout=90,check=False)
+    if result.returncode:
+        raise ValueError("A1S independently compiled 2026 source failed "
+                         +result.stderr[-1400:]+result.stdout[-1400:])
+    got=parse_a1s_probe(result.stdout,mass,tanbeta)
+    return got["delta_C7_LO"],got["delta_C8_LO"]
+
+def cross_check_a1s_vs_e4a(cross_probe,mass,tanbeta,c7,c8):
+    if cross_probe is None:return False
+    observed=independent_a1s_coefficients(cross_probe,mass,tanbeta)
+    close(observed[0],c7,"2026 Eq4 independently sourced C7",rtol=2e-9,atol=3e-12)
+    close(observed[1],c8,"2026 Eq4 independently sourced C8",rtol=2e-9,atol=3e-12)
+    return True
+
 def coeff(obj,op):
     a,b,c,m=obj["coefficient_rows"][0,op]
     x=obj["input"]
@@ -155,7 +184,7 @@ def coeff(obj,op):
     close(m-a,d,f"C{op} LO combined source")
     return float(b),float(c),float(d)
 
-def controls(engine,probe,runner=e4a_run_matching):
+def controls(engine,probe,runner=e4a_run_matching,cross_probe=None):
     """Independent TypeII source + proper flavio response (not a 2026 CL)."""
     sm=no_np_test(engine)
     engine._sm=sm["flavio_SM"]
@@ -163,6 +192,19 @@ def controls(engine,probe,runner=e4a_run_matching):
     if (not sm["flavio_matches_2015_SM_within_0p20e_4"] or
         not derivative["both_operator_derivative_sign_and_scale_consistent"]):
         raise ValueError("flavio SM/2015 derivative C7 C8 basis closure failed")
+    # A second, intentionally non-identical 2026 published Eq.(4)
+    # normalization check. 15% is a *cross-era* plausibility gate,
+    # not proof that 2015 NLO and 2026 NNLO matrix elements coincide.
+    modern={7:K7*1e-4,8:K8*1e-4}
+    eq4_dev={}
+    for i in (7,8):
+        slope=derivative[f"C{i}"]["observed_dBR_dC"]
+        eq4_dev[f"C{i}"]=abs(slope-modern[i])/abs(modern[i])
+        if not slope<0 or eq4_dev[f"C{i}"]>0.15:
+            raise ValueError("flavio WET operator normalization/sign incompatible "
+                             "with 2026 Eq4 at 15% exploratory tolerance")
+    engine._slopes={7:derivative["C7"]["observed_dBR_dC"],
+                    8:derivative["C8"]["observed_dBR_dC"]}
     pure=[]
     for t in PURE_TANB:
         ordered=[]
@@ -172,6 +214,7 @@ def controls(engine,probe,runner=e4a_run_matching):
             a8,b8,d8=coeff(src,8)
             close(a7,b7,"equal-mass C7 independent pure TypeII",rtol=2e-9)
             close(a8,b8,"equal-mass C8 independent pure TypeII",rtol=2e-9)
+            cross_check_a1s_vs_e4a(cross_probe,mass,t,d7,d8)
             q=engine.prediction(d7,d8)
             # Pure Type-II at LO must have a positive and decoupling NP contribution.
             if q<=engine._sm:raise ValueError("Pure TypeII LO coefficient has wrong sign")
@@ -182,10 +225,12 @@ def controls(engine,probe,runner=e4a_run_matching):
         for a,b in zip(ordered[:-1],ordered[1:]):
             if a+3e-9 < b:raise ValueError("Pure TypeII mass decoupling broken")
     return {"SM_2015_rate":sm,"2015_C7_C8_derivative":derivative,
+            "crosscheck_2026_Eq4_slope_fractions":eq4_dev,
+            "A1S_independent_crosscheck_on_18_TypeII":cross_probe is not None,
             "pure_TypeII_18":pure,"all_pass":True,
             "does_not_reproduce_2026_TypeII_670GeV_CL":True}
 
-def six_rates(engine,probe,six,f10,runner=e4a_run_matching):
+def six_rates(engine,probe,six,f10,runner=e4a_run_matching,cross_probe=None):
     out=[]
     for i,src in enumerate(six,1):
         key=src["id"]
@@ -197,6 +242,8 @@ def six_rates(engine,probe,six,f10,runner=e4a_run_matching):
         c=math.cos(g)**2;s=math.sin(g)**2
         close(d7,c*l7+s*h7,"C7 exact weighted NP")
         close(d8,c*l8+s*h8,"C8 exact weighted NP")
+        cross_check_a1s_vs_e4a(cross_probe,m1,t,l7,l8)
+        cross_check_a1s_vs_e4a(cross_probe,m2,t,h7,h8)
         pure_l=engine.prediction(l7,l8)
         pure_h=engine.prediction(h7,h8)
         actual=engine.prediction(d7,d8)
@@ -212,12 +259,32 @@ def six_rates(engine,probe,six,f10,runner=e4a_run_matching):
         rl8,rh8,rd8=coeff(ref,8)
         close(rl7,rh7,"same-mass TypeII670 C7")
         close(rl8,rh8,"same-mass TypeII670 C8")
+        cross_check_a1s_vs_e4a(cross_probe,670.,t,rd7,rd8)
         br670=engine.prediction(rd7,rd8)
         ref_shift=br670-engine._sm
         mix_shift=actual-engine._sm
         if ref_shift<=0:
             raise ValueError("TypeII670 same-flavio matching shift must be constructive")
         hybrid_ratio=mix_shift/ref_shift
+        modern_z=linearized_2026(d7,d8)
+        modern_ref=linearized_2026(rd7,rd8)
+        modern_br=modern_z["linearized_predicted_central_times_1e4"]*1e-4
+        modern_ref_br=modern_ref["linearized_predicted_central_times_1e4"]*1e-4
+        modern_ratio=modern_z["linearized_shift_times_1e4"]/modern_ref[
+            "linearized_shift_times_1e4"] if abs(modern_ref[
+            "linearized_shift_times_1e4"])>1e-15 else None
+        gaussian_z=(modern_br-PDG_EXP["central_times_1e4"]*1e-4) / (
+             math.hypot(MODERN_SM["sigma_times_1e4"],
+                        PDG_EXP["sigma_times_1e4"])*1e-4)
+        slopes=getattr(engine,"_slopes",None)
+        if slopes is None:
+            # Test doubles only; actual run must always validate slopes.
+            quadr_fraction=None
+        else:
+            linear_2015=slopes[7]*d7+slopes[8]*d8
+            quadratic_residual=mix_shift-linear_2015
+            quadr_fraction=(abs(quadratic_residual)/abs(linear_2015)
+                            if abs(linear_2015)>1e-16 else None)
         historical=f10[key]
         row={
           "candidate_id":key,"mH1_GeV":m1,"mH2_GeV":m2,
@@ -233,6 +300,13 @@ def six_rates(engine,probe,six,f10,runner=e4a_run_matching):
           "LO_C7_TypeII670":rd7,
           "LO_C8_TypeII670":rd8,
           "Zee_to_TypeII670_same_flavio_NP_rate_shift_NOT_CL":hybrid_ratio,
+          "BR_2026_published_Eq4_LINEARIZED":modern_br,
+          "BR_2026_Eq4_TypeII670_same_tanbeta_LINEARIZED":modern_ref_br,
+          "Zee_to_TypeII670_2026_Eq4_LINEAR_NP_SHIFT_NOT_CL":modern_ratio,
+          "Z_2026_Eq4_linearized_vs_experiment_uncalibrated_NOT_CL":gaussian_z,
+          "flavio_quadratic_fraction_from_2015_response_DIAGNOSTIC":
+              quadr_fraction,
+          "2026_150GeV_source_crosschecked_A1S_vs_E4A":cross_probe is not None,
           "BR_SuperIso_historical_separate_scheme":float(historical[
               "legacy_SuperIso_full_Zee_BR_Egamma1p6_NOT_2026"]),
           "ratio_to_670_TypeII_legacy_reference_NOT_95CL":float(historical[
@@ -254,6 +328,8 @@ def six_rates(engine,probe,six,f10,runner=e4a_run_matching):
               format(actual,".11g"),"C7",format(d7,".7g"),
               "C8",format(d8,".7g"),
               "R_flavio_670",format(hybrid_ratio,".7g"),
+              "BR_2026_Eq4",format(modern_br,".10g"),
+              "Z_Eq4_DIAGNOSTIC",format(gaussian_z,".5g"),
               "NO_2026_EXCLUSION",flush=True)
     return out
 
@@ -274,16 +350,18 @@ def run(args,engine=None):
     summary={"status":BLOCKED,"full_Zee_allowed_or_excluded":None,
              "genuine_2026_NNLO_matching_and_likelihood":False}
     try:
-        probe,prov=compile_source(f6,f10report,output)
+        probe,cross_probe,prov=compile_source(f6,f10report,output)
         if engine is None:engine=FlavioEngine()
-        calibration=controls(engine,probe)
-        rows=six_rates(engine,probe,six,f10)
+        calibration=controls(engine,probe,cross_probe=cross_probe)
+        rows=six_rates(engine,probe,six,f10,cross_probe=cross_probe)
         if len(rows)!=6 or len({r["candidate_id"] for r in rows})!=6:
             raise ValueError("F11 source six identity mismatch")
         with (output/F11CSV).open("w",newline="") as f:
             csv_writer=csv.DictWriter(f,fieldnames=list(rows[0]))
             csv_writer.writeheader();csv_writer.writerows(rows)
         vals=sorted(q["BR_flavio_LO_NP_hybrid"] for q in rows)
+        modern_vals=sorted(q["BR_2026_published_Eq4_LINEARIZED"]
+                            for q in rows)
         summary={
             "status":STATUS,
             "six_new_zee_matched_LO_BSM_2015_era_flavio_inclusive_rates":len(rows),
@@ -293,6 +371,10 @@ def run(args,engine=None):
             "SM_2015_and_full_18_TypeII_reference_controls":calibration,
             "SM_2015_zero_NP_BR":engine._sm,
             "Zee_hybrid_BR_min_median_max":[vals[0],statistics.median(vals),vals[-1]],
+            "2026_published_Eq4_linearized_BR_min_median_max":
+                [modern_vals[0],statistics.median(modern_vals),modern_vals[-1]],
+            "2026_Eq4_is_linearized_LO_approx_not_NNLO_2HDM_rate":True,
+            "A1S_vs_E4A_independent_matching_source_crosscheck":True,
             "source":{"paper1":pr,
                       "F10_summary_SHA256":digest(args.f10_dir/"summary.json"),
                       "F10_csv_SHA256":digest(args.f10_dir/F10CSV),
