@@ -39,11 +39,11 @@ Print["ZEE_INTEGRATED_SARAH_VERSION ",SA`Version];
 Print["ZEE_INTEGRATED_SYMMETRY ",InputForm[symMeta]];
 Print["ZEE_INTEGRATED_NOTE GaugeES diagonal f vertex is identically zero; no literal Fzee required"];
 
-beta=zeeGate6Beta; gamma=zeeGate6Gamma; alpha=zeeGate6Alpha;
-zp=N[{{Cos[beta],Sin[beta],0},
- {-Sin[beta]*Cos[gamma],Cos[beta]*Cos[gamma],Sin[gamma]},
- {Sin[beta]*Sin[gamma],-Cos[beta]*Sin[gamma],Cos[gamma]}}];
-zh=N[{{Cos[alpha],Sin[alpha]},{-Sin[alpha],Cos[alpha]}}];
+zeeBetaNum=zeeGate6Beta; zeeGammaNum=zeeGate6Gamma; zeeAlphaNum=zeeGate6Alpha;
+zp=N[{{Cos[zeeBetaNum],Sin[zeeBetaNum],0},
+ {-Sin[zeeBetaNum]*Cos[zeeGammaNum],Cos[zeeBetaNum]*Cos[zeeGammaNum],Sin[zeeGammaNum]},
+ {Sin[zeeBetaNum]*Sin[zeeGammaNum],-Cos[zeeBetaNum]*Sin[zeeGammaNum],Cos[zeeGammaNum]}}];
+zh=N[{{Cos[zeeAlphaNum],Sin[zeeAlphaNum]},{-Sin[zeeAlphaNum],Cos[zeeAlphaNum]}}];
 v1val=N[v1/.zeeGate6Rules];
 v2val=N[v2/.zeeGate6Rules];
 If[!And@@(NumericQ/@{v1val,v2val})||v1val<=0||v2val<=0,
@@ -145,40 +145,57 @@ addQuery[name_String,fields_List,basis_,chir_,required_,
          kind_String,aa_Integer,bb_Integer,kk_Integer]:=
  AppendTo[queries,{name,fields,basis,chir,required,kind,aa,bb,kk}];
 
+(* Avoid Set assignments to short Global symbols a, b, k and n:
+   SARAH differentiation internally uses such symbols. With[] freezes
+   the generation labels lexically in each stored vertex request. *)
 Do[
- a=pp[[1]];b=pp[[2]];
- addQuery["f_gauge_"<>ToString[a]<>ToString[b],
-  {eL[{a}],vL[{b}],Sp},GaugeES,1,If[a===b,None,Fzee],
-  "f_gauge",a,b,0],
- {pp,pairs}
+ With[{zeeLeptonGeneration=pp[[1]],zeeNeutrinoGeneration=pp[[2]]},
+ addQuery["f_gauge_"<>ToString[zeeLeptonGeneration] <>
+           ToString[zeeNeutrinoGeneration],
+  {eL[{zeeLeptonGeneration}],vL[{zeeNeutrinoGeneration}],Sp},
+  GaugeES,1,If[zeeLeptonGeneration===zeeNeutrinoGeneration,None,Fzee],
+  "f_gauge",zeeLeptonGeneration,zeeNeutrinoGeneration,0]
+ ],{pp,pairs}
 ];
 Do[
- a=pp[[1]];b=pp[[2]];
+ With[{zeeLeptonGeneration=pp[[1]],zeeNeutrinoGeneration=pp[[2]]},
  Do[
-  k=kk;
-  addQuery["f_plus_"<>ToString[a]<>ToString[b]<>"_"<>ToString[k],
-    {Fe[{a}],Fv[{b}],conj[Hm[{k}]]},EWSB,PL,Fzee,
-    "f_plus",a,b,k];
-  addQuery["f_hc_"<>ToString[a]<>ToString[b]<>"_"<>ToString[k],
-    {bar[Fe[{a}]],bar[Fv[{b}]],Hm[{k}]},EWSB,PR,Fzee,
-    "f_hc",a,b,k];
-  addQuery["Y_hminus_"<>ToString[a]<>ToString[b]<>"_"<>ToString[k],
-    {bar[Fe[{a}]],Fv[{b}],Hm[{k}]},EWSB,PL,Ye2,
-    "Y_hminus",a,b,k];
-  addQuery["Y_hplus_"<>ToString[a]<>ToString[b]<>"_"<>ToString[k],
-    {bar[Fv[{b}]],Fe[{a}],conj[Hm[{k}]]},EWSB,PR,Ye2,
-    "Y_hplus",a,b,k],
-  {kk,{2,3}}];
+  With[{zeeChargedState=kk},
+   addQuery["f_plus_"<>ToString[zeeLeptonGeneration] <>
+      ToString[zeeNeutrinoGeneration]<>"_"<>ToString[zeeChargedState],
+    {Fe[{zeeLeptonGeneration}],Fv[{zeeNeutrinoGeneration}],
+     conj[Hm[{zeeChargedState}]]},EWSB,PL,Fzee,
+    "f_plus",zeeLeptonGeneration,zeeNeutrinoGeneration,zeeChargedState];
+   addQuery["f_hc_"<>ToString[zeeLeptonGeneration] <>
+      ToString[zeeNeutrinoGeneration]<>"_"<>ToString[zeeChargedState],
+    {bar[Fe[{zeeLeptonGeneration}]],bar[Fv[{zeeNeutrinoGeneration}]],
+     Hm[{zeeChargedState}]},EWSB,PR,Fzee,
+    "f_hc",zeeLeptonGeneration,zeeNeutrinoGeneration,zeeChargedState];
+   addQuery["Y_hminus_"<>ToString[zeeLeptonGeneration] <>
+      ToString[zeeNeutrinoGeneration]<>"_"<>ToString[zeeChargedState],
+    {bar[Fe[{zeeLeptonGeneration}]],Fv[{zeeNeutrinoGeneration}],
+     Hm[{zeeChargedState}]},EWSB,PL,Ye2,
+    "Y_hminus",zeeLeptonGeneration,zeeNeutrinoGeneration,zeeChargedState];
+   addQuery["Y_hplus_"<>ToString[zeeLeptonGeneration] <>
+      ToString[zeeNeutrinoGeneration]<>"_"<>ToString[zeeChargedState],
+    {bar[Fv[{zeeNeutrinoGeneration}]],Fe[{zeeLeptonGeneration}],
+     conj[Hm[{zeeChargedState}]]},EWSB,PR,Ye2,
+    "Y_hplus",zeeLeptonGeneration,zeeNeutrinoGeneration,zeeChargedState]
+  ],{kk,{2,3}}];
  Do[
-  n=nn;
-  addQuery["Y_neutralPL_"<>ToString[a]<>ToString[b]<>"_"<>ToString[n],
-    {bar[Fe[{a}]],Fe[{b}],hh[{n}]},EWSB,PL,Ye2,
-    "Y_neutralPL",a,b,n];
-  addQuery["Y_neutralPR_"<>ToString[a]<>ToString[b]<>"_"<>ToString[n],
-    {bar[Fe[{a}]],Fe[{b}],hh[{n}]},EWSB,PR,Ye2,
-    "Y_neutralPR",a,b,n],
-  {nn,{1,2}}],
- {pp,pairs}
+  With[{zeeNeutralState=nn},
+   addQuery["Y_neutralPL_"<>ToString[zeeLeptonGeneration] <>
+      ToString[zeeNeutrinoGeneration]<>"_"<>ToString[zeeNeutralState],
+    {bar[Fe[{zeeLeptonGeneration}]],Fe[{zeeNeutrinoGeneration}],
+     hh[{zeeNeutralState}]},EWSB,PL,Ye2,
+    "Y_neutralPL",zeeLeptonGeneration,zeeNeutrinoGeneration,zeeNeutralState];
+   addQuery["Y_neutralPR_"<>ToString[zeeLeptonGeneration] <>
+      ToString[zeeNeutrinoGeneration]<>"_"<>ToString[zeeNeutralState],
+    {bar[Fe[{zeeLeptonGeneration}]],Fe[{zeeNeutrinoGeneration}],
+     hh[{zeeNeutralState}]},EWSB,PR,Ye2,
+    "Y_neutralPR",zeeLeptonGeneration,zeeNeutrinoGeneration,zeeNeutralState]
+  ],{nn,{1,2}}]
+ ],{pp,pairs}
 ];
 (* Independent expected coefficients from the component Lagrangian,
    not from the SARAH vertex expression. Indices are frozen numerically
@@ -208,6 +225,26 @@ independentExpected[kind_String,a_Integer,b_Integer,k_Integer,
  _, $Failed
  ];
 Print["ZEE_INTEGRATED_VERTEX_QUERIES ",Length[queries]];
+If[Length[queries]=!=52 || !And@@(Length[#]===9&/@queries),
+ Print["FAIL INTEGRATED_QUERY_BOOKKEEPING ",InputForm[Length[queries]]];
+ setGate["INTEGRATED_QUERY_BOOKKEEPING_FAILED"];Exit[16]];
+(* Fail fast if global temporary assignments could interfere with
+   SARAH's internal differentiation, rather than analyzing corrupted
+   vertices and misdiagnosing the physics. *)
+If[Or@@( (OwnValues[#]=!={})& /@
+  {Global`a,Global`b,Global`k,Global`n}),
+ Print["FAIL GLOBAL_DUMMY_SYMBOL_CONTAMINATION"];
+ setGate["GLOBAL_DUMMY_SYMBOL_CONTAMINATION"];Exit[17]];
+(* One known nonzero gauge vertex is a sentinel: it MUST contain Fzee.
+   This detects corrupted Vertex cache/differentiation before the
+   full set of requests is evaluated. *)
+zeeFsentinel=SARAH`Vertex[{eL[{1}],vL[{2}],Sp},
+ Eigenstates->GaugeES];
+If[FreeQ[zeeFsentinel,Fzee] || FreeQ[zeeFsentinel,eL] ||
+   FreeQ[zeeFsentinel,vL],
+ Print["FAIL FZEE_GAUGE_SENTINEL ",InputForm[zeeFsentinel]];
+ setGate["FZEE_GAUGE_SENTINEL_FAILED"];Exit[18]];
+Print["ZEE_INTEGRATED_FZEE_SENTINEL_PASS"];
 raw=vertexCoeff[#[[2]],#[[3]],#[[4]],#[[5]]]&/@queries;
 If[MemberQ[raw,$Failed],
  setGate["LEPTON_VERTEX_EXTRACTION_OR_CHIRALITY_FAILED"];Exit[11]];
