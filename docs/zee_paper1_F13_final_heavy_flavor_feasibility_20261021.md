@@ -27,7 +27,7 @@ The GitHub Actions heavy seed workflow exercised real scalar BFB, unitarity and 
 - mH1≈551.242 GeV, mH2≈1043.581 GeV, gamma≈0.68433, Gfitter chi2≈0.1359;
 - mH1≈666.251 GeV, mH2≈773.234 GeV, gamma≈1.27254, Gfitter chi2≈6.0044.
 
-The **six F13 tests** passed and checked a 48-proposal actual scalar+EWPO walk with a *synthetic mock* Wilson source. The **AF run is required** to use original source-compiled and F6 source-hash-validated SuperIso A1S/E4A coefficient probes. Neither the CI mock inputs nor the three heavy scalar seed points are physical Zee model allowed points. On CI, the exact F13 original F6 source compilation cannot run because the user's AF-local pinned vendor is unavailable.
+**Seven F13 tests** passed (GitHub Actions run [39602466160](https://github.com/aalida0/zee/actions/runs/39602466160)). They exercised a 48-proposal actual scalar+EWPO walk with a *synthetic mock* Wilson source, and also ran the **actual heavy-scalar complex neutrino + implemented LFV + lepton-width solver** at `F13_heavy_P1_seed_0073`: status `NEUTRINO_EXACT_WITH_PARTIAL_LFV_AND_INCLUDED_CASCADE_ONLY`, maximum implemented partial LFV diagnostic `1.88315949e-05`. This validates integration of the heavy scalar into the real neutrino/LFV code, not the modern oscillation likelihood or complete LFV. The **AF run is required** to use original source-compiled and F6 source-hash-validated SuperIso A1S/E4A coefficient probes. Neither the CI mock inputs nor the three heavy scalar seed points are physical Zee model allowed points. On CI, the exact F13 original F6 source compilation cannot run because the user's AF-local pinned vendor is unavailable.
 
 ### Outputs (new timestamped folder)
 
