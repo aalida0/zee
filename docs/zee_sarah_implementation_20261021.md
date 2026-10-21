@@ -867,6 +867,87 @@ This source change has not yet been executed locally; it
 cannot certify a neutrino mass until `SigmaS` is physically
 interpreted and explicitly evaluated.
 
+## 2026-10-21 corrected Fv SigmaS audit and controlled Majorana spinor A/B
+
+The latest local `scripts/zee_sarah_e3_selfenergy_one_shot.sh`
+run passes the 162 E3–SARAH complex benchmark vertex comparisons
+and computes SARAH one-loop expressions for 11 particle sectors.
+External `Fv` has the three generated fermionic components
+`{SigmaS,SigmaR,SigmaL}`. The first (mass-type) component contains
+`B0`, `Mass[Fe]`, charged Higgs `Hm`, and both
+`Cp[..][PL]` and `Cp[..][PR]` factors. Local status:
+
+```text
+SARAH_FV_SIGMAS_FE_HM_B0_EXTRACTED_MAJORANA_AMPLITUDE_UNVALIDATED
+ZEE_E3_FV_DIRAC_SPINOR_LEFT_ONLY True
+ZEE_E3_FV_LISTED_MAJORANA_PARTICLE False
+ZEE_E3_SIGMAS_HAS_B0 True
+ZEE_E3_SIGMAS_HAS_MASS_FE True
+ZEE_E3_SIGMAS_HAS_HM True
+ZEE_E3_SIGMAS_HAS_CPL True
+ZEE_E3_SIGMAS_HAS_CPR True
+ZEE_E3_SIGMAS_COMPLEX_LNV_AMPLITUDE_VERIFIED False
+```
+
+**Important scientific interpretation:** The original
+`Fv -> {vL,0}` is a left-only four-component representation,
+NOT a SARAH Majorana spinor. Its ordinary Dirac
+`SigmaS` cannot automatically be called the physical
+LNV `<nu_L nu_L>` Majorana two-point function.
+A nonzero `Mass[Fe] B0` product alone does not establish
+the Majorana neutrino mass (nor the sign/symmetry factors).
+
+SARAH's own documentation gives the supported Majorana packaging
+`Fv -> {VL,conj[VL]}` for its Scotogenic model. For a clean
+controlled experiment, the one-shot loop runner was extended
+to construct an **isolated** model copy
+`ZeeTypeIIMajoranaAudit` under
+`work/sarah_zee/sarah_model_variants/`.
+Only the model NAME and the EWSB four-component spinor
+declaration are changed; the Lagrangian, Weyl field
+content, Yukawas, scalar sector, masses and parameters
+are byte-for-byte unchanged, as verified by the
+reversible transformations and SHA256 manifest.
+The production `models/SARAH/ZeeTypeII` directory is
+never modified.
+
+The updated SAME single command
+
+```bash
+cd ~/zee
+git pull --ff-only
+bash scripts/zee_sarah_e3_selfenergy_one_shot.sh
+```
+
+now runs the original SARAH Dirac-packaged
+`SigmaS/R/L` audit, generates the temporary Majorana
+variant and separately invokes SARAH's
+`CalcLoopCorrections[EWSB]` for that variant. It checks
+that SARAH classifies the new `Fv` as Majorana and
+`AntiField[Fv]===Fv`, verifies the original gauge-basis
+Weyl `f` vertex, and exports the resulting neutrino
+`SigmaS/R/L` and complete neutrino diagram list in
+
+```text
+work/sarah_zee/e3_majorana_variant_manifest.json
+work/sarah_zee/e3_majorana_ab_status.txt
+work/sarah_zee/e3_majorana_ab_console.log
+work/sarah_zee/e3_majorana_ab_sigma.txt
+```
+
+**No result of the new variant has yet been observed locally.**
+Even `MAJORANA_AB_SARAH_SIGMAS_GENERATED_NUMERIC_MNU_AND_LNV_UNVALIDATED`
+is a diagrammatic/representation success, NOT full loop
+validation. The decisive future step is to extract the
+lepton-number-violating symmetric 3x3 `SigmaS(0)` mass
+matrix with correct one-loop normalization and phases,
+including checking whether the different Majorana
+packaging causes a factor-two in SARAH's generic
+`AddLoopFermion`; only then can it be compared
+numerically with the two complex E3 fixtures. Do not
+introduce a tree neutrino Majorana mass or silently
+change the production model while doing this.
+
 ## Unresolved physics / blockers
 
 1. Check the SU(2) dot contraction and sign of the Zee trilinear in SARAH
