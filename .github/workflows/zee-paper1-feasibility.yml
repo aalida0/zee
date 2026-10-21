@@ -12,6 +12,9 @@ on:
       - 'scripts/zee_paper1_F11_six_real_flavio_LO_NP_rate.py'
       - 'scripts/zee_paper1_F11_real_flavio_one_shot.sh'
       - 'tests/test_zee_paper1_F11_six_real_flavio_LO_NP_rate.py'
+      - 'scripts/zee_paper1_F12_309_modern_Eq4_Bsgamma_frontier.py'
+      - 'scripts/zee_paper1_F12_309_2026_Eq4_one_shot.sh'
+      - 'tests/test_zee_paper1_F12_309_modern_Eq4_Bsgamma_frontier.py'
       - '.github/workflows/zee-paper1-feasibility.yml'
   workflow_dispatch:
 jobs:
@@ -31,6 +34,8 @@ jobs:
       - run: bash -n scripts/zee_paper1_F10_six_legacy_one_shot.sh
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F11_six_real_flavio_LO_NP_rate.py' -v
       - run: bash -n scripts/zee_paper1_F11_real_flavio_one_shot.sh
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F12_309_modern_Eq4_Bsgamma_frontier.py' -v
+      - run: bash -n scripts/zee_paper1_F12_309_2026_Eq4_one_shot.sh
       - name: Real flavio SM/linear Wilson basis and response validation
         run: |
           PYTHONPATH=scripts python - <<'PY'
