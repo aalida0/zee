@@ -64,6 +64,12 @@ queries=Flatten[Table[
 If[Length[queries]!=36||MemberQ[queries,$Failed,Infinity],
  finish["F16_36_SARAH_LEPTON_VERTEX_EXTRACTION_FAILED",10]];
 
+Get[FileNameJoin[{root,"scripts",
+   "zee_paper1_F16_SARAH_context_vevs.m"}]];
+If[!ValueQ[zeeF16VEVResolverStatus]||
+    zeeF16VEVResolverStatus=!="F16_CONTEXT_SAFE_PHYSICAL_F13_VEVS",
+ finish["F16_PHYSICAL_VEV_RESOLVER_NOT_LOADED",10]];
+Print["F16_VEV_CONTEXT_RESOLVER_READY Global SARAH Susyno"];
 reduce[expr_,o_]:=Module[{z=expr,ss,sw,cw,g,gt},
  sw=Sqrt[0.23122];cw=Sqrt[1.-0.23122];
  g=2*91.1876*cw/o["V"];gt=g*sw/cw;
@@ -80,6 +86,12 @@ reduce[expr_,o_]:=Module[{z=expr,ss,sw,cw,g,gt},
   g2->g,g1->gt,ThetaW->ArcSin[sw],
   HoldPattern[SARAH`RXi[___]]:>0
  };
+ (* Source ScalarRules was parsed before SARAH loaded. In this session,
+    SARAH mass matrices contain v1/v2 symbols from different contexts
+    (Global`, SARAH`, Susyno`LieGroups`), so a context-specific LHS
+    in the original fixture does not replace those VEVs. Reconstruct
+    them from the actual physical F13 v and beta, NOT from a default. *)
+ z=zeeF16ResolveVEVs[z,o["V"],o["Beta"]];
  z=N[z/.o["ScalarRules"]/.ss];
  N[z/.HoldPattern[conj[n_?NumericQ]]:>Conjugate[n]]
 ];
