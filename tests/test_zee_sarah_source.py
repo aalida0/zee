@@ -272,6 +272,22 @@ class TestSarahZeeSource(unittest.TestCase):
         self.assertIn("bash scripts/zee_sarah_e3_one_shot.sh", runner)
         self.assertIn("math -script scripts/zee_sarah_e3_independent_selfenergy_audit.m", runner)
         self.assertIn("set -euo pipefail", runner)
+        for text in (
+            "SigmaS",
+            "SigmaR",
+            "SigmaL",
+            "SARAH_FV_SIGMAS_FE_HM_B0_EXTRACTED_MAJORANA_AMPLITUDE_UNVALIDATED",
+            "SARAH_NEUTRINO_SIGMAS_LFV_STRUCTURE_UNRESOLVED",
+            "e3_sarah_neutrino_sigma_components.txt",
+            "zeeScalarHasB0",
+            "zeeScalarHasMassFe",
+            "zeeScalarHasCpLeft",
+            "zeeScalarHasCpRight",
+            "zeeMasslessNeutrinoRepresentation",
+            "zeeMajoranaClassified",
+            "ZEE_E3_SIGMAS_COMPLEX_LNV_AMPLITUDE_VERIFIED False",
+        ):
+            self.assertIn(text, audit)
         self.assertNotIn("SARAH_ZEE_FULL_NEUTRINO_LOOP_PASS", audit)
         self.assertNotIn("First/@zeeRows", audit)
         self.assertNotIn("Select[zeeRows", audit)
