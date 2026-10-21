@@ -157,7 +157,8 @@ Do[
  zeeYe2=zeeCase["Ye2SARAH"];
  zeeGamma=zeeCase["Gamma"];zeeBeta=zeeCase["Beta"];
  zeeMasses={zeeCase["M1"],zeeCase["M2"]};
- zeeV1=246.22*Cos[zeeBeta];zeeV2=246.22*Sin[zeeBeta];
+ zeeV=zeeCase["V"];
+ zeeV1=zeeV*Cos[zeeBeta];zeeV2=zeeV*Sin[zeeBeta];
  zeeMix=N[{{Cos[zeeBeta],Sin[zeeBeta],0},
   {-Sin[zeeBeta]*Cos[zeeGamma],Cos[zeeBeta]*Cos[zeeGamma],
     Sin[zeeGamma]},
@@ -169,7 +170,7 @@ Do[
    zeeEval[zeeMassRaw,zeeF,zeeYe,zeeYe2,zeeMix]-
    DiagonalMatrix[zeeCase["LeptonMasses"]]]]];
  zeeMassHiggsBasisResidual=Max[Abs[Flatten[
-   zeeSinglet-Sqrt[2]*DiagonalMatrix[zeeCase["LeptonMasses"]]/246.22]]];
+   zeeSinglet-Sqrt[2]*DiagonalMatrix[zeeCase["LeptonMasses"]]/zeeV]]];
  If[Max[{zeeMassDiagResidual,zeeMassHiggsBasisResidual,
          Max[Abs[Flatten[zeeD-Sqrt[2]*zeeYC]]],
          Max[Abs[Flatten[zeeF-2*zeeFC]]]}]>1.*^-10,
