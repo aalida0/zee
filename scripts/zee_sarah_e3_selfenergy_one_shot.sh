@@ -31,3 +31,6 @@ math -script scripts/zee_sarah_e3_majorana_ab_validation.m \
 echo "ZEE_E3_MAJORANA_AB_STAGE_RESULT"
 cat work/sarah_zee/e3_majorana_ab_status.txt
 echo "ZEE_E3_MAJORANA_AB_SIGMA_FILE work/sarah_zee/e3_majorana_ab_sigma.txt"
+echo "ZEE_E3_MAJORANA_AB_COUPLING_INVENTORY work/sarah_zee/e3_majorana_ab_sigma_couplings.txt"
+echo "ZEE_E3_MAJORANA_AB_PHYSICAL_VERTICES work/sarah_zee/e3_majorana_ab_physical_vertices.txt"
+echo "ZEE_E3_MAJORANA_AB_SIGMA_MACHINE work/sarah_zee/e3_majorana_ab_sigma_machine.m"
