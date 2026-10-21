@@ -36,6 +36,7 @@ from zee_paper1_F13_heavy_flavor_aware_final_scan import STATUS as F13_STATUS
 STATUS="F15_EXACT_F13_COMPLEX_YUKAWA_CHARGED_2BODY_LO_CKM_MASS_STRESS_NOT_FULL_WIDTH"
 TARGETS=("F13_heavy_0001330","F13_heavy_0000981","F13_heavy_0001003")
 OUTCSV="F15_three_real_Zee_CKM_mass_stress_13TeV_NOT_COMPLETE.csv"
+FCCCSV="F15_85_100TeV_required_TypeII_production_NOT_a_prediction.csv"
 CONTROL="F15_8_light_quark_missing_modes_and_widths_NOT_COMPLETE.csv"
 UP=("u","c","t")
 DOWN=("d","s","b")
@@ -300,6 +301,54 @@ def calc_all(f13dir,f14dir):
         })
     return results,provenance
 
+def fcc_production_thresholds(records, *,
+    scenarios=(("FCC_HH_FSR_2025_85TeV",85000,20000),
+               ("FCC_HH_CDR_100TeV",100000,30000)),
+    n_events=(10,25,100),efficiencies=(.01,.05,.10)):
+    """Only algebraic required production baseline, NEVER an 85/100TeV XS.
+
+    N = L_fb * sigma_TypeII_fb * P_included_CKM * BR(Z->ee,mumu)
+        * epsilon_full_selection.
+
+    Actual detector efficiency, backgrounds, 85/100TeV TypeII/NLO
+    rates and complete widths are UNKNOWN. Counts are illustrative.
+    """
+    output=[]
+    for rec in records:
+        gamma=finite(rec["spectrum"]["gamma"],"gamma")
+        weight=math.sin(gamma)**2
+        proxy=rec["mb_input_stress_scenarios_NOT_an_NLO_uncertainty"][
+            "fixed_b4p7"]["modified_2body_subset_cascade_proxy_with_CKM"]
+        if not 0<proxy<=weight<=1+1e-10:
+            raise ValueError("FCC source did not preserve one doublet weight")
+        for name,energy,Lfb in scenarios:
+            if energy<=14000 or Lfb<=0:
+                raise ValueError("FCC comparison requires credible pp design inputs")
+            for count in n_events:
+                if count<=0:raise ValueError("Events must be positive")
+                for efficiency in efficiencies:
+                    if not 0<efficiency<=1:
+                        raise ValueError("Selection efficiency out of range")
+                    min_typeii=count/(Lfb*.0673*efficiency*proxy)
+                    output.append({
+                        "candidate_id":rec["candidate_id"],
+                        "design_scenario":name,
+                        "proton_proton_sqrt_s_GeV":energy,
+                        "design_integrated_luminosity_fb_inv":Lfb,
+                        "event_count_target_NOT_significance":count,
+                        "selection_efficiency_ASSUMED_NOT_simulated":efficiency,
+                        "Z_to_ee_mumu_BR_approx":.0673,
+                        "CKM_LO_included_channel_cascade_proxy_NOT_full_BR":
+                            proxy,
+                        "required_TypeII_like_baseline_sigma_at_this_energy_fb":
+                            min_typeii,
+                        "required_Zee_H2_associated_sigma_at_this_energy_fb":
+                            min_typeii*weight,
+                        "FCC_85_or_100TeV_actual_production_sigma_fb":None,
+                        "complete_Zee_widths_and_observability_certified":False,
+                    })
+    return output
+
 def run(args):
     out=Path(args.output).resolve()
     if out.exists():raise FileExistsError("No overwrite of previous F15 results")
@@ -336,6 +385,10 @@ def run(args):
         simple.append(row)
         writejson(out/(record["candidate_id"]+"_all_LO_quark_channels_NOT_FULL.json"),
                   record)
+    thresholds=fcc_production_thresholds(records)
+    with (out/FCCCSV).open("w",newline="") as stream:
+        writer=csv.DictWriter(stream,fieldnames=list(thresholds[0]))
+        writer.writeheader();writer.writerows(thresholds)
     with (out/OUTCSV).open("w",newline="") as stream:
         writer=csv.DictWriter(stream,fieldnames=list(simple[0]))
         writer.writeheader();writer.writerows(simple)
@@ -356,6 +409,9 @@ def run(args):
       "13TeV_typeII_matched_production_only":True,
       "approximate_signal_rates_NOT_complete_Zee_model":simple,
       "FCC_hh_85_or_100TeV_cross_sections_not_computed":True,
+      "FCC_85_100_event_thresholds_only_not_cross_sections":True,
+      "FCC_2025_85TeV_20ab_versus_CDR_100TeV_30ab_cases":True,
+      "FCC_threshold_scenarios":len(thresholds),
       "full_two_three_body_complete":False,
       "precision_QCD_corrected_fermion_widths_computed":False,
       "independent_validated_physical_complex_Zee_UFO_used":False,
@@ -363,7 +419,8 @@ def run(args):
       "paper1_GO_or_NOGO":None,
       "missing_critical_physics":MISSING,
       "script_SHA256":digest(Path(__file__)),
-      "outputs_SHA256":{OUTCSV:digest(out/OUTCSV)},
+      "outputs_SHA256":{OUTCSV:digest(out/OUTCSV),
+                        FCCCSV:digest(out/FCCCSV)},
     }
     writejson(out/"summary.json",report)
     writejson(out/"manifest.json",{
