@@ -117,20 +117,54 @@ def quark_inventory(mass,tanbeta,doublet2,mb):
         raise ValueError("Incomplete charged quark two-body inventory")
     return out
 
+def validate_f14_origin_metadata(f14s,f14m,proof,f14dir):
+    """Check the actual F14 output contract and retain strict source SHA checks.
+
+    A missing/mislabeled field is NOT interpreted as success. Failure
+    identifies the *exact* key rather than masking a typo behind one
+    unspecific multi-condition ValueError.
+    """
+    folder=Path(f14dir)
+    expected={
+       "F14 summary status":(
+           f14s.get("status"),F14_STATUS),
+       "F14 manifest status":(
+           f14m.get("status"),F14_STATUS),
+       "F14 manifest summary_SHA256":(
+           f14m.get("summary_SHA256"),digest(folder/"summary.json")),
+       "F14 source_F13.F13_summary_SHA256":(
+           f14s.get("source_F13",{}).get("F13_summary_SHA256"),
+           proof["F13_summary_SHA256"]),
+       "F14 manifest F13_summary_SHA256":(
+           f14m.get("F13_summary_SHA256"),
+           proof["F13_summary_SHA256"]),
+       "F14 eight_same_scalar_neutrino_lepton_widths_evaluated":(
+           f14s.get("eight_same_scalar_neutrino_lepton_widths_evaluated"),8),
+       "F14 none_are_complete_physical_Zee_rates_or_allowed":(
+           f14s.get("none_are_complete_physical_Zee_rates_or_allowed"),True),
+       "F14 rates_energy_GeV":(
+           f14s.get("rates_energy_GeV"),13000),
+       "F14 production_rescale_consistent_with_proxy":(
+           f14s.get("production_rescale_consistent_with_proxy"),True),
+    }
+    for label,(observed,wanted) in expected.items():
+        if type(observed) is not type(wanted) or observed!=wanted:
+            raise ValueError(
+                f"F15 F14 source-provenance mismatch [{label}]: "
+                f"found {observed!r}, expected {wanted!r}")
+    return True
+
 def join_origins(f13dir,f14dir):
     folder=Path(f13dir).resolve()
     f14dir=Path(f14dir).resolve()
     f13s,selected,ranked,allrows,proof=read_f13(folder)
     f14s=json.loads((f14dir/"summary.json").read_text())
     f14m=json.loads((f14dir/"manifest.json").read_text())
-    if (f14s.get("status")!=F14_STATUS or
-        f14m.get("status")!=F14_STATUS or
-        f14m.get("summary_SHA256")!=digest(f14dir/"summary.json") or
-        f14s.get("source_F13",{}).get("F13_summary_SHA256")!=proof[
-            "F13_summary_SHA256"] or
-        f14s.get("eight_same_scalar_neutrino_lepton_widths_evaluated")!=8 or
-        not f14s.get("none_are_complete_physical_Zee_rates")):
-        raise ValueError("F14 source or exact F13 source provenance mismatch")
+    # F14 writes the exact truth-contract key
+    # 'none_are_complete_physical_Zee_rates_or_allowed'. The earlier
+    # F15 reader mistakenly omitted '_or_allowed', making EVERY genuine
+    # F14 report fail this check, irrespective of correct source hashes.
+    validate_f14_origin_metadata(f14s,f14m,proof,f14dir)
     if f14s.get("outputs_SHA256",{}).get(F14_CSV)!=digest(f14dir/F14_CSV):
         raise ValueError("F14 eight benchmark CSV corrupted")
     with (f14dir/F14_CSV).open(newline="") as stream:
