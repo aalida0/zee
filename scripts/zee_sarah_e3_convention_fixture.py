@@ -159,7 +159,7 @@ def main():
     args.out.write_text(
       "(* Generated from A1b + B2 + B3 + Gate6, not from SARAH vertices. *)\n"+
       "zeeE3Cases = {" + ",\n".join(cases) + "};\n"+
-      "zeeE3FixtureStatus = \\""+STATUS+"\\";\n")
+      "zeeE3FixtureStatus = \""+STATUS+"\";\n")
     print("ZEE_E3_FIXTURE_WRITTEN",args.out)
     print("ZEE_E3_FIXTURE_STATUS",STATUS)
     print("ZEE_E3_REAL_309_SOURCE_INCLUDED False")
