@@ -171,6 +171,73 @@ If[Length[zeeNuPairs]==0 || Length[zeeDiagPairs]==0,
  Print["ZEE_E3_SELFENERGY_UNALIGNED_NEUTRINO_SUM_AND_DIAGRAM_INVENTORY"];
  zeeLoopStatus["SARAH_NEUTRINO_SECTOR_INVENTORY_INCOMPLETE"];
  Exit[13]];
+(* SARAH upstream Package/loopCorrections.m defines
+     AddLoopFermion -> {Sigma1LoopS, Sigma1LoopR, Sigma1LoopL}.
+   These are FOUR-COMPONENT fermion self-energy form factors.
+   For Fv -> {vL,0} they do not automatically correspond to a
+   Majorana mass insertion nu_L -> nu_L^c. A scalar B0 and m_e
+   insertion are not evidence of LNV without a spinor-basis audit. *)
+zeeNuComponentFile=FileNameJoin[{zeeLoopDir,
+  "e3_sarah_neutrino_sigma_components.txt"}];
+zeeNuUnique=(Length[zeeNuPairs]===1 && Length[zeeDiagPairs]===1);
+If[!zeeNuUnique,
+ Print["ZEE_E3_SELFENERGY_COMPONENTS_NEED_SINGLE_FV_ENTRY"];
+ zeeLoopStatus["SARAH_NEUTRINO_COMPONENTS_NOT_UNIQUE"];
+ Exit[15]];
+zeeNuComponents=zeeNuPairs[[1,2]];
+If[!ListQ[zeeNuComponents] || Length[zeeNuComponents]=!=3,
+ Print["ZEE_E3_SELFENERGY_COMPONENTS_INVALID ",
+ InputForm[Dimensions[zeeNuComponents]]];
+ zeeLoopStatus["SARAH_FV_SIGMA_FORM_FACTORS_NOT_THREE"];
+ Exit[16]];
+zeeSigmaScalar=zeeNuComponents[[1]];
+zeeSigmaRight=zeeNuComponents[[2]];
+zeeSigmaLeft=zeeNuComponents[[3]];
+
+(* Inspect MASS-TYPE SigmaS only. Do not attribute B0 from an
+   unrelated fermion wave-function SigmaL,R to Majorana physics. *)
+zeeScalarHasB0=(!FreeQ[zeeSigmaScalar,B0[___]]);
+zeeScalarHasMassFe=(!FreeQ[zeeSigmaScalar,Mass[Fe[___]]]);
+zeeScalarHasHm=(!FreeQ[zeeSigmaScalar,Hm[___]]);
+zeeScalarHasCpLeft=(!FreeQ[zeeSigmaScalar,
+  HoldPattern[Cp[___][PL]]]);
+zeeScalarHasCpRight=(!FreeQ[zeeSigmaScalar,
+  HoldPattern[Cp[___][PR]]]);
+zeeScalarHasNuMass=(!FreeQ[zeeSigmaScalar,Mass[Fv[___]]]);
+zeeMasslessNeutrinoRepresentation=(
+ StringContainsQ[
+  ToString[InputForm[DEFINITION[EWSB][DiracSpinors]]],
+  "Fv -> {vL, 0}"]);
+zeeMajoranaClassified=MemberQ[MajoranaPart,Fv];
+Print["ZEE_E3_FV_DIRAC_SPINOR_LEFT_ONLY ",
+ zeeMasslessNeutrinoRepresentation];
+Print["ZEE_E3_FV_LISTED_MAJORANA_PARTICLE ",
+ zeeMajoranaClassified];
+Print["ZEE_E3_FV_SIGMA_COMPONENTS ",
+ InputForm[{"SigmaS","SigmaR","SigmaL"}]];
+Print["ZEE_E3_SIGMAS_HAS_B0 ",zeeScalarHasB0];
+Print["ZEE_E3_SIGMAS_HAS_MASS_FE ",zeeScalarHasMassFe];
+Print["ZEE_E3_SIGMAS_HAS_HM ",zeeScalarHasHm];
+Print["ZEE_E3_SIGMAS_HAS_CPL ",zeeScalarHasCpLeft];
+Print["ZEE_E3_SIGMAS_HAS_CPR ",zeeScalarHasCpRight];
+Print["ZEE_E3_SIGMAS_HAS_MASS_FV ",zeeScalarHasNuMass];
+Print["ZEE_E3_SIGMAS_COMPLEX_LNV_AMPLITUDE_VERIFIED False"];
+Export[zeeNuComponentFile,StringRiffle[
+  {"INDEPENDENT SARAH FOUR-COMPONENT SELF-ENERGY FORM FACTORS",
+   "External=Fv; these are NOT certified Majorana mass elements.",
+   "SigmaS:\n"<>ToString[InputForm[zeeSigmaScalar]],
+   "SigmaR:\n"<>ToString[InputForm[zeeSigmaRight]],
+   "SigmaL:\n"<>ToString[InputForm[zeeSigmaLeft]]},
+ "\n\n"]<>"\n","Text"];
+Print["ZEE_E3_FV_SIGMA_COMPONENT_FILE ",zeeNuComponentFile];
+
+(* Fail closed if the charged-lepton/chiral scalar-mass form factor
+   does not have the required ingredients. Never issue a Majorana
+   numerical PASS merely from identifying these products. *)
+If[!And@@{zeeScalarHasB0,zeeScalarHasMassFe,
+  zeeScalarHasHm,zeeScalarHasCpLeft,zeeScalarHasCpRight},
+ zeeLoopStatus["SARAH_NEUTRINO_SIGMAS_LFV_STRUCTURE_UNRESOLVED"];
+ Exit[17]];
 Print["ZEE_E3_SELFENERGY_MAJORANA_MASS_NUMERICALLY_EXTRACTED False"];
 Print["ZEE_E3_SELFENERGY_E3_MNU_NUMERICALLY_MATCHED False"];
 Print["ZEE_E3_SELFENERGY_REAL_309_SOURCE_TESTED False"];
@@ -181,5 +248,5 @@ If[!TrueQ[zeeHasB0Q] || !TrueQ[zeeHasFeMassQ] ||
 (* This PASS is for correct EXTERNAL sector and loop ingredients only;
    it is NOT evidence of a completed Majorana self-energy evaluation. *)
 zeeLoopStatus[
- "SARAH_NEUTRINO_EXTERNAL_SECTOR_FE_HM_B0_CANDIDATE_MAJORANA_UNVALIDATED"];
+ "SARAH_FV_SIGMAS_FE_HM_B0_EXTRACTED_MAJORANA_AMPLITUDE_UNVALIDATED"];
 Exit[0];
