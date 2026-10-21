@@ -182,6 +182,12 @@ def source_b3(f13dir,name,ranked_row):
         result["status"]!=
         "GENERAL_ZEE_LEPTON_WIDTHS_LO_INCLUDED_ONLY_NOT_ALLOWED"):
         raise ValueError("B3 returned wrong or unsupported physical output")
+    close(result["BR_H2_H1Z_included_general_Zee"],
+          best["BR_H2_H1Z_included_channels_ONLY"],
+          name+" original H2 H1 Z width fraction",rtol=5e-9,atol=5e-11)
+    close(result["BR_H1_tb_included_general_Zee"],
+          best["BR_H1_tb_included_channels_ONLY"],
+          name+" original H1 tb width fraction",rtol=5e-9,atol=5e-11)
     close(result["production_weighted_partial_cascade_proxy"],
           best["charged_included_LO_cascade_proxy_NOT_pb"],
           name+" F13 saved B3 proxy",rtol=6e-9,atol=3e-10)
@@ -202,6 +208,11 @@ def scenario(widths,scalar,xsec_typeii,mb):
     tb=math.tan(scalar["beta"])
     gamma=scalar["gamma"]
     doublet={"H1":math.cos(gamma)**2,"H2":math.sin(gamma)**2}
+    # In a two-charged-state CP-conserving potential, a mixed
+    # H2 -> H1 A coupling may be allowed. Old Gate6 omits it.
+    # Do not silently accept a kinematically open unknown 2-body width.
+    mixed_pseudoscalar_open=bool(
+        scalar["mH2"] > scalar["mH1"]+scalar["ma"])
     results={}
     for state in ("H1","H2"):
         original=widths["partial_widths_included_GeV"][state]
@@ -250,6 +261,10 @@ def scenario(widths,scalar,xsec_typeii,mb):
         "approximate_sigma13_Z_ee_mumu_product_pb":
             xsec_typeii*newproxy*.0673,
         "H1":low,"H2":high,
+        "H2_to_H1_A_pseudoscalar_potentially_open_and_NOT_calculated":
+            mixed_pseudoscalar_open,
+        "H2_minus_H1_minus_A_threshold_GeV":
+            scalar["mH2"]-scalar["mH1"]-scalar["ma"],
         "uncalculated_decays_can_only_reduce_ratio_AT_fixed_numerators":
             True,
         "actual_physical_signal_rate_pb":None,
@@ -331,6 +346,11 @@ def run(args):
       "source_included_B3_totals_physically_complete":False,
       "tree_LO_CKM_3x3_quark_channels_counted_in_each_charge_state":9,
       "typeII_9_quark_channels_tree_LO_new":True,
+      "mixed_pseudoscalar_H2_H1_A_open_in_any_selected":any(
+           v["mb_input_stress_scenarios_NOT_an_NLO_uncertainty"][
+             "fixed_b4p7"][
+               "H2_to_H1_A_pseudoscalar_potentially_open_and_NOT_calculated"]
+           for v in records),
       "bottom_mass_scenarios_NOT_theory_errors":BOTTOM_VARIANTS,
       "CKM_input_and_approximate_unitarity":validate_ckm(),
       "13TeV_typeII_matched_production_only":True,
