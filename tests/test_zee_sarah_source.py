@@ -314,7 +314,7 @@ class TestSarahZeeSource(unittest.TestCase):
             "MAJORANA_AB_SARAH_START_FAILED",
             "MAJORANA_AB_NEUTRINO_SPINOR_CLASSIFICATION_FAILED",
             "MAJORANA_AB_SIGMAS_REQUIRED_STRUCTURE_NOT_PRESENT",
-            "MAJORANA_AB_SARAH_SIGMAS_GENERATED_NUMERIC_MNU_AND_LNV_UNVALIDATED",
+            "MAJORANA_AB_NUMERIC_SIGMAS_AND_NULLS_PASS_E3_SIGN_UNVALIDATED",
             "e3_majorana_ab_sigma.txt",
             "zeeABClassified=MemberQ[MajoranaPart,Fv]",
             "zeeABSelfConjugate=(AntiField[Fv]===Fv)",
@@ -349,6 +349,9 @@ class TestSarahZeeSource(unittest.TestCase):
             "zeeABEvaluateSigma",
             "zeeABMatrix",
             "zeeABNullCases",
+            "charged_masses_degenerate",
+            "ZEE_E3_MAJORANA_NUMERIC_SIGNAL_MAX_EV",
+            "nonzero_Zee_signal_not_detected_",
             "SARAH`CalcLoopCorrections[EWSB]",
         ):
             self.assertIn(marker, wl)
