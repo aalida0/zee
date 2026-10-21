@@ -322,6 +322,15 @@ class TestSarahZeeSource(unittest.TestCase):
             "ZEE_E3_MAJORANA_AB_CHEN_E3_NUMERIC_MATCH False",
             "ZEE_E3_MAJORANA_AB_SIGMAS_TREE_MNU_ZERO_IDENTICALLY_ZERO",
             "SigmaS_tree_mnu_zero",
+            "ZEE_E3_MAJORANA_AB_SIGMAS_CP_ATOMS",
+            "ZEE_E3_MAJORANA_AB_TREE_F_VERTEX_COUNT",
+            "ZEE_E3_MAJORANA_AB_TREE_Y_VERTEX_COUNT",
+            "ZEE_E3_MAJORANA_AB_TREE_E3_AMPLITUDE_MATCH_VERIFIED False",
+            "ZEE_E3_MAJORANA_AB_CP_EXPANSION_TO_FLAVOR_COUPLINGS_VERIFIED False",
+            "MAJORANA_AB_SIGMAS_COUPLING_ATOMS_NOT_IDENTIFIED",
+            "e3_majorana_ab_sigma_machine.m",
+            "e3_majorana_ab_sigma_couplings.txt",
+            "e3_majorana_ab_physical_vertices.txt",
             "SARAH`CalcLoopCorrections[EWSB]",
         ):
             self.assertIn(marker, wl)
