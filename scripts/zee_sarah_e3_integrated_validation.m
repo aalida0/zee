@@ -150,7 +150,7 @@ Do[
     zeeWidth,zeeWidthTarget,zeeWidthErr,
     zeeNuFromVertex,zeeMuScaleNu,zeeNuTarget,zeeLoopErr,
     zeeLoopApprox,zeeFiniteErr,zeeNeutralIndex,
-    zeeLeptonIndex,zeePart,zeeScale},
+    zeeLeptonIndex,zeePart,zeeScale,zeeCaseMaxVertex},
 
  zeeF=zeeCase["FSARAH"];zeeFC=zeeCase["FChen"];
  zeeYC=zeeCase["YChen"];zeeYe=zeeCase["YeSARAH"];
@@ -178,6 +178,7 @@ Do[
       zeeCase["Label"]];
   AppendTo[zeeFailures,"mass_mapping_"<>zeeCase["Label"]]];
 
+ zeeCaseMaxVertex=0.;
  zeeCoeffArray=Table[
    zeeEval[zeeRaw[[zeeIdx]],zeeF,zeeYe,zeeYe2,zeeMix],
    {zeeIdx,Length[zeeRaw]}];
@@ -208,6 +209,7 @@ Do[
   zeeActual=zeeCoeffArray[[zeeIdx]];
   zeeResidual=N[Abs[zeeActual-zeeExpected]];
   zeeMaxVertex=Max[zeeMaxVertex,zeeResidual];
+  zeeCaseMaxVertex=Max[zeeCaseMaxVertex,zeeResidual];
   zeeCoeffCount++;
   AppendTo[zeeLog,{zeeCase["Label"],zeeQueries[[zeeIdx,1]],
        zeeActual,zeeExpected,zeeResidual}];
@@ -246,7 +248,7 @@ Do[
     of 1/(16pi^2) is the usual one-loop scalar-fermion integral.
     Cancellation of subtraction-scale dependence is independently
     checked by varying scale. *)
- zeeNuFromVertex[zeeScale_?NumericQ]:=Module[
+ zeeNuFromVertex[zeeReferenceScale_?NumericQ]:=Module[
   {zeeAmp=ConstantArray[0.+0.I,{3,3}],zeeNuI,zeeNuJ,
    zeeLept,zeeState,zeeF12,zeeY12,zeeF21,zeeY21,
    zeeIdxF,zeeIdxY},
@@ -267,7 +269,7 @@ Do[
       zeeF21=zeeCoeffArray[[zeeIdxF]];
       zeeY21=zeeCoeffArray[[zeeIdxY]];
       (zeeF12*zeeY12+zeeF21*zeeY21)*
-         Log[zeeMasses[[zeeState-1]]^2/zeeScale^2],
+         Log[zeeMasses[[zeeState-1]]^2/zeeReferenceScale^2],
        {zeeState,{2,3}}],
     {zeeNuI,1,3},{zeeNuJ,1,3},{zeeLept,1,3}];
    N[zeeAmp]
@@ -285,9 +287,7 @@ Do[
  Print["ZEE_E3_CASE_RESULT ",zeeCase["Label"],
   " massResidual_GeV=",InputForm[zeeMassDiagResidual],
   " amplitudes=",Length[zeeQueries],
-  " vertexResidual=",InputForm[Max[
-     Abs[Flatten[zeeCoeffArray-
-       (zeeLog[[-Length[zeeQueries];;-1,4]])]]]],
+  " vertexResidual=",InputForm[zeeCaseMaxVertex],
   " widthResidual_GeV=",InputForm[zeeWidthErr],
   " mnuFromVerticesResidual_eV=",InputForm[zeeLoopErr],
   " scaleResidual_eV=",InputForm[zeeScale],
