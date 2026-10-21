@@ -82,6 +82,28 @@ class TestF15(unittest.TestCase):
         self.assertIn("NOT_FULL_WIDTH",x.STATUS)
         self.assertTrue(any("FCC-hh" in s for s in x.MISSING))
         self.assertTrue(any("NNLO" in s for s in x.MISSING))
+    def test_FCC_hh_requirements_are_not_cross_section_predictions(self):
+        p=self.scalar
+        payload={"candidate_id":"HEAVY_REAL_INPUT",
+                 "spectrum":{"gamma":p["gamma"]},
+                 "mb_input_stress_scenarios_NOT_an_NLO_uncertainty":{
+                  "fixed_b4p7":x.scenario(self.b3,p,.0016,4.7)}}
+        tab=x.fcc_production_thresholds([payload])
+        self.assertEqual(len(tab),18)
+        q=next(v for v in tab if v["proton_proton_sqrt_s_GeV"]==85000
+               and v["event_count_target_NOT_significance"]==25
+               and v["selection_efficiency_ASSUMED_NOT_simulated"]==.05)
+        n=q["required_TypeII_like_baseline_sigma_at_this_energy_fb"]
+        proxy=q["CKM_LO_included_channel_cascade_proxy_NOT_full_BR"]
+        self.assertAlmostEqual(n*20000*.0673*.05*proxy,25.)
+        self.assertIsNone(q["FCC_85_or_100TeV_actual_production_sigma_fb"])
+        self.assertFalse(q["complete_Zee_widths_and_observability_certified"])
+        at100=next(v for v in tab if v["proton_proton_sqrt_s_GeV"]==100000
+               and v["event_count_target_NOT_significance"]==25
+               and v["selection_efficiency_ASSUMED_NOT_simulated"]==.05)
+        self.assertAlmostEqual(at100[
+            "required_TypeII_like_baseline_sigma_at_this_energy_fb"]/n,
+            2/3)
     def test_source_LFV_complex_phase_not_deleted(self):
         # B3 helper itself validates antisymmetry and exact matrix closure.
         self.assertGreater(self.b3["totals_included_GeV"]["H1"],0)
