@@ -48,12 +48,11 @@ def discover_f6(work):
 def read_scan(folder):
     folder=Path(folder).resolve()
     source=load(folder/"summary.json")
-    if (source.get("status")!=
-         "PAPER1_ACTUAL_SCALAR_NEUTRINO_PARTIAL_LFV_CASCADE_PILOT_NOT_ALLOWED"
-       or source.get("fully_Zee_allowed_or_excluded") is not None
-       if "fully_Zee_allowed_or_excluded" in source else False):
-        # Source summary has nullable 'modern_model_complete_constraints_passed'
+    if source.get("status")!=(
+        "PAPER1_ACTUAL_SCALAR_NEUTRINO_PARTIAL_LFV_CASCADE_PILOT_NOT_ALLOWED"):
         raise ValueError("Original Paper1 numerical scan status unexpected")
+    if source.get("fully_Zee_allowed_or_excluded") is not None:
+        raise ValueError("Original Paper1 source claims full model compatibility")
     if source.get("modern_model_complete_constraints_passed") is not None:
         raise ValueError("Cannot reinterpret full-model acceptance")
     man=load(folder/"manifest.json")
