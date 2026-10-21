@@ -205,6 +205,19 @@ def six_rates(engine,probe,six,f10,runner=e4a_run_matching):
             raise ValueError("Flavio quadratic result outside pure states")
         if not all(1e-7<val<1e-3 for val in (pure_l,pure_h,actual)):
             raise ValueError("flavio hybrid outside physical screen")
+        # A physically interpretable same-engine *diagnostic reference* at
+        # each original benchmark tanbeta, never a 2026 95%-CL bound.
+        ref=matching(probe,670.,670.,t,.39,runner=runner)
+        rl7,rh7,rd7=coeff(ref,7)
+        rl8,rh8,rd8=coeff(ref,8)
+        close(rl7,rh7,"same-mass TypeII670 C7")
+        close(rl8,rh8,"same-mass TypeII670 C8")
+        br670=engine.prediction(rd7,rd8)
+        ref_shift=br670-engine._sm
+        mix_shift=actual-engine._sm
+        if ref_shift<=0:
+            raise ValueError("TypeII670 same-flavio matching shift must be constructive")
+        hybrid_ratio=mix_shift/ref_shift
         historical=f10[key]
         row={
           "candidate_id":key,"mH1_GeV":m1,"mH2_GeV":m2,
@@ -215,7 +228,11 @@ def six_rates(engine,probe,six,f10,runner=e4a_run_matching):
           "BR_flavio_LO_NP_hybrid":actual,
           "BR_flavio_LO_NP_pure_light":pure_l,
           "BR_flavio_LO_NP_pure_heavy":pure_h,
-          "BSM_rate_shift_flavio_hybrid_minus_same_flavio_SM":actual-engine._sm,
+          "BSM_rate_shift_flavio_hybrid_minus_same_flavio_SM":mix_shift,
+          "BR_flavio_TypeII670_same_tanbeta_hybrid":br670,
+          "LO_C7_TypeII670":rd7,
+          "LO_C8_TypeII670":rd8,
+          "Zee_to_TypeII670_same_flavio_NP_rate_shift_NOT_CL":hybrid_ratio,
           "BR_SuperIso_historical_separate_scheme":float(historical[
               "legacy_SuperIso_full_Zee_BR_Egamma1p6_NOT_2026"]),
           "ratio_to_670_TypeII_legacy_reference_NOT_95CL":float(historical[
@@ -235,7 +252,9 @@ def six_rates(engine,probe,six,f10,runner=e4a_run_matching):
         out.append(row)
         print("F11_SIX",i,"/6",key,"2015_era_flavio_LO_BSM_BR",
               format(actual,".11g"),"C7",format(d7,".7g"),
-              "C8",format(d8,".7g"),"NO_2026_EXCLUSION",flush=True)
+              "C8",format(d8,".7g"),
+              "R_flavio_670",format(hybrid_ratio,".7g"),
+              "NO_2026_EXCLUSION",flush=True)
     return out
 
 def run(args,engine=None):
