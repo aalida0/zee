@@ -640,6 +640,96 @@ and its finite charged-lepton-mass terms remain future work.
 No LFV/Barr-Zee/constraint or experimental allowed/excluded
 status is warranted.
 
+## Chen/E3 integrated run PASS and genuine SARAH self-energy gate (2026-10-21)
+
+The user locally executed the one-shot complex E3–SARAH gate in SARAH
+4.15.4. Both A1b and a second B2 null-root synthetic complex fixture
+successfully passed:
+
+```text
+ZEE_E3_VERTEX_COMPARISONS 162
+ZEE_E3_MAX_VERTEX_RESIDUAL 0.
+ZEE_E3_MAX_WIDTH_RESIDUAL_GEV 5.421010862427522e-20
+ZEE_E3_MAX_MNU_CONVENTION_RESIDUAL_EV 4.243133622402948e-15
+ZEE_E3_MAX_SCALE_RESIDUAL_EV 8.010953012473591e-15
+ZEE_E3_GENERATED_SELFENERGY_CHECKED False
+ZEE_E3_REAL_309_ARCHIVE_TESTED False
+E3_SARAH_TREE_CONVENTION_AND_CHEN_KERNEL_CONSISTENT_SELFENERGY_UNVALIDATED
+```
+
+This result establishes the tested
+`fSARAH = 2*fE3` and `YD = sqrt(2)*Y_E3` mapping,
+exact closure of the 162 mass-basis vertex coefficients,
+the included B3 leptonic widths and convention-prescribed
+Chen logarithmic neutrino formula with loop-scale cancellation.
+**It does NOT derive the self-energy using SARAH's one-loop
+diagram machinery.** That is an independent next requirement.
+
+The finite charged-lepton-mass kernel differs from the
+massless-loop approximation by as much as
+`4.78672036e-6 eV` at these two complex test points
+(relative shift `1.56145e-4` at the A1b point).
+The finite correction is a real physical approximation effect,
+not the `4.24e-15 eV` algebraic residual or a floating-point error.
+It must be included or bounded in a precision neutrino fit.
+
+### ONE next major-stage command: SARAH-generated loop expressions
+
+According to SARAH's loop-corrections documentation, the independent
+API is `CalcLoopCorrections[EWSB]`. Its model-generated results are
+`SelfEnergy1LoopSum[EWSB]` and `SelfEnergy1LoopList[EWSB]`;
+these include generic one-loop diagrams and finite integrals.
+
+Added `scripts/zee_sarah_e3_independent_selfenergy_audit.m`
+and one entrypoint `scripts/zee_sarah_e3_selfenergy_one_shot.sh`.
+The wrapper reruns the **previous complete 162-vertex
+convention/width/kernel check** and then asks SARAH to generate
+the actual one-loop self energies. It exports a particle inventory
+and full neutrino-related summed and diagram-list expressions;
+both sets are derived from the SARAH loop generator rather than
+Chen's manually prescribed neutrino formula.
+
+```bash
+cd ~/zee
+git pull --ff-only
+bash scripts/zee_sarah_e3_selfenergy_one_shot.sh
+```
+
+Expected files:
+
+```text
+work/sarah_zee/e3_sarah_selfenergy_status.txt
+work/sarah_zee/e3_sarah_selfenergy_neutrino_raw.txt
+work/sarah_zee/e3_sarah_selfenergy_inventory.txt
+work/sarah_zee/e3_independent_selfenergy_console.log
+```
+
+**No outcome is presumed for the self-energy stage.**
+It checks whether SARAH actually generates a neutrino self-energy
+containing charged leptons and charged Higgs bosons, but it
+**does not** turn generic neutrino wave-function self energies
+into a Majorana mass assertion. In the current model,
+`Fv -> {vL,0}` is represented as a one-chirality Dirac spinor;
+this could prevent SARAH's standard fermion self-energy
+conventions from directly representing the lepton-number-violating
+Majorana neutrino mass. If no neutrino result is found, the
+status is explicitly
+`SARAH_NO_NEUTRINO_SELFENERGY_IN_CURRENT_FIELD_REPRESENTATION`
+and we must examine a Majorana-compatible neutral-fermion
+formulation or dedicated diagrammatic calculation.
+
+Even the status
+`SARAH_NEUTRINO_LOOP_TOPOLOGIES_EXTRACTED_MAJORANA_MASS_UNVALIDATED`
+is ONLY a **topology extraction milestone**, not validation
+of the finite Majorana mass matrix. The subsequent acceptance
+gate must identify the chirality-flipping, lepton-number-violating
+form factor, its one-loop symmetry factors, counterterms/scheme,
+its finite B0 function and complex phases, and numerically compare
+the resultant 3x3 symmetric matrix against both E3 fixtures.
+
+The existing 309 E3 optimized configurations remain
+**NOT FULL ZEE ALLOWED/EXCLUDED**, regardless of this result.
+
 ## Unresolved physics / blockers
 
 1. Check the SU(2) dot contraction and sign of the Zee trilinear in SARAH
