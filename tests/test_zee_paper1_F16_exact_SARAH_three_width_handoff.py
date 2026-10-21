@@ -70,7 +70,7 @@ class TestF16(TestCase):
                  str(.0016*self.b3["production_weighted_partial_cascade_proxy"])}
             with mock.patch.object(f,"source_b3",return_value=(
                self.b3,self.p,{"priority_record_SHA256":"fixture"})):
-                case,wl=f.build_case(self.p["id"],ranked,production,{
+                case,wl=f.build_case(self.p["id"],ranked,{self.p["id"]:production},{
                     "f13dir":dir})
             self.assertTrue(case["SARAH_E3_FSARAH_eq_2_fChEN"])
             self.assertTrue(case["SARAH_weak_vev_basis_Y_mass_rotated"])
@@ -89,7 +89,7 @@ class TestF16(TestCase):
             f.expected_sarah(p,self.b3)
 
     def test_sarah_wolfram_fixture_float_complex_encoder(self):
-        self.assertEqual(f.wlreal(1e-6),"9.99999999999999955*^-7")
+        self.assertEqual(f.wlreal(1e-6),"9.99999999999999955*^-07")
         self.assertIn("I*(",f.wlcomplex(1+2j))
         with self.assertRaises(ValueError):f.wlreal(float("nan"))
         with self.assertRaises(ValueError):f.wlmatrix([1,2,3])
