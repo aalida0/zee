@@ -234,7 +234,7 @@ class TestSarahZeeSource(unittest.TestCase):
             "ZEE_E3_MAX_WIDTH_RESIDUAL_GEV",
             "zeeCoefficient",
             "zeeNuFromVertex",
-            "zeeFsentinel" if False else "zeeSentinel",
+            "zeeSentinel",
         ):
             self.assertIn(text, audit)
         self.assertIn("Length[zeeQueries]!=81", audit)
