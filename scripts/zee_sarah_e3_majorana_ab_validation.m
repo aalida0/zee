@@ -224,6 +224,339 @@ If[!And@@{zeeABMassScalarB0,zeeABMassScalarFe,
  zeeABMassScalarHm,zeeABMassScalarCps},
  zeeABSetStatus["MAJORANA_AB_SIGMAS_REQUIRED_STRUCTURE_NOT_PRESENT"];
  Exit[16]];
+(* FULL COMPLEX MATRIX DIAGNOSTIC — evaluated from the SARAH SigmaS
+   expression and SARAH EWSB vertices, NOT the Chen E3 formula.
+   No normalization/sign adjustment is allowed merely to obtain PASS.
+   All physically necessary null tests are enforced first. *)
+zeeABFixture=FileNameJoin[{zeeABDir,"e3_charged_loop_fixture.m"}];
+If[!FileExistsQ[zeeABFixture],
+ zeeABSetStatus["MAJORANA_AB_E3_NUMERIC_FIXTURE_MISSING"];Exit[18]];
+Get[zeeABFixture];
+If[!ListQ[zeeE3Cases]||Length[zeeE3Cases]!=2,
+ zeeABSetStatus["MAJORANA_AB_E3_NUMERIC_FIXTURE_INVALID"];Exit[19]];
+zeeABNumericalReport=FileNameJoin[{zeeABDir,
+ "e3_majorana_ab_numeric_matrix_report.txt"}];
+zeeABNumericalLedger={};
+zeeABMW=80.379;
+
+(* Preserve only precisely the five zero-tree-mass diagrams
+   evidenced by the uploaded 2026-10-21 self-energy text:
+   two charged scalar and two W terms after the Z term is zero.
+   If SARAH changes them, reject the calculation instead of silently
+   discarding diagrams. *)
+zeeABZeroTreeExpanded=Expand[zeeABNuMassZeroSigmaS];
+zeeABTopLevel=If[Head[zeeABZeroTreeExpanded]===Plus,
+ List@@zeeABZeroTreeExpanded,{zeeABZeroTreeExpanded}];
+zeeABScalarTerms=Select[zeeABTopLevel,!FreeQ[#,Hm[___]]&];
+zeeABGaugeTerms=Select[zeeABTopLevel,FreeQ[#,Hm[___]]&];
+Print["ZEE_E3_MAJORANA_AB_ZERO_TREE_TERM_COUNT ",
+ Length[zeeABTopLevel]];
+Print["ZEE_E3_MAJORANA_AB_ZERO_TREE_HM_TERM_COUNT ",
+ Length[zeeABScalarTerms]];
+Print["ZEE_E3_MAJORANA_AB_ZERO_TREE_W_TERM_COUNT ",
+ Length[zeeABGaugeTerms]];
+If[Length[zeeABScalarTerms]!=2||Length[zeeABGaugeTerms]!=2,
+ zeeABSetStatus["MAJORANA_AB_UNEXPECTED_SIGMAS_ZERO_TREE_DIAGRAMS"];
+ Exit[20]];
+zeeABScalarExpression=Total[zeeABScalarTerms];
+zeeABGaugeExpression=Total[zeeABGaugeTerms];
+
+(* A requested SARAH vertex is cached by its exact field ordering,
+   generation labels and chirality. No dummy global a/b/k variables. *)
+Clear[zeeABStoredVertex];
+zeeABStoredVertex[zeeABKind_String,zeeABNu_Integer,
+ zeeABLep_Integer,zeeABState_Integer,zeeABProj_]:=
+ zeeABStoredVertex[zeeABKind,zeeABNu,zeeABLep,
+   zeeABState,zeeABProj]=Module[
+ {zeeABFields,zeeABVtx,zeeABChiral},
+ zeeABFields=Switch[zeeABKind,
+  "hm",{Fv[{zeeABNu}],bar[Fe[{zeeABLep}]],
+       Hm[{zeeABState}]},
+  "hmConj",{Fv[{zeeABNu}],conj[Hm[{zeeABState}]],
+       Fe[{zeeABLep}]},
+  "wm",{Fv[{zeeABNu}],bar[Fe[{zeeABLep}]],VWm},
+  "wmConj",{Fv[{zeeABNu}],conj[VWm],Fe[{zeeABLep}]},
+  _,Return[$Failed]];
+ zeeABVtx=CheckAbort[
+  SARAH@BT@Vertex[zeeABFields,Eigenstates->EWSB],$Aborted];
+ If[zeeABVtx===0,Return[0]];
+ If[zeeABVtx===$Aborted||!ListQ[zeeABVtx]||
+  Length[zeeABVtx]<2,
+  Print["FAIL MAJORANA_AB_VERTEX ",InputForm[zeeABFields],
+    " value=",InputForm[zeeABVtx]];Return[$Failed]];
+ zeeABChiral=Cases[Rest[zeeABVtx],
+  {zeeABExpression_,zeeABLorentz_}/;
+   zeeABLorentz===zeeABProj:>zeeABExpression,{1}];
+ If[Length[zeeABChiral]!=1,
+  Print["FAIL MAJORANA_AB_VERTEX_CHIRALITY ",
+   InputForm[zeeABFields]," ",InputForm[zeeABVtx]];
+  Return[$Failed]];
+ First[zeeABChiral]
+];
+
+zeeABMixingMatrix[zeeABBeta_?NumericQ,
+ zeeABGamma_?NumericQ]:=N[{
+ {Cos[zeeABBeta],Sin[zeeABBeta],0},
+ {-Sin[zeeABBeta]*Cos[zeeABGamma],
+   Cos[zeeABBeta]*Cos[zeeABGamma],Sin[zeeABGamma]},
+ {Sin[zeeABBeta]*Sin[zeeABGamma],
+   -Cos[zeeABBeta]*Sin[zeeABGamma],Cos[zeeABGamma]}
+}];
+
+zeeABEvaluateVertex[zeeABVertex_,zeeABCase_Association]:=
+ Module[{zeeABValue,zeeABFF,zeeABYe,zeeABYe2,zeeABZP,
+ zeeABMasses,zeeABBeta,zeeABv},
+ If[zeeABVertex===$Failed,Return[$Failed]];
+ zeeABFF=zeeABCase["FSARAH"];
+ zeeABYe=zeeABCase["YeSARAH"];
+ zeeABYe2=zeeABCase["Ye2SARAH"];
+ zeeABBeta=zeeABCase["Beta"];zeeABv=zeeABCase["V"];
+ zeeABZP=zeeABMixingMatrix[zeeABBeta,zeeABCase["Gamma"]];
+ zeeABValue=zeeABVertex //.
+  HoldPattern[sum[zeeABIndex_,zeeABLo_Integer,
+    zeeABHi_Integer,zeeABBody_]]:>
+   Total[Table[zeeABBody,{zeeABIndex,zeeABLo,zeeABHi}]];
+ zeeABValue=zeeABValue/.{
+  Fzee[zeeABRow_Integer,zeeABCol_Integer]:>
+   zeeABFF[[zeeABRow,zeeABCol]],
+  Ye[zeeABRow_Integer,zeeABCol_Integer]:>
+   zeeABYe[[zeeABRow,zeeABCol]],
+  Ye2[zeeABRow_Integer,zeeABCol_Integer]:>
+   zeeABYe2[[zeeABRow,zeeABCol]],
+  ZP[zeeABRow_Integer,zeeABCol_Integer]:>
+   zeeABZP[[zeeABRow,zeeABCol]],
+  Ve[zeeABRow_Integer,zeeABCol_Integer]:>
+   KroneckerDelta[zeeABRow,zeeABCol],
+  Ue[zeeABRow_Integer,zeeABCol_Integer]:>
+   KroneckerDelta[zeeABRow,zeeABCol],
+  v1->zeeABv*Cos[zeeABBeta],
+  v2->zeeABv*Sin[zeeABBeta],
+  g2->2*zeeABMW/zeeABv
+ };
+ zeeABValue=zeeABValue/.
+  HoldPattern[conj[zeeABNumber_?NumericQ]]:>
+  Conjugate[zeeABNumber];
+ N[zeeABValue]
+];
+zeeABGetNumCp[zeeABKind_String,zeeABNu_Integer,
+ zeeABLep_Integer,zeeABState_Integer,
+ zeeABProj_,zeeABCase_Association]:=
+ zeeABEvaluateVertex[
+  zeeABStoredVertex[zeeABKind,zeeABNu,zeeABLep,
+   zeeABState,zeeABProj],zeeABCase];
+
+(* Finite dimensional regularization B0 at p^2=0. The difference
+   of the two physical Hm terms must be Q-independent; the
+   divergent universal UV pole is not put back by hand. *)
+zeeABFiniteB0[zeeABArg1_?NumericQ,
+ zeeABArg2_?NumericQ,zeeABScale_?NumericQ]:=
+ Module[{zeeABOne=N[zeeABArg1],zeeABTwo=N[zeeABArg2],
+  zeeABQ2=N[zeeABScale^2]},
+ If[zeeABOne<=0||zeeABTwo<=0,Return[$Failed]];
+ If[Abs[zeeABOne-zeeABTwo]<
+   1.*^-10 Max[zeeABOne,zeeABTwo],
+  N[-Log[zeeABOne/zeeABQ2]],
+  N[1-(zeeABOne Log[zeeABOne/zeeABQ2]-
+    zeeABTwo Log[zeeABTwo/zeeABQ2])/
+     (zeeABOne-zeeABTwo)]]
+ ];
+
+(* Numeric substitution of a generated CP-containing term.
+   External indices and both internal sums are explicitly expanded
+   BEFORE substituting numerical EWSB vertex coefficients.
+   Any unsupported Cp ordering is left unevaluated and causes a
+   fail-closed nonnumerical status, never an invented zero. *)
+zeeABEvaluateSigma[zeeABExpr_,zeeABI_Integer,
+ zeeABJ_Integer,zeeABCase_Association,
+ zeeABScale_?NumericQ,zeeABrMS_Integer]:=
+ Module[{zeeABResult,zeeABM,zeeABHmass},
+ zeeABM=zeeABCase["LeptonMasses"];
+ zeeABHmass={zeeABMW,
+   zeeABCase["M1"],zeeABCase["M2"]};
+ zeeABResult=zeeABExpr/.{gO1->zeeABI,gO2->zeeABJ};
+ zeeABResult=zeeABResult //.
+  HoldPattern[sum[zeeABIndex_,zeeABLo_Integer,
+    zeeABHi_Integer,zeeABBody_]]:>
+   Total[Table[zeeABBody,{zeeABIndex,zeeABLo,zeeABHi}]];
+ zeeABResult=zeeABResult/.{
+  Mass[Fe[{zeeABIndex_Integer}]]:>zeeABM[[zeeABIndex]],
+  Mass2[Fe[{zeeABIndex_Integer}]]:>
+     zeeABM[[zeeABIndex]]^2,
+  Mass2[Hm[{zeeABIndex_Integer}]]:>
+     zeeABHmass[[zeeABIndex]]^2,
+  Mass2[VWm]->zeeABMW^2,
+  p->0,rMS->zeeABrMS
+ };
+ zeeABResult=zeeABResult/.
+  HoldPattern[B0[zeeABP_,zeeABA_?NumericQ,
+    zeeABB_?NumericQ]]:>
+    zeeABFiniteB0[zeeABA,zeeABB,zeeABScale];
+ zeeABResult=zeeABResult/.{
+  HoldPattern[Cp[Fv[{zeeABNu_Integer}],
+    bar[Fe[{zeeABLep_Integer}]],
+    Hm[{zeeABState_Integer}]][zeeABProj_]]:>
+   zeeABGetNumCp["hm",zeeABNu,zeeABLep,
+    zeeABState,zeeABProj,zeeABCase],
+  HoldPattern[Cp[Fv[{zeeABNu_Integer}],
+    conj[Hm[{zeeABState_Integer}]],
+    Fe[{zeeABLep_Integer}]][zeeABProj_]]:>
+   zeeABGetNumCp["hmConj",zeeABNu,zeeABLep,
+    zeeABState,zeeABProj,zeeABCase],
+  HoldPattern[Cp[Fv[{zeeABNu_Integer}],
+    bar[Fe[{zeeABLep_Integer}]],
+    VWm][zeeABProj_]]:>
+   zeeABGetNumCp["wm",zeeABNu,zeeABLep,
+    0,zeeABProj,zeeABCase],
+  HoldPattern[Cp[Fv[{zeeABNu_Integer}],
+    conj[VWm],Fe[{zeeABLep_Integer}]][zeeABProj_]]:>
+   zeeABGetNumCp["wmConj",zeeABNu,zeeABLep,
+    0,zeeABProj,zeeABCase]
+ };
+ zeeABResult=zeeABResult/.
+  HoldPattern[conj[zeeABNumber_?NumericQ]]:>
+  Conjugate[zeeABNumber];
+ N[zeeABResult]
+];
+
+zeeABMatrix[zeeABExpr_,zeeABCase_Association,
+ zeeABScale_?NumericQ,zeeABrMS_Integer]:=
+ Table[zeeABEvaluateSigma[zeeABExpr,zeeABI,zeeABJ,
+   zeeABCase,zeeABScale,zeeABrMS],
+ {zeeABI,1,3},{zeeABJ,1,3}];
+
+(* Null tests modify only the physically relevant Lagrangian
+   parameters, not the stored Chen reference matrix. *)
+zeeABNullCases[zeeABCase_Association]:=Module[
+ {zeeABFNull,zeeABMixNull,zeeABYNull,zeeABAlign,
+  zeeABBeta=zeeABCase["Beta"],zeeABv=zeeABCase["V"]},
+ zeeABFNull=Association[zeeABCase,
+   "FSARAH"->ConstantArray[0.+0.I,{3,3}]];
+ zeeABMixNull=Association[zeeABCase,"Gamma"->0.];
+ zeeABAlign=DiagonalMatrix[
+  Sqrt[2]*zeeABCase["LeptonMasses"]/zeeABv];
+ zeeABYNull=Association[zeeABCase,
+  "YeSARAH"->Cos[zeeABBeta]*zeeABAlign,
+  "Ye2SARAH"->Sin[zeeABBeta]*zeeABAlign];
+ {{"f_zero",zeeABFNull},
+  {"gamma_zero",zeeABMixNull},
+  {"nonvev_Y_zero",zeeABYNull}}
+];
+
+zeeABMatrixResults={};zeeABMatrixErrors={};
+zeeABMatrixNumericQ[zeeABValue_]:=
+ MatrixQ[zeeABValue,NumericQ] &&
+ Dimensions[zeeABValue]==={3,3};
+
+Do[
+ Module[{zeeABCase=zeeE3Cases[[zeeABCaseIdx]],
+  zeeABRaw,zeeABScalar,zeeABGauge,zeeABScaleTest,
+  zeeABrMSTest,zeeABNullValue,zeeABNullData,
+  zeeABRef,zeeABPrefactor,zeeABPlus,zeeABMinus,
+  zeeABSymResidual,zeeABScaleResidual,
+  zeeABGaugeResidual,zeeABrMSResidual,
+  zeeABResidualPlus,zeeABResidualMinus,
+  zeeABResidualConjPlus,zeeABResidualConjMinus},
+ Print["ZEE_E3_MAJORANA_NUMERIC_CASE_BEGIN ",
+  zeeABCase["Label"]];
+ zeeABRaw=zeeABMatrix[zeeABNuMassZeroSigmaS,
+  zeeABCase,100.,0];
+ zeeABScalar=zeeABMatrix[zeeABScalarExpression,
+  zeeABCase,100.,0];
+ zeeABGauge=zeeABMatrix[zeeABGaugeExpression,
+  zeeABCase,100.,0];
+ zeeABScaleTest=zeeABMatrix[zeeABNuMassZeroSigmaS,
+  zeeABCase,1000.,0];
+ zeeABrMSTest=zeeABMatrix[zeeABNuMassZeroSigmaS,
+  zeeABCase,100.,1];
+ If[!And@@(zeeABMatrixNumericQ/@{
+   zeeABRaw,zeeABScalar,zeeABGauge,zeeABScaleTest,
+   zeeABrMSTest}),
+   Print["FAIL MAJORANA_AB_NONNUMERIC_SIGMAS ",
+    InputForm[zeeABRaw]];
+   zeeABSetStatus["MAJORANA_AB_NUMERIC_SIGMAS_NOT_RESOLVED"];
+   Exit[21]];
+ zeeABPrefactor=10.^9/(16 Pi^2);
+ zeeABRef=zeeABCase["FiniteMnuEV"];
+ zeeABPlus=N[zeeABPrefactor*zeeABRaw];
+ zeeABMinus=-zeeABPlus;
+ zeeABSymResidual=Max[Abs[Flatten[
+   zeeABRaw-Transpose[zeeABRaw]]]];
+ zeeABScaleResidual=Max[Abs[Flatten[
+   zeeABRaw-zeeABScaleTest]]];
+ zeeABGaugeResidual=Max[Abs[Flatten[zeeABGauge]]];
+ zeeABrMSResidual=Max[Abs[Flatten[
+   zeeABRaw-zeeABrMSTest]]];
+ zeeABResidualPlus=Max[Abs[Flatten[
+   zeeABPlus-zeeABRef]]];
+ zeeABResidualMinus=Max[Abs[Flatten[
+   zeeABMinus-zeeABRef]]];
+ zeeABResidualConjPlus=Max[Abs[Flatten[
+   Conjugate[zeeABPlus]-zeeABRef]]];
+ zeeABResidualConjMinus=Max[Abs[Flatten[
+   Conjugate[zeeABMinus]-zeeABRef]]];
+ Print["ZEE_E3_MAJORANA_NUMERIC_CASE ",zeeABCase["Label"],
+  " MNU_RAW=",InputForm[zeeABRaw],
+  " SARAH_PLUS_EV=",InputForm[zeeABPlus],
+  " REFERENCE_E3_FINITE_EV=",InputForm[zeeABRef]];
+ Print["ZEE_E3_MAJORANA_NUMERIC_RESIDUALS ",
+  zeeABCase["Label"],
+  " SYMMETRY_GEV=",InputForm[zeeABSymResidual],
+  " SCALE_GEV=",InputForm[zeeABScaleResidual],
+  " W_GAUGE_GEV=",InputForm[zeeABGaugeResidual],
+  " SCHEME_GEV=",InputForm[zeeABrMSResidual],
+  " E3_PLUS_EV=",InputForm[zeeABResidualPlus],
+  " E3_MINUS_EV=",InputForm[zeeABResidualMinus],
+  " E3_CONJ_PLUS_EV=",InputForm[zeeABResidualConjPlus],
+  " E3_CONJ_MINUS_EV=",InputForm[zeeABResidualConjMinus]];
+ AppendTo[zeeABMatrixResults,
+  {zeeABCase["Label"],"raw",zeeABRaw,
+   "scalar",zeeABScalar,"gauge",zeeABGauge,
+   "reference",zeeABRef,
+   "plus",zeeABPlus}];
+ (* The four diagnostics with signs/conjugations expose
+    potential convention discrepancies but NEVER pick the smallest
+    as the declared physical answer. *)
+ If[Max[{zeeABSymResidual,zeeABScaleResidual,
+  zeeABGaugeResidual,zeeABrMSResidual}]>1.*^-9,
+  AppendTo[zeeABMatrixErrors,
+   "structure_or_null_"<>zeeABCase["Label"]]];
+ Do[
+  zeeABNullValue=zeeABMatrix[zeeABNuMassZeroSigmaS,
+   zeeABNull[[2]],100.,0];
+  If[!zeeABMatrixNumericQ[zeeABNullValue],
+   Print["FAIL MAJORANA_AB_NULL_NONNUMERIC ",
+    zeeABCase["Label"],"/",zeeABNull[[1]]];
+   AppendTo[zeeABMatrixErrors,
+    "null_not_numeric_"<>zeeABCase["Label"]<>"/"<>zeeABNull[[1]]],
+   Print["ZEE_E3_MAJORANA_NULL_RESULT ",
+     zeeABCase["Label"],"/",zeeABNull[[1]],
+     " MAX_GEV=",InputForm[Max[
+     Abs[Flatten[zeeABNullValue]]]]];
+   If[Max[Abs[Flatten[zeeABNullValue]]]>1.*^-9,
+    AppendTo[zeeABMatrixErrors,
+     "null_nonzero_"<>zeeABCase["Label"]<>"/"<>zeeABNull[[1]]]]],
+  {zeeABNull,zeeABNullCases[zeeABCase]}];
+ ],{zeeABCaseIdx,Length[zeeE3Cases]}
+];
+Export[zeeABNumericalReport,
+ StringRiffle[
+  (ToString[InputForm[#]]&/@zeeABMatrixResults),"\n\n"]<>
+  "\nFAILURE_LABELS="<>ToString[InputForm[zeeABMatrixErrors]]<>"\n",
+ "Text"];
+Print["ZEE_E3_MAJORANA_NUMERIC_REPORT ",zeeABNumericalReport];
+Print["ZEE_E3_MAJORANA_NUMERIC_FAILURE_LABELS ",
+ InputForm[zeeABMatrixErrors]];
+Print["ZEE_E3_MAJORANA_NUMERIC_MNU_INDEPENDENTLY_MATCHED False"];
+If[Length[zeeABMatrixErrors]>0,
+ zeeABSetStatus["MAJORANA_AB_NUMERIC_MATRIX_STRUCTURE_OR_NULL_FAILURE"];
+ Exit[22]];
+(* A successful status here certifies only evaluated raw diagrams
+   plus independent null tests; a physical Majorana-sign convention
+   must still be fixed before declaring E3 matching. *)
+zeeABSetStatus[
+ "MAJORANA_AB_NUMERIC_SIGMAS_AND_NULLS_PASS_E3_SIGN_UNVALIDATED"];
+Exit[0];
+
 (* Critical: a new four-component representation changes which
    charge-conjugated contractions SARAH generates; only explicit
    flavor- and complex-phase comparison can certify the Majorana Mnu. *)
