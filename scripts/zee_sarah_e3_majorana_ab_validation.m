@@ -471,6 +471,56 @@ zeeABNullCases[zeeABCase_Association]:=Module[
   {"nonvev_Y_zero",zeeABYNull}}
 ];
 
+(* Independent complex phase convention check at the level of
+   SARAH's PHYSICAL vertices. The Lagrangian terms determine
+      Cp[Fv_i,bar[Fe_l],Hm_k][PL]  = -i D_{l i k}
+      Cp[Fv_i,bar[Fe_l],Hm_k][PR]  = -i (f_{i l})* ZP[k,3]
+      Cp[Fv_i,conj[Hm_k],Fe_l][PL]= -i f_{i l} ZP[k,3]
+      Cp[Fv_i,conj[Hm_k],Fe_l][PR]= -i (D_{l i k})*
+   where D_{l i k}=ZP[k,1] Ye_{l i}+ZP[k,2] Ye2_{l i}.
+   The explicit conjugation on PR in the first orientation
+   explains why the SARAH SigmaS matrix has conjugated complex
+   Yukawas relative to the E3 f*M_l*Y convention.
+   The sign of the on-shell Majorana mass still depends on
+   whether SigmaS enters the inverse propagator as +Sigma
+   or -Sigma; this script reports the -Conjugate mapping as
+   a physical-CONVENTION hypothesis, not a fitted correction. *)
+zeeABCheckVertexOrientation[zeeABCase_Association]:=Module[
+ {zeeABMix=zeeABMixingMatrix[
+    zeeABCase["Beta"],zeeABCase["Gamma"]],
+  zeeABF=zeeABCase["FSARAH"],
+  zeeABY1=zeeABCase["YeSARAH"],
+  zeeABY2=zeeABCase["Ye2SARAH"],
+  zeeABMax=0.,zeeABCount=0,
+  zeeABD,zeeABValues,zeeABExpected,zeeABDeltas},
+ Do[
+  zeeABD=zeeABMix[[kk,1]]*zeeABY1[[ll,ii]]+
+      zeeABMix[[kk,2]]*zeeABY2[[ll,ii]];
+  zeeABValues={
+    zeeABGetNumCp["hm",ii,ll,kk,PL,zeeABCase],
+    zeeABGetNumCp["hm",ii,ll,kk,PR,zeeABCase],
+    zeeABGetNumCp["hmConj",ii,ll,kk,PL,zeeABCase],
+    zeeABGetNumCp["hmConj",ii,ll,kk,PR,zeeABCase]};
+  zeeABExpected={
+   -I*zeeABD,
+   -I*Conjugate[zeeABF[[ii,ll]]]*zeeABMix[[kk,3]],
+   -I*zeeABF[[ii,ll]]*zeeABMix[[kk,3]],
+   -I*Conjugate[zeeABD]};
+  If[!VectorQ[zeeABValues,NumericQ],
+   Print["FAIL MAJORANA_AB_COMPLEX_VERTEX_NONNUMERIC ",
+     InputForm[{ii,ll,kk,zeeABValues}]];
+   Return[$Failed]];
+  zeeABDeltas=Abs[zeeABValues-zeeABExpected];
+  zeeABMax=Max[zeeABMax,Max[zeeABDeltas]];
+  zeeABCount+=Length[zeeABValues],
+ {ii,1,3},{ll,1,3},{kk,{2,3}}];
+ Print["ZEE_E3_MAJORANA_COMPLEX_VERTEX_CONVENTIONS ",
+   zeeABCase["Label"]," COUNT=",zeeABCount,
+   " MAX_RESIDUAL=",InputForm[zeeABMax]];
+ If[zeeABCount!=72||zeeABMax>1.*^-12,Return[$Failed]];
+ {zeeABCount,zeeABMax}
+];
+
 zeeABMatrixResults={};zeeABMatrixErrors={};
 zeeABMatrixNumericQ[zeeABValue_]:=
  MatrixQ[zeeABValue,NumericQ] &&
@@ -484,9 +534,16 @@ Do[
   zeeABSymResidual,zeeABScaleResidual,
   zeeABGaugeResidual,zeeABrMSResidual,
   zeeABResidualPlus,zeeABResidualMinus,
-  zeeABResidualConjPlus,zeeABResidualConjMinus},
+  zeeABResidualConjPlus,zeeABResidualConjMinus,
+  zeeABVertexConventions,zeeABCanonicalResidual,
+  zeeABReferenceScale},
  Print["ZEE_E3_MAJORANA_NUMERIC_CASE_BEGIN ",
   zeeABCase["Label"]];
+ zeeABVertexConventions=zeeABCheckVertexOrientation[zeeABCase];
+ If[zeeABVertexConventions===$Failed,
+   zeeABSetStatus["MAJORANA_AB_COMPLEX_VERTEX_PHASE_CONVENTION_MISMATCH"];
+   Exit[23]];
+
  zeeABRaw=zeeABMatrix[zeeABNuMassZeroSigmaS,
   zeeABCase,100.,0];
  zeeABScalar=zeeABMatrix[zeeABScalarExpression,
@@ -523,6 +580,24 @@ Do[
    Conjugate[zeeABPlus]-zeeABRef]]];
  zeeABResidualConjMinus=Max[Abs[Flatten[
    Conjugate[zeeABMinus]-zeeABRef]]];
+ (* The convention comparison is FIXED, not a minimum over signs.
+    From the explicit chiral-coupling identities checked above,
+    SigmaS is the charge-conjugated matrix in SARAH conventions.
+    We report the inverse-propagator minus sign separately and
+    still require an independent phase/sigma-sign derivation
+    before labeling a physical neutrino mass implementation. *)
+ zeeABCanonicalResidual=Max[Abs[Flatten[
+   -Conjugate[zeeABPlus]-zeeABRef]]];
+ zeeABReferenceScale=Max[Abs[Flatten[zeeABRef]]];
+ Print["ZEE_E3_MAJORANA_FIXED_NEGCONJ_COMPARISON ",
+  zeeABCase["Label"],
+  " ABS_RESIDUAL_EV=",InputForm[zeeABCanonicalResidual],
+  " REL_RESIDUAL=",InputForm[
+    zeeABCanonicalResidual/Max[zeeABReferenceScale,1.*^-12]]];
+ If[zeeABCanonicalResidual>5.*^-11,
+  AppendTo[zeeABMatrixErrors,
+   "fixed_negconj_E3_reference_residual_"<>zeeABCase["Label"]]];
+
  If[Max[Abs[Flatten[zeeABPlus]]]<1.*^-4,
    AppendTo[zeeABMatrixErrors,
     "nonzero_Zee_signal_not_detected_"<>zeeABCase["Label"]]];
@@ -589,6 +664,6 @@ If[Length[zeeABMatrixErrors]>0,
    plus independent null tests; a physical Majorana-sign convention
    must still be fixed before declaring E3 matching. *)
 zeeABSetStatus[
- "MAJORANA_AB_NUMERIC_SIGMAS_AND_NULLS_PASS_E3_SIGN_UNVALIDATED"];
+ "MAJORANA_AB_SARAH_3X3_FINITE_B0_NEGCONJ_MATCH_PHASE_SIGN_DERIVATION_PENDING"];
 Exit[0];
 
