@@ -6,6 +6,9 @@ on:
       - 'scripts/zee_paper1_florentino_feasibility_scan.py'
       - 'scripts/zee_paper1_scan_one_shot.sh'
       - 'tests/test_zee_paper1_florentino_feasibility_scan.py'
+      - 'scripts/zee_paper1_F10_six_new_two_charged_legacy_bsgamma.py'
+      - 'scripts/zee_paper1_F10_six_legacy_one_shot.sh'
+      - 'tests/test_zee_paper1_F10_six_new_two_charged_legacy_bsgamma.py'
       - '.github/workflows/zee-paper1-feasibility.yml'
   workflow_dispatch:
 jobs:
@@ -21,6 +24,8 @@ jobs:
       - run: python -m py_compile scripts/zee_paper1_florentino_feasibility_scan.py tests/test_zee_paper1_florentino_feasibility_scan.py
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_florentino_feasibility_scan.py' -v
       - run: bash -n scripts/zee_paper1_scan_one_shot.sh
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F10_six_new_two_charged_legacy_bsgamma.py' -v
+      - run: bash -n scripts/zee_paper1_F10_six_legacy_one_shot.sh
       - name: Real one-spectrum numerical smoke (not an exclusion)
         run: |
           python -u scripts/zee_paper1_florentino_feasibility_scan.py \
