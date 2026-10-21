@@ -683,6 +683,7 @@ Print["ZEE_E3_MAJORANA_NUMERIC_MNU_INDEPENDENTLY_MATCHED False"];
 If[Length[zeeABMatrixErrors]>0,
  zeeABSetStatus["MAJORANA_AB_NUMERIC_MATRIX_STRUCTURE_OR_NULL_FAILURE"];
  Exit[22]];
+Print["ZEE_E3_MAJORANA_SARAH_GENERATED_COMPLEX_3X3_EVALUATED True"];
 Print["ZEE_E3_MAJORANA_NEGCONJ_AGREEMENT_ONLY_FIXED_REFERENCE True"];
 (* A successful status here certifies only evaluated raw diagrams
    plus independent null tests; a physical Majorana-sign convention
