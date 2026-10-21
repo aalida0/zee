@@ -7,6 +7,7 @@ if [[ ! -f "$ZEE_F16_DIR/F16_three_exact_F13_Zee_SARAH_charged_vertices.m" ]]; t
   echo "F16_MISSING_EXACT_THREE_F13_FIXTURE" >&2
   exit 2
 fi
+python3 scripts/zee_paper1_F16_verify_AF_to_local_bundle.py --directory "$ZEE_F16_DIR"
 if ! command -v math >/dev/null 2>&1; then
   echo "F16_LOCAL_MATHEMATICA_KERNEL_MISSING" >&2
   exit 3
