@@ -6,6 +6,10 @@ on:
       - 'scripts/zee_paper1_F16_exact_F13_SARAH_vertex_fixtures.py'
       - 'scripts/zee_paper1_F16_SARAH_three_heavy_vertex_audit.m'
       - 'scripts/zee_paper1_F16_AF_exact_SARAH_one_shot.sh'
+      - 'scripts/zee_paper1_F16_local_SARAH_three_heavy_one_shot.sh'
+      - 'scripts/zee_paper1_F16_SARAH_MakeUFO_after_vertex_gate.m'
+      - 'scripts/zee_paper1_F16_verify_AF_to_local_bundle.py'
+      - 'tests/test_zee_paper1_F16_AF_to_local_bundle_provenance.py'
       - 'tests/test_zee_paper1_F16_exact_SARAH_three_width_handoff.py'
       - '.github/workflows/zee-paper1-f16-sarah-width.yml'
   workflow_dispatch:
@@ -22,3 +26,5 @@ jobs:
       - run: python -m py_compile scripts/zee_paper1_F16_exact_F13_SARAH_vertex_fixtures.py tests/test_zee_paper1_F16_exact_SARAH_three_width_handoff.py
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F16_exact_SARAH_three_width_handoff.py' -v
       - run: bash -n scripts/zee_paper1_F16_AF_exact_SARAH_one_shot.sh
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F16_AF_to_local_bundle_provenance.py' -v
+      - run: bash -n scripts/zee_paper1_F16_local_SARAH_three_heavy_one_shot.sh
