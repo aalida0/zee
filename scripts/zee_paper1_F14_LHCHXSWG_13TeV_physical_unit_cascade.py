@@ -35,7 +35,7 @@ SELECT="F13_selected_priority_scalar_2026LO_NOT_ALLOWED.csv"
 RANKED="F13_ranked_heavy_neutrino_LFV_2026Eq4_NOT_ALLOWED.csv"
 ALL="F13_all_heavy_scalar_2026LO_flavor_screen_NOT_ALLOWED.csv"
 OUTNAME="F14_8_F13_13TeV_TypeII_XS_times_generalZee_included_cascade_NOT_FULL_SIGMA.csv"
-NONFITTED="F14_minimum_Bsgamma_Z_control_without_lepton_fit_NOT_FULL_SIGMA.csv"
+NONFITTED="F14_minimum_Bsgamma_Z_control_without_lepton_fit_NOT_FULL_SIGMA.json"
 GRID_REFERENCE="LHCHXSWG YR4 Santander matched Type-II, 2016-02-05"
 GRID_URL=("https://twiki.cern.ch/twiki/pub/LHCPhysics/"
           "LHCHWGMSSMCharged/mflechl_xsec_13TeV_tHp_2016_2_5.txt")
