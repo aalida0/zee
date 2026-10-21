@@ -543,6 +543,48 @@ zeeABCheckVertexOrientation[zeeABCase_Association]:=Module[
  {zeeABCount,zeeABMax}
 ];
 
+(* AMPLITUDE-LEVEL DERIVATION FROM SARAH LOOP ENGINE.
+   Upstream Package/loopCorrections.m AddLoopFermion defines for FFS
+       SigmaS_raw = m_internal Cp[...][PR] conj[Cp[...][PL]] B0
+   and multiplies by 2 for self-conjugate external particles.
+   SARAH's generated two charged-scalar orientations each carry
+   symmetry factor 1/2, hence 2*(1/2)=1 FOR EACH orientation.
+   This routine reconstructs SigmaS from the SARAH-extracted
+   PHYSICAL charged vertices, not the Chen f*M_l*Y reference.
+   The two charged Higgses are indexed 2 and 3; index 1 is Goldstone.
+   A mismatch in the Majorana factor, chiral order, or charged scalar
+   sign now produces a fail-closed numerical result. *)
+zeeABAmplitudeFromCp[zeeABCase_Association,
+ zeeABScale_?NumericQ]:=Module[
+ {zeeABMasses=zeeABCase["LeptonMasses"],
+  zeeABHMasses={0.,zeeABCase["M1"],zeeABCase["M2"]},
+  zeeABMat=ConstantArray[0.+0.I,{3,3}],
+  zeeABMass,zeeABB0,zeeABFFS1,zeeABFFS2},
+ Do[
+  zeeABMass=zeeABMasses[[ell]];
+  zeeABB0=zeeABFiniteB0[zeeABMass^2,
+   zeeABHMasses[[kk]]^2,zeeABScale];
+  zeeABFFS1=
+   zeeABGetNumCp["hm",ii,ell,kk,PR,zeeABCase]*
+   Conjugate[zeeABGetNumCp["hm",jj,ell,kk,PL,zeeABCase]];
+  zeeABFFS2=
+   zeeABGetNumCp["hmConj",ii,ell,kk,PR,zeeABCase]*
+   Conjugate[zeeABGetNumCp["hmConj",jj,ell,kk,PL,zeeABCase]];
+  zeeABMat[[ii,jj]]+=zeeABMass*zeeABB0*
+   (zeeABFFS1+zeeABFFS2),
+  {ii,1,3},{jj,1,3},{ell,1,3},{kk,{2,3}}];
+ N[zeeABMat]
+];
+(* Mixing unitarity fixes the sign of the finite B0 difference:
+   ZP[H1,3] ZP[H1,D]=sin(gamma)cos(gamma)
+   ZP[H2,3] ZP[H2,D]=-sin(gamma)cos(gamma).
+   Since B0fin(mH1)-B0fin(mH2) = -I_E3, the raw SARAH
+   SigmaS is -Conjugate[E3] for the stated f/Y convention,
+   irrespective of which benchmark was chosen.
+   This establishes the contraction sign; the physical Weyl
+   Majorana mass operator and external field rephasing still
+   require their own two-component spinor convention audit. *)
+
 zeeABMatrixResults={};zeeABMatrixErrors={};
 zeeABMatrixNumericQ[zeeABValue_]:=
  MatrixQ[zeeABValue,NumericQ] &&
@@ -558,7 +600,8 @@ Do[
   zeeABResidualPlus,zeeABResidualMinus,
   zeeABResidualConjPlus,zeeABResidualConjMinus,
   zeeABVertexConventions,zeeABCanonicalResidual,
-  zeeABReferenceScale},
+  zeeABReferenceScale,zeeABAmplitudeCp,
+  zeeABCpAmplitudeResidual},
  Print["ZEE_E3_MAJORANA_NUMERIC_CASE_BEGIN ",
   zeeABCase["Label"]];
  zeeABVertexConventions=zeeABCheckVertexOrientation[zeeABCase];
@@ -583,6 +626,22 @@ Do[
     InputForm[zeeABRaw]];
    zeeABSetStatus["MAJORANA_AB_NUMERIC_SIGMAS_NOT_RESOLVED"];
    Exit[21]];
+ zeeABAmplitudeCp=zeeABAmplitudeFromCp[zeeABCase,100.];
+ If[!zeeABMatrixNumericQ[zeeABAmplitudeCp],
+  Print["FAIL MAJORANA_AB_CP_LOOP_CONTRACTION_NONNUMERIC ",
+   zeeABCase["Label"]];
+  zeeABSetStatus["MAJORANA_AB_CP_LOOP_CONTRACTION_NONNUMERIC"];
+  Exit[25]];
+ zeeABCpAmplitudeResidual=Max[Abs[Flatten[
+  zeeABRaw-zeeABAmplitudeCp]]];
+ Print["ZEE_E3_MAJORANA_CP_LOOP_AMPLITUDE_DERIVATION ",
+  zeeABCase["Label"]," CP_PRODUCTS=2",
+  " MAJORANA_FACTOR=2",
+  " EACH_DIAGRAM_SYMMETRY=1/2",
+  " MAX_RAW_RESIDUAL_GEV=",InputForm[zeeABCpAmplitudeResidual]];
+ If[zeeABCpAmplitudeResidual>1.*^-16,
+  AppendTo[zeeABMatrixErrors,
+   "sarah_amplitude_factor_or_chirality_"<>zeeABCase["Label"]]];
  zeeABPrefactor=10.^9/(16 Pi^2);
  zeeABRef=zeeABCase["FiniteMnuEV"];
  zeeABPlus=N[zeeABPrefactor*zeeABRaw];
