@@ -1,0 +1,24 @@
+name: Zee F16 exact heavy scalar SARAH vertex fixture validation
+on:
+  push:
+    branches: [feature/global-scan-priority1]
+    paths:
+      - 'scripts/zee_paper1_F16_exact_F13_SARAH_vertex_fixtures.py'
+      - 'scripts/zee_paper1_F16_SARAH_three_heavy_vertex_audit.m'
+      - 'scripts/zee_paper1_F16_AF_exact_SARAH_one_shot.sh'
+      - 'tests/test_zee_paper1_F16_exact_SARAH_three_width_handoff.py'
+      - '.github/workflows/zee-paper1-f16-sarah-width.yml'
+  workflow_dispatch:
+jobs:
+  independently_rebuild_actual_heavy_Zee_neutrino_for_SARAH:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy
+      - run: python -m py_compile scripts/zee_paper1_F16_exact_F13_SARAH_vertex_fixtures.py tests/test_zee_paper1_F16_exact_SARAH_three_width_handoff.py
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F16_exact_SARAH_three_width_handoff.py' -v
+      - run: bash -n scripts/zee_paper1_F16_AF_exact_SARAH_one_shot.sh
