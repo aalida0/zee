@@ -1183,6 +1183,159 @@ This remains the existing integrated stage, not a new script.
 The optimized 309 E3 points and the full Zee flavor/global
 likelihood are still not certified.
 
+## 2026-10-21 — independent Majorana 3x3 loop result: numerical PASS in fixed convention
+
+The user locally reran the same Majorana A/B integrated \`SigmaS\`
+numerical stage after regenerating the E3 reference with the exact
+analytical finite B0 integral. SARAH 4.15.4 initialized the isolated
+\`ZeeTypeIIMajoranaAudit\` model, generated the 1-loop diagrams and
+physical vertices, and evaluated the complete complex symmetric 3x3
+neutrino scalar self-energy at two independent complex Yukawa
+realizations \`A1b_original\` and \`B2_second_null_root\`.
+These two Yukawa realizations share the *same targeted neutrino matrix*,
+but differ in charged-Higgs masses, mixing angle and flavor decomposition.
+
+Observed status:
+
+\`\`\`text
+MAJORANA_AB_SARAH_3X3_FINITE_B0_NEGCONJ_MATCH_PHASE_SIGN_DERIVATION_PENDING
+\`\`\`
+
+Observed acceptance diagnostics:
+
+\`\`\`text
+A1b:  72 complex physical vertices, max residual = 0
+B2:   72 complex physical vertices, max residual = 0
+A1b:  max abs[-Conjugate(M_SARAH) - M_E3] = 2.5084101472715546e-15 eV
+B2:   max abs[-Conjugate(M_SARAH) - M_E3] = 7.008283073000786e-16 eV
+A1b:  relative complex residual = 8.183918101628462e-14
+B2:   relative complex residual = 2.2863808155204075e-14
+A1b:  SigmaS matrix symmetry = 2.3120400991731073e-25 GeV
+B2:   SigmaS matrix symmetry = 1.2431919375586428e-24 GeV
+Both: W gauge-sector scalar self-energy = 0
+Both: renormalization scale variation <= 1.2652e-21 GeV
+Both: rMS scheme-switch variation = 0
+Both: f=0 and gamma=0 nulls = exactly 0
+Both: charged-mass-degenerate and YD=0 nulls <= 4.047e-21 GeV
+\`\`\`
+
+This result **numerically validates the independent, SARAH-generated
+one-loop mass-type self-energy** against the exact E3 finite kernel
+within a FIXED \`-Conjugate\` comparison convention at TWO complex
+synthetic Yukawa realizations. It does **not** by itself prove the
+corresponding relative field-phase/charge-conjugation choice is
+equivalent for CP-odd physical observables, and does not validate
+any of the E3 309 optimized candidate points or flavor likelihoods.
+
+The previous 120-point Gauss-Legendre reference was underresolved;
+the exact finite kernel eliminated an artificial ~3e-7 eV
+difference. The sign/conjugation relation was not selected by
+a best-of-four optimization in the latest test.
+
+### Independent amplitude-level sign/conjugation derivation (SARAH source)
+
+Source: upstream SARAH \`Package/loopCorrections.m\`,
+\`AddLoopFermion\`, \`FFS\` contribution:
+
+\`\`\`
+SigmaS_raw = Sum[m_internal * Cp[...][PR] *
+                 conj[Cp[...][PL]] * B0 * diagram_symmetry *
+                 diagram_coefficient]
+\`\`\`
+
+For a Majorana external \`Fv\`, \`AddLoopFermion\` multiplies by 2.
+Each of the two charge-conjugate FFS diagrams carries a factor 1/2:
+thus **2 × (1/2) = 1 per charged diagram orientation**. No
+additional factor 2 should be inserted.
+
+At the fixed diagonal lepton basis and real charged scalar mixings,
+the independently SARAH-validated vertices are
+
+\`\`\`
+gL(Fv_i,bar(Fe_l),Hm_k)       = -i * D_(l i,k)
+gR(Fv_i,bar(Fe_l),Hm_k)       = -i * conj(fSARAH_(i l)) * ZP_(k3)
+gL(Fv_i,conj(Hm_k),Fe_l)      = -i * fSARAH_(i l) * ZP_(k3)
+gR(Fv_i,conj(Hm_k),Fe_l)      = -i * conj(D_(l i,k))
+D_(l i,k) = ZP_(k1) Ye_(l i) + ZP_(k2) Ye2_(l i).
+\`\`\`
+
+Consequently the sum of the two physical FFS loop orientations is
+
+\`\`\`
+SigmaS_ij_raw = Sum_(l,k=H1,H2) [
+ m_l B0fin(0;m_l^2,m_Hk^2) ZP_(k3)
+ ( conj(fSARAH_(i l) D_(l j,k)) +
+   conj(fSARAH_(j l) D_(l i,k)) )
+].
+\`\`\`
+
+Write \`YD=-sin(beta)Ye+cos(beta)Ye2\`; the Goldstone-direction
+terms drop out of k=H1,H2. The charged scalar mixing satisfies
+
+\`\`\`
+ZP_(H1,3) ZP_(H1,D) = +sin(gamma)cos(gamma)
+ZP_(H2,3) ZP_(H2,D) = -sin(gamma)cos(gamma).
+\`\`\`
+
+By the *finite* Passarino-Veltman identity
+
+\`\`\`
+B0fin(m_l^2,mH1^2)-B0fin(m_l^2,mH2^2) =
+ - Integral_0^1 dx ln[(x*m_l^2+(1-x)*mH1^2) /
+                     (x*m_l^2+(1-x)*mH2^2)]
+ = -I_l,
+\`\`\`
+
+and the source conversions \`fSARAH=2*fE3\` and
+\`YD=sqrt(2)*Y_E3\`, the algebra gives
+
+\`\`\`
+SigmaS_ij^SARAH / (16*pi^2)
+  = -(sqrt(2) sin(2 gamma)/(16*pi^2))
+    Sum_l [m_l I_l (f_E3_(i l) Y_E3_(l j)
+                  + f_E3_(j l) Y_E3_(l i))]^*
+  = -Conjugate[(Mnu_E3)_ij].
+\`\`\`
+
+This derives the **self-energy contraction orientation** and
+the relative minus sign from SARAH's FFS rule, vertex chirality
+and finite B0 ordering—rather than simply fitting a sign after
+numerical evaluation.
+
+**Remaining field-theory distinction:** Conversion between a
+four-component \`SigmaS\` coefficient, the left-Weyl Majorana
+operator \`-1/2 nu_L^T C^{-1} Mnu nu_L + h.c.\`, and external
+charge-conjugation/field-phase conventions must still be
+documented to establish CP-sensitive observables. A common
+Majorana-field rephase can change an overall mass sign;
+complex conjugation is NOT generally an innocuous flavor
+rephase in the presence of CP violation. The intended production
+model still declares \`Fv->{vL,0}\`: the validated Majorana
+representation exists in an isolated test variant, not yet in
+the production SARAH source.
+
+To make the amplitude-level derivation independently testable,
+the existing large \`zee_sarah_e3_majorana_ab_validation.m\`
+has been extended again: its new \`zeeABAmplitudeFromCp\` evaluates
+the two FFS chirality products with SARAH's actual generated
+physical vertices and the independent analytic B0 function,
+without inserting \`f Ml Y\` or any E3 reference into the
+prediction. It compares this direct chiral contraction with
+the original SUMMED SARAH \`SigmaS\` matrix at both points.
+Any source Majorana factor, diagram factor or chirality error
+fails with \`sarah_amplitude_factor_or_chirality_...\`.
+This newly added check **has not yet been run locally**.
+
+The one command for that updated large numeric stage:
+
+\`\`\`bash
+cd ~/zee && git pull --ff-only
+math -script scripts/zee_sarah_e3_majorana_ab_validation.m \
+  2>&1 | tee work/sarah_zee/e3_majorana_ab_console.log
+grep -E 'CP_LOOP_AMPLITUDE_DERIVATION|FIXED_NEGCONJ|STATUS|FAIL' \
+  work/sarah_zee/e3_majorana_ab_console.log
+\`\`\`
+
 ## Unresolved physics / blockers
 
 1. Check the SU(2) dot contraction and sign of the Zee trilinear in SARAH
