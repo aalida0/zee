@@ -1326,6 +1326,14 @@ Any source Majorana factor, diagram factor or chirality error
 fails with \`sarah_amplitude_factor_or_chirality_...\`.
 This newly added check **has not yet been run locally**.
 
+The integrated gate additionally compares the three neutrino
+Takagi singular masses of the SARAH and E3 complex matrices,
+a check invariant under the overall mass sign and complex
+conjugation. This tests physical neutrino mass magnitudes
+without pretending to resolve CP-odd Majorana phases.
+It prints `ZEE_E3_MAJORANA_MASS_SINGULAR_VALUES`
+and fails if the mass-spectrum residual exceeds 5e-11 eV.
+
 The one command for that updated large numeric stage:
 
 \`\`\`bash
