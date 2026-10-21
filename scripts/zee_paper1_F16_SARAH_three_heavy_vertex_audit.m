@@ -147,7 +147,7 @@ Do[
     " lepRel="<>ToString[InputForm[relL]]<>
     " lepMassGeV="<>ToString[InputForm[lepDiff]]];
  If[mErr>1.*^-5||relB>1.*^-7||relL>5.*^-7||lepDiff>1.*^-9,
-    AppendTo[fails,id<>"/vertex_or_mass_mismatch"]],
+    AppendTo[fails,id<>"/vertex_or_mass_mismatch"]]],
  {o,zeeF16Cases}];
 If[Length[fails]>0,
  Print["F16_SARAH_FAILURES ",InputForm[fails]];
