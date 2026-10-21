@@ -214,7 +214,7 @@ def build_case(name,row,rec,proof):
       '"YeSARAH" -> '+wlmatrix(matrices["YeSARAH"]),
       '"Ye2SARAH" -> '+wlmatrix(matrices["Ye2SARAH"]),
       '"YChen" -> '+wlmatrix(matrices["YChen"]),
-      '"LeptonMasses" -> '{'+','.join(wlreal(z) for z in
+      '"LeptonMasses" -> {'+','.join(wlreal(z) for z in
                                  (ME,MMU,MTAU))+'}',
       '"LeptonicWidths" -> '+wlmatrix(
              [[b3["leptonic_widths_GeV"][state][lept] for state in
