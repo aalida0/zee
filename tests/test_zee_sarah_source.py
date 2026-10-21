@@ -253,9 +253,16 @@ class TestSarahZeeSource(unittest.TestCase):
             "CalcLoopCorrections[EWSB]",
             "SelfEnergy1LoopSum[EWSB]",
             "SelfEnergy1LoopList[EWSB]",
-            "SARAH_NO_NEUTRINO_SELFENERGY_IN_CURRENT_FIELD_REPRESENTATION",
-            "SARAH_NEUTRINO_LOOP_REQUIRED_TOPOLOGY_ABSENT",
-            "SARAH_NEUTRINO_LOOP_TOPOLOGIES_EXTRACTED_MAJORANA_MASS_UNVALIDATED",
+            "ParticlesSelfEnergy1LoopSum[EWSB]",
+            "SARAH_SELFENERGY_LABEL_ALIGNMENT_FAILED",
+            "SARAH_NEUTRINO_EXTERNAL_SECTOR_NOT_IDENTIFIED",
+            "SARAH_NEUTRINO_SECTOR_INVENTORY_INCOMPLETE",
+            "SARAH_NEUTRINO_SECTOR_REQUIRED_LOOP_INGREDIENTS_NOT_IDENTIFIED",
+            "SARAH_NEUTRINO_EXTERNAL_SECTOR_FE_HM_B0_CANDIDATE_MAJORANA_UNVALIDATED",
+            "ZEE_E3_SELFENERGY_N_EXTERNAL_LABELS",
+            "ZEE_E3_SELFENERGY_NEUTRINO_EXTERNAL_SUM_ENTRIES",
+            "zeeNeutrinoExternalQ",
+            "zeeLoopInventoryFile",
             "ZEE_E3_SELFENERGY_MAJORANA_MASS_NUMERICALLY_EXTRACTED False",
             "ZEE_E3_SELFENERGY_E3_MNU_NUMERICALLY_MATCHED False",
             "e3_sarah_selfenergy_neutrino_raw.txt",
@@ -266,6 +273,9 @@ class TestSarahZeeSource(unittest.TestCase):
         self.assertIn("math -script scripts/zee_sarah_e3_independent_selfenergy_audit.m", runner)
         self.assertIn("set -euo pipefail", runner)
         self.assertNotIn("SARAH_ZEE_FULL_NEUTRINO_LOOP_PASS", audit)
+        self.assertNotIn("First/@zeeRows", audit)
+        self.assertNotIn("Select[zeeRows", audit)
+        self.assertNotIn("SARAH_NEUTRINO_LOOP_TOPOLOGIES_EXTRACTED_MAJORANA_MASS_UNVALIDATED", audit)
 
     def test_no_false_validation_claims(self):
         self.assertIn("SOURCE_IMPLEMENTED_NOT_VALIDATED", self.model)
