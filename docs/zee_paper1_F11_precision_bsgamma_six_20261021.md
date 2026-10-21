@@ -55,6 +55,21 @@ The included signal proxy is still NOT `sigma(pp->tbH2)*BR(H2->H1 Z)*BR(H1->tb)`
 - The CI did not have access to the user's AF-only pinned SuperIso library or actual six F10 files; it did **not** compute the six actual physical matching coefficients or their rates.
 - The local test simulates six operator vectors only to catch algebraic failures; never call mock numeric rates real Zee predictions.
 
+## New: independently sourced published 2026 Eq.(4) screening
+
+F11 now **also** computes Misiak et al. [arXiv:2608.29863], Sec. IV Eq.(4)
+at precisely `mu0=160 GeV` using the original A1S normalization and source:
+
+```text
+10^4 * BR_2026_Eq4 = 3.54 - 8.51 * DeltaC7_LO - 2.16 * DeltaC8_LO.
+```
+
+The six Zee `DeltaC7` and `DeltaC8` are obtained as **coherent sums of the two charged Higgs one-loop matching vectors** using the E4A source and the same two doublet weights. **Crucially, a second A1S C driver is independently compiled** from `gateA1s_probe_modern_2026_lo.c`, linked to the exact same SHA-locked SuperIso static vendor, and run for each physical H1, H2 mass and the pure Type-II 670 GeV reference at *each model's own tanbeta*. A1S and E4A coefficients must agree per operator or the run stops. The new A1S source and binary are hashed in the manifest.
+
+The 2026 Eq4 prediction, its shift over the 2026 SM central 3.54×10^-4, and a simple diagnostic standardized residual relative to the 2026 experiment `3.49 ± 0.19`×10^-4 and **SM-only** theory sigma `0.14`×10^-4 are exported **explicitly as LINEARIZED / UNCALIBRATED, not a 95%-CL exclusion**. Eq.(4) omits quadratic new-physics terms, NLO/NNLO BSM matching, and model-dependent theory uncertainty. F11 additionally tests the older real flavio slopes against the 2026 Eq4 slopes (cross-era agreement within a predeclared 15%, not an NNLO proof) and measures an older flavio quadratic-response indicator for each model.
+
+This **is** an actual cited 2026 published linear approximation to a physical inclusive-rate observable, rather than grafting the old SuperIso NP–SM shift onto the new SM result. The latter invalid hybrid is forbidden. A large Eq4 diagnostic residual would motivate attention and more precise theory, **not** justify transferring the published full Type-II 670 GeV exclusion directly to the Zee model.
+
 ## Core physical limitation
 
 Misiak et al., arXiv:2608.29863 (30 August 2026) give the modern 2026 result `BR_SM = (3.54 +- 0.14) * 10^-4`, experiment `(3.49 +- 0.19) * 10^-4`, and a 95% CL **single-charged Type-II** mass reference of 670 GeV. The complete 2026 scheme-dependent NNLO matrix-element kernel and correlated nuisance likelihood cannot be reconstructed by adding the F11 LO NP shift to the 2026 SM central value, applying the 670 GeV limit to one Zee scalar, or treating the F10 ratio to Type-II-670 as a confidence level.
