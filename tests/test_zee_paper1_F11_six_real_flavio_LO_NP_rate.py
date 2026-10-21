@@ -73,6 +73,13 @@ class TestF11(unittest.TestCase):
         out=q.six_rates(Engine(),None,six,f10,runner=good_source)
         self.assertEqual(len(out),6)
         for z in out:
+            self.assertGreater(z["BR_flavio_TypeII670_same_tanbeta_hybrid"],
+                               3.36e-4)
+            self.assertGreater(z["Zee_to_TypeII670_same_flavio_NP_rate_shift_NOT_CL"],0.)
+            self.assertAlmostEqual(
+                z["Zee_to_TypeII670_same_flavio_NP_rate_shift_NOT_CL"],
+                (z["BR_flavio_LO_NP_hybrid"]-3.36e-4)/
+                (z["BR_flavio_TypeII670_same_tanbeta_hybrid"]-3.36e-4))
             self.assertIsNone(z["modern_NNLO_Zee_2026_95CL"])
             self.assertIsNone(z["fully_Zee_allowed_or_excluded"])
             self.assertIsNone(z["physical_Zee_hadronic_R_tbZ_pb"])
