@@ -155,6 +155,7 @@ def case(name,m1,m2,gamma,f,Y,target,beta,v):
     entries={
       "Label":name, "M1":m1, "M2":m2, "Gamma":gamma, "Beta":beta, "V":v,
       "FChen":f,"YChen":y,"FSARAH":fs,"YeSARAH":ye,"Ye2SARAH":ye2,
+      "FiniteKernelMethod":"ANALYTIC_CLOSED_FORM",
       "TargetNuEV":target, "ChenMnuEV":reconstructed,
       "FiniteMnuEV":exact, "KappaChen":kap,
       "ExpectedWidths":widths,
@@ -205,6 +206,7 @@ def main():
       "zeeE3FixtureStatus = \""+STATUS+"\";\n")
     print("ZEE_E3_FIXTURE_WRITTEN",args.out)
     print("ZEE_E3_FIXTURE_STATUS",STATUS)
+    print("ZEE_E3_FINITE_B0_REFERENCE_METHOD ANALYTIC_CLOSED_FORM")
     print("ZEE_E3_REAL_309_SOURCE_INCLUDED False")
     print("ZEE_E3_SARAH_SELFENERGY_GENERATED False")
 
