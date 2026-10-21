@@ -1032,6 +1032,93 @@ local machine can be supplied directly for source-level analysis;
 a full one-shot rerun is needed only to produce the newer
 machine-readable and Cp inventory outputs.
 
+## Uploaded SARAH Majorana SigmaS reviewed; new one-shot complex matrix evaluation (2026-10-21)
+
+The user supplied the actual
+\`work/sarah_zee/e3_majorana_ab_sigma.txt\` (3,769 bytes).
+The massless-tree-neutrino limit of the generated \`SigmaS\`
+contains **exactly four** top-level contributions: two
+charged-Higgs/charged-lepton FFS orientations and two W/charged
+lepton FFV orientations. The explicit tree-neutrino-mass
+dependent Z/Fv contribution disappears. The \`SigmaS\` is
+still in terms of symbolic \`Cp[...][PL/PR]\`; no claim of a
+nonzero physical LNV mass can be made before evaluating these
+chirality-projected coefficients. In particular the W terms
+MUST disappear after imposing the actual chiral gauge couplings;
+simply observing a surviving symbolic W term is not evidence
+of a physical W-generated neutrino mass.
+
+SARAH upstream \`Package/loopCorrections.m\` function
+\`AddLoopFermion\` has an explicit factor 2 when the external
+fermion is Majorana; the two diagram inventory FFS terms carry
+the factor 1/2, requiring consistent cancellation of factors.
+Do NOT insert another ad hoc factor of 2.
+
+The existing **single large integrated Majorana A/B**
+\`scripts/zee_sarah_e3_majorana_ab_validation.m\` has now
+been extended with a guarded **numerical full 3x3**
+evaluation of the SARAH-generated \`SigmaS(0)\`.
+It uses \`SARAH\`Vertex\` with the *exact field ordering and
+chirality* in each saved \`Cp\`, evaluates those SARAH vertices
+at both complex E3 flavor fixtures (with fSARAH=2 fE3 and
+YD=sqrt2 YE3 only as a parameter conversion),
+expands the generated internal loops and uses a finite B0
+function at Q=100 and 1000 GeV.
+
+Explicit tests: full 3x3 Majorana-mass symmetry, subtraction
+scale cancellation, disappearance of W-only loops, change of
+finite gauge regularization \`rMS\`, and **four** physically
+required nulls (f=0, gamma=0, mH1=mH2, YD=0).
+A nonzero signal is required to prevent all-zero output
+from passing the four nulls. Each unphysical contribution is
+tested to < 1e-15 GeV (about 1e-6 eV). The resulting
+\`SigmaS/(16pi^2)\` is compared element-by-element to the
+**independently supplied** finite-loop
+\`zeeE3Cases[[i]]["FiniteMnuEV"]\` source matrix, with
+both relative signs and complex conjugation reported.
+The script does not automatically choose the sign/conjugation
+that minimizes the discrepancy, since the external-field
+Majorana self-energy convention must be derived.
+
+Outputs after local execution:
+
+\`\`\`text
+work/sarah_zee/e3_majorana_ab_numeric_matrix_report.txt
+work/sarah_zee/e3_majorana_ab_console.log
+work/sarah_zee/e3_majorana_ab_status.txt
+\`\`\`
+
+**No new numerical 3x3 result has been obtained yet.**
+The augmented Mathematica code has undergone source-only
+bracket/static-contract checks. An unresolved \`Cp\` or other
+unexpected symbolic factor fails closed with
+\`MAJORANA_AB_NUMERIC_SIGMAS_NOT_RESOLVED\`.
+A failed required gauge, symmetry or null test fails with
+\`MAJORANA_AB_NUMERIC_MATRIX_STRUCTURE_OR_NULL_FAILURE\`.
+Passing basic numerical and null checks reports
+\`MAJORANA_AB_NUMERIC_SIGMAS_AND_NULLS_PASS_E3_SIGN_UNVALIDATED\`:
+this is still NOT a Chen/E3 neutrino mass PASS.
+
+Since the earlier A/B results, source E3 fixture and diagnostic
+SARAH variant already exist, the direct large numerical gate
+can be run without repeating all previous 162-vertex tests:
+
+\`\`\`bash
+cd ~/zee
+git pull --ff-only
+set -o pipefail
+math -script scripts/zee_sarah_e3_majorana_ab_validation.m \
+  2>&1 | tee work/sarah_zee/e3_majorana_ab_console.log
+cat work/sarah_zee/e3_majorana_ab_status.txt
+grep -E 'ZEE_E3_MAJORANA_(NUMERIC|NULL)|FAIL |STATUS' \
+  work/sarah_zee/e3_majorana_ab_console.log
+\`\`\`
+
+This is a SINGLE comprehensive stage, not a series of small
+probes. If the previous status/model/fixture is missing, use
+the full \`bash scripts/zee_sarah_e3_selfenergy_one_shot.sh\`
+instead.
+
 ## Unresolved physics / blockers
 
 1. Check the SU(2) dot contraction and sign of the Zee trilinear in SARAH
