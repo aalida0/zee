@@ -246,6 +246,27 @@ class TestSarahZeeSource(unittest.TestCase):
         self.assertNotIn("SA`Vertex[", audit)
         self.assertNotIn("FULL_ZEE_ALLOWED", audit)
 
+    def test_independent_sarah_selfenergy_major_gate_is_non_certifying(self):
+        audit = (ROOT / "scripts" / "zee_sarah_e3_independent_selfenergy_audit.m").read_text()
+        runner = (ROOT / "scripts" / "zee_sarah_e3_selfenergy_one_shot.sh").read_text()
+        for text in (
+            "CalcLoopCorrections[EWSB]",
+            "SelfEnergy1LoopSum[EWSB]",
+            "SelfEnergy1LoopList[EWSB]",
+            "SARAH_NO_NEUTRINO_SELFENERGY_IN_CURRENT_FIELD_REPRESENTATION",
+            "SARAH_NEUTRINO_LOOP_REQUIRED_TOPOLOGY_ABSENT",
+            "SARAH_NEUTRINO_LOOP_TOPOLOGIES_EXTRACTED_MAJORANA_MASS_UNVALIDATED",
+            "ZEE_E3_SELFENERGY_MAJORANA_MASS_NUMERICALLY_EXTRACTED False",
+            "ZEE_E3_SELFENERGY_E3_MNU_NUMERICALLY_MATCHED False",
+            "e3_sarah_selfenergy_neutrino_raw.txt",
+            "E3_PREVIOUS_CONVENTION_GATE_NOT_PASSED",
+        ):
+            self.assertIn(text, audit)
+        self.assertIn("bash scripts/zee_sarah_e3_one_shot.sh", runner)
+        self.assertIn("math -script scripts/zee_sarah_e3_independent_selfenergy_audit.m", runner)
+        self.assertIn("set -euo pipefail", runner)
+        self.assertNotIn("SARAH_ZEE_FULL_NEUTRINO_LOOP_PASS", audit)
+
     def test_no_false_validation_claims(self):
         self.assertIn("SOURCE_IMPLEMENTED_NOT_VALIDATED", self.model)
         self.assertNotIn("MakeSPheno[]", self.model)
