@@ -800,6 +800,73 @@ Majorana-symmetric self-energy extraction with its loop
 symmetry factors, complex conjugation, finite charged-lepton
 mass terms, and matrix-level numerical closure.
 
+## 2026-10-21 local corrected Fv self-energy inventory: topology PASS, not Majorana mass
+
+The user locally reran the corrected integrated
+`zee_sarah_e3_selfenergy_one_shot.sh`. The previous
+`162/162` E3–SARAH complex charged vertices/widths/Chen kernel
+consistency gate again PASSED. SARAH independently generated the full
+1-loop self-energy expressions (`CalcLoopCorrections[EWSB]`).
+The **correct** particle-label metadata was aligned with the
+summed self-energy list, and gave precisely 11 entries:
+
+```text
+{hh, Ah, Hm, Fd, Fu, Fe, Fv, VG, VP, VZ, VWm}
+INDEX 7 EXTERNAL Fv SUM_HEAD List SUM_DIMENSIONS {3}
+```
+
+One external `Fv` sum and one `Fv` diagram inventory were
+identified. The Fv sector genuinely contains `B0`,
+`Mass[Fe[...]]`, `Hm[...]` and `Fe[...]`.
+Status in the observed run:
+
+```text
+SARAH_NEUTRINO_EXTERNAL_SECTOR_FE_HM_B0_CANDIDATE_MAJORANA_UNVALIDATED
+```
+
+This is now a **verified charged-lepton/charged-Higgs neutrino
+self-energy candidate topology**, not a Majorana mass result.
+The loop amplitude still needs the lepton-number-violating
+chiral form factor, the external Weyl/Majorana convention, and an
+independent 3x3 symmetric complex numeric evaluation. Both
+`MAJORANA_MASS_NUMERICALLY_EXTRACTED` and
+`E3_MNU_NUMERICALLY_MATCHED` remain `False`.
+
+Source check against SARAH upstream `Package/loopCorrections.m`:
+`AddLoopFermion` returns the three components
+`{Sigma1LoopS, Sigma1LoopR, Sigma1LoopL}`. For an external
+four-component fermion with `AntiField[Fv]!=Fv`, this is a
+Dirac-type form-factor convention, **not automatically the
+Majorana LNV neutrino mass**. The current model defines
+`Fv -> {vL,0}`. The loop form factors may therefore be
+usable diagrammatically but cannot be promoted to a
+Majorana mass without proving their external spinor and
+charge-conjugation identification.
+
+The existing integrated self-energy audit was expanded again
+to export the precise three Fv components, test the
+`SigmaS` channel (rather than all three channels mixed
+together) for `B0`, charged-lepton mass and charged-Higgs
+contributions, inspect both chiral vertices, and report
+the Majorana-particle classification separately. The output
+path is
+
+```text
+work/sarah_zee/e3_sarah_neutrino_sigma_components.txt
+```
+
+It is still the **same single large-stage test**:
+
+```bash
+cd ~/zee
+git pull --ff-only
+bash scripts/zee_sarah_e3_selfenergy_one_shot.sh
+```
+
+This source change has not yet been executed locally; it
+cannot certify a neutrino mass until `SigmaS` is physically
+interpreted and explicitly evaluated.
+
 ## Unresolved physics / blockers
 
 1. Check the SU(2) dot contraction and sign of the Zee trilinear in SARAH
