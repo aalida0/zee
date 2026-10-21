@@ -730,6 +730,76 @@ the resultant 3x3 symmetric matrix against both E3 fixtures.
 The existing 309 E3 optimized configurations remain
 **NOT FULL ZEE ALLOWED/EXCLUDED**, regardless of this result.
 
+## SARAH genuine one-loop generation result and corrected external-label audit (2026-10-21)
+
+The user ran `bash scripts/zee_sarah_e3_selfenergy_one_shot.sh`.
+The previous 162/162 E3 complex Yukawa/width/Chen-kernel tests
+passed again. SARAH then successfully executed
+`CalcLoopCorrections[EWSB]` (all vertex lists generated, EWSB
+self-energy calculation completed), and both
+`SelfEnergy1LoopSum[EWSB]` and `SelfEnergy1LoopList[EWSB]`
+were reported as lists.
+
+**Crucial correction:** The first version of
+`zee_sarah_e3_independent_selfenergy_audit.m` incorrectly
+assumed a `SelfEnergy1LoopSum` entry had the form
+`{particle,expression}`, then treated
+`First/@SelfEnergy1LoopSum` as a particle inventory.
+That output instead printed enormous fermionic scalar-integral
+expressions as `ZEE_E3_SELFENERGY_PARTICLE_NAMES`, and
+spuriously counted `2` neutrino sum rows and `1`
+diagram-list row, because the false external-label test
+looked for Fv anywhere inside the expressions. The resulting
+status `SARAH_NEUTRINO_LOOP_TOPOLOGIES_EXTRACTED_MAJORANA_MASS_UNVALIDATED`
+**is not a valid neutrino-specific certification** and has
+been retired. The previous tree-level and convention PASS
+results are unaffected.
+
+Checked against SARAH's upstream
+`Package/loopCorrections.m`, the correct data contract is
+
+```text
+SelfEnergy1LoopSum[EWSB] =
+  Join[SelfEnergies1Loop[EWSB], SelfEnergyUnmixed[EWSB]]
+ParticlesSelfEnergy1LoopSum[EWSB] = entryParticles
+SelfEnergy1LoopList[EWSB][[i]] = {external_particle,diagram1,...}
+```
+
+The updated integrated audit performs a **fail-closed alignment**
+of the entire summed-expression list against its genuine external
+labels. It reports a compact inventory including each external
+particle, expression head, and dimensions; it identifies neutrino
+entries from the external label alone, and only then inspects
+their sum/diagram list for `Mass[Fe[...]]`, `B0`, `Hm`
+and `Fe` ingredients. It does **not** claim Majorana mass
+generation from those ingredients.
+
+Re-run the SAME one-shot major gate (no extra probes):
+
+```bash
+cd ~/zee
+git pull --ff-only
+bash scripts/zee_sarah_e3_selfenergy_one_shot.sh
+```
+
+After the run inspect
+
+```bash
+cat work/sarah_zee/e3_sarah_selfenergy_status.txt
+cat work/sarah_zee/e3_sarah_selfenergy_inventory.txt
+grep -E 'ZEE_E3_SELFENERGY_(N_|LABELS|NEUTRINO|MAJORANA|E3_MNU|STATUS)|FAIL ' \
+  work/sarah_zee/e3_independent_selfenergy_console.log
+```
+
+**Current outcome:** SARAH loop expressions exist, but no
+Majorana chirality-flipping self-energy was evaluated and
+no independent comparison with the E3 neutrino matrix has
+been performed. The next meaningful step after a corrected
+inventory is an actual neutrino-sector, LNV
+Majorana-symmetric self-energy extraction with its loop
+symmetry factors, complex conjugation, finite charged-lepton
+mass terms, and matrix-level numerical closure.
+
 ## Unresolved physics / blockers
 
 1. Check the SU(2) dot contraction and sign of the Zee trilinear in SARAH
