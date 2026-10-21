@@ -33,6 +33,15 @@ BR(SM + cos²(gamma)*NP_H1 + sin²(gamma)*NP_H2)
 
 in general, owing to the quadratic terms. F11 combines **Wilson coefficients first**.
 
+For each of the six models F11 also performs an independent **same-tanbeta 670-GeV pure Type-II** matching calculation with precisely the same real `flavio` response, and reports
+
+```text
+R_flavio_670 = [BR_flavio(Zee) - BR_flavio(SM)] /
+               [BR_flavio(TypeII,670, same tanbeta) - BR_flavio(SM)] .
+```
+
+This provides a second cross-kernel flavor-tension *diagnostic* to compare with F10 historical SuperIso ratios, but neither is a validated 2026 95%-CL threshold.
+
 The included signal proxy is still NOT `sigma(pp->tbH2)*BR(H2->H1 Z)*BR(H1->tb)` in pb, and six points have no full Zee allowed/excluded status.
 
 ## Real GitHub Actions validation
