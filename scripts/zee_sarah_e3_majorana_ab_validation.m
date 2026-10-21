@@ -159,7 +159,7 @@ zeeABTreeProbeFields={
 zeeABTreeProbeResults=Table[
  {zeeABTreeProbeFields[[zeeABIdx,1]],
   CheckAbort[
-   SARAH@BT@Vertex[zeeABTreeProbeFields[[zeeABIdx,2]],
+   SARAH`Vertex[zeeABTreeProbeFields[[zeeABIdx,2]],
     Eigenstates->EWSB],$Aborted]},
  {zeeABIdx,Length[zeeABTreeProbeFields]}];
 zeeABTreeProbeFile=FileNameJoin[{zeeABDir,
@@ -278,15 +278,21 @@ zeeABStoredVertex[zeeABKind_String,zeeABNu_Integer,
   "wmConj",{Fv[{zeeABNu}],conj[VWm],Fe[{zeeABLep}]},
   _,Return[$Failed]];
  zeeABVtx=CheckAbort[
-  SARAH@BT@Vertex[zeeABFields,Eigenstates->EWSB],$Aborted];
+  SARAH`Vertex[zeeABFields,Eigenstates->EWSB],$Aborted];
  If[zeeABVtx===0,Return[0]];
  If[zeeABVtx===$Aborted||!ListQ[zeeABVtx]||
   Length[zeeABVtx]<2,
   Print["FAIL MAJORANA_AB_VERTEX ",InputForm[zeeABFields],
     " value=",InputForm[zeeABVtx]];Return[$Failed]];
+ (* Scalar vertices use bare PL/PR. Vector vertices use
+    LorentzProduct[gamma[lt],PL/PR]; both describe the same
+    chirality coefficient for SARAH's Cp[...] accessor. *)
  zeeABChiral=Cases[Rest[zeeABVtx],
   {zeeABExpression_,zeeABLorentz_}/;
-   zeeABLorentz===zeeABProj:>zeeABExpression,{1}];
+   (zeeABLorentz===zeeABProj ||
+    MatchQ[zeeABLorentz,
+      LorentzProduct[gamma[_],zeeABProj]]):>
+    zeeABExpression,{1}];
  If[Length[zeeABChiral]!=1,
   Print["FAIL MAJORANA_AB_VERTEX_CHIRALITY ",
    InputForm[zeeABFields]," ",InputForm[zeeABVtx]];
