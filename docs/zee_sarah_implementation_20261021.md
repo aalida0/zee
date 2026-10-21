@@ -1,6 +1,6 @@
 # ZeeTypeII SARAH model — first source implementation (2026-10-21)
 
-**Status: SARAH_TREE_SCALAR_AND_CHARGED_GAUGE_BENCHMARK_TESTS_PASS; FULL_ZEE_NOT_VALIDATED.**
+**Status: SARAH_GATE6_TREE_SCALAR_GAUGE_AND_SYNTHETIC_COMPLEX_LEPTON_PASS; E3_LOOP_UNMATCHED; FULL_ZEE_NOT_VALIDATED.**
 User's first local SARAH 4.15.4 run (2026-10-21) initialized ZeeTypeII
 in 6.21 s and completed CheckModel in 4.02 s. This is not
 SARAH_CHECKMODEL_PASS and not model/physics validation.
@@ -513,6 +513,53 @@ If the validation fails again, inspect
 `work/sarah_zee/integrated_lepton_console.log` and status before
 any further physics changes. Do not generate new micro-probes;
 repair the existing consolidated test instead.
+
+## Integrated tree-level lepton numerical result — PASS (2026-10-21)
+
+Local SARAH 4.15.4 run of the single-entry
+`scripts/zee_sarah_one_shot_lepton_validation.sh` succeeded:
+
+```text
+ZEE_INTEGRATED_VERTEX_QUERIES 52
+ZEE_INTEGRATED_FZEE_SENTINEL_PASS
+ZEE_INTEGRATED_N_COMPARISONS 104
+ZEE_INTEGRATED_MAX_RESIDUAL 1.734723475976807e-18
+ZEE_INTEGRATED_SECTOR_MAX_RESIDUALS <|f -> 0., Y -> 1.734723475976807e-18|>
+ZEE_INTEGRATED_STATUS SARAH_ZEE_INTEGRATED_TREE_LEPTON_COMPLEX_PASS_E3_LOOP_UNMATCHED
+```
+
+The two synthetic complex f,Ye,Ye2 cases (identity and independent
+complex left/right lepton rotations) reproduced the charged-lepton
+mass matrix at <=4.45e-16 GeV, charged/neutral scalar diagonalization
+residuals <=3.43e-11 GeV^2, and all 104 vertex coefficients
+to <=1.74e-18. Harmless shadowing notices for diagnostic references
+`Global`a,b,k,n` occurred after the script checked dummy-variable
+contamination. No `D::ivar` was observed. The earlier invalid
+vertex-mismatch report was an artifact of global dummy symbols in
+Mathematica; no change to the Zee Lagrangian was required.
+
+**Scope:** actual SARAH-generated tree-level complex Yukawa
+amplitude consistency at two synthetic points. Neither the specific
+Chen/E3 f and Y normalization, one-loop neutrino matrix, flavor
+likelihood, scalar theory completeness, nor exclusions are thereby
+certified. Avoid labeling any E3 309 candidate `ALLOWED`.
+
+### Source-convention warning for next E3 integration
+
+The existing `gateB3_general_zee_charged_lepton_widths.py` documents
+Higgs-basis charged Yukawa coefficients `sqrt(2)*Y_E3` and
+singlet Yukawa coefficients `2*f_E3` as defined in Chen
+arXiv:2508.18757 Eq.(4). The SARAH tree-level vertex extraction
+instead returned coefficients `YeD=-sin(beta)*Ye+cos(beta)*Ye2`
+and `fSARAH`. To compare the **same amplitudes** in charged-lepton
+mass basis, require `|YeD|=sqrt(2)|Y_E3|` and
+`|fSARAH|=2|f_E3|`. Precise complex conjugation, index orientation,
+field phases and the sign of the Majorana self-energy need an
+independent cross-code derivation; do not blindly identify the saved
+E3 numerical matrices with SARAH parameters. Consistency of the
+Chen log coefficient `kappa=sqrt(2)*sin(2gamma)*log(mH1^2/mH2^2)/(16pi^2)`
+follows from those factors and `sum ZP[k,3] ZP[k,D] log(m_k^2)`.
+This is **not yet** a generated one-loop self-energy test.
 
 ## Unresolved physics / blockers
 
