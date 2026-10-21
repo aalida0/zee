@@ -104,6 +104,51 @@ class TestF15(unittest.TestCase):
         self.assertAlmostEqual(at100[
             "required_TypeII_like_baseline_sigma_at_this_energy_fb"]/n,
             2/3)
+    def test_exact_original_F14_20261021_source_provenance_contract(self):
+        # The genuine F14 output uses the exact key with '_or_allowed'.
+        # This regression would have reproduced the user's crash before
+        # the F15 field-name correction, even though all hashes match.
+        import json
+        import tempfile
+        from pathlib import Path
+        from zee_gateF7_309_2026_bsgamma_tension_sensitivity import (
+            digest,writejson)
+        with tempfile.TemporaryDirectory() as directory:
+            d=Path(directory)
+            f13proof={"F13_summary_SHA256":"f13_original_SHA256"}
+            f14summary={
+                "status":x.F14_STATUS,
+                "source_F13":dict(f13proof),
+                "eight_same_scalar_neutrino_lepton_widths_evaluated":8,
+                "none_are_complete_physical_Zee_rates_or_allowed":True,
+                "rates_energy_GeV":13000,
+                "production_rescale_consistent_with_proxy":True,
+            }
+            writejson(d/"summary.json",f14summary)
+            manifest={
+                "status":x.F14_STATUS,
+                "summary_SHA256":digest(d/"summary.json"),
+                "F13_summary_SHA256":"f13_original_SHA256",
+            }
+            self.assertTrue(x.validate_f14_origin_metadata(
+                f14summary,manifest,f13proof,d))
+            wrong=dict(f14summary)
+            wrong.pop("none_are_complete_physical_Zee_rates_or_allowed")
+            wrong["none_are_complete_physical_Zee_rates"]=True
+            with self.assertRaisesRegex(ValueError,
+                    "none_are_complete_physical_Zee_rates_or_allowed"):
+                x.validate_f14_origin_metadata(wrong,manifest,f13proof,d)
+            wrong2=dict(f14summary)
+            wrong2["source_F13"]={"F13_summary_SHA256":"different"}
+            with self.assertRaisesRegex(ValueError,
+                    "F14 source_F13.F13_summary_SHA256"):
+                x.validate_f14_origin_metadata(wrong2,manifest,f13proof,d)
+            with self.assertRaisesRegex(ValueError,
+                    "F14 manifest summary_SHA256"):
+                x.validate_f14_origin_metadata(
+                    f14summary,{**manifest,"summary_SHA256":"corrupt"},
+                    f13proof,d)
+
     def test_source_LFV_complex_phase_not_deleted(self):
         # B3 helper itself validates antisymmetry and exact matrix closure.
         self.assertGreater(self.b3["totals_included_GeV"]["H1"],0)
