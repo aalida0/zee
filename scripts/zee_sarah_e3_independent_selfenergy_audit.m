@@ -78,70 +78,104 @@ If[!ListQ[zeeLoopSum]||!ListQ[zeeLoopList],
     InputForm[{Head[zeeLoopSum],Head[zeeLoopList]}]];
  zeeLoopStatus["SARAH_LOOP_OUTPUT_UNAVAILABLE"];Exit[10]];
 
-(* Keep the first column of every result as a particle inventory.
-   This also helps discover whether SARAH classifies a massless
-   two-component neutrino as Fv, vL, or another internal object. *)
-zeeRows=Select[zeeLoopSum,ListQ[#]&&Length[#]>=2&];
-zeeParticleHeads=If[Length[zeeRows]>0,First/@zeeRows,{}];
-Export[zeeLoopInventoryFile,
- StringRiffle[ToString[InputForm[#]]&/@zeeParticleHeads,"\n"]<>"\n",
- "Text"];
-Print["ZEE_E3_SELFENERGY_PARTICLE_ENTRIES ",Length[zeeRows]];
-Print["ZEE_E3_SELFENERGY_PARTICLE_NAMES ",
- InputForm[zeeParticleHeads]];
+(* SARAH's loopCorrections.m source sets
+     SelfEnergy1LoopSum = Join[SelfEnergies1Loop,SelfEnergyUnmixed]
+     ParticlesSelfEnergy1LoopSum = entryParticles
+     SelfEnergy1LoopList = {{external_particle,diagram1,...},...}.
+   A summed self-energy expression is NOT {particle,expression}.
+   Never take First/@SelfEnergy1LoopSum as the particle inventory.
+   Verify the corresponding external labels before selecting a neutrino. *)
+zeeLoopLabels=SARAH`ParticlesSelfEnergy1LoopSum[EWSB];
+zeeLoopSourceList=SA`LoopMassesParticle;
+Print["ZEE_E3_SELFENERGY_N_SUM_ENTRIES ",Length[zeeLoopSum]];
+Print["ZEE_E3_SELFENERGY_N_LIST_ENTRIES ",Length[zeeLoopList]];
+Print["ZEE_E3_SELFENERGY_N_EXTERNAL_LABELS ",
+ If[ListQ[zeeLoopLabels],Length[zeeLoopLabels],"NOT_A_LIST"]];
+Print["ZEE_E3_SELFENERGY_LABELS ",
+ If[ListQ[zeeLoopLabels],InputForm[zeeLoopLabels],"UNAVAILABLE"]];
+Print["ZEE_E3_SELFENERGY_LOOP_SOURCE_PARTICLE_LABELS ",
+ InputForm[zeeLoopSourceList]];
+If[!ListQ[zeeLoopLabels] ||
+ Length[zeeLoopLabels]=!=Length[zeeLoopSum] ||
+ Length[zeeLoopSum]==0,
+ Print["FAIL SELFENERGY_LABEL_SUM_ALIGNMENT ",
+  " sums=",Length[zeeLoopSum],
+  " labels=",If[ListQ[zeeLoopLabels],Length[zeeLoopLabels],-1]];
+ zeeLoopStatus["SARAH_SELFENERGY_LABEL_ALIGNMENT_FAILED"];Exit[11]];
 
-zeeNuRows=Select[zeeRows,
- !FreeQ[#[[1]],Fv]||!FreeQ[#[[1]],vL]||
- !FreeQ[#[[1]],Fv1]&];
-zeeNuListRows=Select[zeeLoopList,
- ListQ[#]&&Length[#]>0&&(
- !FreeQ[#[[1]],Fv]||!FreeQ[#[[1]],vL]||
- !FreeQ[#[[1]],Fv1])&];
-Print["ZEE_E3_SELFENERGY_NEUTRINO_SUM_ROWS ",Length[zeeNuRows]];
-Print["ZEE_E3_SELFENERGY_NEUTRINO_DIAGRAM_LIST_ROWS ",
- Length[zeeNuListRows]];
-Export[zeeLoopRawFile,
- StringRiffle[
- Join[{"STATUS: generated SARAH 1-loop expressions, not numeric E3 closure",
-       "SCHEME: SARAH non-SUSY MSbar; gauge assumptions per SARAH"},
-      {"SUMS:"},
-      (ToString[InputForm[#]]&/@zeeNuRows),
-      {"DIAGRAM_LIST:"},
-      (ToString[InputForm[#]]&/@zeeNuListRows)
+(* Only a whole EXTERNAL label, never the contents of a summand,
+   may define a neutrino self-energy. This supports Fv, UFv, vL,
+   and gauge-state Fv1; other representations remain diagnostic. *)
+zeeNeutrinoExternalQ[zeeLabel_]:=Module[
+ {zeeName=ToString[InputForm[zeeLabel]]},
+ StringMatchQ[zeeName,
+ RegularExpression["^(\\\\{)?(Fv|UFv|Fv1|vL)(\\\\[.*\\\\])?(\\\\})?$"]]
+];
+zeeExternalPairs=MapThread[List,{zeeLoopLabels,zeeLoopSum}];
+zeeNuPairs=Select[zeeExternalPairs,zeeNeutrinoExternalQ[#[[1]]]&];
+zeeDiagPairs=Select[zeeLoopList,
+ ListQ[#]&&Length[#]>=1&&zeeNeutrinoExternalQ[#[[1]]]&];
+
+(* Explicitly verify list order/labels. The summed expressions may
+   be vectors/matrices indexed by external fermion generations. *)
+zeeLoopLabelLedger=Table[
+ "INDEX "<>ToString[zeeIndex]<>
+ " EXTERNAL "<>ToString[InputForm[zeeLoopLabels[[zeeIndex]]]]<>
+ " SUM_HEAD "<>ToString[Head[zeeLoopSum[[zeeIndex]]]]<>
+ " SUM_DIMENSIONS "<>ToString[InputForm[Dimensions[zeeLoopSum[[zeeIndex]]]]],
+ {zeeIndex,Length[zeeLoopSum]}];
+Export[zeeLoopInventoryFile,
+ StringRiffle[zeeLoopLabelLedger,"\n"]<>"\n","Text"];
+Print["ZEE_E3_SELFENERGY_EXTERNAL_INVENTORY_FILE ",zeeLoopInventoryFile];
+Print["ZEE_E3_SELFENERGY_NEUTRINO_EXTERNAL_SUM_ENTRIES ",Length[zeeNuPairs]];
+Print["ZEE_E3_SELFENERGY_NEUTRINO_EXTERNAL_DIAGRAM_ENTRIES ",
+ Length[zeeDiagPairs]];
+Print["ZEE_E3_SELFENERGY_NEUTRINO_EXTERNAL_LABELS ",
+ InputForm[If[Length[zeeNuPairs]==0,{},zeeNuPairs[[All,1]]]]];
+
+(* A leptonic charged-scalar loop is a CANDIDATE contribution.
+   SARAH can return B0 scalar integrals that are purely
+   lepton-number-preserving. A nonzero Majorana Sigma^S
+   requires the appropriate chiral combination and f-Y interference. *)
+zeeNuSumExpressions=If[Length[zeeNuPairs]==0,{},zeeNuPairs[[All,2]]];
+zeeHasB0Q=!FreeQ[zeeNuSumExpressions,B0];
+zeeHasFeMassQ=!FreeQ[zeeNuSumExpressions,Mass[Fe[___]]];
+zeeHasHmQ=!FreeQ[zeeNuSumExpressions,Hm] ||
+ !FreeQ[zeeDiagPairs,Hm];
+zeeHasFeQ=!FreeQ[zeeNuSumExpressions,Fe] ||
+ !FreeQ[zeeDiagPairs,Fe];
+Print["ZEE_E3_SELFENERGY_NEUTRINO_SECTOR_HAS_B0 ",zeeHasB0Q];
+Print["ZEE_E3_SELFENERGY_NEUTRINO_SECTOR_HAS_MASS_FE ",zeeHasFeMassQ];
+Print["ZEE_E3_SELFENERGY_NEUTRINO_SECTOR_HAS_CHARGED_HIGGS ",zeeHasHmQ];
+Print["ZEE_E3_SELFENERGY_NEUTRINO_SECTOR_HAS_CHARGED_LEPTON ",zeeHasFeQ];
+
+Export[zeeLoopRawFile,StringRiffle[Join[
+  {"SARAH GENERATED LOOP EXPRESSIONS; NO NUMERIC MAJORANA MASS CLAIM",
+   "SUMS INDEXED BY ParticlesSelfEnergy1LoopSum[EWSB]"},
+  (ToString[InputForm[#]]&/@zeeNuPairs),
+  {"DIAGRAM_LIST INDEXED BY FIRST ELEMENT OF EACH LIST"},
+  (ToString[InputForm[#]]&/@zeeDiagPairs)
  ],"\n\n"]<>"\n","Text"];
 Print["ZEE_E3_SELFENERGY_RAW_FILE ",zeeLoopRawFile];
 
-If[Length[zeeNuRows]==0,
- Print["ZEE_E3_SELFENERGY_NOTE No neutrino self-energy output was found.",
-       " Fv is defined as a one-chirality Dirac spinor;",
-       " this may require a different neutrino/Majorana definition",
-       " or a dedicated mass-insertion/diagram calculation."];
- zeeLoopStatus["SARAH_NO_NEUTRINO_SELFENERGY_IN_CURRENT_FIELD_REPRESENTATION"];
- Exit[11]];
-
-(* Classify what was generated but DO NOT claim the radiative
-   Majorana mass matrix was calculated just because Fv has a
-   wave-function self energy. Inspect mass-type Sigma^S entries and
-   the lepton-number-violating f-Y interference separately. *)
-zeeHasMassTypeQ=!FreeQ[zeeNuRows,B0]||
- !FreeQ[zeeNuRows,Mass]||
- !FreeQ[zeeNuRows,SA`B0];
-zeeHasChargedLoopQ=!FreeQ[zeeNuRows,Hm]||
- !FreeQ[zeeNuListRows,Hm];
-zeeHasLeptonLoopQ=!FreeQ[zeeNuRows,Fe]||
- !FreeQ[zeeNuListRows,Fe];
-Print["ZEE_E3_SELFENERGY_HAS_LOOP_MASS_STRUCTURE ",
- zeeHasMassTypeQ];
-Print["ZEE_E3_SELFENERGY_HAS_CHARGED_SCALAR_TOPOLOGY ",
- zeeHasChargedLoopQ];
-Print["ZEE_E3_SELFENERGY_HAS_CHARGED_LEPTON_TOPOLOGY ",
- zeeHasLeptonLoopQ];
+If[Length[zeeNuPairs]==0 && Length[zeeDiagPairs]==0,
+ Print["ZEE_E3_SELFENERGY_NO_EXTERNAL_NEUTRINO_LABEL ",
+  "No identified Fv/vL-type EXTERNAL entry in SARAH output."];
+ zeeLoopStatus["SARAH_NEUTRINO_EXTERNAL_SECTOR_NOT_IDENTIFIED"];
+ Exit[12]];
+If[Length[zeeNuPairs]==0 || Length[zeeDiagPairs]==0,
+ Print["ZEE_E3_SELFENERGY_UNALIGNED_NEUTRINO_SUM_AND_DIAGRAM_INVENTORY"];
+ zeeLoopStatus["SARAH_NEUTRINO_SECTOR_INVENTORY_INCOMPLETE"];
+ Exit[13]];
 Print["ZEE_E3_SELFENERGY_MAJORANA_MASS_NUMERICALLY_EXTRACTED False"];
 Print["ZEE_E3_SELFENERGY_E3_MNU_NUMERICALLY_MATCHED False"];
 Print["ZEE_E3_SELFENERGY_REAL_309_SOURCE_TESTED False"];
-If[!TrueQ[zeeHasChargedLoopQ]||!TrueQ[zeeHasLeptonLoopQ],
- zeeLoopStatus["SARAH_NEUTRINO_LOOP_REQUIRED_TOPOLOGY_ABSENT"];
- Exit[12]];
+If[!TrueQ[zeeHasB0Q] || !TrueQ[zeeHasFeMassQ] ||
+   !TrueQ[zeeHasHmQ] || !TrueQ[zeeHasFeQ],
+ zeeLoopStatus["SARAH_NEUTRINO_SECTOR_REQUIRED_LOOP_INGREDIENTS_NOT_IDENTIFIED"];
+ Exit[14]];
+(* This PASS is for correct EXTERNAL sector and loop ingredients only;
+   it is NOT evidence of a completed Majorana self-energy evaluation. *)
 zeeLoopStatus[
- "SARAH_NEUTRINO_LOOP_TOPOLOGIES_EXTRACTED_MAJORANA_MASS_UNVALIDATED"];
+ "SARAH_NEUTRINO_EXTERNAL_SECTOR_FE_HM_B0_CANDIDATE_MAJORANA_UNVALIDATED"];
 Exit[0];
