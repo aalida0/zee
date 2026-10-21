@@ -234,6 +234,15 @@ If[!FileExistsQ[zeeABFixture],
 Get[zeeABFixture];
 If[!ListQ[zeeE3Cases]||Length[zeeE3Cases]!=2,
  zeeABSetStatus["MAJORANA_AB_E3_NUMERIC_FIXTURE_INVALID"];Exit[19]];
+(* The old fixed-120 Gauss-Legendre finite-B0 reference is known
+   to cause O(3e-7 eV) false discrepancies.  Refuse stale fixtures. *)
+If[!And@@(AssociationQ/@zeeE3Cases) ||
+   !And@@((#["FiniteKernelMethod"]==="ANALYTIC_CLOSED_FORM")&/@zeeE3Cases),
+ Print["FAIL MAJORANA_AB_FINITE_B0_REFERENCE_IS_STALE"];
+ zeeABSetStatus["MAJORANA_AB_EXACT_FINITE_B0_FIXTURE_REQUIRED"];
+ Exit[24]];
+Print["ZEE_E3_MAJORANA_FINITE_B0_REFERENCE ANALYTIC_CLOSED_FORM"];
+
 zeeABNumericalReport=FileNameJoin[{zeeABDir,
  "e3_majorana_ab_numeric_matrix_report.txt"}];
 zeeABNumericalLedger={};
@@ -656,6 +665,8 @@ Export[zeeABNumericalReport,
 Print["ZEE_E3_MAJORANA_NUMERIC_REPORT ",zeeABNumericalReport];
 Print["ZEE_E3_MAJORANA_NUMERIC_FAILURE_LABELS ",
  InputForm[zeeABMatrixErrors]];
+Print["ZEE_E3_MAJORANA_NEGCONJ_AGREEMENT_ONLY_FIXED_REFERENCE True"];
+Print["ZEE_E3_MAJORANA_PHASE_SIGN_WAVEFUNCTION_DERIVATION_PENDING True"];
 Print["ZEE_E3_MAJORANA_NUMERIC_MNU_INDEPENDENTLY_MATCHED False"];
 If[Length[zeeABMatrixErrors]>0,
  zeeABSetStatus["MAJORANA_AB_NUMERIC_MATRIX_STRUCTURE_OR_NULL_FAILURE"];
