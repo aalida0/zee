@@ -53,6 +53,26 @@ class TestF13(unittest.TestCase):
         p=dict(self.seeds[0][0]);p["mH1"]=499;self.assertFalse(q.domain(p))
         p["mH1"]=600;p["mH2"]=690;self.assertFalse(q.domain(p))
         p["mH2"]=1800;self.assertFalse(q.domain(p))
+    def test_actual_heavy_seed_complex_neutrino_and_partial_LFV_widths(self):
+        # This is actual Zee neutrino and subset-LFV code at an actual
+        # scalar/EWPO screened heavy point; not synthetic neutrino data.
+        # The A1S/2026 matching calculation itself is tested separately.
+        p,r=self.seeds[0]
+        row=q.augment(r,p,fake_source,{})
+        results=q.fit_priorities([row],np.random.default_rng(555),
+                      trials=20,local_seeds=2,maxfev=80)
+        result=results[row["id"]]
+        print("F13_HEAVY_COMPLEX_NEUTRINO_LFV_SMOKE",
+              row["id"],result["status"],result.get("best",{}).get(
+                  "score_partial_LFV_max_ratio_NOT_Full_CL"))
+        self.assertIn(result["status"],(
+            "NEUTRINO_EXACT_WITH_PARTIAL_LFV_AND_INCLUDED_CASCADE_ONLY",
+            "NO_NEUTRINO_CLOSED_TRIALS_FOUND_NOT_EXCLUSION",
+            "ALL_LOCAL_OPTIMIZATIONS_INVALID_NOT_EXCLUSION"))
+        self.assertIsNone(result["model_allowed_or_excluded"])
+        if "best" in result:
+            self.assertLess(result["best"]["neutrino_matrix_closure_eV"],1e-9)
+            self.assertIsNone(result["best"]["fully_Zee_allowed_or_excluded"])
     def test_no_allowed(self):
         self.assertIn("NOT_ALLOWED",q.STATUS)
         self.assertTrue(any("2026" in a for a in q.MISSING))
