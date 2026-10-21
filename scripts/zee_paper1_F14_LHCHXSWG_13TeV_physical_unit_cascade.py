@@ -37,6 +37,7 @@ ALL="F13_all_heavy_scalar_2026LO_flavor_screen_NOT_ALLOWED.csv"
 OUTNAME="F14_8_F13_13TeV_TypeII_XS_times_generalZee_included_cascade_NOT_FULL_SIGMA.csv"
 NONFITTED="F14_minimum_Bsgamma_Z_control_without_lepton_fit_NOT_FULL_SIGMA.json"
 GRID_REFERENCE="LHCHXSWG YR4 Santander matched Type-II, 2016-02-05"
+VERIFIED_ORIGINAL_GRID_SHA256="45f9aa7e0f0a117894daaf9364f7e6b2c81e5273de9c50b8f7f593e5261681da"
 GRID_URL=("https://twiki.cern.ch/twiki/pub/LHCPhysics/"
           "LHCHWGMSSMCharged/mflechl_xsec_13TeV_tHp_2016_2_5.txt")
 ZEE_ZLL_E_MU_APPROX=.0673  # Z->ee + Z->mumu approximately; not analysis acceptance
@@ -289,6 +290,10 @@ def execute(args):
     folder=Path(args.f13_dir).resolve()
     _,_,ranked,allrows,proof=read_f13(folder)
     grid=read_grid(args.grid)
+    if (grid["raw_SHA256"]!=VERIFIED_ORIGINAL_GRID_SHA256 or
+        grid["points"]!=2484 or len(grid["masses"])!=36 or
+        len(grid["tanbetas"])!=69):
+        raise ValueError("F14 original 2016 YR4 CERN grid SHA/size mismatch: do not substitute a different table")
     result=selected_records(grid,ranked)
     control=minimum_flavor_control(grid,allrows)
     out.mkdir(parents=True,exist_ok=False)
