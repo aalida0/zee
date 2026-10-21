@@ -10,6 +10,9 @@ on:
       - 'scripts/zee_paper1_F16_SARAH_MakeUFO_after_vertex_gate.m'
       - 'scripts/zee_paper1_F16_verify_AF_to_local_bundle.py'
       - 'scripts/zee_paper1_F16_wolfram_syntax_lint.py'
+      - 'scripts/zee_paper1_F16_SARAH_context_vevs.m'
+      - 'scripts/zee_paper1_F16_SARAH_context_vevs_selftest.m'
+      - 'tests/test_zee_paper1_F16_vev_context_faithful.py'
       - 'tests/test_zee_paper1_F16_wolfram_syntax_lint.py'
       - 'tests/test_zee_paper1_F16_AF_to_local_bundle_provenance.py'
       - 'tests/test_zee_paper1_F16_exact_SARAH_three_width_handoff.py'
@@ -31,4 +34,5 @@ jobs:
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F16_AF_to_local_bundle_provenance.py' -v
       - run: bash -n scripts/zee_paper1_F16_local_SARAH_three_heavy_one_shot.sh
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F16_wolfram_syntax_lint.py' -v
-      - run: python scripts/zee_paper1_F16_wolfram_syntax_lint.py scripts/zee_paper1_F16_SARAH_three_heavy_vertex_audit.m scripts/zee_paper1_F16_SARAH_MakeUFO_after_vertex_gate.m
+      - run: python scripts/zee_paper1_F16_wolfram_syntax_lint.py scripts/zee_paper1_F16_SARAH_three_heavy_vertex_audit.m scripts/zee_paper1_F16_SARAH_MakeUFO_after_vertex_gate.m scripts/zee_paper1_F16_SARAH_context_vevs.m scripts/zee_paper1_F16_SARAH_context_vevs_selftest.m
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F16_vev_context_faithful.py' -v
