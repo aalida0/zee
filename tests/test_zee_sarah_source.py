@@ -314,7 +314,7 @@ class TestSarahZeeSource(unittest.TestCase):
             "MAJORANA_AB_SARAH_START_FAILED",
             "MAJORANA_AB_NEUTRINO_SPINOR_CLASSIFICATION_FAILED",
             "MAJORANA_AB_SIGMAS_REQUIRED_STRUCTURE_NOT_PRESENT",
-            "MAJORANA_AB_NUMERIC_SIGMAS_AND_NULLS_PASS_E3_SIGN_UNVALIDATED",
+            "MAJORANA_AB_SARAH_3X3_FINITE_B0_NEGCONJ_MATCH_PHASE_SIGN_DERIVATION_PENDING",
             "e3_majorana_ab_sigma.txt",
             "zeeABClassified=MemberQ[MajoranaPart,Fv]",
             "zeeABSelfConjugate=(AntiField[Fv]===Fv)",
@@ -333,7 +333,7 @@ class TestSarahZeeSource(unittest.TestCase):
             "e3_majorana_ab_physical_vertices.txt",
             "MAJORANA_AB_NUMERIC_SIGMAS_NOT_RESOLVED",
             "MAJORANA_AB_NUMERIC_MATRIX_STRUCTURE_OR_NULL_FAILURE",
-            "MAJORANA_AB_NUMERIC_SIGMAS_AND_NULLS_PASS_E3_SIGN_UNVALIDATED",
+            "MAJORANA_AB_SARAH_3X3_FINITE_B0_NEGCONJ_MATCH_PHASE_SIGN_DERIVATION_PENDING",
             "MAJORANA_AB_UNEXPECTED_SIGMAS_ZERO_TREE_DIAGRAMS",
             "MAJORANA_AB_E3_NUMERIC_FIXTURE_MISSING",
             "ZEE_E3_MAJORANA_NUMERIC_CASE_BEGIN",
@@ -358,6 +358,15 @@ class TestSarahZeeSource(unittest.TestCase):
             "charged_masses_degenerate",
             "ZEE_E3_MAJORANA_NUMERIC_SIGNAL_MAX_EV",
             "nonzero_Zee_signal_not_detected_",
+            "MAJORANA_AB_COMPLEX_VERTEX_PHASE_CONVENTION_MISMATCH",
+            "MAJORANA_AB_EXACT_FINITE_B0_FIXTURE_REQUIRED",
+            "MAJORANA_AB_SARAH_3X3_FINITE_B0_NEGCONJ_MATCH_PHASE_SIGN_DERIVATION_PENDING",
+            "ZEE_E3_MAJORANA_COMPLEX_VERTEX_CONVENTIONS",
+            "ZEE_E3_MAJORANA_FIXED_NEGCONJ_COMPARISON",
+            "ZEE_E3_MAJORANA_FINITE_B0_REFERENCE ANALYTIC_CLOSED_FORM",
+            "ZEE_E3_MAJORANA_NEGCONJ_AGREEMENT_ONLY_FIXED_REFERENCE True",
+            "zeeABCheckVertexOrientation",
+            "fixed_negconj_E3_reference_residual_",
             "SARAH`CalcLoopCorrections[EWSB]",
         ):
             self.assertIn(marker, wl)
@@ -371,6 +380,28 @@ class TestSarahZeeSource(unittest.TestCase):
         self.assertNotIn("SARAH[BT[", wl)
         self.assertNotIn("ZEE_E3_MAJORANA_NUMERIC_MNU_INDEPENDENTLY_MATCHED True", wl)
         self.assertNotIn("1.*^-9", wl[wl.index("(* FULL COMPLEX MATRIX DIAGNOSTIC"):])
+
+    def test_exact_finite_b0_reference_and_independent_quadrature(self):
+        import sys
+        import math
+        sys.path.insert(0, str(ROOT / "scripts"))
+        from zee_sarah_e3_convention_fixture import (
+            lepton_log_kernel, lepton_log_kernel_independent_quad
+        )
+        fixture_source = (ROOT / "scripts" / "zee_sarah_e3_convention_fixture.py").read_text()
+        self.assertIn('"FiniteKernelMethod":"ANALYTIC_CLOSED_FORM"', fixture_source)
+        self.assertNotIn("leggauss(120)", fixture_source)
+        for m1, m2, lepton_mass, expected in (
+            (300.0, 700.0, 1.77686, -1.694312872672814),
+            (375.0, 925.0, 1.77686, -1.805541255443769),
+            (300.0, 700.0, 0.1056583755, -1.694594149111653),
+            (300.0, 700.0, 0.0, math.log(300.0**2 / 700.0**2)),
+        ):
+            actual = lepton_log_kernel(m1, m2, lepton_mass)
+            self.assertAlmostEqual(actual, expected, places=12)
+            independent = lepton_log_kernel_independent_quad(m1, m2, lepton_mass)
+            if independent is not None:
+                self.assertAlmostEqual(actual, independent, places=11)
 
     def test_no_false_validation_claims(self):
         self.assertIn("SOURCE_IMPLEMENTED_NOT_VALIDATED", self.model)
