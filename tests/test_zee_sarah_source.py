@@ -294,6 +294,41 @@ class TestSarahZeeSource(unittest.TestCase):
         self.assertNotIn("SARAH_NEUTRINO_LOOP_TOPOLOGIES_EXTRACTED_MAJORANA_MASS_UNVALIDATED", audit)
         self.assertNotIn("SARAH_NEUTRINO_EXTERNAL_SECTOR_FE_HM_B0_CANDIDATE_MAJORANA_UNVALIDATED", audit)
 
+    def test_majorana_spinor_ab_stage_is_isolated_and_fail_closed(self):
+        generator = (ROOT / "scripts" / "zee_sarah_majorana_spinor_variant.py").read_text()
+        wl = (ROOT / "scripts" / "zee_sarah_e3_majorana_ab_validation.m").read_text()
+        sh = (ROOT / "scripts" / "zee_sarah_e3_selfenergy_one_shot.sh").read_text()
+        import ast
+        ast.parse(generator)
+        self.assertIn('BASE_FV = "Fv -> {vL,0}"', generator)
+        self.assertIn('ALT_FV = "Fv -> {vL,conj[vL]}"', generator)
+        self.assertIn("restored != model", generator)
+        self.assertIn("if (DEST / name).read_bytes() != source[name]", generator)
+        self.assertIn("production_untouched", generator)
+        self.assertIn("no_majorana_mass_added", generator)
+        self.assertIn("sarah_model_variants", generator)
+        self.assertIn("Fv -> {vL,0}", self.model)
+        for marker in (
+            "MAJORANA_AB_NOT_VALIDATED",
+            "MAJORANA_AB_VARIANT_MODEL_MISSING",
+            "MAJORANA_AB_SARAH_START_FAILED",
+            "MAJORANA_AB_NEUTRINO_SPINOR_CLASSIFICATION_FAILED",
+            "MAJORANA_AB_SIGMAS_REQUIRED_STRUCTURE_NOT_PRESENT",
+            "MAJORANA_AB_SARAH_SIGMAS_GENERATED_NUMERIC_MNU_AND_LNV_UNVALIDATED",
+            "e3_majorana_ab_sigma.txt",
+            "zeeABClassified=MemberQ[MajoranaPart,Fv]",
+            "zeeABSelfConjugate=(AntiField[Fv]===Fv)",
+            "ZEE_E3_MAJORANA_AB_COMPLEX_MNU_MATRIX_EXTRACTED False",
+            "ZEE_E3_MAJORANA_AB_CHEN_E3_NUMERIC_MATCH False",
+            "SARAH`CalcLoopCorrections[EWSB]",
+        ):
+            self.assertIn(marker, wl)
+        self.assertIn("python3 scripts/zee_sarah_majorana_spinor_variant.py", sh)
+        self.assertIn("math -script scripts/zee_sarah_e3_majorana_ab_validation.m", sh)
+        self.assertIn("MAJORANA_AB_STAGE_NOT_STARTED", sh)
+        self.assertNotIn("SA`Start[", wl)
+        self.assertNotIn("SA`CalcLoopCorrections[", wl)
+
     def test_no_false_validation_claims(self):
         self.assertIn("SOURCE_IMPLEMENTED_NOT_VALIDATED", self.model)
         self.assertNotIn("MakeSPheno[]", self.model)
