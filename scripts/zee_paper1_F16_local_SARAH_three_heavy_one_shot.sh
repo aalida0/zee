@@ -10,10 +10,22 @@ fi
 python3 scripts/zee_paper1_F16_verify_AF_to_local_bundle.py --directory "$ZEE_F16_DIR"
 python3 scripts/zee_paper1_F16_wolfram_syntax_lint.py \
   scripts/zee_paper1_F16_SARAH_three_heavy_vertex_audit.m \
-  scripts/zee_paper1_F16_SARAH_MakeUFO_after_vertex_gate.m
+  scripts/zee_paper1_F16_SARAH_MakeUFO_after_vertex_gate.m \
+  scripts/zee_paper1_F16_SARAH_context_vevs.m \
+  scripts/zee_paper1_F16_SARAH_context_vevs_selftest.m
 if ! command -v math >/dev/null 2>&1; then
   echo "F16_LOCAL_MATHEMATICA_KERNEL_MISSING" >&2
   exit 3
+fi
+# Exercise actual Wolfram replacement semantics for VEV symbols in
+# Global, SARAH and Susyno contexts before loading the full SARAH model.
+# Mathematica may return zero on nonfatal parse messages: inspect status too.
+math -script scripts/zee_paper1_F16_SARAH_context_vevs_selftest.m \
+  2>&1 | tee "$ZEE_F16_DIR/F16_local_VEV_context_selftest.log"
+if ! grep -qx "F16_VEV_CONTEXT_SELFTEST_PASS" \
+    "$ZEE_F16_DIR/F16_local_VEV_context_selftest.log"; then
+  echo "F16_FAIL_CLOSED_PHYSICAL_VEV_CONTEXT_REGRESSION" >&2
+  exit 11
 fi
 # Prevent a stale PASS from an earlier run from hiding a Mathematica
 # syntax error, which can otherwise produce a zero exit code.
