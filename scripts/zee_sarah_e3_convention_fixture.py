@@ -55,18 +55,53 @@ def wlrule(name,value):
     return wlreal(value)
 
 def lepton_log_kernel(m1,m2,ml):
-    """Independent finite Feynman parameter integral of scalar B0 difference.
+    """Exact finite B0 difference for p^2=0, with no quadrature error.
 
-    Integral_0^1 dx log[(x*ml²+(1-x)*m1²)/(x*ml²+(1-x)*m2²)].
-    In ml -> 0, equals log(m1²/m2²); explicit charged lepton mass
-    dependence tests the approximation used in Chen's kappa.
+    I = Integral_0^1 dx log[(x*ml^2+(1-x)*m1^2)/
+                            (x*ml^2+(1-x)*m2^2)]
+      = log(a/b) + z * [log(a/z)/(a-z) - log(b/z)/(b-z)],
+    where a=m1^2, b=m2^2, z=ml^2. At z=0 it is log(a/b).
+
+    The old 120-point Gauss-Legendre integral underestimated the
+    tau-mass correction by ~1.8e-5 in the log at our two E3 points,
+    propagating to a few 1e-7 eV in the neutrino mass comparison.
+    This analytic expression is an INDEPENDENT reference and does
+    not substitute the SARAH-generated matrix calculation.
     """
-    x,w=np.polynomial.legendre.leggauss(120)
-    x=(x+1)/2
-    w=w/2
-    a=x*ml**2+(1-x)*m1**2
-    b=x*ml**2+(1-x)*m2**2
-    return float(np.dot(w,np.log(a/b)))
+    a,b,z=float(m1)**2,float(m2)**2,float(ml)**2
+    if min(a,b)<=0 or z<0:
+        raise ValueError("invalid squared masses")
+    if z==0:
+        return math.log(a/b)
+    def term(t):
+        delta=t-z
+        if abs(delta)<1.e-8*max(t,z):
+            q=delta/z
+            return math.log1p(q)/delta if delta else 1./z
+        return math.log(t/z)/delta
+    return math.log(a/b)+z*(term(a)-term(b))
+
+
+def lepton_log_kernel_independent_quad(m1,m2,ml):
+    """Independent endpoint-adapted integral for validating exact kernel.
+
+    Adaptive Gauss-Kronrod integration from SciPy is used only if
+    installed; production fixture physics depends on exact_kernel,
+    not quadrature. Split near x=1 to resolve the tau endpoint.
+    """
+    try:
+        from scipy.integrate import quad
+    except ImportError:
+        return None
+    a,b,z=float(m1)**2,float(m2)**2,float(ml)**2
+    def integrand(x):
+        return math.log((x*z+(1-x)*a)/(x*z+(1-x)*b))
+    result=0.
+    for left,right in ((0.,.9),(.9,.99),(.99,.9999),(.9999,1.)):
+        result+=quad(integrand,left,right,epsabs=2.e-13,
+                     epsrel=2.e-13,limit=200)[0]
+    return result
+
 
 def case(name,m1,m2,gamma,f,Y,target,beta,v):
     kap=scalar_kappa(m1,m2,gamma)
@@ -95,6 +130,14 @@ def case(name,m1,m2,gamma,f,Y,target,beta,v):
     widths=np.array([[bw["H1"][ell],bw["H2"][ell]]
                      for ell in ("e","mu","tau")],float)
     logs=np.array([lepton_log_kernel(m1,m2,m) for m in MASS_LEPTON])
+    independent=np.array([
+        lepton_log_kernel_independent_quad(m1,m2,m)
+        for m in MASS_LEPTON],dtype=object)
+    if all(value is not None for value in independent):
+        independent=np.asarray(independent,float)
+        if np.max(abs(logs-independent))>1.e-11:
+            raise ValueError("Exact loop logarithm failed independent quadrature audit")
+
     exact=np.zeros((3,3),complex)
     for ell in range(3):
         part=np.outer(f[:,ell],y[ell,:])
