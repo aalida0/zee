@@ -417,7 +417,8 @@ def execute(args):
             if r["partial_LFV_max_ratio_NOT_CL"] is not None else 1e99)))
     summary={
         "status":STATUS,
-        "scan_executed_on_AF":True,
+        "scan_executed_on_AF":None,
+        "execution_environment":os.uname().nodename,
         "original_scalar_seed_classification":kind,
         "new_scalar_proposals_attempted":args.scalar_steps,
         "scalar_summary":scalar_summary,
