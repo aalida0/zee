@@ -183,7 +183,17 @@ class TestSarahZeeSource(unittest.TestCase):
                 self.assertIn("integrated_lepton_residuals.txt", audit)
             else:
                 self.assertIn(key, audit)
-        self.assertIn("If[a===b,None,Fzee]", audit)
+        self.assertIn("zeeLeptonGeneration===zeeNeutrinoGeneration", audit)
+        self.assertIn("With[{zeeLeptonGeneration=pp[[1]]", audit)
+        self.assertIn("With[{zeeChargedState=kk}", audit)
+        self.assertIn("With[{zeeNeutralState=nn}", audit)
+        self.assertIn("GLOBAL_DUMMY_SYMBOL_CONTAMINATION", audit)
+        self.assertIn("FZEE_GAUGE_SENTINEL_FAILED", audit)
+        self.assertIn("ZEE_INTEGRATED_FZEE_SENTINEL_PASS", audit)
+        for bad in ("a=pp[[1]]", "b=pp[[2]]", "k=kk;", "n=nn;",
+                    "beta=zeeGate6Beta;", "gamma=zeeGate6Gamma;",
+                    "alpha=zeeGate6Alpha;"):
+            self.assertNotIn(bad, audit)
         self.assertIn("math -script scripts/zee_sarah_integrated_lepton_validation.m", shell)
         self.assertIn("set -euo pipefail", shell)
         self.assertIn("python3 scripts/zee_sarah_gate6_fixture.py", shell)
