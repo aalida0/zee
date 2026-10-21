@@ -295,7 +295,8 @@ Do[
  If[zeeLoopErr>1.*^-8,
   AppendTo[zeeFailures,"neutrino_convention_"<>zeeCase["Label"]]];
  If[zeeScale>1.*^-8,
-  AppendTo[zeeFailures,"loop_scale_cancel_"<>zeeCase["Label"]]],
+  AppendTo[zeeFailures,"loop_scale_cancel_"<>zeeCase["Label"]]];
+ ],
  {zeeCaseIndex,Length[zeeE3Cases]}
 ];
 Export[zeeAuditFile,
