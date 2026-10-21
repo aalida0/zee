@@ -19,9 +19,7 @@ from zee_gateF7_309_2026_bsgamma_tension_sensitivity import (
     ROOT,load_f6,digest,writejson,
 )
 from zee_gateF8_309_670TypeII_same_legacy_kernel_and_mixing import archive_bin
-from zee_paper1_F11_six_real_flavio_LO_NP_rate import (
-    close,finite,matching,coeff,
-)
+from zee_paper1_F11_six_real_flavio_LO_NP_rate import finite
 
 STATUS="F12_309_NEW_2026_SOURCE_MATCHED_EQ4_LO_CASCADE_FRONTIER_NOT_EXCLUSION"
 FNAME="F12_309_2026_Eq4_LO_Bsgamma_vs_included_cascade_NOT_EXCLUSION.csv"
@@ -162,15 +160,17 @@ def run(args):
         z=sorted(q["2026_exp_plus_SM_sigma_diagnostic_z_NOT_CL"]
                  for q in cohort)
         bands={
-          "z_lt_1p96_diagnostic_only":sum(x<1.96 for x in z),
-          "z_1p96_to_3_diagnostic_only":sum(1.96<=x<3 for x in z),
-          "z_ge_3_diagnostic_only":sum(x>=3 for x in z),
+          "abs_z_lt_1p96_diagnostic_only":sum(abs(x)<1.96 for x in z),
+          "abs_z_1p96_to_3_diagnostic_only":sum(1.96<=abs(x)<3 for x in z),
+          "abs_z_ge_3_diagnostic_only":sum(abs(x)>=3 for x in z),
         }
+        brs=sorted(q["2026_published_Eq4_LO_linear_BRx1e4"] for q in cohort)
         summary={
           "status":STATUS,"number_original_source_spectra":309,
           "unique_source_probes":calls["unique_source_probes"],
           "modern_published_Eq4_LO_linearized_applied_to_each":True,
-          "LO_Eq4_2026_BR_x1e4_min_median_max":[z[0],statistics.median(z),z[-1]],
+          "LO_Eq4_2026_BR_x1e4_min_median_max":
+              [brs[0],statistics.median(brs),brs[-1]],
           "Bsgamma_gaussian_z_not_a_CL_min_median_max":
               [z[0],statistics.median(z),z[-1]],
           "diagnostic_threshold_counts_NOT_model_allowed_or_excluded":bands,
