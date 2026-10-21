@@ -240,8 +240,9 @@ If[Or@@( (OwnValues[#]=!={})& /@
    full set of requests is evaluated. *)
 zeeFsentinel=SARAH`Vertex[{eL[{1}],vL[{2}],Sp},
  Eigenstates->GaugeES];
-If[FreeQ[zeeFsentinel,Fzee] || FreeQ[zeeFsentinel,eL] ||
-   FreeQ[zeeFsentinel,vL],
+If[!ListQ[zeeFsentinel] || Length[zeeFsentinel]!=2 ||
+   !MatchQ[zeeFsentinel[[1]],{eL[_],vL[_],Sp}] ||
+   FreeQ[zeeFsentinel,Fzee],
  Print["FAIL FZEE_GAUGE_SENTINEL ",InputForm[zeeFsentinel]];
  setGate["FZEE_GAUGE_SENTINEL_FAILED"];Exit[18]];
 Print["ZEE_INTEGRATED_FZEE_SENTINEL_PASS"];
