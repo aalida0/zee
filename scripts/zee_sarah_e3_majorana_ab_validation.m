@@ -111,6 +111,23 @@ Print["ZEE_E3_MAJORANA_AB_SIGMAS_B0 ",zeeABMassScalarB0];
 Print["ZEE_E3_MAJORANA_AB_SIGMAS_MASS_FE ",zeeABMassScalarFe];
 Print["ZEE_E3_MAJORANA_AB_SIGMAS_CHARGED_HIGGS ",zeeABMassScalarHm];
 Print["ZEE_E3_MAJORANA_AB_SIGMAS_COUPLINGS ",zeeABMassScalarCps];
+
+(* A radiative Majorana mass is generated with zero TREE neutrino
+   mass. Inspect whether the scalar form factor vanishes after setting
+   only explicit Fv masses to zero. This is a syntactic check and does
+   not by itself identify an LNV two-point function. *)
+zeeABNuMassZeroSigmaS=zeeABS/.{
+  HoldPattern[Mass[Fv[___]]]:>0,
+  HoldPattern[Mass[Fv]]:>0,
+  HoldPattern[Mass2[Fv[___]]]:>0,
+  HoldPattern[Mass2[Fv]]:>0
+};
+zeeABNuMassZeroSigmaIsZero=(zeeABNuMassZeroSigmaS===0);
+Print["ZEE_E3_MAJORANA_AB_SIGMAS_TREE_MNU_ZERO_IDENTICALLY_ZERO ",
+ zeeABNuMassZeroSigmaIsZero];
+Print["ZEE_E3_MAJORANA_AB_SIGMAS_TREE_MNU_ZERO_MASS_SYMBOL_REMAINING ",
+ !FreeQ[zeeABNuMassZeroSigmaS,Mass[Fv[___]]]];
+
 Print["ZEE_E3_MAJORANA_AB_COMPLEX_MNU_MATRIX_EXTRACTED False"];
 Print["ZEE_E3_MAJORANA_AB_CHEN_E3_NUMERIC_MATCH False"];
 Export[zeeABExport,StringRiffle[{
@@ -119,6 +136,7 @@ Export[zeeABExport,StringRiffle[{
  "Spinor variant: "<>zeeABName,
  "Fv classified Majorana: "<>ToString[zeeABClassified],
  "SigmaS:\\n"<>ToString[InputForm[zeeABS]],
+ "SigmaS_tree_mnu_zero:\\n"<>ToString[InputForm[zeeABNuMassZeroSigmaS]],
  "SigmaR:\\n"<>ToString[InputForm[zeeABR]],
  "SigmaL:\\n"<>ToString[InputForm[zeeABL]],
  "Diagrams:\\n"<>ToString[InputForm[zeeABDiagrams[[zeeABNuIndex]]]]
