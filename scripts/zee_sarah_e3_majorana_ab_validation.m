@@ -601,7 +601,7 @@ Do[
   zeeABResidualConjPlus,zeeABResidualConjMinus,
   zeeABVertexConventions,zeeABCanonicalResidual,
   zeeABReferenceScale,zeeABAmplitudeCp,
-  zeeABCpAmplitudeResidual},
+  zeeABCpAmplitudeResidual,zeeABMassSpectrumResidual},
  Print["ZEE_E3_MAJORANA_NUMERIC_CASE_BEGIN ",
   zeeABCase["Label"]];
  zeeABVertexConventions=zeeABCheckVertexOrientation[zeeABCase];
@@ -669,6 +669,22 @@ Do[
     before labeling a physical neutrino mass implementation. *)
  zeeABCanonicalResidual=Max[Abs[Flatten[
    -Conjugate[zeeABPlus]-zeeABRef]]];
+ (* Majorana pole masses at this order are Takagi singular values,
+    invariant under global sign and complex conjugation. This is a
+    physical convention-independent cross-check; it does not
+    establish CP-sensitive mixing phases. *)
+ zeeABMassSpectrumResidual=Max[Abs[
+  Sort[SingularValueList[zeeABPlus]]-
+  Sort[SingularValueList[zeeABRef]]]];
+ Print["ZEE_E3_MAJORANA_MASS_SINGULAR_VALUES ",
+  zeeABCase["Label"],
+  " SARAH_EV=",InputForm[Sort[SingularValueList[zeeABPlus]]],
+  " E3_EV=",InputForm[Sort[SingularValueList[zeeABRef]]],
+  " MAX_RESIDUAL_EV=",InputForm[zeeABMassSpectrumResidual]];
+ If[zeeABMassSpectrumResidual>5.*^-11,
+  AppendTo[zeeABMatrixErrors,
+   "majorana_mass_singular_values_"<>zeeABCase["Label"]]];
+
  zeeABReferenceScale=Max[Abs[Flatten[zeeABRef]]];
  Print["ZEE_E3_MAJORANA_FIXED_NEGCONJ_COMPARISON ",
   zeeABCase["Label"],
