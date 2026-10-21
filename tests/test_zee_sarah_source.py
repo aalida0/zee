@@ -368,6 +368,8 @@ class TestSarahZeeSource(unittest.TestCase):
             "ZEE_E3_MAJORANA_SARAH_GENERATED_COMPLEX_3X3_EVALUATED True",
             "zeeABAmplitudeFromCp",
             "ZEE_E3_MAJORANA_CP_LOOP_AMPLITUDE_DERIVATION",
+            "ZEE_E3_MAJORANA_MASS_SINGULAR_VALUES",
+            "majorana_mass_singular_values_",
             "MAJORANA_AB_CP_LOOP_CONTRACTION_NONNUMERIC",
             "sarah_amplitude_factor_or_chirality_",
             "MAJORANA_FACTOR=2",
