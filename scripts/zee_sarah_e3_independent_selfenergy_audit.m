@@ -7,7 +7,7 @@
    evaluated against independent E3 test data.
 
    Run from repo root via:
-      bash scripts/zee_sarah_e3_one_loop_one_shot.sh
+      bash scripts/zee_sarah_e3_selfenergy_one_shot.sh
 *)
 zeeLoopRoot=Directory[];
 zeeLoopDir=FileNameJoin[{zeeLoopRoot,"work","sarah_zee"}];
