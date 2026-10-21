@@ -331,6 +331,24 @@ class TestSarahZeeSource(unittest.TestCase):
             "e3_majorana_ab_sigma_machine.m",
             "e3_majorana_ab_sigma_couplings.txt",
             "e3_majorana_ab_physical_vertices.txt",
+            "MAJORANA_AB_NUMERIC_SIGMAS_NOT_RESOLVED",
+            "MAJORANA_AB_NUMERIC_MATRIX_STRUCTURE_OR_NULL_FAILURE",
+            "MAJORANA_AB_NUMERIC_SIGMAS_AND_NULLS_PASS_E3_SIGN_UNVALIDATED",
+            "MAJORANA_AB_UNEXPECTED_SIGMAS_ZERO_TREE_DIAGRAMS",
+            "MAJORANA_AB_E3_NUMERIC_FIXTURE_MISSING",
+            "ZEE_E3_MAJORANA_NUMERIC_CASE_BEGIN",
+            "ZEE_E3_MAJORANA_NUMERIC_RESIDUALS",
+            "ZEE_E3_MAJORANA_NULL_RESULT",
+            "ZEE_E3_MAJORANA_NUMERIC_MNU_INDEPENDENTLY_MATCHED False",
+            "e3_majorana_ab_numeric_matrix_report.txt",
+            "zeeABScalarTerms",
+            "zeeABGaugeTerms",
+            "zeeABStoredVertex",
+            "zeeABEvaluateVertex",
+            "zeeABFiniteB0",
+            "zeeABEvaluateSigma",
+            "zeeABMatrix",
+            "zeeABNullCases",
             "SARAH`CalcLoopCorrections[EWSB]",
         ):
             self.assertIn(marker, wl)
@@ -339,6 +357,8 @@ class TestSarahZeeSource(unittest.TestCase):
         self.assertIn("MAJORANA_AB_STAGE_NOT_STARTED", sh)
         self.assertNotIn("SA`Start[", wl)
         self.assertNotIn("SA`CalcLoopCorrections[", wl)
+        self.assertNotIn("ZEE_E3_MAJORANA_NUMERIC_MNU_INDEPENDENTLY_MATCHED True", wl)
+        self.assertNotIn("1.*^-9", wl[wl.index("(* FULL COMPLEX MATRIX DIAGNOSTIC"):])
 
     def test_no_false_validation_claims(self):
         self.assertIn("SOURCE_IMPLEMENTED_NOT_VALIDATED", self.model)
