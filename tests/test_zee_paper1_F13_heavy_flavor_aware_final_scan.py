@@ -21,6 +21,8 @@ class TestF13(unittest.TestCase):
             self.assertEqual(r["candidate_status"],"SCALAR_EWPO_SCREEN_ONLY_NOT_ALLOWED")
     def test_48_actual_scalar_EWPO_proposals_and_synthetic_flavor(self):
         rows,s=q.walk(self.seeds,48,40,np.random.default_rng(44),fake_source,report_every=0)
+        print("F13_48_REAL_SCALAR_PROPOSAL_DIAGNOSTIC",
+              {"new_unique_scalar":len(rows)-len(self.seeds),**s})
         self.assertGreaterEqual(len(rows),len(self.seeds))
         self.assertEqual(s["new_proposals"],48)
         self.assertGreaterEqual(s["flavor_benchmark_backend_calls"],3)
