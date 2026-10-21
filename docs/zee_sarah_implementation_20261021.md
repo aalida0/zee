@@ -561,6 +561,85 @@ Chen log coefficient `kappa=sqrt(2)*sin(2gamma)*log(mH1^2/mH2^2)/(16pi^2)`
 follows from those factors and `sum ZP[k,3] ZP[k,D] log(m_k^2)`.
 This is **not yet** a generated one-loop self-energy test.
 
+## Next ONE comprehensive E3–SARAH convention gate (2026-10-21)
+
+Following the successful `104/104` complex tree-lepton comparison,
+the next audit uses the **source-defined Chen/E3 normalization**,
+not the previous arbitrary complex Yukawa matrices. No old E2/E3
+artifacts are modified.
+
+The source `gateA1b_hierarchical_no_seed.py` uses
+`Mnu = kappa (f Ml Y + (f Ml Y)^T)` with
+`kappa=sqrt(2)*sin(2 gamma)*log(mH1^2/mH2^2)/(16*pi^2)`.
+The existing `gateB3_general_zee_charged_lepton_widths.py`
+defines charged interactions with coefficients `2f` (singlet)
+and `sqrt(2)Y` (non-VEV doublet), matching the published
+Higgs-basis interaction convention in Chen arXiv:2508.18757
+Eq.(4). The validated SARAH vertices instead have tree-level
+coefficients `fSARAH` and `YD=-sin(beta)*Ye+cos(beta)*Ye2`
+(with source lepton-index ordering).
+
+**Do not reuse E3 f,Y numbers unchanged in SARAH.** In the fixed
+charged-lepton diagonal convention used by the new test,
+
+```text
+fSARAH = 2*fE3
+YD = sqrt(2)*Y_E3
+S = cos(beta)*Ye+sin(beta)*Ye2 = sqrt(2)/v*diag(m_e,m_mu,m_tau)
+Ye = cos(beta)*S - sin(beta)*YD
+Ye2 = sin(beta)*S + cos(beta)*YD
+```
+
+The identification above is defined for the particular overall
+relative field phases adopted in the test. A complete field and
+one-loop self-energy phase audit is still open.
+
+Two original-source-inspired *synthetic* flavor fixtures are built
+by `scripts/zee_sarah_e3_convention_fixture.py`:
+the A1b neutrino-null-vector seed at the Gate6 300/700 GeV
+benchmark and a distinct B2 null root at 375/925 GeV.
+Both use complex f,Y and independent neutrino rank-5 solutions.
+The fixture also evaluates the charged-lepton-mass-dependent
+finite one-loop scalar B0 log difference as an independent
+Feynman-parameter integral. They are not two of the 309
+optimized E3 archival source candidates.
+
+`scripts/zee_sarah_e3_integrated_validation.m` consumes this
+fixture and **actual SARAH-generated** GaugeES and EWSB lepton
+vertices. It checks 81 vertex structures at each point
+(9 gauge, 72 charged), 162 complex coefficient comparisons,
+charged-lepton mass-matrix closure, 6 massless-neutrino
+partial widths against the B3 source, sign-convention-chosen
+neutrino loop-kernel contraction against A1b, and loop
+renormalization-scale cancellation. The full residual ledger
+is saved to `work/sarah_zee/e3_integrated_residuals.txt`.
+
+One command (local Mathematica machine):
+
+```bash
+cd ~/zee
+git pull --ff-only
+bash scripts/zee_sarah_e3_one_shot.sh
+```
+
+The only intended success label is
+
+```text
+E3_SARAH_TREE_CONVENTION_AND_CHEN_KERNEL_CONSISTENT_SELFENERGY_UNVALIDATED
+```
+
+**No PASS has been obtained for this new audit yet.**
+Even this PASS would establish only compatibility of Chen/E3
+tree couplings, B3 LO widths and the specifically *assembled*
+one-loop log kernel. It would NOT constitute an independent
+SARAH `SelfEnergy` or a SPheno/FlavorKit generated
+neutrino mass computation, nor an amplitude-level proof of
+the complex weak-basis mapping for all 309 E3 points. A
+true independently calculated one-loop Majorana self-energy
+and its finite charged-lepton-mass terms remain future work.
+No LFV/Barr-Zee/constraint or experimental allowed/excluded
+status is warranted.
+
 ## Unresolved physics / blockers
 
 1. Check the SU(2) dot contraction and sign of the Zee trilinear in SARAH
