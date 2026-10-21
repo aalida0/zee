@@ -112,6 +112,80 @@ Print["ZEE_E3_MAJORANA_AB_SIGMAS_MASS_FE ",zeeABMassScalarFe];
 Print["ZEE_E3_MAJORANA_AB_SIGMAS_CHARGED_HIGGS ",zeeABMassScalarHm];
 Print["ZEE_E3_MAJORANA_AB_SIGMAS_COUPLINGS ",zeeABMassScalarCps];
 
+(* An actual independent loop calculation must retain its original
+   diagrammatic coupling factors. Capture EVERY chirality-labeled Cp
+   vertex in SigmaS before performing any guessed contractions.
+   SARAH's loopCorrections.m AddLoopFermion inserts products of
+   Cp[..][PR] and conjugates of Cp[..][PL]. Tree-level vertex
+   structure changes when Fv is repackaged as self-conjugate. *)
+zeeABCouplingAtoms=DeleteDuplicates[
+ Cases[zeeABS,HoldPattern[(Cp[___])[PL|PR]],Infinity]];
+zeeABCouplingInventoryFile=FileNameJoin[{zeeABDir,
+ "e3_majorana_ab_sigma_couplings.txt"}];
+zeeABSigmaMachineFile=FileNameJoin[{zeeABDir,
+ "e3_majorana_ab_sigma_machine.m"}];
+Print["ZEE_E3_MAJORANA_AB_SIGMAS_CP_ATOMS ",
+ Length[zeeABCouplingAtoms]];
+Print["ZEE_E3_MAJORANA_AB_SIGMAS_EXPLICIT_F_AND_Y ",
+ (!FreeQ[zeeABS,Fzee] && !FreeQ[zeeABS,Ye2])];
+Put[zeeABS,zeeABSigmaMachineFile];
+Export[zeeABCouplingInventoryFile,
+ StringRiffle[
+  Join[{"Independent SARAH SigmaS coupling-factor inventory",
+    "These are Cp operators from SARAH, not yet matched to Zee f/Y."},
+    (ToString[InputForm[#]]&/@zeeABCouplingAtoms)
+  ],"\n"]<>"\n","Text"];
+Print["ZEE_E3_MAJORANA_AB_SIGMA_COUPLING_INVENTORY ",
+ zeeABCouplingInventoryFile];
+Print["ZEE_E3_MAJORANA_AB_SIGMA_MACHINE_EXPRESSION ",
+ zeeABSigmaMachineFile];
+
+(* Compare the two PHYSICAL charged-lepton/Higgs field orientations
+   directly in the Majorana variant. This prevents the original
+   spinor representation's 162/162 PASS from being misapplied to
+   the Majorana representation after its FFS topology count changes.
+   Do not REQUIRE the Dirac and Majorana vertex field ordering
+   to look identical; inventory all amplitudes for a later complete
+   complex amplitude-level conversion. *)
+zeeABTreeProbeFields={
+ {"f_plus_12_H1",{Fe[{1}],Fv[{2}],conj[Hm[{2}]]}},
+ {"f_plus_12_H2",{Fe[{1}],Fv[{2}],conj[Hm[{3}]]}},
+ {"f_reverse_12_H1",{Fv[{2}],Fe[{1}],conj[Hm[{2}]]}},
+ {"Y_minus_12_H1",{bar[Fe[{1}]],Fv[{2}],Hm[{2}]}},
+ {"Y_minus_12_H2",{bar[Fe[{1}]],Fv[{2}],Hm[{3}]}},
+ {"Y_plus_12_H1",{bar[Fv[{2}]],Fe[{1}],conj[Hm[{2}]]}},
+ {"f_hc_12_H1",{bar[Fe[{1}]],bar[Fv[{2}]],Hm[{2}]}}
+};
+zeeABTreeProbeResults=Table[
+ {zeeABTreeProbeFields[[zeeABIdx,1]],
+  CheckAbort[
+   SARAH@BT@Vertex[zeeABTreeProbeFields[[zeeABIdx,2]],
+    Eigenstates->EWSB],$Aborted]},
+ {zeeABIdx,Length[zeeABTreeProbeFields]}];
+zeeABTreeProbeFile=FileNameJoin[{zeeABDir,
+ "e3_majorana_ab_physical_vertices.txt"}];
+Export[zeeABTreeProbeFile,StringRiffle[
+ Table[
+ ToString[zeeABTreeProbeResults[[zeeABIdx,1]]]<>
+ " HAS_FZEE="<>ToString[
+  !FreeQ[zeeABTreeProbeResults[[zeeABIdx,2]],Fzee]]<>
+ " HAS_YE2="<>ToString[
+  !FreeQ[zeeABTreeProbeResults[[zeeABIdx,2]],Ye2]]<>
+ " EXPR="<>ToString[
+  InputForm[zeeABTreeProbeResults[[zeeABIdx,2]]]],
+ {zeeABIdx,Length[zeeABTreeProbeResults]}],
+ "\n\n"]<>"\n","Text"];
+Print["ZEE_E3_MAJORANA_AB_TREE_F_VERTEX_COUNT ",
+ Count[zeeABTreeProbeResults,
+  {_,zeeTerm_}/;!FreeQ[zeeTerm,Fzee]]];
+Print["ZEE_E3_MAJORANA_AB_TREE_Y_VERTEX_COUNT ",
+ Count[zeeABTreeProbeResults,
+  {_,zeeTerm_}/;!FreeQ[zeeTerm,Ye2]]];
+Print["ZEE_E3_MAJORANA_AB_TREE_VERTEX_INVENTORY ",
+ zeeABTreeProbeFile];
+Print["ZEE_E3_MAJORANA_AB_TREE_E3_AMPLITUDE_MATCH_VERIFIED False"];
+
+
 (* A radiative Majorana mass is generated with zero TREE neutrino
    mass. Inspect whether the scalar form factor vanishes after setting
    only explicit Fv masses to zero. This is a syntactic check and does
@@ -130,6 +204,7 @@ Print["ZEE_E3_MAJORANA_AB_SIGMAS_TREE_MNU_ZERO_MASS_SYMBOL_REMAINING ",
 
 Print["ZEE_E3_MAJORANA_AB_COMPLEX_MNU_MATRIX_EXTRACTED False"];
 Print["ZEE_E3_MAJORANA_AB_CHEN_E3_NUMERIC_MATCH False"];
+Print["ZEE_E3_MAJORANA_AB_CP_EXPANSION_TO_FLAVOR_COUPLINGS_VERIFIED False"];
 Export[zeeABExport,StringRiffle[{
  "SARAH-GENERATED MAJORANA-PACKAGED Fv FORM FACTORS",
  "Not a physical one-loop Majorana mass certificate.",
@@ -142,6 +217,9 @@ Export[zeeABExport,StringRiffle[{
  "Diagrams:\\n"<>ToString[InputForm[zeeABDiagrams[[zeeABNuIndex]]]]
  },"\n\n"]<>"\n","Text"];
 Print["ZEE_E3_MAJORANA_AB_SIGMA_FILE ",zeeABExport];
+If[Length[zeeABCouplingAtoms]===0,
+ zeeABSetStatus["MAJORANA_AB_SIGMAS_COUPLING_ATOMS_NOT_IDENTIFIED"];
+ Exit[17]];
 If[!And@@{zeeABMassScalarB0,zeeABMassScalarFe,
  zeeABMassScalarHm,zeeABMassScalarCps},
  zeeABSetStatus["MAJORANA_AB_SIGMAS_REQUIRED_STRUCTURE_NOT_PRESENT"];
