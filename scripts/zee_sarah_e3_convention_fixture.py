@@ -110,7 +110,7 @@ def case(name,m1,m2,gamma,f,Y,target,beta,v):
         raise ValueError("finite-integral zero-mass limit failed")
 
     entries={
-      "Label":name, "M1":m1, "M2":m2, "Gamma":gamma, "Beta":beta,
+      "Label":name, "M1":m1, "M2":m2, "Gamma":gamma, "Beta":beta, "V":v,
       "FChen":f,"YChen":y,"FSARAH":fs,"YeSARAH":ye,"Ye2SARAH":ye2,
       "TargetNuEV":target, "ChenMnuEV":reconstructed,
       "FiniteMnuEV":exact, "KappaChen":kap,
