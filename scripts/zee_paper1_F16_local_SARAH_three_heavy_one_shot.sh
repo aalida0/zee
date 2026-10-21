@@ -8,14 +8,29 @@ if [[ ! -f "$ZEE_F16_DIR/F16_three_exact_F13_Zee_SARAH_charged_vertices.m" ]]; t
   exit 2
 fi
 python3 scripts/zee_paper1_F16_verify_AF_to_local_bundle.py --directory "$ZEE_F16_DIR"
+python3 scripts/zee_paper1_F16_wolfram_syntax_lint.py \
+  scripts/zee_paper1_F16_SARAH_three_heavy_vertex_audit.m \
+  scripts/zee_paper1_F16_SARAH_MakeUFO_after_vertex_gate.m
 if ! command -v math >/dev/null 2>&1; then
   echo "F16_LOCAL_MATHEMATICA_KERNEL_MISSING" >&2
   exit 3
 fi
+# Prevent a stale PASS from an earlier run from hiding a Mathematica
+# syntax error, which can otherwise produce a zero exit code.
+rm -f "$ZEE_F16_DIR/F16_local_SARAH_vertex_status.txt"
 math -script scripts/zee_paper1_F16_SARAH_three_heavy_vertex_audit.m \
   2>&1 | tee "$ZEE_F16_DIR/F16_local_SARAH_console.log"
+if [[ ! -f "$ZEE_F16_DIR/F16_local_SARAH_vertex_status.txt" ]]; then
+  echo "F16_FAIL_CLOSED_NO_MATHEMATICA_STATUS_OUTPUT" >&2
+  exit 12
+fi
 echo "F16_AUDIT_STATUS:"
 cat "$ZEE_F16_DIR/F16_local_SARAH_vertex_status.txt"
+expected="F16_THREE_HEAVY_SARAH_MASS_GAUGE_CUBIC_COMPLEX_LEPTON_PASS_NOT_MADWIDTH"
+if [[ "$(tr -d '\r\n' < "$ZEE_F16_DIR/F16_local_SARAH_vertex_status.txt")" != "$expected" ]]; then
+  echo "F16_FAIL_CLOSED_SARAH_NUMERIC_VALIDATION_NOT_PASS" >&2
+  exit 13
+fi
 if [[ "${ZEE_F16_EXPORT_UFO:-0}" == "1" ]]; then
   math -script scripts/zee_paper1_F16_SARAH_MakeUFO_after_vertex_gate.m \
     2>&1 | tee "$ZEE_F16_DIR/F16_local_MakeUFO_console.log"
