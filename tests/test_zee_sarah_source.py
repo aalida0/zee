@@ -201,6 +201,51 @@ class TestSarahZeeSource(unittest.TestCase):
         self.assertNotIn("SA`Vertex[", audit)
         self.assertNotIn("FULL_ZEE_ALLOWED", audit)
 
+    def test_integrated_e3_sarah_convention_and_loop_kernel_gate(self):
+        fixture = (ROOT / "scripts" / "zee_sarah_e3_convention_fixture.py").read_text()
+        audit = (ROOT / "scripts" / "zee_sarah_e3_integrated_validation.m").read_text()
+        one_shot = (ROOT / "scripts" / "zee_sarah_e3_one_shot.sh").read_text()
+        for text in (
+            "target_neutrino_matrix",
+            "antisymmetric_f_with_null_condition",
+            "solve_lepton_yukawa",
+            "charged_lepton_widths",
+            "lepton_log_kernel",
+            "finite_mass_relative_correction",
+            "zeeE3Cases",
+            "zeeE3FixtureStatus",
+            "ZEE_E3_REAL_309_SOURCE_INCLUDED False",
+            "ZEE_E3_SARAH_SELFENERGY_GENERATED False",
+            "fs=2.*f",
+            "dCoupling=np.sqrt(2.)*y",
+        ):
+            self.assertIn(text, fixture)
+        for text in (
+            "E3_SARAH_CONVENTION_NOT_VALIDATED",
+            "E3_QUERY_BOOKKEEPING_FAILED",
+            "E3_VERTEX_EXTRACTION_FAILED",
+            "E3_VERTEX_SUBSTITUTION_FAILED",
+            "E3_SARAH_CONVENTION_OR_KERNEL_MISMATCH",
+            "E3_SARAH_TREE_CONVENTION_AND_CHEN_KERNEL_CONSISTENT_SELFENERGY_UNVALIDATED",
+            "ZEE_E3_GENERATED_SELFENERGY_CHECKED False",
+            "ZEE_E3_REAL_309_ARCHIVE_TESTED False",
+            "ZEE_E3_MAX_SCALE_RESIDUAL_EV",
+            "ZEE_E3_MAX_MNU_CONVENTION_RESIDUAL_EV",
+            "ZEE_E3_MAX_WIDTH_RESIDUAL_GEV",
+            "zeeCoefficient",
+            "zeeNuFromVertex",
+            "zeeFsentinel" if False else "zeeSentinel",
+        ):
+            self.assertIn(text, audit)
+        self.assertIn("Length[zeeQueries]!=81", audit)
+        self.assertIn("zeeCoeffCount!=162", audit)
+        self.assertIn("math -script scripts/zee_sarah_e3_integrated_validation.m", one_shot)
+        self.assertIn("python3 scripts/zee_sarah_e3_convention_fixture.py", one_shot)
+        self.assertIn("set -euo pipefail", one_shot)
+        self.assertNotIn("SA`Start[", audit)
+        self.assertNotIn("SA`Vertex[", audit)
+        self.assertNotIn("FULL_ZEE_ALLOWED", audit)
+
     def test_no_false_validation_claims(self):
         self.assertIn("SOURCE_IMPLEMENTED_NOT_VALIDATED", self.model)
         self.assertNotIn("MakeSPheno[]", self.model)
