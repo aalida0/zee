@@ -1,0 +1,7 @@
+# Source-verified Zee F11 LO NP plus older inclusive flavio-rate bridge
+# particle>=1.0 removes required particle2022.csv; do NOT silently upgrade.
+flavio==2.7.1
+wilson==2.5.2
+particle==0.26.2
+numpy<3
+scipy<2
