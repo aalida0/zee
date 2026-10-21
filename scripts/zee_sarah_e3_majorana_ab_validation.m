@@ -427,11 +427,13 @@ zeeABMatrix[zeeABExpr_,zeeABCase_Association,
 (* Null tests modify only the physically relevant Lagrangian
    parameters, not the stored Chen reference matrix. *)
 zeeABNullCases[zeeABCase_Association]:=Module[
- {zeeABFNull,zeeABMixNull,zeeABYNull,zeeABAlign,
+ {zeeABFNull,zeeABMixNull,zeeABYNull,zeeABMassDegenerate,zeeABAlign,
   zeeABBeta=zeeABCase["Beta"],zeeABv=zeeABCase["V"]},
  zeeABFNull=Association[zeeABCase,
    "FSARAH"->ConstantArray[0.+0.I,{3,3}]];
  zeeABMixNull=Association[zeeABCase,"Gamma"->0.];
+ zeeABMassDegenerate=Association[zeeABCase,
+  "M2"->zeeABCase["M1"]];
  zeeABAlign=DiagonalMatrix[
   Sqrt[2]*zeeABCase["LeptonMasses"]/zeeABv];
  zeeABYNull=Association[zeeABCase,
@@ -439,6 +441,7 @@ zeeABNullCases[zeeABCase_Association]:=Module[
   "Ye2SARAH"->Sin[zeeABBeta]*zeeABAlign];
  {{"f_zero",zeeABFNull},
   {"gamma_zero",zeeABMixNull},
+  {"charged_masses_degenerate",zeeABMassDegenerate},
   {"nonvev_Y_zero",zeeABYNull}}
 ];
 
@@ -494,10 +497,16 @@ Do[
    Conjugate[zeeABPlus]-zeeABRef]]];
  zeeABResidualConjMinus=Max[Abs[Flatten[
    Conjugate[zeeABMinus]-zeeABRef]]];
+ If[Max[Abs[Flatten[zeeABPlus]]]<1.*^-4,
+   AppendTo[zeeABMatrixErrors,
+    "nonzero_Zee_signal_not_detected_"<>zeeABCase["Label"]]];
  Print["ZEE_E3_MAJORANA_NUMERIC_CASE ",zeeABCase["Label"],
   " MNU_RAW=",InputForm[zeeABRaw],
   " SARAH_PLUS_EV=",InputForm[zeeABPlus],
   " REFERENCE_E3_FINITE_EV=",InputForm[zeeABRef]];
+ Print["ZEE_E3_MAJORANA_NUMERIC_SIGNAL_MAX_EV ",
+  zeeABCase["Label"]," ",
+  InputForm[Max[Abs[Flatten[zeeABPlus]]]]];
  Print["ZEE_E3_MAJORANA_NUMERIC_RESIDUALS ",
   zeeABCase["Label"],
   " SYMMETRY_GEV=",InputForm[zeeABSymResidual],
@@ -557,9 +566,3 @@ zeeABSetStatus[
  "MAJORANA_AB_NUMERIC_SIGMAS_AND_NULLS_PASS_E3_SIGN_UNVALIDATED"];
 Exit[0];
 
-(* Critical: a new four-component representation changes which
-   charge-conjugated contractions SARAH generates; only explicit
-   flavor- and complex-phase comparison can certify the Majorana Mnu. *)
-zeeABSetStatus[
- "MAJORANA_AB_SARAH_SIGMAS_GENERATED_NUMERIC_MNU_AND_LNV_UNVALIDATED"];
-Exit[0];
