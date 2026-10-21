@@ -258,7 +258,7 @@ class TestSarahZeeSource(unittest.TestCase):
             "SARAH_NEUTRINO_EXTERNAL_SECTOR_NOT_IDENTIFIED",
             "SARAH_NEUTRINO_SECTOR_INVENTORY_INCOMPLETE",
             "SARAH_NEUTRINO_SECTOR_REQUIRED_LOOP_INGREDIENTS_NOT_IDENTIFIED",
-            "SARAH_NEUTRINO_EXTERNAL_SECTOR_FE_HM_B0_CANDIDATE_MAJORANA_UNVALIDATED",
+            "SARAH_FV_SIGMAS_FE_HM_B0_EXTRACTED_MAJORANA_AMPLITUDE_UNVALIDATED",
             "ZEE_E3_SELFENERGY_N_EXTERNAL_LABELS",
             "ZEE_E3_SELFENERGY_NEUTRINO_EXTERNAL_SUM_ENTRIES",
             "zeeNeutrinoExternalQ",
@@ -292,6 +292,7 @@ class TestSarahZeeSource(unittest.TestCase):
         self.assertNotIn("First/@zeeRows", audit)
         self.assertNotIn("Select[zeeRows", audit)
         self.assertNotIn("SARAH_NEUTRINO_LOOP_TOPOLOGIES_EXTRACTED_MAJORANA_MASS_UNVALIDATED", audit)
+        self.assertNotIn("SARAH_NEUTRINO_EXTERNAL_SECTOR_FE_HM_B0_CANDIDATE_MAJORANA_UNVALIDATED", audit)
 
     def test_no_false_validation_claims(self):
         self.assertIn("SOURCE_IMPLEMENTED_NOT_VALIDATED", self.model)
