@@ -365,6 +365,7 @@ class TestSarahZeeSource(unittest.TestCase):
             "ZEE_E3_MAJORANA_FIXED_NEGCONJ_COMPARISON",
             "ZEE_E3_MAJORANA_FINITE_B0_REFERENCE ANALYTIC_CLOSED_FORM",
             "ZEE_E3_MAJORANA_NEGCONJ_AGREEMENT_ONLY_FIXED_REFERENCE True",
+            "ZEE_E3_MAJORANA_SARAH_GENERATED_COMPLEX_3X3_EVALUATED True",
             "zeeABCheckVertexOrientation",
             "fixed_negconj_E3_reference_residual_",
             "SARAH`CalcLoopCorrections[EWSB]",
