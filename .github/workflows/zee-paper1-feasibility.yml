@@ -29,3 +29,11 @@ jobs:
             --trials 1 --optimize-seeds 1 --optimize-evals 0 \
             --quadrature-nodes 40 --seed 20261021
           python -c 'import json; r=json.load(open("work/paper1_ci_real_scalar_flavor_smoke/summary.json")); assert r["modern_model_complete_constraints_passed"] is None; assert r["selected_spectra"] == 1; print(r["status"])'
+      - name: Actual correlated scalar proposal and local LFV optimizer smoke
+        run: |
+          python -u scripts/zee_paper1_florentino_feasibility_scan.py \
+            --output work/paper1_ci_correlated_scalar_and_optimizer_smoke \
+            --scalar-steps 24 --chains 2 --max-spectra 2 \
+            --trials 4 --optimize-seeds 1 --optimize-evals 60 \
+            --quadrature-nodes 40 --seed 20261022
+          python -c 'import json; r=json.load(open("work/paper1_ci_correlated_scalar_and_optimizer_smoke/summary.json")); assert r["new_scalar_proposals_attempted"] == 24; assert r["selected_spectra"] >= 1; assert r["paper1_GO_or_NOGO"] is None; print(r["status"])'
