@@ -33,6 +33,19 @@ If[!FileExistsQ[zeeABEarlierFile] ||
   "SARAH_FV_SIGMAS_FE_HM_B0_EXTRACTED_MAJORANA_AMPLITUDE_UNVALIDATED",
  zeeABSetStatus["MAJORANA_AB_BASELINE_SIGMAS_NOT_VALIDATED"];Exit[5]];
 
+(* Fail early on stale 120-point finite-B0 reference, before the
+   relatively expensive SARAH loop generation. Structural membership
+   is checked again from the imported Associations later. *)
+zeeABExactFixturePath=FileNameJoin[{zeeABDir,
+ "e3_charged_loop_fixture.m"}];
+If[!FileExistsQ[zeeABExactFixturePath] ||
+ !StringContainsQ[Import[zeeABExactFixturePath,"Text"],
+   "\"FiniteKernelMethod\" -> \"ANALYTIC_CLOSED_FORM\""],
+ Print["FAIL MAJORANA_AB_EXACT_B0_REFERENCE_PREFLIGHT"];
+ zeeABSetStatus["MAJORANA_AB_EXACT_FINITE_B0_FIXTURE_REQUIRED"];
+ Exit[24]];
+Print["ZEE_E3_MAJORANA_ANALYTIC_B0_FIXTURE_PREFLIGHT_PASS"];
+
 zeeABPackage=FileNameJoin[{$HomeDirectory,".Mathematica",
  "Applications","SARAH-4.15.4","SARAH.m"}];
 If[!FileExistsQ[zeeABPackage],
@@ -665,12 +678,12 @@ Export[zeeABNumericalReport,
 Print["ZEE_E3_MAJORANA_NUMERIC_REPORT ",zeeABNumericalReport];
 Print["ZEE_E3_MAJORANA_NUMERIC_FAILURE_LABELS ",
  InputForm[zeeABMatrixErrors]];
-Print["ZEE_E3_MAJORANA_NEGCONJ_AGREEMENT_ONLY_FIXED_REFERENCE True"];
 Print["ZEE_E3_MAJORANA_PHASE_SIGN_WAVEFUNCTION_DERIVATION_PENDING True"];
 Print["ZEE_E3_MAJORANA_NUMERIC_MNU_INDEPENDENTLY_MATCHED False"];
 If[Length[zeeABMatrixErrors]>0,
  zeeABSetStatus["MAJORANA_AB_NUMERIC_MATRIX_STRUCTURE_OR_NULL_FAILURE"];
  Exit[22]];
+Print["ZEE_E3_MAJORANA_NEGCONJ_AGREEMENT_ONLY_FIXED_REFERENCE True"];
 (* A successful status here certifies only evaluated raw diagrams
    plus independent null tests; a physical Majorana-sign convention
    must still be fixed before declaring E3 matching. *)
