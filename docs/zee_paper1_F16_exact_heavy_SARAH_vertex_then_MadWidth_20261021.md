@@ -32,6 +32,8 @@ export ZEE_F16_DIR="$HOME/zee/work/zee_paper1_F16_exact_SARAH_three_heavy_<REAL_
 bash scripts/zee_paper1_F16_local_SARAH_three_heavy_one_shot.sh
 ```
 
+Before Mathematica starts, the local runner invokes `scripts/zee_paper1_F16_verify_AF_to_local_bundle.py`, requiring full SHA256 closure of the original transferred complex f/Y, physical scalar fixture, source manifest, and the **identical local ZeeTypeII SARAH model file**. A stale or modified fixture is rejected. Both the actual F16 model-handoff test and a separate transfer-tampering regression test run in CI.
+
 The local script explicitly locates your installed `~/.Mathematica/Applications/SARAH-4.15.4/SARAH.m`, loads the unchanged `models/SARAH/ZeeTypeII`, retrieves **actual SARAH-generated** `MassMatrix[hh]`, `MassMatrix[Ah]`, `MassMatrix[Hm]`, offdiagonal Z, offdiagonal photon, H2-H1-h/H, 36 charged-lepton f and Y vertices, and the full generated charged-lepton mass matrix. It substitutes all three independent source fixtures, recomputes the three bosonic two-body widths and six lepton-family/state widths, and reports maximum source-amplitude residuals. A nonnumeric/mismatched vertex fails closed. Unlike F15, this is a genuine cross-generator amplitude calculation **when run locally**.
 
 Expected success label (do not claim before the actual local run):
