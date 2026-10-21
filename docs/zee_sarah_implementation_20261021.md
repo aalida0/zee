@@ -1119,6 +1119,70 @@ probes. If the previous status/model/fixture is missing, use
 the full \`bash scripts/zee_sarah_e3_selfenergy_one_shot.sh\`
 instead.
 
+## 2026-10-21: generated Majorana 3x3 matrix numerical result and finite-B0 reference correction
+
+The user executed the full Majorana-packed SARAH SigmaS 3x3
+evaluation and both complex benchmarks passed symmetry,
+subtraction-scale independence, vanishing W-sector, rMS independence,
+and all four physical nulls (f=0, gamma=0, charged mass degeneracy,
+non-VEV Yukawa=0). The computed signal is nonzero, max ~0.03065 eV.
+
+The original E3 fixture used a **120-node Gauss–Legendre**
+integral for the finite-mass B0 log difference. This was
+insufficiently accurate for the tau-lepton endpoint: its
+error is -1.82453e-5 at (300,700) GeV and -1.77408e-5
+at (375,925) GeV. This explains the residual
+~3e-7 eV between the reference finite neutrino matrix and
+the transformed SARAH result. The correct finite-mass log is
+
+    I(a,b,z) = log(a/b) + z*(log(a/z)/(a-z)-log(b/z)/(b-z))
+
+for a=mH1^2, b=mH2^2, z=mell^2, with I=log(a/b) for z=0.
+A high-precision independent integration confirms this
+analytic expression. The fixture now evaluates it directly,
+with an optional adaptive SciPy quadrature cross-check.
+Fixture metadata explicitly declares
+`FiniteKernelMethod = ANALYTIC_CLOSED_FORM`; the
+SARAH numerical audit refuses stale quadrature fixtures.
+
+The actual independently generated SARAH SigmaS matrix
+has the complex orientation -Conjugate[E3] up to the
+old quadrature error. The latest audit tests this
+mapping **with no automatic choice of sign/conjugation**.
+As an additional independent phase check, the matrix gate
+tests all 72 charged-scalar lepton chirality coefficients
+at each complex point against Lagrangian-derived
+expected structures, including signs and conjugations,
+before comparing the 3x3 matrices. It then tests the
+**fixed** -Conjugate[SARAH SigmaS] reference residual
+to 5e-11 eV. The sign of SigmaS in the inverse propagator
+and the Majorana external-state field phase should still be
+derived at the spinor level before claiming a complete
+model convention certification.
+
+No new SARAH result has yet been obtained with the corrected
+finite-loop reference and expanded phase checks.
+
+To rerun only the comprehensive numerical matrix stage,
+regenerate the independent reference first:
+
+```bash
+cd ~/zee
+git pull --ff-only
+python3 -m unittest discover -s tests -p 'test_zee_sarah_source.py' -v
+python3 scripts/zee_sarah_e3_convention_fixture.py
+set -o pipefail
+math -script scripts/zee_sarah_e3_majorana_ab_validation.m \
+  2>&1 | tee work/sarah_zee/e3_majorana_ab_console.log
+cat work/sarah_zee/e3_majorana_ab_status.txt
+grep -E 'COMPLEX_VERTEX_CONVENTIONS|FIXED_NEGCONJ|ANALYTIC_B0|NUMERIC_FAILURE|STATUS' \
+  work/sarah_zee/e3_majorana_ab_console.log
+```
+
+This remains the existing integrated stage, not a new script.
+The optimized 309 E3 points and the full Zee flavor/global
+likelihood are still not certified.
+
 ## Unresolved physics / blockers
 
 1. Check the SU(2) dot contraction and sign of the Zee trilinear in SARAH
