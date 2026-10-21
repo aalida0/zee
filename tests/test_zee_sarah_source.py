@@ -320,6 +320,8 @@ class TestSarahZeeSource(unittest.TestCase):
             "zeeABSelfConjugate=(AntiField[Fv]===Fv)",
             "ZEE_E3_MAJORANA_AB_COMPLEX_MNU_MATRIX_EXTRACTED False",
             "ZEE_E3_MAJORANA_AB_CHEN_E3_NUMERIC_MATCH False",
+            "ZEE_E3_MAJORANA_AB_SIGMAS_TREE_MNU_ZERO_IDENTICALLY_ZERO",
+            "SigmaS_tree_mnu_zero",
             "SARAH`CalcLoopCorrections[EWSB]",
         ):
             self.assertIn(marker, wl)
