@@ -300,6 +300,26 @@ zeeABStoredVertex[zeeABKind_String,zeeABNu_Integer,
  First[zeeABChiral]
 ];
 
+(* One early all-orientations preflight prevents a broken Vertex API or
+   chirality schema from spawning hundreds of noisy `$Failed` entries. *)
+zeeABVertexPreflight={
+ zeeABStoredVertex["hm",1,2,2,PL],
+ zeeABStoredVertex["hm",1,2,2,PR],
+ zeeABStoredVertex["hmConj",1,2,2,PL],
+ zeeABStoredVertex["hmConj",1,2,2,PR],
+ zeeABStoredVertex["wm",1,2,0,PL],
+ zeeABStoredVertex["wm",1,2,0,PR],
+ zeeABStoredVertex["wmConj",1,2,0,PL],
+ zeeABStoredVertex["wmConj",1,2,0,PR]
+};
+If[MemberQ[zeeABVertexPreflight,$Failed],
+ Print["FAIL MAJORANA_AB_VERTEX_CHIRALITY_PREFLIGHT ",
+ InputForm[zeeABVertexPreflight]];
+ zeeABSetStatus["MAJORANA_AB_VERTEX_CHIRALITY_PREFLIGHT_FAILED"];
+ Exit[20]];
+Print["ZEE_E3_MAJORANA_AB_VERTEX_CHIRALITY_PREFLIGHT_PASS ",
+ Length[zeeABVertexPreflight]];
+
 zeeABMixingMatrix[zeeABBeta_?NumericQ,
  zeeABGamma_?NumericQ]:=N[{
  {Cos[zeeABBeta],Sin[zeeABBeta],0},
