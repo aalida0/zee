@@ -107,9 +107,13 @@ If[!ListQ[zeeLoopLabels] ||
    may define a neutrino self-energy. This supports Fv, UFv, vL,
    and gauge-state Fv1; other representations remain diagnostic. *)
 zeeNeutrinoExternalQ[zeeLabel_]:=Module[
- {zeeName=ToString[InputForm[zeeLabel]]},
- StringMatchQ[zeeName,
- RegularExpression["^(\\\\{)?(Fv|UFv|Fv1|vL)(\\\\[.*\\\\])?(\\\\})?$"]]
+ {zeeName=ToString[InputForm[zeeLabel]],zeeToken,zeeBase},
+ (* Match a COMPLETE external particle name only. Remove wrappers
+    and generation suffix; never grep inside the entire self-energy. *)
+ zeeToken=StringReplace[zeeName,{
+   "{"->"","}"->"","bar["->"","conj["->""}];
+ zeeBase=First[StringSplit[zeeToken,"["]];
+ MemberQ[{"Fv","UFv","Fv1","vL"},zeeBase]
 ];
 zeeExternalPairs=MapThread[List,{zeeLoopLabels,zeeLoopSum}];
 zeeNuPairs=Select[zeeExternalPairs,zeeNeutrinoExternalQ[#[[1]]]&];
@@ -138,12 +142,12 @@ Print["ZEE_E3_SELFENERGY_NEUTRINO_EXTERNAL_LABELS ",
    lepton-number-preserving. A nonzero Majorana Sigma^S
    requires the appropriate chiral combination and f-Y interference. *)
 zeeNuSumExpressions=If[Length[zeeNuPairs]==0,{},zeeNuPairs[[All,2]]];
-zeeHasB0Q=!FreeQ[zeeNuSumExpressions,B0];
+zeeHasB0Q=!FreeQ[zeeNuSumExpressions,B0[___]];
 zeeHasFeMassQ=!FreeQ[zeeNuSumExpressions,Mass[Fe[___]]];
-zeeHasHmQ=!FreeQ[zeeNuSumExpressions,Hm] ||
- !FreeQ[zeeDiagPairs,Hm];
-zeeHasFeQ=!FreeQ[zeeNuSumExpressions,Fe] ||
- !FreeQ[zeeDiagPairs,Fe];
+zeeHasHmQ=!FreeQ[zeeNuSumExpressions,Hm[___]] ||
+ !FreeQ[zeeDiagPairs,Hm[___]];
+zeeHasFeQ=!FreeQ[zeeNuSumExpressions,Fe[___]] ||
+ !FreeQ[zeeDiagPairs,Fe[___]];
 Print["ZEE_E3_SELFENERGY_NEUTRINO_SECTOR_HAS_B0 ",zeeHasB0Q];
 Print["ZEE_E3_SELFENERGY_NEUTRINO_SECTOR_HAS_MASS_FE ",zeeHasFeMassQ];
 Print["ZEE_E3_SELFENERGY_NEUTRINO_SECTOR_HAS_CHARGED_HIGGS ",zeeHasHmQ];
