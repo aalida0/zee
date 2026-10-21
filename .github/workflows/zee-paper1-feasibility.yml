@@ -21,3 +21,11 @@ jobs:
       - run: python -m py_compile scripts/zee_paper1_florentino_feasibility_scan.py tests/test_zee_paper1_florentino_feasibility_scan.py
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_florentino_feasibility_scan.py' -v
       - run: bash -n scripts/zee_paper1_scan_one_shot.sh
+      - name: Real one-spectrum numerical smoke (not an exclusion)
+        run: |
+          python -u scripts/zee_paper1_florentino_feasibility_scan.py \
+            --output work/paper1_ci_real_scalar_flavor_smoke \
+            --scalar-steps 0 --chains 1 --max-spectra 1 \
+            --trials 1 --optimize-seeds 1 --optimize-evals 0 \
+            --quadrature-nodes 40 --seed 20261021
+          python -c 'import json; r=json.load(open("work/paper1_ci_real_scalar_flavor_smoke/summary.json")); assert r["modern_model_complete_constraints_passed"] is None; assert r["selected_spectra"] == 1; print(r["status"])'
