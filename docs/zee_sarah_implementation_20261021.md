@@ -478,6 +478,42 @@ flavor validation; full source-to-source E3 flavor basis/normalization,
 one-loop neutrino mass, Barr-Zee, CLFV and source-complete RGEs are
 all **unvalidated**.
 
+## Integrated tree-lepton harness failure and namespace-safe repair
+
+The user's first local one-shot integrated validation (2026-10-21)
+reported normal SARAH 4.15.4 initialization, successful charged and
+CP-even Gate6 diagonalization (all residuals <= 3.43e-11 GeV^2),
+and `ZEE_INTEGRATED_VERTEX_QUERIES 52`, but then emitted
+`D::ivar: 2 is not a valid variable` and returned incorrect-looking
+charged-lepton vertices containing pure scalar quartic couplings.
+Status: `LEPTON_VERTEX_EXTRACTION_OR_CHIRALITY_FAILED`.
+
+Root-cause candidate: the large Mathematica runner itself used
+global assignments `a=pp[[1]]; b=pp[[2]]; k=kk; n=nn` while
+constructing 52 queries. SARAH symbolic routines use short symbols
+as dummy variables, and a value attached to one such Global symbol
+can corrupt symbolic differentiation in the same Mathematica kernel.
+The model Lagrangian did **not** change. The runner now uses
+lexically substituted `With` generation labels, prefixed numeric
+scalar angles, an explicit 52-query invariant, and a preflight
+nonzero `Fzee` vertex sentinel. It fails with a named status on
+dummy-variable contamination or sentinel failure, rather than
+reporting fabricated physics results.
+
+The test remains **unvalidated** until a new local run completes.
+The usual single command is unchanged:
+
+```bash
+cd ~/zee
+git pull --ff-only
+bash scripts/zee_sarah_one_shot_lepton_validation.sh
+```
+
+If the validation fails again, inspect
+`work/sarah_zee/integrated_lepton_console.log` and status before
+any further physics changes. Do not generate new micro-probes;
+repair the existing consolidated test instead.
+
 ## Unresolved physics / blockers
 
 1. Check the SU(2) dot contraction and sign of the Zee trilinear in SARAH
