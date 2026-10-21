@@ -74,17 +74,25 @@ def screen_flavor(p,backend,cache):
         if key not in cache:cache[key]=backend(key[0],key[1])
         return cache[key]
     a,b=point(p["mH1"]),point(p["mH2"])
+    ref=point(670.)
+    reflo=linearized_2026(ref["delta_C7_LO"],ref["delta_C8_LO"])
     out=combine(a,b,gamma)
     shift=out["linearized_shift_times_1e4"]
     br=out["linearized_predicted_central_times_1e4"]
     sigma=math.hypot(MODERN_SM["sigma_times_1e4"],
                      PDG_EXP["sigma_times_1e4"])
     z=(br-PDG_EXP["central_times_1e4"])/sigma
+    ref_shift=reflo["linearized_shift_times_1e4"]
+    if not(ref_shift>0 and shift>0):
+        raise ValueError("Unexpected nonconstructive TypeII/Zee LO C7C8 dipole")
     return {
       "delta_C7_LO":out["LO_delta_C7_mu0_160"],
       "delta_C8_LO":out["LO_delta_C8_mu0_160"],
       "2026_Eq4_LO_linearized_BRx1e4":br,
       "2026_Eq4_LO_linearized_NP_shift_x1e4":shift,
+      "2026_Eq4_same_tanbeta_TypeII670_NP_shift_x1e4":ref_shift,
+      "Zee_to_same_tanbeta_TypeII670_2026Eq4_LO_NP_ratio_NOT_CL":
+          shift/ref_shift,
       "abs_z_illustrative_NOT_CL":abs(z),
       "signed_z_illustrative_NOT_CL":z,
       "diagnostic_below_1p96_NOT_allowed":abs(z)<STOP_Z,
@@ -240,9 +248,18 @@ def source_crosscheck(exe,sample,backend):
         close(a["delta_C8_LO"],d8,"A1S E4A independent C8",atol=3e-12)
     close(p["delta_C7_LO"],mix7,"Zee gamma mixed C7",atol=3e-12)
     close(p["delta_C8_LO"],mix8,"Zee gamma mixed C8",atol=3e-12)
+    pure=matching(exe,670.,670.,t,.39)
+    l7,h7,d7=coeff(pure,7)
+    l8,h8,d8=coeff(pure,8)
+    close(l7,h7,"pure TypeII 670GeV equal-mass C7",atol=3e-12)
+    close(l8,h8,"pure TypeII 670GeV equal-mass C8",atol=3e-12)
+    ref=backend(670.,t)
+    close(ref["delta_C7_LO"],d7,"A1S/E4A TypeII670 C7",atol=3e-12)
+    close(ref["delta_C8_LO"],d8,"A1S/E4A TypeII670 C8",atol=3e-12)
     return {"matched_A1S_E4A_two_mass_C7_C8":True,
             "E4A_all_orders_input_rows_source_checked":len(obj[
                 "coefficient_rows"])==24,
+            "same_tanbeta_TypeII670_LO_2026_Eq4_crosscheck":True,
             "crosscheck_status":"SOURCE_CONSISTENT_NOT_FULL_NNLO_RATE"}
 
 def fit_priorities(selected,rng,trials,local_seeds,maxfev):
@@ -336,6 +353,8 @@ def execute(args):
           "gamma":row["gamma"],"tanbeta":row["tanbeta"],
           "2026_Eq4_LINEARIZED_BRx1e4":row[
               "2026_Eq4_LO_linearized_BRx1e4"],
+          "2026_Eq4_Zee_to_same_tanbeta_TypeII670_LO_NP_shift_NOT_CL":
+              row["Zee_to_same_tanbeta_TypeII670_2026Eq4_LO_NP_ratio_NOT_CL"],
           "z_UNCALIBRATED_NOT_CL":row["abs_z_illustrative_NOT_CL"],
           "z_below_1p96_diagnostic_ONLY":
               row["diagnostic_below_1p96_NOT_allowed"],
