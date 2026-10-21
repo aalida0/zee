@@ -8,6 +8,10 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 mkdir -p work/sarah_zee
 echo "ZEE_E3_SELFENERGY_MAJOR_GATE_BEGIN"
+# Mark this invocation before the prerequisite Python tests run. A failing
+# prerequisite must never leave an older loop result looking current.
+printf '%s\n' 'SELFENERGY_STAGE_NOT_STARTED' \
+  > work/sarah_zee/e3_sarah_selfenergy_status.txt
 bash scripts/zee_sarah_e3_one_shot.sh
 math -script scripts/zee_sarah_e3_independent_selfenergy_audit.m \
     2>&1 | tee work/sarah_zee/e3_independent_selfenergy_console.log
