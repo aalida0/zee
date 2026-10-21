@@ -344,6 +344,9 @@ class TestSarahZeeSource(unittest.TestCase):
             "zeeABScalarTerms",
             "zeeABGaugeTerms",
             "zeeABStoredVertex",
+            "LorentzProduct[gamma[_],zeeABProj]",
+            "SARAH`Vertex[zeeABFields,Eigenstates->EWSB]",
+            "SARAH`Vertex[zeeABTreeProbeFields[[zeeABIdx,2]]",
             "zeeABEvaluateVertex",
             "zeeABFiniteB0",
             "zeeABEvaluateSigma",
@@ -360,6 +363,9 @@ class TestSarahZeeSource(unittest.TestCase):
         self.assertIn("MAJORANA_AB_STAGE_NOT_STARTED", sh)
         self.assertNotIn("SA`Start[", wl)
         self.assertNotIn("SA`CalcLoopCorrections[", wl)
+        self.assertNotIn("SARAH@BT@", wl)
+        self.assertNotIn("SA@BT@", wl)
+        self.assertNotIn("SARAH[BT[", wl)
         self.assertNotIn("ZEE_E3_MAJORANA_NUMERIC_MNU_INDEPENDENTLY_MATCHED True", wl)
         self.assertNotIn("1.*^-9", wl[wl.index("(* FULL COMPLEX MATRIX DIAGNOSTIC"):])
 
