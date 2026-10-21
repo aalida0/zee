@@ -306,7 +306,7 @@ def six_rates(engine,probe,six,f10,runner=e4a_run_matching,cross_probe=None):
           "Z_2026_Eq4_linearized_vs_experiment_uncalibrated_NOT_CL":gaussian_z,
           "flavio_quadratic_fraction_from_2015_response_DIAGNOSTIC":
               quadr_fraction,
-          "2026_150GeV_source_crosschecked_A1S_vs_E4A":cross_probe is not None,
+          "2026_160GeV_source_crosschecked_A1S_vs_E4A":cross_probe is not None,
           "BR_SuperIso_historical_separate_scheme":float(historical[
               "legacy_SuperIso_full_Zee_BR_Egamma1p6_NOT_2026"]),
           "ratio_to_670_TypeII_legacy_reference_NOT_95CL":float(historical[
