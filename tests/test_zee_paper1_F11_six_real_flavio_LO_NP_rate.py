@@ -55,6 +55,22 @@ class TestF11(unittest.TestCase):
             return obj
         with self.assertRaises(ValueError):
             q.matching(None,300,700,5.6,.7,runner=modified)
+    def test_published_2026_Eq4_linearized_not_full_NNLO(self):
+        r=q.linearized_2026(-.04,-.02)
+        self.assertAlmostEqual(r["linearized_predicted_central_times_1e4"],
+                               3.54+8.51*.04+2.16*.02)
+        self.assertIs(r["quadratic_NP_terms_omitted"],True)
+        self.assertIs(r["NLO_NNLO_NP_matching_omitted"],True)
+        self.assertAlmostEqual(q.MODERN_SM["central_times_1e4"],3.54)
+        self.assertAlmostEqual(q.PDG_EXP["central_times_1e4"],3.49)
+    def test_independent_A1S_vs_E4A_gate_catches_mismatch(self):
+        with patch.object(q,"independent_a1s_coefficients",
+                          return_value=(-.020,-.010)):
+            self.assertTrue(q.cross_check_a1s_vs_e4a(
+                Path("/tmp/nonexistent_fake_source"),670.,5.6,-.02,-.01))
+            with self.assertRaises(ValueError):
+                q.cross_check_a1s_vs_e4a(
+                    Path("/tmp/nonexistent_fake_source"),670.,5.6,-.03,-.01)
     def test_six_physical_rates_use_coherent_amplitude_not_average(self):
         class Engine:
             _sm=3.36e-4
@@ -80,6 +96,14 @@ class TestF11(unittest.TestCase):
                 z["Zee_to_TypeII670_same_flavio_NP_rate_shift_NOT_CL"],
                 (z["BR_flavio_LO_NP_hybrid"]-3.36e-4)/
                 (z["BR_flavio_TypeII670_same_tanbeta_hybrid"]-3.36e-4))
+            self.assertGreater(z["BR_2026_published_Eq4_LINEARIZED"],
+                               q.MODERN_SM["central_times_1e4"]*1e-4)
+            self.assertIsNotNone(z[
+                "Zee_to_TypeII670_2026_Eq4_LINEAR_NP_SHIFT_NOT_CL"])
+            self.assertIsNone(z[
+                "flavio_quadratic_fraction_from_2015_response_DIAGNOSTIC"])
+            self.assertFalse(z[
+                "2026_160GeV_source_crosschecked_A1S_vs_E4A"])
             self.assertIsNone(z["modern_NNLO_Zee_2026_95CL"])
             self.assertIsNone(z["fully_Zee_allowed_or_excluded"])
             self.assertIsNone(z["physical_Zee_hadronic_R_tbZ_pb"])
