@@ -1,5 +1,46 @@
 # F16 — Three exact heavy Zee benchmarks into independent SARAH tree-level vertices
 
+## 2026-10-23: first actual local SARAH three-point data; lepton residual acceptance fix
+
+The original F16 local run, sourced from immutable transfer directory
+`zee_paper1_F16_exact_SARAH_three_heavy_20261021T143647Z`,
+evaluated all three source scalar matrices, offdiagonal gauge and charged
+scalar cubic vertices. The actual residuals were:
+
+| Original F13 scalar | Max scalar Hessian delta (GeV^2) | Max bosonic width relative delta | Max charged lepton mass delta (GeV) |
+| --- | ---: | ---: | ---: |
+| heavy_0001330 | 1.1642e-10 | 5.8086e-16 | 4.4409e-16 |
+| heavy_0000981 | 5.8208e-11 | 1.9295e-15 | 2.2204e-16 |
+| heavy_0001003 | 1.1642e-10 | 1.2703e-15 | 2.2204e-16 |
+
+**Important correction:** the originally reported PASS was **not**
+sufficient for certifying charged-lepton widths, because the original
+relative residual used `Max[referenceWithZeroImaginaryPart, 1e-14]`.
+The fixture stores source charged-lepton widths as `real + 0 I`, so
+Mathematica left some `Max` expressions unevaluated. The subsequent
+outer `If` comparison also remained symbolic, and did not append
+failure. Although the numerators are near machine precision, a symbolic
+comparison is not a test acceptance.
+
+F16 now separately checks each of the 6 charged-lepton widths for
+numeric values, shape, negligible imaginary part, and nonnegative
+physical width, then uses `Max[Abs[reference],1e-14]` to obtain real
+finite relative residuals. An actual *local Mathematica* selftest
+validates identical, perturbed, nonreal, symbolic, negative, and
+wrong-shaped widths. The independent audit now requires **explicit
+numeric** mass, bosonic width, lepton mass, and charged-lepton width
+residuals and `3/3` concrete case passes.
+
+**The previously printed PASS label must not be used as proof of complete
+leptonic validation.** Re-run the local Mathematica command after pulling
+the fixed script, using the same immutable AF input fixtures. These
+source f/Y matrices and scalar physical parameter points are unchanged.
+
+This corrected three-point *tree-vertex* gate remains distinct from a
+validated physical UFO parameter card, MadWidth complete widths and
+the 2026 full flavor/exclusion result.
+
+
 **Status, 21 October 2026:** physically matched source-input preparation implemented. The local SARAH/MadWidth stages have **not** been run against the three AF-only files. All earlier F15 estimates (0.52–0.58 fb at 13 TeV) remain *included-channel*, not physical full-model rates.
 
 ## Why this path, not another set of ad hoc partial widths
