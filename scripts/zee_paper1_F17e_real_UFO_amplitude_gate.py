@@ -251,8 +251,10 @@ def inspect_one(id,row,source,slots,parameters,lorentz,vertices,couplings,vals):
             max_imag=max(max_imag,abs(amp["value_im"]))
     if any(nmodes[k]<9 for k in CHARGED):
         raise ValueError("Incomplete 3x3 charged lepton UFO vertices "+str(nmodes))
-    # Nonzero source complex lepton phases are part of the physical model.
-    if max_imag<1e-15:raise ValueError("Missing expected imaginary flavor amplitudes")
+    # A complex coefficient's imaginary part can arise solely from the
+    # universal Feynman-rule factor i; it is NOT a CP-phase observable.
+    # Full complex-lepton width matching to the F16 independent 36-vertex
+    # reference is therefore deliberately left unclaimed.
     return {
         "candidate_id":id,
         "actual_UFO_Z_H2H1_vertices":z,
@@ -267,7 +269,7 @@ def inspect_one(id,row,source,slots,parameters,lorentz,vertices,couplings,vals):
         "source_F16_H1_tb_partial_width_GeV":wtb,
         "tb_width_max_relative_residual":max(rel),
         "charged_lepton_neutrino_vertex_count_by_state":{str(k):v for k,v in nmodes.items()},
-        "charged_lepton_neutrino_max_imaginary_vertex_component":max_imag,
+        "charged_lepton_neutrino_max_imaginary_UFO_coefficient_NOT_CP_PHASE":max_imag,
         "charged_lepton_amplitudes_evaluated_not_yet_independently_F16_width_matched":True,
         "CKM_identity_diagnostic_not_F15_physical_quark_basis":True,
         "full_physical_MadWidth_card":False,
