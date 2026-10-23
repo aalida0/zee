@@ -11,6 +11,9 @@ src="$(realpath "$1")"
 mg5="$(realpath "$2")"
 dest="$(realpath -m "$3")"
 repo="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [[ "$(basename "$mg5")" != MG5_aMC ]]; then
+  echo "F18_CONDOR_REQUIRES_MG5_aMC_DIRECTORY_BASENAME $mg5" >&2;exit 2
+fi
 if [[ ! -f "$mg5/bin/mg5_aMC" ]]; then
   echo "F18_CONDOR_MG5_NOT_FOUND $mg5/bin/mg5_aMC" >&2; exit 2
 fi
