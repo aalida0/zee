@@ -28,13 +28,20 @@ def pack(source,benchmark,out):
     out=Path(out).expanduser().resolve()
     if benchmark not in CASES:raise ValueError("Only exact original F13 cohort accepted")
     if out.exists():raise FileExistsError("Refuse overwrite original F18 local archive")
-    summary=json.loads((source/"summary.json").read_text())
+    # The all-cases summary is written only when the campaign completes.
+    # Ctrl+C during benchmark 2 can leave benchmark 1 fully validated, with
+    # a per-case result and initial_manifest.json but NO summary.json.
+    source_manifest=source/("summary.json" if (source/"summary.json").is_file()
+                            else "initial_manifest.json")
+    summary=json.loads(source_manifest.read_text())
     result_path=source/benchmark/"validated_model_LO_widths.json"
     result=json.loads(result_path.read_text())
     if (summary.get("status")!=STATUS or summary.get("errors",{}).get(benchmark)
-        or not any(x==result for x in summary.get("results",[]))
         or result.get("candidate_id")!=benchmark):
         raise ValueError("No verified locally completed matching F18 result")
+    if source_manifest.name=="summary.json" and not any(
+            x==result for x in summary.get("results",[])):
+        raise ValueError("Local full F18 summary does not reproduce case result")
     meta=result.get("provenance",{})
     files={}
     for label,filename,ref in (
@@ -49,9 +56,37 @@ def pack(source,benchmark,out):
     if not summary.get("MG5_binary_SHA256") or not summary.get(
         "original_F17f_report_SHA256"):
         raise ValueError("Missing source and MG5 provenance in local F18 summary")
+    # Per-case output must trace to an authentic F17f card even when the
+    # larger F18 campaign was interrupted before final summary emission.
+    sibling_reports=list(source.parent.glob(
+        "F17f_real_UFO_unitary_complex_CKM_*/report.json"))
+    matching=[]
+    for report in sibling_reports:
+        if sha(report)!=summary["original_F17f_report_SHA256"]:continue
+        f17f=json.loads(report.read_text())
+        for entry in f17f.get("CKM_candidate_cards",[]):
+            if entry.get("candidate_id")==benchmark:
+                card=report.parent/entry["file"]
+                if (card.is_file() and sha(card)==entry.get("sha256")
+                    and entry["sha256"]==
+                        result.get("provenance",{}).get(
+                            "source_F17f_card_SHA256")):
+                    matching.append((report,card))
+    if len(matching)!=1:
+        raise ValueError("Completed case does not map uniquely to SHA-pinned original F17f card")
+    # Refuse arbitrary injected results. This is a same-benchmark closed
+    # physics outcome, not merely the presence of an output file.
+    if (not 0<result.get("BR_H2_H1_Z_model_LO_2plus3",0)<=1
+        or not 0<result.get("BR_H1_tb_model_LO_2plus3",0)<=1
+        or abs(result["cascade_BR_product_model_LO_2plus3"]-
+               result["BR_H2_H1_Z_model_LO_2plus3"]*
+               result["BR_H1_tb_model_LO_2plus3"])>1e-10):
+        raise ValueError("Original successful F18 cascade report is inconsistent")
     manifest={"status":ARCHIVE_STATUS,"benchmark":benchmark,
               "original_campaign":source.name,
-              "original_summary_SHA256":sha(source/"summary.json"),
+              "original_summary_SHA256":sha(source_manifest),
+              "source_summary_filename":source_manifest.name,
+              "original_F17f_report_SHA256_in_verified_source":sha(matching[0][0]),
               "original_case_JSON_SHA256":sha(result_path),
               "MG5_binary_SHA256":summary["MG5_binary_SHA256"],
               "original_F17f_report_SHA256":summary["original_F17f_report_SHA256"],
@@ -63,7 +98,7 @@ def pack(source,benchmark,out):
     out.parent.mkdir(parents=True,exist_ok=True)
     with tarfile.open(out,"w:gz") as tar:
         for file,name in (
-            (source/"summary.json","summary.json"),
+            (source_manifest,source_manifest.name),
             (result_path,"validated_model_LO_widths.json"),
             (source/benchmark/"two_body.slha","two_body.slha"),
             (source/benchmark/"two_plus_three_body.slha","two_plus_three_body.slha")):
