@@ -31,7 +31,8 @@ def mk_fixture(extra=False,lepton_split=3):
         h2.append((.5,[24,5,-5]))
     data[37]=(20.+(.2 if extra else 0.),h1)
     data[9000037]=(10.+(.5 if extra else 0.),h2)
-    lines=["BLOCK MASS"," 25 125"," 35 725"," 36 450"," 37 570",
+    mw=91.1876*math.sqrt(1-0.23122)
+    lines=["BLOCK MASS"," 24 "+format(mw,".17e")," 25 125"," 35 725"," 36 450"," 37 570",
            " 9000037 880","BLOCK SMINPUTS"," 1 127.95",
            "BLOCK CHARGEMIX"," 2 3 0.89"]
     for pid in SCALARS:
@@ -210,6 +211,11 @@ class F18CampaignRegression(unittest.TestCase):
             self.assertIn("--body_decay=3",text)
             self.assertIn("--min_br=0.0",text)
             self.assertIn("--precision_channel=0.01",text)
+            c2=command_deck(Path(d)/"UFO",p,Path(d)/"result.slha",
+                            body_decay=3,nb_core=2)
+            self.assertIn("set run_mode 2",c2)
+            self.assertIn("set nb_core 2",c2)
+            self.assertIn("compute_widths 25 35 36 37 9000037",c2)
     @staticmethod
     def _corrupt_card(directory,text):
         path=directory/"bad.slha";path.write_text(text);return path
