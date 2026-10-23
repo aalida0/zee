@@ -17,6 +17,9 @@ on:
       - 'scripts/zee_paper1_F17e_local_amplitude_gate.sh'
       - 'scripts/zee_paper1_F17f_unitary_CKM_UFO_quark_gate.py'
       - 'scripts/zee_paper1_F17f_local_real_UFO_CKM.sh'
+      - 'scripts/zee_paper1_F18_complete_madwidth_campaign.py'
+      - 'scripts/zee_paper1_F18_one_shot_madwidth.sh'
+      - 'tests/test_zee_paper1_F18_complete_madwidth_campaign.py'
       - 'tests/test_zee_paper1_F17f_unitary_CKM_UFO_quark_gate.py'
       - 'tests/test_zee_paper1_F17e_real_UFO_amplitude_gate.py'
       - 'tests/test_zee_paper1_F17d_source_matched_prevalidation_cards.py'
@@ -51,5 +54,8 @@ jobs:
       - run: python -m py_compile scripts/zee_paper1_F17f_unitary_CKM_UFO_quark_gate.py tests/test_zee_paper1_F17f_unitary_CKM_UFO_quark_gate.py
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F17f_unitary_CKM_UFO_quark_gate.py' -v
       - run: bash -n scripts/zee_paper1_F17f_local_real_UFO_CKM.sh
+      - run: python -m py_compile scripts/zee_paper1_F18_complete_madwidth_campaign.py tests/test_zee_paper1_F18_complete_madwidth_campaign.py
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F18_complete_madwidth_campaign.py' -v
+      - run: bash -n scripts/zee_paper1_F18_one_shot_madwidth.sh
       - run: python scripts/zee_paper1_F16_wolfram_syntax_lint.py scripts/zee_paper1_F17_exact_complex_F16_json.m scripts/zee_paper1_F17_exact_complex_json_helpers.m scripts/zee_paper1_F17_complex_json_selftest.m
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F17_complex_json_strict.py' -v
