@@ -492,6 +492,31 @@ def run(args):
     manifest["full_physical_precision_model_allowed"]=False
     (out/"summary.json").write_text(json.dumps(
         manifest,indent=2,sort_keys=True,allow_nan=False)+"\n")
+    # A compact comparison table accompanies the full per-channel JSON.
+    if manifest["results"]:
+        table=out/"three_benchmarks_summary.csv"
+        with table.open("w",newline="") as stream:
+            columns=("candidate_id","Gamma_H2_GeV","Gamma_H1_GeV",
+                     "H2_three_body_fraction","H1_three_body_fraction",
+                     "BR_H2_H1Z","BR_H1_tb","BR_product",
+                     "sigma13_cascade_pb_if_original_F14_available")
+            writer=csv.DictWriter(stream,fieldnames=columns)
+            writer.writeheader()
+            for item in manifest["results"]:
+                states=item["charged_H_decay_tables"]
+                rate=item.get("13TeV_source_F14_LO_widths_cascade",{})
+                writer.writerow(dict(
+                    candidate_id=item["candidate_id"],
+                    Gamma_H2_GeV=states["9000037"]["total_GeV"],
+                    Gamma_H1_GeV=states["37"]["total_GeV"],
+                    H2_three_body_fraction=states["9000037"]["three_body_fraction"],
+                    H1_three_body_fraction=states["37"]["three_body_fraction"],
+                    BR_H2_H1Z=item["BR_H2_H1_Z_model_LO_2plus3"],
+                    BR_H1_tb=item["BR_H1_tb_model_LO_2plus3"],
+                    BR_product=item["cascade_BR_product_model_LO_2plus3"],
+                    sigma13_cascade_pb_if_original_F14_available=
+                        rate.get("sigma_times_BR_H2_H1Z_BR_H1_tb_pb","")))
+        print("F18_COMPARISON_CSV",table,flush=True)
     print("F18_STATUS",STATUS,"THREE_CASES_PASS",manifest["all_three_validated"],
           "TOTAL_RESULTS",len(manifest["results"]),"ERRORS",len(manifest["errors"]),
           "PRECISION_QCD",False,"ALLOWED",False,flush=True)
