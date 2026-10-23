@@ -10,7 +10,7 @@ import numpy as np
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 from zee_paper1_F17f_unitary_CKM_UFO_quark_gate import (
     unitary_ckm_from_f15,make_quark_basis,compare_W_to_ckm,
-    spin_half_quark_width,vertex_group,expected_lepton_widths)
+    spin_half_quark_width,vertex_group,expected_lepton_widths,lepton_width_closure)
 from zee_paper1_F15_charged_width_CKM_mass_scheme_audit import VABS,charged_quark_width
 from test_zee_paper1_F17d_source_matched_prevalidation_cards import synthetic_case
 
@@ -82,6 +82,39 @@ class TestF17f(unittest.TestCase):
         vertex["couplings"][1]["value_im"]*=-1
         broken=spin_half_quark_width(vertex,values,6,5,37)
         self.assertGreater(abs(broken-measured),1e-5)
+
+    def test_separate_sign_leptonic_widths_and_duplicate_fail(self):
+        # Six source lepton widths; each of H+/H- has three flavors x
+        # three neutrinos. Sum different neutrino final states incoherently.
+        lepton_m=(.000511,.10566,1.77686)
+        masses={("MASS",(11,)):lepton_m[0],
+                ("MASS",(13,)):lepton_m[1],
+                ("MASS",(15,)):lepton_m[2],
+                ("MASS",(37,)):572.,("MASS",(9000037,)):877.}
+        expected={"H1":{"e":.002,"mu":.003,"tau":.004},
+                  "H2":{"e":.005,"mu":.006,"tau":.007}}
+        fake=[]
+        for H,label in ((37,"H1"),(9000037,"H2")):
+            for sign in (-1,1):
+                for li,l in enumerate((11,13,15)):
+                    width=expected[label][("e","mu","tau")[li]]
+                    amp2=width*16*math.pi/(masses[("MASS",(H,))]*
+                        (1-(lepton_m[li]/masses[("MASS",(H,))])**2)**2)/3
+                    for nu in (12,14,16):
+                        fake.append({"vertex":f"F{H}_{sign}_{l}_{nu}",
+                                     "pdgs":[sign*H,-sign*l,nu],
+                                     "couplings":[{"colour":0,
+                                         "structure":"ProjM(2,1)",
+                                         "value_re":math.sqrt(amp2),"value_im":0.,
+                                         "absolute":math.sqrt(amp2)}]})
+        widths,maxerr=lepton_width_closure(fake,masses,expected)
+        self.assertEqual(len(widths),12)
+        self.assertLess(maxerr,1e-12)
+        bad=list(fake)
+        bad.append(dict(fake[0],vertex="duplicate",couplings=[
+            dict(fake[0]["couplings"][0])]))
+        with self.assertRaises(ValueError):
+            lepton_width_closure(bad,masses,expected)
 
     def test_b3_complex_width_target_source(self):
         row,_=synthetic_case()
