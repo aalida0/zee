@@ -196,11 +196,15 @@ def check_two_body_against_f17f(case,f17e,decays,field_sign):
             contributions=[m for m in table["modes"] if m["multiplicity"]==2
                 and sorted(map(abs,m["daughters"])) in (
                     sorted((pdg,n)) for n in NEUTRINOS)]
-            # Generator expressions can omit negligibly small LFV modes
-            # depending on its pruning; with min_br=0, require each mode.
-            if len(contributions)!=3:
-                raise ValueError("Missing one of three neutrino modes "+
-                                 str((label,flavor,len(contributions))))
+            # In general Zee, doublet Y and antisymmetric f can connect
+            # opposite neutrino helicity/particle-number assignments.
+            # Do not require precisely three signed SLHA modes: sum all
+            # physically distinct neutrino and antineutrino channels.
+            species={abs(x) for m in contributions for x in m["daughters"]
+                     if abs(x) in NEUTRINOS}
+            if species!=set(NEUTRINOS):
+                raise ValueError("Incomplete neutrino-flavor coverage "+
+                                 str((label,flavor,sorted(species))))
             width=sum(m["partial_width_GeV"] for m in contributions)
             ref=float(target[flavor])
             relative=abs(width-ref)/max(1e-15,ref)
