@@ -17,30 +17,15 @@ expected={"F13_heavy_0001330","F13_heavy_0000981","F13_heavy_0001003"};
 If[!ListQ[zeeF16Cases]||Length[zeeF16Cases]=!=3||
   Sort[Lookup[zeeF16Cases,"ID"]]=!=Sort[expected],
  Print["F17_FAIL_EXACT_THREE_CASE_SOURCE_SET"];Exit[5]];
-pair[z_?NumericQ]:={N[Re[z]],N[Im[z]]};
-getMat[o_Association,name_String,dims_List]:=Module[{a=Lookup[o,name,Missing[]]},
- If[!MatrixQ[a,NumericQ]||Dimensions[a]=!=dims,
-  Print["F17_BAD_MATRIX ",o["ID"]," ",name, " ",InputForm[a]];
-  Return[$Failed]];
- Map[pair,a,{2}]
-];
-names={"FSARAH","YeSARAH","Ye2SARAH","YChen","MixCharged","MixCPeven","MixCPodd"};
-sizes={{3,3},{3,3},{3,3},{3,3},{3,3},{2,2},{2,2}};
+Get[FileNameJoin[{Directory[],"scripts","zee_paper1_F17_exact_complex_json_helpers.m"}]];
+If[!ValueQ[zeeF17MatrixJSONStatus]||
+    zeeF17MatrixJSONStatus=!="F17_EXACT_7_COMPLEX_MATRIX_NUMERIC_JSON_PAIRS",
+ Print["F17_FAIL_MATHEMATICA_COMPLEX_MATRIX_HELPER_NOT_LOADED"];Exit[6]];
 cases=Table[
  Module[{o=zeeF16Cases[[i]],mat},
-  (* AssociationThread forces both keys and tensor values to evaluate
-     before JSON encoding. The previous name_String_ definition did
-     not match a string and left getMat[...] symbolic in the payload. *)
-  mat=AssociationThread[names,
-    Table[getMat[o,names[[j]],sizes[[j]]],{j,Length[names]}]];
-  If[Length[mat]=!=Length[names]||
-     MemberQ[Values[mat],$Failed]||
-     !And@@Table[
-        ArrayQ[mat[names[[j]]],3,NumericQ]&&
-        Dimensions[mat[names[[j]]]]===Append[sizes[[j]],2],
-        {j,Length[names]}],
-    Print["F17_FAIL_CLOSED_COMPLEX_MATRIX_NUMERIC_SHAPE ",o["ID"],
-          " ",InputForm[Dimensions /@ Values[mat]]];
+  mat=zeeF17Matrices[o];
+  If[mat===$Failed,
+    Print["F17_BAD_SOURCE_COMPLEX_MATRIX ",o["ID"]];
     Return[$Failed]];
   <|
    "candidate_id"->o["ID"],
