@@ -86,10 +86,10 @@ class F18CampaignRegression(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d)
             mg5=root/"dummy_mg5"
-            mg5.write_text("#!/bin/sh\\necho 'ERROR: invalid compute_widths in test'\\nexit 0\\n")
+            mg5.write_text("#!/bin/sh\necho 'ERROR: invalid compute_widths in test'\nexit 0\n")
             mg5.chmod(0o755)
             card=root/"source.slha"
-            card.write_text("BLOCK MASS\\n 37 500\\n")
+            card.write_text("BLOCK MASS\n 37 500\n")
             job=root/"stage_2body"
             dest=root/"expected.slha"
             with self.assertRaisesRegex(RuntimeError,
@@ -101,7 +101,7 @@ class F18CampaignRegression(unittest.TestCase):
             self.assertTrue(diagnostic["log_error_contexts"])
             self.assertIn("invalid compute_widths",
                           diagnostic["log_error_contexts"][0]["context"])
-            self.assertEqual(card.read_text(),"BLOCK MASS\\n 37 500\\n")
+            self.assertEqual(card.read_text(),"BLOCK MASS\n 37 500\n")
 
     def test_original_failed_F18_archived_diagnosis_without_rerun(self):
         with tempfile.TemporaryDirectory() as d:
@@ -109,8 +109,8 @@ class F18CampaignRegression(unittest.TestCase):
             job=root/"F13_heavy_0001330"/"stage_2body"
             job.mkdir(parents=True)
             (job/"madwidth.log").write_text(
-                "import model original\\nTraceback (most recent call last):\\n"
-                "ERROR: original interface model has bad parameter\\n")
+                "import model original\nTraceback (most recent call last):\n"
+                "ERROR: original interface model has bad parameter\n")
             stream=io.StringIO()
             with contextlib.redirect_stdout(stream):
                 diagnose_existing_campaign(root)
