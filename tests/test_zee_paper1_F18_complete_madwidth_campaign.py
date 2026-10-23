@@ -5,8 +5,10 @@ fractions and real-F17f amplitude-closure logic. It does NOT execute MG5;
 the user's actual SARAH UFO is only exercised by F18 local one-shot.
 """
 from pathlib import Path
-import math,sys,tempfile,unittest,json,io,contextlib
+import math,sys,tempfile,unittest,json,io,contextlib,hashlib,tarfile,os
 from unittest.mock import patch
+from zee_paper1_F18_archive_local_success import pack as archive_local_success
+from zee_paper1_F18_merge_condor_results import merge as merge_completed_cases
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 from zee_paper1_F18_complete_madwidth_campaign import (
     SCALARS,read_slha,validate_case_outcomes,validate_table,command_deck,
@@ -139,6 +141,92 @@ class F18CampaignRegression(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,
                                         "contradicts F16 electroweak"):
                 derive_internal_W_mass(Path("."),vals)
+
+
+    def test_reuse_completed_local_one_and_merge_two_condor_cases(self):
+        # The real user stopped the monolithic F18 process in benchmark 2;
+        # the all-three summary.json does NOT necessarily exist. Preserve
+        # the already validated per-case 1330 without recomputing it.
+        def digest(path):
+            return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+        def addfile(tar,name,raw):
+            entry=tarfile.TarInfo(name)
+            entry.size=len(raw)
+            tar.addfile(entry,io.BytesIO(raw))
+        status="F18_REAL_SARAH_ZEE_MADWIDTH_2AND3_BODY_3_CASES_MODEL_LO_NOT_EXCLUSION"
+        cases=("F13_heavy_0001330","F13_heavy_0000981","F13_heavy_0001003")
+        with tempfile.TemporaryDirectory() as d:
+            base=Path(d)
+            f17f=base/"F17f_real_UFO_unitary_complex_CKM_mock"
+            f17f.mkdir()
+            card=f17f/"orig_1330.slha";card.write_text("BLOCK MASS\n 37 500\n")
+            f17f_report=f17f/"report.json"
+            f17f_report.write_text(json.dumps({
+                "CKM_candidate_cards":[{"candidate_id":cases[0],
+                                        "file":card.name,"sha256":digest(card)}]}))
+            source={"status":status,"MG5_binary_SHA256":"a"*64,
+                    "original_F17f_report_SHA256":digest(f17f_report),
+                    "F14_original_13TeV_CSV_SHA256":None,
+                    "source_independent_CKM_and_lepton_amplitudes_validated_before_run":True,
+                    "errors":{}}
+            def result(name):
+                return {"candidate_id":name,
+                        "BR_H2_H1_Z_model_LO_2plus3":.45,
+                        "BR_H1_tb_model_LO_2plus3":.99,
+                        "cascade_BR_product_model_LO_2plus3":.45*.99,
+                        "charged_H_decay_tables":{
+                            "37":{"total_GeV":.3,"three_body_fraction":.01},
+                            "9000037":{"total_GeV":13.,"three_body_fraction":.12}},
+                        "provenance":{}}
+            local=base/"F18_MadWidth_exact_three_interrupted"
+            root=local/cases[0]
+            root.mkdir(parents=True)
+            (local/"initial_manifest.json").write_text(json.dumps(source))
+            good=result(cases[0])
+            good["provenance"]["source_F17f_card_SHA256"]=digest(card)
+            for step,filename in (("MadWidth_two_body","two_body.slha"),
+                                  ("MadWidth_two_plus_three","two_plus_three_body.slha")):
+                file=root/filename
+                file.write_text("BLOCK MASS\n 37 500\nDECAY 37 0.3\n")
+                good["provenance"][step]={"output_SHA256":digest(file)}
+            (root/"validated_model_LO_widths.json").write_text(json.dumps(good))
+            results_dir=base/"results";results_dir.mkdir()
+            archive=results_dir/("F18_local_completed_"+cases[0]+".tar.gz")
+            archive_local_success(local,cases[0],archive)
+            self.assertTrue(archive.is_file())
+            self.assertFalse((local/"summary.json").exists())
+            for name in cases[1:]:
+                row=result(name)
+                row["provenance"]={
+                    "MadWidth_two_body":{"output_SHA256":"b"*64},
+                    "MadWidth_two_plus_three":{"output_SHA256":"c"*64}}
+                job_summary={**source,"requested_cases":[name],
+                             "requested_cases_passed":True,
+                             "results":[row]}
+                tarpath=results_dir/("F18_result_"+name+".tar.gz")
+                with tarfile.open(tarpath,"w:gz") as fh:
+                    addfile(fh,name+"/worker_exit_code.txt",b"0\n")
+                    addfile(fh,name+"/summary.json",json.dumps(job_summary).encode())
+                    addfile(fh,name+"/validated_model_LO_widths.json",
+                            json.dumps(row).encode())
+            final=base/"merged"
+            report=merge_completed_cases(results_dir,final)
+            self.assertEqual(len(report["benchmarks"]),3)
+            self.assertEqual(set(x["candidate_id"] for x in report["benchmarks"]),
+                             set(cases))
+            self.assertEqual(report["per_benchmark_source_archives"][cases[0]]["origin"],
+                             "previously_completed_LOCAL_F18_not_a_Condor_job")
+            self.assertAlmostEqual(report["benchmarks"][0]["cascade_BR_product_model_LO_2plus3"],
+                                   .45*.99)
+            self.assertTrue((final/"F18_CONDOR_three_summary.csv").exists())
+
+    def test_local_reuse_refuses_modified_source_slha(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d)/"F18_interrupted";(root/"F13_heavy_0001330").mkdir(parents=True)
+            (root/"initial_manifest.json").write_text('{"status":"invalid"}')
+            with self.assertRaises(ValueError):
+                archive_local_success(root,"F13_heavy_0001330",
+                    Path(d)/"will_not_be_created.tar.gz")
 
     def test_actual_bug_mg5_returns_zero_but_writes_no_card(self):
         # MG5 command-file mode may return exit code 0 despite a command
