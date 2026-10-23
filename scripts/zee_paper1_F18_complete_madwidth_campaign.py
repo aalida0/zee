@@ -351,21 +351,108 @@ def command_deck(ufo,card,output,*,body_decay):
             " --min_br="+MIN_BR+" --precision_channel="+PRECISION_CHANNEL+"\n")
 
 
+def madwidth_log_diagnostic(log,job_dir,output,returncode=None):
+    """Diagnose errors MG5 may log while returning shell exit code zero.
+
+    Keep source material, missing requested --output, candidate extra cards,
+    debug files, and nearby log context. Do not silently substitute a model
+    default card for a requested output file.
+    """
+    text=Path(log).read_text(errors="replace") if Path(log).exists() else ""
+    lines=text.splitlines()
+    import re
+    pattern=re.compile(
+        r"(?i)(?:^\\s*(?:ERROR|CRITICAL)\\s*[: ]|Traceback \\(most recent|"
+        r"madgraph5error|invalidcmd|No module named|file not found|"
+        r"unrecognized command|not valid options|invalid syntax|"
+        r"cannot import model|no such file or directory)")
+    interesting=[i for i,line in enumerate(lines) if pattern.search(line)]
+    contexts=[]
+    for i in interesting[-12:]:
+        contexts.append({"log_line":i+1,"context":"\\n".join(
+            lines[max(0,i-2):min(len(lines),i+9)])[:2500]})
+    nearby_cards=[]
+    for folder in (Path(job_dir),Path(output).parent):
+        if folder.exists():
+            for pattern_name in ("*.slha","param_card*.dat","MG5_debug*"):
+                for item in folder.rglob(pattern_name):
+                    if item.is_file() and len(nearby_cards)<60:
+                        nearby_cards.append({"path":str(item),
+                                             "size":item.stat().st_size})
+    diagnostic={
+        "returncode":returncode,
+        "expected_output":str(output),
+        "expected_output_exists":Path(output).exists(),
+        "log":str(log),
+        "log_size":len(text),
+        "log_error_contexts":contexts,
+        "log_last_65_lines":"\\n".join(lines[-65:])[-10000:],
+        "nearby_candidate_cards_and_debug_files":nearby_cards,
+    }
+    return diagnostic
+
+
 def do_madwidth(mg5,ufo,card,output,job_dir,stage):
     job_dir.mkdir(parents=True,exist_ok=False)
     deck=job_dir/"compute_widths.mg5"
     deck.write_text(command_deck(ufo,card,output,body_decay=stage))
     log=job_dir/"madwidth.log"
+    input_hash_before=hashfile(card)
+    print("F18_MG5_START",stage,"CARD",card,"OUTPUT",output,flush=True)
     with log.open("w") as stream:
         process=subprocess.run([str(mg5),str(deck)],cwd=job_dir,stdout=stream,
                                stderr=subprocess.STDOUT,check=False)
-    evidence={"returncode":process.returncode,"command":str(deck),"command_SHA256":hashfile(deck),
-              "log":str(log),"log_SHA256":hashfile(log),"output":str(output),
-              "source_input_SHA256":hashfile(card)}
+    diagnostic=madwidth_log_diagnostic(log,job_dir,output,process.returncode)
+    diagnostic_path=job_dir/"mg5_diagnostic.json"
+    diagnostic_path.write_text(json.dumps(diagnostic,indent=2,sort_keys=True)+"\\n")
+    evidence={"returncode":process.returncode,"command":str(deck),
+              "command_SHA256":hashfile(deck),"log":str(log),
+              "log_SHA256":hashfile(log),"output":str(output),
+              "source_input_SHA256":input_hash_before,
+              "diagnostic":str(diagnostic_path)}
+    if hashfile(card)!=input_hash_before:
+        raise RuntimeError("MG5 modified immutable original input card; "
+                           "quarantine this failed run and original source "
+                           +str(evidence))
     if process.returncode or not output.is_file() or output.stat().st_size<250:
-        raise RuntimeError("MG5 MadWidth "+str(stage)+"-body failed: "+str(evidence))
+        for issue in diagnostic["log_error_contexts"][-4:]:
+            print("F18_MG5_LOG_ERROR",stage,"LINE",issue["log_line"],
+                  issue["context"][-1600:],flush=True)
+        print("F18_MG5_LOG_TAIL",stage,diagnostic["log_last_65_lines"][-4000:],
+              flush=True)
+        print("F18_MG5_CANDIDATE_FILES",
+              diagnostic["nearby_candidate_cards_and_debug_files"][:20],
+              flush=True)
+        raise RuntimeError("MG5 MadWidth "+str(stage)+"-body produced no "
+            "valid requested output (MG5 returncode="+str(process.returncode)+
+            "). See diagnostic JSON and actual MG5 log: "+str(evidence))
     evidence["output_SHA256"]=hashfile(output)
     return evidence
+
+
+def diagnose_existing_campaign(folder):
+    """Print archived F18 job failures without rerunning expensive MG5."""
+    folder=Path(folder).expanduser().resolve()
+    if not folder.is_dir():raise ValueError("Missing F18 campaign "+str(folder))
+    for candidate in sorted(folder.glob("F13_heavy_*")):
+        for stage in ("stage_2body","stage_2plus3body"):
+            job=candidate/stage
+            log=job/"madwidth.log"
+            if not log.is_file():continue
+            output=(candidate/("two_body.slha" if stage=="stage_2body"
+                               else "two_plus_three_body.slha"))
+            details=madwidth_log_diagnostic(log,job,output)
+            print("F18_DIAGNOSE",candidate.name,stage,
+                  "EXPECTED_OUTPUT_EXISTS",details["expected_output_exists"],
+                  "LOG_SIZE",details["log_size"])
+            for item in details["log_error_contexts"][-4:]:
+                print("F18_DIAGNOSTIC_LOG_ERROR_LINE",item["log_line"],
+                      item["context"])
+            print("F18_DIAGNOSTIC_LOG_LAST_LINES",
+                  "\\n".join(details["log_last_65_lines"].splitlines()[-35:]))
+            print("F18_DIAGNOSTIC_CANDIDATE_FILES",
+                  details["nearby_candidate_cards_and_debug_files"][:12])
+    print("F18_DIAGNOSIS_ONLY_NO_MG5_EXECUTION",folder)
 
 
 def preflight(f16_dir,f17d_dir,f17e_file,f17f_dir):
@@ -527,15 +614,23 @@ def run(args):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--f16-dir",type=Path,required=True)
-    p.add_argument("--f17d-dir",type=Path,required=True)
-    p.add_argument("--f17e-report",type=Path,required=True)
-    p.add_argument("--f17f-dir",type=Path,required=True)
-    p.add_argument("--output",type=Path,required=True)
+    p.add_argument("--diagnose-campaign",type=Path,
+                   help="Inspect existing MG5 logs without launching any computation")
+    p.add_argument("--f16-dir",type=Path)
+    p.add_argument("--f17d-dir",type=Path)
+    p.add_argument("--f17e-report",type=Path)
+    p.add_argument("--f17f-dir",type=Path)
+    p.add_argument("--output",type=Path)
     p.add_argument("--mg5-bin",type=Path)
     p.add_argument("--f14-csv",type=Path,help="Original F14 13 TeV CSV (optional, source validated)")
     p.add_argument("--continue-after-failure",action="store_true")
     a=p.parse_args()
+    if a.diagnose_campaign:
+        diagnose_existing_campaign(a.diagnose_campaign)
+        return
+    missing=[name for name in ("f16_dir","f17d_dir","f17e_report",
+                              "f17f_dir","output") if getattr(a,name) is None]
+    if missing:p.error("MG5 execution requires "+", ".join(missing))
     run(a)
 
 
