@@ -46,19 +46,26 @@ class TestF17f(unittest.TestCase):
         fake=[]
         for i,u in enumerate((2,4,6)):
             for j,d in enumerate((1,3,5)):
-                g=.65/math.sqrt(2)*abs(v[i,j])
-                fake.append({"vertex":f"W{i}{j}","pdgs":[-u,d,24],
-                             "couplings":[{"colour":0,
-                                  "structure":"Gamma(3,2,1)*ProjM(2,1)",
-                                  "absolute":g}]})
+                for sign in (-1,1):
+                    # Same common Feynman rule phase for every entry, but
+                    # complex CKM in W+ and its conjugate in W-.
+                    amp=1j*.65/math.sqrt(2)*(v[i,j] if sign==1 else v[i,j].conjugate())
+                    fake.append({"vertex":f"W{sign}{i}{j}","pdgs":[-u,d,sign*24],
+                                 "couplings":[{"colour":0,
+                                      "structure":"Gamma(3,2,1)*ProjM(2,1)",
+                                      "absolute":abs(amp),
+                                      "value_re":amp.real,"value_im":amp.imag}]})
         picked=vertex_group(fake,{tuple(sorted((24,u,d)))
                                    for u in (2,4,6) for d in (1,3,5)})
-        self.assertEqual(len(picked),9)
-        rows,err=compare_W_to_ckm(picked,v,.65)
+        self.assertEqual(len(picked),18)
+        rows,err,phase,hyp=compare_W_to_ckm(picked,v,.65)
         self.assertEqual(len(rows),9)
         self.assertLess(err,1e-13)
-        fake[0]["couplings"][0]["absolute"] *= 1.1
-        _,err=compare_W_to_ckm(fake,v,.65)
+        self.assertLess(max(phase.values()),1e-13)
+        self.assertNotEqual(hyp[1],hyp[-1])
+        fake[0]["couplings"][0]["value_re"]*=1.1
+        fake[0]["couplings"][0]["value_im"]*=1.1
+        _,err,_,_=compare_W_to_ckm(fake,v,.65)
         self.assertGreater(err,.09)
 
     def test_quark_width_interference_and_CKM(self):
