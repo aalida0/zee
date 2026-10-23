@@ -45,7 +45,10 @@ def import_local_success(folder,name):
     with tarfile.open(archive_path,"r:gz") as tar:
         root=name+"/"
         manifest=json.loads(member_data(tar,root+"local_archive_manifest.json"))
-        original_summary=member_data(tar,root+"summary.json")
+        manifest_source=manifest.get("source_summary_filename")
+        if manifest_source not in ("summary.json","initial_manifest.json"):
+            raise ValueError("Local archive has unrecognized F18 manifest source")
+        original_summary=member_data(tar,root+manifest_source)
         case_text=member_data(tar,root+"validated_model_LO_widths.json")
         if (manifest.get("status")!=LOCAL_ARCHIVE_STATUS
             or manifest.get("benchmark")!=name
@@ -56,9 +59,13 @@ def import_local_success(folder,name):
         case=json.loads(case_text)
         if (summary.get("status")!=STATUS
             or summary.get("errors",{}).get(name)
-            or not any(row==case for row in summary.get("results",[]))
-            or case.get("candidate_id")!=name):
+            or case.get("candidate_id")!=name
+            or (manifest_source=="summary.json" and not any(
+                row==case for row in summary.get("results",[])))):
             raise ValueError("Local F18 benchmark was not fully validated "+name)
+        if manifest.get("original_F17f_report_SHA256_in_verified_source")!=summary.get(
+                "original_F17f_report_SHA256"):
+            raise ValueError("Completed local case not bound to validated F17f report")
         expected_cases=manifest["original_SLHA_SHA256"]
         for label,filename,ref in (
                 ("two_body","two_body.slha","MadWidth_two_body"),
