@@ -20,6 +20,7 @@ from pathlib import Path
 from collections import Counter,defaultdict
 from zee_paper1_F16_verify_AF_to_local_bundle import verify as verify_f16
 from zee_paper1_F16_verify_AF_to_local_bundle import sha as hashfile
+from zee_paper1_F17_verify_complex_json import verify_json
 from zee_gateF7_309_2026_bsgamma_tension_sensitivity import writejson
 STATUS="F17_SARAH_UFO_STATIC_EXTERNAL_INTERFACE_EXACT_F13_SOURCE_ONLY_NOT_MATCHED_CARD_OR_MADWIDTH"
 TGT=("F13_heavy_0001330","F13_heavy_0000981","F13_heavy_0001003")
@@ -332,7 +333,7 @@ def run(f16_dir,output):
     exported=source/SOURCE_COMPLEX
     if not exported.is_file():
         raise FileNotFoundError("First run local Mathematica F17 complex fixture exporter")
-    cx=json.loads(exported.read_text())
+    cx=verify_json(exported)
     flavorchecks=consistency(raw,cx)
     ufo=inspect_ufo(source/UFO_SUBDIR)
     all5=all(ufo["scalar_species_found"].values())
