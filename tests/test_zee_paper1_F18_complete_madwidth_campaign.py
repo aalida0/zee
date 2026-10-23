@@ -6,11 +6,13 @@ the user's actual SARAH UFO is only exercised by F18 local one-shot.
 """
 from pathlib import Path
 import math,sys,tempfile,unittest,json,io,contextlib
+from unittest.mock import patch
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 from zee_paper1_F18_complete_madwidth_campaign import (
     SCALARS,read_slha,validate_case_outcomes,validate_table,command_deck,
     ensure_consistent_2body_stage,check_MadWidth_input_preserved,
-    do_madwidth,diagnose_existing_campaign,madwidth_log_diagnostic)
+    do_madwidth,diagnose_existing_campaign,madwidth_log_diagnostic,
+    derive_internal_W_mass,prepare_madwidth_W_mass_card)
 
 
 def mk_fixture(extra=False,lepton_split=3):
@@ -78,6 +80,64 @@ class F18CampaignRegression(unittest.TestCase):
                                    ["Z_and_tb"]["H1_tb"]["relative"],0.)
             self.assertGreater(result["cascade_BR_product_model_LO_2plus3"],0.)
             self.assertFalse(result["model_fully_allowed"])
+
+    def test_internal_sarah_MWm_is_source_matched_and_copied_not_modified(self):
+        # Real bug: 258 UFO external parameters exclude W MASS(24), but
+        # MadWidth's LHE numeric mass parser demands an explicit PDG 24.
+        # The remedy is a run-local copied card, not a model regeneration.
+        mz=91.1876
+        values={("MASS",(23,)):mz,("MASS",(37,)):570.}
+        pars={
+            "MZ":{"nature":"external","name":"MZ","type":"real",
+                  "lhablock":"MASS","lhacode":[23],"value":91.1876},
+            "MWm":{"nature":"internal","name":"MWm","type":"real",
+                   "value":"MZ*cmath.sqrt(1-0.23122)"}
+        }
+        particles={"Wp":{"pdg_code":24,
+                         "mass":{"python_expression":"Param.MWm"}}}
+        def fake_parse(_root,basename,_kind):
+            return pars if basename=="parameters.py" else particles
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d)
+            old=root/"F17f_unchanged.slha"
+            fixed=root/"F18_temporary_with_MW.slha"
+            old.write_text("BLOCK MASS\n 23 9.11876000000000000e+01\n"
+                           " 37 5.70000000000000000e+02\n"
+                           "DECAY 37 0.0\n")
+            snapshot=old.read_bytes()
+            with patch("zee_paper1_F18_complete_madwidth_campaign.parse_objects",
+                       side_effect=fake_parse),patch(
+                "zee_paper1_F18_complete_madwidth_campaign.slots_from_real_ufo",
+                return_value={("MASS",(23,)):"MZ"}):
+                mass=derive_internal_W_mass(root,values)
+                self.assertAlmostEqual(mass,
+                    mz*math.sqrt(1-0.23122),places=12)
+                meta=prepare_madwidth_W_mass_card(old,fixed,root,values)
+                self.assertEqual(meta["new_UFO_external_parameters"],0)
+                self.assertAlmostEqual(meta["derived_internal_MWm_GeV"],mass)
+            self.assertEqual(old.read_bytes(),snapshot)
+            masses,_,_ = read_slha(fixed)
+            self.assertIn(24,masses)
+            self.assertAlmostEqual(masses[24],mass,places=12)
+            self.assertEqual(fixed.read_text().count("  24 "),1)
+            with self.assertRaises(FileExistsError):
+                prepare_madwidth_W_mass_card(old,fixed,root,values)
+
+    def test_W_mass_mismatch_with_source_is_rejected(self):
+        vals={("MASS",(23,)):91.1876}
+        pars={"MZ":{"nature":"external","name":"MZ","type":"real"},
+              "MWm":{"nature":"internal","name":"MWm","type":"real",
+                     "value":"MZ*0.80"}}
+        particles={"W":{"pdg_code":24,
+                        "mass":{"python_expression":"Param.MWm"}}}
+        with patch("zee_paper1_F18_complete_madwidth_campaign.parse_objects",
+                   side_effect=lambda _root,basename,_kind:
+                   pars if basename=="parameters.py" else particles),patch(
+                   "zee_paper1_F18_complete_madwidth_campaign.slots_from_real_ufo",
+                   return_value={("MASS",(23,)):"MZ"}):
+            with self.assertRaisesRegex(ValueError,
+                                        "contradicts F16 electroweak"):
+                derive_internal_W_mass(Path("."),vals)
 
     def test_actual_bug_mg5_returns_zero_but_writes_no_card(self):
         # MG5 command-file mode may return exit code 0 despite a command
