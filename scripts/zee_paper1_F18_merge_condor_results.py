@@ -9,11 +9,13 @@ result_<case>.tar.gz archives have arrived.
 from __future__ import annotations
 import argparse,csv,hashlib,json,math,tarfile
 from pathlib import Path
-from zee_paper1_F17_inspect_real_SARAH_UFO import TGT
-from zee_paper1_F18_complete_madwidth_campaign import STATUS
+# Standalone stdlib merger: submit host does not need the repository's
+# large physics/Python dependencies merely to combine successful archives.
+TGT=("F13_heavy_0001330","F13_heavy_0000981","F13_heavy_0001003")
+STATUS="F18_REAL_SARAH_ZEE_MADWIDTH_2AND3_BODY_3_CASES_MODEL_LO_NOT_EXCLUSION"
 
 
-def member_data(archive,name,maxbytes=8_000_000):
+def member_data(archive,name,maxbytes=150_000_000):
     try:item=archive.getmember(name)
     except KeyError as ex:raise ValueError("Missing archived file "+name) from ex
     if not item.isfile() or not 0<=item.size<=maxbytes:
