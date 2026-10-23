@@ -89,7 +89,8 @@ to avoid duplicated CPU expense.
 On the AF, from the same payload folder:
 
 ```bash
-PYTHONPATH="$PWD" python3 -c "import sys; sys.path.insert(0, 'scripts'); from zee_paper1_F18_merge_condor_results import merge; merge('.', 'F18_final_three_benchmarks')"
+python3 F18_merge_condor_results.py \
+  --results-dir . --output-dir F18_final_three_benchmarks
 ```
 
 The merger checks the worker exit status, complete F18 per-case result,
