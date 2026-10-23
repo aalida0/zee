@@ -238,7 +238,8 @@ def scalar_dependencies(parameters, mass_inventory, couplings):
     })
     for (_, code), source_name in SCALAR_POT.items():
         # OutputName aliases in models/SARAH/ZeeTypeII/parameters.m
-        aliases = {"M12Sq": "M12S", "MCS2": "MC2"}
+        aliases = {"M12Sq": "M12S", "MCS2": "MC2", "LambdaC": "LamC"}
+        aliases.update({"Lambda"+str(i): "Lam"+str(i) for i in range(1, 6)})
         names = {source_name, aliases.get(source_name, source_name)}
         exact = [key for key, p in parameters.items()
                  if key in names or p.get("name") in names]
