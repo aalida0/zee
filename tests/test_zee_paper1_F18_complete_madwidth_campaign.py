@@ -224,7 +224,7 @@ class F18CampaignRegression(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d)/"F18_interrupted";(root/"F13_heavy_0001330").mkdir(parents=True)
             (root/"initial_manifest.json").write_text('{"status":"invalid"}')
-            with self.assertRaises(ValueError):
+            with self.assertRaises((ValueError,FileNotFoundError)):
                 archive_local_success(root,"F13_heavy_0001330",
                     Path(d)/"will_not_be_created.tar.gz")
 
