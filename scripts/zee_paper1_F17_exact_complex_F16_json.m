@@ -18,7 +18,7 @@ If[!ListQ[zeeF16Cases]||Length[zeeF16Cases]=!=3||
   Sort[Lookup[zeeF16Cases,"ID"]]=!=Sort[expected],
  Print["F17_FAIL_EXACT_THREE_CASE_SOURCE_SET"];Exit[5]];
 pair[z_?NumericQ]:={N[Re[z]],N[Im[z]]};
-getMat[o_,name_String_,dims_List]:=Module[{a=Lookup[o,name,Missing[]]},
+getMat[o_Association,name_String,dims_List]:=Module[{a=Lookup[o,name,Missing[]]},
  If[!MatrixQ[a,NumericQ]||Dimensions[a]=!=dims,
   Print["F17_BAD_MATRIX ",o["ID"]," ",name, " ",InputForm[a]];
   Return[$Failed]];
@@ -28,10 +28,20 @@ names={"FSARAH","YeSARAH","Ye2SARAH","YChen","MixCharged","MixCPeven","MixCPodd"
 sizes={{3,3},{3,3},{3,3},{3,3},{3,3},{2,2},{2,2}};
 cases=Table[
  Module[{o=zeeF16Cases[[i]],mat},
-  mat=Association@Table[
-    names[[j]]->getMat[o,names[[j]],sizes[[j]]],
-    {j,Length[names]}];
-  If[MemberQ[Values[mat],$Failed],Return[$Failed]];
+  (* AssociationThread forces both keys and tensor values to evaluate
+     before JSON encoding. The previous name_String_ definition did
+     not match a string and left getMat[...] symbolic in the payload. *)
+  mat=AssociationThread[names,
+    Table[getMat[o,names[[j]],sizes[[j]]],{j,Length[names]}]];
+  If[Length[mat]=!=Length[names]||
+     MemberQ[Values[mat],$Failed]||
+     !And@@Table[
+        ArrayQ[mat[names[[j]]],3,NumericQ]&&
+        Dimensions[mat[names[[j]]]]===Append[sizes[[j]],2],
+        {j,Length[names]}],
+    Print["F17_FAIL_CLOSED_COMPLEX_MATRIX_NUMERIC_SHAPE ",o["ID"],
+          " ",InputForm[Dimensions /@ Values[mat]]];
+    Return[$Failed]];
   <|
    "candidate_id"->o["ID"],
    "mH1_GeV"->N[o["M1"]],
@@ -48,7 +58,8 @@ cases=Table[
    "ufo_fermion_couplings_checked"->False
   |>
  ],{i,3}];
-If[MemberQ[cases,$Failed]||!And@@(AssociationQ/@cases),
+If[MemberQ[cases,$Failed]||!And@@(AssociationQ/@cases)||
+   Length[cases]=!=3,
  Print["F17_FAIL_COMPLEX_MATRICES_MISSING"];Exit[6]];
 payload=<|
  "status"->"F17_F16_SOURCE_EXACT_THREE_COMPLEX_MATRICES_NOT_UFO_PARAM_CARD",
@@ -57,8 +68,20 @@ payload=<|
  "SARAH_three_tree_vertex_gate"->pass,
  "full_Zee_param_card_validated"->False
 |>;
-Export[output,payload,"RawJSON"];
+(* Produce a complete JSON string BEFORE writing any output file.
+   A strict RawJSON export must not be allowed to create an empty or
+   truncated artifact that a subsequent run mistakes for complete. *)
+jsonText=Quiet[Check[ExportString[payload,"RawJSON"],$Failed]];
+If[!StringQ[jsonText]||StringLength[jsonText]<3000,
+ Print["F17_FAIL_JSON_COMPLEX_MATRICES_EXPORT"];
+ Exit[7]];
+exportCheck=Quiet[Check[ImportString[jsonText,"RawJSON"],$Failed]];
+If[!AssociationQ[exportCheck]||
+  Length[Lookup[exportCheck,"matrices",{}]]=!=3||
+  Lookup[exportCheck,"full_Zee_param_card_validated",Missing[]]=!=False,
+ Print["F17_FAIL_JSON_SOURCE_ROUNDTRIP"];Exit[8]];
+Export[output,jsonText,"Text"];
 If[!FileExistsQ[output]||FileByteCount[output]<3000,
- Print["F17_FAIL_JSON_COMPLEX_MATRICES_EXPORT"];Exit[7]];
+ Print["F17_FAIL_JSON_COMPLEX_MATRICES_EXPORT"];Exit[9]];
 Print["F17_COMPLEX_SOURCE_EXPORT_OK ",output," CASES 3"];
 Exit[0];
