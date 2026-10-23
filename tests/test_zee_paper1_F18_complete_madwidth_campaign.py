@@ -104,8 +104,8 @@ class F18CampaignRegression(unittest.TestCase):
             _,tables,_=read_slha(p)
             self.assertEqual(p.read_bytes(),raw)
             with self.assertRaises(ValueError):
-                validate_table(tables,37,three_body=True) if False else read_slha(
-                    self._corrupt_card(Path(d),mk_fixture().replace("DECAY 37 2.","DECAY 37 -2.")))
+                read_slha(self._corrupt_card(
+                    Path(d),mk_fixture().replace("DECAY 37 2.","DECAY 37 -2.")))
             text=command_deck(Path(d)/"UFO",p,Path(d)/"result.slha",body_decay=3)
             self.assertIn("compute_widths 25 35 36 37 9000037",text)
             self.assertIn("--body_decay=3",text)
