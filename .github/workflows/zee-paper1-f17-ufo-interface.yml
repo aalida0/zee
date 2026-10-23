@@ -12,6 +12,7 @@ on:
       - 'scripts/zee_paper1_F17b_real_UFO_blocker_triage.py'
       - 'scripts/zee_paper1_F17c_real_UFO_scalar_photon.py'
       - 'scripts/zee_paper1_F17d_source_matched_prevalidation_cards.py'
+      - 'scripts/zee_paper1_F17d_local_one_shot.sh'
       - 'tests/test_zee_paper1_F17d_source_matched_prevalidation_cards.py'
       - 'tests/test_zee_paper1_F17c_real_UFO_scalar_photon.py'
       - 'tests/test_zee_paper1_F17b_real_UFO_blocker_triage.py'
@@ -37,5 +38,6 @@ jobs:
       - run: python -m py_compile scripts/zee_paper1_F17d_source_matched_prevalidation_cards.py tests/test_zee_paper1_F17d_source_matched_prevalidation_cards.py
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F17d_source_matched_prevalidation_cards.py' -v
       - run: bash -n scripts/zee_paper1_F17_local_UFO_inspection_one_shot.sh
+      - run: bash -n scripts/zee_paper1_F17d_local_one_shot.sh
       - run: python scripts/zee_paper1_F16_wolfram_syntax_lint.py scripts/zee_paper1_F17_exact_complex_F16_json.m scripts/zee_paper1_F17_exact_complex_json_helpers.m scripts/zee_paper1_F17_complex_json_selftest.m
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F17_complex_json_strict.py' -v
