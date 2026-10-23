@@ -94,7 +94,7 @@ def make_quark_basis(original,source_row,ckm):
 
 
 def vertex_group(vertices,signatures):
-    return [v for v in vertices if sorted(map(abs,v["pdgs"])) in signatures]
+    return [v for v in vertices if tuple(sorted(map(abs,v["pdgs"]))) in signatures]
 
 
 def compare_W_to_ckm(vrows,ckm,g2):
