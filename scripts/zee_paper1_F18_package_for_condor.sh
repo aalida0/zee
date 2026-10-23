@@ -41,6 +41,7 @@ tar -czf "$dest/F18_mg5_bundle.tar.gz" -C "$mg5/.." \
   --exclude='*/.git' --exclude='*/__pycache__' --exclude='*/.pytest_cache' \
   "$(basename "$mg5")"
 cp "$repo/scripts/zee_paper1_F18_condor_worker.sh" "$dest/F18_condor_worker.sh"
+cp "$repo/scripts/zee_paper1_F18_merge_condor_results.py" "$dest/F18_merge_condor_results.py"
 chmod +x "$dest/F18_condor_worker.sh"
 cat >"$dest/F18_3cases.sub" <<'EOF'
 universe = vanilla
@@ -65,7 +66,7 @@ EOF
 mkdir -p "$dest/logs"
 (
   cd "$dest"
-  sha256sum F18_*bundle.tar.gz F18_condor_worker.sh F18_3cases.sub \
+  sha256sum F18_*bundle.tar.gz F18_condor_worker.sh F18_merge_condor_results.py F18_3cases.sub \
     > F18_condor_payload_SHA256.txt
 )
 echo "F18_CONDOR_PACKAGE_READY $dest"
