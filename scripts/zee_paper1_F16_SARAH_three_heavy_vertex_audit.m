@@ -70,6 +70,12 @@ If[!ValueQ[zeeF16VEVResolverStatus]||
     zeeF16VEVResolverStatus=!="F16_CONTEXT_SAFE_PHYSICAL_F13_VEVS",
  finish["F16_PHYSICAL_VEV_RESOLVER_NOT_LOADED",10]];
 Print["F16_VEV_CONTEXT_RESOLVER_READY Global SARAH Susyno"];
+Get[FileNameJoin[{root,"scripts",
+  "zee_paper1_F16_strict_real_lepton_width_residual.m"}]];
+If[!ValueQ[zeeF16WidthResidualStatus]||
+   zeeF16WidthResidualStatus=!="F16_STRICT_REAL_COMPLEX_WIDTH_RESIDUAL_GUARD",
+ finish["F16_STRICT_REAL_LEPTON_WIDTH_RESIDUAL_GUARD_MISSING",10]];
+Print["F16_STRICT_REAL_LEPTON_WIDTH_RESIDUAL_GUARD_READY"];
 reduce[expr_,o_]:=Module[{z=expr,ss,sw,cw,g,gt},
  sw=Sqrt[0.23122];cw=Sqrt[1.-0.23122];
  g=2*91.1876*cw/o["V"];gt=g*sw/cw;
@@ -102,7 +108,7 @@ scaW[M_,m_,h_,g_]:=If[M<=m+h,0.,
  N[Abs[g]^2*Sqrt[(M^2-(m+h)^2)*(M^2-(m-h)^2)]/
         (16 Pi M^3)]];
 rel[a_,b_,scale_:1.*^-10]:=N[Abs[a-b]/Max[Abs[b],scale]];
-fails={};
+fails={};passedCases=0;
 Do[
  Module[{id=o["ID"],mm,gauge,photon,hc,Hc,msource,
          mbos,lepMass,lepDiff,lepW,relL,relB,mErr,k,m,el,j,
@@ -147,8 +153,19 @@ Do[
    {el,1,3},{state,{2,3}}];
  If[!MatrixQ[lepW,NumericQ],
    AppendTo[fails,id<>"/non_numeric_lepton_width"];Continue[]];
- relL=Max[Abs[Flatten[lepW-o["LeptonicWidths"]]]/
-    Map[Max[#,1.*^-14]&,Flatten[o["LeptonicWidths"]]]];
+ (* F13 fixture widths are serialized as real + 0 I. Max[complex,
+    positive] is symbolic even if Im==0; the old expression silently
+    bypassed the numeric threshold and emitted a false overall PASS.
+    Verify all six individual values and reject any symbolic residual. *)
+ relL=zeeF16RelativeLeptonWidthResidual[lepW,o["LeptonicWidths"]];
+ If[relL===$Failed||!NumericQ[relL]||
+    !TrueQ[Im[relL]==0]||
+    !TrueQ[0<=relL<Infinity],
+   AppendTo[fails,id<>"/non_numeric_real_lepton_width_residual"];
+   Print["F16_LEPTON_WIDTH_NONREAL_OR_SYMBOLIC ",id,
+     " COMPUTED ",InputForm[lepW],
+     " SOURCE ",InputForm[o["LeptonicWidths"]]];
+   Continue[]];
  Print["F16_MASS_MAX_ABS_GEV2 ",id," ",InputForm[mErr]];
  Print["F16_BOSON_WIDTH_MAX_REL ",id," ",InputForm[relB]];
  Print["F16_LEPTON_MASS_MAX_ABS_GEV ",id," ",InputForm[lepDiff]];
@@ -158,10 +175,22 @@ Do[
     " bosRel="<>ToString[InputForm[relB]]<>
     " lepRel="<>ToString[InputForm[relL]]<>
     " lepMassGeV="<>ToString[InputForm[lepDiff]]];
- If[mErr>1.*^-5||relB>1.*^-7||relL>5.*^-7||lepDiff>1.*^-9,
-    AppendTo[fails,id<>"/vertex_or_mass_mismatch"]]],
+ (* Fail closed on EVERY residual type. Mathematica If[symbolic]
+    otherwise simply stays unevaluated and can lead to a false PASS. *)
+ If[!And@@(NumericQ/@{mErr,relB,lepDiff,relL})||
+    !TrueQ[And@@(Im[N[#]]==0&/@{mErr,relB,lepDiff,relL})],
+    AppendTo[fails,id<>"/nonnumeric_final_validation_residual"],
+    If[TrueQ[mErr<1.*^-5]&&TrueQ[relB<1.*^-7]&&
+       TrueQ[relL<5.*^-7]&&TrueQ[lepDiff<1.*^-9],
+       passedCases++;
+       Print["F16_CASE_NUMERICAL_PASS ",id],
+       AppendTo[fails,id<>"/vertex_or_mass_mismatch"]
+    ]
+ ]],
  {o,zeeF16Cases}];
-If[Length[fails]>0,
+If[Length[fails]>0||passedCases=!=3,
+ Print["F16_NUMERICAL_CASE_COUNT ",passedCases," / 3"];
  Print["F16_SARAH_FAILURES ",InputForm[fails]];
  finish["F16_THREE_HEAVY_SARAH_VERTEX_MISMATCH_NOT_COMPLETE_WIDTH",11]];
+Print["F16_NUMERICAL_CASE_COUNT ",passedCases," / 3"];
 finish["F16_THREE_HEAVY_SARAH_MASS_GAUGE_CUBIC_COMPLEX_LEPTON_PASS_NOT_MADWIDTH",0];
