@@ -329,9 +329,11 @@ def choose_mg5(value):
     names=[
         os.environ.get("ZEE_MG5_BIN",""),
         str(Path.home()/"MG5_aMC/bin/mg5_aMC"),
-        str(Path.home()/"MG5_aMC_v3_6_5/bin/mg5_aMC"),
-        str(Path.home()/"MG5_aMC_v3_7_0/bin/mg5_aMC"),
-    ]
+        str(Path.home()/"mg5/bin/mg5_aMC"),
+    ] + [str(x) for pattern in ("MG5_aMC_v*/bin/mg5_aMC",
+                                "MG5_aMC*/bin/mg5_aMC",
+                                "MadGraph*/bin/mg5_aMC")
+         for x in sorted(Path.home().glob(pattern),reverse=True)]
     for name in names:
         if name and Path(name).is_file() and os.access(name,os.X_OK):
             return Path(name).resolve()
@@ -419,6 +421,11 @@ def run(args):
                                                      args.f17e_report,args.f17f_dir)
     mg5=choose_mg5(args.mg5_bin)
     f14, f14_sha=f14_source_rows(args.f14_csv,original)
+    if f14_sha is not None:
+        f16_summary=json.loads((src/"summary.json").read_text())
+        pinned=f16_summary.get("source",{}).get("F14_8_csv_SHA256")
+        if not pinned or f14_sha!=pinned:
+            raise ValueError("F14 13 TeV production CSV SHA256 not pinned to original F16 source")
     out=Path(args.output).expanduser().resolve()
     if out.exists():raise FileExistsError("Never overwrite a historical MadWidth campaign "+str(out))
     charge=charged_field_sign(ufo)
