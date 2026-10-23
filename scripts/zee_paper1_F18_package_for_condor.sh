@@ -3,8 +3,8 @@
 # once, to transfer them to an HTCondor submit node. Never package the large
 # previous F18 output trees, and never alter original F16/F17f source.
 set -euo pipefail
-if [[ $# -ne 3 ]]; then
-  echo "Usage: $0 ORIGINAL_F16_DIR MG5_DIRECTORY EMPTY_PAYLOAD_DIR" >&2
+if [[ $# -ne 3 && $# -ne 4 ]]; then
+  echo "Usage: $0 ORIGINAL_F16_DIR MG5_DIRECTORY EMPTY_PAYLOAD_DIR [COMPLETED_LOCAL_F18_CAMPAIGN]" >&2
   exit 2
 fi
 src="$(realpath "$1")"
@@ -43,7 +43,17 @@ tar -czf "$dest/F18_mg5_bundle.tar.gz" -C "$mg5/.." \
 cp "$repo/scripts/zee_paper1_F18_condor_worker.sh" "$dest/F18_condor_worker.sh"
 cp "$repo/scripts/zee_paper1_F18_merge_condor_results.py" "$dest/F18_merge_condor_results.py"
 chmod +x "$dest/F18_condor_worker.sh"
-cat >"$dest/F18_3cases.sub" <<'EOF'
+if [[ $# -eq 4 ]]; then
+  echo "F18_CONDOR_PRESERVE_PREVIOUSLY_COMPLETED_LOCAL_BENCHMARK"
+  python3 "$repo/scripts/zee_paper1_F18_archive_local_success.py" \
+    --local-campaign "$4" \
+    --benchmark F13_heavy_0001330 \
+    --output "$dest/F18_local_completed_F13_heavy_0001330.tar.gz"
+  submit_name="F18_2remaining.sub"
+else
+  submit_name="F18_3cases.sub"
+fi
+cat >"$dest/$submit_name" <<'EOF'
 universe = vanilla
 executable = F18_condor_worker.sh
 arguments = $(case)
@@ -57,19 +67,34 @@ transfer_output_files = F18_result_$(case).tar.gz
 output = logs/F18_$(ClusterId).$(ProcId)_$(case).out
 error = logs/F18_$(ClusterId).$(ProcId)_$(case).err
 log = logs/F18_$(ClusterId).log
+EOF
+if [[ "$submit_name" == "F18_2remaining.sub" ]]; then
+  cat >>"$dest/$submit_name" <<'EOF'
+queue case from (
+F13_heavy_0000981
+F13_heavy_0001003
+)
+EOF
+else
+  cat >>"$dest/$submit_name" <<'EOF'
 queue case from (
 F13_heavy_0001330
 F13_heavy_0000981
 F13_heavy_0001003
 )
 EOF
+fi
 mkdir -p "$dest/logs"
 (
   cd "$dest"
-  sha256sum F18_*bundle.tar.gz F18_condor_worker.sh F18_merge_condor_results.py F18_3cases.sub \
+  sha256sum F18_*bundle.tar.gz F18_condor_worker.sh F18_merge_condor_results.py "$submit_name" \
     > F18_condor_payload_SHA256.txt
+  if [[ -f F18_local_completed_F13_heavy_0001330.tar.gz ]]; then
+    sha256sum F18_local_completed_F13_heavy_0001330.tar.gz >> F18_condor_payload_SHA256.txt
+  fi
 )
 echo "F18_CONDOR_PACKAGE_READY $dest"
 du -h "$dest/"*.tar.gz
 echo "Next: rsync -avP $dest/ YOUR_CONDOR_SUBMIT_HOST:YOUR_DEST_DIR/"
-echo "Then: cd YOUR_DEST_DIR && condor_submit F18_3cases.sub"
+echo "Then: cd YOUR_DEST_DIR && condor_submit $submit_name"
+echo "After remaining jobs: python3 F18_merge_condor_results.py --results-dir . --output-dir F18_final"
