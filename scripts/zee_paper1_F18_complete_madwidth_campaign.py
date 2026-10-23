@@ -362,14 +362,14 @@ def madwidth_log_diagnostic(log,job_dir,output,returncode=None):
     lines=text.splitlines()
     import re
     pattern=re.compile(
-        r"(?i)(?:^\\s*(?:ERROR|CRITICAL)\\s*[: ]|Traceback \\(most recent|"
+        r"(?i)(?:^\s*(?:ERROR|CRITICAL)\s*[: ]|Traceback \(most recent|"
         r"madgraph5error|invalidcmd|No module named|file not found|"
         r"unrecognized command|not valid options|invalid syntax|"
         r"cannot import model|no such file or directory)")
     interesting=[i for i,line in enumerate(lines) if pattern.search(line)]
     contexts=[]
     for i in interesting[-12:]:
-        contexts.append({"log_line":i+1,"context":"\\n".join(
+        contexts.append({"log_line":i+1,"context":"\n".join(
             lines[max(0,i-2):min(len(lines),i+9)])[:2500]})
     nearby_cards=[]
     for folder in (Path(job_dir),Path(output).parent):
@@ -386,7 +386,7 @@ def madwidth_log_diagnostic(log,job_dir,output,returncode=None):
         "log":str(log),
         "log_size":len(text),
         "log_error_contexts":contexts,
-        "log_last_65_lines":"\\n".join(lines[-65:])[-10000:],
+        "log_last_65_lines":"\n".join(lines[-65:])[-10000:],
         "nearby_candidate_cards_and_debug_files":nearby_cards,
     }
     return diagnostic
@@ -404,7 +404,7 @@ def do_madwidth(mg5,ufo,card,output,job_dir,stage):
                                stderr=subprocess.STDOUT,check=False)
     diagnostic=madwidth_log_diagnostic(log,job_dir,output,process.returncode)
     diagnostic_path=job_dir/"mg5_diagnostic.json"
-    diagnostic_path.write_text(json.dumps(diagnostic,indent=2,sort_keys=True)+"\\n")
+    diagnostic_path.write_text(json.dumps(diagnostic,indent=2,sort_keys=True)+"\n")
     evidence={"returncode":process.returncode,"command":str(deck),
               "command_SHA256":hashfile(deck),"log":str(log),
               "log_SHA256":hashfile(log),"output":str(output),
@@ -449,7 +449,7 @@ def diagnose_existing_campaign(folder):
                 print("F18_DIAGNOSTIC_LOG_ERROR_LINE",item["log_line"],
                       item["context"])
             print("F18_DIAGNOSTIC_LOG_LAST_LINES",
-                  "\\n".join(details["log_last_65_lines"].splitlines()[-35:]))
+                  "\n".join(details["log_last_65_lines"].splitlines()[-35:]))
             print("F18_DIAGNOSTIC_CANDIDATE_FILES",
                   details["nearby_candidate_cards_and_debug_files"][:12])
     print("F18_DIAGNOSIS_ONLY_NO_MG5_EXECUTION",folder)
