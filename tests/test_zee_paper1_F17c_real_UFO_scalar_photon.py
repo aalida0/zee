@@ -53,6 +53,18 @@ def setup():
 
 
 class TestF17c(unittest.TestCase):
+    def test_sarah_lam_outputname_aliases(self):
+        from zee_paper1_F17c_real_UFO_scalar_photon import scalar_dependencies
+        params = {
+            **{'Lam'+str(i): {'name':'Lam'+str(i), 'nature':'external',
+                'value':0.1} for i in range(1,6)},
+            'LamC': {'name':'LamC','nature':'external','value':0.2},
+        }
+        deps = scalar_dependencies(params, {}, {})
+        for name in ['Lambda1','Lambda2','Lambda3','Lambda4','Lambda5','LambdaC']:
+            self.assertEqual(deps[name]['classification'],'UFO_EXTERNAL')
+            self.assertTrue(deps[name]['mapping_to_source_coefficients_proven'])
+
     def test_f16_photon_formula_uses_actual_ufo_expression(self):
         row, pars, couplings, verts = setup()
         result = photon_numeric(pars, couplings, verts, row)
