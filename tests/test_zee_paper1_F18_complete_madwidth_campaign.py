@@ -5,11 +5,12 @@ fractions and real-F17f amplitude-closure logic. It does NOT execute MG5;
 the user's actual SARAH UFO is only exercised by F18 local one-shot.
 """
 from pathlib import Path
-import math,sys,tempfile,unittest
+import math,sys,tempfile,unittest,json,io,contextlib
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 from zee_paper1_F18_complete_madwidth_campaign import (
     SCALARS,read_slha,validate_case_outcomes,validate_table,command_deck,
-    ensure_consistent_2body_stage,check_MadWidth_input_preserved)
+    ensure_consistent_2body_stage,check_MadWidth_input_preserved,
+    do_madwidth,diagnose_existing_campaign,madwidth_log_diagnostic)
 
 
 def mk_fixture(extra=False,lepton_split=3):
@@ -77,6 +78,44 @@ class F18CampaignRegression(unittest.TestCase):
                                    ["Z_and_tb"]["H1_tb"]["relative"],0.)
             self.assertGreater(result["cascade_BR_product_model_LO_2plus3"],0.)
             self.assertFalse(result["model_fully_allowed"])
+
+    def test_actual_bug_mg5_returns_zero_but_writes_no_card(self):
+        # MG5 command-file mode may return exit code 0 despite a command
+        # failure visible in the log. This exact regression must never
+        # pass as a physics card.
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d)
+            mg5=root/"dummy_mg5"
+            mg5.write_text("#!/bin/sh\\necho 'ERROR: invalid compute_widths in test'\\nexit 0\\n")
+            mg5.chmod(0o755)
+            card=root/"source.slha"
+            card.write_text("BLOCK MASS\\n 37 500\\n")
+            job=root/"stage_2body"
+            dest=root/"expected.slha"
+            with self.assertRaisesRegex(RuntimeError,
+                                       "returncode=0"):
+                do_madwidth(mg5,root/"original_ufo",card,dest,job,2)
+            diagnostic=json.loads((job/"mg5_diagnostic.json").read_text())
+            self.assertEqual(diagnostic["returncode"],0)
+            self.assertFalse(diagnostic["expected_output_exists"])
+            self.assertTrue(diagnostic["log_error_contexts"])
+            self.assertIn("invalid compute_widths",
+                          diagnostic["log_error_contexts"][0]["context"])
+            self.assertEqual(card.read_text(),"BLOCK MASS\\n 37 500\\n")
+
+    def test_original_failed_F18_archived_diagnosis_without_rerun(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d)/"F18_existing"
+            job=root/"F13_heavy_0001330"/"stage_2body"
+            job.mkdir(parents=True)
+            (job/"madwidth.log").write_text(
+                "import model original\\nTraceback (most recent call last):\\n"
+                "ERROR: original interface model has bad parameter\\n")
+            stream=io.StringIO()
+            with contextlib.redirect_stdout(stream):
+                diagnose_existing_campaign(root)
+            self.assertIn("F18_DIAGNOSTIC_LOG_ERROR_LINE",stream.getvalue())
+            self.assertIn("NO_MG5_EXECUTION",stream.getvalue())
 
     def test_missing_resonance_or_incomplete_model_is_blocker(self):
         vals={("MASS",(25,)):125.,("MASS",(35,)):725.,
