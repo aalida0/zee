@@ -425,10 +425,19 @@ def choose_mg5(value):
     raise ValueError("Set --mg5-bin /absolute/path/to/MG5_aMC/bin/mg5_aMC")
 
 
-def command_deck(ufo,card,output,*,body_decay):
+def command_deck(ufo,card,output,*,body_decay,nb_core=None):
     if body_decay not in (2,3):raise ValueError("Only 2 and 3 body stages")
+    if nb_core is not None and (type(nb_core)!=int or not 1<=nb_core<=64):
+        raise ValueError("Invalid MadGraph requested core count")
+    # Running MadGraph inside an HTCondor job: cap the child madevent
+    # workers at the exact number of cores requested from HTCondor.
+    # Never trigger nested MG5 cluster submission inside a worker.
+    settings=("set auto_update 0\n"
+              "set automatic_html_opening False\n"
+              + ("set run_mode 2\nset nb_core "+str(nb_core)+"\n"
+                 if nb_core is not None else ""))
     # Absolute paths and a new output path keep immutable source unchanged.
-    return ("set automatic_html_opening False\n"
+    return (settings
             "import model "+str(ufo)+"\n"
             "compute_widths "+" ".join(str(i) for i in SCALARS)+
             " --path="+str(card)+" --output="+str(output)+
@@ -477,10 +486,10 @@ def madwidth_log_diagnostic(log,job_dir,output,returncode=None):
     return diagnostic
 
 
-def do_madwidth(mg5,ufo,card,output,job_dir,stage):
+def do_madwidth(mg5,ufo,card,output,job_dir,stage,*,nb_core=None):
     job_dir.mkdir(parents=True,exist_ok=False)
     deck=job_dir/"compute_widths.mg5"
-    deck.write_text(command_deck(ufo,card,output,body_decay=stage))
+    deck.write_text(command_deck(ufo,card,output,body_decay=stage,nb_core=nb_core))
     log=job_dir/"madwidth.log"
     input_hash_before=hashfile(card)
     print("F18_MG5_START",stage,"CARD",card,"OUTPUT",output,flush=True)
@@ -613,7 +622,10 @@ def run(args):
         "full_BSM_precision_QCD_loops_flavor_Higgs_constraints":False,
         "results":[],"errors":{}}
     (out/"initial_manifest.json").write_text(json.dumps(manifest,indent=2,sort_keys=True)+"\n")
-    for name in TGT:
+    requested=(args.only_case,) if args.only_case else TGT
+    manifest["requested_cases"]=list(requested)
+    manifest["nb_core_per_job"]=args.nb_core
+    for name in requested:
         point=points[name]
         work=out/name
         work.mkdir(exist_ok=False)
@@ -624,7 +636,8 @@ def run(args):
             steps["W_mass_card"]=prepare_madwidth_W_mass_card(
                 card,auxiliary,ufo,point["values"])
             two=work/"two_body.slha";combined=work/"two_plus_three_body.slha"
-            steps["two_body"]=do_madwidth(mg5,ufo,auxiliary,two,work/"stage_2body",2)
+            steps["two_body"]=do_madwidth(
+                mg5,ufo,auxiliary,two,work/"stage_2body",2,nb_core=args.nb_core)
             # Fail closed if MG5 drops W mass before attempting 3-body.
             mass_from_2body,_,_=check_MadWidth_input_preserved(
                 two,point["values"])
@@ -635,7 +648,7 @@ def run(args):
                 raise ValueError("MG5 stage-2 output omitted derived W MASS 24; "+
                                  "do not launch 3-body stage")
             steps["two_plus_three_body"]=do_madwidth(
-                mg5,ufo,two,combined,work/"stage_2plus3body",3)
+                mg5,ufo,two,combined,work/"stage_2plus3body",3,nb_core=args.nb_core)
             result=validate_case_outcomes(name,point["values"],two,combined,
                                           point["f17f"],point["f17e"],charge)
             result["provenance"]={"source_F17f_card_SHA256":hashfile(card),
@@ -671,7 +684,10 @@ def run(args):
                                       "message":str(exc),"completed_steps":steps}
             print("F18_BENCHMARK_FAIL",name,type(exc).__name__,str(exc),flush=True)
             if not args.continue_after_failure:break
-    manifest["all_three_validated"]=len(manifest["results"])==3 and not manifest["errors"]
+    manifest["requested_cases_passed"]=(
+        len(manifest["results"])==len(requested) and not manifest["errors"])
+    manifest["all_three_validated"]=(
+        len(requested)==3 and manifest["requested_cases_passed"])
     manifest["complete_tree_two_plus_three_body_channels_up_to_MadWidth_precision"] = manifest["all_three_validated"]
     manifest["full_physical_precision_model_allowed"]=False
     (out/"summary.json").write_text(json.dumps(
@@ -701,11 +717,12 @@ def run(args):
                     sigma13_cascade_pb_if_original_F14_available=
                         rate.get("sigma_times_BR_H2_H1Z_BR_H1_tb_pb","")))
         print("F18_COMPARISON_CSV",table,flush=True)
-    print("F18_STATUS",STATUS,"THREE_CASES_PASS",manifest["all_three_validated"],
+    print("F18_STATUS",STATUS,"REQUESTED_CASES_PASS",manifest["requested_cases_passed"],
+          "THREE_CASES_PASS",manifest["all_three_validated"],
           "TOTAL_RESULTS",len(manifest["results"]),"ERRORS",len(manifest["errors"]),
           "PRECISION_QCD",False,"ALLOWED",False,flush=True)
     print("F18_REPORT",out/"summary.json",flush=True)
-    if not manifest["all_three_validated"]:raise SystemExit(2)
+    if not manifest["requested_cases_passed"]:raise SystemExit(2)
     return manifest
 
 
@@ -721,7 +738,11 @@ def main():
     p.add_argument("--mg5-bin",type=Path)
     p.add_argument("--f14-csv",type=Path,help="Original F14 13 TeV CSV (optional, source validated)")
     p.add_argument("--continue-after-failure",action="store_true")
+    p.add_argument("--only-case",choices=TGT,help="Run exactly one of the three source-verified benchmarks; intended for HTCondor job splitting")
+    p.add_argument("--nb-core",type=int,help="Limit MadGraph worker cores to the HTCondor request_cpus value")
     a=p.parse_args()
+    if a.nb_core is not None and not 1<=a.nb_core<=64:
+        p.error("--nb-core must be 1..64")
     if a.diagnose_campaign:
         diagnose_existing_campaign(a.diagnose_campaign)
         return
