@@ -437,8 +437,8 @@ def command_deck(ufo,card,output,*,body_decay,nb_core=None):
               + ("set run_mode 2\nset nb_core "+str(nb_core)+"\n"
                  if nb_core is not None else ""))
     # Absolute paths and a new output path keep immutable source unchanged.
-    return (settings
-            "import model "+str(ufo)+"\n"
+    return (settings+
+            "import model "+str(ufo)+"\n"+
             "compute_widths "+" ".join(str(i) for i in SCALARS)+
             " --path="+str(card)+" --output="+str(output)+
             " --body_decay="+str(body_decay)+
