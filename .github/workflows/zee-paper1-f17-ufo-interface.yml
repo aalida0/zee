@@ -19,6 +19,10 @@ on:
       - 'scripts/zee_paper1_F17f_local_real_UFO_CKM.sh'
       - 'scripts/zee_paper1_F18_complete_madwidth_campaign.py'
       - 'scripts/zee_paper1_F18_one_shot_madwidth.sh'
+      - 'scripts/zee_paper1_F18_package_for_condor.sh'
+      - 'scripts/zee_paper1_F18_condor_worker.sh'
+      - 'scripts/zee_paper1_F18_merge_condor_results.py'
+      - 'docs/zee_paper1_F18_HTCondor_three_benchmark_guide.md'
       - 'tests/test_zee_paper1_F18_complete_madwidth_campaign.py'
       - 'tests/test_zee_paper1_F17f_unitary_CKM_UFO_quark_gate.py'
       - 'tests/test_zee_paper1_F17e_real_UFO_amplitude_gate.py'
@@ -57,5 +61,7 @@ jobs:
       - run: python -m py_compile scripts/zee_paper1_F18_complete_madwidth_campaign.py tests/test_zee_paper1_F18_complete_madwidth_campaign.py
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F18_complete_madwidth_campaign.py' -v
       - run: bash -n scripts/zee_paper1_F18_one_shot_madwidth.sh
+      - run: bash -n scripts/zee_paper1_F18_package_for_condor.sh scripts/zee_paper1_F18_condor_worker.sh
+      - run: python -m py_compile scripts/zee_paper1_F18_merge_condor_results.py
       - run: python scripts/zee_paper1_F16_wolfram_syntax_lint.py scripts/zee_paper1_F17_exact_complex_F16_json.m scripts/zee_paper1_F17_exact_complex_json_helpers.m scripts/zee_paper1_F17_complex_json_selftest.m
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F17_complex_json_strict.py' -v
