@@ -12,6 +12,9 @@ on:
       - 'scripts/zee_paper1_F16_wolfram_syntax_lint.py'
       - 'scripts/zee_paper1_F16_SARAH_context_vevs.m'
       - 'scripts/zee_paper1_F16_SARAH_context_vevs_selftest.m'
+      - 'scripts/zee_paper1_F16_strict_real_lepton_width_residual.m'
+      - 'scripts/zee_paper1_F16_strict_real_lepton_width_selftest.m'
+      - 'tests/test_zee_paper1_F16_strict_real_lepton_widths.py'
       - 'tests/test_zee_paper1_F16_vev_context_faithful.py'
       - 'tests/test_zee_paper1_F16_wolfram_syntax_lint.py'
       - 'tests/test_zee_paper1_F16_AF_to_local_bundle_provenance.py'
@@ -36,3 +39,5 @@ jobs:
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F16_wolfram_syntax_lint.py' -v
       - run: python scripts/zee_paper1_F16_wolfram_syntax_lint.py scripts/zee_paper1_F16_SARAH_three_heavy_vertex_audit.m scripts/zee_paper1_F16_SARAH_MakeUFO_after_vertex_gate.m scripts/zee_paper1_F16_SARAH_context_vevs.m scripts/zee_paper1_F16_SARAH_context_vevs_selftest.m
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F16_vev_context_faithful.py' -v
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F16_strict_real_lepton_widths.py' -v
+      - run: python scripts/zee_paper1_F16_wolfram_syntax_lint.py scripts/zee_paper1_F16_strict_real_lepton_width_residual.m scripts/zee_paper1_F16_strict_real_lepton_width_selftest.m
