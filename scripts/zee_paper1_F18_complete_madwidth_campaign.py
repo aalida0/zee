@@ -22,7 +22,7 @@ from pathlib import Path
 from zee_paper1_F17_inspect_real_SARAH_UFO import (
     TGT,UFO_SUBDIR,SOURCE_COMPLEX,parse_objects,cmat,consistency)
 from zee_paper1_F17_verify_complex_json import verify_json
-from zee_paper1_F17c_real_UFO_scalar_photon import hashfile
+from zee_paper1_F17c_real_UFO_scalar_photon import hashfile,NumericUFO,S2W_F16
 from zee_paper1_F17d_source_matched_prevalidation_cards import slots_from_real_ufo
 from zee_paper1_F17e_real_UFO_amplitude_gate import read_f17d_card
 
@@ -142,6 +142,83 @@ def charged_field_sign(ufo):
     if result[37]!=result[9000037]:
         raise ValueError("H1 H2 physical charge convention inconsistent")
     return result[37]
+
+
+
+def derive_internal_W_mass(ufo,values):
+    """Actual SARAH MWm derived parameter, not an invented UFO external slot.
+
+    F16 electroweak inputs are already source-validated in F17d. PDG24 is
+    nevertheless mandatory in MadWidth's parsed LHE mass inventory.
+    """
+    parameters=parse_objects(ufo,"parameters.py","Parameter")
+    slots=slots_from_real_ufo(parameters)
+    if ("MASS",(24,)) in slots or ("MASS",(24,)) in values:
+        raise ValueError("MASS 24 is already external or present; refuse duplicate")
+    physical_W=[p for p in parse_objects(ufo,"particles.py","Particle").values()
+                if p.get("pdg_code")==24]
+    if len(physical_W)!=1:
+        raise ValueError("Original SARAH UFO W particle not uniquely identified")
+    mass_expr=physical_W[0].get("mass")
+    if not isinstance(mass_expr,dict) or mass_expr.get("python_expression")!="Param.MWm":
+        raise ValueError("Original SARAH W is not sourced from internal Param.MWm: "+
+                         str(mass_expr))
+    if "MWm" not in parameters or parameters["MWm"].get("nature")!="internal":
+        raise ValueError("Missing actual internal SARAH W mass MWm")
+    resolver=NumericUFO(parameters,{name:values[key] for key,name in slots.items()})
+    actual=complex(resolver.param("MWm"))
+    expected=values[("MASS",(23,))]*math.sqrt(1.0-S2W_F16)
+    if not (math.isfinite(actual.real) and math.isfinite(actual.imag)
+            and actual.real>0 and abs(actual.imag)<1e-11
+            and abs(actual.real-expected)<1e-8):
+        raise ValueError("Actual-UFO internal W mass contradicts F16 electroweak convention "+
+                         str((actual,expected)))
+    return actual.real
+
+
+def prepare_madwidth_W_mass_card(original_card,prepared_card,ufo,original_values):
+    """Add solely internal MASS(24) to a NEW run-local card.
+
+    Source F17f files and the original 258 UFO external slots remain
+    untouched and SHA-pinned. The copied card is for MG5's internal LHE
+    mass inventory, not a reparametrization of the scalar/gauge model.
+    """
+    original_card=Path(original_card)
+    prepared_card=Path(prepared_card)
+    if prepared_card.exists():
+        raise FileExistsError("Refuse overwriting earlier MadWidth W-mass card")
+    original_sha=hashfile(original_card)
+    text=original_card.read_text(encoding="utf-8")
+    mass=derive_internal_W_mass(ufo,original_values)
+    sections=text.splitlines()
+    headers=[i for i,line in enumerate(sections)
+             if line.split("#",1)[0].strip().upper()=="BLOCK MASS"]
+    if len(headers)!=1:
+        raise ValueError("Expected exactly one original external MASS block")
+    # The original validated card must not already contain MASS(24).
+    masses,_,_=read_slha(original_card)
+    if 24 in masses:
+        raise ValueError("Original card already provides W mass")
+    sections.insert(headers[0]+1,
+                    "  24 "+format(mass,"+.17e")+" # derived UFO Param.MWm, "
+                    "F16 electroweak convention; MG5 LHE mass inventory")
+    prepared_card.write_text("\n".join(sections)+"\n",encoding="utf-8")
+    if hashfile(original_card)!=original_sha:
+        raise RuntimeError("Original F17f card unexpectedly modified")
+    obtained,_,entries=read_slha(prepared_card)
+    if not math.isclose(obtained[24],mass,rel_tol=1e-14):
+        raise ValueError("MadWidth auxiliary W mass did not serialize")
+    for key,val in original_values.items():
+        if key[0]!="DECAY" and (key not in entries or
+             not math.isclose(val,entries[key],rel_tol=1e-13,abs_tol=1e-13)):
+            raise ValueError("W mass insertion changed an original external slot "+
+                             str(key))
+    return {"derived_internal_MWm_GeV":mass,
+            "original_F17f_card_SHA256":original_sha,
+            "madwidth_auxiliary_input":str(prepared_card),
+            "madwidth_auxiliary_input_SHA256":hashfile(prepared_card),
+            "original_external_slot_count_unchanged":len(original_values),
+            "new_UFO_external_parameters":0}
 
 
 def validate_table(tables,pdg,*,three_body):
@@ -271,6 +348,14 @@ def validate_case_outcomes(name,original_values,two_path,full_path,case,f17e_cas
                 raise ValueError("MadWidth changed physical scalar mass "+str(pid))
         validate_table(first,pid,three_body=False)
         validate_table(final,pid,three_body=True)
+    # W is internal in the UFO but explicitly required by MadWidth's
+    # LHE mass reader. It must survive both numeric integration passes.
+    expected_W=original_values[("MASS",(23,))]*math.sqrt(1.0-S2W_F16)
+    for label,observed in (("2body",masses1),("2plus3body",masses2)):
+        if 24 not in observed or not math.isclose(
+                observed[24],expected_W,rel_tol=2e-7,abs_tol=1e-7):
+            raise ValueError("MadWidth lost/mutated derived MASS 24 "+label+
+                             " "+str(observed.get(24)))
     consistency=ensure_consistent_2body_stage(first,final)
     source_matched_two=check_two_body_against_f17f(case,f17e_case,first,charge)
     source_matched_full=check_two_body_against_f17f(case,f17e_case,final,charge)
@@ -535,8 +620,20 @@ def run(args):
         steps={}
         try:
             card=point["card"]
+            auxiliary=work/"F18_MadWidth_input_with_derived_MW.slha"
+            steps["W_mass_card"]=prepare_madwidth_W_mass_card(
+                card,auxiliary,ufo,point["values"])
             two=work/"two_body.slha";combined=work/"two_plus_three_body.slha"
-            steps["two_body"]=do_madwidth(mg5,ufo,card,two,work/"stage_2body",2)
+            steps["two_body"]=do_madwidth(mg5,ufo,auxiliary,two,work/"stage_2body",2)
+            # Fail closed if MG5 drops W mass before attempting 3-body.
+            mass_from_2body,_,_=check_MadWidth_input_preserved(
+                two,point["values"])
+            if 24 not in mass_from_2body or not math.isclose(
+                mass_from_2body[24],
+                steps["W_mass_card"]["derived_internal_MWm_GeV"],
+                rel_tol=2e-7,abs_tol=1e-7):
+                raise ValueError("MG5 stage-2 output omitted derived W MASS 24; "+
+                                 "do not launch 3-body stage")
             steps["two_plus_three_body"]=do_madwidth(
                 mg5,ufo,two,combined,work/"stage_2plus3body",3)
             result=validate_case_outcomes(name,point["values"],two,combined,
