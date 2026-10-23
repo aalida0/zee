@@ -98,26 +98,35 @@ def vertex_group(vertices,signatures):
 
 
 def compare_W_to_ckm(vrows,ckm,g2):
-    """Every W ud vertex must be purely left-handed and match |Vij|."""
-    errors=[]
-    samples=[]
+    """Check BOTH moduli and relative complex CKM phases of actual W vertices.
+
+    The common Feynman-rule phase cancels by dividing by the ud vertex.
+    W+ and W- must have mutually conjugate *CKM* flavor matrices; fail
+    closed if only the magnitudes match.
+    """
+    errors=[];samples=[];signed={1:{},-1:{}}
     for i,u in enumerate(UP_PDG):
         for j,d in enumerate(DOWN_PDG):
             matches=vertex_set(vrows,[24,u,d])
             if not matches:raise ValueError("Missing real UFO W u%d d%d"%(i,j))
             strengths=[]
             for vert in matches:
-                norm=0.
+                coef=0j
                 for coupling in vert["couplings"]:
                     structure=coupling["structure"]
+                    amp=complex(coupling["value_re"],coupling["value_im"])
                     if "ProjP(" in structure and "ProjM(" not in structure:
-                        if coupling["absolute"]>1e-12:
+                        if abs(amp)>1e-12:
                             raise ValueError("Right-handed charged W current "+vert["vertex"])
                         continue
                     if "ProjM(" not in structure:
                         raise ValueError("Unknown charged W Lorentz "+str(structure))
-                    norm+=coupling["absolute"]**2
-                strengths.append(math.sqrt(norm))
+                    coef+=amp
+                sign=next(1 if p>0 else -1 for p in vert["pdgs"] if abs(p)==24)
+                if (i,j) in signed[sign]:
+                    raise ValueError("Ambiguous duplicate W flavor vertex "+str((sign,i,j)))
+                signed[sign][(i,j)]=coef
+                strengths.append(abs(coef))
             target=g2/math.sqrt(2)*abs(ckm[i,j])
             err=max(abs(value-target)/max(target,1e-10) for value in strengths)
             errors.append(err)
@@ -125,7 +134,23 @@ def compare_W_to_ckm(vrows,ckm,g2):
                             "PDG":[u,d],"UFO_W_vertices":matches,
                             "expected_coefficient_abs":target,
                             "relative_error_max":err})
-    return samples,max(errors)
+    phase_err={};hypotheses={}
+    for sign,found in signed.items():
+        if set(found)!={(i,j) for i in range(3) for j in range(3)}:
+            raise ValueError("Incomplete signed W/CKM amplitude matrix "+str(sign))
+        if abs(found[(0,0)])<1e-9:raise ValueError("Cannot fix W/CKM ud reference phase")
+        observed=np.array([[found[(i,j)]/found[(0,0)] for j in range(3)]
+                           for i in range(3)])
+        ref=ckm/ckm[0,0]
+        choices={"CKM":ref,"CKM_CONJ":ref.conjugate()}
+        ranking={name:float(np.max(abs(observed-target)/np.maximum(
+            abs(target),1e-10))) for name,target in choices.items()}
+        best=min(ranking,key=ranking.get)
+        hypotheses[sign]=best
+        phase_err[sign]=ranking[best]
+    if hypotheses[1]==hypotheses[-1]:
+        raise ValueError("Wplus and Wminus do not carry conjugate complex CKM phases")
+    return samples,max(errors),phase_err,hypotheses
 
 
 def spin_half_quark_width(vertex,vals,u,d,h):
@@ -331,8 +356,11 @@ def run(f16_dir,f17e_report,f17d_dir,output):
             w_verts=vertex_group(raw_vertices,{tuple(sorted((24,u,d)))
                 for u in UP_PDG for d in DOWN_PDG})
             w=evaluate_vertices(w_verts,ufo_couplings,lorentz,calc)
-            Wresults,Wmax=compare_W_to_ckm(w,ckm,source_ew(cases[key])["g2"])
-            if Wmax>5e-5:raise ValueError("UFO physical W/CKM amplitude mismatch "+str(Wmax))
+            Wresults,Wmax,Wphase,Whyp=compare_W_to_ckm(
+                w,ckm,source_ew(cases[key])["g2"])
+            if Wmax>5e-5 or max(Wphase.values())>5e-5:
+                raise ValueError("UFO physical W/CKM complex amplitude mismatch "+
+                                 str((Wmax,Wphase,Whyp)))
             charged_vertices=[v for v in raw_vertices if
                 len(v["pdgs"])==3 and any(abs(p) in (37,9000037) for p in v["pdgs"])
                 and any(abs(p) in UP_PDG for p in v["pdgs"])
@@ -351,6 +379,8 @@ def run(f16_dir,f17e_report,f17d_dir,output):
                     "CKM_source_mass_basis_convention":conv,
                     "actual_UFO_W_physical_CKM_checks":Wresults,
                     "W_CKM_max_rel":Wmax,
+                    "W_CKM_complex_phase_relative_errors":{str(k):v for k,v in Wphase.items()},
+                    "W_charge_conjugate_CKM_phase_hypotheses":{str(k):v for k,v in Whyp.items()},
                     "actual_UFO_charged_H_quark_width_checks":qmode,
                     "charged_quark_width_max_rel":qr,
                     "independent_F16_B3_complex_lepton_width_target_GeV":lreference,
@@ -387,6 +417,7 @@ def run(f16_dir,f17e_report,f17d_dir,output):
     for case in answers:
         print("F17F_QUARK",case["candidate_id"],
               "W_MAX_REL",case["W_CKM_max_rel"],
+              "W_PHASE_MAX_REL",max(case["W_CKM_complex_phase_relative_errors"].values()),
               "HQQ_MAX_REL",case["charged_quark_width_max_rel"],
               "LEPTON_MAX_REL",case["actual_UFO_lepton_width_max_relative_residual"])
     for key,err in errors.items():print("F17F_BLOCKER",key,err)
