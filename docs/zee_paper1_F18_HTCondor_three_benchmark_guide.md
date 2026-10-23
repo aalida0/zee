@@ -9,6 +9,70 @@ and `request_cpus=2`. Three-body `min_br=0` may be very expensive;
 time limits, scheduler policies, and whether gfortran/Python dependencies
 are available on execute hosts must be checked for the target pool.
 
+## Reuse the already completed local `F13_heavy_0001330`
+
+The 2026-10-23 local output established a successful two+three body F18
+result for `F13_heavy_0001330`:
+
+- `Gamma(H2)=13.07809 GeV`, `Gamma(H1)=0.3353617 GeV`.
+- `BR(H2->H1Z)=0.4502034`, `BR(H1->tb)=0.9914371`.
+- Cascade BR product `0.44634835330614`.
+
+These are **source-validated model tree-level results**, not precision QCD
+widths or an allowed-point/exclusion assessment. Since the user interrupted
+the entire F18 campaign during the second benchmark, its root
+`summary.json` may not exist. The completed `0001330` directory still
+contains `validated_model_LO_widths.json` and both SLHA files. The
+archiver verifies those files against the initial campaign manifest,
+the exact F17f source-card SHA and the MadWidth output hashes.
+
+To submit ONLY the two remaining points, run locally:
+
+```bash
+cd ~/zee
+git switch feature/global-scan-priority1
+git pull --ff-only
+export ZEE_F16_DIR="$HOME/zee/work/zee_paper1_F16_exact_SARAH_three_heavy_20261021T143647Z"
+bash scripts/zee_paper1_F18_package_for_condor.sh \
+ "$ZEE_F16_DIR" \
+ /home/amine/codes/tools/MG5_aMC \
+ "$HOME/zee/work/F18_condor_two_remaining_20261023" \
+ "$ZEE_F16_DIR/F18_MadWidth_exact_three_20261023T124259Z"
+```
+
+The fourth argument is the interrupted local campaign. The packager
+automatically writes the **source-verified local success archive**
+`F18_local_completed_F13_heavy_0001330.tar.gz`, and
+`F18_2remaining.sub`, whose queue contains ONLY
+`F13_heavy_0000981` and `F13_heavy_0001003`.
+
+Transfer the new complete payload (including the small local success
+archive) and submit **only**:
+
+```bash
+rsync -avP "$HOME/zee/work/F18_condor_two_remaining_20261023/" \
+  aalida@login01.af.uchicago.edu:/data/aalida/F18_condor_two_remaining_20261023/
+ssh aalida@login01.af.uchicago.edu
+cd /data/aalida/F18_condor_two_remaining_20261023
+sha256sum -c F18_condor_payload_SHA256.txt
+condor_submit F18_2remaining.sub
+condor_q "$USER"
+```
+
+When the two Condor result archives arrive in this directory:
+
+```bash
+python3 F18_merge_condor_results.py \
+  --results-dir . --output-dir F18_final_three_benchmarks
+```
+
+The merger explicitly marks `0001330` as **precomputed locally**,
+does not pretend it ran in HTCondor, and requires identical original F17f
+and MG5 binary SHA provenance across all three benchmarks. An archive
+collision between a local and Condor result for the same candidate is
+rejected. **There is no F18 recomputation of `0001330`.**
+
+
 ## Local Ubuntu machine: package only the essential scientific inputs
 
 Run in `~/zee` after pulling `feature/global-scan-priority1`:
