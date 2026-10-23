@@ -227,6 +227,64 @@ def inspect_lepton_norms(evaluated,row):
     return output
 
 
+
+def lepton_width_closure(evaluated,vals,expected):
+    """Coherently sum identical signed field/Lorentz amplitudes.
+
+    Different incoming scalar charge signs are separately cross-checked;
+    neutrino and antineutrino final states remain distinct. This is the
+    same m_neutrino=0 LO mass-suppressed two-body formula used in F16/B3.
+    Fails closed for duplicate interpretations or incomplete final states.
+    """
+    details={}
+    errs=[]
+    for H,label in ((37,"H1"),(9000037,"H2")):
+        mass=vals[("MASS",(H,))]
+        for sign in (-1,1):
+            for li,lpdg in enumerate(LEP_PDG):
+                rows=[v for v in evaluated if
+                      sign*H in v["pdgs"] and
+                      any(abs(p)==lpdg for p in v["pdgs"]) and
+                      any(abs(p) in NEU_PDG for p in v["pdgs"])]
+                if not rows:raise ValueError("No UFO lepton vertices "+str((H,sign,lpdg)))
+                # Within identical signed external particle content, each
+                # Lorentz projector contributes coherently.
+                amplitudes={}
+                nus=set()
+                for vertex in rows:
+                    signed_neu=next((p for p in vertex["pdgs"]
+                                     if abs(p) in NEU_PDG),None)
+                    if signed_neu is None:raise ValueError("UFO lepton neutrino missing")
+                    nus.add(abs(signed_neu))
+                    content=tuple(vertex["pdgs"])
+                    for a in vertex["couplings"]:
+                        if a["colour"]!=0:
+                            raise ValueError("Unexpected lepton colour structure")
+                        chir=lorentz_chirality(a["structure"])
+                        key=(content,chir)
+                        amplitudes[key]=amplitudes.get(key,0j)+complex(
+                            a["value_re"],a["value_im"])
+                if nus!=set(NEU_PDG):
+                    raise ValueError("Incomplete neutrino flavors "+str((H,sign,lpdg,nus)))
+                norm=sum(abs(z)**2 for z in amplitudes.values())
+                ml=vals[("MASS",(lpdg,))]
+                width=mass/(16*math.pi)*norm*(1-(ml/mass)**2)**2
+                ref=expected[label][("e","mu","tau")[li]]
+                rel=abs(width-ref)/max(1e-12,ref)
+                k=f"{label}_sign{sign:+d}_{('e','mu','tau')[li]}"
+                details[k]={"ufo_width_GeV":width,"source_F16_B3_width_GeV":ref,
+                            "relative_residual":rel,"n_raw_UFO_vertices":len(rows),
+                            "n_coherent_signature_projectors":len(amplitudes),
+                            "neutrino_species":sorted(nus)}
+                errs.append(rel)
+    # Match BOTH charge-conjugate channels to the six independent source
+    # widths, not arbitrary halves/averages of the 36 UFO vertex entries.
+    maximum=max(errs)
+    if maximum>2e-5:
+        raise ValueError("UFO general complex Zee lepton width mismatch: "+
+                         str(sorted(details.items(),key=lambda t:-t[1]["relative_residual"])[:3]))
+    return details,maximum
+
 def run(f16_dir,f17e_report,f17d_dir,output):
     source=Path(f16_dir).expanduser().resolve()
     root=source/UFO_SUBDIR
@@ -287,16 +345,20 @@ def run(f16_dir,f17e_report,f17d_dir,output):
                 and any(abs(p) in NEU_PDG for p in v["pdgs"])]
             lnum=evaluate_vertices(lepton_vertices,ufo_couplings,lorentz,calc)
             lnorm=inspect_lepton_norms(lnum,cases[key])
+            lreference=expected_lepton_widths(cases[key])
+            leptonic_widths,lepton_max=lepton_width_closure(lnum,values,lreference)
             result={"candidate_id":key,"original_F17d_card_SHA256":item["sha256"],
                     "CKM_source_mass_basis_convention":conv,
                     "actual_UFO_W_physical_CKM_checks":Wresults,
                     "W_CKM_max_rel":Wmax,
                     "actual_UFO_charged_H_quark_width_checks":qmode,
                     "charged_quark_width_max_rel":qr,
-                    "independent_F16_B3_complex_lepton_width_target_GeV":expected_lepton_widths(cases[key]),
+                    "independent_F16_B3_complex_lepton_width_target_GeV":lreference,
                     "actual_UFO_lepton_vertex_norm_diagnostics_NOT_WIDTHS":lnorm,
+                    "actual_UFO_complex_lepton_per_charge_widths":leptonic_widths,
+                    "actual_UFO_lepton_width_max_relative_residual":lepton_max,
                     "all_quark_9x2_modes_passed":True,
-                    "complex_lepton_full_width_gate_passed":False,
+                    "complex_lepton_full_width_gate_passed":True,
                     "physical_MadWidth_ready":False}
             answers.append(result)
             prepared[key]=values
@@ -318,17 +380,18 @@ def run(f16_dir,f17e_report,f17d_dir,output):
             "CKM_matrix_re_im":[[[float(z.real),float(z.imag)] for z in line] for line in ckm],
             "cases":answers,"errors":errors,"CKM_numerical_3_of_3":len(answers)==3 and not errors,
             "CKM_candidate_cards":entries,
-            "full_complex_lepton_physical_widths_validated":False,
+            "full_complex_lepton_physical_widths_validated":len(answers)==3 and not errors
+                and all(case["complex_lepton_full_width_gate_passed"] for case in answers),
             "complete_2_and_3_body_MadWidth_ready":False}
     out.write_text(json.dumps(report,indent=2,sort_keys=True,allow_nan=False)+"\n")
     for case in answers:
         print("F17F_QUARK",case["candidate_id"],
               "W_MAX_REL",case["W_CKM_max_rel"],
               "HQQ_MAX_REL",case["charged_quark_width_max_rel"],
-              "LEPTON_WIDTHS_INDEPENDENT_B3_ONLY",True)
+              "LEPTON_MAX_REL",case["actual_UFO_lepton_width_max_relative_residual"])
     for key,err in errors.items():print("F17F_BLOCKER",key,err)
     print("F17F_STATUS",STATUS,"CKM_3_OF_3",report["CKM_numerical_3_of_3"],
-          "LEPTON_FULL_WIDTH_MATCH",False,"MADWIDTH_READY",False)
+          "LEPTON_FULL_WIDTH_MATCH",report["full_complex_lepton_physical_widths_validated"],"MADWIDTH_READY",False)
     print("F17F_REPORT",out)
     return report
 
