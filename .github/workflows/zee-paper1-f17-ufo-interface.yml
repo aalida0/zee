@@ -41,6 +41,11 @@ on:
       - 'scripts/zee_paper1_F19d_AF_independent_analytic_LO_bsgamma.py'
       - 'tests/test_zee_paper1_F19d_AF_independent_analytic_LO_bsgamma.py'
       - 'docs/zee_paper1_F19d_no_AF_LO_bsgamma.md'
+      - 'scripts/zee_paper1_F20_integrated_large_campaign.py'
+      - 'scripts/zee_paper1_F20_condor_worker.sh'
+      - 'scripts/zee_paper1_F20_prepare_submit_lxplus.sh'
+      - 'scripts/zee_paper1_F20_merge_four_production_shards.py'
+      - 'docs/zee_paper1_F20_integrated_4shard_production.md'
       - 'docs/zee_paper1_F19_exact_F18_scalar_EWPO_constraint_intake.md'
       - 'tests/test_zee_paper1_F17f_unitary_CKM_UFO_quark_gate.py'
       - 'tests/test_zee_paper1_F17e_real_UFO_amplitude_gate.py'
@@ -89,6 +94,8 @@ jobs:
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F19c_exact_three_vacuum_witness.py' -v
       - run: python -m py_compile scripts/zee_paper1_F19d_AF_independent_analytic_LO_bsgamma.py tests/test_zee_paper1_F19d_AF_independent_analytic_LO_bsgamma.py
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F19d_AF_independent_analytic_LO_bsgamma.py' -v
+      - run: python -m py_compile scripts/zee_paper1_F20_integrated_large_campaign.py scripts/zee_paper1_F20_merge_four_production_shards.py
+      - run: bash -n scripts/zee_paper1_F20_condor_worker.sh scripts/zee_paper1_F20_prepare_submit_lxplus.sh
       - run: bash -n scripts/zee_paper1_F18_one_shot_madwidth.sh
       - run: bash -n scripts/zee_paper1_F18_package_for_condor.sh scripts/zee_paper1_F18_condor_worker.sh scripts/zee_paper1_F18_prepare_lxplus_submission.sh
       - run: python -m py_compile scripts/zee_paper1_F18_merge_condor_results.py scripts/zee_paper1_F18_archive_local_success.py
