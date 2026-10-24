@@ -7,9 +7,9 @@ the user's actual SARAH UFO is only exercised by F18 local one-shot.
 from pathlib import Path
 import math,sys,tempfile,unittest,json,io,contextlib,hashlib,tarfile,os
 from unittest.mock import patch
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 from zee_paper1_F18_archive_local_success import pack as archive_local_success
 from zee_paper1_F18_merge_condor_results import merge as merge_completed_cases
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 from zee_paper1_F18_complete_madwidth_campaign import (
     SCALARS,read_slha,validate_case_outcomes,validate_table,command_deck,
     ensure_consistent_2body_stage,check_MadWidth_input_preserved,
@@ -142,6 +142,14 @@ class F18CampaignRegression(unittest.TestCase):
                                         "contradicts F16 electroweak"):
                 derive_internal_W_mass(Path("."),vals)
 
+
+    def test_condor_worker_does_not_precreate_f18_output(self):
+        worker=(Path(__file__).resolve().parents[1]/"scripts"/
+                "zee_paper1_F18_condor_worker.sh").read_text()
+        self.assertNotIn("mkdir -p F18_job_output",worker)
+        self.assertIn('if [[ -e F18_job_output ]]',worker)
+        self.assertIn('--output "$scratch/F18_job_output"',worker)
+        self.assertIn('F18_CONDOR_OUTPUT_ALREADY_EXISTS_REFUSE_OVERWRITE',worker)
 
     def test_reuse_completed_local_one_and_merge_two_condor_cases(self):
         # The real user stopped the monolithic F18 process in benchmark 2;
