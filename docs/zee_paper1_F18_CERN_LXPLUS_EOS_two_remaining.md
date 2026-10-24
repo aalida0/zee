@@ -141,3 +141,78 @@ QCD-NLO-precision widths or comprehensive constraint/exclusion claims.
 **Important:** a Condor job interrupted/evicted during an expensive
 three-body integration may restart from scratch. The worker does not
 implement full MadWidth integration checkpointing. 
+
+
+## CERN worker preflight failures and optional 16-core isolated retry
+
+If a returned output archive is just a few hundred bytes, the F18 merger
+must fail closed: no physics results exist. Inspect the original submit
+stdout/stderr before attempting a more expensive batch allocation:
+
+```bash
+find "$F18_EOS/results/logs" \
+  "$HOME/zee_f18_lxplus_submit_20261024/logs" \
+  -type f \( -name '*.out' -o -name '*.err' \) \
+  -print -exec tail -60 {} \;
+```
+
+The original worker used the bare default CERN Python and did **not** load
+the LCG view; that can lead to missing NumPy/SciPy or gfortran on EL9
+workers (this is a possible cause, not a diagnosis until logs are read).
+
+The updated worker first sources the CERN EL9 view
+`/cvmfs/sft.cern.ch/lcg/views/LCG_106/x86_64-el9-gcc13-opt/setup.sh`,
+then checks Python/Fortran prerequisites and preserves
+`worker_diagnostic.txt` and `python_preflight.log` inside the returned
+result tarball. No original physics cards or validated couplings change.
+
+To retry **without reuploading the large tarball bundles**, on the local
+Ubuntu computer:
+
+```bash
+cd ~/zee
+git switch feature/global-scan-priority1 && git pull --ff-only
+ssh aalida@lxplus.cern.ch 'mkdir -p ~/zee_f18_retry_code_20261024'
+scp scripts/zee_paper1_F18_condor_worker.sh \
+    scripts/zee_paper1_F18_prepare_lxplus_submission.sh \
+    aalida@lxplus.cern.ch:zee_f18_retry_code_20261024/
+```
+
+Then on LXPLUS:
+
+```bash
+export F18_EOS=/eos/user/a/aalida/zee/F18_lxplus_two_remaining_20261024
+
+bash ~/zee_f18_retry_code_20261024/zee_paper1_F18_prepare_lxplus_submission.sh \
+    "$F18_EOS" \
+    "$HOME/zee_f18_lxplus_retry16_20261024" \
+    16 \
+    retry16_20261024 \
+    "$HOME/zee_f18_retry_code_20261024/zee_paper1_F18_condor_worker.sh"
+
+cd ~/zee_f18_lxplus_retry16_20261024
+condor_submit F18_LXPLUS_2remaining.sub
+condor_q "$USER"
+```
+
+This requests **16 cores/job**, ~24 GB RAM/job and 40 GB of worker
+scratch. Each MadWidth invocation uses `--nb-core=16`; worker setup
+and the submit script agree. Larger requests can experience longer
+queue times; use 8 instead of 16 in the positional `CPUS` argument if
+needed.
+
+The new returned results are under
+`$F18_EOS/results/retry16_20261024`; the original failed archives in
+`$F18_EOS/results` are never overwritten. A source-validated copy of
+the completed local `0001330` is also included inside the retry
+directory, so the final merge is simply:
+
+```bash
+python3 ~/zee_f18_lxplus_retry16_20261024/F18_merge_condor_results.py \
+  --results-dir "$F18_EOS/results/retry16_20261024" \
+  --output-dir "$HOME/zee_f18_lxplus_retry16_20261024/F18_final_three_benchmarks"
+```
+
+Do not resubmit merely because a job returned an exit code of 1. The
+error might be due to missing model input, an MG5 runtime failure,
+filesystem limits, or other issues for which more CPUs are not a remedy.
