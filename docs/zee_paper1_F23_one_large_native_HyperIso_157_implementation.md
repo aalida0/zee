@@ -34,7 +34,25 @@ sudo apt-get install -y \
  libboost-thread-dev libopenblas-dev liblapack-dev
 ```
 
-### Stage the 3 original F22 files once from LXPLUS
+### Preferred: ONE command that performs the entire project (including CERN F22 transfer)
+
+After updating your local branch and installing the Ubuntu dependencies above:
+
+```bash
+cd ~/zee
+git switch feature/global-scan-priority1
+git pull --ff-only
+bash scripts/zee_paper1_F23_hyperiso_run_everything_ubuntu.sh
+```
+
+The shell wrapper automatically copies any missing frozen F22 source files from
+your existing LXPLUS AFS directory via `scp`, validates their source manifest,
+builds tagged HyperIso and the C++ patch bridge, reproduces the upstream reference,
+runs all 9 physical mixing-limit checks, and evaluates **all 157 original models**.
+It rejects overwriting any previous run and never performs an additional model scan.
+
+### Alternative: stage original F22 files manually and invoke the Python driver
+
 
 On **Ubuntu**:
 
