@@ -187,7 +187,7 @@ def parse_native(output):
     if a[0]!="F23_HYPERISO_V103_TWO_STATE_CONDITIONAL" or len(a)%2!=1:
         raise ValueError("F23 malformed native output")
     data=dict(zip(a[1::2],a[2::2]))
-    if data.get("FULL_MODEL_ALLOWED")!="UNKNOWN" or int(data["n_patches"])!=11:
+    if data.get("FULL_MODEL_ALLOWED")!="UNKNOWN" or int(data["n_patches"])!=13:
         raise ValueError("F23 native patch count or physically allowed status incorrect")
     br=float(data["BR_B_XS_GAMMA"])
     if not math.isfinite(br) or br<1e-9 or br>0.1:
