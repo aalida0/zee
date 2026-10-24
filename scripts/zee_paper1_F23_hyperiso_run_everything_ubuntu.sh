@@ -22,9 +22,15 @@ if command -v dpkg-query >/dev/null; then
         exit 2
     fi
 fi
+resume_args=()
 if [[ -e "$output" ]]; then
-    echo "F23_REFUSE_OVERWRITE_EXISTING_NATIVE_CAMPAIGN $output" >&2
-    exit 2
+    if [[ ! -f "$output/F23_input_source_sha256.json" ]] ||
+       [[ -f "$output/F23_conditional_157_model_summary.json" ]]; then
+        echo "F23_REFUSE_OVERWRITE_UNVERIFIED_OR_COMPLETED_RUN $output" >&2
+        exit 2
+    fi
+    resume_args=(--resume)
+    echo "F23_RESUME_EXISTING_SOURCE_VERIFIED_HYPERISO_BUILD $output"
 fi
 mkdir -p "$source_dir"
 for entry in \
@@ -38,4 +44,4 @@ for entry in \
 done
 echo "F23_ONE_LARGE_NATIVE_PHYSICS_CAMPAIGN_START 157_REAL_F22_ZEE_MODELS"
 python3 "$zee/scripts/zee_paper1_F23_hyperiso_one_shot_integrated_157.py" \
- --repo "$zee" --f22-dir "$source_dir" --output "$output"
+ --repo "$zee" --f22-dir "$source_dir" --output "$output" "${resume_args[@]}"
