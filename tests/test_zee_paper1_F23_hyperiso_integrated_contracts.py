@@ -36,9 +36,9 @@ DECAY 37 .1
             self.assertIn("1.6666666666666666e-01",txt)
             self.assertIn("-6.0000000000000000e+00",txt)
             self.assertIn("  35 300.0",txt)
+            original.write_text("Block MASS\\n 37 310.5\\n")
             with self.assertRaisesRegex(ValueError,"no longer has required"):
-                m.update_spectrum(original,680.,6.) if False else m.update_spectrum(
-                    Path(d)/"missing.lha",680.,6.)
+                m.update_spectrum(original,680.,6.)
     def test_tagged_native_complete_11_matching_patches_required(self):
         payload=("F23_HYPERISO_V103_TWO_STATE_CONDITIONAL "
           "BR_B_XS_GAMMA 0.000351234 mH1 672 mH2 1576 tanbeta 7.95 "
