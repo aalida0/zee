@@ -140,7 +140,7 @@ def select_stratified(rows,n):
         buckets[key].append(r)
     for key in buckets:
         buckets[key].sort(key=lambda r:(
-          -r["cascade_included_nonleptonic_proxy_NOT_MadWidth"],
+          -r["production_weighted_nonleptonic_cascade_upper_proxy"],
            r["LO_flavor_shift_x1e4_NOT_CL"]))
     by_m2=defaultdict(list)
     # First diverse cells with one representative each; then next ranks.
@@ -149,7 +149,7 @@ def select_stratified(rows,n):
             by_m2[ib].append((ix,record))
     for k in by_m2:
         by_m2[k].sort(key=lambda p:(p[0],
-           -p[1]["cascade_included_nonleptonic_proxy_NOT_MadWidth"]))
+           -p[1]["production_weighted_nonleptonic_cascade_upper_proxy"]))
     chosen=[];seen=set()
     while len(chosen)<n:
         progress=False
@@ -162,7 +162,7 @@ def select_stratified(rows,n):
         if not progress:break
     if len(chosen)<n:
         for r in sorted(rows,key=lambda r:
-          -r["cascade_included_nonleptonic_proxy_NOT_MadWidth"]):
+          -r["production_weighted_nonleptonic_cascade_upper_proxy"]):
             if r["id"] not in seen:
                 chosen.append(r);seen.add(r["id"])
                 if len(chosen)>=n:break
