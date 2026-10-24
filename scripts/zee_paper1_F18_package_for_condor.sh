@@ -42,6 +42,7 @@ tar -czf "$dest/F18_mg5_bundle.tar.gz" -C "$mg5/.." \
   "$(basename "$mg5")"
 cp "$repo/scripts/zee_paper1_F18_condor_worker.sh" "$dest/F18_condor_worker.sh"
 cp "$repo/scripts/zee_paper1_F18_merge_condor_results.py" "$dest/F18_merge_condor_results.py"
+cp "$repo/scripts/zee_paper1_F18_prepare_lxplus_submission.sh" "$dest/F18_prepare_lxplus_submission.sh"
 chmod +x "$dest/F18_condor_worker.sh"
 if [[ $# -eq 4 ]]; then
   echo "F18_CONDOR_PRESERVE_PREVIOUSLY_COMPLETED_LOCAL_BENCHMARK"
@@ -87,7 +88,7 @@ fi
 mkdir -p "$dest/logs"
 (
   cd "$dest"
-  sha256sum F18_*bundle.tar.gz F18_condor_worker.sh F18_merge_condor_results.py "$submit_name" \
+  sha256sum F18_*bundle.tar.gz F18_condor_worker.sh F18_merge_condor_results.py F18_prepare_lxplus_submission.sh "$submit_name" \
     > F18_condor_payload_SHA256.txt
   if [[ -f F18_local_completed_F13_heavy_0001330.tar.gz ]]; then
     sha256sum F18_local_completed_F13_heavy_0001330.tar.gz >> F18_condor_payload_SHA256.txt
