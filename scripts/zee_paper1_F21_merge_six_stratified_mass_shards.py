@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Merge six F21 broad Zee scalar+partial LFV+vacuum shards.
+"""Merge 24 F21b broad Zee scalar+partial LFV+vacuum shards.
 
 WIDE explored parameter window, not a 95%-CL allowed contour. Refuse
 missing / failed / mismatched original CERN/F20 input sources.
@@ -41,7 +41,7 @@ def run(eos,out):
     if out.exists():raise FileExistsError("Never overwrite F21 original merged result")
     summaries=[];anchors=None;allscalar=[];allfit=[];archives={}
     mergedattempts=Counter();mergedpasses=Counter();mergedreject=Counter()
-    for j in range(6):
+    for j in range(24):
         archive=eos/f"F21_result_shard_{j}.tar.gz"
         if not archive.is_file():raise FileNotFoundError(archive)
         with tarfile.open(archive,"r:gz") as t:
@@ -59,7 +59,7 @@ def run(eos,out):
             this={**summ.get("original_F18_F19d_sources",{}),
                   "F20csv":summ["source_F20_original_SHA256"]}
             if anchors is not None and this!=anchors:
-                raise ValueError("F21 six shards used inconsistent original model datasets")
+                raise ValueError("F21b 24 shards used inconsistent original model datasets")
             anchors=this
             sr=read(tarbytes(t,pre+"F21_WIDE_all_scalar_LO_screen_NOT_ALLOWED.csv"))
             fr=read(tarbytes(t,pre+"F21_WIDE_complex_fY_LFV_vacuum_shortlist_NOT_ALLOWED.csv"))
@@ -107,13 +107,13 @@ def run(eos,out):
                  sorted(accepted,key=lambda r:numerical(r,
                    "analytic_LO_Bsgamma_BR_x1e4_NOT_CL")))
     report={
-       "status":"F21_SIX_SHARDS_WIDE_EXPLORATORY_MODEL_NOT_ALLOWED",
+       "status":"F21B_24_SHARDS_WIDE_EXPLORATORY_MODEL_NOT_ALLOWED",
        "source_Sha256_F18_through_F20":anchors,
-       "CERN_six_result_tar_SHA256":archives,
+       "CERN_24_result_tar_SHA256":archives,
        "strata_mH2_GeV":(450,700,1000,1400,1900,2500),
        "strata_tanbeta":(.7,1.5,3,7,15,35),
        "strata_gamma_rad":(.08,.4,.8,1.15,1.49),
-       "shards_complete":6,
+       "shards_complete":24,
        "total_independent_stratified_and_local_proposals":sum(
           x["attempts"] for x in summaries),
        "total_scalar_EWPO_screened_distinct_per_shard_not_physical_allowed":len(allscalar),
