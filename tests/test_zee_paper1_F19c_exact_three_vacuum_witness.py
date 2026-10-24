@@ -81,6 +81,8 @@ class TestF19cSourceAndVacuums(unittest.TestCase):
             fake_model={"m1":1.,"m2":2.,"m12":3.,"mchi":4.,"muZee":5.}
             def search(point,state,starts,maxiter=650):
                 return {
+                    # Match the real C5 evaluate_multistart() result contract.
+                    "status":"EXPLICIT_DEEPER_TREE_POTENTIAL_WITNESS",
                     "search_is_not_a_global_minimization_certificate":True,
                     "starts_requested":len(starts)+2,
                     "most_negative_witness":{
@@ -105,7 +107,8 @@ class TestF19cSourceAndVacuums(unittest.TestCase):
     def test_bad_marginal_witness_rejected(self):
         with tempfile.TemporaryDirectory() as d:
             folder=Path(d);a,b,c=files(folder)
-            bogus={"search_is_not_a_global_minimization_certificate":True,
+            bogus={"status":"EXPLICIT_DEEPER_TREE_POTENTIAL_WITNESS",
+                   "search_is_not_a_global_minimization_certificate":True,
                    "starts_requested":66,
                    "most_negative_witness":{
                        "kind":"CHARGE_BREAKING",
