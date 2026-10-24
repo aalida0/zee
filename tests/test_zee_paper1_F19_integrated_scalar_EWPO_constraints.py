@@ -91,6 +91,14 @@ def stu_backend(**kwargs):
     }
 
 class TestF19IntegratedScalarEWPO(unittest.TestCase):
+    def test_lxplus_launcher_preserves_eos_fuse_namespace(self):
+        launcher=(Path(__file__).resolve().parents[1]/"scripts"/
+                  "zee_paper1_F19_one_shot_lxplus.sh").read_text()
+        self.assertIn('eos="${1%/}"',launcher)
+        self.assertNotIn('eos="$(realpath "$eos")"',launcher)
+        self.assertIn('"$eos/F18_source_bundle.tar.gz"',launcher)
+        self.assertIn("F19_REQUIRE_ORIGINAL_AALIDA_EOS_F18_PAYLOAD",launcher)
+
     def test_exact_three_join_and_no_allowed_promotion(self):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d);merged,bundle=fixture(root)
