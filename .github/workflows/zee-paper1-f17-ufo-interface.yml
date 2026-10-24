@@ -57,6 +57,7 @@ on:
       - 'scripts/zee_paper1_F21c_merge_24_resumed.py'
       - 'scripts/zee_paper1_F22_freeze_F21c_full_complex_benchmarks.py'
       - 'scripts/zee_paper1_F23_hyperiso_one_shot_integrated_157.py'
+      - 'scripts/zee_paper1_F23_hyperiso_run_everything_ubuntu.sh'
       - 'tests/test_zee_paper1_F23_hyperiso_integrated_contracts.py'
       - 'cpp/F23_hyperiso/zee_hyperiso_two_state.cpp'
       - 'cpp/F23_hyperiso/CMakeLists.txt'
@@ -121,6 +122,7 @@ jobs:
       - run: python -m py_compile scripts/zee_paper1_F21c_resume_saved_scalar_archive.py scripts/zee_paper1_F21c_merge_24_resumed.py tests/test_zee_paper1_F21c_saved_scalar_rescue.py
       - run: python -m py_compile scripts/zee_paper1_F22_freeze_F21c_full_complex_benchmarks.py
       - run: python -m py_compile scripts/zee_paper1_F23_hyperiso_one_shot_integrated_157.py tests/test_zee_paper1_F23_hyperiso_integrated_contracts.py
+      - run: bash -n scripts/zee_paper1_F23_hyperiso_run_everything_ubuntu.sh
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F23_hyperiso_integrated_contracts.py' -v
       - run: bash -n scripts/zee_paper1_F21c_resume_worker.sh scripts/zee_paper1_F21c_submit_resume_24_lxplus.sh
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F21c_saved_scalar_rescue.py' -v
