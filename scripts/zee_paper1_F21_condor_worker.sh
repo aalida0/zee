@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# F21: six independently stratified broad Zee mass/mixing shards.
+# F21b: 24 independently stratified broad Zee mass/mixing shards.
 set -Eeuo pipefail
-shard="${1:?Provide shard 0..5}"
-[[ "$shard" =~ ^[0-5]$ ]] || exit 2
+shard="${1:?Provide shard 0..23}"
+[[ "$shard" =~ ^([0-9]|1[0-9]|2[0-3])$ ]] || exit 2
 root="$PWD"
 mkdir -p "$root/backend" "$root/results"
 tar -xzf "$root/F21_scripts_bundle.tar.gz" -C "$root/backend"
