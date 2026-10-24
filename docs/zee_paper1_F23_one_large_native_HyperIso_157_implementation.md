@@ -7,7 +7,7 @@
 **Implemented** (all from one invocation):
 - Immutable F22 `F22_freeze_SHA256_manifest.json` authentication of both **9 priority** and **157 full actual complex-f/Y** sourced files.
 - Clone exact `v1.0.3`, verify exact Git SHA and clean tree; configure/build/install HyperIso **native C++ libraries and CLI**, no Python wheel needed.
-- Build one separate C++ bridge `cpp/F23_hyperiso/zee_hyperiso_two_state.cpp`.
+- Build one separate C++ bridge `cpp/F23_hyperiso/zee_hyperiso_two_state.cpp`. The bridge includes 13 source-matched native patches: C3–C8 (11 nonvanishing order/operator combinations) **plus LO C'7/C'8**, using HyperIso's own m_s/m_b(muW) normalization, avoiding an incorrect H1-only chirality-flipped amplitude.
 - Reproduce native tagged `R3` `BR_B__Xs_gamma=0.00032967` and `R6` BSM THDM (C_7,C_8,C_9,C_{10}) frozen-source invocation.
 - Generate charged-quark flavor-only THDM source surrogates for each F22 point, with input `MASS[37]=mH1`, `MINPAR[3]=tanbeta` and diagonal Type-II quark ratios `lambda_tt=cotbeta`, `lambda_bb=-tanbeta`.
 - Evaluate **native HyperIso NNLO** inclusive (B\to X_s\gamma) with the built-in *single-H1 Type-II* coefficients and additive corrections to its physical standard BSM matching operators:
@@ -112,3 +112,40 @@ Result files under requested output directory:
 ## Next publication-critical work
 
 After actual backend execution, compare the LO/NLO coefficients and old-era BRs to the source-verified F3 SuperIso cross-code diagnostics at identical masses, scales and conventions. Then reconcile modern Misiak 2026 theory uncertainties, fully coherent general-Zee LFV and physical LHC rates. HyperIso v1.0.3 BR alone does not establish a paper-ready exclusion.
+
+
+## Resume existing physical run after native bridge compilation failure
+
+The first full Ubuntu run successfully downloaded all 3 source-hashed
+F22 files and **built/installed HyperIso**, but gcc11 then failed to
+compile our bridge because the helper was named `finite(double)`
+and conflicted with the glibc function of the same name. This was
+not a HyperIso upstream build problem or a physics result.
+
+The fixed bridge uses `is_finite_value`. Both the Python campaign
+and Bash wrapper support automatic **source-verified resume** from the
+original output directory, retaining the upstream installed libraries,
+original git PIN and the initial immutable F22 input manifest, and
+recording a new `F23_resume_source_sha256.json` for the corrected
+source code.
+
+**Do not delete the existing build or re-download F22**:
+
+```bash
+cd ~/zee
+git switch feature/global-scan-priority1
+git pull --ff-only
+bash scripts/zee_paper1_F23_hyperiso_run_everything_ubuntu.sh
+```
+
+The wrapper detects the incomplete existing
+`~/zee_F23_hyperiso_157_20261025/` and passes `--resume`.
+It refuses to overwrite a completed physics report or an unverified
+existing directory. The campaign skips rebuilding HyperIso if its
+source-pinned upstream install and CLI are present, and compiles
+only the corrected Zee C++ bridge before the native checks.
+
+The resumed campaign is still **not** a 2026 calibrated confidence
+interval, even if its original single-THDM and mixed-Zee numerical
+checks pass. The source has not yet been confirmed to compile and
+run natively after this fix.
