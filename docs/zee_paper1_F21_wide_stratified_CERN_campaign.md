@@ -117,8 +117,13 @@ bash ~/zee_paper1_F21_prepare_submit_lxplus.sh
 ```
 
 It verifies the original five F18-F19d JSON source hashes and the
-F20 corrected merged full scalar CSV SHA from the F20 report.
-Original sources are read-only. New immutable AFS job home:
+F20 corrected merged **scalar-projection** CSV SHA from the F20 report.
+That F20 CSV does NOT contain the full `alpha,m12sq,lc,k1,k2,k12`
+potential input needed for reliable re-seeding. F21 consequently
+draws new independent wide proposals and only uses the **full exact F19**
+source scalar potential as an initial-failure recovery seed. The
+F20 CSV is a source-hashed prior screening/provenance dataset, not
+an assumed complete quartic input. Original sources are read-only. New immutable AFS job home:
 `~/zee_F21_wide_stratified_20261025`.
 New EOS archive:
 `/eos/user/a/aalida/zee/F18_lxplus_two_remaining_20261024/F21_wide_stratified_20261025`.
