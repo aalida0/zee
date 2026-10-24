@@ -37,6 +37,16 @@ done
   sha256sum -c F18_condor_payload_SHA256.txt
 )
 mkdir -p "$eos/results"
+# The merger reads all three archives from ONE location. Preserve and
+# hash-check the original successful 1330 alongside the two EOS outputs.
+local_good="$eos/F18_local_completed_F13_heavy_0001330.tar.gz"
+merged_local="$eos/results/F18_local_completed_F13_heavy_0001330.tar.gz"
+if [[ -e "$merged_local" ]]; then
+  cmp -s "$local_good" "$merged_local" || {
+    echo "F18_LXPLUS_EXISTING_LOCAL_SUCCESS_DIFFERS" >&2;exit 2; }
+else
+  cp -p "$local_good" "$merged_local"
+fi
 mkdir -p "$submit/logs"
 cp "$eos/F18_condor_worker.sh" "$submit/F18_condor_worker.sh"
 cp "$eos/F18_merge_condor_results.py" "$submit/F18_merge_condor_results.py"
@@ -54,9 +64,9 @@ request_disk = 25000000KB
 +JobFlavour = "nextweek"
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
-transfer_input_files = root://eosuser.cern.ch//$eos/F18_source_bundle.tar.gz,root://eosuser.cern.ch//$eos/F18_scripts_bundle.tar.gz,root://eosuser.cern.ch//$eos/F18_mg5_bundle.tar.gz
+transfer_input_files = root://eosuser.cern.ch/$eos/F18_source_bundle.tar.gz,root://eosuser.cern.ch/$eos/F18_scripts_bundle.tar.gz,root://eosuser.cern.ch/$eos/F18_mg5_bundle.tar.gz
 transfer_output_files = F18_result_\$(case).tar.gz
-output_destination = root://eosuser.cern.ch//$eos/results/
+output_destination = root://eosuser.cern.ch/$eos/results/
 output = logs/F18_\$(ClusterId).\$(ProcId)_\$(case).out
 error = logs/F18_\$(ClusterId).\$(ProcId)_\$(case).err
 log = logs/F18_\$(ClusterId).log
