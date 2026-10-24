@@ -92,12 +92,18 @@ def candidate(rng,k):
 def f20_source(csvfile,summaryfile):
     raw=Path(csvfile).read_bytes()
     report=json.loads(Path(summaryfile).read_text())
-    tag=Path(csvfile).name
+    # Condor transfer_input_files stages the *same content* under the
+    # shorter basename F20scalar.csv. GitHub/CERN source provenance
+    # must authenticate BY CONTENT, not by the staging basename.
+    source_name="F20_ALL_shards_scalar_LO_flavor_NOT_EXCLUSION.csv"
+    expected=report.get("output_files_SHA256",{}).get(source_name)
+    actual=hashlib.sha256(raw).hexdigest()
     if (report.get("four_complete_shards") is not True or
         report.get("status")!="F20_FOUR_SHARDS_MERGED_EXPLORATORY_SCAN_NOT_FULL_ZEE_ALLOWED"
         or report.get("calibrated_model_exclusions_or_accepted_points") is not None
-        or report.get("output_files_SHA256",{}).get(tag)!=hashlib.sha256(raw).hexdigest()):
-        raise ValueError("F21 F20 original merged scalar file SHA/source mismatch")
+        or expected is None or expected!=actual):
+        raise ValueError("F21 F20 original merged scalar content SHA/source mismatch"
+                         +" expected="+str(expected)+" actual="+actual)
     with Path(csvfile).open(newline="") as f:pool=list(csv.DictReader(f))
     if len(pool)!=report["screened_scalar_parameter_records_not_unique_allowed_volume"]:
         raise ValueError("F21 F20 original scan cohort not complete")
@@ -164,7 +170,7 @@ def select_stratified(rows,n):
 def execute(a):
     out=Path(a.output).expanduser().resolve()
     if out.exists():raise FileExistsError("Never overwrite F21 wide scan")
-    if not(0<=a.shard<6 and 500<=a.global_draws<=30000 and
+    if not(0<=a.shard<24 and 500<=a.global_draws<=30000 and
            0<=a.local_draws<=30000 and 40<=a.quad<=240 and
            4<=a.fits<=200 and 0<=a.vacuum<=a.fits and
            64<=a.vacuum_starts<=512):
