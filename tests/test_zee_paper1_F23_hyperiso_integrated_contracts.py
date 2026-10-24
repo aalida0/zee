@@ -39,14 +39,14 @@ DECAY 37 .1
             original.write_text("Block MASS\\n 37 310.5\\n")
             with self.assertRaisesRegex(ValueError,"no longer has required"):
                 m.update_spectrum(original,680.,6.)
-    def test_tagged_native_complete_11_matching_patches_required(self):
+    def test_tagged_native_complete_13_matching_patches_required(self):
         payload=("F23_HYPERISO_V103_TWO_STATE_CONDITIONAL "
           "BR_B_XS_GAMMA 0.000351234 mH1 672 mH2 1576 tanbeta 7.95 "
-          "gamma 1.19 wH1 0.13 wH2 0.87 n_patches 11 FULL_MODEL_ALLOWED UNKNOWN")
+          "gamma 1.19 wH1 0.13 wH2 0.87 n_patches 13 FULL_MODEL_ALLOWED UNKNOWN")
         val,record=m.parse_native("verbosity\n"+payload+"\n")
         self.assertAlmostEqual(val,.000351234,places=14)
         with self.assertRaisesRegex(ValueError,"patch count"):
-            m.parse_native(payload.replace("n_patches 11","n_patches 10"))
+            m.parse_native(payload.replace("n_patches 13","n_patches 12"))
         with self.assertRaisesRegex(ValueError,"status"):
             m.parse_native(payload.replace("FULL_MODEL_ALLOWED UNKNOWN","FULL_MODEL_ALLOWED True"))
     def test_frozen_source_integrity_for_real_157_and_priority_9(self):
