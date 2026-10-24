@@ -22,6 +22,12 @@ python3 -u "$root/backend/scripts/zee_paper1_F21_stratified_wide_mass_mix_scan.p
 printf 'F21_SHARD_%s_EXIT_CODE=%s\n' "$shard" "$ret" >"$root/F21_shard_$shard.exit"
 echo "F21_SHARD_END $shard EXIT $ret"
 tail -n 24 "$root/F21_shard_$shard.log" || true
-tar -czf "$root/F21_result_shard_${shard}.tar.gz" \
-  "F21_shard_$shard.exit" "F21_shard_$shard.log" "results/F21_shard_$shard"
+# The science driver may fail BEFORE creating its output directory.
+# Even then transfer the exit marker and traceback to EOS; the merger
+# must explicitly reject nonzero marker rather than a missing tarball.
+members=("F21_shard_$shard.exit" "F21_shard_$shard.log")
+if [[ -d "$root/results/F21_shard_$shard" ]]; then
+  members+=("results/F21_shard_$shard")
+fi
+tar -czf "$root/F21_result_shard_${shard}.tar.gz" "${members[@]}"
 exit 0
