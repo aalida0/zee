@@ -178,3 +178,87 @@ full flavor, neutrino fit, HiggsTools and real `sigma x BR`.
 No point is fully allowed merely because F21 has a positive
 multi-gate screen. Avoid another larger scan before finishing
 the decisive higher-order quark and lepton flavor calculations.
+
+
+## F21b corrective 24-shard production (actual initial six-shard failure, 24 Oct 2026)
+
+The first 6-job batch `4546457.0-5` did **NOT** execute any physics:
+all six jobs terminated after about 5 seconds in
+`f20_source()` with
+`ValueError: F21 F20 original merged scalar file SHA/source mismatch`.
+This was a **submission/staging filename bug**, not a physics result
+or failed BFB/LFV constraint. The F20 summary records the canonical
+`F20_ALL_shards_scalar_LO_flavor_NOT_EXCLUSION.csv` SHA256, whereas
+Condor transferred identical content under short name
+`F20scalar.csv`. Hash equality was checked using the alias basename,
+which is absent from the F20 summary. A fixed source verification now
+uses the manifest's **explicit canonical** F20 scalar filename and
+hashes the transferred data independently of its staging name.
+
+The original six EOS diagnostic archives and Condor history are
+preserved as failure evidence. The improved worker always archives
+a nonzero internal exit marker and traceback even when no scan output
+directory exists. Do not mistake an HTCondor wrapper termination code
+for successful physics.
+
+The user approved using more than 6 jobs while staying below 100.
+The replacement is one **24-shard campaign**, 10,000 proposals each
+(6,000 independent + 4,000 model-correlated), **240,000 proposals**,
+up to 960 full complex fixed-NO/partial-LFV optimizations and 288
+finite six-field scalar-vacuum searches. The 24 shards are separately
+seeded; the scan is not unbiased parameter-space sampling.
+
+This is a fresh, immutable production job:
+- AFS: `~/zee_F21b_wide_stratified_24_20261024`.
+- EOS: `/eos/user/a/aalida/zee/F18_lxplus_two_remaining_20261024/F21b_wide_24shards_20261024`.
+- Worker archive names: `F21_result_shard_0.tar.gz` through
+  `F21_result_shard_23.tar.gz`.
+- The merger now requires **all 24** successful archives, all actual
+  source-consistent scalar+LFV+vacuum summaries, and all F20 original
+  source hashes. No partial aggregate is mislabeled complete.
+
+### Ubuntu staging (one transfer)
+
+```bash
+cd ~/zee
+git switch feature/global-scan-priority1
+git pull --ff-only
+tar -czf ~/F21_scripts_bundle.tar.gz scripts
+
+scp ~/F21_scripts_bundle.tar.gz \
+  scripts/zee_paper1_F21_condor_worker.sh \
+  scripts/zee_paper1_F21b_resubmit_24shards_lxplus.sh \
+  scripts/zee_paper1_F21_merge_six_stratified_mass_shards.py \
+  aalida@lxplus.cern.ch:~/
+```
+
+### CERN one-command source preflight and 24-job submission
+
+```bash
+bash ~/zee_paper1_F21b_resubmit_24shards_lxplus.sh
+```
+
+**Important:** the script first extracts the transferred scripts to a
+temporary preflight directory, imports all real numerical backends,
+verifies all five F18-F19d source SHA pins and the unchanged corrected
+F20 scalar content, tests the 100 mass/tanbeta/gamma input strata
+generator and source-verified F19 physical scalar reconstruction.
+If the original failure recurs, this **aborts before scheduling any
+jobs**. The script refuses an existing AFS or EOS production path.
+
+### Single merger after 24 successful EOS archives
+
+```bash
+export F21B_EOS=/eos/user/a/aalida/zee/F18_lxplus_two_remaining_20261024/F21b_wide_24shards_20261024
+
+python3 ~/zee_paper1_F21_merge_six_stratified_mass_shards.py \
+ --eos "$F21B_EOS" \
+ --out "$HOME/zee_F21b_24_shard_merged_20261024"
+```
+
+Open `$HOME/zee_F21b_24_shard_merged_20261024/F21_WIDE_PRODUCTION_summary_NOT_ALLOWED.json`
+and inspect accepted strata and the source-stratified shortlist.
+**No 2026 full NNLO flavor, full LFV, HiggsTools or production
+uncertainty is inferred from these 240k exploratory proposals.**
+The next work after F21b should be the precision-physics P0
+implementation, not a third mass scan.
