@@ -14,11 +14,6 @@ f19="$HOME/zee_f19_scalar_ewpo_20261024/F19_results/F19_integrated_three_constra
 f19b="$HOME/zee_f19b_exact_neutrino_partial_LFV_20261024/F19b_results/F19b_exact_complex_neutrino_partial_LFV_NOT_ALLOWED.json"
 f19c="$HOME/zee_f19c_three_vacuum_witness_64_20261024/F19c_results/F19c_three_vacuum_witnesses_NOT_GLOBAL.json"
 f19d="$HOME/zee_f19d_analytic_LO_bsgamma_20261024/F19d_analytic_LO_three_source_matched_NOT_PRECISION.json"
-# The exact F19d JSON filename must be resolved from its known producer.
-f19d="$HOME/zee_f19d_analytic_LO_bsgamma_20261024/F19d_analytic_LO_three_source_matched_NOT_PRECISION.json"
-if [[ ! -f "$f19d" ]]; then
-  f19d="$HOME/zee_f19d_analytic_LO_bsgamma_20261024/F19d_analytic_LO_three_source_matched_NOT_PRECISION.json"
-fi
 for f in "$f18" "$f19" "$f19b" "$f19c" "$f19d"; do
   [[ -s "$f" ]] || { echo "F20_SOURCE_JSON_MISSING $f" >&2;exit 2; }
 done
@@ -60,7 +55,7 @@ should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
 transfer_input_files = F20_scripts_bundle.tar.gz,F18.json,F19.json,F19b.json,F19c.json,F19d.json
 transfer_output_files = F20_result_shard_\$(shard).tar.gz
-output_destination = root://eosuser.cern.ch//$eos/
+output_destination = root://eosuser.cern.ch/${eos}/
 output = logs/F20_\$(ClusterId).\$(ProcId)_\$(shard).out
 error = logs/F20_\$(ClusterId).\$(ProcId)_\$(shard).err
 log = logs/F20_\$(ClusterId).log
