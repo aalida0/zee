@@ -353,8 +353,20 @@ def execute(a):
         best=sol.get("best",{})
         w=item.get("coherent_partial_LFV_with_W_gamma") or {}
         vac=bv.get(name,{})
+        widths=best.get("charged_included_channel_widths_GeV",{})
+        # Gamma/m narrow-width warning is a LOWER-bound estimate here:
+        # these are only the model's included tree channels. For very
+        # heavy H2 a broad charged resonance may invalidate NWA rates.
+        gamma1=sum(float(x) for x in widths.get("H1",{}).values()) if widths else None
+        gamma2=sum(float(x) for x in widths.get("H2",{}).values()) if widths else None
         shortlist.append({
            "candidate_id":name,"shard":a.shard,
+           "Gamma_H1_included_over_mass_NOT_full_width":(
+              gamma1/float(s["mH1"]) if gamma1 is not None else None),
+           "Gamma_H2_included_over_mass_NOT_full_width":(
+              gamma2/float(s["mH2"]) if gamma2 is not None else None),
+           "H2_included_width_warn_NWA_if_over_10pct":(
+              gamma2/float(s["mH2"])>=.10 if gamma2 is not None else None),
            "mH1_GeV":s.get("mH1"),"mH2_GeV":s.get("mH2"),
            "tanbeta":s.get("tanbeta"),"gamma_rad":s.get("gamma"),
            "neutral_H_GeV":s.get("mh2"),"neutral_A_GeV":s.get("ma"),
