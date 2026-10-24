@@ -30,6 +30,10 @@ on:
       - 'scripts/zee_paper1_F19_integrated_scalar_EWPO_constraints.py'
       - 'scripts/zee_paper1_F19_one_shot_lxplus.sh'
       - 'tests/test_zee_paper1_F19_integrated_scalar_EWPO_constraints.py'
+      - 'scripts/zee_paper1_F19b_exact_F17f_neutrino_partial_LFV.py'
+      - 'scripts/zee_paper1_F19b_one_shot_lxplus.sh'
+      - 'tests/test_zee_paper1_F19b_exact_F17f_neutrino_partial_LFV.py'
+      - 'docs/zee_paper1_F19b_exact_F17f_neutrino_partial_LFV.md'
       - 'docs/zee_paper1_F19_exact_F18_scalar_EWPO_constraint_intake.md'
       - 'tests/test_zee_paper1_F17f_unitary_CKM_UFO_quark_gate.py'
       - 'tests/test_zee_paper1_F17e_real_UFO_amplitude_gate.py'
@@ -70,6 +74,9 @@ jobs:
       - run: bash -n scripts/zee_paper1_F19_one_shot_lxplus.sh
       - run: python -m py_compile scripts/zee_paper1_F19_integrated_scalar_EWPO_constraints.py tests/test_zee_paper1_F19_integrated_scalar_EWPO_constraints.py
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F19_integrated_scalar_EWPO_constraints.py' -v
+      - run: bash -n scripts/zee_paper1_F19b_one_shot_lxplus.sh
+      - run: python -m py_compile scripts/zee_paper1_F19b_exact_F17f_neutrino_partial_LFV.py tests/test_zee_paper1_F19b_exact_F17f_neutrino_partial_LFV.py
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F19b_exact_F17f_neutrino_partial_LFV.py' -v
       - run: bash -n scripts/zee_paper1_F18_one_shot_madwidth.sh
       - run: bash -n scripts/zee_paper1_F18_package_for_condor.sh scripts/zee_paper1_F18_condor_worker.sh scripts/zee_paper1_F18_prepare_lxplus_submission.sh
       - run: python -m py_compile scripts/zee_paper1_F18_merge_condor_results.py scripts/zee_paper1_F18_archive_local_success.py
