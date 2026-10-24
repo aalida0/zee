@@ -53,7 +53,8 @@ cp "$eos/F18_merge_condor_results.py" "$submit/F18_merge_condor_results.py"
 chmod u+x "$submit/F18_condor_worker.sh"
 # CERN Batch's supported XRootD file-transfer plug-in: input files come
 # straight from EOS and only the final result archive is uploaded to EOS.
-# The log file stays on AFS; stdout/err are small submit-side log files.
+# Condor scheduler log stays in AFS; XRootD upload may also place
+# stdout/stderr in EOS. Do not rely on stdout/err alone as physics proof.
 cat > "$submit/F18_LXPLUS_2remaining.sub" <<EOF
 universe = vanilla
 executable = F18_condor_worker.sh
@@ -67,6 +68,7 @@ when_to_transfer_output = ON_EXIT
 transfer_input_files = root://eosuser.cern.ch/$eos/F18_source_bundle.tar.gz,root://eosuser.cern.ch/$eos/F18_scripts_bundle.tar.gz,root://eosuser.cern.ch/$eos/F18_mg5_bundle.tar.gz
 transfer_output_files = F18_result_\$(case).tar.gz
 output_destination = root://eosuser.cern.ch/$eos/results/
+MY.XRDCP_CREATE_DIR = True
 output = logs/F18_\$(ClusterId).\$(ProcId)_\$(case).out
 error = logs/F18_\$(ClusterId).\$(ProcId)_\$(case).err
 log = logs/F18_\$(ClusterId).log
