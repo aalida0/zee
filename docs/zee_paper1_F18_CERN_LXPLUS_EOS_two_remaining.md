@@ -216,3 +216,8 @@ python3 ~/zee_f18_lxplus_retry16_20261024/F18_merge_condor_results.py \
 Do not resubmit merely because a job returned an exit code of 1. The
 error might be due to missing model input, an MG5 runtime failure,
 filesystem limits, or other issues for which more CPUs are not a remedy.
+
+
+## Confirmed failure: CERN cluster 4545419
+
+Both F13_heavy_0000981 and F13_heavy_0001003 terminated before MadWidth with `FileExistsError: Never overwrite a historical MadWidth campaign` because the worker pre-created `F18_job_output` even though the Python program must create this directory. This is a wrapper error, not an LCG or physics failure. Remove only `mkdir -p F18_job_output` from the worker, without relaxing the Python no-overwrite invariant. Retry in a new submit folder and a new EOS results subdirectory; do not overwrite the previous 261-byte failure archives or recompute the validated local 0001330 case. The corrected version is committed on feature/global-scan-priority1.
