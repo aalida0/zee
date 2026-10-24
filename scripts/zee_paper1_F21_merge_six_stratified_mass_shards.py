@@ -148,7 +148,6 @@ def run(eos,out):
              r"$m_{H_2^\pm}$ [GeV]",r"$\gamma$ [rad]"),
             ("mH1","mH2","F21_charged_mass_plane_exploratory.png",
              r"$m_{H_1^\pm}$ [GeV]",r"$m_{H_2^\pm}$ [GeV]")]
-        ]
         for xx,yy,name,xlab,ylab in panels:
             fig,ax=plt.subplots(figsize=(7,5))
             xs=[numerical(z,xx) for z in allscalar]
