@@ -68,7 +68,7 @@ class TestF21cRestoreScalar(unittest.TestCase):
                 args,check_actual=False)
             self.assertEqual(len(records),4)
             self.assertTrue(raw.startswith(b"id,"))
-            self.assertTrue(raw.endswith(b"\\r\\n") or raw.endswith(b"\\n"))
+            self.assertTrue(raw.endswith(b"\r\n") or raw.endswith(b"\n"))
             chosen=select_stratified(records,3)
             self.assertEqual(len(chosen),3)
             self.assertEqual({x["id"] for x in chosen},
