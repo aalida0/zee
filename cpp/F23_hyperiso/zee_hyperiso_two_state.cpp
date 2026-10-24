@@ -86,6 +86,12 @@ int main(int argc,char**argv) {
     Logger::getInstance()->setLevel(Logger::LogLevel::WARN);
     HyperisoConfig config;
     config.model=Model::THDM; // SM-only path discards explicit BSM patches.
+    // We intentionally pass a source-pinned 2HDMC THDM spectrum with
+    // MASS[37], UCOUPL/DCOUPL and Type-II YU/YD already populated.
+    // DO NOT invoke 2HDMC again or silently regenerate another spectrum.
+    config.flags[ExternalFlag::IS_LHA_SPECTRUM]=true;
+    config.flags[ExternalFlag::HAS_WILSON_INPUT]=false;
+    config.flags[ExternalFlag::HAS_TH_OBSERVABLE_INPUT]=false;
     HyperisoMaster core;
     core.init(input,config);
     ObservableInterface observable;
