@@ -49,6 +49,8 @@ on:
       - 'scripts/zee_paper1_F21_stratified_wide_mass_mix_scan.py'
       - 'scripts/zee_paper1_F21_condor_worker.sh'
       - 'scripts/zee_paper1_F21_prepare_submit_lxplus.sh'
+      - 'scripts/zee_paper1_F21b_resubmit_24shards_lxplus.sh'
+      - 'tests/test_zee_paper1_F21b_24_shard_source_preflight.py'
       - 'scripts/zee_paper1_F21_merge_six_stratified_mass_shards.py'
       - 'docs/zee_paper1_F21_wide_stratified_CERN_campaign.md'
       - 'docs/zee_paper1_F19_exact_F18_scalar_EWPO_constraint_intake.md'
@@ -103,6 +105,8 @@ jobs:
       - run: bash -n scripts/zee_paper1_F20_condor_worker.sh scripts/zee_paper1_F20_prepare_submit_lxplus.sh
       - run: python -m py_compile scripts/zee_paper1_F21_stratified_wide_mass_mix_scan.py scripts/zee_paper1_F21_merge_six_stratified_mass_shards.py
       - run: bash -n scripts/zee_paper1_F21_condor_worker.sh scripts/zee_paper1_F21_prepare_submit_lxplus.sh
+      - run: bash -n scripts/zee_paper1_F21b_resubmit_24shards_lxplus.sh
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F21b_24_shard_source_preflight.py' -v
       - run: bash -n scripts/zee_paper1_F18_one_shot_madwidth.sh
       - run: bash -n scripts/zee_paper1_F18_package_for_condor.sh scripts/zee_paper1_F18_condor_worker.sh scripts/zee_paper1_F18_prepare_lxplus_submission.sh
       - run: python -m py_compile scripts/zee_paper1_F18_merge_condor_results.py scripts/zee_paper1_F18_archive_local_success.py
