@@ -25,6 +25,7 @@ struct Input {
 };
 bool is_finite_value(double v) { return std::isfinite(v); }
 bool nonzero(WCoef c, QCDOrder o) {
+  if(c==WCoef::CP7 || c==WCoef::CP8) return o==QCDOrder::LO;
   if(c==WCoef::C7 || c==WCoef::C8) return true;
   if(c==WCoef::C4) return o != QCDOrder::LO;
   return o == QCDOrder::NNLO;
@@ -100,11 +101,12 @@ int main(int argc,char**argv) {
     // matching and keeps the usual SM+BSM composition and RG running.
     int installed=0;
     for(auto coeff : {WCoef::C3,WCoef::C4,WCoef::C5,WCoef::C6,
-                       WCoef::C7,WCoef::C8}) {
+                       WCoef::C7,WCoef::C8,WCoef::CP7,WCoef::CP8}) {
       for(auto order : {QCDOrder::LO,QCDOrder::NLO,QCDOrder::NNLO}) {
         if(!nonzero(coeff,order)) continue;
         WilsonMatchingPatch patch;
-        patch.group=GroupMapper::to_id(WGroup::B);
+        const bool primed=(coeff==WCoef::CP7 || coeff==WCoef::CP8);
+        patch.group=GroupMapper::to_id(primed ? WGroup::BPrime : WGroup::B);
         patch.coefficient=WCoefMapper::to_id(coeff);
         patch.order=order;
         patch.contribution=ContributionType::BSM;
@@ -112,12 +114,29 @@ int main(int argc,char**argv) {
           ParamId{ParameterType::WILSON,"WPARAM_MATCH_SM",LhaID(6)},
           ParamId{ParameterType::WILSON,"EW_SCALE",LhaID(1)}
         };
-        patch.compute=[=](const ParamSrc& s)->scalar_t {
-          const double mt=s.get_val(ParameterType::WILSON,"WPARAM_MATCH_SM",6);
-          const double Q=s.get_val(ParameterType::WILSON,"EW_SCALE",1);
-          const double c1=thdm_coeff(coeff,order,p.light,p.tanb,mt,Q);
-          const double c2=thdm_coeff(coeff,order,p.heavy,p.tanb,mt,Q);
-          const double delta=heavy_weight*(c2-c1);
+        if(primed) {
+          // HyperIso CP7/CP8 Type-II source uses the chirality flip
+          // m_s / m_b(muW) times C7/C8 at LO. Neglecting this 2-state
+          // correction would leave a fictitious pure-H1 primed amplitude.
+          patch.sources.insert(
+            ParamId{ParameterType::SM,"MASS",LhaID(3)});
+          patch.sources.insert(
+            ParamId{ParameterType::WILSON,"WPARAM_MATCH_SM",LhaID(5,1)});
+        }
+        patch.compute=[=](const ParamSrc& src)->scalar_t {
+          const double mt=src.get_val(ParameterType::WILSON,"WPARAM_MATCH_SM",6);
+          const double Q=src.get_val(ParameterType::WILSON,"EW_SCALE",1);
+          const WCoef ordinary=(coeff==WCoef::CP7) ? WCoef::C7 :
+                               (coeff==WCoef::CP8) ? WCoef::C8 : coeff;
+          const double c1=thdm_coeff(ordinary,order,p.light,p.tanb,mt,Q);
+          const double c2=thdm_coeff(ordinary,order,p.heavy,p.tanb,mt,Q);
+          double delta=heavy_weight*(c2-c1);
+          if(primed) {
+            const double ms=src.get_val(ParameterType::SM,"MASS",3);
+            const double mb=src.get_val(ParameterType::WILSON,"WPARAM_MATCH_SM",LhaID(5,1));
+            if(!(mb>0 && ms>=0))throw std::runtime_error("F23 invalid primed dipole masses");
+            delta*=ms/mb;
+          }
           if(!is_finite_value(delta))throw std::runtime_error("F23 nonfinite matching correction");
           return scalar_t(delta);
         };
@@ -127,8 +146,8 @@ int main(int argc,char**argv) {
         ++installed;
       }
     }
-    // C3(1)+C4(2)+C5(1)+C6(1)+C7(3)+C8(3) = 11
-    if(installed!=11)throw std::runtime_error("Wrong number of F23 matching patches");
+    // C3(1)+C4(2)+C5(1)+C6(1)+C7(3)+C8(3)+CP7(1)+CP8(1) = 13
+    if(installed!=13)throw std::runtime_error("Wrong number of F23 matching patches");
 
     observable.add_observable(Observables::BR_B_XS_GAMMA,QCDOrder::NNLO);
     auto result=observable.compute_observable(Observables::BR_B_XS_GAMMA);
