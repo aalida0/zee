@@ -169,11 +169,19 @@ def execute(a):
            4<=a.fits<=200 and 0<=a.vacuum<=a.fits and
            64<=a.vacuum_starts<=512):
         raise ValueError("F21 invalid resource settings")
-    verify(a.f18,a.f19,a.f19b,a.f19c,a.f19d)
+    _,_,anchor_cohort=verify(a.f18,a.f19,a.f19b,a.f19c,a.f19d)
     pool,prior=f20_source(a.f20_csv,a.f20_summary)
     seed=a.seed+100003*a.shard
     rng=np.random.default_rng(seed)
-    base={k:float(pool[a.shard*100%len(pool)][k]) for k in REQUIRED_FIELDS}
+    # F20 merged all-scalar CSV deliberately omitted the original
+    # dimensional soft term and singlet quartics, and is NOT sufficient
+    # to reconstruct a legitimate seed. The exact F19 source ledger
+    # preserves every physical scalar input and is the safe fallback
+    # if a shard initially finds no stratified wide survivor.
+    by19=anchor_cohort[1]
+    originals=sorted(by19)
+    base={k:float(by19[originals[a.shard%len(originals)]][
+         "scalar_original_F16_inputs"][k]) for k in REQUIRED_FIELDS}
     out.mkdir(parents=True,exist_ok=False)
     dump(out/"F21_manifest_start.json",{
       "status":"F21_RUNNING_NOT_ALLOWED","shard":a.shard,
