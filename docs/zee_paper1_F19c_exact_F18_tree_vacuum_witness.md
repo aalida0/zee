@@ -113,3 +113,48 @@ B->Xs gamma beyond original LO linearized screens, HiggsTools five-state
 inputs, direct LHC searches, and physical pp->t(b)H2 rates at 13.6/14
 TeV. The 2021 cascade itself is already known, so the novelty claim
 rests on **complete simultaneous neutrino/LFV/flavor constraints**.
+
+
+## Real F19c LXPLUS 64-multistart outcome — 24 October 2026
+
+**Verified from user-shared LXPLUS stdout/CSV**, not a synthetic test or
+a certified global minimum. The F19c job ran against the original 3
+benchmarks and chained source SHA256:
+
+- `F18_CONDOR_three_source_verified.json`:
+  `f56235d5200dfcf1bbb1d164875c25e17671d6b770520da543396c995527b33f`
+- `F19_integrated_three_constraint_ledger_NOT_ALLOWED.json`:
+  `85883e6aade33cbb2459d13059a1c66081e5a9ba2af5d5725776421ad1fd0538`
+- `F19b_exact_complex_neutrino_partial_LFV_NOT_ALLOWED.json`:
+  `1968ac83168e9661b3841a7192e3c0dc689eac600cc07241b14c19fcf73dd6cd`
+- Real F19c driver:
+  `0c469c82dd522080966eefe7733b0345585defa97d66ea6bb5425c72ad1a0a32`
+
+| Case | 66 starts successful | deeper tree witness | min (V - V_EW)/v^4 | EW stationarity max gradient/v^3 | EW mass Hessian relative residual | bound hits |
+|---|---|---|---:|---:|---:|---:|
+| 0001330 | 66/66 | NO | -2.0816681711721685e-17 | 2.7296694457950887e-16 | 1.1490700420418364e-10 | 0 |
+| 0000981 | 66/66 | NO | -4.85722573273506e-17 | 2.6516788902009435e-16 | 4.9245929116661954e-11 | 0 |
+| 0001003 | 66/66 | NO | -6.938893903907228e-17 | 8.578961115355994e-17 | 8.677766848125053e-11 | 0 |
+
+All these numerical minima equal the EW potential within double
+precision (~1e-17), far smaller than the witness reporting margin
+1e-6. None was found below the EW value over the 6D gauge-fixed search
+domain bounded to ±12 v. Each search completed 64 distinct seeds plus
+2 EW controls with zero optimizer failures and zero boundary hits.
+The original scalar Hessian spectrum independently closes at ~1e-10
+relative.
+
+**VERDICT:** `NO_DEEPER_WITNESS_FOUND_NOT_GLOBAL_CERTIFICATE` for all
+three cases, tree-level pilot only. The output intentionally sets
+`EW_tree_global_minimum_certified=false` and full Zee allowed/excluded
+to null. This is not a certificate that **no** deeper neutral,
+charge-breaking, or CP-breaking minimum exists anywhere in full field
+space. Nor does it check one-loop effective potential, longevity, or
+finite-temperature history.
+
+Remaining major EPJC model viability bottlenecks: full complex
+two-loop LFV + conversion, calibrated modern two-charged-state
+B->X_s gamma rate, neutrino global likelihood, complete HiggsTools
+and charged searches. Increasing the C5 multistart to 256/512 is a
+secondary robustness test, not a replacement for those missing
+constraints.
