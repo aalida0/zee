@@ -51,8 +51,10 @@ def original_scalar_archive(a,check_actual=True):
             or manifest.get("requested_independent_stratified_draws")!=a.global_draws
             or manifest.get("requested_local_custodial_draws")!=a.local_draws):
             raise ValueError("F21c archived original scalar/shard identity mismatch")
+        # The genuine F21b start manifest uses F18/F19/F19b/F19c/F19d
+        # as dictionary keys (although argparse Namespace uses lowercase).
         expected={
-            k:sha(getattr(a,k))
+            k[0].upper()+k[1:]:sha(getattr(a,k))
             for k in ("f18","f19","f19b","f19c","f19d")}
         if manifest.get("original_F18_through_F19d_sha256")!=expected:
             raise ValueError("F21c original physical F18-F19d input SHA mismatch")
@@ -197,7 +199,7 @@ def execute(a):
     # Span mass shells, not only proxy leaders near 800 GeV.
     vac_selection=select_stratified([
         {**i["scalar"],"id":i["candidate_id"],
-         "cascade_included_nonleptonic_proxy_NOT_F18_MadWidth":
+         "production_weighted_nonleptonic_cascade_upper_proxy":
           i["fixed_NO_neutrino_and_LFV_subset"]["best"][
             "charged_included_LO_cascade_proxy_NOT_pb"],
          "LO_flavor_shift_x1e4_NOT_CL":
