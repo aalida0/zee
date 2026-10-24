@@ -83,7 +83,7 @@ int main(int argc,char**argv) {
                   std::stod(argv[4]),std::stod(argv[5])};
     validate(p);
     const double heavy_weight=std::pow(std::sin(p.gamma),2);
-    Logger::getInstance()->setLevel(Logger::LogLevel::WARNING);
+    Logger::getInstance()->setLevel(Logger::LogLevel::WARN);
     HyperisoConfig config;
     config.model=Model::THDM; // SM-only path discards explicit BSM patches.
     HyperisoMaster core;
@@ -121,8 +121,8 @@ int main(int argc,char**argv) {
         ++installed;
       }
     }
-    if(installed!=12) // C3(1),C4(2),C5(1),C6(1),C7(3),C8(3) =11
-      if(installed!=11)throw std::runtime_error("Wrong number of F23 matching patches");
+    // C3(1)+C4(2)+C5(1)+C6(1)+C7(3)+C8(3) = 11
+    if(installed!=11)throw std::runtime_error("Wrong number of F23 matching patches");
 
     observable.add_observable(Observables::BR_B_XS_GAMMA,QCDOrder::NNLO);
     auto result=observable.compute_observable(Observables::BR_B_XS_GAMMA);
