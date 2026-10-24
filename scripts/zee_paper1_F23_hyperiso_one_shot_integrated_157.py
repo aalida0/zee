@@ -141,16 +141,25 @@ def build_upstream(work,repo_root):
     prefix=work/"hyperiso-install"
     source=upstream/"Hyperiso/Hyperiso/core"
     build=work/"hyperiso-cmake-build"
-    run(["cmake","-S",source,"-B",build,"-G","Ninja",
-         "-DCMAKE_BUILD_TYPE=Release","-DBUILD_WITH_CLI=ON",
-         "-DBUILD_WITH_MARTY=OFF","-DBUILD_WITH_SOFTSUSY=OFF",
-         "-DBUILD_WITH_PYTHON=OFF",
-         "-DCMAKE_INSTALL_PREFIX="+str(prefix)],
-         logfile=work/"F23_cmake_HyperIso_configure.log")
-    run(["cmake","--build",build,"--parallel","2"],
-         logfile=work/"F23_cmake_HyperIso_build.log")
-    run(["cmake","--install",build],
-         logfile=work/"F23_cmake_HyperIso_install.log")
+    # A failed bridge compilation must not rebuild the entire source-
+    # verified upstream HyperIso project. The prior real run already
+    # configured/compiled/installed the pinned C++ core and CLI.
+    installed=list(prefix.rglob("HyperisoConfig.cmake")) if prefix.exists() else []
+    cli_existing=[p for p in build.rglob("hyperiso-ui")
+                  if p.is_file() and os.access(p,os.X_OK)] if build.exists() else []
+    if len(installed)==1 and len(cli_existing)==1 and (work/"F23_cmake_HyperIso_build.log").exists():
+        print("F23_UPSTREAM_PINNED_HYPERISO_BUILD_REUSED",str(build),flush=True)
+    else:
+        run(["cmake","-S",source,"-B",build,"-G","Ninja",
+             "-DCMAKE_BUILD_TYPE=Release","-DBUILD_WITH_CLI=ON",
+             "-DBUILD_WITH_MARTY=OFF","-DBUILD_WITH_SOFTSUSY=OFF",
+             "-DBUILD_WITH_PYTHON=OFF",
+             "-DCMAKE_INSTALL_PREFIX="+str(prefix)],
+             logfile=work/"F23_cmake_HyperIso_configure.log")
+        run(["cmake","--build",build,"--parallel","2"],
+             logfile=work/"F23_cmake_HyperIso_build.log")
+        run(["cmake","--install",build],
+             logfile=work/"F23_cmake_HyperIso_install.log")
     own=work/"zee-native-cmake-build"
     run(["cmake","-S",repo_root/"cpp/F23_hyperiso","-B",own,"-G","Ninja",
          "-DCMAKE_BUILD_TYPE=Release",
@@ -190,20 +199,44 @@ def main():
     ap.add_argument("--f22-dir",type=Path,required=True)
     ap.add_argument("--output",type=Path,required=True)
     ap.add_argument("--repo",type=Path,default=Path(__file__).resolve().parents[1])
+    ap.add_argument("--resume",action="store_true",
+                    help="Continue interrupted F23 in its existing source-verified output; never overwrite finished calculations")
     args=ap.parse_args()
     repo=args.repo.expanduser().resolve()
     path=args.output.expanduser().resolve()
-    if path.exists():raise FileExistsError("F23 refuses to overwrite previous results")
     _,manifest,points,priorities=verify_f22(args.f22_dir.expanduser().resolve())
     if not(repo/"cpp/F23_hyperiso/zee_hyperiso_two_state.cpp").is_file():
         raise FileNotFoundError("Missing F23 C++ bridge in Zee repository")
-    path.mkdir(parents=True,exist_ok=False)
-    (path/"F23_input_source_sha256.json").write_text(json.dumps({
-        "F22_sha256":manifest["output_SHA256"],
-        "F23_Cpp_SHA256":sha(repo/"cpp/F23_hyperiso/zee_hyperiso_two_state.cpp"),
-        "F23_campaign_SHA256":sha(__file__),
-        "HyperIso_release_commit_PIN":PIN,
-        "final_model_allowed":None},indent=2,sort_keys=True)+"\n")
+    if args.resume:
+        if not path.is_dir():
+            raise FileNotFoundError("F23 resume requested but prior build/results directory absent")
+        if (path/"F23_conditional_157_model_summary.json").exists():
+            raise FileExistsError("F23 finished run is immutable; refuse to resume/overwrite")
+        p0=path/"F23_input_source_sha256.json"
+        if not p0.is_file():
+            raise ValueError("F23 resume missing original immutable SHA manifest")
+        prior=json.loads(p0.read_text())
+        if (prior.get("F22_sha256")!=manifest["output_SHA256"]
+            or prior.get("HyperIso_release_commit_PIN")!=PIN
+            or prior.get("final_model_allowed") is not None):
+            raise ValueError("F23 resume original data source or version mismatch")
+        (path/"F23_resume_source_sha256.json").write_text(json.dumps({
+            "original_source_F23_Cpp_SHA256":prior["F23_Cpp_SHA256"],
+            "resumed_F23_Cpp_SHA256":sha(repo/"cpp/F23_hyperiso/zee_hyperiso_two_state.cpp"),
+            "resumed_F23_campaign_SHA256":sha(__file__),
+            "original_F22_sha256":manifest["output_SHA256"],
+            "HyperIso_PIN":PIN,"full_model_allowed":None},
+            indent=2,sort_keys=True)+"\n")
+        print("F23_RESUME_SOURCE_AUTHENTICATED_BUILD_DIRECTORY",path,flush=True)
+    else:
+        if path.exists():raise FileExistsError("F23 refuses to overwrite previous results")
+        path.mkdir(parents=True,exist_ok=False)
+        (path/"F23_input_source_sha256.json").write_text(json.dumps({
+            "F22_sha256":manifest["output_SHA256"],
+            "F23_Cpp_SHA256":sha(repo/"cpp/F23_hyperiso/zee_hyperiso_two_state.cpp"),
+            "F23_campaign_SHA256":sha(__file__),
+            "HyperIso_release_commit_PIN":PIN,
+            "final_model_allowed":None},indent=2,sort_keys=True)+"\n")
     upstream,binary,cli=build_upstream(path,repo)
     print("F23_UPSTREAM_HYPERISO_CLONE_BUILD_OK",PIN,flush=True)
     ref=upstream/"reproducibility"
@@ -222,7 +255,9 @@ def main():
         logfile=path/"F23_upstream_R6_single_THDM_NNLO.log")
     print("F23_TAGGED_UPSTREAM_REFERENCE_R3_AND_R6_PASS SM_BR",br0,flush=True)
     spectra_dir=path/"F23_THDM_quark_only_surrogate_inputs"
-    spectra_dir.mkdir()
+    spectra_dir.mkdir(exist_ok=args.resume)
+    if args.resume and any(spectra_dir.iterdir()):
+        raise ValueError("F23 resume supports only source/build-stage failure before first native physics computation")
     traces=[]
     def calc(point,m1=None,m2=None,gamma=None,trace=False):
         m1=point["m1"] if m1 is None else m1
