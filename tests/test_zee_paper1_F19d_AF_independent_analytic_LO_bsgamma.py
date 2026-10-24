@@ -75,7 +75,7 @@ class TestF19dAnalyticalNoAF(unittest.TestCase):
         a=m.model(550.,880.,b,g,163.)
         self.assertAlmostEqual(a["weight_H1_cos2gamma"]+
                                a["weight_H2_sin2gamma"],1.,places=13)
-        c=m.model(550.,1e6,b,g,163.)
+        c=m.model(550.,1e7,b,g,163.)
         s=m.single(550.,math.tan(b),163.)
         self.assertAlmostEqual(c["delta_C7_LO_analytic"],
                                math.cos(g)**2*s[0],delta=1e-7)
