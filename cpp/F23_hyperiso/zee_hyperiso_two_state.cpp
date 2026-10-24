@@ -23,7 +23,7 @@ namespace {
 struct Input {
   double light, heavy, tanb, gamma;
 };
-bool finite(double v) { return std::isfinite(v); }
+bool is_finite_value(double v) { return std::isfinite(v); }
 bool nonzero(WCoef c, QCDOrder o) {
   if(c==WCoef::C7 || c==WCoef::C8) return true;
   if(c==WCoef::C4) return o != QCDOrder::LO;
@@ -65,7 +65,7 @@ double thdm_coeff(WCoef c, QCDOrder order, double mass,
   return 0.;
 }
 void validate(Input p) {
-  if(!finite(p.light)||!finite(p.heavy)||!finite(p.tanb)||!finite(p.gamma)||
+  if(!is_finite_value(p.light)||!is_finite_value(p.heavy)||!is_finite_value(p.tanb)||!is_finite_value(p.gamma)||
      p.light<180 || p.heavy<180 || p.tanb<=0 ||
      p.gamma<0 || p.gamma>std::acos(-1.)/2)
     throw std::invalid_argument("Invalid physical benchmark for Type-II matching");
@@ -118,7 +118,7 @@ int main(int argc,char**argv) {
           const double c1=thdm_coeff(coeff,order,p.light,p.tanb,mt,Q);
           const double c2=thdm_coeff(coeff,order,p.heavy,p.tanb,mt,Q);
           const double delta=heavy_weight*(c2-c1);
-          if(!finite(delta))throw std::runtime_error("F23 nonfinite matching correction");
+          if(!is_finite_value(delta))throw std::runtime_error("F23 nonfinite matching correction");
           return scalar_t(delta);
         };
         patch.label="F23_two_state_TypeII_"+WCoefMapper::str(coeff)+"_"+OrderMapper::str(order);
@@ -135,7 +135,7 @@ int main(int argc,char**argv) {
     if(result.size()!=1)
       throw std::runtime_error("HyperIso returned wrong number of B->Xs gamma results");
     const double br=std::real(result.at(0).value);
-    if(!finite(br) || br<0 || br>0.1)
+    if(!is_finite_value(br) || br<0 || br>0.1)
       throw std::runtime_error("HyperIso returned implausible or nonfinite BR");
     std::cout<<std::setprecision(17)
       <<"F23_HYPERISO_V103_TWO_STATE_CONDITIONAL"
