@@ -55,6 +55,7 @@ on:
       - 'scripts/zee_paper1_F21c_resume_worker.sh'
       - 'scripts/zee_paper1_F21c_submit_resume_24_lxplus.sh'
       - 'scripts/zee_paper1_F21c_merge_24_resumed.py'
+      - 'scripts/zee_paper1_F22_freeze_F21c_full_complex_benchmarks.py'
       - 'tests/test_zee_paper1_F21c_saved_scalar_rescue.py'
       - 'scripts/zee_paper1_F21_merge_six_stratified_mass_shards.py'
       - 'docs/zee_paper1_F21_wide_stratified_CERN_campaign.md'
@@ -113,6 +114,7 @@ jobs:
       - run: bash -n scripts/zee_paper1_F21b_resubmit_24shards_lxplus.sh
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F21b_24_shard_source_preflight.py' -v
       - run: python -m py_compile scripts/zee_paper1_F21c_resume_saved_scalar_archive.py scripts/zee_paper1_F21c_merge_24_resumed.py tests/test_zee_paper1_F21c_saved_scalar_rescue.py
+      - run: python -m py_compile scripts/zee_paper1_F22_freeze_F21c_full_complex_benchmarks.py
       - run: bash -n scripts/zee_paper1_F21c_resume_worker.sh scripts/zee_paper1_F21c_submit_resume_24_lxplus.sh
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F21c_saved_scalar_rescue.py' -v
       - run: bash -n scripts/zee_paper1_F18_one_shot_madwidth.sh
