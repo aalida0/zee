@@ -66,19 +66,25 @@ or a demonstrably new constrained collider-parameter corner.
 
 **Acceptance artifact:** source-locked real backend producing
 `C7,C8(mu0)`, scales, rates and uncertainty budgets for all F20
-selected points; Type-II reference validation. No acceptance flag if
-only F19d linearized LO inputs exist.
+selected points; Type-II reference validation. A consistent NLO BSM
+analysis with explicit conservative perturbative uncertainty may be
+sufficient for a *scoped* paper if it robustly resolves the borderline
+points; an exact 2026 NNLO extension is not a hard implementation
+deadline. No acceptance flag if only F19d linearized LO inputs exist.
 
 ### MUST-HAVE B — full coherent general Zee LFV and neutrino likelihood
 
-- Use exact complex physical `f` and `Y^ℓ` shared with scalar
-  and collider input; retain PMNS Dirac/Majorana phases and
-  normal/inverted mass ordering. Implement up-to-date global
-  oscillation constraints (correlated profiles when available)
-  and a transparent cosmological mass-sum assumption.
-- Coherently sum **all important** one-/two-loop radiative LFV
-  amplitudes, including remaining charged-scalar/bosonic terms,
-  and identify higher-order residual uncertainty.
+- For an expedited defensible paper, **scope the main claim to normal
+  ordering (NO)** rather than delaying release to cover IO. Use exact
+  complex physical `f` and `Y^ℓ` shared with scalar and collider
+  input, vary PMNS Dirac/Majorana phases and NO oscillation uncertainties
+  using current fit inputs, and state the cosmological mass-sum assumption.
+  Investigating IO is an extension, not a prerequisite to a NO-only claim.
+- Coherently sum **all phenomenologically important** one-/two-loop
+  radiative LFV amplitudes, including remaining charged-scalar/bosonic
+  terms. Missing terms may be omitted only with independently tested
+  quantitative upper bounds that show they cannot change viability
+  in the claimed region; a low partial rate by itself is not enough.
 - Calculate `mu->3e`, tau 3-body with tree, dipole, non-dipole,
   Z, box interference and coherent `mu-e` nuclear conversion;
   LFV Higgs decays, lepton universality, CP-sensitive EDM checks
