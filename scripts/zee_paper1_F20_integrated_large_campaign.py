@@ -27,6 +27,8 @@ from gateB4_adaptive_zee_scalar_scan import (
 from zee_paper1_florentino_feasibility_scan import (
     scalar_row,optimize_point)
 from gateA1b_hierarchical_no_seed import target_neutrino_matrix
+from gateB3_general_zee_charged_lepton_widths import complex_matrix
+from zee_paper1_F19b_exact_F17f_neutrino_partial_LFV import evaluate_partial_lfv
 from zee_gateD2_neutrino_exact_partial_LFV_optimization import optimize_kernels_cache
 from zee_gateC1_joined_uv_pilot import scalar_lagrangian
 from zee_gateC5_charge_breaking_vacuum_search import (
@@ -194,8 +196,18 @@ def execute(args):
                        max_evals=args.opt_evals)
             if sol["status"]!="NEUTRINO_EXACT_WITH_PARTIAL_LFV_AND_INCLUDED_CASCADE_ONLY":
                 failures[sol["status"]]+=1
+            # Recheck the final optimizer Yukawas with the broader
+            # already-validated F19b amplitude subset, including coherent
+            # CP-even W-photon Barr-Zee. This is still NOT complete LFV.
+            w_extended=None
+            best=sol.get("best")
+            if best is not None:
+                fmat=complex_matrix(best["optimized_f"],"f")
+                Ymat=complex_matrix(best["optimized_Y"],"Y")
+                w_extended=evaluate_partial_lfv(p,fmat,Ymat)
             entry={"candidate_id":r["candidate_id"],
                    "scalar":{k:p[k] for k in p},
+                   "coherent_F19b_W_fermion_BZ_one_loop_partial_LFV":w_extended,
                    "LO_flavor_screen_analytic_not_CL":{
                        k:r[k] for k in ("LO_Bsgamma_linearized_x1e4_NOT_CL",
                          "LO_Zee_over_670_shift_NOT_CL")},
@@ -220,8 +232,8 @@ def execute(args):
     # A full vacuum certificate would require a different mathematical method.
     prioritized=sorted(valid,key=lambda r:(
        -r["LO_included_cascade_not_full_MadWidth"],
-       r["fixed_NO_complex_neutrino_and_partial_LFV"]["best"][
-        "score_partial_LFV_max_ratio_NOT_Full_CL"]))
+       r["coherent_F19b_W_fermion_BZ_one_loop_partial_LFV"][
+          "max_extended_partial_ratio_to_reference_NOT_EXCLUSION"]))
     vacuums=[];vacuum_errors=Counter()
     for i,fit in enumerate(prioritized[:args.vacuum],1):
         p=fit["scalar"]
@@ -268,6 +280,9 @@ def execute(args):
                "LO_Bsgamma_linearized_x1e4_NOT_CL"),
             "LFV_partial_score_NOT_EXCLUSION":best.get(
                "score_partial_LFV_max_ratio_NOT_Full_CL"),
+            "LFV_partial_plus_Wgamma_score_NOT_EXCLUSION":r.get(
+                "coherent_F19b_W_fermion_BZ_one_loop_partial_LFV",{}).get(
+                "max_extended_partial_ratio_to_reference_NOT_EXCLUSION"),
             "fixed_NO_neutrino_closure_eV":best.get("neutrino_matrix_closure_eV"),
             "vacuum_no_deeper_witness_found_NOT_PROOF":v.get(
                "C5_tree_vacuum_witness")==
