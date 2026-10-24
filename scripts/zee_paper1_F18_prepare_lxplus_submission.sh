@@ -3,13 +3,14 @@
 # returned job archives remain in EOSUSER; do not submit from EOS/FUSE.
 # Run ON lxplus after transferring the pre-existing local F18 2-job payload.
 set -euo pipefail
-if [[ $# -lt 2 || $# -gt 4 ]]; then
-  echo "Usage: $0 EOS_PAYLOAD_DIR NEW_LXPLUS_AFS_SUBMIT_DIR [CPUS=2] [RETRY_TAG]" >&2;exit 2
+if [[ $# -lt 2 || $# -gt 5 ]]; then
+  echo "Usage: $0 EOS_PAYLOAD_DIR NEW_LXPLUS_AFS_SUBMIT_DIR [CPUS=2] [RETRY_TAG] [UPDATED_WORKER_SCRIPT]" >&2;exit 2
 fi
 eos="${1%/}"
 submit="${2%/}"
 ncores="${3:-2}"
 tag="${4:-}"
+updated_worker="${5:-}"
 case "$ncores" in
   1|2|4|8|16) ;;
   *) echo "F18_LXPLUS_CPUS_ALLOWED_1_2_4_8_16 $ncores" >&2;exit 2;;
@@ -61,7 +62,14 @@ else
   cp -p "$local_good" "$merged_local"
 fi
 mkdir -p "$submit/logs"
-cp "$eos/F18_condor_worker.sh" "$submit/F18_condor_worker.sh"
+if [[ -n "$updated_worker" ]]; then
+  [[ -f "$updated_worker" ]] || {
+    echo "F18_LXPLUS_UPDATED_WORKER_MISSING $updated_worker" >&2;exit 2; }
+  cp "$updated_worker" "$submit/F18_condor_worker.sh"
+else
+  cp "$eos/F18_condor_worker.sh" "$submit/F18_condor_worker.sh"
+fi
+sha256sum "$submit/F18_condor_worker.sh" > "$submit/F18_condor_worker_version_SHA256.txt"
 cp "$eos/F18_merge_condor_results.py" "$submit/F18_merge_condor_results.py"
 chmod u+x "$submit/F18_condor_worker.sh"
 # CERN Batch's supported XRootD file-transfer plug-in: input files come
@@ -100,6 +108,7 @@ EOF
 echo "F18_LXPLUS_SUBMIT_READY $submit/F18_LXPLUS_2remaining.sub"
 echo "F18_LXPLUS_EOS_RESULTS $results"
 echo "F18_LXPLUS_MADWIDTH_CPUS $ncores"
+echo "F18_LXPLUS_WORKER_SHA256 $(sha256sum "$submit/F18_condor_worker.sh" | cut -d' ' -f1)"
 echo "F18_LXPLUS_MADWIDTH_REQUEST_MEMORY_MB $memory_mb"
 echo "F18_LXPLUS_RUN_NEXT cd $submit '&&' condor_submit F18_LXPLUS_2remaining.sub"
 echo "F18_LXPLUS_VERIFY_AFTER_JOBS ls -lh $results/F18_result_*.tar.gz"
