@@ -106,6 +106,7 @@ def perturb(rng,p,wide=False):
     # Local block jump enriches physically accepted wide anchor basins.
     p={k:float(p[k]) for k in REQUIRED_FIELDS}
     masskick=75. if wide else 24.
+    old_delta=p["alpha"]-p["beta"]
     p["mH1"]=float(np.clip(p["mH1"]+rng.normal(0,masskick),200.,1200.))
     p["mH2"]=float(np.clip(p["mH2"]+rng.normal(0,masskick*1.8),
             max(450.,p["mH1"]+91.1876+14.),2499.))
@@ -113,8 +114,7 @@ def perturb(rng,p,wide=False):
     t=math.tan(p["beta"])
     t=float(np.clip(t*math.exp(rng.normal(0,.28 if wide else .09)),.7,35.))
     p["beta"]=math.atan(t)
-    p["alpha"]=p["beta"]+float(np.clip(p["alpha"]-float(p.get("_old_beta",p["beta"]))+
-                   rng.normal(0,.018),-.13,.13))
+    p["alpha"]=p["beta"]+float(np.clip(old_delta+rng.normal(0,.018),-.13,.13))
     # Reconstruct high-scale custodial scaffold after mass/mixing jumps.
     md=math.sqrt(p["mH1"]**2*math.cos(p["gamma"])**2+
                  p["mH2"]**2*math.sin(p["gamma"])**2)
@@ -185,7 +185,7 @@ def execute(a):
       "requested_local_custodial_draws":a.local_draws,
       "full_model_allowed":None})
     rejects=Counter();tries=Counter();passed=Counter()
-    records=[]; accepted_pool=[];occupied=set()
+    records=[]; accepted_pools=defaultdict(list);occupied=set()
     print("F21_START",a.shard,"GLOBAL",a.global_draws,
           "LOCAL",a.local_draws,"M2_MAX",2500.,flush=True)
     total=a.global_draws+a.local_draws
@@ -197,11 +197,14 @@ def execute(a):
             p=candidate(rng,stratum)
             origin="independent_stratified"
         else:
-            if accepted_pool:
-                # Selection favors each mass shell rather than repeatedly
-                # cloning a high-rate pocket near 800 GeV.
-                idx=int(rng.integers(len(accepted_pool)))
-                basepoint=accepted_pool[idx]
+            nonempty=[k for k,v in accepted_pools.items() if v]
+            if nonempty:
+                # Equal-chance choice of mass shell (not raw accepted-point
+                # abundance). This prevents a good ~800 GeV basin from
+                # taking all the local work away from rare >1TeV seeds.
+                ib=int(rng.choice(nonempty))
+                entries=accepted_pools[ib]
+                basepoint=entries[int(rng.integers(len(entries)))]
             else:
                 basepoint=base
             p=perturb(rng,basepoint,wide=(i%4==0))
@@ -239,10 +242,11 @@ def execute(a):
                 records.append(rec)
                 occupied.add(cell)
             passed[key]+=1
-            if len(accepted_pool)<3000:
-                accepted_pool.append(p)
+            entries=accepted_pools[ib]
+            if len(entries)<600:
+                entries.append(p)
             else:
-                accepted_pool[int(rng.integers(len(accepted_pool)))]=p
+                entries[int(rng.integers(len(entries)))]=p
         except (ValueError,ArithmeticError,OverflowError,
                 FloatingPointError,np.linalg.LinAlgError) as exc:
             rejects["numeric_"+type(exc).__name__]+=1
