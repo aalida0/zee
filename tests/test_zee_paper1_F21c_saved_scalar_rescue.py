@@ -44,7 +44,8 @@ def fixture(folder,*,bad_key=False,bad_sha=False):
         "requested_local_custodial_draws":4000,
         "full_model_allowed":None,
         "original_F18_through_F19d_sha256":{
-          n:sha(inputs[n]) for n in ("f18","f19","f19b","f19c","f19d")},
+          n[0].upper()+n[1:]:sha(inputs[n])
+          for n in ("f18","f19","f19b","f19c","f19d")},
         "F20_merged_csv_SHA256":sha(inputs["f20_csv"]),
         "F20_merged_summary_SHA256":(
             "0"*64 if bad_sha else sha(inputs["f20_summary"]))}
@@ -74,6 +75,21 @@ class TestF21cRestoreScalar(unittest.TestCase):
             self.assertEqual({x["id"] for x in chosen},
                 {"F21_s3_0000000","F21_s3_0000001","F21_s3_0000002"})
             self.assertEqual(len(archive_sha),64)
+    def test_original_B4_field_contract_required_for_neutrino_and_vacuum_selection(self):
+        with tempfile.TemporaryDirectory() as temp:
+            args=fixture(Path(temp))
+            records,_,_,_=original_scalar_archive(args,check_actual=False)
+            chosen=select_stratified(records,3)
+            self.assertEqual(len(chosen),3)
+            # The vacuum stage feeds f/Y-adjusted B3 proxy through the
+            # *same* B4 canonical key and must not crash at selection.
+            recovered=[]
+            for record in chosen:
+                case=dict(record)
+                case["production_weighted_nonleptonic_cascade_upper_proxy"]=.27
+                recovered.append(case)
+            self.assertEqual(len(select_stratified(recovered,2)),2)
+
     def test_fail_closed_missing_original_scalar_column(self):
         with tempfile.TemporaryDirectory() as temp:
             args=fixture(Path(temp),bad_key=True)
