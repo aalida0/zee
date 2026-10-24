@@ -8,7 +8,20 @@ from __future__ import annotations
 import argparse,csv,hashlib,io,json,math,tarfile
 from collections import Counter,defaultdict
 from pathlib import Path
-from zee_paper1_F20_merge_four_production_shards import tarbytes,save_csv,sha
+def sha(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def tarbytes(t,member):
+    entry=t.getmember(member)
+    if not entry.isfile() or not 0<entry.size<200000000:
+        raise ValueError("Invalid archived F21 member "+member)
+    f=t.extractfile(entry)
+    if f is None:raise ValueError("F21 archive could not read "+member)
+    return f.read()
+def save_csv(path,rows):
+    if not rows:raise ValueError("Cannot write empty F21 result CSV")
+    with Path(path).open("w",newline="") as f:
+        w=csv.DictWriter(f,fieldnames=list(rows[0]),extrasaction="ignore")
+        w.writeheader();w.writerows(rows)
 
 STATUS="F21_STRATIFIED_WIDE_ZEE_SCALAR_FIXED_NO_PARTIAL_LFV_VACUUM_NOT_ALLOWED"
 def read(data):
