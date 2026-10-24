@@ -67,6 +67,7 @@ jobs:
       - run: bash -n scripts/zee_paper1_F17f_local_real_UFO_CKM.sh
       - run: python -m py_compile scripts/zee_paper1_F18_complete_madwidth_campaign.py tests/test_zee_paper1_F18_complete_madwidth_campaign.py
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F18_complete_madwidth_campaign.py' -v
+      - run: bash -n scripts/zee_paper1_F19_one_shot_lxplus.sh
       - run: python -m py_compile scripts/zee_paper1_F19_integrated_scalar_EWPO_constraints.py tests/test_zee_paper1_F19_integrated_scalar_EWPO_constraints.py
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F19_integrated_scalar_EWPO_constraints.py' -v
       - run: bash -n scripts/zee_paper1_F18_one_shot_madwidth.sh
