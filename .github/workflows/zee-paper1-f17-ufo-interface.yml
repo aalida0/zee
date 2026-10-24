@@ -1,0 +1,96 @@
+name: Zee Paper1 F17 real-SARAH UFO interface inspection
+on:
+  push:
+    branches: [feature/global-scan-priority1]
+    paths:
+      - 'scripts/zee_paper1_F17_exact_complex_F16_json.m'
+      - 'scripts/zee_paper1_F17_exact_complex_json_helpers.m'
+      - 'scripts/zee_paper1_F17_complex_json_selftest.m'
+      - 'scripts/zee_paper1_F17_verify_complex_json.py'
+      - 'tests/test_zee_paper1_F17_complex_json_strict.py'
+      - 'scripts/zee_paper1_F17_inspect_real_SARAH_UFO.py'
+      - 'scripts/zee_paper1_F17b_real_UFO_blocker_triage.py'
+      - 'scripts/zee_paper1_F17c_real_UFO_scalar_photon.py'
+      - 'scripts/zee_paper1_F17d_source_matched_prevalidation_cards.py'
+      - 'scripts/zee_paper1_F17d_local_one_shot.sh'
+      - 'scripts/zee_paper1_F17e_real_UFO_amplitude_gate.py'
+      - 'scripts/zee_paper1_F17e_local_amplitude_gate.sh'
+      - 'scripts/zee_paper1_F17f_unitary_CKM_UFO_quark_gate.py'
+      - 'scripts/zee_paper1_F17f_local_real_UFO_CKM.sh'
+      - 'scripts/zee_paper1_F18_complete_madwidth_campaign.py'
+      - 'scripts/zee_paper1_F18_one_shot_madwidth.sh'
+      - 'scripts/zee_paper1_F18_package_for_condor.sh'
+      - 'scripts/zee_paper1_F18_condor_worker.sh'
+      - 'scripts/zee_paper1_F18_merge_condor_results.py'
+      - 'scripts/zee_paper1_F18_archive_local_success.py'
+      - 'scripts/zee_paper1_F18_prepare_lxplus_submission.sh'
+      - 'docs/zee_paper1_F18_CERN_LXPLUS_EOS_two_remaining.md'
+      - 'docs/zee_paper1_F18_HTCondor_three_benchmark_guide.md'
+      - 'tests/test_zee_paper1_F18_complete_madwidth_campaign.py'
+      - 'scripts/zee_paper1_F19_integrated_scalar_EWPO_constraints.py'
+      - 'scripts/zee_paper1_F19_one_shot_lxplus.sh'
+      - 'tests/test_zee_paper1_F19_integrated_scalar_EWPO_constraints.py'
+      - 'scripts/zee_paper1_F19b_exact_F17f_neutrino_partial_LFV.py'
+      - 'scripts/zee_paper1_F19b_one_shot_lxplus.sh'
+      - 'tests/test_zee_paper1_F19b_exact_F17f_neutrino_partial_LFV.py'
+      - 'docs/zee_paper1_F19b_exact_F17f_neutrino_partial_LFV.md'
+      - 'scripts/zee_paper1_F19c_exact_three_vacuum_witness.py'
+      - 'scripts/zee_paper1_F19c_one_shot_lxplus.sh'
+      - 'tests/test_zee_paper1_F19c_exact_three_vacuum_witness.py'
+      - 'docs/zee_paper1_F19c_exact_F18_tree_vacuum_witness.md'
+      - 'scripts/zee_paper1_F19d_AF_independent_analytic_LO_bsgamma.py'
+      - 'tests/test_zee_paper1_F19d_AF_independent_analytic_LO_bsgamma.py'
+      - 'docs/zee_paper1_F19d_no_AF_LO_bsgamma.md'
+      - 'docs/zee_paper1_F19_exact_F18_scalar_EWPO_constraint_intake.md'
+      - 'tests/test_zee_paper1_F17f_unitary_CKM_UFO_quark_gate.py'
+      - 'tests/test_zee_paper1_F17e_real_UFO_amplitude_gate.py'
+      - 'tests/test_zee_paper1_F17d_source_matched_prevalidation_cards.py'
+      - 'tests/test_zee_paper1_F17c_real_UFO_scalar_photon.py'
+      - 'tests/test_zee_paper1_F17b_real_UFO_blocker_triage.py'
+      - 'scripts/zee_paper1_F17_local_UFO_inspection_one_shot.sh'
+      - 'tests/test_zee_paper1_F17_real_UFO_interface.py'
+      - '.github/workflows/zee-paper1-f17-ufo-interface.yml'
+  workflow_dispatch:
+jobs:
+  static-ufo-source-and-physics-card-fail-closed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy
+      - run: python -m py_compile scripts/zee_paper1_F17_inspect_real_SARAH_UFO.py tests/test_zee_paper1_F17_real_UFO_interface.py
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F17_real_UFO_interface.py' -v
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F17b_real_UFO_blocker_triage.py' -v
+      - run: python -m py_compile scripts/zee_paper1_F17c_real_UFO_scalar_photon.py tests/test_zee_paper1_F17c_real_UFO_scalar_photon.py
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F17c_real_UFO_scalar_photon.py' -v
+      - run: python -m py_compile scripts/zee_paper1_F17d_source_matched_prevalidation_cards.py tests/test_zee_paper1_F17d_source_matched_prevalidation_cards.py
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F17d_source_matched_prevalidation_cards.py' -v
+      - run: bash -n scripts/zee_paper1_F17_local_UFO_inspection_one_shot.sh
+      - run: bash -n scripts/zee_paper1_F17d_local_one_shot.sh
+      - run: python -m py_compile scripts/zee_paper1_F17e_real_UFO_amplitude_gate.py tests/test_zee_paper1_F17e_real_UFO_amplitude_gate.py
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F17e_real_UFO_amplitude_gate.py' -v
+      - run: bash -n scripts/zee_paper1_F17e_local_amplitude_gate.sh
+      - run: python -m py_compile scripts/zee_paper1_F17f_unitary_CKM_UFO_quark_gate.py tests/test_zee_paper1_F17f_unitary_CKM_UFO_quark_gate.py
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F17f_unitary_CKM_UFO_quark_gate.py' -v
+      - run: bash -n scripts/zee_paper1_F17f_local_real_UFO_CKM.sh
+      - run: python -m py_compile scripts/zee_paper1_F18_complete_madwidth_campaign.py tests/test_zee_paper1_F18_complete_madwidth_campaign.py
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F18_complete_madwidth_campaign.py' -v
+      - run: bash -n scripts/zee_paper1_F19_one_shot_lxplus.sh
+      - run: python -m py_compile scripts/zee_paper1_F19_integrated_scalar_EWPO_constraints.py tests/test_zee_paper1_F19_integrated_scalar_EWPO_constraints.py
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F19_integrated_scalar_EWPO_constraints.py' -v
+      - run: bash -n scripts/zee_paper1_F19b_one_shot_lxplus.sh
+      - run: python -m py_compile scripts/zee_paper1_F19b_exact_F17f_neutrino_partial_LFV.py tests/test_zee_paper1_F19b_exact_F17f_neutrino_partial_LFV.py
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F19b_exact_F17f_neutrino_partial_LFV.py' -v
+      - run: bash -n scripts/zee_paper1_F19c_one_shot_lxplus.sh
+      - run: python -m py_compile scripts/zee_paper1_F19c_exact_three_vacuum_witness.py tests/test_zee_paper1_F19c_exact_three_vacuum_witness.py
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F19c_exact_three_vacuum_witness.py' -v
+      - run: python -m py_compile scripts/zee_paper1_F19d_AF_independent_analytic_LO_bsgamma.py tests/test_zee_paper1_F19d_AF_independent_analytic_LO_bsgamma.py
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F19d_AF_independent_analytic_LO_bsgamma.py' -v
+      - run: bash -n scripts/zee_paper1_F18_one_shot_madwidth.sh
+      - run: bash -n scripts/zee_paper1_F18_package_for_condor.sh scripts/zee_paper1_F18_condor_worker.sh scripts/zee_paper1_F18_prepare_lxplus_submission.sh
+      - run: python -m py_compile scripts/zee_paper1_F18_merge_condor_results.py scripts/zee_paper1_F18_archive_local_success.py
+      - run: python scripts/zee_paper1_F16_wolfram_syntax_lint.py scripts/zee_paper1_F17_exact_complex_F16_json.m scripts/zee_paper1_F17_exact_complex_json_helpers.m scripts/zee_paper1_F17_complex_json_selftest.m
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F17_complex_json_strict.py' -v
