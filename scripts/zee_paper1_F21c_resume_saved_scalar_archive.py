@@ -83,10 +83,10 @@ def original_scalar_archive(a,check_actual=True):
                     raise ValueError("F21c nonfinite scalar source "+field)
                 entry[field]=value
             if not (200<=entry["mH1"]<=1200
-                and 450<=entry["mH2"]<=2500
+                and M2_EDGES[0]<=entry["mH2"]<M2_EDGES[-1]
                 and entry["mH2"]>entry["mH1"]+91.1876
                 and .7<=entry["tanbeta"]<=35.001
-                and .08<=entry["gamma"]<=1.49
+                and G_EDGES[0]<=entry["gamma"]<G_EDGES[-1]
                 and 0<=entry["production_weighted_nonleptonic_cascade_upper_proxy"]<=1
                 and entry["max_unitarity"]<8*math.pi+1e-8):
                 raise ValueError("F21c impossible source scalar bounds or partial cascade")
