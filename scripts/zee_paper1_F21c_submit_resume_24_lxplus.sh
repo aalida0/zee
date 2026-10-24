@@ -31,7 +31,7 @@ from zee_paper1_F21c_resume_saved_scalar_archive import (
     verify,f20_source,original_scalar_archive,select_stratified,scalar_row)
 old=Path(os.environ["F21C_OLD"]);eos=Path(os.environ["F21C_OLD_EOS"])
 args=lambda shard:argparse.Namespace(
-    **{k:old/f"{k}.json" for k in ("f18","f19","f19b","f19c","f19d")},
+    **{k:old/(k[0].upper()+k[1:]+".json") for k in ("f18","f19","f19b","f19c","f19d")},
     f20_csv=old/"F20scalar.csv",f20_summary=old/"F20summary.json",
     original_scalar_archive=eos/f"F21_result_shard_{shard}.tar.gz",
     shard=shard,global_draws=6000,local_draws=4000,quad=64,
