@@ -138,3 +138,51 @@ extra proxy-only scans:
    for a small priority set; avoid assuming they hold over the scan.
 
 No benchmark is called experimentally allowed without full evidence.
+
+
+## Real CERN LXPLUS F19 result — 24 October 2026
+
+User ran the actual F19 one-shot successfully with complete F18 3/3.
+Note: the local 4/4 regression tests use synthetic data, not the
+numerical results below. The following are user-reported real LXPLUS
+results; the numerical output files themselves have not been uploaded
+to the repository.
+
+- F18 source EOS archive SHA256:
+  `3876c06620bb091eca9b3bc056ef10bd67a6ee60e2240f2d50966cd6fda4cb1e`.
+- Merged F18 source-verified result SHA256:
+  `f56235d5200dfcf1bbb1d164875c25e17671d6b770520da543396c995527b33f`.
+- F19 driver SHA256:
+  `3ad03298ee5ecf1cb097b09a1cd3fabbd64c2effda8ed2b450a18ee148c186a5`.
+
+| Case | mH1 GeV | mH2 GeV | 8pi max eigenvalue | sufficient BFB | 8pi unitarity | S | T | U | Gfitter2026 chi2 | PDG2025 chi2 | MadWidth cascade BR |
+|---|---:|---:|---:|---|---|---:|---:|---:|---:|---:|---:|
+| F13_heavy_0001330 | 572.2316 | 873.2077 | 24.6969918 | true | true | -0.0026570691 | 0.0319316276 | 0.0000254590 | 1.654779 | 0.204195 | 0.44634835 |
+| F13_heavy_0000981 | 552.6457 | 885.7888 | 21.0565185 | true | true | -0.0026011219 | 0.0363474723 | 0.0000247646 | 2.245594 | 0.295210 | 0.46387734 |
+| F13_heavy_0001003 | 580.5073 | 881.4622 | 21.5681141 | true | true | -0.0027683359 | 0.0316463079 | 0.0000224248 | 1.629589 | 0.202309 | 0.42032289 |
+
+All are inside Gfitter 2026 and PDG 2025 scalar STU correlated
+3D Gaussian 95% regions. The quartic BFB criterion is sufficient,
+not necessary, and does not prove the EW neutral vacuum is global.
+
+At 0001330, the maximal scalar scattering eigenvalue 24.697 is
+only 0.43575 below 8pi=25.13274, or 1.73% of the bound.
+Screen robustness to stricter perturbativity and higher-order
+effects is a concern. The largest cascade BR (46.39%) is at
+0000981, with a larger 8pi margin (~16.2%).
+
+**EPJC caution:** Florentino et al. 2021 already considered the
+cascade and scalar/quark constraints. The F19 success is independent
+model implementation validation, not new evidence of a fully
+experimentally viable neutrino-LFV-consistent region. The 2026
+two-charged B->Xs gamma matched likelihood, complete LFV,
+neutrino likelihood, global vacuum, Higgs/charged searches, etc.
+remain uncalculated. All three full-model-allowed entries remain
+UNKNOWN. The original three point full prediction CSV + JSON
+should be preserved in the original user EOS project.
+
+Next high-value scientific gates: source-matched global vacuum,
+full complex Zee LFV including relevant two-loop amplitudes,
+modern two-charged B->Xs gamma scheme-consistent precision, and
+HiggsTools full five-state input. Do not convert existing
+LO/flavor/proxy diagnostics into confidence levels.
