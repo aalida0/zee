@@ -84,19 +84,10 @@ pack_results() {
 }
 trap pack_results EXIT
 
-# Standard CERN EL9 view: reproducible Python/NumPy/SciPy and GCC/gfortran.
-# Worker environments DO NOT automatically inherit interactive lxplus
-# shell profiles. Source CVMFS in each job before the dependency checks.
-worker_phase="LCG_106_CVMFS_environment_setup"
-lcg_view="/cvmfs/sft.cern.ch/lcg/views/LCG_106/x86_64-el9-gcc13-opt/setup.sh"
-if [[ ! -f "$lcg_view" ]]; then
-  echo "F18_CONDOR_CERN_EL9_LCG_VIEW_MISSING $lcg_view" >&2
-  echo "F18_CONDOR_CERN_EL9_LCG_VIEW_MISSING $lcg_view" >> "$diagnostic"
-  exit 2
-fi
-source "$lcg_view"
-echo "F18_CERN_EL9_LCG_106_LOADED $lcg_view" >> "$diagnostic"
-worker_phase="LCG_106_dependency_preflight"
+# The original CERN workers already passed NumPy/SciPy and compiler
+# checks. Do NOT require a new LCG view: that was not the failure.
+# Record the actual environment and fail if a needed dependency is absent.
+worker_phase="dependency_preflight"
 {
   echo "F18_RUNTIME_PYTHON=$(command -v python3 || true)"
   python3 --version 2>&1 || true
@@ -128,7 +119,12 @@ tar -xzf F18_mg5_bundle.tar.gz
   echo "F18_CONDOR_MG5_BINARY_MISSING_AFTER_UNPACK" >&2;exit 2; }
 chmod u+x "MG5_aMC/bin/mg5_aMC"
 worker_phase="madwidth_full_two_then_three_body"
-mkdir -p F18_job_output
+# F18's main() creates its output directory atomically and refuses to
+# overwrite it. Never pre-create F18_job_output in the Condor runner.
+if [[ -e F18_job_output ]]; then
+  echo "F18_CONDOR_OUTPUT_ALREADY_EXISTS_REFUSE_OVERWRITE" >&2
+  exit 2
+fi
 echo "F18_CONDOR_START case=$case_name cores=$ncores host=$(hostname) scratch=$scratch"
 python3 -u scripts/zee_paper1_F18_complete_madwidth_campaign.py \
   --f16-dir "$scratch/F16_SOURCE" \
