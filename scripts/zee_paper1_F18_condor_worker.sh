@@ -84,6 +84,25 @@ pack_results() {
 }
 trap pack_results EXIT
 
+# Standard CERN EL9 view: reproducible Python/NumPy/SciPy and GCC/gfortran.
+# Worker environments DO NOT automatically inherit interactive lxplus
+# shell profiles. Source CVMFS in each job before the dependency checks.
+worker_phase="LCG_106_CVMFS_environment_setup"
+lcg_view="/cvmfs/sft.cern.ch/lcg/views/LCG_106/x86_64-el9-gcc13-opt/setup.sh"
+if [[ ! -f "$lcg_view" ]]; then
+  echo "F18_CONDOR_CERN_EL9_LCG_VIEW_MISSING $lcg_view" >&2
+  echo "F18_CONDOR_CERN_EL9_LCG_VIEW_MISSING $lcg_view" >> "$diagnostic"
+  exit 2
+fi
+source "$lcg_view"
+echo "F18_CERN_EL9_LCG_106_LOADED $lcg_view" >> "$diagnostic"
+worker_phase="LCG_106_dependency_preflight"
+{
+  echo "F18_RUNTIME_PYTHON=$(command -v python3 || true)"
+  python3 --version 2>&1 || true
+  echo "F18_RUNTIME_GFORTRAN=$(command -v gfortran || true)"
+  echo "F18_RUNTIME_MAKE=$(command -v make || true)"
+} >> "$diagnostic"
 command -v python3 >/dev/null || { echo "F18_CONDOR_MISSING_PYTHON" >&2;exit 2; }
 command -v gfortran >/dev/null || { echo "F18_CONDOR_MISSING_GFORTRAN" >&2;exit 2; }
 command -v make >/dev/null || { echo "F18_CONDOR_MISSING_MAKE" >&2;exit 2; }
