@@ -56,6 +56,11 @@ on:
       - 'scripts/zee_paper1_F21c_submit_resume_24_lxplus.sh'
       - 'scripts/zee_paper1_F21c_merge_24_resumed.py'
       - 'scripts/zee_paper1_F22_freeze_F21c_full_complex_benchmarks.py'
+      - 'scripts/zee_paper1_F23_hyperiso_one_shot_integrated_157.py'
+      - 'tests/test_zee_paper1_F23_hyperiso_integrated_contracts.py'
+      - 'cpp/F23_hyperiso/zee_hyperiso_two_state.cpp'
+      - 'cpp/F23_hyperiso/CMakeLists.txt'
+      - 'docs/zee_paper1_F23_one_large_native_HyperIso_157_implementation.md'
       - 'tests/test_zee_paper1_F21c_saved_scalar_rescue.py'
       - 'scripts/zee_paper1_F21_merge_six_stratified_mass_shards.py'
       - 'docs/zee_paper1_F21_wide_stratified_CERN_campaign.md'
@@ -115,6 +120,8 @@ jobs:
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F21b_24_shard_source_preflight.py' -v
       - run: python -m py_compile scripts/zee_paper1_F21c_resume_saved_scalar_archive.py scripts/zee_paper1_F21c_merge_24_resumed.py tests/test_zee_paper1_F21c_saved_scalar_rescue.py
       - run: python -m py_compile scripts/zee_paper1_F22_freeze_F21c_full_complex_benchmarks.py
+      - run: python -m py_compile scripts/zee_paper1_F23_hyperiso_one_shot_integrated_157.py tests/test_zee_paper1_F23_hyperiso_integrated_contracts.py
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F23_hyperiso_integrated_contracts.py' -v
       - run: bash -n scripts/zee_paper1_F21c_resume_worker.sh scripts/zee_paper1_F21c_submit_resume_24_lxplus.sh
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F21c_saved_scalar_rescue.py' -v
       - run: bash -n scripts/zee_paper1_F18_one_shot_madwidth.sh
