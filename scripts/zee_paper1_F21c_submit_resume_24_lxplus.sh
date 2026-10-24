@@ -24,6 +24,11 @@ tmp="$(mktemp -d "$HOME/.F21c_source_preflight_XXXXXX")"
 trap 'rm -rf "$tmp"' EXIT
 tar -xzf "$HOME/F21_scripts_bundle.tar.gz" -C "$tmp"
 export F21C_OLD="$old" F21C_OLD_EOS="$old_eos" F21C_TMP="$tmp"
+# When python3 - reads stdin, sys.path[0] is the current working
+# directory. Executing in HOME could pick up a STALE F19d Python
+# module ahead of PYTHONPATH (this happened in the real failed preflight).
+# Run inside the extracted, source-pinned staging sandbox.
+pushd "$tmp" >/dev/null
 PYTHONPATH="$tmp/scripts" python3 - <<'PY'
 from pathlib import Path
 import argparse,collections,os,hashlib
@@ -54,6 +59,7 @@ print("F21C_24_ORIGINAL_SCREENED_SCALAR_ARCHIVES_AND_SHORTLIST_PASS",
       "SOURCE_F20",len(pool),"RESCUED_DISTINCT_RECORDS",tot,
       "HEAVY_MASS_SHELLS",dict(sorted(counts.items())),flush=True)
 PY
+popd >/dev/null
 rm -rf "$tmp"
 trap - EXIT
 mkdir -p "$run/logs" "$eos"
