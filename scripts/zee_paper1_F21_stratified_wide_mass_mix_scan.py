@@ -200,6 +200,14 @@ def execute(a):
       "full_model_allowed":None})
     rejects=Counter();tries=Counter();passed=Counter()
     records=[]; accepted_pools=defaultdict(list);occupied=set()
+    # Keep one *genuine previously screened* F19 scalar seed in the
+    # resampling reservoir as a resilience control. It is not counted as
+    # a new F21 discovery or one of the independent stratified attempts.
+    # If high-mass strata yield real survivors, their bins are selected
+    # with equal mass-shell probability during local exploration.
+    if scalar_screen(base) is None:
+        raise ValueError("F21 original F19 exact scalar anchor no longer passes Gate6")
+    accepted_pools[index(base["mH2"],M2_EDGES)].append(base)
     print("F21_START",a.shard,"GLOBAL",a.global_draws,
           "LOCAL",a.local_draws,"M2_MAX",2500.,flush=True)
     total=a.global_draws+a.local_draws
