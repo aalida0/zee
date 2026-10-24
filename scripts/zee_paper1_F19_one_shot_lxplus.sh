@@ -7,12 +7,22 @@ if [[ $# -ne 3 ]]; then
   echo "Usage: $0 EOS_F18_PAYLOAD_DIR EXACT_F18_MERGED_JSON NEW_F19_AFS_WORKDIR" >&2
   exit 2
 fi
-eos="$1"
-eos="$(realpath "$eos")"
+# Preserve CERN's user-visible EOS FUSE path. Canonicalizing it with
+# realpath can change /eos/user/a/aalida/... to an equivalent backend
+# path, which would wrongly fail the path contract below.
+eos="${1%/}"
 f18="$(realpath "$2")"
-work="$(realpath -m "$3")"
+# Also preserve the caller's AFS $HOME prefix for the submission folder.
+work="${3%/}"
+for candidate in "$eos" "$work"; do
+  case "/$candidate/" in
+    */../*|*/./*) echo "F19_REFUSE_NONCANONICAL_PARENT_OR_DOT_PATH $candidate" >&2;exit 2;;
+  esac
+done
 [[ "$eos" == /eos/user/a/aalida/* ]] || {
-  echo "F19_REQUIRE_ORIGINAL_AALIDA_EOS_F18_PAYLOAD" >&2;exit 2; }
+  echo "F19_REQUIRE_ORIGINAL_AALIDA_EOS_F18_PAYLOAD $eos" >&2;exit 2; }
+[[ -d "$eos" ]] || {
+  echo "F19_ORIGINAL_EOS_DIRECTORY_NOT_ACCESSIBLE $eos" >&2;exit 2; }
 [[ "$work" == "$HOME"/* && "$work" != /eos/* ]] || {
   echo "F19_REQUIRE_NEW_AFS_WORKDIR" >&2;exit 2; }
 [[ ! -e "$work" ]] || {
