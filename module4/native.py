@@ -85,6 +85,7 @@ def prepare():
             # fixes diagonal electric charge and zero off-diagonal photons.
             for k in (2,3):
                 for l in (2,3):
+                    assertion(f'scalar_seagull_{{{k}, {l}}}','g[lt3,lt4]',2j*e*e*(k==l))
                     assertion(f'scalar_gauge_{{VP, {k}, {l}}}','ANY',-1j*e*(k==l))
                     zcharge=g2/cw*(.5*(zp[k-1,0]*zp[l-1,0]+zp[k-1,1]*zp[l-1,1])-sw*sw*(k==l))
                     assertion(f'scalar_gauge_{{VZ, {k}, {l}}}','ANY',-1j*zcharge)

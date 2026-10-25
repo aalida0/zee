@@ -38,6 +38,7 @@ def native_fixture(raw):
           'WW_1','WW_2','WW_A','goldstone_1','goldstone_2',
           'scalar_gauge_{VP, 2, 2}','scalar_gauge_{VP, 2, 3}',
           'scalar_gauge_{VZ, 2, 3}',
+          'scalar_seagull_{2, 2}','scalar_seagull_{2, 3}',
           'trilinear_{1, 2, 2}','trilinear_{1, 2, 3}',
           'trilinear_{2, 3, 3}','trilinear_{3, 2, 3}']
     fixture={'status':raw['status'],'mathematica_version':raw['mathematica_version'],
@@ -139,9 +140,9 @@ def main():
         'A':{'status':'PASS' if native['status']=='VERTEX_COMPONENTS_PASS' else 'BLOCKED','scope':'Native vertices and signed component/contact normalization checks','native':native},
         'B':{'status':'PARTIAL','matching_status':'PASS','scope':'Physical fermion-photon matching derived with outgoing photon crossing and Wick/Dirac projection; three primary diagonal checks; all nine species coherently included; mass/Yukawa scheme nominal'},
         'C':{'status':'PARTIAL','matching_status':'BLOCKED_GAUGE_MATCHING','scope':'Exact CHK-Ilisie-Abe decomposition; off-shell P/pinch Ward identity checked; complete LFV B,C projections and Rxi cancellation unresolved; W excluded'},
-        'D':{'status':'PARTIAL','amplitude_status':'UNKNOWN_NOT_IMPLEMENTED','scope':'Native diagonal/off-diagonal trilinears, polynomial derivative, scalar F2, transverse effective tensor checked; general LFV matching not closed'},
+        'D':{'status':'PARTIAL','matching_status':'PASS','amplitude_status':'VALIDATION_PASS','scope':'Native trilinears, photon and seagull rules; both scalar-QED triangles plus seagull give transverse off-shell vertex; independent signed Ilisie/PRD matching; all physical H1/H2 rows coherently included, A diagonal zero; tree scalar input and external-invariant expansion'},
         'E':{'status':'PARTIAL','amplitude_status':'NOT_EVALUATED','scope':'CHK Zgamma Eqs12,17,19, set C; Ilisie mixed charged-current topologies inventoried, no amplitudes added'},
-        'coherent_combination':{'status':'PARTIAL','included':'Frozen Module3 scalar one-loop plus validated photon-fermion two-loop subset','excluded':'W candidates and other missing topologies','rate_scope':'INCLUDED_TOPOLOGIES_ONLY'}}
+        'coherent_combination':{'status':'PARTIAL','included':'Frozen Module3 scalar one-loop plus validated fermion- and charged-scalar-photon two-loop subsets','excluded':'W candidates and other missing topologies','rate_scope':'INCLUDED_TOPOLOGIES_ONLY'}}
     report={'schema_version':'1.0.0','overall_scientific_status':'PARTIAL' if success else 'FAIL',
             'component_validation':'VALIDATION_PASS' if success else 'FAIL',
             'physical_status':'PREDICTION_INCOMPLETE','COMPLETE_LFV':False,'global_zee_acceptance':None,
@@ -157,15 +158,23 @@ def main():
             'missing_contributions':MISSING,'source_commit_before_validation':git('rev-parse','HEAD'),
             'reproduction':['bash scripts/run_module4_validation.sh --all-tests','python -m module4.interface --input module4/example.json --output validation/module4/local/example_output.json']}
     write(ROOT/'validation/module4/results.json',report)
+    charged={'schema_version':'1.0.0','matching_status':'VALIDATION_PASS' if success else 'FAIL',
+             'physical_status':'INCLUDED_TOPOLOGIES_ONLY; full LFV remains incomplete',
+             'scope':'Physical H1/H2 charged-scalar/photon subset, two triangles plus seagull, external-invariant expansion',
+             'W_status':'BLOCKED_GAUGE_MATCHING; unchanged and excluded',
+             'evidence':evidence.get('test_module4_charged_scalar',{}),
+             'native_status':native['status'],
+             'reproduction':'bash scripts/run_module4_validation.sh --all-tests'}
+    write(ROOT/'validation/module4/charged_scalar_matching.json',charged)
     write(ROOT/'validation/module4/source_manifest.json',manifest)
     lines=['# Module 4: PARTIAL','',
-        'Fermion-photon matching is independently derived and included coherently with the frozen Module3 components. W matching remains blocked and W candidates are excluded. Overall rates remain INCLUDED_TOPOLOGIES_ONLY; no experimental allowance or exclusion is inferred.','',
+        'Fermion- and charged-scalar-photon matching are independently validated and included coherently with frozen Module3 components. W matching remains BLOCKED_GAUGE_MATCHING and W candidates are excluded. Overall rates remain INCLUDED_TOPOLOGIES_ONLY; no experimental allowance or exclusion is inferred.','',
         '| Gate | Status | Scope |','|---|---|---|']
     lines += [f'| {k} | {v["status"]} | {v.get("scope",v.get("included",""))} |' for k,v in gates.items()]
     lines += ['',f'Current branch: {result.testsRun} tests; failures {len(result.failures)}; errors {len(result.errors)}; skipped {len(result.skipped)}. Full regression: {args.all_tests}.',
         '', f'Inherited Module3: {inherited["tests"]} tests, {inherited["failures"]} failures, {inherited["errors"]} errors, {inherited["skipped"]} skips, in an ephemeral clone of the exact component tag on its original branch name. No branch guard is changed or waived. Current-branch compatibility is tested separately.' if args.all_tests else 'Inherited Module3 tagged-context suite not requested in this selected run.',
         '',f'Native status: {native["status"]}; maximum absolute coefficient residual: {native.get("max_abs_residual","unavailable")}.',
-        '', 'Source-to-equation derivation: [MATCHING_AUDIT.md](../../module4/MATCHING_AUDIT.md). Conventions and remaining topologies: [CONVENTIONS.md](../../module4/CONVENTIONS.md). Numerical residuals: [results.json](results.json). Hashes: [source_manifest.json](source_manifest.json).',
+        '', 'Source-to-equation derivations: [fermion/W audit](../../module4/MATCHING_AUDIT.md), [charged-scalar audit](../../module4/CHARGED_SCALAR_AUDIT.md). Conventions: [CONVENTIONS.md](../../module4/CONVENTIONS.md). Numerical residuals: [results.json](results.json). Hashes: [source_manifest.json](source_manifest.json).',
         '', 'Reproduce: `bash scripts/run_module4_validation.sh --all-tests`. Logs/raw dumps/PDFs remain in ignored `validation/module4/local/`.',
         '', 'Modules 0–3, including their open NuFIT, global-vacuum, RG and phenomenology limitations, are unchanged. Three-body interference and mu-e conversion are outside this module.']
     (ROOT/'validation/module4/STATUS.md').write_text('\n'.join(lines)+'\n')

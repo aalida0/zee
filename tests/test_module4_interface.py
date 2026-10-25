@@ -46,14 +46,14 @@ class InterfaceTests(unittest.TestCase):
                     self.assertEqual(ch['experimental_comparison'],'NOT_EVALUATED')
                     self.assertTrue(all(r['coherent_inclusion'] is False for r in ch['two_loop_candidates'].values()))
                     self.assertTrue(all(r['status']=='UNKNOWN' for r in ch['two_loop_candidates'].values()))
-                    self.assertEqual(len(ch['ledger']),34)
+                    self.assertEqual(len(ch['ledger']),40)
                     self.assertEqual(len(ch['two_loop_candidates']),2)
                     self.assertTrue(all(r['loop_species']=='W+Goldstone+ghost' for r in ch['two_loop_candidates'].values()))
                     for k in ('C_L','C_R'):
                         expected=sum(complex(**r[k]) for r in ch['ledger'].values())
                         self.assertEqual(complex(**ch[k]),expected)
-        self.assertEqual(counts,[108]*6)
-        EVIDENCE['witnesses_channels_components']={'witnesses':6,'channels_each':3,'components_each_channel':36}
+        self.assertEqual(counts,[126]*6)
+        EVIDENCE['witnesses_channels_components']={'witnesses':6,'channels_each':3,'components_each_channel':42}
 
     def test_complete_Module3_output_preserved_and_signed_components_reproduced(self):
         data=record();old=evaluate3(data['module3_input']);before=canonical_hash(old)

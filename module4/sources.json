@@ -61,5 +61,12 @@
     "identity": "Athron et al., JHEP01(2022)037 (not EPJC)",
     "equations": "Eqs.B.27-B.28; auxiliary LFV formula; no old scan used",
     "local_cache": "athron_lfv2022.pdf"
+  },
+  "ArhribBaek2002": {
+    "url": "https://arxiv.org/pdf/hep-ph/0104225",
+    "sha256": "96f251227abf528c6fef23a277fb780e372e6ceb7df9f1bb8471831318532fcc",
+    "identity": "Arhrib and Baek, PhysRevD65(2002)075002; hep-ph/0104225",
+    "equations": "Eqs3-6: generic charged-scalar triangle, signed diagonal moment and kernel; no MSSM scan used",
+    "local_cache": "arhrib2002.pdf"
   }
 }

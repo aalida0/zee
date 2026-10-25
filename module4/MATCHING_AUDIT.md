@@ -6,7 +6,9 @@ mass/Yukawa scheme is still nominal, so the topology and overall prediction
 remain PARTIAL. W matching is **BLOCKED_GAUGE_MATCHING**; no W coefficient is
 included. This audit supersedes the earlier blanket quarantine, while
 retaining the literal Davidson comparison as a reproducible source conflict.
-No frozen file or definition is changed.
+No frozen file or definition is changed. The subsequent charged-scalar
+matching is in [CHARGED_SCALAR_AUDIT.md](CHARGED_SCALAR_AUDIT.md); the
+fermion derivation and blocked W matching below are unchanged.
 
 ## 1. Sources actually compared
 
@@ -275,8 +277,9 @@ terms for general Zee LFV chiral vertices; demonstrate the B,C reductions,
 verify independence of R_xi at the retained external-mass order, and identify
 which transverse kernel belongs to that completed set. Until then **all W
 candidates remain UNKNOWN and excluded**. No arbitrary difference between
-the three kernels is added as a finite correction. Charged-scalar, Zgamma,
-WZ and other previously listed missing amplitudes remain unimplemented.
+the three kernels is added as a finite correction. Charged-scalar/photon
+matching is now separately validated in CHARGED_SCALAR_AUDIT.md. Zgamma,
+WZ and the other missing electroweak amplitudes remain unimplemented.
 
 ## 7. Regressions and reproducibility
 
@@ -303,6 +306,7 @@ analytic kernels; three independent signed diagonal formulas; complex tau
 and unrestricted NO/IO witnesses; reverse-channel hermiticity, rephasing,
 charge/color and CP-odd falsifiers; coherent interference with frozen
 one-loop terms; exact W differences and the scoped off-shell Ward check.
-Each channel includes seven frozen one-loop plus 27 validated fermion/photon
-components. The two W candidates stay separate. Partial rates remain
+Each channel includes seven frozen one-loop, 27 validated fermion/photon
+and six subsequently validated charged-scalar/photon components. The two W
+candidates stay separate. Partial rates remain
 **INCLUDED_TOPOLOGIES_ONLY** and imply neither allowance nor exclusion.

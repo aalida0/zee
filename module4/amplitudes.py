@@ -10,7 +10,6 @@ QUARK_QUANTUM = {s:(3,q) for s,q in [('up',2/3),('charm',2/3),('top',2/3),
                   ('down',-1/3),('strange',-1/3),('bottom',-1/3)]}
 MISSING = {
     'W_gamma':'UNKNOWN: CHK/Ilisie/Abe off-shell W form factors differ; complete LFV pinch/R_xi matching unresolved; excluded from coherent rate',
-    'charged_scalar_gamma':'UNKNOWN_NOT_IMPLEMENTED: native trilinears extracted; independent complete amplitude/normalization and Ward check pending',
     'fermion_Z_gamma':'NOT_EVALUATED: CHK Eq.12 identified; weak-current matching and numerical validation pending',
     'W_Z_gamma':'NOT_EVALUATED: CHK Eqs.17,19 identified; complete Zee matching pending',
     'charged_current_WZ':'NOT_EVALUATED: charged-current and charged-scalar mixed electroweak matching pending',

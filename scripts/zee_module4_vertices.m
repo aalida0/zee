@@ -23,6 +23,7 @@ queries=Join[
  {{"WW_A",{Ah[{2}],VWm,conj[VWm]}}},
  Table[{"goldstone_"<>ToString[k],{hh[{k}],Hm[{1}],conj[Hm[{1}]]}},{k,2}],
  Flatten[Table[{"scalar_gauge_"<>ToString[{g,k,l}],{Hm[{k}],conj[Hm[{l}]],g}},{g,{VP,VZ}},{k,{2,3}},{l,{2,3}}],2],
+ Flatten[Table[{"scalar_seagull_"<>ToString[{k,l}],{Hm[{k}],conj[Hm[{l}]],VP,VP}},{k,{2,3}},{l,{2,3}}],1],
  Flatten[Table[{"trilinear_"<>ToString[{cp,k,l}],{If[cp==3,Ah[{2}],hh[{cp}]],Hm[{k}],conj[Hm[{l}]]}},{cp,3},{k,{2,3}},{l,{2,3}}],2]
 ];
 raw=Association[];

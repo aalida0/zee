@@ -2,13 +2,120 @@
   "COMPLETE_LFV": false,
   "component_validation": "VALIDATION_PASS",
   "evidence": {
+    "test_module4_charged_scalar": {
+      "NO_IO_charged_examples": [
+        {
+          "charged_CL_CR": [
+            [
+              9.473036584484812e-16,
+              1.7803717094424657e-15
+            ],
+            [
+              -4.769827802858762e-14,
+              -6.996564803215408e-14
+            ]
+          ],
+          "width_with_scalar_INCLUDED_ONLY": 3.169590492732086e-32,
+          "width_with_wrong_sign_falsifier": 4.1735894071085545e-32,
+          "witness": "module3_NO_spectrum0"
+        },
+        {
+          "charged_CL_CR": [
+            [
+              -7.968996721001099e-16,
+              -2.4912303731666103e-15
+            ],
+            [
+              1.1941030520456265e-13,
+              -1.1261829940948221e-13
+            ]
+          ],
+          "width_with_scalar_INCLUDED_ONLY": 1.1937913009042144e-31,
+          "width_with_wrong_sign_falsifier": 1.5713802965925692e-31,
+          "witness": "module3_IO_spectrum0"
+        }
+      ],
+      "NO_IO_phase_reverse_coherence_max_relative": 4.440892098500626e-16,
+      "UV_constant_coefficients": {
+        "seagull": -2,
+        "sum": 0,
+        "triangle_1": 1,
+        "triangle_2": 1
+      },
+      "Ward_without_seagull_min_abs": 0.17319347681355576,
+      "existing_validated_results_preservation": "PASS: 18 canonical signed 34-row ledger hashes and 18 excluded-W hashes match commit3326982",
+      "fractional_interference_range": [
+        -0.19706706449443112,
+        -0.039876608280651274
+      ],
+      "full_scalar_QED_Ward_Bose_max_abs": 1.240327285323417e-15,
+      "gminus2_positive_negative_trilinear": [
+        -1.4396220199838655e-13,
+        2.1594330299757985e-13
+      ],
+      "kernel_source_samples": [
+        {
+          "Euclidean": -2.4794164059857833,
+          "F2": -2.47941640598578,
+          "F_PRD": 4.958832811971563,
+          "z": 0.001
+        },
+        {
+          "Euclidean": -0.6066815910941843,
+          "F2": -0.6066815910941866,
+          "F_PRD": 1.2133631821883735,
+          "z": 0.1
+        },
+        {
+          "Euclidean": -0.3862943611198904,
+          "F2": -0.3862943611198904,
+          "F_PRD": 0.7725887222397813,
+          "z": 0.25
+        },
+        {
+          "Euclidean": -0.29315311278279077,
+          "F2": -0.29315311278279077,
+          "F_PRD": 0.5863062255655814,
+          "z": 0.413
+        },
+        {
+          "Euclidean": -0.17195361934472944,
+          "F2": -0.17195361934472944,
+          "F_PRD": 0.343907238689459,
+          "z": 1.0
+        },
+        {
+          "Euclidean": -0.033735930049043815,
+          "F2": -0.033735930049043815,
+          "F_PRD": 0.06747186009808766,
+          "z": 10.0
+        },
+        {
+          "Euclidean": -0.00523683902600084,
+          "F2": -0.005236839026000837,
+          "F_PRD": 0.010473678052001674,
+          "z": 100.0
+        }
+      ],
+      "nonzero_offdiagonal_trilinear_max_GeV": 1688.6226802246288,
+      "outer_matching_Dirac_residual": 6.938893903907228e-18,
+      "scalar_QED_32_to_48_nodes_max_abs": 5.218048215738236e-15,
+      "scalar_kernel_independent_max_relative": 3.774758283725532e-15,
+      "signed_gminus2_Ilisie_PRD_max_relative": 1.4432899320127035e-15,
+      "soft_derivative_half_step_error_ratios": [
+        0.2499989075175965,
+        0.24999917598689986
+      ],
+      "soft_vertex_symmetric_derivative_max_abs": 5.049436618831393e-09,
+      "unitary_basis_and_offdiagonal_max_relative": 6.821978227501066e-17
+    },
     "test_module4_interface": {
       "complete_module3_output_roundtrip": "PASS; original entire record preserved; all signed components reproduced",
       "inherited_branch_guard": "Run unchanged and reported as expected branch conflict in full regression; replacement ancestry assertions pass here",
       "module4_frozen_files_verified": 76,
       "witnesses_channels_components": {
         "channels_each": 3,
-        "components_each_channel": 36,
+        "components_each_channel": 42,
         "witnesses": 6
       }
     },
@@ -292,7 +399,7 @@
         -1.1844149786810587
       ],
       "charged_scalar_F2_vs_analytic_max_relative": 2.3314683517128287e-15,
-      "charged_scalar_amplitude": "UNKNOWN_NOT_IMPLEMENTED; F2 and native trilinears are not a matched LFV amplitude",
+      "charged_scalar_amplitude": "Mathematical F2 component retained; complete signed matching and scalar-QED diagrams independently checked by test_module4_charged_scalar",
       "davidson_literal_opposite_physical_relative_residual": 7.794817668786824e-16,
       "davidson_to_module3_overall_sign": -1,
       "effective_transverse_tensor_Ward_residual": 8.881784197001252e-16,
@@ -311,13 +418,13 @@
     "A": {
       "native": {
         "absolute_tolerance": 1e-09,
-        "complex_coefficient_checks": 1014,
+        "complex_coefficient_checks": 1038,
         "field_indices": "Fe/Fv 1=e,2=mu,3=tau; hh1=h,hh2=H; Ah2=A; Hm1=G-,Hm2=H1-,Hm3=H2-",
         "mathematica_version": "15.0.1 for Linux x86 (64-bit) (July 2, 2026)",
         "max_abs_residual": 4.636291350834654e-13,
-        "native_json_sha256": "1cb2444ac842b90a0172683557d849863c7834335c79c20030be8eecd6f47bba",
-        "raw_dump_sha256": "9f4f312dbcd21b714e23c3dfdfb8793c66ecfb517a4c5d8c0a53bc028f04a02d",
-        "raw_query_count": 97,
+        "native_json_sha256": "91651bf95f45b8ab83505ac9de8702333408baef4bcad0d355e57c9891b36b19",
+        "raw_dump_sha256": "48703054a9dd8fc0ab72463f8d12c0d5709b71ae4f0e2896316f84b0fb38bc29",
+        "raw_query_count": 101,
         "sarah_version": "4.15.4",
         "signed_worst_by_sector": {
           "WW": {
@@ -483,8 +590,9 @@
       "status": "PARTIAL"
     },
     "D": {
-      "amplitude_status": "UNKNOWN_NOT_IMPLEMENTED",
-      "scope": "Native diagonal/off-diagonal trilinears, polynomial derivative, scalar F2, transverse effective tensor checked; general LFV matching not closed",
+      "amplitude_status": "VALIDATION_PASS",
+      "matching_status": "PASS",
+      "scope": "Native trilinears, photon and seagull rules; both scalar-QED triangles plus seagull give transverse off-shell vertex; independent signed Ilisie/PRD matching; all physical H1/H2 rows coherently included, A diagonal zero; tree scalar input and external-invariant expansion",
       "status": "PARTIAL"
     },
     "E": {
@@ -494,12 +602,12 @@
     },
     "coherent_combination": {
       "excluded": "W candidates and other missing topologies",
-      "included": "Frozen Module3 scalar one-loop plus validated photon-fermion two-loop subset",
+      "included": "Frozen Module3 scalar one-loop plus validated fermion- and charged-scalar-photon two-loop subsets",
       "rate_scope": "INCLUDED_TOPOLOGIES_ONLY",
       "status": "PARTIAL"
     }
   },
-  "generated_UTC": "2026-10-25T12:44:14.550435+00:00",
+  "generated_UTC": "2026-10-25T13:10:48.740386+00:00",
   "global_zee_acceptance": null,
   "missing_contributions": {
     "QED_running_and_radiation": "NOT_EVALUATED",
@@ -507,7 +615,6 @@
     "W_gamma": "UNKNOWN: CHK/Ilisie/Abe off-shell W form factors differ; complete LFV pinch/R_xi matching unresolved; excluded from coherent rate",
     "additional_bosonic_two_loop": "NOT_EVALUATED: CHK set C / kite topologies not matched",
     "charged_current_WZ": "NOT_EVALUATED: charged-current and charged-scalar mixed electroweak matching pending",
-    "charged_scalar_gamma": "UNKNOWN_NOT_IMPLEMENTED: native trilinears extracted; independent complete amplitude/normalization and Ward check pending",
     "fermion_Z_gamma": "NOT_EVALUATED: CHK Eq.12 identified; weak-current matching and numerical validation pending",
     "finite_external_invariants_and_neutrino_masses": "NOT_EVALUATED beyond frozen one-loop approximation"
   },
@@ -518,13 +625,13 @@
     "python -m module4.interface --input module4/example.json --output validation/module4/local/example_output.json"
   ],
   "schema_version": "1.0.0",
-  "source_commit_before_validation": "a3d8c8a76dde6c53867352eccad336c32886c5e9",
+  "source_commit_before_validation": "3326982e1c3a322d0e2346f96c836fb4354426eb",
   "tests": {
     "current_branch": {
       "branch": "feature/zee-barrzee-module4",
       "errors": 0,
       "failures": 0,
-      "run": 125,
+      "run": 134,
       "skipped": 0
     },
     "errors": 0,
@@ -545,9 +652,9 @@
       "tests": 37,
       "tracked_files_unchanged": true
     },
-    "passed": 162,
+    "passed": 171,
     "regression_status": "PASS",
-    "run": 162,
+    "run": 171,
     "skipped": 0
   }
 }

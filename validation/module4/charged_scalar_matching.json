@@ -1,0 +1,116 @@
+{
+  "W_status": "BLOCKED_GAUGE_MATCHING; unchanged and excluded",
+  "evidence": {
+    "NO_IO_charged_examples": [
+      {
+        "charged_CL_CR": [
+          [
+            9.473036584484812e-16,
+            1.7803717094424657e-15
+          ],
+          [
+            -4.769827802858762e-14,
+            -6.996564803215408e-14
+          ]
+        ],
+        "width_with_scalar_INCLUDED_ONLY": 3.169590492732086e-32,
+        "width_with_wrong_sign_falsifier": 4.1735894071085545e-32,
+        "witness": "module3_NO_spectrum0"
+      },
+      {
+        "charged_CL_CR": [
+          [
+            -7.968996721001099e-16,
+            -2.4912303731666103e-15
+          ],
+          [
+            1.1941030520456265e-13,
+            -1.1261829940948221e-13
+          ]
+        ],
+        "width_with_scalar_INCLUDED_ONLY": 1.1937913009042144e-31,
+        "width_with_wrong_sign_falsifier": 1.5713802965925692e-31,
+        "witness": "module3_IO_spectrum0"
+      }
+    ],
+    "NO_IO_phase_reverse_coherence_max_relative": 4.440892098500626e-16,
+    "UV_constant_coefficients": {
+      "seagull": -2,
+      "sum": 0,
+      "triangle_1": 1,
+      "triangle_2": 1
+    },
+    "Ward_without_seagull_min_abs": 0.17319347681355576,
+    "existing_validated_results_preservation": "PASS: 18 canonical signed 34-row ledger hashes and 18 excluded-W hashes match commit3326982",
+    "fractional_interference_range": [
+      -0.19706706449443112,
+      -0.039876608280651274
+    ],
+    "full_scalar_QED_Ward_Bose_max_abs": 1.240327285323417e-15,
+    "gminus2_positive_negative_trilinear": [
+      -1.4396220199838655e-13,
+      2.1594330299757985e-13
+    ],
+    "kernel_source_samples": [
+      {
+        "Euclidean": -2.4794164059857833,
+        "F2": -2.47941640598578,
+        "F_PRD": 4.958832811971563,
+        "z": 0.001
+      },
+      {
+        "Euclidean": -0.6066815910941843,
+        "F2": -0.6066815910941866,
+        "F_PRD": 1.2133631821883735,
+        "z": 0.1
+      },
+      {
+        "Euclidean": -0.3862943611198904,
+        "F2": -0.3862943611198904,
+        "F_PRD": 0.7725887222397813,
+        "z": 0.25
+      },
+      {
+        "Euclidean": -0.29315311278279077,
+        "F2": -0.29315311278279077,
+        "F_PRD": 0.5863062255655814,
+        "z": 0.413
+      },
+      {
+        "Euclidean": -0.17195361934472944,
+        "F2": -0.17195361934472944,
+        "F_PRD": 0.343907238689459,
+        "z": 1.0
+      },
+      {
+        "Euclidean": -0.033735930049043815,
+        "F2": -0.033735930049043815,
+        "F_PRD": 0.06747186009808766,
+        "z": 10.0
+      },
+      {
+        "Euclidean": -0.00523683902600084,
+        "F2": -0.005236839026000837,
+        "F_PRD": 0.010473678052001674,
+        "z": 100.0
+      }
+    ],
+    "nonzero_offdiagonal_trilinear_max_GeV": 1688.6226802246288,
+    "outer_matching_Dirac_residual": 6.938893903907228e-18,
+    "scalar_QED_32_to_48_nodes_max_abs": 5.218048215738236e-15,
+    "scalar_kernel_independent_max_relative": 3.774758283725532e-15,
+    "signed_gminus2_Ilisie_PRD_max_relative": 1.4432899320127035e-15,
+    "soft_derivative_half_step_error_ratios": [
+      0.2499989075175965,
+      0.24999917598689986
+    ],
+    "soft_vertex_symmetric_derivative_max_abs": 5.049436618831393e-09,
+    "unitary_basis_and_offdiagonal_max_relative": 6.821978227501066e-17
+  },
+  "matching_status": "VALIDATION_PASS",
+  "native_status": "VERTEX_COMPONENTS_PASS",
+  "physical_status": "INCLUDED_TOPOLOGIES_ONLY; full LFV remains incomplete",
+  "reproduction": "bash scripts/run_module4_validation.sh --all-tests",
+  "schema_version": "1.0.0",
+  "scope": "Physical H1/H2 charged-scalar/photon subset, two triangles plus seagull, external-invariant expansion"
+}

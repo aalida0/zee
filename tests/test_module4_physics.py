@@ -287,7 +287,7 @@ class NativeAndFoundationAuditTests(unittest.TestCase):
         self.assertLess(residual,1e-14)
         EVIDENCE['charged_scalar_F2_vs_analytic_max_relative']=max(errors)
         EVIDENCE['effective_transverse_tensor_Ward_residual']=float(residual)
-        EVIDENCE['charged_scalar_amplitude']='UNKNOWN_NOT_IMPLEMENTED; F2 and native trilinears are not a matched LFV amplitude'
+        EVIDENCE['charged_scalar_amplitude']='Mathematical F2 component retained; complete signed matching and scalar-QED diagrams independently checked by test_module4_charged_scalar'
 
     def test_scalar_trilinears_independent_polynomial_derivatives(self):
         import sympy as s

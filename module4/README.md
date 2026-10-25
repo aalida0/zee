@@ -1,12 +1,13 @@
 # Module 4
 
-Native SARAH vertex audit and signed fermion/photon Barr–Zee amplitudes.
-Implementation 1.1.0; scientific status **PARTIAL**. Validated fermion/photon
+Native SARAH vertex audit and signed fermion/photon and charged-scalar/photon Barr–Zee amplitudes.
+Implementation 1.2.0; scientific status **PARTIAL**. Validated fermion/photon and charged-scalar/photon
 terms are coherently included with the frozen Module3 components. W candidates
 remain excluded pending complete off-shell LFV gauge matching.
 
 See [MATCHING_AUDIT.md](MATCHING_AUDIT.md) for the source-to-equation derivation
-and exact W discrepancy, [CONVENTIONS.md](CONVENTIONS.md) for the interface,
+and exact W discrepancy, [CHARGED_SCALAR_AUDIT.md](CHARGED_SCALAR_AUDIT.md)
+for the independent scalar-QED/seagull matching, [CONVENTIONS.md](CONVENTIONS.md) for the interface,
 and [validation status](../validation/module4/STATUS.md) for actual residuals.
 
 ```

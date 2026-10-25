@@ -1,9 +1,11 @@
 # Module 4 conventions
 
-Scientific status is **PARTIAL**. The signed fermion/photon matching is now
+Scientific status is **PARTIAL**. The signed fermion/photon and charged-scalar/photon matching is now
 **VALIDATION_PASS** and is included coherently. Its nominal unmatched
 mass/Yukawa scheme and omitted physical topologies prevent a full prediction.
-W coefficients remain UNKNOWN, excluded from the coherent ledger.
+W coefficients remain UNKNOWN, excluded from the coherent ledger. Charged-scalar
+matching, seagulls and off-diagonal selection are derived independently in
+[CHARGED_SCALAR_AUDIT.md](CHARGED_SCALAR_AUDIT.md).
 
 The detailed source-to-equation derivation, disposition of the old -1,
 exact W-kernel differences, and scoped gauge checks are in
@@ -88,8 +90,11 @@ with an independent potential-polynomial derivative. A's diagonal couplings
 vanish, but its off-diagonal couplings need not. Photon charge is the identity
 in the charged mass basis; off-diagonal photon vertices vanish. A lone
 off-diagonal trilinear cannot close the simple two-photon scalar loop.
-The mathematical scalar form factor F2=(f-g)/(2z) and transverse tensor are
-checked; the LFV amplitude remains UNKNOWN_NOT_IMPLEMENTED.
+The two scalar-QED triangles and native two-photon seagull satisfy both
+photon Ward identities before projection. With L=-G s H- H+, the matched
+coefficient is alpha Q² G C_s^X F2(m_H²/M_s²)/(16 pi³ m_i M_s²), where
+F2=(f-g)/(2z)<0. Signed Ilisie and independent Arhrib–Baek moments agree;
+the six physical H1/H2 rows (including two zero A rows) are now included.
 
 W matching remains BLOCKED_GAUGE_MATCHING: the exact CHK/Ilisie/Abe
 form-factor differences are known and the off-shell P/pinch Ward identity
@@ -104,7 +109,7 @@ RG and full-phenomenology limitations remain open.
 ## Versioned interface
 
 Input/output schema v1 is structurally unchanged; the implementation is
-version 1.1.0. Input `kind=module3_matching_input_v1` contains a complete
+version 1.2.0. Input `kind=module3_matching_input_v1` contains a complete
 Module3 input, its matching complete Module2 output, and explicit versioned
 two-loop masses. An optional complete Module3 output is schema/provenance
 checked and preserved verbatim. Frozen source hashes, identities, scalar
@@ -115,8 +120,8 @@ provenance checked, not digitally authenticated.
 
 All nine charged-fermion loop masses are explicit; lepton masses and mW must
 match the same supplied external/scalar electroweak records. Only
-NOMINAL_UNMATCHED is currently accepted. Output contains 34 coherent rows
-per channel (7 frozen one-loop plus 27 fermion/photon), two excluded W
+NOMINAL_UNMATCHED is currently accepted. Output contains 40 coherent rows
+per channel (7 frozen one-loop, 27 fermion/photon, 6 charged-scalar/photon), two excluded W
 candidates, and explicitly unevaluated topologies. Numerical errors describe
 quadrature only, never scheme or truncation errors. Rates remain
 INCLUDED_TOPOLOGIES_ONLY with no experimental allowance or exclusion.

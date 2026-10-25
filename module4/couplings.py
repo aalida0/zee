@@ -31,11 +31,11 @@ def rotations(p):
 
 
 def trilinears(p, lagrangian):
-    """G_s,kl = d^3 V / ds dH-_k dH+_l (GeV), CP even only.
+    """G_s,kl = d^3 V / ds dH-_k dH+_l (GeV), including CP-odd A.
 
     Differentiating the gauge charged mass matrix with respect to phi1/phi2
     gives these two symmetric matrices. Rotate BOTH charged legs; off-diagonal
-    interactions are retained. No charged-scalar dipole is guessed from them.
+    interactions are retained, including A's imaginary off-diagonal entries.
     """
     q=lagrangian
     v1,v2=p['v']*math.cos(p['beta']),p['v']*math.sin(p['beta'])
