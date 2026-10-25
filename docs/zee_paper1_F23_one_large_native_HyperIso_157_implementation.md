@@ -149,3 +149,51 @@ The resumed campaign is still **not** a 2026 calibrated confidence
 interval, even if its original single-THDM and mixed-Zee numerical
 checks pass. The source has not yet been confirmed to compile and
 run natively after this fix.
+
+## Final real-results audit of 157 completed source-verified native calculations
+
+F23 native execution on Ubuntu **completed successfully** on 2026-10-25:
+all 9 real physics endpoints/equal-mass checks and all 157 mixed-Zee
+higher-order conditional BR calculations passed, with tagged source
+commit `09d26ac6e71d1528922097a896d15693589f636b` and tagged
+SM `0.00032967`. This is a working higher-order historical-scheme
+observable engine, but still **not a 2026 95% confidence exclusion**.
+
+Run **one** further postprocessing/validation invocation; do not
+recompile HyperIso or rerun the 157 observables:
+
+```bash
+cd ~/zee
+git switch feature/global-scan-priority1
+git pull --ff-only
+python3 scripts/zee_paper1_F23b_one_pass_157_real_outputs_audit.py \
+  --f22 "$HOME/zee_F22_frozen_benchmarks_20261025" \
+  --f23 "$HOME/zee_F23_hyperiso_157_20261025" \
+  --output "$HOME/zee_F23b_157_validated_summary_20261025"
+```
+
+This re-checks 157 F22/F23 **identical original scientific models**,
+their original F22/F23 manifest SHA256, all **193 genuinely executed
+C++ observable traces**, original **193 LHA scalar mass and Type-II
+quark Yukawa inputs**, the **13 B/BPrime source patch count**, all
+9 real gamma and degenerate-mass identities, source-tagged R3/THDM
+R6 C7-C10 and, importantly, **18 absolute branching-ratio comparisons
+against the completely UNMODIFIED native HyperIso THDM CLI** for the
+same nine H1 and nine H2 original-source spectra. The latter avoids
+relying entirely on the bridge to validate itself. If mismatched,
+the audit fails rather than claiming validated mixed-Higgs flavor.
+
+Outputs: `F23b_157_native_trace_source_and_physics_audit_NOT_FULL_ALLOWED.json`,
+`F23b_9_real_priorities_legacy_flavor_and_nonlinear_interference_NOT_CL.csv`,
+and two PDF physics-comparison figures if matplotlib is installed.
+The report includes median, range, and Spearman correlations by
+original 450–2500 GeV mass shell, the actual nine mixed-state BRs,
+the pure-H1 and pure-H2 branching ratios, and the error from
+**incorrectly linearly averaging two independent branching ratios**.
+
+Crucial interpretation: all statistics are **selected-sample
+descriptives**, NOT allowed-volume fractions or 2026 flavor
+exclusions. Subsequent F3/modern theory cross-calibration and full
+general Zee LFV+HiggsTools remain necessary. A successful bridge,
+even with correct historical-era full NNLO calculations, does not
+provide production-normalized LHC discovery/exclusion projections.
