@@ -243,7 +243,7 @@ def execute(args):
                     "unmodified THDM observable CLI failed for "+key+" "+label+
                     ": "+(p.stderr+p.stdout)[-1200:])
             candidates=re.findall(
-                r"BR_B__Xs_gamma\\s*=\\s*([0-9.eE+\\-]+)",p.stdout)
+                r"BR_B__Xs_gamma\s*=\s*([0-9.eE+\-]+)",p.stdout)
             require(candidates,"cannot parse native Type-II BR CLI for "+key+" "+label)
             cli_br=number(candidates[-1],key+":THDM CLI")
             require(approximately(cli_br,expected_br,rtol=2e-5,atol=4e-9),
