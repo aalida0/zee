@@ -6,6 +6,7 @@ the sharp possible norm range is [max(0,||C||-b), ||C||+b].
 The assumed b is NOT a physical bound on missing Zee amplitudes.
 """
 import argparse
+import copy
 import hashlib
 import json
 import math
@@ -14,6 +15,9 @@ from pathlib import Path
 BASE_COMMIT = '231e58fc35a7ea26d6f04f4735f8e9a197f1b6d3'
 DEFAULT_FRACTIONS = (0.05, 0.1, 0.25, 0.5, 1.0)
 CHANNELS = ('mu_to_e_gamma', 'tau_to_mu_gamma', 'tau_to_e_gamma')
+OPERATOR = 'L=e*m_i/2*bar(l_j)*sigma_munu*(CL*PL+CR*PR)*l_i*F_munu+h.c.;GeV^-2;v1'
+BASIS = 'SARAH_ZeeTypeII_Florentino_v1'
+W_CANDIDATES = {'h_W_gamma', 'H_W_gamma'}
 
 
 def finite_float(x, name):
@@ -31,6 +35,15 @@ def complex_value(z, name):
 
 def vector_norm(z):
     return math.hypot(abs(z[0]), abs(z[1]))
+
+
+def encoded(z):
+    return {'real': z.real, 'imag': z.imag}
+
+
+def check_convention(row):
+    if row.get('operator_convention') != OPERATOR or row.get('basis') != BASIS:
+        raise ValueError('Incompatible dipole convention/basis')
 
 
 def summed_components(rows):
@@ -51,6 +64,8 @@ def sharp_envelope(c, budget, partial_br):
     if not math.isfinite(hi):
         raise ValueError('Amplitude overflow')
     if n == 0:
+        if br != 0:
+            raise ValueError('Nonzero partial_BR with zero included norm')
         return dict(norm_min=lo, norm_max=hi, partial_BR_min=None,
                     partial_BR_max=None, BR_undefined_reason='zero included norm')
     br_lo = br * (lo/n)**2
@@ -70,8 +85,10 @@ def examine_channel(ch, fractions):
     rows = []
     for name, r in ledger.items():
         if (not isinstance(r, dict) or r.get('validation_status') != 'VALIDATION_PASS'
-                or r.get('coherent_inclusion', True) is False):
+                or r.get('coherent_inclusion', True) is not True
+                or name in W_CANDIDATES or r.get('loop_species') == 'W+Goldstone+ghost'):
             raise ValueError(f'Unvalidated/incoherent ledger row: {name}')
+        check_convention(r)
         rows.append({'C_L': complex_value(r['C_L'], name+'.C_L'),
                      'C_R': complex_value(r['C_R'], name+'.C_R')})
     c = (complex_value(ch['C_L'], 'channel.C_L'), complex_value(ch['C_R'], 'channel.C_R'))
@@ -80,13 +97,20 @@ def examine_channel(ch, fractions):
     if any(abs(c[i]-reproduced[i]) > 1e-10*max(scale, 1e-300) for i in (0, 1)):
         raise ValueError('Channel C does not match coherent ledger sum')
     candidates = ch.get('two_loop_candidates')
-    if not isinstance(candidates, dict):
-        raise ValueError('Excluded two-loop candidate ledger required')
+    if not isinstance(candidates, dict) or set(candidates) != W_CANDIDATES:
+        raise ValueError('Both excluded W candidate rows required')
     for name, r in candidates.items():
-        if not isinstance(r, dict) or r.get('coherent_inclusion') is not False:
-            raise ValueError('Candidate incorrectly included in coherent sum: '+name)
+        if (not isinstance(r, dict) or r.get('coherent_inclusion') is not False
+                or r.get('status') != 'UNKNOWN'
+                or r.get('validation_status') != 'GAUGE_MATCHING_UNRESOLVED'
+                or r.get('loop_species') != 'W+Goldstone+ghost'):
+            raise ValueError('W candidate must remain unresolved and excluded: '+name)
+        check_convention(r)
     omission = ch.get('omitted_topologies')
-    if not isinstance(omission, dict) or 'W_gamma' not in omission or omission['W_gamma'].get('status') != 'UNKNOWN':
+    if (not isinstance(omission, dict) or not isinstance(omission.get('W_gamma'), dict)
+            or omission['W_gamma'].get('status') != 'UNKNOWN'
+            or omission['W_gamma'].get('C_L') is not None
+            or omission['W_gamma'].get('C_R') is not None):
         raise ValueError('W_gamma omission must remain UNKNOWN')
     br = finite_float(ch['partial_BR'], 'partial_BR')
     if br < 0:
@@ -101,13 +125,17 @@ def examine_channel(ch, fractions):
                         'assumed_missing_amplitude_norm_bound_GeV_minus2':b,
                         'budget_over_included_norm':b/n if n>0 else None,
                         **env})
-    return {'included_norm_GeV_minus2':n,
+    return {'included_C_L':encoded(c[0]), 'included_C_R':encoded(c[1]),
+            'ledger_sum_C_L':encoded(reproduced[0]), 'ledger_sum_C_R':encoded(reproduced[1]),
+            'included_norm_GeV_minus2':n,
             'largest_included_component_norm_GeV_minus2':max_piece,
             'sum_included_component_norm_GeV_minus2':scale,
             'cancellation_index_sum_over_result':scale/n if n>0 else None,
             'included_partial_BR':br,
             'included_components':len(rows),
             'unmatched_candidate_components':len(candidates),
+            'excluded_two_loop_candidates':copy.deepcopy(candidates),
+            'omitted_topologies':copy.deepcopy(omission),
             'conditional_scenarios':entries,
             'physical_conclusion':'UNDETERMINED_MISSING_AMPLITUDES_NOT_BOUNDED',
             'experimental_comparison':'NOT_EVALUATED'}
@@ -124,11 +152,16 @@ def analyze(record, fractions=DEFAULT_FRACTIONS):
     channels = record.get('channels')
     if not isinstance(channels,dict) or set(channels)!=set(CHANNELS):
         raise ValueError('Expected exactly the three radiative channels')
+    provenance = record.get('provenance')
+    if not isinstance(provenance, dict):
+        raise ValueError('Source provenance required')
+    check_convention(provenance)
     return {'schema_version':'1.0.0','task':'MODULE4_MISSING_AMPLITUDE_CONDITIONAL_SENSITIVITY',
             'baseline_commit':BASE_COMMIT,'benchmark_id':record.get('benchmark_id'),
             'status':'DIAGNOSTIC_ONLY_NOT_LFV_CONSTRAINT',
             'budget_kind':'HYPOTHETICAL_NORM_BOUND_NOT_PHYSICAL_W_GAMMA_ESTIMATE',
             'method':'sharp triangle/reverse-triangle inequality for complex (C_L,C_R)',
+            'source_provenance':copy.deepcopy(provenance),
             'channels':{k:examine_channel(channels[k],fractions) for k in CHANNELS},
             'limitations':['No independently established bound on omitted Wgamma or other diagrams.',
                            'Fractions of largest included component are sensitivity parameters, not theoretical errors.',

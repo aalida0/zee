@@ -1,0 +1,140 @@
+{
+  "status": "DIAGNOSTIC_ONLY",
+  "baseline_commit": "231e58fc35a7ea26d6f04f4735f8e9a197f1b6d3",
+  "benchmark_id": "module3_NO_spectrum0",
+  "input_sha256": "783849ef9299b09f8355710402dd1ed82ace412d75b1716f6febdd2bcea2aa7e",
+  "triage_output_sha256": "496a038b30b4c6ed6f8c2dc32d72bb505d037cf90c009d04492a3897b4349dae",
+  "source_sha256": {
+    "AGENTS.md": "4ac5f8bc3699c6e13241e579cbcb092214ab4ef6e99793ce02bfc9fb5c9a9f95",
+    "module3/core.py": "5390e63af12a27c8e53823cc3625cd54851b10f5205d5ed2aab2ddd6767fd494",
+    "module4/CHARGED_SCALAR_AUDIT.md": "eca4ccede91f3b613b45a6e20fc199a64ef42d47e5f23c34288d10a955e627cb",
+    "module4/CONVENTIONS.md": "eb81d3ba4a554f6198be3405f82c52a5961a402c82846fb3d5ccbb919b97f166",
+    "module4/MATCHING_AUDIT.md": "afcdcb6a309766935702f4ebe123677baf6070e38ebf36a3d0ec2e36c1f57411",
+    "module4/README.md": "4d62693ebb62b2a999ee474ec4c6c8ef633be3627416357f12a69b722ddbf73b",
+    "module4/__init__.py": "357f85d8efc78ea74884c8808c63b5673849a4e6db79e9613d08b11df62ea0b7",
+    "module4/amplitudes.py": "ce800f3aeabc458a3fb8b43dbf194e0ea0b91343ae8fdc26e838e584068f9a12",
+    "module4/charged_scalar.py": "514d265d88a7d7d3671266bdb087e45e04d9971f11d3c40d94e1acc840447471",
+    "module4/couplings.py": "12f57fed5a82c010e59f779b93824542ca0fbc0b8ae1a56484bed56517f5d924",
+    "module4/example.json": "355e37e028256390e7f25fd1b3a2ddc811c049bb447a207844738fec4fe6872c",
+    "module4/input.schema.json": "a3a137d70192dd518801654b687f24919fbc3e508f72ee5b62e69c6e66dd940f",
+    "module4/interface.py": "f2c2e8d65a7a48c5281c622d82fb717d72c6e3aae1d9096229356d837cc04f74",
+    "module4/kernels.py": "0e167f500830e78df218f4ab680e9a63d13050efafb5559011af3b6f54adf76f",
+    "module4/matching_audit.py": "1bf3d2160fcae68abfa87fbb50c2327a029589bf3fce2ac868993bc1d220bcc1",
+    "module4/native.py": "8c4a3f383c1c1036291257863c370128a390451a9c966b8b72cfaefff5b651dd",
+    "module4/native_evidence.json": "860cd86e9dcda31a6db8e415b9862ec17c89ac3a1c41de6a903f59ef7c201148",
+    "module4/output.schema.json": "4d8f68cfe12eed5f52f7b82fca3042fcd7dc8925a096cc5d66490535939393de",
+    "module4/pre_charged_baseline.json": "9a40147a885d852ccd100051435c14a9b53a4909e026930fa8e4145995dce685",
+    "module4/sources.json": "71d203ede0d1b977db628eb752124ac6584cae2c2bfe9fc424c8f37f594378b9",
+    "module4/tagged_regression.py": "6a4a550e953eaaf8c0b8304b7b155940c921cdea8a3cfc46d804f05293b72e3b",
+    "module4/validate.py": "d21b9a9f2a8c9021c4aad7d1ca88f8b4e188253f591d4562b67bd7fdca05f6af",
+    "scripts/zee_omission_triage.py": "1b1762ff1830b3811c9af6f632d7adc530a76d3d0e1c10f3f41b58456021c1e6",
+    "tests/test_zee_omission_triage.py": "d1cfb17d5a463be488a1686093587e7245f195f8a5e498e82e3e46dda3898cd2"
+  },
+  "verification": {
+    "tests": 11,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "baseline_channels": 3,
+    "conditional_scenarios": 15,
+    "independent_method": "80-digit Decimal signed sums, norms, cancellation, fixed-channel BR and all envelopes; no triage/kernel imports",
+    "frozen_module4_source_hashes_match_baseline": true,
+    "source_provenance_and_excluded_ledgers_preserved": true,
+    "max_relative_numeric_residual": 1.201056033485404e-15
+  },
+  "scenario_columns": [
+    "hypothetical_fraction",
+    "budget_GeV^-2",
+    "budget_over_norm",
+    "norm_min_GeV^-2",
+    "norm_max_GeV^-2",
+    "partial_BR_min",
+    "partial_BR_max"
+  ],
+  "channels": {
+    "mu_to_e_gamma": {
+      "included_C_L": {
+        "imag": -2.4079723768904355e-14,
+        "real": -1.2816837920573102e-14
+      },
+      "included_C_R": {
+        "imag": 9.493117846681199e-13,
+        "real": 6.458736616738345e-13
+      },
+      "included_norm_GeV_minus2": 1.1485163280444935e-12,
+      "largest_included_component_norm_GeV_minus2": 6.66658140143164e-13,
+      "sum_included_component_norm_GeV_minus2": 1.383618704829352e-12,
+      "cancellation_index_sum_over_result": 1.2047009442043828,
+      "included_partial_BR": 1.057619403509579e-13,
+      "included_components": 40,
+      "unmatched_candidate_components": 2,
+      "max_signed_sum_residual_GeV_minus2": 2.24861289909e-28,
+      "excluded_W_ledger_sha256": "52f4bc4cd410313734f0be912f6fcfaa172c7e64ad8fd541c1df5ad9c3b3eefd",
+      "conditional_scenarios": [
+        [0.05, 3.33329070071582e-14, 0.029022579995803845, 1.1151834210373354e-12, 1.1818492350516516e-12, 9.971205595806406e-14, 1.1198999345545251e-13],
+        [0.1, 6.66658140143164e-14, 0.05804515999160769, 1.081850514030177e-12, 1.21518214205881e-12, 9.384034027677092e-14, 1.183962152715478e-13],
+        [0.25, 1.6666453503579103e-13, 0.14511289997901922, 9.818517930087025e-13, 1.3151808630802845e-12, 7.729420550249579e-14, 1.3868389298943802e-13],
+        [0.5, 3.3332907007158205e-13, 0.29022579995803843, 8.151872579729115e-13, 1.4818453981160755e-12, 5.32806884440516e-14, 1.7606006341793604e-13],
+        [1.0, 6.666581401431641e-13, 0.5804515999160769, 4.818581879013294e-13, 1.8151744681876575e-12, 1.8616307697217065e-14, 2.6417505764498595e-13]
+      ]
+    },
+    "tau_to_e_gamma": {
+      "included_C_L": {
+        "imag": 1.7793880347844996e-15,
+        "real": 1.840277837326239e-15
+      },
+      "included_C_R": {
+        "imag": -3.852618445237898e-15,
+        "real": 4.0601727698466164e-15
+      },
+      "included_norm_GeV_minus2": 6.1547149489216485e-15,
+      "largest_included_component_norm_GeV_minus2": 4.9592239560568806e-15,
+      "sum_included_component_norm_GeV_minus2": 9.23011211135464e-15,
+      "cancellation_index_sum_over_result": 1.4996814942618626,
+      "included_partial_BR": 5.398442008171291e-19,
+      "included_components": 40,
+      "unmatched_candidate_components": 2,
+      "max_signed_sum_residual_GeV_minus2": 2.0388255371105e-30,
+      "excluded_W_ledger_sha256": "0fc50d00b0ce3d25f3e5c08fae20f79db1bb49705b23bc6ef048604e195f3c88",
+      "conditional_scenarios": [
+        [0.05, 2.47961197802844e-16, 0.040288006814399854, 5.9067537511188044e-15, 6.4026761467244926e-15, 4.972219409396071e-19, 5.84218928304546e-19],
+        [0.1, 4.95922395605688e-16, 0.08057601362879971, 5.65879255331596e-15, 6.650637344527337e-15, 4.563521486719808e-19, 6.303461234018587e-19],
+        [0.25, 1.2398059890142201e-15, 0.20144003407199929, 4.914908959907428e-15, 7.394520937935869e-15, 3.4425757752847474e-19, 7.792425143531693e-19],
+        [0.5, 2.4796119780284403e-15, 0.40288006814399857, 3.675102970893208e-15, 8.634326926950089e-15, 1.9248264448720713e-19, 1.0624525181365963e-18],
+        [1.0, 4.9592239560568806e-15, 0.8057601362879971, 1.1954909928647676e-15, 1.1113938904978528e-14, 2.0367849146831347e-20, 1.7603075964456096e-18]
+      ]
+    },
+    "tau_to_mu_gamma": {
+      "included_C_L": {
+        "imag": 6.15269744592703e-14,
+        "real": 6.419208362194377e-14
+      },
+      "included_C_R": {
+        "imag": 3.853490327203381e-15,
+        "real": -5.412407333452113e-15
+      },
+      "included_norm_GeV_minus2": 8.916465514251359e-14,
+      "largest_included_component_norm_GeV_minus2": 5.227434665578012e-14,
+      "sum_included_component_norm_GeV_minus2": 1.097308700361802e-13,
+      "cancellation_index_sum_over_result": 1.2306543423601564,
+      "included_partial_BR": 1.121045098238253e-16,
+      "included_components": 40,
+      "unmatched_candidate_components": 2,
+      "max_signed_sum_residual_GeV_minus2": 1.1228317743e-29,
+      "excluded_W_ledger_sha256": "e3896dc5ae1245fb3b85bf5d1e8b44a2fcbdc7fbde8d01bd0885023cbae5aea6",
+      "conditional_scenarios": [
+        [0.05, 2.613717332789006e-15, 0.029313379035801248, 8.65509378097246e-14, 9.177837247530261e-14, 1.0562851435957814e-16, 1.187731623119321e-16],
+        [0.1, 5.227434665578012e-15, 0.058626758071602496, 8.393722047693559e-14, 9.439208980809162e-14, 9.934517591919079e-17, 1.2563447182389874e-16],
+        [0.25, 1.306858666394503e-14, 0.14656689517900623, 7.609606847856858e-14, 1.0223324180645864e-13, 8.165110274118731e-17, 1.473743425029572e-16],
+        [0.5, 2.613717332789006e-14, 0.29313379035801246, 6.302748181462354e-14, 1.1530182847040366e-13, 5.601412125504338e-17, 1.8746060077858314e-16],
+        [1.0, 5.227434665578012e-14, 0.5862675807160249, 3.689030848673348e-14, 1.4143900179829374e-13, 1.9189435072237568e-17, 2.8208239411931707e-16]
+      ]
+    }
+  },
+  "limitations": [
+    "Fractions 0.05/0.1/0.25/0.5/1 are purely hypothetical budgets on the combined missing vector.",
+    "No physical upper bound, uncertainty estimate, or Wgamma amplitude estimate is supplied.",
+    "Cannot establish whether physical omitted Wgamma is small; no LFV allowance, exclusion or global viability inference.",
+    "W candidates remain UNKNOWN/GAUGE_MATCHING_UNRESOLVED and excluded; other omitted topologies remain unimplemented."
+  ]
+}
