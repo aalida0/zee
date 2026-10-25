@@ -1,0 +1,743 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:zee:module3:output:1.0.0",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "1.0.0"
+        },
+        "benchmark_id": {
+          "type": "string"
+        },
+        "status": {
+          "const": "SCOPED_LFV_COMPUTED"
+        },
+        "COMPLETE_LFV": {
+          "const": false
+        },
+        "global_zee_acceptance": {
+          "type": "null"
+        },
+        "gates": {
+          "type": "object",
+          "properties": {
+            "provenance": {
+              "enum": [
+                "PASS",
+                "FAIL",
+                "UNKNOWN",
+                "NOT_EVALUATED"
+              ]
+            },
+            "tree": {
+              "enum": [
+                "PASS",
+                "FAIL",
+                "UNKNOWN",
+                "NOT_EVALUATED"
+              ]
+            },
+            "scalar_one_loop_approximation": {
+              "enum": [
+                "PASS",
+                "FAIL",
+                "UNKNOWN",
+                "NOT_EVALUATED"
+              ]
+            },
+            "exact_one_loop": {
+              "enum": [
+                "PASS",
+                "FAIL",
+                "UNKNOWN",
+                "NOT_EVALUATED"
+              ]
+            },
+            "higgs_widths": {
+              "enum": [
+                "PASS",
+                "FAIL",
+                "UNKNOWN",
+                "NOT_EVALUATED"
+              ]
+            },
+            "universality_subset": {
+              "enum": [
+                "PASS",
+                "FAIL",
+                "UNKNOWN",
+                "NOT_EVALUATED"
+              ]
+            },
+            "full_lfv": {
+              "enum": [
+                "PASS",
+                "FAIL",
+                "UNKNOWN",
+                "NOT_EVALUATED"
+              ]
+            }
+          },
+          "required": [
+            "provenance",
+            "tree",
+            "scalar_one_loop_approximation",
+            "exact_one_loop",
+            "higgs_widths",
+            "universality_subset",
+            "full_lfv"
+          ],
+          "additionalProperties": false
+        },
+        "units": {
+          "const": {
+            "masses": "GeV",
+            "widths": "GeV",
+            "dipoles": "GeV^-2",
+            "angles": "rad"
+          }
+        },
+        "ledger": {
+          "type": "object",
+          "properties": {
+            "mu_to_e_gamma": {
+              "type": "object",
+              "properties": {
+                "h": {
+                  "$ref": "#/$defs/dipole_component"
+                },
+                "H": {
+                  "$ref": "#/$defs/dipole_component"
+                },
+                "A": {
+                  "$ref": "#/$defs/dipole_component"
+                },
+                "H1_D": {
+                  "$ref": "#/$defs/dipole_component"
+                },
+                "H1_F": {
+                  "$ref": "#/$defs/dipole_component"
+                },
+                "H2_D": {
+                  "$ref": "#/$defs/dipole_component"
+                },
+                "H2_F": {
+                  "$ref": "#/$defs/dipole_component"
+                }
+              },
+              "required": [
+                "h",
+                "H",
+                "A",
+                "H1_D",
+                "H1_F",
+                "H2_D",
+                "H2_F"
+              ],
+              "additionalProperties": false
+            },
+            "tau_to_e_gamma": {
+              "type": "object",
+              "properties": {
+                "h": {
+                  "$ref": "#/$defs/dipole_component"
+                },
+                "H": {
+                  "$ref": "#/$defs/dipole_component"
+                },
+                "A": {
+                  "$ref": "#/$defs/dipole_component"
+                },
+                "H1_D": {
+                  "$ref": "#/$defs/dipole_component"
+                },
+                "H1_F": {
+                  "$ref": "#/$defs/dipole_component"
+                },
+                "H2_D": {
+                  "$ref": "#/$defs/dipole_component"
+                },
+                "H2_F": {
+                  "$ref": "#/$defs/dipole_component"
+                }
+              },
+              "required": [
+                "h",
+                "H",
+                "A",
+                "H1_D",
+                "H1_F",
+                "H2_D",
+                "H2_F"
+              ],
+              "additionalProperties": false
+            },
+            "tau_to_mu_gamma": {
+              "type": "object",
+              "properties": {
+                "h": {
+                  "$ref": "#/$defs/dipole_component"
+                },
+                "H": {
+                  "$ref": "#/$defs/dipole_component"
+                },
+                "A": {
+                  "$ref": "#/$defs/dipole_component"
+                },
+                "H1_D": {
+                  "$ref": "#/$defs/dipole_component"
+                },
+                "H1_F": {
+                  "$ref": "#/$defs/dipole_component"
+                },
+                "H2_D": {
+                  "$ref": "#/$defs/dipole_component"
+                },
+                "H2_F": {
+                  "$ref": "#/$defs/dipole_component"
+                }
+              },
+              "required": [
+                "h",
+                "H",
+                "A",
+                "H1_D",
+                "H1_F",
+                "H2_D",
+                "H2_F"
+              ],
+              "additionalProperties": false
+            },
+            "mu_to_3e": {
+              "type": "object",
+              "properties": {
+                "neutral_tree": {
+                  "$ref": "#/$defs/tree_component"
+                }
+              },
+              "required": [
+                "neutral_tree"
+              ],
+              "additionalProperties": false
+            },
+            "tau_to_3e": {
+              "type": "object",
+              "properties": {
+                "neutral_tree": {
+                  "$ref": "#/$defs/tree_component"
+                }
+              },
+              "required": [
+                "neutral_tree"
+              ],
+              "additionalProperties": false
+            },
+            "tau_to_3mu": {
+              "type": "object",
+              "properties": {
+                "neutral_tree": {
+                  "$ref": "#/$defs/tree_component"
+                }
+              },
+              "required": [
+                "neutral_tree"
+              ],
+              "additionalProperties": false
+            },
+            "tau_to_mu_ee": {
+              "type": "object",
+              "properties": {
+                "neutral_tree": {
+                  "$ref": "#/$defs/tree_component"
+                }
+              },
+              "required": [
+                "neutral_tree"
+              ],
+              "additionalProperties": false
+            },
+            "tau_to_e_mumu": {
+              "type": "object",
+              "properties": {
+                "neutral_tree": {
+                  "$ref": "#/$defs/tree_component"
+                }
+              },
+              "required": [
+                "neutral_tree"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "mu_to_e_gamma",
+            "tau_to_e_gamma",
+            "tau_to_mu_gamma",
+            "mu_to_3e",
+            "tau_to_3e",
+            "tau_to_3mu",
+            "tau_to_mu_ee",
+            "tau_to_e_mumu"
+          ],
+          "additionalProperties": false
+        },
+        "observables": {
+          "type": "object",
+          "properties": {
+            "mu_to_e_gamma": {
+              "$ref": "#/$defs/radiative_observable"
+            },
+            "tau_to_e_gamma": {
+              "$ref": "#/$defs/radiative_observable"
+            },
+            "tau_to_mu_gamma": {
+              "$ref": "#/$defs/radiative_observable"
+            },
+            "mu_to_3e": {
+              "$ref": "#/$defs/tree_observable"
+            },
+            "tau_to_3e": {
+              "$ref": "#/$defs/tree_observable"
+            },
+            "tau_to_3mu": {
+              "$ref": "#/$defs/tree_observable"
+            },
+            "tau_to_mu_ee": {
+              "$ref": "#/$defs/tree_observable"
+            },
+            "tau_to_e_mumu": {
+              "$ref": "#/$defs/tree_observable"
+            },
+            "h_to_e_mu": {
+              "$ref": "#/$defs/two_body_observable"
+            },
+            "h_to_e_tau": {
+              "$ref": "#/$defs/two_body_observable"
+            },
+            "h_to_mu_tau": {
+              "$ref": "#/$defs/two_body_observable"
+            },
+            "H_to_e_mu": {
+              "$ref": "#/$defs/two_body_observable"
+            },
+            "H_to_e_tau": {
+              "$ref": "#/$defs/two_body_observable"
+            },
+            "H_to_mu_tau": {
+              "$ref": "#/$defs/two_body_observable"
+            },
+            "A_to_e_mu": {
+              "$ref": "#/$defs/two_body_observable"
+            },
+            "A_to_e_tau": {
+              "$ref": "#/$defs/two_body_observable"
+            },
+            "A_to_mu_tau": {
+              "$ref": "#/$defs/two_body_observable"
+            }
+          },
+          "required": [
+            "mu_to_e_gamma",
+            "tau_to_e_gamma",
+            "tau_to_mu_gamma",
+            "mu_to_3e",
+            "tau_to_3e",
+            "tau_to_3mu",
+            "tau_to_mu_ee",
+            "tau_to_e_mumu",
+            "h_to_e_mu",
+            "h_to_e_tau",
+            "h_to_mu_tau",
+            "H_to_e_mu",
+            "H_to_e_tau",
+            "H_to_mu_tau",
+            "A_to_e_mu",
+            "A_to_e_tau",
+            "A_to_mu_tau"
+          ],
+          "additionalProperties": false
+        },
+        "universality": {
+          "type": "object"
+        },
+        "missing_contributions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "provenance": {
+          "type": "object"
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "schema_version",
+        "benchmark_id",
+        "status",
+        "COMPLETE_LFV",
+        "global_zee_acceptance",
+        "gates",
+        "units",
+        "ledger",
+        "observables",
+        "universality",
+        "missing_contributions",
+        "provenance",
+        "limitations"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "1.0.0"
+        },
+        "benchmark_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "const": "INPUT_OR_EVALUATION_ERROR"
+        },
+        "COMPLETE_LFV": {
+          "const": false
+        },
+        "global_zee_acceptance": {
+          "type": "null"
+        },
+        "error": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "benchmark_id",
+        "status",
+        "COMPLETE_LFV",
+        "global_zee_acceptance",
+        "error"
+      ],
+      "additionalProperties": false
+    }
+  ],
+  "$defs": {
+    "complex": {
+      "type": "object",
+      "properties": {
+        "real": {
+          "type": "number"
+        },
+        "imag": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "real",
+        "imag"
+      ],
+      "additionalProperties": false
+    },
+    "radiative_observable": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNKNOWN",
+            "NOT_EVALUATED"
+          ]
+        },
+        "physical_status": {
+          "const": "SCALAR_ONE_LOOP_APPROXIMATION"
+        },
+        "C_L": {
+          "$ref": "#/$defs/complex"
+        },
+        "C_R": {
+          "$ref": "#/$defs/complex"
+        },
+        "width_GeV": {
+          "type": "number",
+          "minimum": 0
+        },
+        "partial_BR": {
+          "type": "number",
+          "minimum": 0
+        },
+        "experimental_comparison": {
+          "const": "NOT_EVALUATED"
+        }
+      },
+      "required": [
+        "status",
+        "physical_status",
+        "C_L",
+        "C_R",
+        "width_GeV",
+        "partial_BR",
+        "experimental_comparison"
+      ],
+      "additionalProperties": false
+    },
+    "tree_observable": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNKNOWN",
+            "NOT_EVALUATED"
+          ]
+        },
+        "physical_status": {
+          "const": "TREE_SUBSET_ONLY"
+        },
+        "width_GeV": {
+          "type": "number",
+          "minimum": 0
+        },
+        "partial_BR": {
+          "type": "number",
+          "minimum": 0
+        },
+        "quadrature_relative_change": {
+          "type": "number",
+          "minimum": 0
+        },
+        "experimental_comparison": {
+          "const": "NOT_EVALUATED"
+        }
+      },
+      "required": [
+        "status",
+        "physical_status",
+        "width_GeV",
+        "partial_BR",
+        "quadrature_relative_change",
+        "experimental_comparison"
+      ],
+      "additionalProperties": false
+    },
+    "two_body_observable": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNKNOWN",
+            "NOT_EVALUATED"
+          ]
+        },
+        "physical_status": {
+          "const": "LO_TWO_BODY_PARTIAL_WIDTH"
+        },
+        "width_GeV": {
+          "type": "number",
+          "minimum": 0
+        },
+        "charge_orientations": {
+          "const": 2
+        },
+        "experimental_comparison": {
+          "const": "NOT_EVALUATED"
+        }
+      },
+      "required": [
+        "status",
+        "physical_status",
+        "width_GeV",
+        "charge_orientations",
+        "experimental_comparison"
+      ],
+      "additionalProperties": false
+    },
+    "dipole_component": {
+      "type": "object",
+      "properties": {
+        "C_L": {
+          "$ref": "#/$defs/complex"
+        },
+        "C_R": {
+          "$ref": "#/$defs/complex"
+        },
+        "normalization": {
+          "const": "L=e*m_i/2*bar(l_j)*sigma_munu*(CL*PL+CR*PR)*l_i*F_munu+h.c.;GeV^-2;v1"
+        },
+        "loop_order": {
+          "const": 1
+        },
+        "basis": {
+          "const": "SARAH_ZeeTypeII_Florentino_v1"
+        },
+        "provenance": {
+          "type": "string"
+        },
+        "validation_status": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNKNOWN",
+            "NOT_EVALUATED"
+          ]
+        },
+        "physical_status": {
+          "const": "SCALAR_ONE_LOOP_APPROXIMATION"
+        },
+        "approximation": {
+          "const": "m_nu=0; external invariant masses omitted in loop denominators; external chirality masses retained"
+        }
+      },
+      "required": [
+        "C_L",
+        "C_R",
+        "normalization",
+        "loop_order",
+        "basis",
+        "provenance",
+        "validation_status",
+        "physical_status",
+        "approximation"
+      ],
+      "additionalProperties": false
+    },
+    "chiral": {
+      "type": "object",
+      "properties": {
+        "LL": {
+          "$ref": "#/$defs/complex"
+        },
+        "LR": {
+          "$ref": "#/$defs/complex"
+        },
+        "RL": {
+          "$ref": "#/$defs/complex"
+        },
+        "RR": {
+          "$ref": "#/$defs/complex"
+        }
+      },
+      "required": [
+        "LL",
+        "LR",
+        "RL",
+        "RR"
+      ],
+      "additionalProperties": false
+    },
+    "tree_component": {
+      "type": "object",
+      "properties": {
+        "C_L": {
+          "type": "null"
+        },
+        "C_R": {
+          "type": "null"
+        },
+        "wilsons_GeV_minus2": {
+          "type": "object",
+          "properties": {
+            "h": {
+              "type": "object",
+              "properties": {
+                "direct": {
+                  "$ref": "#/$defs/chiral"
+                },
+                "exchanged": {
+                  "$ref": "#/$defs/chiral"
+                }
+              },
+              "required": [
+                "direct",
+                "exchanged"
+              ],
+              "additionalProperties": false
+            },
+            "H": {
+              "type": "object",
+              "properties": {
+                "direct": {
+                  "$ref": "#/$defs/chiral"
+                },
+                "exchanged": {
+                  "$ref": "#/$defs/chiral"
+                }
+              },
+              "required": [
+                "direct",
+                "exchanged"
+              ],
+              "additionalProperties": false
+            },
+            "A": {
+              "type": "object",
+              "properties": {
+                "direct": {
+                  "$ref": "#/$defs/chiral"
+                },
+                "exchanged": {
+                  "$ref": "#/$defs/chiral"
+                }
+              },
+              "required": [
+                "direct",
+                "exchanged"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "h",
+            "H",
+            "A"
+          ],
+          "additionalProperties": false
+        },
+        "normalization": {
+          "const": "M=sum_s[(ubar_a Gamma_ai u_i)(ubar_b Gamma_bb v_b)/(m_s^2-s23)-(ubar_b Gamma_bi u_i)(ubar_a Gamma_ab v_b)/(m_s^2-s13)];Gamma=C*PL+Cdag*PR"
+        },
+        "loop_order": {
+          "const": 0
+        },
+        "basis": {
+          "const": "SARAH_ZeeTypeII_Florentino_v1"
+        },
+        "provenance": {
+          "type": "string"
+        },
+        "validation_status": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNKNOWN",
+            "NOT_EVALUATED"
+          ]
+        }
+      },
+      "required": [
+        "C_L",
+        "C_R",
+        "wilsons_GeV_minus2",
+        "normalization",
+        "loop_order",
+        "basis",
+        "provenance",
+        "validation_status"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

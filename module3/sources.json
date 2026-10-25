@@ -1,0 +1,14 @@
+{
+  "Lavoura": {
+    "url": "https://arxiv.org/pdf/hep-ph/0302221",
+    "version": "hep-ph/0302221v1",
+    "equations": "7,26-43",
+    "sha256": "9f205ab46dc76c70ee4bdcc12870ef1fdc273b29629a15d7162c1ee6cbde121b"
+  },
+  "Herrero-Garcia et al.": {
+    "url": "https://arxiv.org/pdf/1701.05345v2",
+    "version": "1701.05345v2",
+    "equations": "3.8-3.19,3.26-3.33",
+    "sha256": "f62a88ff26b0d84806e37874e09574f95282108fc7ef18d9e6a7dc9de6cfd62a"
+  }
+}

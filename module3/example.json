@@ -1,0 +1,142 @@
+{
+  "schema_version": "1.0.0",
+  "benchmark_id": "module3_NO_spectrum0",
+  "module2_input": {
+    "schema_version": "1.0.0",
+    "benchmark_id": "module3_NO_spectrum0",
+    "mode": "inverse",
+    "ordering": "NO",
+    "scalar": {
+      "kind": "module1_input",
+      "record": {
+        "schema_version": "1.0.0",
+        "benchmark_id": "module3_NO_spectrum0",
+        "model": "ZeeTypeII_Module0_v1_restricted_CP",
+        "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+        "units": {
+          "masses": "GeV",
+          "angles": "rad",
+          "mass_squared": "GeV^2",
+          "quartics": "1"
+        },
+        "physical": {
+          "mh1": 125.0,
+          "mh2": 580.7,
+          "ma": 633.7,
+          "mH1": 300.0,
+          "mH2": 700.0,
+          "alpha": 1.398,
+          "beta": 1.394,
+          "gamma": 1.089,
+          "m12sq": 57700.0,
+          "lc": 4.473,
+          "k1": 1.082,
+          "k2": 0.00398,
+          "k12": -0.001266,
+          "v": 246.21965
+        },
+        "electroweak": {
+          "mW": 80.379,
+          "mZ": 91.1876,
+          "SM_reference_mh": 125.0,
+          "scheme": "on_shell_MW_MZ"
+        },
+        "ew_fit": "Gfitter_2026_U_floating",
+        "search": {
+          "starts": 64,
+          "seeds": [
+            123,
+            104852
+          ]
+        }
+      },
+      "sha256": "4ee55ddb553124a910ff4fc871a4110cb9ea2c9c24b705d52d6d3f87516e3f15"
+    },
+    "lepton_masses_GeV": [
+      0.00051099895,
+      0.1056583755,
+      1.77686
+    ],
+    "target_eV": {
+      "real": [
+        [
+          0.0037835351327915583,
+          -0.0010952870162632181,
+          -0.004418020497932156
+        ],
+        [
+          -0.0010952870162632181,
+          -0.011963878129116574,
+          -0.014795229184407262
+        ],
+        [
+          -0.004418020497932156,
+          -0.01479522918440726,
+          -0.00803541038399494
+        ]
+      ],
+      "imag": [
+        [
+          -0.0016666238981127184,
+          0.0027186729591286186,
+          0.005823088559289724
+        ],
+        [
+          0.002718672959128619,
+          -0.026093427300150792,
+          -0.019116480919979674
+        ],
+        [
+          0.005823088559289724,
+          -0.019116480919979674,
+          -0.020335303689073325
+        ]
+      ]
+    },
+    "null_cone": {
+      "t": {
+        "real": 0.25,
+        "imag": 0.1
+      },
+      "scale": 0.002,
+      "root": 0,
+      "chart": [
+        0,
+        1,
+        2
+      ],
+      "phase_rad": 0.43
+    },
+    "homogeneous_coefficients": {
+      "real": [
+        1e-07,
+        -2e-07,
+        3e-07,
+        1e-07
+      ],
+      "imag": [
+        2e-07,
+        0,
+        -1e-07,
+        3e-07
+      ]
+    }
+  },
+  "constants": {
+    "alpha_em": 0.0072973525692838015,
+    "GF_GeV_minus2": 1.1663787e-05,
+    "total_lepton_widths_GeV": [
+      2.995983701908041e-19,
+      2.267350867723045e-12
+    ],
+    "source": {
+      "version": "Explicit illustrative normalization snapshot (not a likelihood)",
+      "url": "https://pdg.lbl.gov/2024/reviews/rpp2024-rev-phys-constants.pdf",
+      "selection": "alpha(0), GF, hbar; mu and tau lifetime normalizations supplied explicitly; no LFV limits"
+    }
+  },
+  "numerics": {
+    "tree_quadrature_order": 24,
+    "tree_relative_tolerance": 2e-05
+  }
+}

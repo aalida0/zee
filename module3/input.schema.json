@@ -1,0 +1,103 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "benchmark_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "module2_input": {
+      "type": "object"
+    },
+    "module2_output": {
+      "type": "object"
+    },
+    "constants": {
+      "type": "object",
+      "properties": {
+        "alpha_em": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "exclusiveMaximum": 1
+        },
+        "GF_GeV_minus2": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "total_lepton_widths_GeV": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "url": {
+              "type": "string",
+              "minLength": 1
+            },
+            "selection": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "version",
+            "url",
+            "selection"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "alpha_em",
+        "GF_GeV_minus2",
+        "total_lepton_widths_GeV",
+        "source"
+      ],
+      "additionalProperties": false
+    },
+    "numerics": {
+      "type": "object",
+      "properties": {
+        "tree_quadrature_order": {
+          "type": "integer",
+          "minimum": 12,
+          "maximum": 96
+        },
+        "tree_relative_tolerance": {
+          "type": "number",
+          "minimum": 1e-09,
+          "maximum": 0.001
+        }
+      },
+      "required": [
+        "tree_quadrature_order",
+        "tree_relative_tolerance"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "benchmark_id",
+    "module2_input",
+    "constants",
+    "numerics"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:zee:module3:input:1.0.0",
+  "description": "Module2 input and optional full output are validated against frozen v1 schemas and recomputed. Requires full Module1 scalar input/output, not the minimal explicit Module2 scalar record."
+}
