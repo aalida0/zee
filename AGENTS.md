@@ -1,24 +1,55 @@
-# Zee Module 4 — omission sensitivity triage
+# Zee Module 5 — Type-II quark flavor: B -> X_s gamma, Gate A only
 
-## Branch and scope
-Work exclusively on `feature/zee-module4-omission-triage`, forked from verified Module4 commit `231e58fc35a7ea26d6f04f4735f8e9a197f1b6d3` in `aalida0/zee`. This is a small, standalone Module4 diagnostic, NOT a new LFV physics calculation or a complete two-loop prediction.
+## Identity, branch, and scientific scope
+Work only on `feature/zee-bsgamma-module5` of `aalida0/zee`, branched from `22d249fb57d55a88b266b69d1575be66ec7209b3`. The preceding Module 4 amplitudes remain PARTIAL and the Wgamma matching remains BLOCKED. This task **does not fix Module4**; it starts the **quark-flavor validation** essential for the first Zee phenomenology paper.
 
-Read first only: `scripts/zee_omission_triage.py`, `tests/test_zee_omission_triage.py`, `module4/interface.py`, `module4/amplitudes.py`, `module4/example.json`, `module4/MATCHING_AUDIT.md`, `validation/module4/STATUS.md`. Inspect other files only for specific blockers.
+Implement and independently validate the **charged-scalar leading-order matching-scale shifts Delta C7 and Delta C8 for the TWO physical charged Higgs bosons**. Do NOT compute B->Xs gamma branching ratios, exclusions, full NLO/NNLO, multiscale QCD evolution, or global viability in this task. The existing historical `reference/` calculations are unvalidated inspiration only, not physical acceptance evidence.
 
-## Frozen foundations
-Do not change `models/SARAH/ZeeTypeII/`, Modules 0–3, any existing Module4 physics, kernels, schemas, tests, or their validation records. Keep the fixed dimension-GeV^-2 dipole `C_L,C_R` convention. The Wgamma candidates remain excluded: their signed matching is not physically validated. Do not insert guessed W, Zgamma, or arbitrary other amplitudes into coherent rates. Do not infer LFV allowance, exclusion, or global benchmark viability.
+## Read only these first
+- `module5/bsgamma_lo.py` (prewritten production implementation).
+- `tests/test_module5_bsgamma_lo.py` (prewritten independent 90-digit mathematical tests).
+- `module5/example_bsgamma_input.json` (illustrative input).
+- `module4/couplings.py` (charged-scalar rotation and frozen Type-II Yukawa context).
+- Relevant frozen model in `models/SARAH/ZeeTypeII/` only as necessary.
+- Historical `reference/` only for a specific cross-code comparison, not as a source of truth.
 
-## Required task
-The code and independent mathematical tests are ALREADY written. Audit them for correctness, fix bugs only when justified, and execute:
-```bash
-python -m unittest discover -s tests -p 'test_zee_omission_triage.py' -v
-mkdir -p validation/module4/local
-python -m module4.interface --input module4/example.json --output validation/module4/local/triage_input.json
-python scripts/zee_omission_triage.py --input validation/module4/local/triage_input.json --output validation/module4/local/triage_output.json
-```
-For each of the three channels verify reproduction of signed complex included amplitudes, norm `||C||`, cancellation index `sum||C_i||/||sum C_i||`, and triangle-inequality sharp conditional ranges for `||Delta_missing|| <= b`. The diagnostic fractions 0.05/0.1/0.25/0.5/1 times the largest included component are **purely hypothetical budgets**, NOT upper bounds, numerical uncertainty estimates, or physical estimates of Wgamma. Test phase rotations, anti-alignment, large cancellation, zero included amplitude, invalid JSON, provenance, and fail-closed preservation of the excluded-W ledger. The result cannot by itself establish whether physical omitted Wgamma is small.
+Do not scan the entire repository unnecessarily. No changes to frozen Modules 0–4, `models/SARAH/ZeeTypeII/`, their established tests, or previous validation. Do not touch another working directory or main. Old branch-bound test runners are not valid on this isolated branch; run focused Gate A tests.
 
-Write `validation/module4/OMISSION_TRIAGE.md` with brief mathematics, actual outputs, interpretation, provenance and a prioritized recommendation for the next *physics* milestone. Write concise `validation/module4/omission_triage.json` with verified summary results, source SHA256 and an explicit `DIAGNOSTIC_ONLY` status. Prefer real baseline run; optionally add NO/IO witness results if straightforward without rerunning the neutrino fit. Keep huge logs/raw inputs ignored locally. No speculative gauge matching or literature expedition.
+## Pinned physics definitions and primary literature
+**Use the following exact conventions, and independently verify them.**
+- SuperIso 3.4 paper, Mahmoudi, arXiv:0808.3144, Appendix C.1.2, Eqs. (47)–(49):
+  https://superiso.in2p3.fr/superiso3.4.pdf
+- Florentino, Romão and Silva, EPJC 81 (2021) 1148, DOI 10.1140/epjc/s10052-021-09956-2, Appendices B.3 and C:
+  https://link.springer.com/article/10.1140/epjc/s10052-021-09956-2
+- The Zee model has Type-II QUARK couplings. The doublet charged component mixes with the charged singlet. Florentino B.9 gives
+  `X=(tan(beta)*cos(gamma),-tan(beta)*sin(gamma))`;
+  `Y=(cot(beta)*cos(gamma),-cot(beta)*sin(gamma))`.
+  Therefore `|Y_a|^2=(cot(beta))^2*w_a`, `X_a*conj(Y_a)=w_a`, with `w=(cos(gamma)^2,sin(gamma)^2)`.
+- In the SuperIso convention (lambda_tt=cot(beta), lambda_bb=-tan(beta)), at LO the charged-scalar matching contribution is
+  `Delta C7,8 = sum_a [(|Y_a|^2/3) F7,8^(1)(x_a) + (X_a Y_a*) F7,8^(2)(x_a)]`,
+  `x_a = [m_t_MSbar(mu_match)/m_Ha]^2`. **Check the sign and operator normalization** against BOTH sources; do not conflate with the 2017/2021 branching ratio or an effective low-scale coefficient.
+- The four F functions are explicitly programmed from SuperIso Eq.49. The near-x=1 Taylor expansions were derived independently and should be checked against 90-digit evaluation. Do not infer new charged Higgs lower mass bounds or experimental likelihoods from LO matching.
+- This task requires **explicit** top MSbar mass at the user-supplied matching scale, no pole-mass substitutions or guessed running. A single matching scale for both mass eigenstates is an LO fixed-order approximation; flag this limitation.
 
-## Delivery
-Only commit scoped triage files and the task-specific AGENTS.md. Run genuine tests; include failure details if blocked. Commit, `git push origin feature/zee-module4-omission-triage`, and verify local `git rev-parse HEAD` equals remote `git ls-remote origin refs/heads/feature/zee-module4-omission-triage`. Report exact commit SHA, URL, tests, diagnostic findings, and unresolved physics. No local-only completion claims. Minimize token use; report concisely.
+## Work required
+1. Independently audit the prewritten code and tests for algebra, source signs, convention, floating stability, complex/chirality issues, basis/mixing, and fail-closed input. Fix actual errors. Independently compare frozen SARAH quark charged vertices or frozen model quark/charged-scalar rotations to the X,Y mapping before declaring full Gate A verification. If native Mathematica/SARAH calculation is not feasible locally, use the explicit frozen model and source as a scoped check; clearly identify what was NOT freshly validated.
+2. Run `python -m unittest discover -s tests -p 'test_module5_bsgamma_lo.py' -v`. Confirm 90-digit source evaluations across small, near-degenerate, large x; x=1 analytic limits; gamma=0 single-2HDM case; gamma=pi/2 singlet/doublet assignment; swapped spectra; equal charged masses; tanbeta dependence; heavy decoupling; missing/NaN/invalid scheme inputs. Expand tests only if a real gap is identified.
+3. Run a real CLI smoke test:
+   ```bash
+   mkdir -p validation/module5/local
+   python module5/bsgamma_lo.py --input module5/example_bsgamma_input.json --output validation/module5/local/bsgamma_LO_example.json
+   ```
+   Do not claim that 550/900 GeV illustrative fixture is an accepted benchmark.
+4. Create `validation/module5/STATUS.md`, concise `validation/module5/results.json`, and `module5/CONVENTIONS.md` with inputs, equations, residuals, source links, known limitations, source/provenance SHA256, and next milestone. Reproducible numerical results MUST come from actual runs; keep raw logs/cache ignored locally. Reference model cross-checks and exact version/commit.
+5. Specifically compare to Florentino 2021: the mixing-weighted C7, C8 treatment **already exists**, so do not claim it as new. The novelty later requires *full general Zee lepton/neutrino constraints plus collider correlations*, and that cannot be inferred from Gate A.
+6. Evaluate which subsequent **well-scoped** Gate B is necessary for a physically defensible B->Xs gamma observable: consistent scale/mass/Yukawa treatment, NLO/NNLO SM+NP matching, QCD running and experimental covariance. Distinguish math-matched coefficients from physical prediction. If this exceeds available tools, flag the blocker rather than applying an approximate 'type-II 580 GeV' mass cut.
+
+## Completion contract
+- Do not change physical coefficients in Modules 0–4. No silent historical changes.
+- Tests and actual independent source/mathematical comparisons must pass for `VALIDATION_PASS_LO_MATCHING`; otherwise mark `PARTIAL/BLOCKED`.
+- Always output `LO_MATCHING_ONLY_NOT_BR_OR_EXCLUSION`, no unsupported exclusion/allowed claims.
+- Commit only scoped `module5/`, `tests/test_module5_bsgamma_lo.py`, `validation/module5/`, and this AGENTS.md if amended.
+- `git push origin feature/zee-bsgamma-module5`.
+- Verify `git rev-parse HEAD` = `git ls-remote origin refs/heads/feature/zee-bsgamma-module5`.
+- Report commit SHA and canonical GitHub URL, tests, numerical residuals and scope limitations. If push fails report PUSH_BLOCKED.
+- Keep Codex chatter brief; place detail in audit files. Preserve exact code and source hashes. Never claim delivery without a verified remote commit.
