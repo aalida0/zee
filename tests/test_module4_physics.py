@@ -114,8 +114,10 @@ class AmplitudeTests(unittest.TestCase):
         # Davidson lhs is the coefficient of bar(parent)...daughter.
         A=-(e*alpha*nc*q*q/(16*math.pi**3*mf)*terms).conjugate()/(2*math.sqrt(2)*gf*mi)
         mapped=-4*math.sqrt(2)*gf/e*A.conjugate()
-        np.testing.assert_allclose(out,mapped,rtol=2e-13)
-        self.assertGreater(np.linalg.norm(out+mapped),np.linalg.norm(out))
+        # Preserve the literal source mismatch. Direct outer matching (separate
+        # audit tests) gives -mapped; no sign is chosen from this comparison.
+        np.testing.assert_allclose(out,-mapped,rtol=2e-13)
+        self.assertGreater(np.linalg.norm(out-mapped),np.linalg.norm(out))
         # Eq18 signed leading log becomes the positive Module3 internal flip.
         C=np.zeros((3,3),complex);C[0,1]=ext[0];C[1,1]=.2
         native=core.neutral_dipole(C,m,1,0,ML)[0]
@@ -124,7 +126,7 @@ class AmplitudeTests(unittest.TestCase):
         external_flip=C[0,1]*C[1,1]*core.kernels((ML[1]/m)**2)[0]/(16*math.pi**2*m*m)
         self.assertLess(abs((native-external_flip)/mapped_loop-1),3e-7)
         EVIDENCE['davidson_to_module3_overall_sign']=-1
-        EVIDENCE['davidson_mapping_relative_residual']=float(max(abs((out-mapped)/out)))
+        EVIDENCE['davidson_literal_opposite_physical_relative_residual']=float(max(abs((out+mapped)/out)))
 
     def test_charge_squared_color_chirality_and_pseudo_i_falsifiers(self):
         ext=(.04+.01j,.02-.03j)
@@ -137,9 +139,9 @@ class AmplitudeTests(unittest.TestCase):
         flipped,_=fermion_component(ext[::-1],(.2+.3j).conjugate(),172.,450.,.106,.0073,3,2/3)
         np.testing.assert_allclose(a,flipped[::-1],rtol=2e-15)
         pseudo,_=fermion_component((1,1),1j,172.,450.,.106,.0073,3,2/3)
-        self.assertEqual(pseudo[0],-pseudo[1]);self.assertGreater(pseudo[0].imag,0)
+        self.assertEqual(pseudo[0],-pseudo[1]);self.assertLess(pseudo[0].imag,0)
         scalar,_=fermion_component((1,1),1.,172.,450.,.106,.0073,3,2/3)
-        self.assertGreater(scalar[0].real,0)
+        self.assertLess(scalar[0].real,0)
         self.assertGreater(abs(pseudo[0]-scalar[0]),abs(scalar[0]))
 
     def test_all_witnesses_channels_complex_tau_and_rephasing(self):
@@ -172,10 +174,10 @@ class AmplitudeTests(unittest.TestCase):
             old=np.array(ns['flav_bz_amplitudes'](p,Y,parent=i,daughter=j)[:2])
             subset={k:r for k,r in rows(D,p,i,j).items() if r['loop_species'] in ('top','bottom','tau')}
             new=diagnostic_sum(subset)
-            errors.append(float(np.linalg.norm(new+old)/np.linalg.norm(new)))
-            self.assertGreater(np.linalg.norm(new-old),np.linalg.norm(new))
+            errors.append(float(np.linalg.norm(new-old)/np.linalg.norm(new)))
+            self.assertGreater(np.linalg.norm(new+old),np.linalg.norm(new))
         self.assertLess(max(errors),1e-12)
-        EVIDENCE['legacy_fermion_after_required_overall_minus_max_relative']=max(errors)
+        EVIDENCE['legacy_fermion_physical_same_sign_max_relative']=max(errors)
         ns.update({'lru_cache':lru_cache,'quad':__import__('scipy.integrate',fromlist=['quad']).quad,
                    'MW_GEV':80.379,'MASSES':ML})
         pure_functions('reference/lfv/scripts/zee_gateD4_W_photon_barr_zee_27.py',
@@ -228,7 +230,7 @@ class AmplitudeTests(unittest.TestCase):
 
     def test_coherent_interference_rejects_operator_and_basis_mismatch(self):
         d=decode(cases()[0][1]['D']);r=rows(d)
-        candidate=next(iter(r.values()))
+        candidate=r['h_W_gamma']
         with self.assertRaises(ValueError):combine({'unvalidated':candidate})
         a=dict(candidate,validation_status='VALIDATION_PASS');b=copy.deepcopy(a)
         b['C_L']=-a['C_L'];b['C_R']=-a['C_R']
@@ -247,7 +249,8 @@ class NativeAndFoundationAuditTests(unittest.TestCase):
             m,mf,M,v,alpha=ML[1],172.5,400.,P['v'],.0073
             phase=1 if cp=='scalar' else -1j
             c,_=fermion_component((phase*m/v,phase.conjugate()*m/v),phase*mf/v,mf,M,m,alpha,3,2/3)
-            source_davidson=m*m*sum(c).real
+            # Keep a reproducible record of the old literal Davidson candidate.
+            source_davidson=-m*m*sum(c).real
             z=(mf/M)**2
             def integrand(x):
                 u=x*(1-x)
@@ -266,7 +269,7 @@ class NativeAndFoundationAuditTests(unittest.TestCase):
         self.assertLess(ratio,-1.001)
         EVIDENCE['SOURCE_CONFLICT']={'fermion_scalar_and_pseudo_Davidson_over_Ilisie':ratios,
             'W_Davidson_over_Ilisie_at_z_0p413':ratio,
-            'resolution':'UNRESOLVED: all two-loop candidates excluded from coherent sum',
+            'resolution':'Fermion physical sign fixed by independent outer matching; literal Davidson source sign retained as conflict. W excluded.',
             'qualification':'Ilisie transverse W form factor discards gauge-dependent non-Barr-Zee terms; no claim these are the same complete EW subset'}
 
     def test_charged_scalar_form_factor_and_photon_Ward_tensor(self):

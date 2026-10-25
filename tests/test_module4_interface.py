@@ -46,6 +46,9 @@ class InterfaceTests(unittest.TestCase):
                     self.assertEqual(ch['experimental_comparison'],'NOT_EVALUATED')
                     self.assertTrue(all(r['coherent_inclusion'] is False for r in ch['two_loop_candidates'].values()))
                     self.assertTrue(all(r['status']=='UNKNOWN' for r in ch['two_loop_candidates'].values()))
+                    self.assertEqual(len(ch['ledger']),34)
+                    self.assertEqual(len(ch['two_loop_candidates']),2)
+                    self.assertTrue(all(r['loop_species']=='W+Goldstone+ghost' for r in ch['two_loop_candidates'].values()))
                     for k in ('C_L','C_R'):
                         expected=sum(complex(**r[k]) for r in ch['ledger'].values())
                         self.assertEqual(complex(**ch[k]),expected)

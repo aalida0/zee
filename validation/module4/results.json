@@ -12,6 +12,270 @@
         "witnesses": 6
       }
     },
+    "test_module4_matching": {
+      "Euclidean_no_log_parameters_max_relative": 2.3314683517128287e-15,
+      "NO_IO_coherence_reverse_max_relative": 4.440892098500626e-16,
+      "NO_IO_fractional_interference_range": [
+        -0.6254598518144874,
+        0.46459451565152593
+      ],
+      "NO_IO_representative_signed_amplitudes": [
+        {
+          "coherent_width_GeV_INCLUDED_ONLY": 3.653024679195412e-32,
+          "fermion_gamma_CL_CR": [
+            [
+              -1.3766428110711572e-14,
+              -2.5872762757426795e-14
+            ],
+            [
+              6.931621617978364e-13,
+              1.0167564822677169e-12
+            ]
+          ],
+          "one_loop_CL_CR": [
+            [
+              2.630082484911828e-18,
+              1.3312951785432418e-17
+            ],
+            [
+              3.9247956398816687e-16,
+              2.495576568765072e-15
+            ]
+          ],
+          "witness": "module3_NO_spectrum0",
+          "wrong_sign_width_GeV_falsifier": 3.626033846279506e-32
+        },
+        {
+          "coherent_width_GeV_INCLUDED_ONLY": 1.3756110270485828e-31,
+          "fermion_gamma_CL_CR": [
+            [
+              1.1580719975705761e-14,
+              3.6203121068827994e-14
+            ],
+            [
+              -1.7352971511442283e-12,
+              1.6365946706325822e-12
+            ]
+          ],
+          "one_loop_CL_CR": [
+            [
+              2.969189791843313e-17,
+              8.29769129730023e-17
+            ],
+            [
+              6.28147957259682e-15,
+              1.740348610267791e-14
+            ]
+          ],
+          "witness": "module3_IO_spectrum0",
+          "wrong_sign_width_GeV_falsifier": 1.3587139776913296e-31
+        }
+      ],
+      "W_matching_status": "BLOCKED: complete LFV B,C projections, pinch routing and independent R_xi cancellation absent; W remains excluded",
+      "W_offshell_Ward_checks": [
+        {
+          "J1": 0.5000561275467892,
+          "J2": 0.04167280046043246,
+          "Ward_after_pinch": 8.881784197001252e-16,
+          "Ward_before_pinch": 4.665523670011543,
+          "scope": "Abe transverse and P tensors only; B,C external projections and R_xi LFV matching still required"
+        },
+        {
+          "J1": 0.5005542541634801,
+          "J2": 0.041723838426688246,
+          "Ward_after_pinch": 1.4210854715202004e-14,
+          "Ward_before_pinch": 57.82903298350685,
+          "scope": "Abe transverse and P tensors only; B,C external projections and R_xi LFV matching still required"
+        },
+        {
+          "J1": 0.4995967460100442,
+          "J2": 0.04162504468021578,
+          "Ward_after_pinch": 1.4210854715202004e-14,
+          "Ward_before_pinch": 41.96612666484371,
+          "scope": "Abe transverse and P tensors only; B,C external projections and R_xi LFV matching still required"
+        }
+      ],
+      "W_source_decomposition": [
+        {
+          "Abe_transverse": -2.289982772464007,
+          "CHK": -2.275991858546281,
+          "CHK_minus_Abe": 0.01399091391772628,
+          "CHK_minus_Ilisie": -0.002002488170468608,
+          "Ilisie": -2.2739893703758125,
+          "Ilisie_minus_Abe": 0.015993402088194872,
+          "common_goldstone": -2.479416405985783,
+          "complete_W_LFV_matching": "NOT_VALIDATED",
+          "normalization_problem": false,
+          "old_signed_ratio": -1.0008806057743962,
+          "z": 0.001
+        },
+        {
+          "Abe_transverse": -0.5212007036512307,
+          "CHK": -0.4623536784670139,
+          "CHK_minus_Abe": 0.05884702518421668,
+          "CHK_minus_Ilisie": 0.001447019599694288,
+          "Ilisie": -0.4638006980667082,
+          "Ilisie_minus_Abe": 0.05740000558452235,
+          "common_goldstone": -1.4264380461529023,
+          "complete_W_LFV_matching": "NOT_VALIDATED",
+          "normalization_problem": false,
+          "old_signed_ratio": -0.9968800831785593,
+          "z": 0.01
+        },
+        {
+          "Abe_transverse": 2.672421811026607,
+          "CHK": 2.8399877189995237,
+          "CHK_minus_Abe": 0.16756590797291648,
+          "CHK_minus_Ilisie": 0.030495773061942066,
+          "Ilisie": 2.8094919459375816,
+          "Ilisie_minus_Abe": 0.13707013491097442,
+          "common_goldstone": -0.6066815910941905,
+          "complete_W_LFV_matching": "NOT_VALIDATED",
+          "normalization_problem": false,
+          "old_signed_ratio": -1.0108545508044748,
+          "z": 0.1
+        },
+        {
+          "Abe_transverse": 4.579441541679831,
+          "CHK": 4.801015131959803,
+          "CHK_minus_Abe": 0.22157359027997126,
+          "CHK_minus_Ilisie": 0.05101513195980756,
+          "Ilisie": 4.749999999999994,
+          "Ilisie_minus_Abe": 0.17055845832016348,
+          "common_goldstone": -0.38629436111989046,
+          "complete_W_LFV_matching": "NOT_VALIDATED",
+          "normalization_problem": false,
+          "old_signed_ratio": -1.0107400277810124,
+          "z": 0.25
+        },
+        {
+          "Abe_transverse": 5.7884076319193625,
+          "CHK": 6.038191222471141,
+          "CHK_minus_Abe": 0.24978359055177882,
+          "CHK_minus_Ilisie": 0.06293480610705193,
+          "Ilisie": 5.975256416364089,
+          "Ilisie_minus_Abe": 0.18684878444472663,
+          "common_goldstone": -0.2931531127827901,
+          "complete_W_LFV_matching": "NOT_VALIDATED",
+          "normalization_problem": false,
+          "old_signed_ratio": -1.0105325699387053,
+          "z": 0.413
+        },
+        {
+          "Abe_transverse": 8.171953619344727,
+          "CHK": 8.464942024180909,
+          "CHK_minus_Abe": 0.29298840483618244,
+          "CHK_minus_Ilisie": 0.08264054992165804,
+          "Ilisie": 8.38230147425925,
+          "Ilisie_minus_Abe": 0.2103478549145239,
+          "common_goldstone": -0.17195361934473008,
+          "complete_W_LFV_matching": "NOT_VALIDATED",
+          "normalization_problem": false,
+          "old_signed_ratio": -1.0098589331552241,
+          "z": 1.0
+        },
+        {
+          "Abe_transverse": 15.422336079376858,
+          "CHK": 15.777907043308296,
+          "CHK_minus_Abe": 0.3555709639314393,
+          "CHK_minus_Ilisie": 0.11426195352628987,
+          "Ilisie": 15.663645089782008,
+          "Ilisie_minus_Abe": 0.2413090104051494,
+          "common_goldstone": -0.03373593004904389,
+          "complete_W_LFV_matching": "NOT_VALIDATED",
+          "normalization_problem": false,
+          "old_signed_ratio": -1.00729472309104,
+          "z": 10.0
+        },
+        {
+          "Abe_transverse": 23.31523520153387,
+          "CHK": 23.68692607723534,
+          "CHK_minus_Abe": 0.37169087570146697,
+          "CHK_minus_Ilisie": 0.12311310107216489,
+          "Ilisie": 23.56381297616317,
+          "Ilisie_minus_Abe": 0.24857777462930342,
+          "common_goldstone": -0.005236839026000854,
+          "complete_W_LFV_matching": "NOT_VALIDATED",
+          "normalization_problem": false,
+          "old_signed_ratio": -1.0052246680618586,
+          "z": 100.0
+        }
+      ],
+      "W_source_decomposition_max_relative": 1.4876988529977098e-14,
+      "outer_Dirac_projection_max_abs": 6.280369834735101e-16,
+      "physical_fermion_prefactor_sign": -1,
+      "physical_sign_basis": "Native -ieQ gamma and -i(C PL+Cdag PR); two orientations; incoming-to-outgoing real-photon crossing; explicit Wick angular average and emitted-operator vertex",
+      "primary_sources_max_relative": 1.376676550535194e-13,
+      "sigma_HC_and_action_vertex_max_abs": 1.0842021724855044e-19,
+      "signed_diagonal_moment_max_relative": 4.440892098500626e-15,
+      "signed_diagonal_moments": {
+        "mixed": -1.2016200265495303e-10,
+        "pseudoscalar": 5.2687665766027167e-11,
+        "scalar": -3.820341146335521e-11
+      },
+      "source_comparison_samples": [
+        {
+          "GM2Calc_scalar": -0.020579933682739696,
+          "Ilisie_scalar": -0.020579933682742545,
+          "PRD_pseudoscalar": 0.02553876649471106,
+          "physical_f_g": [
+            -0.02057993368273971,
+            0.025538766494711276
+          ],
+          "z": 0.001
+        },
+        {
+          "GM2Calc_scalar": -0.3340527263783264,
+          "Ilisie_scalar": -0.33405272637834243,
+          "PRD_pseudoscalar": 0.4553890445971658,
+          "physical_f_g": [
+            -0.3340527263783259,
+            0.455389044597164
+          ],
+          "z": 0.1
+        },
+        {
+          "GM2Calc_scalar": -0.5,
+          "Ilisie_scalar": -0.499999999999999,
+          "PRD_pseudoscalar": 0.6931471805599457,
+          "physical_f_g": [
+            -0.4999999999999994,
+            0.6931471805599446
+          ],
+          "z": 0.25
+        },
+        {
+          "GM2Calc_scalar": -0.6088547986136534,
+          "Ilisie_scalar": -0.608854798613653,
+          "PRD_pseudoscalar": 0.8509992697722374,
+          "physical_f_g": [
+            -0.6088547986136538,
+            0.8509992697722384
+          ],
+          "z": 0.413
+        },
+        {
+          "GM2Calc_scalar": -0.8280463806552706,
+          "Ilisie_scalar": -0.8280463806552707,
+          "PRD_pseudoscalar": 1.1719536193447295,
+          "physical_f_g": [
+            -0.8280463806552696,
+            1.1719536193447297
+          ],
+          "z": 1.0
+        },
+        {
+          "GM2Calc_scalar": -1.51030987556519,
+          "Ilisie_scalar": -1.5103098755651885,
+          "PRD_pseudoscalar": 2.185028476546064,
+          "physical_f_g": [
+            -1.5103098755651891,
+            2.185028476546067
+          ],
+          "z": 10.0
+        }
+      ]
+    },
     "test_module4_physics": {
       "SOURCE_CONFLICT": {
         "W_Davidson_over_Ilisie_at_z_0p413": -1.0105325699387073,
@@ -20,7 +284,7 @@
           -1.0000000000000042
         ],
         "qualification": "Ilisie transverse W form factor discards gauge-dependent non-Barr-Zee terms; no claim these are the same complete EW subset",
-        "resolution": "UNRESOLVED: all two-loop candidates excluded from coherent sum"
+        "resolution": "Fermion physical sign fixed by independent outer matching; literal Davidson source sign retained as conflict. W excluded."
       },
       "W_CHK14_plus18_max_relative": 3.3306690738754696e-15,
       "aligned_A_over_H_top_bottom": [
@@ -29,13 +293,13 @@
       ],
       "charged_scalar_F2_vs_analytic_max_relative": 2.3314683517128287e-15,
       "charged_scalar_amplitude": "UNKNOWN_NOT_IMPLEMENTED; F2 and native trilinears are not a matched LFV amplitude",
-      "davidson_mapping_relative_residual": 7.794817668786824e-16,
+      "davidson_literal_opposite_physical_relative_residual": 7.794817668786824e-16,
       "davidson_to_module3_overall_sign": -1,
       "effective_transverse_tensor_Ward_residual": 8.881784197001252e-16,
       "fg_h_direct_vs_analytic_max_relative": 3.320061963359394e-12,
       "legacy_A1_sign_arbitration": "A1c F same; A1e neutral and A1f D opposite; native vertices and common charge/operator fix Module3 component signs",
       "legacy_W_after_required_overall_minus_relative": 1.7107336927446534e-16,
-      "legacy_fermion_after_required_overall_minus_max_relative": 2.479733378894018e-16,
+      "legacy_fermion_physical_same_sign_max_relative": 2.479733378894018e-16,
       "legacy_fg_max_relative": 4.343267967499287e-10,
       "legacy_tree_same_vertex_rate_correction": 4.0,
       "scalar_trilinears_vs_polynomial_max_abs_GeV": 1.4210854715202004e-13,
@@ -47,13 +311,13 @@
     "A": {
       "native": {
         "absolute_tolerance": 1e-09,
-        "complex_coefficient_checks": 978,
+        "complex_coefficient_checks": 1014,
         "field_indices": "Fe/Fv 1=e,2=mu,3=tau; hh1=h,hh2=H; Ah2=A; Hm1=G-,Hm2=H1-,Hm3=H2-",
         "mathematica_version": "15.0.1 for Linux x86 (64-bit) (July 2, 2026)",
         "max_abs_residual": 4.636291350834654e-13,
-        "native_json_sha256": "7e6b85a94d408b43b3667f5925b8c5f3f09af11ba9c49f4af78cfdbf9b890f80",
-        "raw_dump_sha256": "6c6b6ea08aa2559c66827a88a1204729dd94a25c3dce4f48360b0b9491142820",
-        "raw_query_count": 94,
+        "native_json_sha256": "1cb2444ac842b90a0172683557d849863c7834335c79c20030be8eecd6f47bba",
+        "raw_dump_sha256": "9f4f312dbcd21b714e23c3dfdfb8793c66ecfb517a4c5d8c0a53bc028f04a02d",
+        "raw_query_count": 97,
         "sarah_version": "4.15.4",
         "signed_worst_by_sector": {
           "WW": {
@@ -128,6 +392,24 @@
             "vertex": "lepton_{1, 3, 3}",
             "witness": "module3_IO_spectrum1"
           },
+          "photon": {
+            "actual": [
+              0.0,
+              -0.20866666666666664
+            ],
+            "expected": [
+              0.0,
+              -0.20866666666666667
+            ],
+            "projector": "LorentzProduct[gamma[lt3], PR]",
+            "residual": 2.7755575615628914e-17,
+            "signed_complex_residual": [
+              0.0,
+              2.7755575615628914e-17
+            ],
+            "vertex": "photon_Fu",
+            "witness": "module3_NO_spectrum0"
+          },
           "quark": {
             "actual": [
               3.6562272172683445e-18,
@@ -191,13 +473,13 @@
       "status": "PASS"
     },
     "B": {
-      "matching_status": "BLOCKED_SOURCE_CONFLICT",
-      "scope": "All nine charged-fermion photon candidates, three scalars/channels; analytic kernels and complex chirality checks pass; coherent inclusion forbidden",
+      "matching_status": "PASS",
+      "scope": "Physical fermion-photon matching derived with outgoing photon crossing and Wick/Dirac projection; three primary diagonal checks; all nine species coherently included; mass/Yukawa scheme nominal",
       "status": "PARTIAL"
     },
     "C": {
-      "matching_status": "BLOCKED_SOURCE_CONFLICT",
-      "scope": "CHK BI+Goldstone photon kernel and native WW/Goldstone sum rules; no independent Rxi diagram cancellation; coherent inclusion forbidden",
+      "matching_status": "BLOCKED_GAUGE_MATCHING",
+      "scope": "Exact CHK-Ilisie-Abe decomposition; off-shell P/pinch Ward identity checked; complete LFV B,C projections and Rxi cancellation unresolved; W excluded",
       "status": "PARTIAL"
     },
     "D": {
@@ -211,23 +493,22 @@
       "status": "PARTIAL"
     },
     "coherent_combination": {
-      "excluded": "All new two-loop source candidates",
-      "included": "Frozen Module3 scalar one-loop only",
+      "excluded": "W candidates and other missing topologies",
+      "included": "Frozen Module3 scalar one-loop plus validated photon-fermion two-loop subset",
       "rate_scope": "INCLUDED_TOPOLOGIES_ONLY",
       "status": "PARTIAL"
     }
   },
-  "generated_UTC": "2026-10-25T12:17:26.263410+00:00",
+  "generated_UTC": "2026-10-25T12:44:14.550435+00:00",
   "global_zee_acceptance": null,
   "missing_contributions": {
     "QED_running_and_radiation": "NOT_EVALUATED",
     "W_Z_gamma": "NOT_EVALUATED: CHK Eqs.17,19 identified; complete Zee matching pending",
-    "W_gamma": "UNKNOWN: source-specific candidates exist but signed normalization/gauge-subset reconciliation is unresolved; excluded from coherent rate",
+    "W_gamma": "UNKNOWN: CHK/Ilisie/Abe off-shell W form factors differ; complete LFV pinch/R_xi matching unresolved; excluded from coherent rate",
     "additional_bosonic_two_loop": "NOT_EVALUATED: CHK set C / kite topologies not matched",
     "charged_current_WZ": "NOT_EVALUATED: charged-current and charged-scalar mixed electroweak matching pending",
     "charged_scalar_gamma": "UNKNOWN_NOT_IMPLEMENTED: native trilinears extracted; independent complete amplitude/normalization and Ward check pending",
     "fermion_Z_gamma": "NOT_EVALUATED: CHK Eq.12 identified; weak-current matching and numerical validation pending",
-    "fermion_gamma": "UNKNOWN: source-specific candidates exist but signed normalization is unresolved; excluded from coherent rate",
     "finite_external_invariants_and_neutrino_masses": "NOT_EVALUATED beyond frozen one-loop approximation"
   },
   "overall_scientific_status": "PARTIAL",
@@ -237,18 +518,36 @@
     "python -m module4.interface --input module4/example.json --output validation/module4/local/example_output.json"
   ],
   "schema_version": "1.0.0",
-  "source_commit_before_validation": "f7a93de6352c290f2cfc74f4c7bcb84afd0da0f2",
+  "source_commit_before_validation": "a3d8c8a76dde6c53867352eccad336c32886c5e9",
   "tests": {
+    "current_branch": {
+      "branch": "feature/zee-barrzee-module4",
+      "errors": 0,
+      "failures": 0,
+      "run": 125,
+      "skipped": 0
+    },
     "errors": 0,
-    "expected_inherited_branch_guard_failures": [
-      "test_module3_interface.InterfaceTests.test_foundation_hashes_and_branch_ancestry"
-    ],
-    "failures": 1,
+    "failures": 0,
     "full_repository_regression": true,
-    "passed": 154,
-    "regression_status": "EXPECTED_BRANCH_GUARD_CONFLICT",
-    "run": 155,
-    "skipped": 0,
-    "unexpected_failures": 0
+    "inherited_module3_tagged_context": {
+      "branch": "feature/zee-lfv-module3",
+      "command": "python -m unittest discover -s tests -p test_module3_*.py -v",
+      "commit": "48735439f151fb43f2c6d50661abe66f3d440293",
+      "context": "ephemeral isolated clone of exact annotated-tag commit; existing checkouts untouched",
+      "errors": 0,
+      "failures": 0,
+      "log": "validation/module4/local/module3_tagged_regression.log",
+      "returncode": 0,
+      "skipped": 0,
+      "status": "PASS",
+      "tag": "zee-lfv-module3-components-v1",
+      "tests": 37,
+      "tracked_files_unchanged": true
+    },
+    "passed": 162,
+    "regression_status": "PASS",
+    "run": 162,
+    "skipped": 0
   }
 }

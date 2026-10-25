@@ -173,7 +173,7 @@
           "const": "UNKNOWN"
         },
         "validation_status": {
-          "const": "SOURCE_NORMALIZATION_CONFLICT"
+          "const": "GAUGE_MATCHING_UNRESOLVED"
         },
         "C_L": {
           "type": "object",

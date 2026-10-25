@@ -9,8 +9,7 @@ CHANNELS = {'mu_to_e_gamma':(1,0),'tau_to_mu_gamma':(2,1),'tau_to_e_gamma':(2,0)
 QUARK_QUANTUM = {s:(3,q) for s,q in [('up',2/3),('charm',2/3),('top',2/3),
                   ('down',-1/3),('strange',-1/3),('bottom',-1/3)]}
 MISSING = {
-    'fermion_gamma':'UNKNOWN: source-specific candidates exist but signed normalization is unresolved; excluded from coherent rate',
-    'W_gamma':'UNKNOWN: source-specific candidates exist but signed normalization/gauge-subset reconciliation is unresolved; excluded from coherent rate',
+    'W_gamma':'UNKNOWN: CHK/Ilisie/Abe off-shell W form factors differ; complete LFV pinch/R_xi matching unresolved; excluded from coherent rate',
     'charged_scalar_gamma':'UNKNOWN_NOT_IMPLEMENTED: native trilinears extracted; independent complete amplitude/normalization and Ward check pending',
     'fermion_Z_gamma':'NOT_EVALUATED: CHK Eq.12 identified; weak-current matching and numerical validation pending',
     'W_Z_gamma':'NOT_EVALUATED: CHK Eqs.17,19 identified; complete Zee matching pending',
@@ -21,20 +20,24 @@ MISSING = {
 }
 
 
-def row(c, scalar, species, source, subset, error):
-    return dict(status='UNKNOWN',validation_status='SOURCE_NORMALIZATION_CONFLICT',
+def row(c, scalar, species, source, subset, error, validated=False):
+    return dict(status='PARTIAL' if validated else 'UNKNOWN',
+                validation_status='VALIDATION_PASS' if validated else 'GAUGE_MATCHING_UNRESOLVED',
                 C_L=complex(c[0]),C_R=complex(c[1]),scalar=scalar,loop_species=species,
                 loop_order=2,source=source,gauge_subset=subset,operator_convention=OPERATOR,
                 basis=BASIS,numerical_error=float(error),
-                coherent_inclusion=False,
-                uncertainty='Signed Davidson/Ilisie diagonal-moment conflict UNRESOLVED; quadrature error only; nominal unmatched mass/Yukawa scheme; external-invariant expansion')
+                coherent_inclusion=validated,
+                uncertainty=('Signed photon-fermion matching validated; ' if validated else 'Complete off-shell W/pinch LFV matching UNRESOLVED; ')+
+                    'quadrature error only; nominal unmatched mass/Yukawa scheme; external-invariant expansion')
 
 
 def fermion_component(C, internal, mass, scalar_mass, mi, alpha, nc, charge):
-    """CHK Eq.9 with lambda5(L,R)=(-1,+1); Davidson Eqs.16,21,23.
+    """Physical fermion-photon subset from the native vertices and outer matching.
 
     C = (C_ji, C_ij*). internal is the left-chiral diagonal scalar coupling.
-    The MINUS in C=-4 sqrt(2) GF/e A* is essential; see CONVENTIONS.
+    Direct Wick/Dirac matching, Ilisie19, GM2Calc51-54, Chang2001:9.
+    Literal Davidson16+21 has the opposite two-loop sign; retained in the
+    source audit, not used as the matching prescription. See MATCHING_AUDIT.
     """
     if not all(math.isfinite(x) and x>0 for x in (mass,scalar_mass,mi,alpha,nc)):
         raise ValueError('Positive finite masses/constants required')
@@ -44,7 +47,7 @@ def fermion_component(C, internal, mass, scalar_mass, mi, alpha, nc, charge):
         raise ValueError('Two finite complex external chiral couplings and one internal coupling required')
     (f,g,_),(ef,eg,_) = kernels((mass/scalar_mass)**2)
     effective = internal.real*f+1j*internal.imag*g
-    pref = alpha*nc*charge**2/(8*math.pi**3*mi*mass)
+    pref = -alpha*nc*charge**2/(8*math.pi**3*mi*mass)
     out=pref*np.array([C[0]*effective,C[1]*effective.conjugate()])
     error=abs(pref)*max(abs(C[0]),abs(C[1]))*(abs(internal.real)*ef+abs(internal.imag)*eg)
     return out,float(error)
@@ -74,8 +77,8 @@ def ledger(D,p,ml,alpha,fermion_masses,mw,i,j):
                 nc,q,coupling=1,-1,C[k,k]
             value,error=fermion_component(external,coupling,mass,mphi,ml[i],alpha,nc,q)
             out[scalar+'_'+species+'_gamma']=row(value,scalar,species,
-                'Davidson1601.01949:Eqs16,21,23;CHK9302267:Eqs6-11;Haber2024:Eqs1,39',
-                'fermion_photon_transverse_subset',error)
+                'Module4:MATCHING_AUDIT;Ilisie1502.04199:Eqs9,11,12,19;GM2Calc2110.13238:Eqs51-54;Chang0009292:Eqs6-10',
+                'fermion_photon_transverse_subset',error,validated=True)
         if scalar!='A':
             gww=math.cos(p['beta']-p['alpha']) if scalar=='h' else math.sin(p['beta']-p['alpha'])
             kernel,error=w_kernel((mw/mphi)**2)

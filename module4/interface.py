@@ -103,14 +103,16 @@ def evaluate(data):
                 gauge_subset='frozen_scalar_one_loop_approximation',numerical_error=0.,
                 uncertainty='Frozen approximation; numerical_error=0 is not a truncation-error estimate')
         candidates=ledger(D,p,ml,constants['alpha_em'],extra['fermion_masses_GeV'],extra['mW_GeV'],i,j)
+        rows.update({k:r for k,r in candidates.items() if r['coherent_inclusion']})
+        candidates={k:r for k,r in candidates.items() if not r['coherent_inclusion']}
         total=combine(rows)
         width=radiative_width(total,ml[i],ml[j],constants['alpha_em'])
         channels[channel]={'ledger':rows,'two_loop_candidates':candidates,
-            'omitted_topologies':{name:{'status':'UNKNOWN' if name in ('charged_scalar_gamma','fermion_gamma','W_gamma') else 'NOT_EVALUATED',
+            'omitted_topologies':{name:{'status':'UNKNOWN' if name in ('charged_scalar_gamma','W_gamma') else 'NOT_EVALUATED',
                 'C_L':None,'C_R':None,'scalar':None,'loop_species':name,'loop_order':2,
                 'source':reason,'gauge_subset':'NOT_MATCHED','operator_convention':OPERATOR,
                 'numerical_error':None} for name,reason in MISSING.items()},
-            'coherent_blocker':'SOURCE_NORMALIZATION_CONFLICT: two-loop candidates are excluded; see CONVENTIONS.md and results.json',
+            'coherent_blocker':'W GAUGE_MATCHING_UNRESOLVED: W candidates excluded; validated fermion-photon subset included; see MATCHING_AUDIT.md',
             'C_L':total[0],'C_R':total[1],
             'width_GeV':width,'partial_BR':width/constants['total_lepton_widths_GeV'][i-1],
             'rate_scope':'INCLUDED_TOPOLOGIES_ONLY','physical_status':'PREDICTION_INCOMPLETE',
@@ -124,7 +126,7 @@ def evaluate(data):
             'module3_output_sha256':canonical_hash(data['module3_output']) if 'module3_output' in data else None,
             'operator_convention':OPERATOR,'basis':BASIS,'code_sha256':code_hashes('module4'),
             'two_loop_inputs':extra,'native_vertex_evidence':'validation/module4/results.json; scope and blockers apply'},
-        'limitations':['Two-loop candidates are NOT included: signed Davidson/Ilisie source conflict remains unresolved.',
+        'limitations':['Fermion-photon two-loop terms included after direct signed matching; W candidates remain excluded pending complete off-shell gauge matching.',
             'Nominal unmatched mass/Yukawa scheme; no full rate or exclusion.',
             'External momentum/mass corrections and omitted amplitudes may change interference.',
             'Module0-3 covariance, global vacuum, RG and phenomenology limitations remain open.',

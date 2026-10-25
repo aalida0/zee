@@ -1,218 +1,125 @@
-# Module 4 conventions and source conflict
+# Module 4 conventions
 
-Scientific status is **PARTIAL**. Native vertices and mathematical form factors
-pass their stated checks. The implemented two-loop coefficients are
-**source-specific candidates**, with `SOURCE_NORMALIZATION_CONFLICT`, and cannot
-enter `combine`. The public output's coherent ledger contains only reproduced
-Module 3 one-loop components. `two_loop_candidates` contains separate signed
-complex coefficients for inspection; no candidate rate is reported. This is
-intentional fail-closed behavior, not a complete two-loop prediction.
+Scientific status is **PARTIAL**. The signed fermion/photon matching is now
+**VALIDATION_PASS** and is included coherently. Its nominal unmatched
+mass/Yukawa scheme and omitted physical topologies prevent a full prediction.
+W coefficients remain UNKNOWN, excluded from the coherent ledger.
 
-## Frozen operator and native field routing
+The detailed source-to-equation derivation, disposition of the old -1,
+exact W-kernel differences, and scoped gauge checks are in
+[MATCHING_AUDIT.md](MATCHING_AUDIT.md). It supersedes the first audit's blanket
+two-loop quarantine; the literal Davidson comparison remains recorded.
 
-GeV and radians; real positive diagonal charged-lepton masses. Keep exactly
+## Frozen basis and operator
+
+Use GeV, radians, positive real diagonal charged-lepton masses, metric
+(+---), sigma_munu=i[gamma_mu,gamma_nu]/2 and e>0. Keep exactly
 
 ```
-L = e*m_i/2 bar(l_j) sigma_munu (CL PL + CR PR) l_i F_munu + h.c.
-OPERATOR = module3.core.OPERATOR; CL,CR have dimension GeV^-2.
+L=e*m_i/2*bar(l_j)*sigma_munu*(CL*PL+CR*PR)*l_i*F_munu+h.c.
 ```
 
-The frozen diagonal continuation is `a_i=m_i^2 Re(CL+CR)`, counting the
-Hermitian diagonal operator once. The massive radiative width is
+CL,CR have dimension GeV^-2. The emitted-photon vertex, including its sign,
+is derived from i L in the matching audit. The frozen diagonal continuation
+is `a_i=m_i^2 Re(CL+CR)`, counting the Hermitian diagonal operator once.
+The radiative width is
 `alpha*m_i^5/4*(1-m_j^2/m_i^2)^3*(|CL|^2+|CR|^2)`.
-No Module 3 definition, fit, or source file is changed.
+No Module3 definition or source is changed.
 
-The native driver loads `/home/amine/.Mathematica/Applications/SARAH/SARAH.m`
-(resolving the installed symlink) and starts the checked-out `ZeeTypeII` once
-per fresh run. `SARAH[OutputDirectory]` points inside the ignored local output.
-`Fe/Fv` indices 1,2,3 are e,mu,tau; `hh[1,2]` are h,H; `Ah[2]` is A;
-`Hm[1]` is G-, `Hm[2,3]` are H1-,H2-. `conj[Hm]` has positive charge.
-Every vertex is saved symbolically, including its returned field ordering and
-PL/PR or momentum tensor, before numerical substitution. The representative
-raw expressions and worst signed residuals are in `native_evidence.json`;
-the full raw dump and every complex assertion remain in the local log/JSON.
+## Native fields, vertices and phases
 
-For `bar(Fe_a),Fe_b,s`, native coefficients are `-i C_ab PL` and
-`-i C_ba* PR`. With `S=diag(sqrt(2)*m/v)`,
-`Ye=cos(beta) S-sin(beta) D`, `Ye2=sin(beta) S+cos(beta) D`,
+The fresh driver loads the installed
+`/home/amine/.Mathematica/Applications/SARAH/SARAH.m`, starts the checked-out
+ZeeTypeII once, and writes only ignored local output. Every vertex is saved
+symbolically with its returned field ordering and projector/momentum tensor
+before numerical substitution. Representative raw expressions and worst
+signed residuals are in `native_evidence.json`; full assertions and dumps
+are in `validation/module4/local/`.
 
-```
-C_h = cos(beta-alpha) diag(m/v) - sin(beta-alpha) D/sqrt(2)
-C_H = sin(beta-alpha) diag(m/v) + cos(beta-alpha) D/sqrt(2)
-C_A = -i D/sqrt(2).
-```
-
-Both charged orientations are checked. For the positive-charge orientation
-the common vertex factor gives `H+ bar(N_b)(L_ba PL+R_ba PR)e_a`, with
-`L_ba=-s F_ba`, `R_ba=-d D_ab*`. The two physical charged rows have
-`(d,s)=(cos gamma,sin gamma),(-sin gamma,cos gamma)`. There is no extra
-Majorana factor two. Native antisymmetric F agrees with `F=2 f_legacy`;
-`D=sqrt(2)Y_legacy`. F and Ye2 are nontrivial complex matrices from six valid
-unrestricted NO/IO Module 2 family witnesses and three spectra, not external
-F16 fixtures. Reverse flavor entries and both charged Hermitian partners are
-evaluated separately. Complex quark rotation matrices also test mass routing.
-
-The actual neutral Type-II quark vertices, independently reproduced from the
-frozen source, are
+Fe/Fv indices 1,2,3 are e,mu,tau; hh1=h, hh2=H, Ah2=A;
+Hm1=G-, Hm2=H1-, Hm3=H2-. conj[Hm] has positive charge. For
+`bar(Fe_a),Fe_b,s`, the native rule is `-i C_ab PL-i C_ba* PR`.
+With S=diag(sqrt(2)*m/v), Ye=cos(beta)S-sin(beta)D,
+Ye2=sin(beta)S+cos(beta)D,
 
 ```
-C_up(h,H,A) = (m/v) (sin(alpha)/sin(beta), cos(alpha)/sin(beta), +i cot(beta))
-C_down(h,H,A) = (m/v) (cos(alpha)/cos(beta), -sin(alpha)/cos(beta), +i tan(beta)).
+C_h=cos(beta-alpha) diag(m/v)-sin(beta-alpha) D/sqrt(2)
+C_H=sin(beta-alpha) diag(m/v)+cos(beta-alpha) D/sqrt(2)
+C_A=-i D/sqrt(2).
 ```
 
-CKM cancels in these diagonal neutral vertices; no CKM ansatz enters them.
-Relative to the legacy implementation, A is rephased by minus one on **both**
-ends. Such a field rephasing cancels from each exchange amplitude. Lepton
-rephasing is `F->P F P`, `D->P* D P`, `C_X(i->j)->P_j* P_i C_X`.
-Numerical tests retain signed complex coefficients, not only squared rates.
+Both charged orientations give `H+ bar(N_b)(L_ba PL+R_ba PR)e_a`,
+L_ba=-s F_ba, R_ba=-d D_ab*, with physical rows
+(d,s)=(cos gamma,sin gamma),(-sin gamma,cos gamma). There is no extra
+Majorana factor two. Native F=2 f_legacy and D=sqrt(2)Y_legacy.
+Six physically distinct unrestricted complex NO/IO witnesses from Module2
+and three spectra are tested, including quark mass rotations.
 
-## Gate A normalization arbitration
-
-Raw vertices agree with the Module 3 matrices and charged F,D routing.
-The common Lavoura conversion and electric charges fix neutral versus charged
-signs. An independent positive parameter integral for a charged scalar and a
-massless neutral fermion gives
-`a_l=-|R|^2 m_l^2/(96 pi^2 M^2)` (and analogously L). The scalar neutral
-one-loop logarithm is positive. Combined with the native vertices these
-support Module 3: A1c's F coefficient agrees directly, while legacy A1e neutral
-and A1f D require a minus. A global field rephasing cannot repair that old
-relative-sign conflict. Full existing signed Module 3 regressions run again.
-
-Differentiating `J^2/(2M^2)` supplies two contracted currents, so the contact
-coefficient is the product of the two vertices divided by M^2. A direct
-massless chiral contact rate is `M_parent^5 |g_LL|^2/(6144 pi^3)` for distinct
-negative leptons. An independent spin/phase-space calculation reproduces it;
-the legacy half at the same vertices gives a rate smaller by four. This
-arbitrates the implementation discrepancy; it does not claim a correction to
-all conventions in Herrero-Garcia Eq.3.9 or change frozen Modules 0–3.
-
-## Gate B: the signed source conflict
-
-Davidson, EPJC76(2016)258, arXiv:1601.01949 Eq.16 has coefficient
-`-4 GF/sqrt(2) m_i A_L` multiplying `bar(l_i)_L sigma l_j_R F`.
-Taking its Hermitian conjugate routes it to Module 3 CL. Equating Lagrangian
-coefficients, including the **minus**, gives
+The native neutral Type-II quark coefficients are
 
 ```
-C_L = -4 sqrt(2) GF/e A_L*; C_R = -4 sqrt(2) GF/e A_R*.
+C_up(h,H,A)=(m/v)(sin(alpha)/sin(beta), cos(alpha)/sin(beta), +i cot(beta))
+C_down(h,H,A)=(m/v)(cos(alpha)/cos(beta), -sin(alpha)/cos(beta), +i tan(beta)).
 ```
 
-This conversion reproduces the **signed** internal-flip logarithm in
-Davidson Eq.18 and Module 3, after retaining/subtracting the separate
-external-flip terms. It is not inferred from branching fractions. Applying
-it literally to Eqs.21,23 gives the candidate
+CKM cancels in these neutral diagonal coefficients. The new native photon
+checks establish `-i e Q_f gamma_mu` for both chiralities: charged leptons
++i e, up quarks -2i e/3, down quarks +i e/3. The legacy A field is rephased
+by -1 at both ends; that sign cancels in exchange. Lepton rephasing is
+F->P F P, D->P* D P, C_X(i->j)->P_j* P_i C_X.
 
-```
-C_L(f,s) = +alpha Nc Q_f^2/(8 pi^3 m_i m_f)
-           C_s[j,i] (Re C_s[f,f] f(z) + i Im C_s[f,f] g(z))
-C_R(f,s) = +alpha Nc Q_f^2/(8 pi^3 m_i m_f)
-           C_s[i,j]* (Re C_s[f,f] f(z) - i Im C_s[f,f] g(z)).
-```
+## Component arbitration and retained omissions
 
-CHK Eqs.6–11 independently confirm the complex chiral kernel combination.
-However, this is **insufficient to validate its overall physical sign**.
-For a real scalar with diagonal SM-strength Yukawas, this candidate's
-diagonal continuation is positive. Ilisie, arXiv:1502.04199 Eqs.4,19,25 gives
-`F1(z)=-f(z)` and a negative scalar moment. For a pure pseudoscalar the
-opposite discrepancy occurs: its `F1_tilde=g(z)` gives a positive moment,
-whereas the candidate is negative. Direct parameter integrations give a
-Davidson-candidate/Ilisie ratio **-1** in both cases. A common neutral-field
-rephasing cannot change either product. The source one-loop scalar limit
-agrees, so no silent common redefinition repairs the relative discrepancy.
-This audit does **not** identify a definitive paper erratum or a new error in
-the frozen foundations. An explicit signed two-loop matching calculation is
-needed. Candidate coefficients remain UNKNOWN and excluded.
+Native vertices and the common Lavoura charge/operator conversion support
+Module3's component signs: A1c F agrees, legacy A1e neutral and A1f D require
+a minus. The independent massless-neutral-fermion charged-scalar moment is
+`-|R|^2 m_l^2/(96 pi^2 M^2)`. The neutral scalar one-loop logarithm is positive.
+A field rephasing cannot repair the legacy relative-sign conflict.
 
-The old fermion implementation uses the opposite A-to-C sign. After its
-common A-field rephasing and exact F,D conversion, its top/bottom/tau complex
-amplitudes are minus the literal Davidson candidates. This agreement after
-a minus is recorded as a conflict, not as validation of either coherent sum.
-Candidates also include electron, muon, up, down, strange and charm loops.
-Nominal light-quark loops do not establish precision hadronic contributions.
+The contact coefficient from J^2/(2M^2) is the product of the two vertices
+divided by M^2 after the two contractions. An independent direct massless
+chiral contact rate is `M_parent^5 |g_LL|^2/(6144 pi^3)` for distinct negative
+leptons. The legacy half at the same vertices produces a rate smaller by
+four. This resolves the implementation comparison, not all possible paper
+conventions. Frozen Modules0–3 and their tests remain unchanged.
 
-The direct kernels are
-`g=z/2 integral log(u/z)/(u-z) dx`, `f=z/2 integral (1-2u)log(u/z)/(u-z) dx`,
-`u=x(1-x)`. Stable removable-limit series and reflection symmetry handle
-z=1/4 and endpoint panels. Independent Haber dilogarithms and identities
-test small/large z; the direct f integral avoids large-z cancellation.
-Errors are absolute quadrature estimates, never mass-scheme uncertainties.
+For charged scalars the native diagonal/off-diagonal h/H trilinears agree
+with an independent potential-polynomial derivative. A's diagonal couplings
+vanish, but its off-diagonal couplings need not. Photon charge is the identity
+in the charged mass basis; off-diagonal photon vertices vanish. A lone
+off-diagonal trilinear cannot close the simple two-photon scalar loop.
+The mathematical scalar form factor F2=(f-g)/(2z) and transverse tensor are
+checked; the LFV amplitude remains UNKNOWN_NOT_IMPLEMENTED.
 
-## Gate C: W/photon source subset
+W matching remains BLOCKED_GAUGE_MATCHING: the exact CHK/Ilisie/Abe
+form-factor differences are known and the off-shell P/pinch Ward identity
+is checked, but the complete general-LFV B,C reductions and independent R_xi
+cancellation have not been established. W candidates are excluded. Remaining
+Zgamma, WZ, charged-current, mixed scalar/W, additional bosonic, QED and
+external-invariant/neutrino-mass contributions remain NOT_EVALUATED.
+No arbitrary finite pieces are added. Three-body interference and mu-e
+conversion remain outside Module4. The frozen NuFIT archive, global vacuum,
+RG and full-phenomenology limitations remain open.
 
-The literal Davidson/CHK candidate in Module 3 normalization is
+## Versioned interface
 
-```
-C_X(W,s) = -alpha/(16 pi^3 m_i v) C_s^X[j,i] kappa_s K_W(z)
-K_W = 3f + 23g/4 + 3h/4 + (f-g)/(2z)
-kappa_h=cos(beta-alpha); kappa_H=sin(beta-alpha); kappa_A=0.
-```
+Input/output schema v1 is structurally unchanged; the implementation is
+version 1.1.0. Input `kind=module3_matching_input_v1` contains a complete
+Module3 input, its matching complete Module2 output, and explicit versioned
+two-loop masses. An optional complete Module3 output is schema/provenance
+checked and preserved verbatim. Frozen source hashes, identities, scalar
+provenance, algebraic forward closure, Yukawa mass rotation and all supplied
+complex one-loop components are checked. No inverse solver, neutrino fit or
+covariance selection runs in the interface. Records are consistency and
+provenance checked, not digitally authenticated.
 
-Here h is the Haber/CHK function (negative), not a Higgs field.
-CHK Eq.14 plus Eq.18 supplies the Goldstone term `(f-g)/(2z)`. These are
-the source-defined photon subsets with their associated unphysical fields,
-not a lone W diagram or full electroweak two-loop result. Native vertices
-test `g_sWW = 2 mW^2 kappa_s/v` and the scalar-potential Ward relation
-`G_sG+G- = m_s^2 kappa_s/v` using consistent g2,v. Scalar mixing enforces
-`sum_s kappa_s C_s[j,i]=0` for j!=i. Consequently mass-independent terms and
-degenerate h/H candidates cancel; exact alignment eliminates this subset.
-There is no CP-odd WW coupling in this scalar limit.
-
-Ilisie Eqs.21,28 yield a different signed diagonal result: at z=0.413,
-the literal Davidson-candidate/Ilisie ratio is about -1.01053. Ilisie's
-transverse form-factor construction explicitly discards some gauge-dependent
-pieces canceled by other topologies (section4.1). These formulas cannot simply
-be interchanged or supplemented with arbitrary finite terms. No fresh R_xi
-diagram-by-diagram cancellation or reconciliation is claimed here. The
-candidate remains excluded. The old W implementation's kernel agrees;
-its coefficient again has the opposite overall A-to-C sign.
-
-## Gates D and E: available evidence and omissions
-
-`trilinears` differentiates the charged mass matrix with respect to the
-neutral fields and rotates both charged legs. Native h/H diagonal and
-off-diagonal trilinears agree with an independent invariant-polynomial
-derivative. A's diagonal charged-scalar couplings vanish; its off-diagonal
-ones need not vanish and are retained in the native evidence. Photon charge
-is proportional to the identity for the two physical singly charged states;
-native off-diagonal photon vertices vanish. One off-diagonal trilinear
-therefore cannot close the simple two-photon scalar loop. Z currents can be
-off-diagonal and are separately inventoried.
-
-Ilisie Eqs.13,20,27 provide a published diagonal-moment scalar-loop reference.
-The implemented **mathematical form factor only** is
-`F2=(f-g)/(2z)`; it agrees with a direct parameter integral. The effective
-tensor `T_munu=g_munu k.q-k_mu q_nu` obeys both photon Ward contractions.
-This is not an explicit scalar-QED diagram/seagull cancellation calculation,
-nor a validated LFV dipole mapping. No charged-scalar LFV amplitude is guessed:
-**UNKNOWN_NOT_IMPLEMENTED** until that matching and an independent signed
-LFV numerical reference close the gate.
-
-Remaining **NOT_EVALUATED** amplitudes: fermion Zgamma (CHK Eq.12), W/Zgamma
-and associated Goldstones (CHK Eqs.17,19), mixed charged-current W/Z and
-charged-scalar/W topologies (Ilisie Fig.3, Eqs.22–24), CHK set C / additional
-bosonic topologies, QED running/radiation, and finite external-invariant or
-neutrino-mass corrections. No scheme-dependent finite terms are assembled.
-Three-body dipole/non-dipole interference and mu-e conversion are outside
-Module 4. Frozen NuFIT archive, global-vacuum, RG and full-phenomenology
-limitations remain open. No partial rate implies allowance or exclusion.
-
-## Interface and reproduction
-
-`input.schema.json` v1 accepts `kind=module3_matching_input_v1`, a complete
-Module 3 input, its complete matching Module 2 output, and explicit versioned
-two-loop nominal masses. An optional complete Module 3 output is schema and
-provenance checked and retained verbatim. Frozen source hashes, identities,
-scalar provenance, algebraic forward closure, Yukawa mass rotation and every
-supplied one-loop complex component are checked. No inverse solver, neutrino
-fit or oscillation covariance selection runs inside the interface. Inputs
-are provenance/consistency checked, not digitally authenticated.
-
-The W mass must match the same scalar electroweak input. All nine loop masses
-are explicit and lepton loop masses must match the external mass convention.
-Only `NOMINAL_UNMATCHED` is currently accepted; a precision scheme is not
-claimed by attaching a source label. Invalid inputs produce a nonzero CLI
-exit without writing a result. Output schema v1 separates coherent included
-rows, unvalidated source candidates, and unevaluated topologies.
+All nine charged-fermion loop masses are explicit; lepton masses and mW must
+match the same supplied external/scalar electroweak records. Only
+NOMINAL_UNMATCHED is currently accepted. Output contains 34 coherent rows
+per channel (7 frozen one-loop plus 27 fermion/photon), two excluded W
+candidates, and explicitly unevaluated topologies. Numerical errors describe
+quadrature only, never scheme or truncation errors. Rates remain
+INCLUDED_TOPOLOGIES_ONLY with no experimental allowance or exclusion.
 
 ```
 bash scripts/run_module4_validation.sh --all-tests
@@ -220,18 +127,9 @@ python -m module4.interface --input module4/example.json \
   --output validation/module4/local/example_output.json
 ```
 
-The fresh runner starts native SARAH once, runs the entire repository
-unittest regression when requested, checks frozen paths, and regenerates
-concise results and hashes. `--skip-native` is an offline diagnostic mode
-that explicitly reports VERTEX_BLOCKED. Primary PDF hashes are pinned in
-`sources.json`; full logs, raw dumps, PDFs and generated witness rules stay
-ignored locally. No historical scan modules are imported; tests load only
-named pure reference functions by AST.
-
-The full suite also runs the inherited Module 3 branch guard unchanged.
-It requires `feature/zee-lfv-module3`, so it fails on the required Module 4
-branch. The runner records that exact failure as
-`EXPECTED_BRANCH_GUARD_CONFLICT`, counts it in `failures`, and checks the
-correct branch/ancestry in a new Module 4 test. Any additional failure makes
-validation fail. A successful runner exit does not claim the unmodified
-full suite is green; the expected branch conflict remains visible.
+The full runner executes unchanged Module3 tests in an ephemeral clone of
+its exact annotated component tag, on its original branch name. Other tests
+and Module4 compatibility run on the required current branch. Both actual
+results are reported separately; no inherited guard is changed or waived.
+`--skip-native` explicitly reports VERTEX_BLOCKED. Logs, raw dumps, PDFs and
+generated witnesses remain ignored locally; no historical scan is imported.

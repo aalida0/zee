@@ -22,26 +22,45 @@
     "module2": "571046e7dce3b99b60c4aaa6e6cdef2e66a494d4",
     "module3": "48735439f151fb43f2c6d50661abe66f3d440293"
   },
+  "inherited_module3_context": {
+    "branch": "feature/zee-lfv-module3",
+    "command": "python -m unittest discover -s tests -p test_module3_*.py -v",
+    "commit": "48735439f151fb43f2c6d50661abe66f3d440293",
+    "context": "ephemeral isolated clone of exact annotated-tag commit; existing checkouts untouched",
+    "errors": 0,
+    "failures": 0,
+    "log": "validation/module4/local/module3_tagged_regression.log",
+    "returncode": 0,
+    "skipped": 0,
+    "status": "PASS",
+    "tag": "zee-lfv-module3-components-v1",
+    "tests": 37,
+    "tracked_files_unchanged": true
+  },
   "installed_SARAH_m_sha256": "8ed36ea4ed97e9f032ced9887a13594b4a40fe0f09fda475c69f7c5633be4d01",
   "module4_sources_sha256": {
-    "module4/CONVENTIONS.md": "c0b8364e1fbc691b690b1fd1a1885d21696740c79746b20b5733c80ac08b699c",
-    "module4/README.md": "fdeac50bca58fb16b80d12a0e0b3ff6db4ce67afe845e82d3ff711d913bc4bde",
-    "module4/__init__.py": "6a6c095008456280dbba99da0f84ad373a77d8a2dfc8854efe1b9d2358ca985d",
-    "module4/amplitudes.py": "5d0e604a1b91b26b9d901fdd5965c335983755db1d421f8aba7e9429c1f891f2",
+    "module4/CONVENTIONS.md": "a14d50b8af7f452348ca8d6aec4e5bada10c584db66bc2d6b642a12336822628",
+    "module4/MATCHING_AUDIT.md": "973189e2e93d9d131bd0db72636fd397e40518f7697875a838f199f67c78e1d1",
+    "module4/README.md": "a9e11d3a4f7ce510fd25dc7824077c733e065b5d0b239b470661df3d9b7ff790",
+    "module4/__init__.py": "accac0523961e3e62e758bcb87c33fd3514dc57d08fee718d4049129d451b8ab",
+    "module4/amplitudes.py": "f90f50a1668cbff5d852c6d8fa3f93c3480f53dab6605b47b6e5382cef2e4162",
     "module4/couplings.py": "3c177445481b0ef85faf328413c3b2cbd08b135e2ad0a86de68a4047b7cde564",
     "module4/example.json": "355e37e028256390e7f25fd1b3a2ddc811c049bb447a207844738fec4fe6872c",
     "module4/input.schema.json": "a3a137d70192dd518801654b687f24919fbc3e508f72ee5b62e69c6e66dd940f",
-    "module4/interface.py": "6bc75d418e20ef05a37eb05b6664f4f0445512b461799fdda34d918a1dc0f213",
+    "module4/interface.py": "7eff4909d4aa2964461745957c3d40545a55548ba69a58f908a7dceb7ec06c37",
     "module4/kernels.py": "0e167f500830e78df218f4ab680e9a63d13050efafb5559011af3b6f54adf76f",
-    "module4/native.py": "12876d3fbb89d0532e92f78b2f8b2e0f09299c0d20f0a3dbee7896e5cb964514",
-    "module4/native_evidence.json": "96530782c66e4ca684d95e1c32e4fbeca4656b4871a7fee8e03da478ee058e81",
-    "module4/output.schema.json": "8039043256006f83ff6dc53bed060dadded7745c93e7b067b47802ad3615aeb2",
-    "module4/sources.json": "83bbd823301767699c26aaabfab899ac9dd9e7144905752aafe684bffe2b89eb",
-    "module4/validate.py": "fd177769937f7f6b7e919b164f53b7843800e6e6d107e23cf58db49e2e0ef44e",
+    "module4/matching_audit.py": "1bf3d2160fcae68abfa87fbb50c2327a029589bf3fce2ac868993bc1d220bcc1",
+    "module4/native.py": "848b8c85f4df0fd1f6953384452cc1af35152d09cfb531d04815a56a22a0d294",
+    "module4/native_evidence.json": "d3cdf1a7e1af8008e6a8bc579322ff12db47c52943b3745fc302b8a1d5f58b94",
+    "module4/output.schema.json": "4d8f68cfe12eed5f52f7b82fca3042fcd7dc8925a096cc5d66490535939393de",
+    "module4/sources.json": "c9f5b4b9856268199d1af3daedaa6040e91e88868d8a9fbf7857124bd44514ed",
+    "module4/tagged_regression.py": "6a4a550e953eaaf8c0b8304b7b155940c921cdea8a3cfc46d804f05293b72e3b",
+    "module4/validate.py": "63d4a40c32e54bd6147c9490a1c006a898d2f88a65e2264da335a1c283b4f85e",
     "scripts/run_module4_validation.sh": "b9b986b98dd8343d0979c03257597d422f96e64ad5c02b891490e65940d0158c",
-    "scripts/zee_module4_vertices.m": "482fbddc6675d4370218fc710faf38ecd5925fee2ebf2e161652c93304700267",
-    "tests/test_module4_interface.py": "539ef5c01277e3549e29b0470d2b0daeab36745b823f528c3400416dab6f503b",
-    "tests/test_module4_physics.py": "c2591519a087f9e969838d99c2dda20fd77ef24f5f8e5ee8356a61a36a2e31d8"
+    "scripts/zee_module4_vertices.m": "4594657fe50e2effb6f1af98e476ff86ba2349a9501e6606393cf6089ee26d47",
+    "tests/test_module4_interface.py": "1a950491ddb14955ffb82733120083b24a0ff1eaa590ed30a19b618cc2251d74",
+    "tests/test_module4_matching.py": "e53a6f23c22721282e52e571da27ccb63eca78fb847696c2f96b3612446c2174",
+    "tests/test_module4_physics.py": "9688114a6e0946b00db0061a53eefa6ef2e61da89d84fbd6c5ee67c48b9e409d"
   },
   "native_logs": "validation/module4/local (ignored)",
   "native_model_sha256": {
@@ -50,13 +69,31 @@
     "models/SARAH/ZeeTypeII/particles.m": "91b550b69fdcdd3dc409979f6621f1654d57881e36e125e786c2e9ad54c9c6a7"
   },
   "primary_cached_downloads": {
+    "Abe2014": "VERIFIED",
+    "AthronLFV2022": "VERIFIED",
     "CHK1993": "VERIFIED",
+    "Chang2001": "VERIFIED",
     "Davidson2016": "VERIFIED",
+    "GM2Calc2022": "VERIFIED",
     "Haber2024": "VERIFIED",
     "HerreroGarcia2017": "VERIFIED",
     "Ilisie2015": "VERIFIED"
   },
   "primary_papers": {
+    "Abe2014": {
+      "equations": "Eqs.3.8-3.16; pinched transverse W form factor; B.7-B.8; not full LFV matching",
+      "identity": "Abe et al., JHEP01(2014)106, v3 corrections 21Apr2016",
+      "local_cache": "abe2014.pdf",
+      "sha256": "52b0dc8fcf509b1f09ba6769802be825297f32898fdfeadbdc2467d95efd48bb",
+      "url": "https://arxiv.org/pdf/1311.4704v3"
+    },
+    "AthronLFV2022": {
+      "equations": "Eqs.B.27-B.28; auxiliary LFV formula; no old scan used",
+      "identity": "Athron et al., JHEP01(2022)037 (not EPJC)",
+      "local_cache": "athron_lfv2022.pdf",
+      "sha256": "2eacedf56b6533a0ca87076eecf4247424c1d6e213a585bc77256bf0aded30db",
+      "url": "https://arxiv.org/pdf/2111.10464v2"
+    },
     "CHK1993": {
       "equations": "Eqs6-19; complex photon, W+Goldstone and missing Z subsets",
       "identity": "PhysRevD48(1993)217",
@@ -64,12 +101,26 @@
       "sha256": "fd213401f7b111164c1cb2afab50e622dd34df84461a328262551370fbb009a9",
       "url": "https://arxiv.org/pdf/hep-ph/9302267"
     },
+    "Chang2001": {
+      "equations": "Eqs.6-10; independent triangle and pseudoscalar Barr-Zee moment",
+      "identity": "Chang, Chang, Chou, Keung; PRD63(2001)091301",
+      "local_cache": "chang2001.pdf",
+      "sha256": "206237a30b4d243d89beeb194bb9fdb20a546150c0d84d6aa2e34c122518e2c3",
+      "url": "https://arxiv.org/pdf/hep-ph/0009292v3"
+    },
     "Davidson2016": {
       "equations": "Eqs16,18,21,23,24; operator matching and photon subsets",
       "identity": "EPJC76(2016)258; arXiv1601.01949 downloaded 2026-10-25",
       "local_cache": "davidson.pdf",
       "sha256": "bfab0035723b1989ad8f20abc7537c26b5c7b23fd45b1a771e3a5051fa05af0f",
       "url": "https://arxiv.org/pdf/1601.01949"
+    },
+    "GM2Calc2022": {
+      "equations": "Eqs.51-54,63-65; diagonal photon contribution without SM subtraction or Z terms",
+      "identity": "Athron et al., EPJC82(2022)229; arXiv2110.13238v3",
+      "local_cache": "gm2calc2022.pdf",
+      "sha256": "807d8bb0d2b6ff32cf801ed5de4780b8e1409335fabb211f9e386d4baa96fac5",
+      "url": "https://arxiv.org/pdf/2110.13238v3"
     },
     "Haber2024": {
       "equations": "Eqs1,39,42,60-62; analytic kernels",

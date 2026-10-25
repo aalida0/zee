@@ -51,6 +51,9 @@ def prepare():
             assertions=[]
             def assertion(key,chir,expected):
                 assertions.append('{'+json.dumps(key)+','+chir+','+wl(expected)+'}')
+            for particle,charge in (('Fe',-1),('Fu',2/3),('Fd',-1/3)):
+                for chir in ('PL','PR'):
+                    assertion('photon_'+particle,'LorentzProduct[gamma[lt3],'+chir+']',-1j*e*charge)
             for cp,s in enumerate(('h','H','A'),1):
                 C=scalar[s][0]
                 for a in range(3):

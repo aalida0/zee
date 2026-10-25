@@ -33,5 +33,33 @@
     "identity": "JHEP04(2015)077",
     "equations": "Eqs4,9,11-14,19-21,25-28; independent signed moments and scalar form factor",
     "local_cache": "ilisie.pdf"
+  },
+  "GM2Calc2022": {
+    "url": "https://arxiv.org/pdf/2110.13238v3",
+    "sha256": "807d8bb0d2b6ff32cf801ed5de4780b8e1409335fabb211f9e386d4baa96fac5",
+    "identity": "Athron et al., EPJC82(2022)229; arXiv2110.13238v3",
+    "equations": "Eqs.51-54,63-65; diagonal photon contribution without SM subtraction or Z terms",
+    "local_cache": "gm2calc2022.pdf"
+  },
+  "Chang2001": {
+    "url": "https://arxiv.org/pdf/hep-ph/0009292v3",
+    "sha256": "206237a30b4d243d89beeb194bb9fdb20a546150c0d84d6aa2e34c122518e2c3",
+    "identity": "Chang, Chang, Chou, Keung; PRD63(2001)091301",
+    "equations": "Eqs.6-10; independent triangle and pseudoscalar Barr-Zee moment",
+    "local_cache": "chang2001.pdf"
+  },
+  "Abe2014": {
+    "url": "https://arxiv.org/pdf/1311.4704v3",
+    "sha256": "52b0dc8fcf509b1f09ba6769802be825297f32898fdfeadbdc2467d95efd48bb",
+    "identity": "Abe et al., JHEP01(2014)106, v3 corrections 21Apr2016",
+    "equations": "Eqs.3.8-3.16; pinched transverse W form factor; B.7-B.8; not full LFV matching",
+    "local_cache": "abe2014.pdf"
+  },
+  "AthronLFV2022": {
+    "url": "https://arxiv.org/pdf/2111.10464v2",
+    "sha256": "2eacedf56b6533a0ca87076eecf4247424c1d6e213a585bc77256bf0aded30db",
+    "identity": "Athron et al., JHEP01(2022)037 (not EPJC)",
+    "equations": "Eqs.B.27-B.28; auxiliary LFV formula; no old scan used",
+    "local_cache": "athron_lfv2022.pdf"
   }
 }

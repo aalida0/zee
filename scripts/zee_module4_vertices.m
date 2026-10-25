@@ -14,6 +14,7 @@ SARAH`Start["ZeeTypeII"];
 If[!TrueQ[SARAH`ModelLoaded]||TrueQ[SARAH`AbortStart],save[];Exit[3]];
 report["sarah_version"]=ToString[SA`Version];
 queries=Join[
+ Table[{"photon_"<>ToString[q],{bar[q[{3}]],q[{3}],VP}},{q,{Fe,Fu,Fd}}],
  Flatten[Table[{"lepton_"<>ToString[{cp,a,b}],{bar[Fe[{a}]],Fe[{b}],If[cp==3,Ah[{2}],hh[{cp}]]}},{cp,3},{a,3},{b,3}],2],
  Flatten[Table[{"charged_minus_"<>ToString[{k,a,b}],{bar[Fe[{a}]],Fv[{b}],Hm[{k}]}},{k,{2,3}},{a,3},{b,3}],2],
  Flatten[Table[{"charged_plus_"<>ToString[{k,a,b}],{bar[Fv[{b}]],Fe[{a}],conj[Hm[{k}]]}},{k,{2,3}},{a,3},{b,3}],2],
