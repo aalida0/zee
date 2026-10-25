@@ -1,9 +1,0 @@
-models/
-work/
-results/
-__pycache__/
-*.pyc
-*.lhe
-*.lhe.gz
-*.root
-*.hepmc
