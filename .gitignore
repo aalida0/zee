@@ -7,3 +7,4 @@
 /validation/module0/FINAL.json
 __pycache__/
 *.py[cod]
+/.module1_logs/

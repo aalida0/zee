@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "benchmark_id": "P2_beta_shift",
+  "model": "ZeeTypeII_Module0_v1_restricted_CP",
+  "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+  "units": {
+    "masses": "GeV",
+    "angles": "rad",
+    "mass_squared": "GeV^2",
+    "quartics": "1"
+  },
+  "physical": {
+    "mh1": 125.0,
+    "mh2": 580.7,
+    "ma": 633.7,
+    "mH1": 300.0,
+    "mH2": 700.0,
+    "alpha": 1.398,
+    "beta": 1.394,
+    "gamma": 1.089,
+    "m12sq": 57700.0,
+    "lc": 4.473,
+    "k1": 1.082,
+    "k2": 0.00398,
+    "k12": -0.001266,
+    "v": 246.21965
+  },
+  "electroweak": {
+    "mW": 80.379,
+    "mZ": 91.1876,
+    "SM_reference_mh": 125.0,
+    "scheme": "on_shell_MW_MZ"
+  },
+  "ew_fit": "Gfitter_2026_U_floating",
+  "search": {
+    "starts": 64,
+    "seeds": [
+      123,
+      104852
+    ]
+  }
+}

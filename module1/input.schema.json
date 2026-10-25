@@ -1,0 +1,170 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "benchmark_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "model": {
+      "const": "ZeeTypeII_Module0_v1_restricted_CP"
+    },
+    "parameter_convention": {
+      "const": "SARAH_ZeeTypeII_Florentino_v1"
+    },
+    "units": {
+      "const": {
+        "masses": "GeV",
+        "angles": "rad",
+        "mass_squared": "GeV^2",
+        "quartics": "1"
+      }
+    },
+    "physical": {
+      "type": "object",
+      "properties": {
+        "mh1": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "mh2": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "ma": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "mH1": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "mH2": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "alpha": {
+          "type": "number"
+        },
+        "beta": {
+          "type": "number",
+          "exclusiveMinimum": 0.01,
+          "exclusiveMaximum": 1.5607963267948965
+        },
+        "gamma": {
+          "type": "number",
+          "minimum": -1.5707963267948966,
+          "maximum": 1.5707963267948966
+        },
+        "m12sq": {
+          "type": "number"
+        },
+        "lc": {
+          "type": "number"
+        },
+        "k1": {
+          "type": "number"
+        },
+        "k2": {
+          "type": "number"
+        },
+        "k12": {
+          "type": "number"
+        },
+        "v": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "required": [
+        "mh1",
+        "mh2",
+        "ma",
+        "mH1",
+        "mH2",
+        "alpha",
+        "beta",
+        "gamma",
+        "m12sq",
+        "lc",
+        "k1",
+        "k2",
+        "k12",
+        "v"
+      ],
+      "additionalProperties": false
+    },
+    "electroweak": {
+      "type": "object",
+      "properties": {
+        "mW": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "mZ": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "SM_reference_mh": {
+          "const": 125
+        },
+        "scheme": {
+          "const": "on_shell_MW_MZ"
+        }
+      },
+      "required": [
+        "mW",
+        "mZ",
+        "SM_reference_mh",
+        "scheme"
+      ],
+      "additionalProperties": false
+    },
+    "ew_fit": {
+      "enum": [
+        "Gfitter_2026_U_floating",
+        "PDG_2025_U_floating"
+      ]
+    },
+    "search": {
+      "type": "object",
+      "properties": {
+        "starts": {
+          "type": "integer",
+          "minimum": 64,
+          "maximum": 4096
+        },
+        "seeds": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4294967295
+          }
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "benchmark_id",
+    "model",
+    "parameter_convention",
+    "units",
+    "physical",
+    "electroweak",
+    "ew_fit"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:zee:module1:input:1.0.0",
+  "description": "Semantic constraints additionally enforce mass ordering, MW<MZ, and finite JSON numbers."
+}
