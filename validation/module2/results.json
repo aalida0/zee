@@ -1,0 +1,205 @@
+{
+  "environment": {
+    "python": "3.10.12"
+  },
+  "errors": 0,
+  "failures": 0,
+  "gates": {
+    "data_comparison": {
+      "dataset_ids": [
+        "NuFIT6.0_2024_IC19_without_SK_IO_diagonal_gaussian_v1",
+        "NuFIT6.0_2024_IC19_without_SK_NO_diagonal_gaussian_v1"
+      ],
+      "experimental_acceptance": null,
+      "official_joint_likelihood": false,
+      "official_profiled_projections_ingested": false,
+      "status": "PARTIAL_GAUSSIAN_APPROXIMATION"
+    },
+    "forward": {
+      "archived_native_E3": [
+        {
+          "chiral_product_residual_eV": 5.898866935669604e-17,
+          "complex_mass_residual_eV": 4.374972606572252e-15,
+          "label": "A1b_original",
+          "takagi_phase_residual": 3.5848330326351124e-13
+        },
+        {
+          "chiral_product_residual_eV": 3.122521079655902e-17,
+          "complex_mass_residual_eV": 7.688294457381481e-15,
+          "label": "B2_second_null_root",
+          "takagi_phase_residual": 5.456153107444295e-13
+        }
+      ],
+      "status": "PASS"
+    },
+    "interface": {
+      "IO": {
+        "chi2_gaussian": 0.2764989494094855,
+        "closure_eV": 4.6676634942849736e-17,
+        "delta_rad": 4.199999999999985,
+        "dm21_eV2": 7.489999999999884e-05,
+        "dm3l_eV2": -0.002509999999999999,
+        "m_bb_eV": 0.04601571367438008,
+        "m_beta_eV": 0.04904221783438225,
+        "masses_eV": [
+          0.04935686375773891,
+          0.05010987926547019,
+          0.0009999999999999883
+        ]
+      },
+      "NO": {
+        "chi2_gaussian": 1.2396001202723536e-25,
+        "closure_eV": 9.509386385043828e-17,
+        "delta_rad": 4.199999999999995,
+        "dm21_eV2": 7.489999999999961e-05,
+        "dm3l_eV2": 0.0025339999999999933,
+        "m_bb_eV": 0.0041343407356951595,
+        "m_beta_eV": 0.008894429442915368,
+        "masses_eV": [
+          0.0009999999999999833,
+          0.008712060605849777,
+          0.050348783500696354
+        ]
+      },
+      "module1_actual_output_interoperability": "PASS",
+      "status": "PASS"
+    },
+    "inverse_families": {
+      "complex_nullity": 4,
+      "max_random_family_closure_eV": 1.366737535199547e-15,
+      "status": "PASS",
+      "witnesses": 6
+    },
+    "observables": {
+      "max_signed_delta_error_rad": 1.1102230246251565e-13,
+      "max_takagi_relative_reconstruction": 1.635339195309023e-15,
+      "status": "PASS"
+    },
+    "regression_and_evidence": {
+      "status": "PASS",
+      "test_count": 11
+    }
+  },
+  "limitations": [
+    "Official NuFIT profiled projections are not ingested; only explicit pinned Gaussian approximations are evaluated.",
+    "LFV/Barr-Zee, SPheno, RG closure, collider/flavor, and global vacuum proof are not evaluated.",
+    "Archived Module 0 SARAH self-energy report is used; no native Mathematica/SARAH rerun was performed."
+  ],
+  "numerics": {
+    "max_Takagi_relative_reconstruction": 1.635339195309023e-15,
+    "max_kernel_relative_error_vs_80_digit_quadrature": 0.0,
+    "max_signed_Dirac_phase_error_rad": 1.1102230246251565e-13
+  },
+  "overall": "PARTIAL",
+  "physical_witnesses": [
+    {
+      "charged_masses_GeV": [
+        300,
+        700
+      ],
+      "gamma_rad": 1.089,
+      "masses_eV": [
+        0.001,
+        0.008712060605849802,
+        0.050348783500696416
+      ],
+      "nullity_complex": 4,
+      "ordering": "NO",
+      "rank": 5
+    },
+    {
+      "charged_masses_GeV": [
+        375,
+        925
+      ],
+      "gamma_rad": 0.71,
+      "masses_eV": [
+        0.001,
+        0.008712060605849802,
+        0.050348783500696416
+      ],
+      "nullity_complex": 4,
+      "ordering": "NO",
+      "rank": 5
+    },
+    {
+      "charged_masses_GeV": [
+        850,
+        1400
+      ],
+      "gamma_rad": -0.32,
+      "masses_eV": [
+        0.001,
+        0.008712060605849802,
+        0.050348783500696416
+      ],
+      "nullity_complex": 4,
+      "ordering": "NO",
+      "rank": 5
+    },
+    {
+      "charged_masses_GeV": [
+        300,
+        700
+      ],
+      "gamma_rad": 1.089,
+      "masses_eV": [
+        0.0493568637577389,
+        0.0501098792654702,
+        0.001
+      ],
+      "nullity_complex": 4,
+      "ordering": "IO",
+      "rank": 5
+    },
+    {
+      "charged_masses_GeV": [
+        375,
+        925
+      ],
+      "gamma_rad": 0.71,
+      "masses_eV": [
+        0.0493568637577389,
+        0.0501098792654702,
+        0.001
+      ],
+      "nullity_complex": 4,
+      "ordering": "IO",
+      "rank": 5
+    },
+    {
+      "charged_masses_GeV": [
+        850,
+        1400
+      ],
+      "gamma_rad": -0.32,
+      "masses_eV": [
+        0.0493568637577389,
+        0.0501098792654702,
+        0.001
+      ],
+      "nullity_complex": 4,
+      "ordering": "IO",
+      "rank": 5
+    }
+  ],
+  "provenance": {
+    "branch": "feature/zee-neutrino-module2",
+    "module0_tag_ancestry_verified_locally": true,
+    "module1_snapshot_commit": "3f4864c4df64a7899131a0eacc7efbecdadda769",
+    "module1_source_commit_ancestry_verified": true,
+    "module2_python_sha256": {
+      "module2/__init__.py": "185d23b2bd54685fb1ce7faad4788b4e222e1edb7c2d65a88006ff2f3f0daeea",
+      "module2/core.py": "72f434f2baf613cd8cf42788e667829aab1c94dc088ef0c80b527a707235a092",
+      "module2/data.py": "ff9c8cb625da0c727e1d4459f438300de297de3cc624a3a8fef68be6d906ba63",
+      "module2/interface.py": "74b8dec6938de7b97551b3c776aeea045f7a7e534f69100745da848f324956cb",
+      "module2/observables.py": "d11b3b46c149fe25e48d034e730a23ed104357c2feb6c7e9a02e7f57923e07ca",
+      "module2/schema.py": "36715dbd0be7adabf014f336460f34c2ac158ef212c96d7cf39a7e2100d2ce97",
+      "module2/validate.py": "0c435bb9bf5b7769f2f8f02a41b1bdea06f8efb655d19f26705b5791c79f63f1"
+    },
+    "native_sarah_rerun": false,
+    "validated_code_sha256": "a64d1dfe2567d6b6a2f62da6e3f7177516bed80bd967eaaf35365b60e1b87a22"
+  },
+  "schema_version": "1.0.0",
+  "test_count": 11
+}

@@ -1,0 +1,381 @@
+{
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "1.0.0"
+        },
+        "benchmark_id": {
+          "type": "string"
+        },
+        "status": {
+          "const": "NEUTRINO_COMPUTED"
+        },
+        "global_zee_acceptance": {
+          "type": "null"
+        },
+        "gates": {
+          "type": "object",
+          "properties": {
+            "forward": {
+              "enum": [
+                "PASS",
+                "FAIL",
+                "UNKNOWN",
+                "NOT_EVALUATED"
+              ]
+            },
+            "inverse": {
+              "enum": [
+                "PASS",
+                "FAIL",
+                "UNKNOWN",
+                "NOT_EVALUATED"
+              ]
+            },
+            "observables": {
+              "enum": [
+                "PASS",
+                "FAIL",
+                "UNKNOWN",
+                "NOT_EVALUATED"
+              ]
+            },
+            "data_comparison": {
+              "enum": [
+                "PASS",
+                "FAIL",
+                "UNKNOWN",
+                "NOT_EVALUATED"
+              ]
+            },
+            "lfv": {
+              "enum": [
+                "PASS",
+                "FAIL",
+                "UNKNOWN",
+                "NOT_EVALUATED"
+              ]
+            },
+            "global_vacuum": {
+              "enum": [
+                "PASS",
+                "FAIL",
+                "UNKNOWN",
+                "NOT_EVALUATED"
+              ]
+            },
+            "rg_closure": {
+              "enum": [
+                "PASS",
+                "FAIL",
+                "UNKNOWN",
+                "NOT_EVALUATED"
+              ]
+            }
+          },
+          "required": [
+            "forward",
+            "inverse",
+            "observables",
+            "data_comparison",
+            "lfv",
+            "global_vacuum",
+            "rg_closure"
+          ],
+          "additionalProperties": false
+        },
+        "units": {
+          "const": {
+            "Mnu": "eV",
+            "Yukawas": "1",
+            "angles": "rad"
+          }
+        },
+        "Mnu": {
+          "type": "object",
+          "properties": {
+            "real": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "imag": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "minItems": 3,
+              "maxItems": 3
+            }
+          },
+          "required": [
+            "real",
+            "imag"
+          ],
+          "additionalProperties": false
+        },
+        "F": {
+          "type": "object",
+          "properties": {
+            "real": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "imag": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "minItems": 3,
+              "maxItems": 3
+            }
+          },
+          "required": [
+            "real",
+            "imag"
+          ],
+          "additionalProperties": false
+        },
+        "D": {
+          "type": "object",
+          "properties": {
+            "real": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "imag": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "minItems": 3,
+              "maxItems": 3
+            }
+          },
+          "required": [
+            "real",
+            "imag"
+          ],
+          "additionalProperties": false
+        },
+        "Ye": {
+          "type": "object",
+          "properties": {
+            "real": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "imag": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "minItems": 3,
+              "maxItems": 3
+            }
+          },
+          "required": [
+            "real",
+            "imag"
+          ],
+          "additionalProperties": false
+        },
+        "Ye2": {
+          "type": "object",
+          "properties": {
+            "real": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "imag": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "minItems": 3,
+              "maxItems": 3
+            }
+          },
+          "required": [
+            "real",
+            "imag"
+          ],
+          "additionalProperties": false
+        },
+        "inverse": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "observables": {
+          "type": "object",
+          "required": [
+            "ordering",
+            "masses_eV",
+            "U",
+            "dm21_eV2",
+            "dm3l_eV2",
+            "delta_rad",
+            "alpha21_rad",
+            "alpha31_rad",
+            "m_beta_eV",
+            "m_bb_eV",
+            "sum_m_eV",
+            "J_CP",
+            "diagnostics",
+            "undefined_reasons"
+          ]
+        },
+        "comparison": {
+          "type": "object",
+          "required": [
+            "status"
+          ]
+        },
+        "provenance": {
+          "type": "object",
+          "required": [
+            "input_sha256",
+            "scalar",
+            "basis",
+            "kernel",
+            "code_sha256"
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "schema_version",
+        "benchmark_id",
+        "status",
+        "global_zee_acceptance",
+        "gates",
+        "units",
+        "Mnu",
+        "F",
+        "D",
+        "Ye",
+        "Ye2",
+        "inverse",
+        "observables",
+        "comparison",
+        "provenance",
+        "limitations"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "1.0.0"
+        },
+        "benchmark_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "enum": [
+            "UNKNOWN",
+            "INPUT_OR_EVALUATION_ERROR"
+          ]
+        },
+        "global_zee_acceptance": {
+          "type": "null"
+        },
+        "error": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "benchmark_id",
+        "status",
+        "global_zee_acceptance",
+        "error"
+      ],
+      "additionalProperties": false
+    }
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:zee:module2:output:1.0.0"
+}

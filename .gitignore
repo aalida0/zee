@@ -5,6 +5,7 @@
 /validation/module0/*.log
 /validation/module0/.runner.lock
 /validation/module0/FINAL.json
+/validation/module2/local/
 __pycache__/
 *.py[cod]
 /.module1_logs/

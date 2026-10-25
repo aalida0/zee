@@ -1,0 +1,50 @@
+{
+  "branch": "feature/zee-neutrino-module2",
+  "e3_reference": {
+    "native_rerun": false,
+    "path": "validation/module0/fixtures/e3_charged_loop_fixture.m",
+    "physical_closure_report": "validation/module0/report/majorana_physical.json",
+    "physical_closure_sha256": "a73fcff2e08403b103888f2fc76f5ca2c06c717f65d01762c2087942f9649659",
+    "sha256": "11b0e60b311f7567b844f0b30e873feaaac35ea4bf5043efcdb817025c33d26a"
+  },
+  "experimental_datasets": [
+    {
+      "dataset_id": "NuFIT6.0_2024_IC19_without_SK_IO_diagonal_gaussian_v1",
+      "path": "module2/data/nufit60_ic19_io.json",
+      "sha256": "79cfde8ba43d1ec9e1d667da07cea885d85090e6660a4a9ab45e198b2ac0fc1e"
+    },
+    {
+      "dataset_id": "NuFIT6.0_2024_IC19_without_SK_NO_diagonal_gaussian_v1",
+      "path": "module2/data/nufit60_ic19_no.json",
+      "sha256": "c940b6cddff710d798ad59a81a1a4f9be229dad9abfbaa01e8ad8a2ebac015fb"
+    }
+  ],
+  "module0_tag_ancestry_verified_locally": true,
+  "module1_foundation": {
+    "module0_native_source_commit": "8ead13a593c3963b4f298985df84889d511fd31e",
+    "module0_native_validation_inventory": "validation/module0/report/inventory.json",
+    "native_inventory_sha256": "e8d76668e7380dba7f19a987ef5e6971d36e3cd6fc3e8010bfc4e90f325d7e22",
+    "native_potential_hash_matches": true,
+    "sha256": {
+      "models/SARAH/ZeeTypeII/ZeeTypeII.m": "78d6b48232f9a75a21b058301d9233dba3ed067e21f534d27c0d6f415484aa4d",
+      "scripts/gate6_benchmark.py": "a0da0a51b7ea6c8b7b85b1517ff311a7c2f558d3e39e246bd99fa989effa14cf",
+      "scripts/gate6_vacuum_search.py": "42efc13e3dbe2cc13f93fee2c3f634da311410ea077415d0162908c800fb26c6",
+      "scripts/gateA1g_zee_oblique_T.py": "1b2b4bfa44ffbb26ad298c63debd2b072d3907b40d1a64d4c08fe744d805f92c",
+      "scripts/gateA1h_correlated_stu_ewpo.py": "a49d6f20c5f559c4e198583ff8e2bec74f6b7637fe4fc2c119b148a00c06d0f3"
+    },
+    "snapshot_commit": "3f4864c4df64a7899131a0eacc7efbecdadda769"
+  },
+  "module1_source_commit_ancestry_verified": true,
+  "module2_python_sha256": {
+    "module2/__init__.py": "185d23b2bd54685fb1ce7faad4788b4e222e1edb7c2d65a88006ff2f3f0daeea",
+    "module2/core.py": "72f434f2baf613cd8cf42788e667829aab1c94dc088ef0c80b527a707235a092",
+    "module2/data.py": "ff9c8cb625da0c727e1d4459f438300de297de3cc624a3a8fef68be6d906ba63",
+    "module2/interface.py": "74b8dec6938de7b97551b3c776aeea045f7a7e534f69100745da848f324956cb",
+    "module2/observables.py": "d11b3b46c149fe25e48d034e730a23ed104357c2feb6c7e9a02e7f57923e07ca",
+    "module2/schema.py": "36715dbd0be7adabf014f336460f34c2ac158ef212c96d7cf39a7e2100d2ce97",
+    "module2/validate.py": "0c435bb9bf5b7769f2f8f02a41b1bdea06f8efb655d19f26705b5791c79f63f1"
+  },
+  "schema_version": "1.0.0",
+  "validated_code_sha256": "a64d1dfe2567d6b6a2f62da6e3f7177516bed80bd967eaaf35365b60e1b87a22",
+  "validation_log": "validation/module2/local/validation.log (ignored locally)"
+}
