@@ -35,7 +35,7 @@ _SERIES = {
 def loop_functions(x):
     x = _positive_finite(x,'x=mt^2/mH^2')
     t=x-1
-    if abs(t)<0.02:
+    if abs(t)<0.04:
         return {k:math.fsum(c*t**i for i,c in enumerate(coeffs))
                 for k,coeffs in _SERIES.items()}
     lx=math.log(x);a=x-1
