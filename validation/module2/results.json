@@ -1,4 +1,24 @@
 {
+  "audit_findings": {
+    "CONFIRMED": [
+      "SARAH sign, chirality conjugations, normalization, finite charged-lepton kernel and archived complex E3 matrices.",
+      "Rank five, n.T M n=0 and complete D=W^-1(cI+n r.T) homogeneous family, including isotropic n.",
+      "PDG phases, IO dm32 sign, massless-phase exclusions, and independent mass-matrix CP invariant."
+    ],
+    "CORRECTED": [
+      "Takagi norm underflow/overflow and finite-diagnostic rejection.",
+      "Majorana phases with theta13=0 use mu/tau row invariants when physically defined.",
+      "Free coordinate in identically zero null-cone chart; scale-invariant cone checks.",
+      "Correlated Gaussian phase lifts and rejection of nonfinite observable values.",
+      "Runner now discovers new Module 2 tests; --all-tests runs the complete repository suite."
+    ],
+    "UNRESOLVED": [
+      "Authentic NuFIT 6.1 archive retrieval/validation blocked by official-host timeout/DNS; reader tested on synthetic grids only.",
+      "No new native SARAH/Mathematica execution; archived native closure remains the convention reference."
+    ],
+    "audited_implementation_commit": "b88b13c792f10d0b3a713a43d1362e66bc586a67"
+  },
+  "complete_repository_regressions": true,
   "environment": {
     "python": "3.10.12"
   },
@@ -13,7 +33,11 @@
       "experimental_acceptance": null,
       "official_joint_likelihood": false,
       "official_profiled_projections_ingested": false,
-      "status": "PARTIAL_GAUSSIAN_APPROXIMATION"
+      "projection_reader": {
+        "native_projection_format_tests": "PASS_SYNTHETIC_ONLY",
+        "synthetic_projection_sections_tested": 22
+      },
+      "status": "PARTIAL_AUTHENTIC_NUFIT61_ARCHIVE_UNAVAILABLE"
     },
     "forward": {
       "archived_native_E3": [
@@ -21,44 +45,44 @@
           "chiral_product_residual_eV": 5.898866935669604e-17,
           "complex_mass_residual_eV": 4.374972606572252e-15,
           "label": "A1b_original",
-          "takagi_phase_residual": 3.5848330326351124e-13
+          "takagi_phase_residual": 3.590726078018386e-13
         },
         {
           "chiral_product_residual_eV": 3.122521079655902e-17,
           "complex_mass_residual_eV": 7.688294457381481e-15,
           "label": "B2_second_null_root",
-          "takagi_phase_residual": 5.456153107444295e-13
+          "takagi_phase_residual": 5.453367588775272e-13
         }
       ],
       "status": "PASS"
     },
     "interface": {
       "IO": {
-        "chi2_gaussian": 0.2764989494094855,
-        "closure_eV": 4.6676634942849736e-17,
-        "delta_rad": 4.199999999999985,
-        "dm21_eV2": 7.489999999999884e-05,
-        "dm3l_eV2": -0.002509999999999999,
-        "m_bb_eV": 0.04601571367438008,
+        "chi2_gaussian": 0.27649894940965797,
+        "closure_eV": 5.397192826725477e-17,
+        "delta_rad": 4.199999999999997,
+        "dm21_eV2": 7.489999999999819e-05,
+        "dm3l_eV2": -0.0025099999999999988,
+        "m_bb_eV": 0.04601571367438007,
         "m_beta_eV": 0.04904221783438225,
         "masses_eV": [
           0.04935686375773891,
-          0.05010987926547019,
-          0.0009999999999999883
+          0.050109879265470184,
+          0.0009999999999999736
         ]
       },
       "NO": {
-        "chi2_gaussian": 1.2396001202723536e-25,
-        "closure_eV": 9.509386385043828e-17,
-        "delta_rad": 4.199999999999995,
-        "dm21_eV2": 7.489999999999961e-05,
-        "dm3l_eV2": 0.0025339999999999933,
+        "chi2_gaussian": 4.066746347342691e-25,
+        "closure_eV": 1.3330308699542692e-16,
+        "delta_rad": 4.199999999999994,
+        "dm21_eV2": 7.489999999999887e-05,
+        "dm3l_eV2": 0.0025339999999999976,
         "m_bb_eV": 0.0041343407356951595,
-        "m_beta_eV": 0.008894429442915368,
+        "m_beta_eV": 0.008894429442915366,
         "masses_eV": [
-          0.0009999999999999833,
-          0.008712060605849777,
-          0.050348783500696354
+          0.000999999999999982,
+          0.008712060605849734,
+          0.050348783500696395
         ]
       },
       "module1_actual_output_interoperability": "PASS",
@@ -66,29 +90,36 @@
     },
     "inverse_families": {
       "complex_nullity": 4,
-      "max_random_family_closure_eV": 1.366737535199547e-15,
+      "max_random_family_closure_eV": 1.3992241275403843e-15,
       "status": "PASS",
       "witnesses": 6
     },
     "observables": {
-      "max_signed_delta_error_rad": 1.1102230246251565e-13,
-      "max_takagi_relative_reconstruction": 1.635339195309023e-15,
+      "max_signed_delta_error_rad": 1.3278267374516872e-13,
+      "max_takagi_relative_reconstruction": 1.9352662896160826e-15,
       "status": "PASS"
     },
     "regression_and_evidence": {
       "status": "PASS",
-      "test_count": 11
+      "test_count": 96
     }
   },
+  "independent_audit": {
+    "analytic_homogeneous_span_residual": 3.7392853481276506e-15,
+    "independent_mass_CP_invariant_error": 1.3530843112619095e-16,
+    "kernel_error_vs_unrounded_85_digit_quadrature": 5.541195371090455e-17,
+    "scale_covariant_Takagi_congruence_residual": 1.574581525845521e-15,
+    "sparse_chiral_normalization_relative_error": 3.404241376023624e-16
+  },
   "limitations": [
-    "Official NuFIT profiled projections are not ingested; only explicit pinned Gaussian approximations are evaluated.",
+    "NuFIT 6.1 native-format reader passes synthetic tests; real official archives could not be retrieved (host timeout).",
     "LFV/Barr-Zee, SPheno, RG closure, collider/flavor, and global vacuum proof are not evaluated.",
     "Archived Module 0 SARAH self-energy report is used; no native Mathematica/SARAH rerun was performed."
   ],
   "numerics": {
-    "max_Takagi_relative_reconstruction": 1.635339195309023e-15,
+    "max_Takagi_relative_reconstruction": 1.9352662896160826e-15,
     "max_kernel_relative_error_vs_80_digit_quadrature": 0.0,
-    "max_signed_Dirac_phase_error_rad": 1.1102230246251565e-13
+    "max_signed_Dirac_phase_error_rad": 1.3278267374516872e-13
   },
   "overall": "PARTIAL",
   "physical_witnesses": [
@@ -190,16 +221,18 @@
     "module1_source_commit_ancestry_verified": true,
     "module2_python_sha256": {
       "module2/__init__.py": "185d23b2bd54685fb1ce7faad4788b4e222e1edb7c2d65a88006ff2f3f0daeea",
-      "module2/core.py": "72f434f2baf613cd8cf42788e667829aab1c94dc088ef0c80b527a707235a092",
-      "module2/data.py": "ff9c8cb625da0c727e1d4459f438300de297de3cc624a3a8fef68be6d906ba63",
-      "module2/interface.py": "74b8dec6938de7b97551b3c776aeea045f7a7e534f69100745da848f324956cb",
-      "module2/observables.py": "d11b3b46c149fe25e48d034e730a23ed104357c2feb6c7e9a02e7f57923e07ca",
+      "module2/core.py": "c0f43ad019929afc80951b0813a9bf4a35a9c3059ae9d0ff220aa7046c45b5a6",
+      "module2/data.py": "f54968b42e449a323d6b686c20c69deadc123cba3c952e1c049d1818c497715c",
+      "module2/interface.py": "b98eea5a98c171565bc7bf632288039d8e5e2fb762fb0aa474fc8becec8cc1d2",
+      "module2/nufit.py": "6ab90d764924a3465682b23217d85c9005588c49814167b47d2d32e31bc01805",
+      "module2/observables.py": "8e9c60711b3cf0cebcfceb8fd7d46d93120c7c1ae174b77043a82768d5337795",
       "module2/schema.py": "36715dbd0be7adabf014f336460f34c2ac158ef212c96d7cf39a7e2100d2ce97",
-      "module2/validate.py": "0c435bb9bf5b7769f2f8f02a41b1bdea06f8efb655d19f26705b5791c79f63f1"
+      "module2/validate.py": "078e4f6ce77f85faa771d5a50f3f8d4dc8103b6a061a2d57ae140a2ac68bfb91"
     },
     "native_sarah_rerun": false,
-    "validated_code_sha256": "a64d1dfe2567d6b6a2f62da6e3f7177516bed80bd967eaaf35365b60e1b87a22"
+    "validated_code_sha256": "71d47dee3abdb4a98e4fddace4d340abcf6d32b93a5e0dfdc0858e6b37290bf4"
   },
   "schema_version": "1.0.0",
-  "test_count": 11
+  "skipped": 0,
+  "test_count": 96
 }

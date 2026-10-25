@@ -125,7 +125,8 @@ def evaluate(data):
         else:
             cone = data['null_cone']
             t = complex(cone['t']['real'], cone['t']['imag'])
-            F, _ = null_cone(M, t, cone['scale'], cone['root'], tuple(cone['chart']))
+            free_x = complex(cone['free_x']['real'], cone['free_x']['imag']) if 'free_x' in cone else None
+            F, _ = null_cone(M, t, cone['scale'], cone['root'], tuple(cone['chart']), free_x=free_x)
             F *= np.exp(1j*cone['phase_rad'])
         inverse = solve_fixed_f(F, M, **kw)
         coeff = decode(data['homogeneous_coefficients'], (4,))

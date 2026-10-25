@@ -8,20 +8,27 @@ def takagi(M, ordering):
     M = matrix(M, 'symmetric')
     if ordering not in ('NO', 'IO'):
         raise ValueError('Select NO or IO explicitly')
-    scale = float(np.linalg.norm(M))
+    # A Frobenius norm of the unscaled matrix squares entries and can
+    # underflow to zero or overflow even when every matrix entry is finite.
+    scale = float(np.max(abs(M)))
     if scale == 0:
         return np.zeros(3), np.eye(3, dtype=complex), {'reconstruction_relative': 0., 'unitarity': 0., 'zero_tolerance_eV': 0.}
     # Real symmetric antilinear eigenproblem M u = m u*. Unlike an SVD phase
     # patch, this works within exactly degenerate nonzero singular subspaces.
-    A, B = M.real/scale, M.imag/scale
+    normalized = M/scale
+    norm = float(np.linalg.norm(normalized))
+    A, B = normalized.real, normalized.imag
     values, vectors = np.linalg.eigh(np.block([[A, -B], [-B, -A]]))
-    singular = np.linalg.svd(M/scale, compute_uv=False)
-    rank = int(np.count_nonzero(singular > 1e-14))
+    singular = np.linalg.svd(normalized, compute_uv=False)
+    rank = int(np.count_nonzero(singular > norm*1e-14))
     positive = vectors[:, -rank:] if rank else np.empty((6, 0))
     U = positive[:3]+1j*positive[3:]
-    masses = np.maximum(values[-rank:], 0)*scale if rank else np.array([])
+    with np.errstate(over='ignore', invalid='ignore'):
+        masses = np.maximum(values[-rank:], 0)*scale if rank else np.array([])
+    if not np.isfinite(masses).all():
+        raise NumericalUnknown('Takagi singular values exceed finite numerical range')
     if rank < 3:
-        _, _, vh = np.linalg.svd(M/scale)
+        _, _, vh = np.linalg.svd(normalized)
         null = vh[rank:].conj().T
         U = np.column_stack((null, U))
         masses = np.r_[np.zeros(3-rank), masses]
@@ -33,11 +40,11 @@ def takagi(M, ordering):
             U[:, j] *= -1
     indices = [0, 1, 2] if ordering == 'NO' else [1, 2, 0]
     masses, U = masses[indices], U[:, indices]
-    rec = float(np.linalg.norm(M-U.conj()@np.diag(masses)@U.conj().T)/scale)
+    rec = float(np.linalg.norm(normalized-U.conj()@np.diag(masses/scale)@U.conj().T)/norm)
     unit = float(np.linalg.norm(U.conj().T@U-np.eye(3)))
-    if max(rec, unit) > 2e-12:
+    if not np.isfinite(masses).all() or not np.isfinite([rec, unit]).all() or max(rec, unit) > 2e-12:
         raise NumericalUnknown('Takagi reconstruction/orthogonality unresolved')
-    return masses, U, {'reconstruction_relative': rec, 'unitarity': unit, 'zero_tolerance_eV': scale*1e-14}
+    return masses, U, {'reconstruction_relative': rec, 'unitarity': unit, 'zero_tolerance_eV': scale*(norm*1e-14)}
 
 
 def wrap(x):
@@ -49,12 +56,18 @@ def observables(M, ordering):
     m, U, diagnostics = takagi(M, ordering)
     tol = max(m)*1e-11
     degenerate = any(abs(m[i]-m[j]) <= tol for i in range(3) for j in range(i))
+    with np.errstate(over='ignore', invalid='ignore'):
+        splittings = [float((m[j]-m[i])*(m[j]+m[i])) for i,j in ((0,1),(0,2),(1,2))]
+    if not np.isfinite(splittings).all():
+        raise NumericalUnknown('Mass-squared splittings exceed finite numerical range')
+    if any(value == 0 and m[i] != m[j] for value,(i,j) in zip(splittings,((0,1),(0,2),(1,2)))):
+        raise NumericalUnknown('Nonzero mass-squared splitting underflows numerical range')
     out = {'ordering': ordering, 'masses_eV': m.tolist(), 'U': U,
-           'dm21_eV2': float(m[1]**2-m[0]**2),
-           'dm31_eV2': float(m[2]**2-m[0]**2),
-           'dm32_eV2': float(m[2]**2-m[1]**2),
-           'dm3l_eV2': float(m[2]**2-m[0 if ordering == 'NO' else 1]**2),
-           'sum_m_eV': float(sum(m)), 'm_beta_eV': float(np.sqrt(np.sum(abs(U[0])**2*m*m))),
+           'dm21_eV2': splittings[0],
+           'dm31_eV2': splittings[1],
+           'dm32_eV2': splittings[2],
+           'dm3l_eV2': splittings[1 if ordering == 'NO' else 2],
+           'sum_m_eV': float(sum(m)), 'm_beta_eV': float(max(m)*np.linalg.norm(U[0]*(m/max(m)))) if max(m) else 0.,
            'm_bb_eV': float(abs(M[0, 0])), 'diagnostics': diagnostics,
            'mixing_status': 'UNKNOWN' if degenerate else 'PASS',
            'undefined_reasons': [], 'sin2_theta12': None, 'sin2_theta13': None,
@@ -92,7 +105,18 @@ def observables(M, ordering):
     # alpha_i in PDG U=V(delta) diag(1,e^(i alpha21/2),e^(i alpha31/2)).
     # Pair differences remain useful when m1=0. Never assign a massless column phase.
     for i, j, label in ((0, 1, '21'), (0, 2, '31'), (1, 2, '32')):
-        if min(m[i], m[j]) <= diagnostics['zero_tolerance_eV'] or min(abs(U[0, i]), abs(U[0, j])) < 1e-12:
+        if min(m[i], m[j]) <= diagnostics['zero_tolerance_eV']:
+            continue
+        if j == 2 and delta is None and s13 <= 1e-14:
+            # At theta13=0 the PDG mixing matrix is real and delta drops out.
+            # Electron-row ratios cannot determine alpha3, but a mu/tau row
+            # with both columns present determines it without a Dirac phase.
+            products = U[:, j]*U[:, i].conjugate()
+            product = products[np.argmax(abs(products))]
+            if abs(product) > 1e-12:
+                out['majorana_pair_phases_rad'][label] = wrap(2*np.angle(product))
+            continue
+        if min(abs(U[0, i]), abs(U[0, j])) < 1e-12:
             continue
         if j == 2 and delta is None:
             continue

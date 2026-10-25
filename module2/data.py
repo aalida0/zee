@@ -1,6 +1,7 @@
 """Explicit source-versioned Gaussian comparison; no acceptance classifier."""
+import math
 import numpy as np
-from .core import real_number
+from .core import real_number, NumericalUnknown
 
 OBS_UNITS = {'sin2_theta12': '1', 'sin2_theta13': '1', 'sin2_theta23': '1',
              'dm21_eV2': 'eV^2', 'dm3l_eV2': 'eV^2', 'delta_rad': 'rad'}
@@ -9,6 +10,9 @@ OBS_UNITS = {'sin2_theta12': '1', 'sin2_theta13': '1', 'sin2_theta23': '1',
 def compare(obs, dataset):
     if dataset is None:
         return {'status': 'NOT_EVALUATED', 'reason': 'No oscillation dataset selected'}
+    if isinstance(dataset, dict) and dataset.get('likelihood') == 'PROFILED_DELTA_CHI2':
+        from .nufit import compare_projection
+        return compare_projection(obs, dataset)
     if not isinstance(dataset, dict) or set(dataset) != {'schema_version', 'dataset_id', 'source', 'ordering', 'observables', 'units', 'mean', 'covariance', 'likelihood', 'assumptions'}:
         raise ValueError('Invalid dataset fields')
     if dataset['schema_version'] != '1.0.0' or dataset['likelihood'] != 'GAUSSIAN_APPROXIMATION':
@@ -37,13 +41,24 @@ def compare(obs, dataset):
         raise ValueError('Covariance must be positive definite') from exc
     if any(obs.get(x) is None for x in names):
         return {'status': 'UNKNOWN', 'dataset_id': dataset['dataset_id'], 'reason': 'Requested observable undefined'}
-    d = np.array([obs[x] for x in names])-mean
+    d = np.array([real_number(obs[x], x) for x in names])-mean
     if 'delta_rad' in names:
         i = names.index('delta_rad')
         d[i] = (d[i]+np.pi) % (2*np.pi)-np.pi
+        # Correlations can favor a different 2pi lift. Profile the supplied
+        # local Gaussian over integer lifts; do not invent a wrapped joint fit.
+        precision_column = np.linalg.solve(cov, np.eye(n)[:, i])
+        optimum = -float(precision_column@d)/precision_column[i]/(2*np.pi)
+        lifts = [math.floor(optimum), math.ceil(optimum)]
+        candidates = [d+2*np.pi*k*np.eye(n)[i] for k in lifts]
+        d = min(candidates, key=lambda r: np.linalg.norm(np.linalg.solve(L, r)))
     z = np.linalg.solve(L, d)
+    chi2 = float(z@z)
+    if not np.isfinite(chi2):
+        raise NumericalUnknown('Gaussian comparison exceeds finite numerical range')
     return {'status': 'PASS', 'meaning': 'Comparison computed; no experimental acceptance assigned',
             'likelihood': 'GAUSSIAN_APPROXIMATION', 'dataset_id': dataset['dataset_id'],
-            'source': dataset['source'], 'chi2': float(z@z), 'dimensions': n,
+            'source': dataset['source'], 'chi2': chi2, 'dimensions': n,
+            'phase_treatment': 'MINIMUM_OVER_2PI_LIFTS' if 'delta_rad' in names else 'NOT_EVALUATED',
             'residual': d.tolist(), 'assumptions': dataset['assumptions'],
             'official_multidimensional_likelihood': False, 'experimental_acceptance': None}

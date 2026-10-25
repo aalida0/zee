@@ -1,5 +1,16 @@
 {
   "branch": "feature/zee-neutrino-module2",
+  "contracts_tests_and_runner_sha256": {
+    "module2/dataset.schema.json": "1a05133405f4c8e78d4a9ca92ddd5927c7e6bddba70fda35df6edf68002680f0",
+    "module2/input.schema.json": "8ecc574d3136058c4937f17dfd5d910ba5f3454574c64cb3e48bae6e615d33df",
+    "module2/output.schema.json": "f65707a18ee39458e2d9f5cc8a00283d4f3989ebc025c7f10439309635c039b6",
+    "module2/profile.schema.json": "a599062ca2c9787a6c52421a5f0eed5eda6a7a07a25f3d99ed6674b69a81a0ac",
+    "scripts/run_module2_validation.sh": "e901217a8e7a329a7e730a95fefcdfa218920adda1c0bbd6a9ce9077b9d5555c",
+    "tests/test_module2_audit.py": "3a0ffdd651e4844272706737a8ea101018e33d2ef731942513b66cfc65ae20d6",
+    "tests/test_module2_interface.py": "299cff11465899fd29a1fd642771b6fd063605d3347110e338b198ee8b119031",
+    "tests/test_module2_physics.py": "786c773644018465e4f9887420ea91fd70cd57cbfd3db7807f19280a9bfe9e69",
+    "tests/test_module2_profiles.py": "3d10f18995b08b7f0f3e20cdfb2c677e9b6effd37d598bb6973e65f02c73125a"
+  },
   "e3_reference": {
     "native_rerun": false,
     "path": "validation/module0/fixtures/e3_charged_loop_fixture.m",
@@ -37,14 +48,23 @@
   "module1_source_commit_ancestry_verified": true,
   "module2_python_sha256": {
     "module2/__init__.py": "185d23b2bd54685fb1ce7faad4788b4e222e1edb7c2d65a88006ff2f3f0daeea",
-    "module2/core.py": "72f434f2baf613cd8cf42788e667829aab1c94dc088ef0c80b527a707235a092",
-    "module2/data.py": "ff9c8cb625da0c727e1d4459f438300de297de3cc624a3a8fef68be6d906ba63",
-    "module2/interface.py": "74b8dec6938de7b97551b3c776aeea045f7a7e534f69100745da848f324956cb",
-    "module2/observables.py": "d11b3b46c149fe25e48d034e730a23ed104357c2feb6c7e9a02e7f57923e07ca",
+    "module2/core.py": "c0f43ad019929afc80951b0813a9bf4a35a9c3059ae9d0ff220aa7046c45b5a6",
+    "module2/data.py": "f54968b42e449a323d6b686c20c69deadc123cba3c952e1c049d1818c497715c",
+    "module2/interface.py": "b98eea5a98c171565bc7bf632288039d8e5e2fb762fb0aa474fc8becec8cc1d2",
+    "module2/nufit.py": "6ab90d764924a3465682b23217d85c9005588c49814167b47d2d32e31bc01805",
+    "module2/observables.py": "8e9c60711b3cf0cebcfceb8fd7d46d93120c7c1ae174b77043a82768d5337795",
     "module2/schema.py": "36715dbd0be7adabf014f336460f34c2ac158ef212c96d7cf39a7e2100d2ce97",
-    "module2/validate.py": "0c435bb9bf5b7769f2f8f02a41b1bdea06f8efb655d19f26705b5791c79f63f1"
+    "module2/validate.py": "078e4f6ce77f85faa771d5a50f3f8d4dc8103b6a061a2d57ae140a2ac68bfb91"
+  },
+  "nufit61_investigation": {
+    "archive_retrieval": "UNRESOLVED: www host curl exit 28 after 30 seconds/zero bytes; hostname without www exit 6 DNS failure. Direct web fetches also timed out.",
+    "authentic_archive_numeric_validation": "NOT_EVALUATED",
+    "format_source": "https://www.nu-fit.org/sites/default/files/v61.release-notes.pdf",
+    "release_url": "https://www.nu-fit.org/?q=node%2F309",
+    "synthetic_native_format_regressions": "PASS",
+    "verified_from_official_indexed_release_notes": "22 one-, two-, and three-dimensional profiled sections; IC23 without SK and IC24 with SK"
   },
   "schema_version": "1.0.0",
-  "validated_code_sha256": "a64d1dfe2567d6b6a2f62da6e3f7177516bed80bd967eaaf35365b60e1b87a22",
+  "validated_code_sha256": "71d47dee3abdb4a98e4fddace4d340abcf6d32b93a5e0dfdc0858e6b37290bf4",
   "validation_log": "validation/module2/local/validation.log (ignored locally)"
 }

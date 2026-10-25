@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:zee:module2:profile:1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "dataset_id", "source", "ordering", "likelihood", "archive", "section", "assumptions"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "dataset_id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "source": {
+      "type": "object", "additionalProperties": false,
+      "required": ["version", "url", "selection"],
+      "properties": {
+        "version": {"enum": ["NuFIT 6.0 (2024)", "NuFIT 6.1 (2025)"]},
+        "url": {"type": "string", "minLength": 1},
+        "selection": {"type": "string", "minLength": 1}
+      }
+    },
+    "ordering": {"enum": ["NO", "IO"]},
+    "likelihood": {"const": "PROFILED_DELTA_CHI2"},
+    "archive": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "section": {"enum": ["T23/DMA/DCP", "T13/T12", "T13/DMS", "T12/DMS", "T13/T23", "T13/DMA", "T23/DMA", "T13/DCP", "T23/DCP", "DMA/DCP", "T12/T23", "T12/DCP", "T12/DMA", "DMS/T23", "DMS/DCP", "DMS/DMA", "T13", "T12", "T23", "DCP", "DMS", "DMA"]},
+    "assumptions": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+  }
+}

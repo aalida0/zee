@@ -86,19 +86,30 @@ def yukawa_rotation(D, beta, v, ml):
     return c*S-s*D, s*S+c*D
 
 
-def null_cone(M, t, scale, root=0, chart=(0, 1, 2)):
+def null_cone(M, t, scale, root=0, chart=(0, 1, 2), free_x=None):
     """n[chart]=(1,x,t). Solve a*x²+b*x+c=0 over C; F n=0.
 
-    All nonzero projective n are covered by permutations and the t parameter.
+    All nonzero projective n are covered by permutations and the t parameter,
+    with free_x supplying the extra coordinate for an identically zero
+    polynomial (including M=0). Otherwise free_x must be omitted.
     Linear, identically-zero and empty chart polynomials are handled explicitly.
     scale is the positive maximum modulus of F; its global phase is free via t,
     orientations, or multiplication of returned F by a unit complex number.
     """
     M = matrix(M, 'symmetric')
-    if not np.isfinite(complex(t)) or real_number(scale) <= 0 or type(root) is not int or root not in (0, 1) or sorted(chart) != [0, 1, 2]:
+    t = complex(t)
+    if (not np.isfinite(t) or real_number(scale) <= 0 or type(root) is not int or root not in (0, 1)
+            or len(chart) != 3 or any(isinstance(i, (bool, np.bool_)) or not isinstance(i, (int, np.integer)) for i in chart)
+            or sorted(chart) != [0, 1, 2] or (free_x is not None and not np.isfinite(complex(free_x)))):
         raise ValueError('Invalid null-cone parameters')
-    p = M[np.ix_(chart, chart)]
+    magnitude = float(np.max(abs(M)))
+    if not np.isfinite(magnitude):
+        raise NumericalUnknown('Null-cone matrix scale exceeds finite numerical range')
+    normalized = M/magnitude if magnitude else M
+    p = normalized[np.ix_(chart, chart)]
     a, b, c = p[1, 1], 2*(p[0, 1]+t*p[1, 2]), p[0, 0]+2*t*p[0, 2]+t*t*p[2, 2]
+    if free_x is not None and (a != 0 or b != 0 or c != 0):
+        raise ValueError('free_x applies only to an identically zero null-cone polynomial')
     # Do not discard small nonzero coefficients: they can select a large root.
     if a != 0:
         roots = np.roots([a, b, c])
@@ -109,15 +120,16 @@ def null_cone(M, t, scale, root=0, chart=(0, 1, 2)):
             raise NumericalUnknown('Only one finite root in this chart')
         x = -c/b
     elif c == 0:
-        x = complex(root)  # chart is wholly on the cone
+        x = complex(root) if free_x is None else complex(free_x)
     else:
         raise NumericalUnknown('Empty null-cone chart; select another chart or t')
     n = np.empty(3, complex)
     n[list(chart)] = [1, x, t]
+    n /= np.max(abs(n))
     n /= np.linalg.norm(n)
     F = np.array([[0, n[2], -n[1]], [-n[2], 0, n[0]], [n[1], -n[0], 0]])
     F *= scale/np.max(abs(F))
-    residual = abs(n.T@M@n)/max(np.linalg.norm(M), np.finfo(float).tiny)
+    residual = abs(n.T@normalized@n)/max(np.linalg.norm(normalized), np.finfo(float).tiny)
     if not np.isfinite(F).all() or residual > 2e-11:
         raise NumericalUnknown('Unresolved bilinear null cone')
     return F, n
