@@ -1,0 +1,591 @@
+{
+  "benchmarks": [
+    {
+      "STU": {
+        "S": 0.0044404330206560625,
+        "T": -0.0049021783175765745,
+        "U": 5.733708113025872e-05
+      },
+      "benchmark_id": "P2_beta_shift",
+      "charge_block_residual": 1.2599305455618712e-15,
+      "chi2_by_alternative_fit": {
+        "Gfitter_2026_U_floating": 0.8726172333959237,
+        "PDG_2025_U_floating": 1.6726858974961125
+      },
+      "gates": {
+        "bfb": {
+          "assessment": "PASS",
+          "status": "BFB_CERTIFIED_SUFFICIENT"
+        },
+        "ewpo": {
+          "assessment": "PASS",
+          "status": "SCALAR_OBLIQUE_INSIDE_95"
+        },
+        "reconstruction": {
+          "assessment": "PASS",
+          "status": "RECONSTRUCTION_VALIDATED"
+        },
+        "unitarity": {
+          "assessment": "PASS",
+          "status": "TREE_UNITARITY_PASS"
+        },
+        "vacuum": {
+          "assessment": "UNKNOWN",
+          "status": "VACUUM_NO_DEEPER_WITNESS_FOUND"
+        }
+      },
+      "hessian_spectrum_residual": 7.916369800623278e-11,
+      "legacy_neutral_basis_residual": 8.881784197001252e-15,
+      "legacy_neutral_signed_differences": [
+        -3.7718773486806234,
+        -3.604356296665652,
+        -1.0820014867570058,
+        -0.003978513242992449
+      ],
+      "max_unitarity_eigenvalue": 18.136779085730428,
+      "mixing_residual_GeV2": 1.1641532182693481e-10,
+      "physical": {
+        "alpha": 1.398,
+        "beta": 1.394,
+        "gamma": 1.089,
+        "k1": 1.082,
+        "k12": -0.001266,
+        "k2": 0.00398,
+        "lc": 4.473,
+        "m12sq": 57700.0,
+        "mH1": 300.0,
+        "mH2": 700.0,
+        "ma": 633.7,
+        "mh1": 125.0,
+        "mh2": 580.7,
+        "v": 246.21965
+      },
+      "quadrature_delta": 1.0581813203458523e-16,
+      "status": "SCALAR_PIPELINE_UNKNOWN",
+      "tadpole_over_v3": 2.339716667824362e-17,
+      "vacuum_attempts": 300,
+      "vacuum_credible_minima": 294,
+      "vacuum_deeper_witness": null
+    },
+    {
+      "STU": {
+        "S": -0.00012243990104599615,
+        "T": 0.0,
+        "U": -1.4915997246088598e-05
+      },
+      "benchmark_id": "aligned_decoupling_500",
+      "charge_block_residual": 5.551115123125783e-17,
+      "chi2_by_alternative_fit": {
+        "Gfitter_2026_U_floating": 0.3359228596463632,
+        "PDG_2025_U_floating": 1.0524610631919964
+      },
+      "gates": {
+        "bfb": {
+          "assessment": "PASS",
+          "status": "BFB_CERTIFIED_SUFFICIENT"
+        },
+        "ewpo": {
+          "assessment": "PASS",
+          "status": "SCALAR_OBLIQUE_INSIDE_95"
+        },
+        "reconstruction": {
+          "assessment": "PASS",
+          "status": "RECONSTRUCTION_VALIDATED"
+        },
+        "unitarity": {
+          "assessment": "PASS",
+          "status": "TREE_UNITARITY_PASS"
+        },
+        "vacuum": {
+          "assessment": "UNKNOWN",
+          "status": "VACUUM_NO_DEEPER_WITNESS_FOUND"
+        }
+      },
+      "hessian_spectrum_residual": 1.4551915228366852e-11,
+      "legacy_neutral_basis_residual": 6.661338147750939e-16,
+      "legacy_neutral_signed_differences": [
+        -0.2577357167255463,
+        -0.25773571672554624,
+        -0.25701562118716437,
+        -0.19298437881283587
+      ],
+      "max_unitarity_eigenvalue": 1.6978046044601816,
+      "mixing_residual_GeV2": 5.820766091346741e-11,
+      "physical": {
+        "alpha": 0.7,
+        "beta": 0.7,
+        "gamma": 0.0,
+        "k1": 0.2,
+        "k12": 0.02,
+        "k2": 0.25,
+        "lc": 0.3,
+        "m12sq": 123181.21624855752,
+        "mH1": 500.0,
+        "mH2": 800.0,
+        "ma": 500.0,
+        "mh1": 125.0,
+        "mh2": 500.0,
+        "v": 246.21965
+      },
+      "quadrature_delta": 9.283481101907132e-17,
+      "status": "SCALAR_PIPELINE_UNKNOWN",
+      "tadpole_over_v3": 3.4315844461423974e-16,
+      "vacuum_attempts": 300,
+      "vacuum_credible_minima": 294,
+      "vacuum_deeper_witness": null
+    },
+    {
+      "STU": {
+        "S": -1.391191244695777e-05,
+        "T": 0.0,
+        "U": -1.3247782453720437e-06
+      },
+      "benchmark_id": "aligned_decoupling_1500",
+      "charge_block_residual": 5.551115123125783e-17,
+      "chi2_by_alternative_fit": {
+        "Gfitter_2026_U_floating": 0.33892767088105963,
+        "PDG_2025_U_floating": 1.0566813111073676
+      },
+      "gates": {
+        "bfb": {
+          "assessment": "PASS",
+          "status": "BFB_CERTIFIED_SUFFICIENT"
+        },
+        "ewpo": {
+          "assessment": "PASS",
+          "status": "SCALAR_OBLIQUE_INSIDE_95"
+        },
+        "reconstruction": {
+          "assessment": "PASS",
+          "status": "RECONSTRUCTION_VALIDATED"
+        },
+        "unitarity": {
+          "assessment": "PASS",
+          "status": "TREE_UNITARITY_PASS"
+        },
+        "vacuum": {
+          "assessment": "UNKNOWN",
+          "status": "VACUUM_NO_DEEPER_WITNESS_FOUND"
+        }
+      },
+      "hessian_spectrum_residual": 7.450580596923828e-15,
+      "legacy_neutral_basis_residual": 1.5543122344752192e-15,
+      "legacy_neutral_signed_differences": [
+        -0.2577357167255518,
+        -0.2577357167255518,
+        -0.25701562118716437,
+        -0.1929843788128357
+      ],
+      "max_unitarity_eigenvalue": 1.6978046044601836,
+      "mixing_residual_GeV2": 4.656612873077393e-10,
+      "physical": {
+        "alpha": 0.7,
+        "beta": 0.7,
+        "gamma": 0.0,
+        "k1": 0.2,
+        "k12": 0.02,
+        "k2": 0.25,
+        "lc": 0.3,
+        "m12sq": 1108630.9462370179,
+        "mH1": 1500.0,
+        "mH2": 2000.0,
+        "ma": 1500.0,
+        "mh1": 125.0,
+        "mh2": 1500.0,
+        "v": 246.21965
+      },
+      "quadrature_delta": 1.77370393220945e-16,
+      "status": "SCALAR_PIPELINE_UNKNOWN",
+      "tadpole_over_v3": 6.707187781096504e-16,
+      "vacuum_attempts": 300,
+      "vacuum_credible_minima": 294,
+      "vacuum_deeper_witness": null
+    },
+    {
+      "STU": {
+        "S": -0.00013317101124439936,
+        "T": 0.0,
+        "U": -4.184887047697254e-06
+      },
+      "benchmark_id": "degenerate_signed_mixing",
+      "charge_block_residual": 5.551115123125783e-17,
+      "chi2_by_alternative_fit": {
+        "Gfitter_2026_U_floating": 0.33533387281460614,
+        "PDG_2025_U_floating": 1.0514942093864035
+      },
+      "gates": {
+        "bfb": {
+          "assessment": "PASS",
+          "status": "BFB_CERTIFIED_SUFFICIENT"
+        },
+        "ewpo": {
+          "assessment": "PASS",
+          "status": "SCALAR_OBLIQUE_INSIDE_95"
+        },
+        "reconstruction": {
+          "assessment": "PASS",
+          "status": "RECONSTRUCTION_VALIDATED"
+        },
+        "unitarity": {
+          "assessment": "PASS",
+          "status": "TREE_UNITARITY_PASS"
+        },
+        "vacuum": {
+          "assessment": "UNKNOWN",
+          "status": "VACUUM_NO_DEEPER_WITNESS_FOUND"
+        }
+      },
+      "hessian_spectrum_residual": 1.4551915228366852e-11,
+      "legacy_neutral_basis_residual": 6.661338147750939e-16,
+      "legacy_neutral_signed_differences": [
+        -0.2577357167255463,
+        -0.25773571672554624,
+        -0.25701562118716437,
+        -0.19298437881283587
+      ],
+      "max_unitarity_eigenvalue": 1.6978046044601816,
+      "mixing_residual_GeV2": 5.820766091346741e-11,
+      "physical": {
+        "alpha": 0.7,
+        "beta": 0.7,
+        "gamma": -0.72,
+        "k1": 0.2,
+        "k12": 0.02,
+        "k2": 0.25,
+        "lc": 0.3,
+        "m12sq": 123181.21624855752,
+        "mH1": 500.0,
+        "mH2": 500.0,
+        "ma": 500.0,
+        "mh1": 125.0,
+        "mh2": 500.0,
+        "v": 246.21965
+      },
+      "quadrature_delta": 8.825405684032006e-17,
+      "status": "SCALAR_PIPELINE_UNKNOWN",
+      "tadpole_over_v3": 3.4315844461423974e-16,
+      "vacuum_attempts": 300,
+      "vacuum_credible_minima": 294,
+      "vacuum_deeper_witness": null
+    },
+    {
+      "STU": {
+        "S": -0.0004989959813518057,
+        "T": 0.0,
+        "U": 0.00028415330689174947
+      },
+      "benchmark_id": "physical_deeper_singlet",
+      "charge_block_residual": 4.598694340586179e-17,
+      "chi2_by_alternative_fit": {
+        "Gfitter_2026_U_floating": 0.3176749773109507,
+        "PDG_2025_U_floating": 1.0223449478592952
+      },
+      "gates": {
+        "bfb": {
+          "assessment": "PASS",
+          "status": "BFB_CERTIFIED_SUFFICIENT"
+        },
+        "ewpo": {
+          "assessment": "PASS",
+          "status": "SCALAR_OBLIQUE_INSIDE_95"
+        },
+        "reconstruction": {
+          "assessment": "PASS",
+          "status": "RECONSTRUCTION_VALIDATED"
+        },
+        "unitarity": {
+          "assessment": "PASS",
+          "status": "TREE_UNITARITY_PASS"
+        },
+        "vacuum": {
+          "assessment": "FAIL",
+          "status": "VACUUM_DEEPER_WITNESS"
+        }
+      },
+      "hessian_spectrum_residual": 1.4551915228366852e-11,
+      "legacy_neutral_basis_residual": 1.7763568394002505e-15,
+      "legacy_neutral_signed_differences": [
+        -2.0000000000000004,
+        -2.0000000000000004,
+        -0.25773571672554535,
+        -0.25773571672554496
+      ],
+      "max_unitarity_eigenvalue": 4.868943297955291,
+      "mixing_residual_GeV2": 2.9103830456733704e-11,
+      "physical": {
+        "alpha": 0.7,
+        "beta": 0.7,
+        "gamma": 1.5707963267948966,
+        "k1": 2.0,
+        "k12": 0.0,
+        "k2": 2.0,
+        "lc": 0.1,
+        "m12sq": 78835.97839907682,
+        "mH1": 120.0,
+        "mH2": 400.0,
+        "ma": 400.0,
+        "mh1": 125.0,
+        "mh2": 400.0,
+        "v": 246.21965
+      },
+      "quadrature_delta": 6.136584296267955e-17,
+      "status": "SCALAR_PIPELINE_FAIL",
+      "tadpole_over_v3": 4.679433335648724e-17,
+      "vacuum_attempts": 300,
+      "vacuum_credible_minima": 294,
+      "vacuum_deeper_witness": {
+        "broken_gauge_rank": 1,
+        "chart": "H1_neutral_H2charged_real",
+        "delta_over_v4": -1.4211871982593691,
+        "fields_GeV": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          5.1413061832129053e-51,
+          0.0,
+          -3.2904359572562594e-49,
+          -2.5706530916064527e-51,
+          673.9929368769406,
+          89.30107222884482
+        ],
+        "gauge_ward_residual_over_v2": 3.83080236843915e-17,
+        "gradient_over_v3": 1.2080544293146918e-50,
+        "kind": "CHARGE_BREAKING",
+        "min_full_hessian_over_v2": 5.810419750864138e-16,
+        "min_transverse_hessian_over_v2": 1.5249415269314774,
+        "potential_relative_residual": 1.527755393858316e-16,
+        "seed": 123,
+        "value_over_v4": -1.4534041628500622
+      }
+    },
+    {
+      "STU": {
+        "S": 0.004439014954303707,
+        "T": -0.004896559295500944,
+        "U": 5.7436833960259726e-05
+      },
+      "benchmark_id": "negative_doublet_bfb",
+      "charge_block_residual": 1.2599305455618712e-15,
+      "chi2_by_alternative_fit": {
+        "Gfitter_2026_U_floating": 0.8720328180663267,
+        "PDG_2025_U_floating": 1.6720985051223258
+      },
+      "gates": {
+        "bfb": {
+          "assessment": "FAIL",
+          "status": "BFB_NEGATIVE_WITNESS"
+        },
+        "ewpo": {
+          "assessment": "PASS",
+          "status": "SCALAR_OBLIQUE_INSIDE_95"
+        },
+        "reconstruction": {
+          "assessment": "PASS",
+          "status": "RECONSTRUCTION_VALIDATED"
+        },
+        "unitarity": {
+          "assessment": "PASS",
+          "status": "TREE_UNITARITY_PASS"
+        },
+        "vacuum": {
+          "assessment": "UNKNOWN",
+          "status": "VACUUM_NO_DEEPER_WITNESS_FOUND"
+        }
+      },
+      "hessian_spectrum_residual": 7.5901594323693e-11,
+      "legacy_neutral_basis_residual": 4.440892098500626e-15,
+      "legacy_neutral_signed_differences": [
+        -3.4127973525434285,
+        -3.245276300528459,
+        -1.0820014867570085,
+        -0.003978513242992108
+      ],
+      "max_unitarity_eigenvalue": 17.998509356413265,
+      "mixing_residual_GeV2": 1.1641532182693481e-10,
+      "physical": {
+        "alpha": 1.398,
+        "beta": 1.398,
+        "gamma": 1.089,
+        "k1": 1.082,
+        "k12": -0.001266,
+        "k2": 0.00398,
+        "lc": 4.473,
+        "m12sq": 57700.0,
+        "mH1": 300.0,
+        "mH2": 700.0,
+        "ma": 633.7,
+        "mh1": 125.0,
+        "mh2": 580.7,
+        "v": 246.21965
+      },
+      "quadrature_delta": 1.0408340855860843e-16,
+      "status": "SCALAR_PIPELINE_FAIL",
+      "tadpole_over_v3": 8.189008337385266e-17,
+      "vacuum_attempts": 300,
+      "vacuum_credible_minima": 219,
+      "vacuum_deeper_witness": null
+    },
+    {
+      "STU": {
+        "S": 0.0044404330206560625,
+        "T": -0.0049021783175765745,
+        "U": 5.733708113025872e-05
+      },
+      "benchmark_id": "singlet_unitarity_failure",
+      "charge_block_residual": 1.7763568394002505e-15,
+      "chi2_by_alternative_fit": {
+        "Gfitter_2026_U_floating": 0.8726172333959237,
+        "PDG_2025_U_floating": 1.6726858974961125
+      },
+      "gates": {
+        "bfb": {
+          "assessment": "PASS",
+          "status": "BFB_CERTIFIED_SUFFICIENT"
+        },
+        "ewpo": {
+          "assessment": "PASS",
+          "status": "SCALAR_OBLIQUE_INSIDE_95"
+        },
+        "reconstruction": {
+          "assessment": "PASS",
+          "status": "RECONSTRUCTION_VALIDATED"
+        },
+        "unitarity": {
+          "assessment": "FAIL",
+          "status": "TREE_UNITARITY_FAIL"
+        },
+        "vacuum": {
+          "assessment": "UNKNOWN",
+          "status": "VACUUM_NO_DEEPER_WITNESS_FOUND"
+        }
+      },
+      "hessian_spectrum_residual": 7.916369800623278e-11,
+      "legacy_neutral_basis_residual": 2.842170943040401e-14,
+      "legacy_neutral_signed_differences": [
+        -3.7718773486806225,
+        -3.604356296665654,
+        -1.082001486757011,
+        -0.00397851324299152
+      ],
+      "max_unitarity_eigenvalue": 40.073106444275574,
+      "mixing_residual_GeV2": 1.1641532182693481e-10,
+      "physical": {
+        "alpha": 1.398,
+        "beta": 1.394,
+        "gamma": 1.089,
+        "k1": 1.082,
+        "k12": -0.001266,
+        "k2": 0.00398,
+        "lc": 10.0,
+        "m12sq": 57700.0,
+        "mH1": 300.0,
+        "mH2": 700.0,
+        "ma": 633.7,
+        "mh1": 125.0,
+        "mh2": 580.7,
+        "v": 246.21965
+      },
+      "quadrature_delta": 1.0581813203458523e-16,
+      "status": "SCALAR_PIPELINE_FAIL",
+      "tadpole_over_v3": 2.339716667824362e-17,
+      "vacuum_attempts": 300,
+      "vacuum_credible_minima": 294,
+      "vacuum_deeper_witness": null
+    }
+  ],
+  "gate_validation": {
+    "bfb": "PASS_SUFFICIENT_CERTIFICATES_AND_WITNESSES_UNKNOWN_OTHERWISE",
+    "ewpo": "PASS_SCALAR_OBLIQUE_ONLY_BELOW_THRESHOLD",
+    "interface": "PASS",
+    "module0_tag_ancestry": "BLOCKED_MISSING_GIT_OBJECT_SOURCE_HASHES_VERIFIED",
+    "reconstruction": "PASS",
+    "unitarity": "PASS",
+    "vacuum": "PARTIAL_NUMERICAL_WITNESS_SEARCH_NOT_GLOBAL_PROOF"
+  },
+  "independent_residuals": {
+    "T_matrix_sum_residual": 3.729655473350135e-17,
+    "bfb_falsifying_fixtures": 6,
+    "bfb_witness_high_precision_residual": 1.1102230246251565e-16,
+    "decoupling_STU": [
+      {
+        "S": -0.00012243990104599615,
+        "T": 0.0,
+        "U": -1.4915997246088598e-05
+      },
+      {
+        "S": -1.391191244695777e-05,
+        "T": 0.0,
+        "U": -1.3247782453720437e-06
+      }
+    ],
+    "deeper_stationary_witness": {
+      "broken_gauge_rank": 1,
+      "chart": "H1_neutral_H2charged_real",
+      "delta_over_v4": -1.4211871982593691,
+      "fields_GeV": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        5.1413061832129053e-51,
+        0.0,
+        -3.2904359572562594e-49,
+        -2.5706530916064527e-51,
+        673.9929368769406,
+        89.30107222884482
+      ],
+      "gauge_ward_residual_over_v2": 3.83080236843915e-17,
+      "gradient_over_v3": 1.2080544293146918e-50,
+      "kind": "CHARGE_BREAKING",
+      "min_full_hessian_over_v2": 5.810419750864138e-16,
+      "min_transverse_hessian_over_v2": 1.5249415269314774,
+      "potential_relative_residual": 1.527755393858316e-16,
+      "seed": 123,
+      "value_over_v4": -1.4534041628500622
+    },
+    "disputed_T_shift": 0.36028800098321495,
+    "finite_difference_gradient_over_v3": 5.060795921864089e-10,
+    "finite_difference_hessian_over_v2": 5.588151344444655e-10,
+    "fourth_derivative_max_residual": 0.0,
+    "gate6_max_eigenvalue_residual": 2.842170943040401e-14,
+    "hessian_max_difference_over_v2": 1.2289796673085455e-13,
+    "independent_mass_max_scaled_residual": 9.503291577708964e-16,
+    "independent_polynomial_points": 12,
+    "loop_closed_form_max_residual": 2.1582735598713043e-13,
+    "tadpole_max_over_v3": 4.91340500243116e-16,
+    "unitarity_basis_max_eigenvalue_residual": 1.0658141036401503e-14
+  },
+  "independent_test_failures": 0,
+  "independent_tests": 26,
+  "inherited": {
+    "STU_exit": 0,
+    "T_exit": 0,
+    "gate6_exit": 0,
+    "tests": 23,
+    "vacuum_exit": 0
+  },
+  "reproduce": "bash scripts/run_module1_validation.sh",
+  "schema_version": "1.0.0",
+  "single_point_equals_batch_repeated_seed_run": true,
+  "source_manifest_sha256": "cc8e957530eba2781378ab15b14d8f3100167bccd5fcce0d9cf4d8ff4aeb8da9",
+  "status": "PARTIAL",
+  "tolerances": {
+    "STU_quadrature": 2e-08,
+    "independent_spectrum_over_max_mass_squared": 2e-12,
+    "negative_V4_witness_per_quartic_scale": -1e-10,
+    "spectrum_per_eigenvalue_relative": 1e-07,
+    "tadpole_over_v3": 1e-09,
+    "unitarity_agreement": 2e-08,
+    "vacuum_depth_over_v4": -1e-06,
+    "vacuum_gradient_over_v3": 2e-07,
+    "vacuum_transverse_curvature_over_v2": 2e-07
+  },
+  "unresolved": [
+    "Finite vacuum search is not global stability proof.",
+    "BFB certificates are sufficient; uncertified nonnegative directions remain UNKNOWN.",
+    "EWPO is scalar oblique-only; above-threshold real-integral implementation is unsupported.",
+    "Lambda6/7 absent; RGE closure unproven; most general Zee scalar potential unsupported.",
+    "Requested Module0 tag/SHA absent locally; native archive and exact snapshot source hashes verified."
+  ]
+}
