@@ -58,6 +58,8 @@ on:
       - 'scripts/zee_paper1_F22_freeze_F21c_full_complex_benchmarks.py'
       - 'scripts/zee_paper1_F23_hyperiso_one_shot_integrated_157.py'
       - 'scripts/zee_paper1_F23b_one_pass_157_real_outputs_audit.py'
+      - 'scripts/zee_paper1_F24_157_matching_SM_same_LHA_HyperIso_2026_LO_audit.py'
+      - 'tests/test_zee_paper1_F24_one_integrated_matched_SM_157.py'
       - 'tests/test_zee_paper1_F23b_integrated_157_results_audit.py'
       - 'scripts/zee_paper1_F23_hyperiso_run_everything_ubuntu.sh'
       - 'tests/test_zee_paper1_F23_hyperiso_integrated_contracts.py'
@@ -128,6 +130,8 @@ jobs:
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F23_hyperiso_integrated_contracts.py' -v
       - run: python -m py_compile scripts/zee_paper1_F23b_one_pass_157_real_outputs_audit.py tests/test_zee_paper1_F23b_integrated_157_results_audit.py
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F23b_integrated_157_results_audit.py' -v
+      - run: python -m py_compile scripts/zee_paper1_F24_157_matching_SM_same_LHA_HyperIso_2026_LO_audit.py tests/test_zee_paper1_F24_one_integrated_matched_SM_157.py
+      - run: python -m unittest discover -s tests -p 'test_zee_paper1_F24_one_integrated_matched_SM_157.py' -v
       - run: bash -n scripts/zee_paper1_F21c_resume_worker.sh scripts/zee_paper1_F21c_submit_resume_24_lxplus.sh
       - run: python -m unittest discover -s tests -p 'test_zee_paper1_F21c_saved_scalar_rescue.py' -v
       - run: bash -n scripts/zee_paper1_F18_one_shot_madwidth.sh
