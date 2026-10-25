@@ -1,0 +1,229 @@
+{
+  "absolute_tolerance": 1e-09,
+  "complex_coefficient_checks": 978,
+  "field_indices": "Fe/Fv 1=e,2=mu,3=tau; hh1=h,hh2=H; Ah2=A; Hm1=G-,Hm2=H1-,Hm3=H2-",
+  "mathematica_version": "15.0.1 for Linux x86 (64-bit) (July 2, 2026)",
+  "max_abs_residual": 4.636291350834654e-13,
+  "native_json_sha256": "7e6b85a94d408b43b3667f5925b8c5f3f09af11ba9c49f4af78cfdbf9b890f80",
+  "raw_dump_sha256": "6c6b6ea08aa2559c66827a88a1204729dd94a25c3dce4f48360b0b9491142820",
+  "raw_query_count": 94,
+  "raw_representatives": {
+    "WW_1": "{{hh[{1}], VWm[{lt2}], conj[VWm[{lt3}]]}, {(I/2)*g2^2*(v1*ZH[1, 1] + v2*ZH[1, 2]), g[lt2, lt3]}}",
+    "WW_2": "{{hh[{2}], VWm[{lt2}], conj[VWm[{lt3}]]}, {(I/2)*g2^2*(v1*ZH[2, 1] + v2*ZH[2, 2]), g[lt2, lt3]}}",
+    "WW_A": "{{Ah[{2}], VWm[{lt2}], conj[VWm[{lt3}]]}, {0, 1}}",
+    "charged_minus_{2, 1, 2}": "{{bar[Fe[{1}]], Fv[{2}], Hm[{2}]}, {I*(-(sum[j1, 1, 3, conj[Ue[1, j1]]*Ye[j1, 2]]*ZP[2, 1]) - sum[j1, 1, 3, conj[Ue[1, j1]]*Ye2[j1, 2]]*ZP[2, 2]), PL}, {(I/2)*(-sum[j1, 1, 3, conj[Fzee[2, j1]]*Ve[1, j1]] + sum[j1, 1, 3, conj[Fzee[j1, 2]]*Ve[1, j1]])*ZP[2, 3], PR}}",
+    "charged_plus_{2, 1, 2}": "{{Fv[{2}], Fe[{1}], conj[Hm[{2}]]}, {(I/2)*(-sum[j1, 1, 3, conj[Ve[1, j1]]*Fzee[2, j1]] + sum[j1, 1, 3, conj[Ve[1, j1]]*Fzee[j1, 2]])*ZP[2, 3], PL}, {I*(-(sum[j1, 1, 3, conj[Ye[j1, 2]]*Ue[1, j1]]*ZP[2, 1]) - sum[j1, 1, 3, conj[Ye2[j1, 2]]*Ue[1, j1]]*ZP[2, 2]), PR}}",
+    "goldstone_1": "{{hh[{1}], Hm[{1}], conj[Hm[{1}]]}, {I*(-(Lambda1*v1*ZH[1, 1]*ZP[1, 1]^2) - Lambda4*v2*ZH[1, 1]*ZP[1, 1]*ZP[1, 2] - Lambda5*v2*ZH[1, 1]*ZP[1, 1]*ZP[1, 2] - Lambda4*v1*ZH[1, 2]*ZP[1, 1]*ZP[1, 2] - Lambda5*v1*ZH[1, 2]*ZP[1, 1]*ZP[1, 2] - Lambda2*v2*ZH[1, 2]*ZP[1, 2]^2 - Lambda3*(v2*ZH[1, 2]*ZP[1, 1]^2 + v1*ZH[1, 1]*ZP[1, 2]^2) - Sqrt[2]*Mu4*ZH[1, 2]*ZP[1, 1]*ZP[1, 3] + Sqrt[2]*Mu4*ZH[1, 1]*ZP[1, 2]*ZP[1, 3] - K1*v1*ZH[1, 1]*ZP[1, 3]^2 + K12*v2*ZH[1, 1]*ZP[1, 3]^2 + K12*v1*ZH[1, 2]*ZP[1, 3]^2 - K2*v2*ZH[1, 2]*ZP[1, 3]^2), 1}}",
+    "goldstone_2": "{{hh[{2}], Hm[{1}], conj[Hm[{1}]]}, {I*(-(Lambda1*v1*ZH[2, 1]*ZP[1, 1]^2) - Lambda4*v2*ZH[2, 1]*ZP[1, 1]*ZP[1, 2] - Lambda5*v2*ZH[2, 1]*ZP[1, 1]*ZP[1, 2] - Lambda4*v1*ZH[2, 2]*ZP[1, 1]*ZP[1, 2] - Lambda5*v1*ZH[2, 2]*ZP[1, 1]*ZP[1, 2] - Lambda2*v2*ZH[2, 2]*ZP[1, 2]^2 - Lambda3*(v2*ZH[2, 2]*ZP[1, 1]^2 + v1*ZH[2, 1]*ZP[1, 2]^2) - Sqrt[2]*Mu4*ZH[2, 2]*ZP[1, 1]*ZP[1, 3] + Sqrt[2]*Mu4*ZH[2, 1]*ZP[1, 2]*ZP[1, 3] - K1*v1*ZH[2, 1]*ZP[1, 3]^2 + K12*v2*ZH[2, 1]*ZP[1, 3]^2 + K12*v1*ZH[2, 2]*ZP[1, 3]^2 - K2*v2*ZH[2, 2]*ZP[1, 3]^2), 1}}",
+    "lepton_{1, 1, 2}": "{{bar[Fe[{1}]], Fe[{2}], hh[{1}]}, {((-I)*(sum[j2, 1, 3, conj[Ve[2, j2]]*sum[j1, 1, 3, conj[Ue[1, j1]]*Ye[j1, j2]]]*ZH[1, 1] + sum[j2, 1, 3, conj[Ve[2, j2]]*sum[j1, 1, 3, conj[Ue[1, j1]]*Ye2[j1, j2]]]*ZH[1, 2]))/Sqrt[2], PL}, {((-I)*(sum[j2, 1, 3, sum[j1, 1, 3, conj[Ye[j1, j2]]*Ue[2, j1]]*Ve[1, j2]]*ZH[1, 1] + sum[j2, 1, 3, sum[j1, 1, 3, conj[Ye2[j1, j2]]*Ue[2, j1]]*Ve[1, j2]]*ZH[1, 2]))/Sqrt[2], PR}}",
+    "lepton_{2, 1, 2}": "{{bar[Fe[{1}]], Fe[{2}], hh[{2}]}, {((-I)*(sum[j2, 1, 3, conj[Ve[2, j2]]*sum[j1, 1, 3, conj[Ue[1, j1]]*Ye[j1, j2]]]*ZH[2, 1] + sum[j2, 1, 3, conj[Ve[2, j2]]*sum[j1, 1, 3, conj[Ue[1, j1]]*Ye2[j1, j2]]]*ZH[2, 2]))/Sqrt[2], PL}, {((-I)*(sum[j2, 1, 3, sum[j1, 1, 3, conj[Ye[j1, j2]]*Ue[2, j1]]*Ve[1, j2]]*ZH[2, 1] + sum[j2, 1, 3, sum[j1, 1, 3, conj[Ye2[j1, j2]]*Ue[2, j1]]*Ve[1, j2]]*ZH[2, 2]))/Sqrt[2], PR}}",
+    "lepton_{3, 1, 2}": "{{bar[Fe[{1}]], Fe[{2}], Ah[{2}]}, {-((sum[j2, 1, 3, conj[Ve[2, j2]]*sum[j1, 1, 3, conj[Ue[1, j1]]*Ye[j1, j2]]]*ZA[2, 1] + sum[j2, 1, 3, conj[Ve[2, j2]]*sum[j1, 1, 3, conj[Ue[1, j1]]*Ye2[j1, j2]]]*ZA[2, 2])/Sqrt[2]), PL}, {(sum[j2, 1, 3, sum[j1, 1, 3, conj[Ye[j1, j2]]*Ue[2, j1]]*Ve[1, j2]]*ZA[2, 1] + sum[j2, 1, 3, sum[j1, 1, 3, conj[Ye2[j1, j2]]*Ue[2, j1]]*Ve[1, j2]]*ZA[2, 2])/Sqrt[2], PR}}",
+    "quark_{1, Fd}": "{{bar[Fd[{3, ct1}]], Fd[{3, ct2}], hh[{1}]}, {((-I)*Delta[ct1, ct2]*sum[j2, 1, 3, conj[Vd[3, j2]]*sum[j1, 1, 3, conj[Ud[3, j1]]*Yd[j1, j2]]]*ZH[1, 1])/Sqrt[2], PL}, {((-I)*Delta[ct1, ct2]*sum[j2, 1, 3, sum[j1, 1, 3, conj[Yd[j1, j2]]*Ud[3, j1]]*Vd[3, j2]]*ZH[1, 1])/Sqrt[2], PR}}",
+    "quark_{1, Fu}": "{{bar[Fu[{3, ct1}]], Fu[{3, ct2}], hh[{1}]}, {((-I)*Delta[ct1, ct2]*sum[j2, 1, 3, conj[Vu[3, j2]]*sum[j1, 1, 3, conj[Uu[3, j1]]*Yu[j1, j2]]]*ZH[1, 2])/Sqrt[2], PL}, {((-I)*Delta[ct1, ct2]*sum[j2, 1, 3, sum[j1, 1, 3, conj[Yu[j1, j2]]*Uu[3, j1]]*Vu[3, j2]]*ZH[1, 2])/Sqrt[2], PR}}",
+    "quark_{2, Fd}": "{{bar[Fd[{3, ct1}]], Fd[{3, ct2}], hh[{2}]}, {((-I)*Delta[ct1, ct2]*sum[j2, 1, 3, conj[Vd[3, j2]]*sum[j1, 1, 3, conj[Ud[3, j1]]*Yd[j1, j2]]]*ZH[2, 1])/Sqrt[2], PL}, {((-I)*Delta[ct1, ct2]*sum[j2, 1, 3, sum[j1, 1, 3, conj[Yd[j1, j2]]*Ud[3, j1]]*Vd[3, j2]]*ZH[2, 1])/Sqrt[2], PR}}",
+    "quark_{2, Fu}": "{{bar[Fu[{3, ct1}]], Fu[{3, ct2}], hh[{2}]}, {((-I)*Delta[ct1, ct2]*sum[j2, 1, 3, conj[Vu[3, j2]]*sum[j1, 1, 3, conj[Uu[3, j1]]*Yu[j1, j2]]]*ZH[2, 2])/Sqrt[2], PL}, {((-I)*Delta[ct1, ct2]*sum[j2, 1, 3, sum[j1, 1, 3, conj[Yu[j1, j2]]*Uu[3, j1]]*Vu[3, j2]]*ZH[2, 2])/Sqrt[2], PR}}",
+    "quark_{3, Fd}": "{{bar[Fd[{3, ct1}]], Fd[{3, ct2}], Ah[{2}]}, {-((Delta[ct1, ct2]*sum[j2, 1, 3, conj[Vd[3, j2]]*sum[j1, 1, 3, conj[Ud[3, j1]]*Yd[j1, j2]]]*ZA[2, 1])/Sqrt[2]), PL}, {(Delta[ct1, ct2]*sum[j2, 1, 3, sum[j1, 1, 3, conj[Yd[j1, j2]]*Ud[3, j1]]*Vd[3, j2]]*ZA[2, 1])/Sqrt[2], PR}}",
+    "quark_{3, Fu}": "{{bar[Fu[{3, ct1}]], Fu[{3, ct2}], Ah[{2}]}, {(Delta[ct1, ct2]*sum[j2, 1, 3, conj[Vu[3, j2]]*sum[j1, 1, 3, conj[Uu[3, j1]]*Yu[j1, j2]]]*ZA[2, 2])/Sqrt[2], PL}, {-((Delta[ct1, ct2]*sum[j2, 1, 3, sum[j1, 1, 3, conj[Yu[j1, j2]]*Uu[3, j1]]*Vu[3, j2]]*ZA[2, 2])/Sqrt[2]), PR}}",
+    "scalar_gauge_{VP, 2, 2}": "{{Hm[{2}], conj[Hm[{2}]], VP[{lt3}]}, {(-1/2*I)*(g2*Sin[ThetaW]*(ZP[2, 1]^2 + ZP[2, 2]^2) + g1*Cos[ThetaW]*(ZP[2, 1]^2 + ZP[2, 2]^2 + 2*ZP[2, 3]^2)), Mom[conj[Hm[{2}]], lt3] - Mom[Hm[{2}], lt3]}}",
+    "scalar_gauge_{VP, 2, 3}": "{{Hm[{2}], conj[Hm[{3}]], VP[{lt3}]}, {(-1/2*I)*(g2*Sin[ThetaW]*(ZP[2, 1]*ZP[3, 1] + ZP[2, 2]*ZP[3, 2]) + g1*Cos[ThetaW]*(ZP[2, 1]*ZP[3, 1] + ZP[2, 2]*ZP[3, 2] + 2*ZP[2, 3]*ZP[3, 3])), Mom[conj[Hm[{3}]], lt3] - Mom[Hm[{2}], lt3]}}",
+    "scalar_gauge_{VZ, 2, 3}": "{{Hm[{2}], conj[Hm[{3}]], VZ[{lt3}]}, {(-1/2*I)*(g2*Cos[ThetaW]*(ZP[2, 1]*ZP[3, 1] + ZP[2, 2]*ZP[3, 2]) - g1*Sin[ThetaW]*(ZP[2, 1]*ZP[3, 1] + ZP[2, 2]*ZP[3, 2] + 2*ZP[2, 3]*ZP[3, 3])), Mom[conj[Hm[{3}]], lt3] - Mom[Hm[{2}], lt3]}}",
+    "trilinear_{1, 2, 2}": "{{hh[{1}], Hm[{2}], conj[Hm[{2}]]}, {I*(-(Lambda1*v1*ZH[1, 1]*ZP[2, 1]^2) - Lambda4*v2*ZH[1, 1]*ZP[2, 1]*ZP[2, 2] - Lambda5*v2*ZH[1, 1]*ZP[2, 1]*ZP[2, 2] - Lambda4*v1*ZH[1, 2]*ZP[2, 1]*ZP[2, 2] - Lambda5*v1*ZH[1, 2]*ZP[2, 1]*ZP[2, 2] - Lambda2*v2*ZH[1, 2]*ZP[2, 2]^2 - Lambda3*(v2*ZH[1, 2]*ZP[2, 1]^2 + v1*ZH[1, 1]*ZP[2, 2]^2) - Sqrt[2]*Mu4*ZH[1, 2]*ZP[2, 1]*ZP[2, 3] + Sqrt[2]*Mu4*ZH[1, 1]*ZP[2, 2]*ZP[2, 3] - K1*v1*ZH[1, 1]*ZP[2, 3]^2 + K12*v2*ZH[1, 1]*ZP[2, 3]^2 + K12*v1*ZH[1, 2]*ZP[2, 3]^2 - K2*v2*ZH[1, 2]*ZP[2, 3]^2), 1}}",
+    "trilinear_{1, 2, 3}": "{{hh[{1}], Hm[{2}], conj[Hm[{3}]]}, {(I/2)*(-2*Lambda1*v1*ZH[1, 1]*ZP[2, 1]*ZP[3, 1] - Lambda4*v2*ZH[1, 1]*ZP[2, 2]*ZP[3, 1] - Lambda5*v2*ZH[1, 1]*ZP[2, 2]*ZP[3, 1] - Lambda4*v1*ZH[1, 2]*ZP[2, 2]*ZP[3, 1] - Lambda5*v1*ZH[1, 2]*ZP[2, 2]*ZP[3, 1] - Sqrt[2]*Mu4*ZH[1, 2]*ZP[2, 3]*ZP[3, 1] - Lambda4*v2*ZH[1, 1]*ZP[2, 1]*ZP[3, 2] - Lambda5*v2*ZH[1, 1]*ZP[2, 1]*ZP[3, 2] - Lambda4*v1*ZH[1, 2]*ZP[2, 1]*ZP[3, 2] - Lambda5*v1*ZH[1, 2]*ZP[2, 1]*ZP[3, 2] - 2*Lambda2*v2*ZH[1, 2]*ZP[2, 2]*ZP[3, 2] + Sqrt[2]*Mu4*ZH[1, 1]*ZP[2, 3]*ZP[3, 2] - 2*Lambda3*(v2*ZH[1, 2]*ZP[2, 1]*ZP[3, 1] + v1*ZH[1, 1]*ZP[2, 2]*ZP[3, 2]) - Sqrt[2]*Mu4*ZH[1, 2]*ZP[2, 1]*ZP[3, 3] + Sqrt[2]*Mu4*ZH[1, 1]*ZP[2, 2]*ZP[3, 3] - 2*K1*v1*ZH[1, 1]*ZP[2, 3]*ZP[3, 3] + 2*K12*v2*ZH[1, 1]*ZP[2, 3]*ZP[3, 3] + 2*K12*v1*ZH[1, 2]*ZP[2, 3]*ZP[3, 3] - 2*K2*v2*ZH[1, 2]*ZP[2, 3]*ZP[3, 3]), 1}}",
+    "trilinear_{2, 3, 3}": "{{hh[{2}], Hm[{3}], conj[Hm[{3}]]}, {I*(-(Lambda1*v1*ZH[2, 1]*ZP[3, 1]^2) - Lambda4*v2*ZH[2, 1]*ZP[3, 1]*ZP[3, 2] - Lambda5*v2*ZH[2, 1]*ZP[3, 1]*ZP[3, 2] - Lambda4*v1*ZH[2, 2]*ZP[3, 1]*ZP[3, 2] - Lambda5*v1*ZH[2, 2]*ZP[3, 1]*ZP[3, 2] - Lambda2*v2*ZH[2, 2]*ZP[3, 2]^2 - Lambda3*(v2*ZH[2, 2]*ZP[3, 1]^2 + v1*ZH[2, 1]*ZP[3, 2]^2) - Sqrt[2]*Mu4*ZH[2, 2]*ZP[3, 1]*ZP[3, 3] + Sqrt[2]*Mu4*ZH[2, 1]*ZP[3, 2]*ZP[3, 3] - K1*v1*ZH[2, 1]*ZP[3, 3]^2 + K12*v2*ZH[2, 1]*ZP[3, 3]^2 + K12*v1*ZH[2, 2]*ZP[3, 3]^2 - K2*v2*ZH[2, 2]*ZP[3, 3]^2), 1}}",
+    "trilinear_{3, 2, 3}": "{{Ah[{2}], Hm[{2}], conj[Hm[{3}]]}, {(-(Lambda4*(v2*ZA[2, 1] - v1*ZA[2, 2])*(ZP[2, 2]*ZP[3, 1] - ZP[2, 1]*ZP[3, 2])) + Lambda5*(v2*ZA[2, 1] - v1*ZA[2, 2])*(ZP[2, 2]*ZP[3, 1] - ZP[2, 1]*ZP[3, 2]) - Sqrt[2]*Mu4*(ZA[2, 2]*(-(ZP[2, 3]*ZP[3, 1]) + ZP[2, 1]*ZP[3, 3]) + ZA[2, 1]*(ZP[2, 3]*ZP[3, 2] - ZP[2, 2]*ZP[3, 3])))/2, 1}}"
+  },
+  "sarah_version": "4.15.4",
+  "scalar_gauge_momentum_tensor_checks": [
+    [
+      [
+        [
+          {
+            "pass": true,
+            "vertex": "scalar_gauge_{VP, 2, 2}"
+          }
+        ],
+        [
+          {
+            "pass": true,
+            "vertex": "scalar_gauge_{VP, 2, 3}"
+          }
+        ]
+      ],
+      [
+        [
+          {
+            "pass": true,
+            "vertex": "scalar_gauge_{VP, 3, 2}"
+          }
+        ],
+        [
+          {
+            "pass": true,
+            "vertex": "scalar_gauge_{VP, 3, 3}"
+          }
+        ]
+      ]
+    ],
+    [
+      [
+        [
+          {
+            "pass": true,
+            "vertex": "scalar_gauge_{VZ, 2, 2}"
+          }
+        ],
+        [
+          {
+            "pass": true,
+            "vertex": "scalar_gauge_{VZ, 2, 3}"
+          }
+        ]
+      ],
+      [
+        [
+          {
+            "pass": true,
+            "vertex": "scalar_gauge_{VZ, 3, 2}"
+          }
+        ],
+        [
+          {
+            "pass": true,
+            "vertex": "scalar_gauge_{VZ, 3, 3}"
+          }
+        ]
+      ]
+    ]
+  ],
+  "signed_worst_by_sector": {
+    "WW": {
+      "actual": [
+        0.0,
+        51.59325126355423
+      ],
+      "expected": [
+        0.0,
+        51.59325126355422
+      ],
+      "projector": "g[lt2, lt3]",
+      "residual": 7.105427357601002e-15,
+      "signed_complex_residual": [
+        0.0,
+        7.105427357601002e-15
+      ],
+      "vertex": "WW_1",
+      "witness": "module3_NO_spectrum1"
+    },
+    "charged": {
+      "actual": [
+        3.492418132107614e-07,
+        -7.657602498450759e-07
+      ],
+      "expected": [
+        3.492418132107614e-07,
+        -7.657602498457297e-07
+      ],
+      "projector": "PL",
+      "residual": 6.538035561619131e-19,
+      "signed_complex_residual": [
+        0.0,
+        6.538035561619131e-19
+      ],
+      "vertex": "charged_minus_{2, 3, 3}",
+      "witness": "module3_NO_spectrum1"
+    },
+    "goldstone": {
+      "actual": [
+        0.0,
+        -62.544813068176836
+      ],
+      "expected": [
+        0.0,
+        -62.54481306817667
+      ],
+      "projector": "1",
+      "residual": 1.6342482922482304e-13,
+      "signed_complex_residual": [
+        0.0,
+        -1.6342482922482304e-13
+      ],
+      "vertex": "goldstone_1",
+      "witness": "module3_NO_spectrum1"
+    },
+    "lepton": {
+      "actual": [
+        9.23435751289443e-08,
+        -0.007112506824746716
+      ],
+      "expected": [
+        9.23435751289443e-08,
+        -0.007112506824746714
+      ],
+      "projector": "PL",
+      "residual": 1.734723475976807e-18,
+      "signed_complex_residual": [
+        0.0,
+        -1.734723475976807e-18
+      ],
+      "vertex": "lepton_{1, 3, 3}",
+      "witness": "module3_IO_spectrum1"
+    },
+    "quark": {
+      "actual": [
+        3.6562272172683445e-18,
+        -0.7277622553044937
+      ],
+      "expected": [
+        0.0,
+        -0.7277622553044933
+      ],
+      "projector": "PL",
+      "residual": 3.33086974819144e-16,
+      "signed_complex_residual": [
+        3.6562272172683445e-18,
+        -3.3306690738754696e-16
+      ],
+      "vertex": "quark_{2, Fu}",
+      "witness": "module3_NO_spectrum2"
+    },
+    "scalar": {
+      "actual": [
+        0.0,
+        -0.31300000000000006
+      ],
+      "expected": [
+        0.0,
+        -0.313
+      ],
+      "projector": "ANY",
+      "residual": 5.551115123125783e-17,
+      "signed_complex_residual": [
+        0.0,
+        -5.551115123125783e-17
+      ],
+      "vertex": "scalar_gauge_{VP, 2, 2}",
+      "witness": "module3_NO_spectrum0"
+    },
+    "trilinear": {
+      "actual": [
+        0.0,
+        15.75296128514833
+      ],
+      "expected": [
+        0.0,
+        15.752961285147867
+      ],
+      "projector": "1",
+      "residual": 4.636291350834654e-13,
+      "signed_complex_residual": [
+        0.0,
+        4.636291350834654e-13
+      ],
+      "vertex": "trilinear_{1, 2, 2}",
+      "witness": "module3_NO_spectrum1"
+    }
+  },
+  "status": "VERTEX_COMPONENTS_PASS",
+  "units": "dimensionless Yukawa/gauge coefficients; scalar trilinears in GeV",
+  "witness_records_sha256": "90e25c92c6e6a8c98d9c7498646dd8c70a7de828cafe228944d1aede431f6098"
+}

@@ -1,0 +1,388 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:zee:module4:output:1.0.0",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "benchmark_id": {
+      "type": "string"
+    },
+    "status": {
+      "const": "PARTIAL"
+    },
+    "COMPLETE_LFV": {
+      "const": false
+    },
+    "global_zee_acceptance": {
+      "type": "null"
+    },
+    "channels": {
+      "type": "object",
+      "properties": {
+        "mu_to_e_gamma": {
+          "$ref": "#/$defs/channel"
+        },
+        "tau_to_mu_gamma": {
+          "$ref": "#/$defs/channel"
+        },
+        "tau_to_e_gamma": {
+          "$ref": "#/$defs/channel"
+        }
+      },
+      "required": [
+        "mu_to_e_gamma",
+        "tau_to_mu_gamma",
+        "tau_to_e_gamma"
+      ],
+      "additionalProperties": false
+    },
+    "module3_output": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "missing_contributions": {
+      "type": "object"
+    },
+    "provenance": {
+      "type": "object"
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "benchmark_id",
+    "status",
+    "COMPLETE_LFV",
+    "global_zee_acceptance",
+    "channels",
+    "module3_output",
+    "missing_contributions",
+    "provenance",
+    "limitations"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "validated_row": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "PASS",
+            "PARTIAL",
+            "UNKNOWN",
+            "NOT_EVALUATED"
+          ]
+        },
+        "validation_status": {
+          "const": "VALIDATION_PASS"
+        },
+        "C_L": {
+          "type": "object",
+          "properties": {
+            "real": {
+              "type": "number"
+            },
+            "imag": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "real",
+            "imag"
+          ],
+          "additionalProperties": false
+        },
+        "C_R": {
+          "type": "object",
+          "properties": {
+            "real": {
+              "type": "number"
+            },
+            "imag": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "real",
+            "imag"
+          ],
+          "additionalProperties": false
+        },
+        "scalar": {
+          "type": "string"
+        },
+        "loop_species": {
+          "type": "string"
+        },
+        "loop_order": {
+          "enum": [
+            1,
+            2
+          ]
+        },
+        "source": {
+          "type": "string"
+        },
+        "gauge_subset": {
+          "type": "string"
+        },
+        "operator_convention": {
+          "type": "string"
+        },
+        "basis": {
+          "type": "string"
+        },
+        "numerical_error": {
+          "type": "number",
+          "minimum": 0
+        },
+        "uncertainty": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "validation_status",
+        "C_L",
+        "C_R",
+        "scalar",
+        "loop_species",
+        "loop_order",
+        "source",
+        "gauge_subset",
+        "operator_convention",
+        "basis",
+        "numerical_error",
+        "uncertainty"
+      ],
+      "additionalProperties": true
+    },
+    "candidate": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "UNKNOWN"
+        },
+        "validation_status": {
+          "const": "SOURCE_NORMALIZATION_CONFLICT"
+        },
+        "C_L": {
+          "type": "object",
+          "properties": {
+            "real": {
+              "type": "number"
+            },
+            "imag": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "real",
+            "imag"
+          ],
+          "additionalProperties": false
+        },
+        "C_R": {
+          "type": "object",
+          "properties": {
+            "real": {
+              "type": "number"
+            },
+            "imag": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "real",
+            "imag"
+          ],
+          "additionalProperties": false
+        },
+        "scalar": {
+          "type": "string"
+        },
+        "loop_species": {
+          "type": "string"
+        },
+        "loop_order": {
+          "enum": [
+            1,
+            2
+          ]
+        },
+        "source": {
+          "type": "string"
+        },
+        "gauge_subset": {
+          "type": "string"
+        },
+        "operator_convention": {
+          "type": "string"
+        },
+        "basis": {
+          "type": "string"
+        },
+        "numerical_error": {
+          "type": "number",
+          "minimum": 0
+        },
+        "uncertainty": {
+          "type": "string"
+        },
+        "coherent_inclusion": {
+          "const": false
+        }
+      },
+      "required": [
+        "status",
+        "validation_status",
+        "C_L",
+        "C_R",
+        "scalar",
+        "loop_species",
+        "loop_order",
+        "source",
+        "gauge_subset",
+        "operator_convention",
+        "basis",
+        "numerical_error",
+        "uncertainty",
+        "coherent_inclusion"
+      ],
+      "additionalProperties": true
+    },
+    "channel": {
+      "type": "object",
+      "properties": {
+        "ledger": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/validated_row"
+          }
+        },
+        "C_L": {
+          "type": "object",
+          "properties": {
+            "real": {
+              "type": "number"
+            },
+            "imag": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "real",
+            "imag"
+          ],
+          "additionalProperties": false
+        },
+        "C_R": {
+          "type": "object",
+          "properties": {
+            "real": {
+              "type": "number"
+            },
+            "imag": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "real",
+            "imag"
+          ],
+          "additionalProperties": false
+        },
+        "width_GeV": {
+          "type": "number",
+          "minimum": 0
+        },
+        "partial_BR": {
+          "type": "number",
+          "minimum": 0
+        },
+        "rate_scope": {
+          "const": "INCLUDED_TOPOLOGIES_ONLY"
+        },
+        "physical_status": {
+          "const": "PREDICTION_INCOMPLETE"
+        },
+        "experimental_comparison": {
+          "const": "NOT_EVALUATED"
+        },
+        "numerical_error_C_absolute_sum": {
+          "type": "number",
+          "minimum": 0
+        },
+        "two_loop_candidates": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/candidate"
+          }
+        },
+        "coherent_blocker": {
+          "type": "string"
+        },
+        "omitted_topologies": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": [
+              "status",
+              "C_L",
+              "C_R",
+              "scalar",
+              "loop_species",
+              "loop_order",
+              "source",
+              "gauge_subset",
+              "operator_convention",
+              "numerical_error"
+            ],
+            "properties": {
+              "status": {
+                "enum": [
+                  "UNKNOWN",
+                  "NOT_EVALUATED"
+                ]
+              },
+              "C_L": {
+                "type": "null"
+              },
+              "C_R": {
+                "type": "null"
+              },
+              "numerical_error": {
+                "type": "null"
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "required": [
+        "ledger",
+        "C_L",
+        "C_R",
+        "width_GeV",
+        "partial_BR",
+        "rate_scope",
+        "physical_status",
+        "experimental_comparison",
+        "numerical_error_C_absolute_sum",
+        "two_loop_candidates",
+        "coherent_blocker",
+        "omitted_topologies"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

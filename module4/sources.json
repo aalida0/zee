@@ -1,0 +1,37 @@
+{
+  "Davidson2016": {
+    "url": "https://arxiv.org/pdf/1601.01949",
+    "sha256": "bfab0035723b1989ad8f20abc7537c26b5c7b23fd45b1a771e3a5051fa05af0f",
+    "identity": "EPJC76(2016)258; arXiv1601.01949 downloaded 2026-10-25",
+    "equations": "Eqs16,18,21,23,24; operator matching and photon subsets",
+    "local_cache": "davidson.pdf"
+  },
+  "Haber2024": {
+    "url": "https://scipp.ucsc.edu/~haber/webpage/BarrZee.pdf",
+    "sha256": "fdc0fa6329dc6ffcb9330df4430bfb1a7461bfb3f01f5185e3dd3c091bc0ee37",
+    "identity": "March4,2024 notes",
+    "equations": "Eqs1,39,42,60-62; analytic kernels",
+    "local_cache": "haber.pdf"
+  },
+  "HerreroGarcia2017": {
+    "url": "https://arxiv.org/pdf/1701.05345",
+    "sha256": "f62a88ff26b0d84806e37874e09574f95282108fc7ef18d9e6a7dc9de6cfd62a",
+    "identity": "JHEP04(2017)130",
+    "equations": "Eqs3.9,3.11-3.14; frozen component comparison",
+    "local_cache": "zee.pdf"
+  },
+  "CHK1993": {
+    "url": "https://arxiv.org/pdf/hep-ph/9302267",
+    "sha256": "fd213401f7b111164c1cb2afab50e622dd34df84461a328262551370fbb009a9",
+    "identity": "PhysRevD48(1993)217",
+    "equations": "Eqs6-19; complex photon, W+Goldstone and missing Z subsets",
+    "local_cache": "chk.pdf"
+  },
+  "Ilisie2015": {
+    "url": "https://arxiv.org/pdf/1502.04199",
+    "sha256": "b0b886104b0a5bc000d01c82973fcc36b9183d04dfe13e4f0938a4e95b063d5e",
+    "identity": "JHEP04(2015)077",
+    "equations": "Eqs4,9,11-14,19-21,25-28; independent signed moments and scalar form factor",
+    "local_cache": "ilisie.pdf"
+  }
+}

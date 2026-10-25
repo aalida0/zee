@@ -10,3 +10,4 @@ __pycache__/
 *.py[cod]
 /.module1_logs/
 /validation/module3/local/
+/validation/module4/local/

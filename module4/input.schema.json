@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:zee:module4:input:1.0.0",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "kind": {
+      "const": "module3_matching_input_v1"
+    },
+    "module3_input": {
+      "type": "object"
+    },
+    "module2_output": {
+      "type": "object"
+    },
+    "module3_output": {
+      "type": "object"
+    },
+    "two_loop_inputs": {
+      "type": "object",
+      "properties": {
+        "fermion_masses_GeV": {
+          "type": "object",
+          "properties": {
+            "up": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "charm": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "top": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "down": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "strange": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "bottom": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "electron": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "muon": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "tau": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          },
+          "required": [
+            "up",
+            "charm",
+            "top",
+            "down",
+            "strange",
+            "bottom",
+            "electron",
+            "muon",
+            "tau"
+          ],
+          "additionalProperties": false
+        },
+        "mW_GeV": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "mass_yukawa_scheme": {
+          "const": "NOMINAL_UNMATCHED"
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "url": {
+              "type": "string",
+              "minLength": 1
+            },
+            "selection": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "version",
+            "url",
+            "selection"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "fermion_masses_GeV",
+        "mW_GeV",
+        "mass_yukawa_scheme",
+        "source"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "kind",
+    "module3_input",
+    "module2_output",
+    "two_loop_inputs"
+  ],
+  "additionalProperties": false
+}

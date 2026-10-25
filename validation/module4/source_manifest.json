@@ -1,0 +1,98 @@
+{
+  "comparison_sources_sha256": {
+    "module3/core.py": "5390e63af12a27c8e53823cc3625cd54851b10f5205d5ed2aab2ddd6767fd494",
+    "module3/tree.py": "e0886ac383e32f16eeaa888c9c2c50e124460fc08243d37917156c19ff091bd5",
+    "reference/barrzee/tests/test_zee_gateD4_W_photon_barr_zee_27.py": "9892890d9df40853b2cbfca1ee33ffbfdd474b8fcf7e3e609dee0d28fc0af674",
+    "reference/lfv/scripts/zee_barr_zee_fermion_dipoles.py": "55d27184e9426675a9ee92957297f7a5d954228191b903ded7e04fd21eb04ebe",
+    "reference/lfv/scripts/zee_barr_zee_kernels.py": "412526f707f04fdae32dd60639c74b8f0be5f86b8fe73eaf224c2eff46ae6b4a",
+    "reference/lfv/scripts/zee_gateD4_W_photon_barr_zee_27.py": "3e977e85608c404a59dc6c4bdaf953eae218c77ac56b2b929a6a2e4c82d9c1d2",
+    "scripts/gateA1c_charged_singlet_lfv.py": "afd64e6c8a86b46b79c4a1ecafd72ea7e0306cd2eceec45818f896880fc0a097",
+    "scripts/gateA1d_neutral_tree_lfv.py": "276a0fa6f6e8789f01a81e13f4e275c296a19add8a1b3db6f676e1813f42af33",
+    "scripts/gateA1e_neutral_one_loop_dipoles.py": "14e76a21c5d0f445e794749aa56f15a08bf7cc8294ceaf524050fe2cc8835336",
+    "scripts/gateA1f_charged_doublet_y_dipoles.py": "8abf850bca1e8b5a4b6b9dc4efebb3a66f36cb58426e2953f09a55bd924478bd"
+  },
+  "component_tag": {
+    "annotated_object": "6537d00a2113b0494d259302d3d47fd22342a278",
+    "name": "zee-lfv-module3-components-v1",
+    "peeled": "48735439f151fb43f2c6d50661abe66f3d440293"
+  },
+  "foundation_commits": {
+    "module0": "00bc58869358501bf3f3ef583e2c759a23a4f39a",
+    "module1": "687fba61640424406661601e92312b8481673b83",
+    "module2": "571046e7dce3b99b60c4aaa6e6cdef2e66a494d4",
+    "module3": "48735439f151fb43f2c6d50661abe66f3d440293"
+  },
+  "installed_SARAH_m_sha256": "8ed36ea4ed97e9f032ced9887a13594b4a40fe0f09fda475c69f7c5633be4d01",
+  "module4_sources_sha256": {
+    "module4/CONVENTIONS.md": "c0b8364e1fbc691b690b1fd1a1885d21696740c79746b20b5733c80ac08b699c",
+    "module4/README.md": "fdeac50bca58fb16b80d12a0e0b3ff6db4ce67afe845e82d3ff711d913bc4bde",
+    "module4/__init__.py": "6a6c095008456280dbba99da0f84ad373a77d8a2dfc8854efe1b9d2358ca985d",
+    "module4/amplitudes.py": "5d0e604a1b91b26b9d901fdd5965c335983755db1d421f8aba7e9429c1f891f2",
+    "module4/couplings.py": "3c177445481b0ef85faf328413c3b2cbd08b135e2ad0a86de68a4047b7cde564",
+    "module4/example.json": "355e37e028256390e7f25fd1b3a2ddc811c049bb447a207844738fec4fe6872c",
+    "module4/input.schema.json": "a3a137d70192dd518801654b687f24919fbc3e508f72ee5b62e69c6e66dd940f",
+    "module4/interface.py": "6bc75d418e20ef05a37eb05b6664f4f0445512b461799fdda34d918a1dc0f213",
+    "module4/kernels.py": "0e167f500830e78df218f4ab680e9a63d13050efafb5559011af3b6f54adf76f",
+    "module4/native.py": "12876d3fbb89d0532e92f78b2f8b2e0f09299c0d20f0a3dbee7896e5cb964514",
+    "module4/native_evidence.json": "96530782c66e4ca684d95e1c32e4fbeca4656b4871a7fee8e03da478ee058e81",
+    "module4/output.schema.json": "8039043256006f83ff6dc53bed060dadded7745c93e7b067b47802ad3615aeb2",
+    "module4/sources.json": "83bbd823301767699c26aaabfab899ac9dd9e7144905752aafe684bffe2b89eb",
+    "module4/validate.py": "fd177769937f7f6b7e919b164f53b7843800e6e6d107e23cf58db49e2e0ef44e",
+    "scripts/run_module4_validation.sh": "b9b986b98dd8343d0979c03257597d422f96e64ad5c02b891490e65940d0158c",
+    "scripts/zee_module4_vertices.m": "482fbddc6675d4370218fc710faf38ecd5925fee2ebf2e161652c93304700267",
+    "tests/test_module4_interface.py": "539ef5c01277e3549e29b0470d2b0daeab36745b823f528c3400416dab6f503b",
+    "tests/test_module4_physics.py": "c2591519a087f9e969838d99c2dda20fd77ef24f5f8e5ee8356a61a36a2e31d8"
+  },
+  "native_logs": "validation/module4/local (ignored)",
+  "native_model_sha256": {
+    "models/SARAH/ZeeTypeII/ZeeTypeII.m": "78d6b48232f9a75a21b058301d9233dba3ed067e21f534d27c0d6f415484aa4d",
+    "models/SARAH/ZeeTypeII/parameters.m": "499dbcc555dedf5f2cb45a69664812d4e919513500cf6bd91332b9e61b4aba6b",
+    "models/SARAH/ZeeTypeII/particles.m": "91b550b69fdcdd3dc409979f6621f1654d57881e36e125e786c2e9ad54c9c6a7"
+  },
+  "primary_cached_downloads": {
+    "CHK1993": "VERIFIED",
+    "Davidson2016": "VERIFIED",
+    "Haber2024": "VERIFIED",
+    "HerreroGarcia2017": "VERIFIED",
+    "Ilisie2015": "VERIFIED"
+  },
+  "primary_papers": {
+    "CHK1993": {
+      "equations": "Eqs6-19; complex photon, W+Goldstone and missing Z subsets",
+      "identity": "PhysRevD48(1993)217",
+      "local_cache": "chk.pdf",
+      "sha256": "fd213401f7b111164c1cb2afab50e622dd34df84461a328262551370fbb009a9",
+      "url": "https://arxiv.org/pdf/hep-ph/9302267"
+    },
+    "Davidson2016": {
+      "equations": "Eqs16,18,21,23,24; operator matching and photon subsets",
+      "identity": "EPJC76(2016)258; arXiv1601.01949 downloaded 2026-10-25",
+      "local_cache": "davidson.pdf",
+      "sha256": "bfab0035723b1989ad8f20abc7537c26b5c7b23fd45b1a771e3a5051fa05af0f",
+      "url": "https://arxiv.org/pdf/1601.01949"
+    },
+    "Haber2024": {
+      "equations": "Eqs1,39,42,60-62; analytic kernels",
+      "identity": "March4,2024 notes",
+      "local_cache": "haber.pdf",
+      "sha256": "fdc0fa6329dc6ffcb9330df4430bfb1a7461bfb3f01f5185e3dd3c091bc0ee37",
+      "url": "https://scipp.ucsc.edu/~haber/webpage/BarrZee.pdf"
+    },
+    "HerreroGarcia2017": {
+      "equations": "Eqs3.9,3.11-3.14; frozen component comparison",
+      "identity": "JHEP04(2017)130",
+      "local_cache": "zee.pdf",
+      "sha256": "f62a88ff26b0d84806e37874e09574f95282108fc7ef18d9e6a7dc9de6cfd62a",
+      "url": "https://arxiv.org/pdf/1701.05345"
+    },
+    "Ilisie2015": {
+      "equations": "Eqs4,9,11-14,19-21,25-28; independent signed moments and scalar form factor",
+      "identity": "JHEP04(2015)077",
+      "local_cache": "ilisie.pdf",
+      "sha256": "b0b886104b0a5bc000d01c82973fcc36b9183d04dfe13e4f0938a4e95b063d5e",
+      "url": "https://arxiv.org/pdf/1502.04199"
+    }
+  },
+  "python": "3.10.12",
+  "schema_version": "1.0.0"
+}

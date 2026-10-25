@@ -1,0 +1,254 @@
+{
+  "COMPLETE_LFV": false,
+  "component_validation": "VALIDATION_PASS",
+  "evidence": {
+    "test_module4_interface": {
+      "complete_module3_output_roundtrip": "PASS; original entire record preserved; all signed components reproduced",
+      "inherited_branch_guard": "Run unchanged and reported as expected branch conflict in full regression; replacement ancestry assertions pass here",
+      "module4_frozen_files_verified": 76,
+      "witnesses_channels_components": {
+        "channels_each": 3,
+        "components_each_channel": 36,
+        "witnesses": 6
+      }
+    },
+    "test_module4_physics": {
+      "SOURCE_CONFLICT": {
+        "W_Davidson_over_Ilisie_at_z_0p413": -1.0105325699387073,
+        "fermion_scalar_and_pseudo_Davidson_over_Ilisie": [
+          -1.0000000000000084,
+          -1.0000000000000042
+        ],
+        "qualification": "Ilisie transverse W form factor discards gauge-dependent non-Barr-Zee terms; no claim these are the same complete EW subset",
+        "resolution": "UNRESOLVED: all two-loop candidates excluded from coherent sum"
+      },
+      "W_CHK14_plus18_max_relative": 3.3306690738754696e-15,
+      "aligned_A_over_H_top_bottom": [
+        1.3581375200783043,
+        -1.1844149786810587
+      ],
+      "charged_scalar_F2_vs_analytic_max_relative": 2.3314683517128287e-15,
+      "charged_scalar_amplitude": "UNKNOWN_NOT_IMPLEMENTED; F2 and native trilinears are not a matched LFV amplitude",
+      "davidson_mapping_relative_residual": 7.794817668786824e-16,
+      "davidson_to_module3_overall_sign": -1,
+      "effective_transverse_tensor_Ward_residual": 8.881784197001252e-16,
+      "fg_h_direct_vs_analytic_max_relative": 3.320061963359394e-12,
+      "legacy_A1_sign_arbitration": "A1c F same; A1e neutral and A1f D opposite; native vertices and common charge/operator fix Module3 component signs",
+      "legacy_W_after_required_overall_minus_relative": 1.7107336927446534e-16,
+      "legacy_fermion_after_required_overall_minus_max_relative": 2.479733378894018e-16,
+      "legacy_fg_max_relative": 4.343267967499287e-10,
+      "legacy_tree_same_vertex_rate_correction": 4.0,
+      "scalar_trilinears_vs_polynomial_max_abs_GeV": 1.4210854715202004e-13,
+      "six_NO_IO_witnesses_rephasing_max_relative": 5.144559383666799e-16,
+      "tree_contact_relative_residual": 3.1086244689504383e-15
+    }
+  },
+  "gates": {
+    "A": {
+      "native": {
+        "absolute_tolerance": 1e-09,
+        "complex_coefficient_checks": 978,
+        "field_indices": "Fe/Fv 1=e,2=mu,3=tau; hh1=h,hh2=H; Ah2=A; Hm1=G-,Hm2=H1-,Hm3=H2-",
+        "mathematica_version": "15.0.1 for Linux x86 (64-bit) (July 2, 2026)",
+        "max_abs_residual": 4.636291350834654e-13,
+        "native_json_sha256": "7e6b85a94d408b43b3667f5925b8c5f3f09af11ba9c49f4af78cfdbf9b890f80",
+        "raw_dump_sha256": "6c6b6ea08aa2559c66827a88a1204729dd94a25c3dce4f48360b0b9491142820",
+        "raw_query_count": 94,
+        "sarah_version": "4.15.4",
+        "signed_worst_by_sector": {
+          "WW": {
+            "actual": [
+              0.0,
+              51.59325126355423
+            ],
+            "expected": [
+              0.0,
+              51.59325126355422
+            ],
+            "projector": "g[lt2, lt3]",
+            "residual": 7.105427357601002e-15,
+            "signed_complex_residual": [
+              0.0,
+              7.105427357601002e-15
+            ],
+            "vertex": "WW_1",
+            "witness": "module3_NO_spectrum1"
+          },
+          "charged": {
+            "actual": [
+              3.492418132107614e-07,
+              -7.657602498450759e-07
+            ],
+            "expected": [
+              3.492418132107614e-07,
+              -7.657602498457297e-07
+            ],
+            "projector": "PL",
+            "residual": 6.538035561619131e-19,
+            "signed_complex_residual": [
+              0.0,
+              6.538035561619131e-19
+            ],
+            "vertex": "charged_minus_{2, 3, 3}",
+            "witness": "module3_NO_spectrum1"
+          },
+          "goldstone": {
+            "actual": [
+              0.0,
+              -62.544813068176836
+            ],
+            "expected": [
+              0.0,
+              -62.54481306817667
+            ],
+            "projector": "1",
+            "residual": 1.6342482922482304e-13,
+            "signed_complex_residual": [
+              0.0,
+              -1.6342482922482304e-13
+            ],
+            "vertex": "goldstone_1",
+            "witness": "module3_NO_spectrum1"
+          },
+          "lepton": {
+            "actual": [
+              9.23435751289443e-08,
+              -0.007112506824746716
+            ],
+            "expected": [
+              9.23435751289443e-08,
+              -0.007112506824746714
+            ],
+            "projector": "PL",
+            "residual": 1.734723475976807e-18,
+            "signed_complex_residual": [
+              0.0,
+              -1.734723475976807e-18
+            ],
+            "vertex": "lepton_{1, 3, 3}",
+            "witness": "module3_IO_spectrum1"
+          },
+          "quark": {
+            "actual": [
+              3.6562272172683445e-18,
+              -0.7277622553044937
+            ],
+            "expected": [
+              0.0,
+              -0.7277622553044933
+            ],
+            "projector": "PL",
+            "residual": 3.33086974819144e-16,
+            "signed_complex_residual": [
+              3.6562272172683445e-18,
+              -3.3306690738754696e-16
+            ],
+            "vertex": "quark_{2, Fu}",
+            "witness": "module3_NO_spectrum2"
+          },
+          "scalar": {
+            "actual": [
+              0.0,
+              -0.31300000000000006
+            ],
+            "expected": [
+              0.0,
+              -0.313
+            ],
+            "projector": "ANY",
+            "residual": 5.551115123125783e-17,
+            "signed_complex_residual": [
+              0.0,
+              -5.551115123125783e-17
+            ],
+            "vertex": "scalar_gauge_{VP, 2, 2}",
+            "witness": "module3_NO_spectrum0"
+          },
+          "trilinear": {
+            "actual": [
+              0.0,
+              15.75296128514833
+            ],
+            "expected": [
+              0.0,
+              15.752961285147867
+            ],
+            "projector": "1",
+            "residual": 4.636291350834654e-13,
+            "signed_complex_residual": [
+              0.0,
+              4.636291350834654e-13
+            ],
+            "vertex": "trilinear_{1, 2, 2}",
+            "witness": "module3_NO_spectrum1"
+          }
+        },
+        "status": "VERTEX_COMPONENTS_PASS",
+        "units": "dimensionless Yukawa/gauge coefficients; scalar trilinears in GeV",
+        "witness_records_sha256": "90e25c92c6e6a8c98d9c7498646dd8c70a7de828cafe228944d1aede431f6098"
+      },
+      "scope": "Native vertices and signed component/contact normalization checks",
+      "status": "PASS"
+    },
+    "B": {
+      "matching_status": "BLOCKED_SOURCE_CONFLICT",
+      "scope": "All nine charged-fermion photon candidates, three scalars/channels; analytic kernels and complex chirality checks pass; coherent inclusion forbidden",
+      "status": "PARTIAL"
+    },
+    "C": {
+      "matching_status": "BLOCKED_SOURCE_CONFLICT",
+      "scope": "CHK BI+Goldstone photon kernel and native WW/Goldstone sum rules; no independent Rxi diagram cancellation; coherent inclusion forbidden",
+      "status": "PARTIAL"
+    },
+    "D": {
+      "amplitude_status": "UNKNOWN_NOT_IMPLEMENTED",
+      "scope": "Native diagonal/off-diagonal trilinears, polynomial derivative, scalar F2, transverse effective tensor checked; general LFV matching not closed",
+      "status": "PARTIAL"
+    },
+    "E": {
+      "amplitude_status": "NOT_EVALUATED",
+      "scope": "CHK Zgamma Eqs12,17,19, set C; Ilisie mixed charged-current topologies inventoried, no amplitudes added",
+      "status": "PARTIAL"
+    },
+    "coherent_combination": {
+      "excluded": "All new two-loop source candidates",
+      "included": "Frozen Module3 scalar one-loop only",
+      "rate_scope": "INCLUDED_TOPOLOGIES_ONLY",
+      "status": "PARTIAL"
+    }
+  },
+  "generated_UTC": "2026-10-25T12:17:26.263410+00:00",
+  "global_zee_acceptance": null,
+  "missing_contributions": {
+    "QED_running_and_radiation": "NOT_EVALUATED",
+    "W_Z_gamma": "NOT_EVALUATED: CHK Eqs.17,19 identified; complete Zee matching pending",
+    "W_gamma": "UNKNOWN: source-specific candidates exist but signed normalization/gauge-subset reconciliation is unresolved; excluded from coherent rate",
+    "additional_bosonic_two_loop": "NOT_EVALUATED: CHK set C / kite topologies not matched",
+    "charged_current_WZ": "NOT_EVALUATED: charged-current and charged-scalar mixed electroweak matching pending",
+    "charged_scalar_gamma": "UNKNOWN_NOT_IMPLEMENTED: native trilinears extracted; independent complete amplitude/normalization and Ward check pending",
+    "fermion_Z_gamma": "NOT_EVALUATED: CHK Eq.12 identified; weak-current matching and numerical validation pending",
+    "fermion_gamma": "UNKNOWN: source-specific candidates exist but signed normalization is unresolved; excluded from coherent rate",
+    "finite_external_invariants_and_neutrino_masses": "NOT_EVALUATED beyond frozen one-loop approximation"
+  },
+  "overall_scientific_status": "PARTIAL",
+  "physical_status": "PREDICTION_INCOMPLETE",
+  "reproduction": [
+    "bash scripts/run_module4_validation.sh --all-tests",
+    "python -m module4.interface --input module4/example.json --output validation/module4/local/example_output.json"
+  ],
+  "schema_version": "1.0.0",
+  "source_commit_before_validation": "f7a93de6352c290f2cfc74f4c7bcb84afd0da0f2",
+  "tests": {
+    "errors": 0,
+    "expected_inherited_branch_guard_failures": [
+      "test_module3_interface.InterfaceTests.test_foundation_hashes_and_branch_ancestry"
+    ],
+    "failures": 1,
+    "full_repository_regression": true,
+    "passed": 154,
+    "regression_status": "EXPECTED_BRANCH_GUARD_CONFLICT",
+    "run": 155,
+    "skipped": 0,
+    "unexpected_failures": 0
+  }
+}
