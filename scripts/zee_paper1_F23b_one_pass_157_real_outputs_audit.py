@@ -221,6 +221,42 @@ def execute(args):
     require(approximately(report["R3_SM_BR"],.00032967,rtol=2e-5),
             "tagged HyperIso R3 standard-model reference mismatch")
 
+    # The 9 previous gamma-endpoint checks shared one C++ bridge
+    # implementation. Validate the absolute BR normalization AGAINST
+    # unmodified HyperIso CLI's single-H+ Type-II observable, for each
+    # of the 9 H1 and 9 H2 saved, original-LHA source configurations.
+    cli=[p for p in (f23/"hyperiso-cmake-build").rglob("hyperiso-ui")
+         if p.is_file() and p.stat().st_mode&0o111]
+    require(len(cli)==1,"native unmodified tagged HyperIso observable CLI absent")
+    native_typeII={}
+    for j,key in enumerate(priority):
+        native_typeII[key]={}
+        for label,trace_idx,expected_br in (
+            ("pure_H1",4*j,endpoint[key]["pure_H1_TypeII_BR"]),
+            ("pure_H2",4*j+3,endpoint[key]["pure_H2_TypeII_BR"])):
+            lha=scalar_dir/f"typeII_for_{trace_idx:05d}.lha"
+            argv=[str(cli[0]),"observable","summary","--model","THDM",
+                  "--lha",str(lha),"--spectrum","true",
+                  "--observables","BR_B__Xs_gamma","--order","NNLO"]
+            p=subprocess.run(argv,text=True,capture_output=True)
+            require(p.returncode==0,
+                    "unmodified THDM observable CLI failed for "+key+" "+label+
+                    ": "+(p.stderr+p.stdout)[-1200:])
+            candidates=re.findall(
+                r"BR_B__Xs_gamma\\s*=\\s*([0-9.eE+\\-]+)",p.stdout)
+            require(candidates,"cannot parse native Type-II BR CLI for "+key+" "+label)
+            cli_br=number(candidates[-1],key+":THDM CLI")
+            require(approximately(cli_br,expected_br,rtol=2e-5,atol=4e-9),
+                    "native C++ bridge pure-state BR disagrees with unmodified "+
+                    "HyperIso Type-II NNLO observable "+key+" "+label+
+                    " "+str(cli_br)+" vs "+str(expected_br))
+            native_typeII[key][label]={
+                "unmodified_tagged_THDM_CLI_BR":cli_br,
+                "Zee_bridge_gamma_endpoint_BR":expected_br,
+                "same_saved_original_LHA_SHA256":sha(lha)}
+    print("F23B_REAL_UNMODIFIED_HYPERISO_THDM_18_SINGLE_STATE_REFERENCE_OBSERVABLES_PASS",
+          flush=True)
+
     # Interpret *conditional* flavor predictions only. Flavor/cascade
     # preference weights cannot be converted to detector sensitivity.
     priority_rows=[];actual={r["key"]:r for r in rows}
@@ -316,6 +352,8 @@ def execute(args):
        "native_13_matching_patch_trace_matches":len(traces),
        "real_lha_2HDM_frozen_YU_YD_mass_tanbeta_records_checked":len(traces),
        "source_reproduced_Single_TypeII_R6_NNLO_C7_C8_C9_C10":real_r6,
+       "unmodified_tagged_HyperIso_THDM_18_absolute_NNLO_observable_joins":native_typeII,
+       "native_THDM_18_absolute_BR_endpoints_compared_independently":True,
        "tagged_historical_HyperIso_SM_BR":report["R3_SM_BR"],
        "experimental_2026_comparison_or_95CL_performed":False,
        "exact_2026_reference_NNLO_SM_BSM_implemented":False,
@@ -334,7 +372,9 @@ def execute(args):
     target.write_text(json.dumps(report_out,indent=2,sort_keys=True,allow_nan=False)+"\n")
     print("F23B_157_SOURCE_AND_NATIVE_TRACE_PHYSICS_AUDIT_PASS",
           "ORIGINAL_FULL",len(rows),"REAL_NATIVE_RUNS",len(traces),
-          "PRIORITY_ENDPOINTS",len(priority_rows),"HYPERISO_NATIVE_R6_C7_C8_C9_C10","PASS",
+          "PRIORITY_ENDPOINTS",len(priority_rows),
+          "NATIVE_DIRECT_TYPEII_ABSOLUTE_BR_COMPARISONS",18,
+          "HYPERISO_NATIVE_R6_C7_C8_C9_C10","PASS",
           "FULL_MODEL_ALLOWED",None,flush=True)
     for k,item in by_mass.items():
         print("F23B_MASS_REGION",k,"N",item["scalar_plus_LFV_vacuum_triaged_count"],
