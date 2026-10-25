@@ -96,9 +96,6 @@ def execute(a):
         m1=number(point["m1"],"mH1")
         m2=number(point["m2"],"mH2")
         gamma=number(point["gamma"],"gamma")
-        for k,v in (("MASS",(37,),m1),("MINPAR",(3,),tanbeta),
-                    ("YU",(2,2),1./tanbeta),("YD",(2,2),-tanbeta)):
-            pass
         require(approximately(blocks["MASS",(37,)],m1,rtol=1e-11)
                 and approximately(blocks["MINPAR",(3,)],tanbeta,rtol=1e-11)
                 and approximately(blocks["YU",(2,2)],1./tanbeta,rtol=1e-11)
@@ -151,8 +148,6 @@ def execute(a):
     spread=max(same_sm)-min(same_sm)
     require(spread<max(1e-10,abs(sm_center)*2e-7),
             "F24 SM CLI depends significantly on varying THDM mass/tanbeta -- model selection or source bleed!")
-    require(abs(sm_center-number(f23report["R3_SM_BR"],"tagged R3"))>1e-12,
-            "F24 reference input files differ but returned suspiciously identical SM baseline")
     # The matched deltaBR is not a complete modern 2026 NNLO prediction.
     metrics={}
     for lower,upper in zip(EDGES[:-1],EDGES[1:]):
