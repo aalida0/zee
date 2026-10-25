@@ -1,0 +1,378 @@
+{
+  "COMPLETE_LFV": false,
+  "corrected_test_development_findings": [
+    "Diagonal g-2 Hermitian operator initially counted twice in reference test; corrected to a=m\u00b2 Re(CL+CR), with photon-rate trace unchanged.",
+    "An ordered positive arbitrary mass vector is a valid numerical input; the deliberate invalid-order test now uses reversed masses instead of demanding a hidden measured-mass default."
+  ],
+  "evidence": {
+    "test_module3_interface": {
+      "NO_IO_family_spectra": [
+        {
+          "Yukawa_mass_rotation_max_abs": 1.734723476027294e-18,
+          "family_relative_residual": 3.017719595974334e-15,
+          "homogeneous_coefficients": {
+            "imag": [
+              -7.254722132569907e-08,
+              -7.977983199196841e-08,
+              1.3090271842256997e-08,
+              2.5801750798846895e-08
+            ],
+            "real": [
+              -1.2645827786216313e-07,
+              -1.425747203114118e-08,
+              -4.800477003867672e-08,
+              -3.6642134536443675e-08
+            ]
+          },
+          "module2_input_sha256": "5be30c6255b32e14b3a742c69f415cc4c95fd57f6571b978d5c724c08b06367a",
+          "neutrino_closure_max_abs_eV": 1.342478726375624e-16,
+          "ordering": "NO",
+          "physical": {
+            "alpha": 1.398,
+            "beta": 1.394,
+            "gamma": 1.089,
+            "k1": 1.082,
+            "k12": -0.001266,
+            "k2": 0.00398,
+            "lc": 4.473,
+            "m12sq": 57700.0,
+            "mH1": 300.0,
+            "mH2": 700.0,
+            "ma": 633.7,
+            "mh1": 125.0,
+            "mh2": 580.7,
+            "v": 246.21965
+          },
+          "radiative_partial_BR": {
+            "mu_to_e_gamma": 5.116511170859235e-19,
+            "tau_to_e_gamma": 3.8655358039901095e-19,
+            "tau_to_mu_gamma": 1.4030335389966058e-20
+          },
+          "spectrum": 0,
+          "tree_max_quadrature_relative_change": 5.088549290630065e-06
+        },
+        {
+          "Yukawa_mass_rotation_max_abs": 1.734723475976807e-18,
+          "family_relative_residual": 2.720749444236829e-16,
+          "homogeneous_coefficients": {
+            "imag": [
+              -1.1170067944000923e-07,
+              5.701906395098024e-08,
+              9.285727609405253e-08,
+              -1.7048426511328175e-07
+            ],
+            "real": [
+              -1.5720863061805564e-07,
+              -5.38247307735091e-08,
+              1.3674458769251215e-07,
+              -9.650439761205905e-08
+            ]
+          },
+          "module2_input_sha256": "08c4a7a0808cd9929fbbb7f3b7f82e4afd13258fc5a5393890e4568335ce3043",
+          "neutrino_closure_max_abs_eV": 7.757919228897728e-18,
+          "ordering": "NO",
+          "physical": {
+            "alpha": 0.93,
+            "beta": 1.1,
+            "gamma": 0.71,
+            "k1": 1.082,
+            "k12": -0.001266,
+            "k2": 0.00398,
+            "lc": 4.473,
+            "m12sq": 57700.0,
+            "mH1": 375.0,
+            "mH2": 925.0,
+            "ma": 450.0,
+            "mh1": 125.0,
+            "mh2": 420.0,
+            "v": 246.21965
+          },
+          "radiative_partial_BR": {
+            "mu_to_e_gamma": 1.1790737157226664e-18,
+            "tau_to_e_gamma": 1.141330619362189e-19,
+            "tau_to_mu_gamma": 5.7795558752826736e-18
+          },
+          "spectrum": 1,
+          "tree_max_quadrature_relative_change": 5.070794113827378e-06
+        },
+        {
+          "Yukawa_mass_rotation_max_abs": 8.470329472543003e-22,
+          "family_relative_residual": 1.877699114884003e-15,
+          "homogeneous_coefficients": {
+            "imag": [
+              -1.084110537706626e-07,
+              -9.304134540657068e-08,
+              1.8752802476809407e-07,
+              -1.0357516511608728e-07
+            ],
+            "real": [
+              -1.1637462977156954e-07,
+              1.9748804119774758e-08,
+              -1.8532389600985803e-08,
+              -1.60736301712871e-07
+            ]
+          },
+          "module2_input_sha256": "ba2dec3b824e6ce8b289b4648663eb01b5cbabd49b5d8c260874800ebc352499",
+          "neutrino_closure_max_abs_eV": 4.994678299038979e-17,
+          "ordering": "NO",
+          "physical": {
+            "alpha": 0.73,
+            "beta": 0.8,
+            "gamma": -0.38,
+            "k1": 1.082,
+            "k12": -0.001266,
+            "k2": 0.00398,
+            "lc": 4.473,
+            "m12sq": 57700.0,
+            "mH1": 500.0,
+            "mH2": 1100.0,
+            "ma": 810.0,
+            "mh1": 125.0,
+            "mh2": 850.0,
+            "v": 246.21965
+          },
+          "radiative_partial_BR": {
+            "mu_to_e_gamma": 6.711683237137523e-20,
+            "tau_to_e_gamma": 9.457371104002393e-21,
+            "tau_to_mu_gamma": 3.2623810126807073e-18
+          },
+          "spectrum": 2,
+          "tree_max_quadrature_relative_change": 5.124224613401433e-06
+        },
+        {
+          "Yukawa_mass_rotation_max_abs": 1.734723476027294e-18,
+          "family_relative_residual": 9.376104024218333e-16,
+          "homogeneous_coefficients": {
+            "imag": [
+              -1.2969301496651633e-07,
+              5.372627473905366e-09,
+              1.9630463131508458e-07,
+              -1.0485314690526976e-07
+            ],
+            "real": [
+              -2.5472456056189e-08,
+              -6.245453449754172e-08,
+              1.498655269679922e-07,
+              -2.4597211650229146e-08
+            ]
+          },
+          "module2_input_sha256": "608c79b1656f4d66d048642ebf8aedc487ff54a540c080a468e42b7c05a6e210",
+          "neutrino_closure_max_abs_eV": 5.275955480050203e-17,
+          "ordering": "IO",
+          "physical": {
+            "alpha": 1.398,
+            "beta": 1.394,
+            "gamma": 1.089,
+            "k1": 1.082,
+            "k12": -0.001266,
+            "k2": 0.00398,
+            "lc": 4.473,
+            "m12sq": 57700.0,
+            "mH1": 300.0,
+            "mH2": 700.0,
+            "ma": 633.7,
+            "mh1": 125.0,
+            "mh2": 580.7,
+            "v": 246.21965
+          },
+          "radiative_partial_BR": {
+            "mu_to_e_gamma": 2.7446183022271126e-17,
+            "tau_to_e_gamma": 3.980832244384423e-19,
+            "tau_to_mu_gamma": 3.728183771875108e-19
+          },
+          "spectrum": 0,
+          "tree_max_quadrature_relative_change": 4.21549530058839e-06
+        },
+        {
+          "Yukawa_mass_rotation_max_abs": 1.7347234767846007e-18,
+          "family_relative_residual": 3.458180398007482e-16,
+          "homogeneous_coefficients": {
+            "imag": [
+              1.4600885262092049e-08,
+              -2.7619983656704454e-09,
+              1.0999881100642175e-07,
+              -4.2756181975501777e-08
+            ],
+            "real": [
+              -4.092503578163091e-08,
+              -1.2885067158681783e-08,
+              -8.180973845030707e-09,
+              1.587537806303205e-07
+            ]
+          },
+          "module2_input_sha256": "b066ec22a65729054e8c6d4b3903b9c683a9383999293694c5f0bd3b5c4e3d37",
+          "neutrino_closure_max_abs_eV": 1.4304896245381992e-17,
+          "ordering": "IO",
+          "physical": {
+            "alpha": 0.93,
+            "beta": 1.1,
+            "gamma": 0.71,
+            "k1": 1.082,
+            "k12": -0.001266,
+            "k2": 0.00398,
+            "lc": 4.473,
+            "m12sq": 57700.0,
+            "mH1": 375.0,
+            "mH2": 925.0,
+            "ma": 450.0,
+            "mh1": 125.0,
+            "mh2": 420.0,
+            "v": 246.21965
+          },
+          "radiative_partial_BR": {
+            "mu_to_e_gamma": 2.926279398769469e-18,
+            "tau_to_e_gamma": 1.3119897910381876e-19,
+            "tau_to_mu_gamma": 6.73458192554789e-17
+          },
+          "spectrum": 1,
+          "tree_max_quadrature_relative_change": 5.227972903635614e-06
+        },
+        {
+          "Yukawa_mass_rotation_max_abs": 8.470329472543003e-22,
+          "family_relative_residual": 6.432653853171208e-16,
+          "homogeneous_coefficients": {
+            "imag": [
+              -2.306097450452018e-09,
+              2.721177454283358e-08,
+              -2.134791275989847e-08,
+              3.9780314715635225e-08
+            ],
+            "real": [
+              -8.382047367450565e-08,
+              6.756566911941759e-08,
+              -9.791813216940256e-08,
+              6.358143802225294e-08
+            ]
+          },
+          "module2_input_sha256": "59a530c519a1c57565ef680e6f6c4b3c027c9a132689870b8e80720c04b8c5d4",
+          "neutrino_closure_max_abs_eV": 3.273069708340169e-17,
+          "ordering": "IO",
+          "physical": {
+            "alpha": 0.73,
+            "beta": 0.8,
+            "gamma": -0.38,
+            "k1": 1.082,
+            "k12": -0.001266,
+            "k2": 0.00398,
+            "lc": 4.473,
+            "m12sq": 57700.0,
+            "mH1": 500.0,
+            "mH2": 1100.0,
+            "ma": 810.0,
+            "mh1": 125.0,
+            "mh2": 850.0,
+            "v": 246.21965
+          },
+          "radiative_partial_BR": {
+            "mu_to_e_gamma": 5.796990545406425e-19,
+            "tau_to_e_gamma": 9.648903753207624e-20,
+            "tau_to_mu_gamma": 5.447229833615387e-18
+          },
+          "spectrum": 2,
+          "tree_max_quadrature_relative_change": 5.15578419606807e-06
+        }
+      ],
+      "actual_Module1_output_Module2_output_roundtrip": "PASS",
+      "deliberately_mismatched_Module2_outputs_rejected": 9,
+      "frozen_files_verified": 76,
+      "strict_negative_input_cases_rejected": 16
+    },
+    "test_module3_physics": {
+      "Yukawa_rotation_max_abs": 1.734723475976807e-18,
+      "archived_F_D_conversion_max_abs": 1.750181827264198e-19,
+      "complex_dipole_max_relative_vs_parameter_integral": 3.9208782071527544e-16,
+      "external_invariant_approximation_error_at_80GeV": 0.0002442731599135283,
+      "g_minus_2_heavy_limit_relative_error": 6.38176123057832e-08,
+      "legacy_neutral_after_common_sign_max_relative_error": 5.562895111557201e-16,
+      "legacy_relative_sign_conflict": "A1c F agrees directly; A1e neutral/A1f D agree after common minus; old coherent sum cannot be reused",
+      "legacy_tree_rate_ratio_for_same_vertices": 4.0,
+      "loop_kernel_max_relative_vs_quadrature": 0.0,
+      "massive_tree_tensor_vs_helicity_relative_residual": 5.551115123125783e-16,
+      "massless_tree_analytic_relative_residual": 4.440892098500626e-16,
+      "radiative_width_trace_relative_residual": 4.440892098500626e-16,
+      "signed_Herrero_leading_log_relative_error": 1.572008981609585e-05,
+      "signed_rephasing_max_relative_residual": 2.1128782232930482e-15,
+      "two_body_width_trace_max_relative_residual": 8.881784197001252e-16
+    }
+  },
+  "gates": {
+    "exact_one_loop": {
+      "scope": "Finite-neutrino-mass and external-invariant corrections absent",
+      "status": "PARTIAL"
+    },
+    "full_LFV": {
+      "scope": "No full prediction, experimental comparison or exclusion",
+      "status": "PARTIAL"
+    },
+    "higgs_LFV_partial_widths": {
+      "scope": "h,H,A; all flavor pairs; exact fermion masses and both charge orientations",
+      "status": "PASS"
+    },
+    "interfaces_and_evidence": {
+      "scope": "Strict JSON/JSONL, six full current Module2 family witnesses; tampering/negative cases",
+      "status": "PASS"
+    },
+    "interference_and_normalization": {
+      "scope": "Signed complex rephasing, chirality, conjugation, photon trace, scalar g-2, helicity sums",
+      "status": "PASS"
+    },
+    "neutral_tree": {
+      "scope": "All five massive coherent h/H/A tree subsets with both contractions",
+      "status": "PASS"
+    },
+    "provenance_and_mapping": {
+      "missing": "Direct archived raw SARAH real/complex neutral and charged vertex comparison; CP-odd raw archive",
+      "scope": "Frozen hashes, strict Module1/2 roundtrip, complex E3 conversion and source-derived vertices",
+      "status": "PARTIAL",
+      "validated": "PASS"
+    },
+    "scalar_one_loop": {
+      "scope": "All h/H/A e/mu/tau and H1/H2 F,D terms; m_nu=0 and external-invariant expansion",
+      "status": "PASS"
+    },
+    "universality": {
+      "scope": "Leading F-only with muon GF subtraction",
+      "status": "PARTIAL",
+      "validated_subset": "PASS"
+    }
+  },
+  "global_zee_acceptance": null,
+  "missing_contributions": [
+    "Two-loop fermion-gamma Barr-Zee (Type-II quarks and charged leptons)",
+    "Two-loop W-gamma Barr-Zee including gauge completion",
+    "Two-loop charged-scalar-gamma Barr-Zee",
+    "Two-loop Z-photon Barr-Zee",
+    "Two-loop W-Z Barr-Zee and remaining two-loop matching",
+    "Three-body off-shell photon non-dipole and dipole, Z penguins, boxes, and all interference with tree exchange",
+    "Muon-electron conversion: tree semileptonic scalar, photon/Z penguins, boxes, nuclear matrix elements",
+    "QED running, real/virtual radiation and higher-order corrections",
+    "Universality charged-doublet D operators, mixed F-D operators and quadratic dimension-six rates",
+    "Finite-neutrino-mass scalar chirality mixing and W/Goldstone GIM terms",
+    "External-invariant corrections to radiative scalar matching"
+  ],
+  "nufit61_authentic_archive_validation": "PENDING_EXTERNAL_DATA",
+  "overall_scientific_status": "PARTIAL",
+  "schema_version": "1.0.0",
+  "source_manifest_sha256": "e7c12754d204c56611c6722c7014ad635ac131285d1b155259605600de31455f",
+  "test_counts_by_module": {
+    "test_gate6_benchmark": 9,
+    "test_gateA1g_zee_oblique_T": 6,
+    "test_gateA1h_correlated_stu_ewpo": 8,
+    "test_module1_scalar": 26,
+    "test_module2_audit": 11,
+    "test_module2_interface": 4,
+    "test_module2_physics": 7,
+    "test_module2_profiles": 3,
+    "test_module3_interface": 9,
+    "test_module3_physics": 28,
+    "test_zee_sarah_source": 22
+  },
+  "test_scope": "ALL_REPOSITORY_TESTS",
+  "tests": {
+    "errors": 0,
+    "failures": 0,
+    "run": 133,
+    "skipped": 0
+  },
+  "validation_status": "PASS"
+}
