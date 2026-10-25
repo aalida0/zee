@@ -294,12 +294,14 @@ def main():
         diagnostics = [line for line in text.splitlines() if re.search(r'\w+::\w+:',line)]
         if '-script' in command and name!='check' and diagnostics:
             errors.append('Unreviewed native diagnostic: '+str(diagnostics))
+        if '-script' in command and re.search(r'(?m)^(FAIL\b|ZEE_MASS_NONNUMERIC\b|ZEE_MASS_INVALID_DIMENSIONS\b)',text):
+            errors.append('Native failure diagnostic despite process exit status')
         outputs = {p.name:dict(sha256=digest(p),mtime_ns=p.stat().st_mtime_ns)
             for p in sorted(work.iterdir()) if p.is_file() and before.get(p.name)!=digest(p)}
         record = dict(stage=name,command=command,started_utc=dt.datetime.fromtimestamp(started_ns/1e9,dt.timezone.utc).isoformat(),
             elapsed_seconds=time.monotonic()-clock,exit_code=code,contract_errors=errors,
             source_inventory_sha256=digest(run/'inventory.json'),log_sha256=digest(run/(name+'.log')),
-            generated_outputs=outputs)
+            generated_outputs=outputs,diagnostics=diagnostics)
         with (run/'trace.jsonl').open('a') as trace: trace.write(json.dumps(record,sort_keys=True)+'\n')
         outcomes[name] = code or bool(errors)
         print('DONE',name,'exit',code,'contract_errors',len(errors),flush=True)

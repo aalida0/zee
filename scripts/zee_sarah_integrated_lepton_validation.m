@@ -234,8 +234,14 @@ If[Length[queries]=!=52 || !And@@(Length[#]===9&/@queries),
 (* Fail fast if global temporary assignments could interfere with
    SARAH's internal differentiation, rather than analyzing corrupted
    vertices and misdiagnosing the physics. *)
-If[Or@@( (OwnValues[#]=!={})& /@
-  {Global`a,Global`b,Global`k,Global`n}),
+(* Inspect existing Global symbols without creating new names that would
+   shadow Susyno symbols. HoldAll prevents assigned values from replacing
+   the symbol before OwnValues inspects it. *)
+zeeGlobalDummyNames=Flatten[Names /@ {"Global`a","Global`b","Global`k","Global`n"}];
+zeeGlobalDummyAssignedQ[zeeDummyName_String]:=ToExpression[
+ zeeDummyName,InputForm,
+ Function[zeeHeldSymbol,OwnValues[zeeHeldSymbol]=!={},HoldAll]];
+If[Or@@(zeeGlobalDummyAssignedQ /@ zeeGlobalDummyNames),
  Print["FAIL GLOBAL_DUMMY_SYMBOL_CONTAMINATION"];
  setGate["GLOBAL_DUMMY_SYMBOL_CONTAMINATION"];Exit[17]];
 (* One known nonzero gauge vertex is a sentinel: it MUST contain Fzee.

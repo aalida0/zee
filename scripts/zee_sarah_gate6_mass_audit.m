@@ -61,13 +61,13 @@ Export[diagPath,StringRiffle[Table[
 Do[
  If[MatrixQ[actual[[i]]] && Dimensions[actual[[i]]]===dims[[i]],
   Do[
-   If[!NumericQ[actual[[irow,j]]],
+   If[!NumericQ[actual[[i,irow,j]]],
     Print["ZEE_MASS_NONNUMERIC ",labels[[i]],
       " row=",irow," col=",j,
-      " expr=",InputForm[actual[[irow,j]]]];
+      " expr=",InputForm[actual[[i,irow,j]]]];
     Print["ZEE_MASS_NONNUMERIC_VARIABLES ",labels[[i]],
       " row=",irow," col=",j,
-      " symbols=",InputForm[Variables[actual[[irow,j]]]]]
+      " symbols=",InputForm[Variables[actual[[i,irow,j]]]]]
    ],
    {irow,1,dims[[i,1]]},{j,1,dims[[i,2]]}
   ],
