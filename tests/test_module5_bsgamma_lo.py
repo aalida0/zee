@@ -20,7 +20,7 @@ from module5.bsgamma_lo import loop_functions,compute,STATUS
 def oracle(x):
     with mp.workdps(90):
         y=mp.mpf(str(x))
-        if y==1: y+=mp.mpf('1e-40')  # evaluate smooth one-sided limit
+        if y==1: return dict(F7_1=mp.mpf(-5)/48,F8_1=mp.mpf(-1)/16,F7_2=mp.mpf(-7)/36,F8_2=mp.mpf(-1)/6)
         d=y-1
         return dict(F7_1=y*(7-5*y-8*y*y)/(24*d**3)+y*y*(3*y-2)*mp.log(y)/(4*d**4),
                     F8_1=y*(2+5*y-y*y)/(8*d**3)-3*y*y*mp.log(y)/(4*d**4),
