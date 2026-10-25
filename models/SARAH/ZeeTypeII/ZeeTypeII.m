@@ -95,7 +95,11 @@ DEFINITION[EWSB][DiracSpinors] = {
  Fd -> {DL,conj[DR]},
  Fu -> {UL,conj[UR]},
  Fe -> {EL,conj[ER]},
- Fv -> {vL,0}
+ (* A massless tree-level Weyl neutrino acquires a Majorana mass. Pair
+    it with its conjugate so SARAH includes both LNV orientations and
+    the self-conjugate external-field factor in loop corrections.
+    This introduces no right-handed neutrino and no mass operator. *)
+ Fv -> {vL,conj[vL]}
 };
 
 DEFINITION[GaugeES][DiracSpinors] = {

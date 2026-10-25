@@ -54,6 +54,9 @@ PrependTo[$Path,DirectoryName[zeeABPackage]];
 zeeABLoaded=CheckAbort[(Get[zeeABPackage];True),False];
 If[!TrueQ[zeeABLoaded]||!ValueQ[SA`Version],
  zeeABSetStatus["MAJORANA_AB_SARAH_LOAD_FAILED"];Exit[7]];
+(* Keep all generated native output inside this checkout. *)
+SARAH[OutputDirectory]=FileNameJoin[{Directory[],"work","sarah_zee","native_output"}];
+If[!DirectoryQ[SARAH[OutputDirectory]],CreateDirectory[SARAH[OutputDirectory],CreateIntermediateDirectories->True]];
 SARAH[InputDirectories]=Prepend[SARAH[InputDirectories],zeeABParent];
 SARAH`Start[zeeABName];
 If[!TrueQ[SARAH`ModelLoaded]||TrueQ[SARAH`AbortStart],
@@ -555,7 +558,7 @@ zeeABCheckVertexOrientation[zeeABCase_Association]:=Module[
    A mismatch in the Majorana factor, chiral order, or charged scalar
    sign now produces a fail-closed numerical result. *)
 zeeABAmplitudeFromCp[zeeABCase_Association,
- zeeABScale_?NumericQ]:=Module[
+ zeeABScale_?NumericQ,zeeABReverse_:False]:=Module[
  {zeeABMasses=zeeABCase["LeptonMasses"],
   zeeABHMasses={0.,zeeABCase["M1"],zeeABCase["M2"]},
   zeeABMat=ConstantArray[0.+0.I,{3,3}],
@@ -565,11 +568,11 @@ zeeABAmplitudeFromCp[zeeABCase_Association,
   zeeABB0=zeeABFiniteB0[zeeABMass^2,
    zeeABHMasses[[kk]]^2,zeeABScale];
   zeeABFFS1=
-   zeeABGetNumCp["hm",ii,ell,kk,PR,zeeABCase]*
-   Conjugate[zeeABGetNumCp["hm",jj,ell,kk,PL,zeeABCase]];
+   zeeABGetNumCp["hm",ii,ell,kk,If[zeeABReverse,PL,PR],zeeABCase]*
+   Conjugate[zeeABGetNumCp["hm",jj,ell,kk,If[zeeABReverse,PR,PL],zeeABCase]];
   zeeABFFS2=
-   zeeABGetNumCp["hmConj",ii,ell,kk,PR,zeeABCase]*
-   Conjugate[zeeABGetNumCp["hmConj",jj,ell,kk,PL,zeeABCase]];
+   zeeABGetNumCp["hmConj",ii,ell,kk,If[zeeABReverse,PL,PR],zeeABCase]*
+   Conjugate[zeeABGetNumCp["hmConj",jj,ell,kk,If[zeeABReverse,PR,PL],zeeABCase]];
   zeeABMat[[ii,jj]]+=zeeABMass*zeeABB0*
    (zeeABFFS1+zeeABFFS2),
   {ii,1,3},{jj,1,3},{ell,1,3},{kk,{2,3}}];
@@ -585,7 +588,7 @@ zeeABAmplitudeFromCp[zeeABCase_Association,
    Majorana mass operator and external field rephasing still
    require their own two-component spinor convention audit. *)
 
-zeeABMatrixResults={};zeeABMatrixErrors={};
+zeeABMatrixResults={};zeeABMatrixErrors={};zeeABClosureLedger={};
 zeeABMatrixNumericQ[zeeABValue_]:=
  MatrixQ[zeeABValue,NumericQ] &&
  Dimensions[zeeABValue]==={3,3};
@@ -601,7 +604,9 @@ Do[
   zeeABResidualConjPlus,zeeABResidualConjMinus,
   zeeABVertexConventions,zeeABCanonicalResidual,
   zeeABReferenceScale,zeeABAmplitudeCp,
-  zeeABCpAmplitudeResidual,zeeABMassSpectrumResidual},
+  zeeABCpAmplitudeResidual,zeeABMassSpectrumResidual,
+  zeeABSR,zeeABPhase,zeeABRephasedCase,zeeABRephasedRaw,
+  zeeABRephasingResidual},
  Print["ZEE_E3_MAJORANA_NUMERIC_CASE_BEGIN ",
   zeeABCase["Label"]];
  zeeABVertexConventions=zeeABCheckVertexOrientation[zeeABCase];
@@ -634,6 +639,24 @@ Do[
   Exit[25]];
  zeeABCpAmplitudeResidual=Max[Abs[Flatten[
   zeeABRaw-zeeABAmplitudeCp]]];
+ zeeABSR=zeeABAmplitudeFromCp[zeeABCase,100.,True];
+ zeeABPhase=DiagonalMatrix[Exp[I*{.31,-.82,1.27}]];
+ zeeABRephasedCase=Join[zeeABCase,<|
+  "FSARAH"->zeeABPhase.zeeABCase["FSARAH"].zeeABPhase,
+  "YeSARAH"->Conjugate[zeeABPhase].zeeABCase["YeSARAH"].zeeABPhase,
+  "Ye2SARAH"->Conjugate[zeeABPhase].zeeABCase["Ye2SARAH"].zeeABPhase|>];
+ zeeABRephasedRaw=zeeABMatrix[zeeABNuMassZeroSigmaS,zeeABRephasedCase,100.,0];
+ zeeABRephasingResidual=Max[Abs[Flatten[zeeABRephasedRaw-
+  Conjugate[zeeABPhase].zeeABRaw.Conjugate[zeeABPhase]]]];
+ If[!MatrixQ[zeeABSR,NumericQ]||
+   Max[Abs[Flatten[zeeABSR-Conjugate[zeeABRaw]]]]>1.*^-16||
+   zeeABRephasingResidual>1.*^-16,
+  AppendTo[zeeABMatrixErrors,"opposite_chirality_or_complex_rephasing"]];
+ AppendTo[zeeABClosureLedger,<|"label"->zeeABCase["Label"],
+  "SigmaSLRaw"->zeeABRaw,"SigmaSRRaw"->zeeABSR,
+  "ReferenceEV"->zeeABCase["FiniteMnuEV"],
+  "Rephasing"->zeeABPhase,"RephasedSigmaSLRaw"->zeeABRephasedRaw,
+  "RephasingResidualGeV"->zeeABRephasingResidual|>];
  Print["ZEE_E3_MAJORANA_CP_LOOP_AMPLITUDE_DERIVATION ",
   zeeABCase["Label"]," CP_PRODUCTS=2",
   " MAJORANA_FACTOR=2",
@@ -753,6 +776,7 @@ Export[zeeABNumericalReport,
 Print["ZEE_E3_MAJORANA_NUMERIC_REPORT ",zeeABNumericalReport];
 Print["ZEE_E3_MAJORANA_NUMERIC_FAILURE_LABELS ",
  InputForm[zeeABMatrixErrors]];
+Export[FileNameJoin[{zeeABDir,"module0_majorana_closure_inputs.m"}],zeeABClosureLedger,"Package"];
 Print["ZEE_E3_MAJORANA_PHASE_SIGN_WAVEFUNCTION_DERIVATION_PENDING True"];
 Print["ZEE_E3_MAJORANA_NUMERIC_MNU_INDEPENDENTLY_MATCHED False"];
 If[Length[zeeABMatrixErrors]>0,

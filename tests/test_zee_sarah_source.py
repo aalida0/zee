@@ -307,7 +307,11 @@ class TestSarahZeeSource(unittest.TestCase):
         self.assertIn("production_untouched", generator)
         self.assertIn("no_majorana_mass_added", generator)
         self.assertIn("sarah_model_variants", generator)
-        self.assertIn("Fv -> {vL,0}", self.model)
+        # The original baseline was left-only. The native A/B loop run
+        # proves the same Weyl Lagrangian needs Majorana packaging for
+        # SARAH's self-conjugate external field bookkeeping.
+        self.assertIn("Fv -> {vL,conj[vL]}", self.model)
+        self.assertIn('"production_majorana": production_majorana', generator)
         for marker in (
             "MAJORANA_AB_NOT_VALIDATED",
             "MAJORANA_AB_VARIANT_MODEL_MISSING",

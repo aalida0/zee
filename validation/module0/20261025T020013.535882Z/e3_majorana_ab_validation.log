@@ -1,0 +1,195 @@
+ZEE_E3_MAJORANA_AB_STATUS MAJORANA_AB_NOT_VALIDATED
+ZEE_E3_MAJORANA_ANALYTIC_B0_FIXTURE_PREFLIGHT_PASS
+StyleForm[SARAH , Section, FontSize -> 14]StyleForm[4.15.4, Section, FontSize -> 14]
+by Florian Staub, Mark Goodsell and Werner Porod, 2020
+StyleForm[contributions by M. Gabelmann, K. Nickel, FontSize -> 10]
+
+StyleForm[References:, Section, FontSize -> 10]
+  Comput.Phys.Commun.181 (2010) 1077-1086. (arXiv:0909.2863)
+  Comput.Phys.Commun.182 (2011) 808-833. (arXiv:1002.0840)
+  Comput.Phys.Commun.184 (2013) 1792-1809. (arXiv:1207.0906)
+  Comput.Phys.Commun.185 (2014) 1773-1790. (arXiv:1309.7223)
+  Eur.Phys.J.C 74 (2014) 8, 2992 (arXiv:1405.1434)
+  Eur.Phys.J.C 75 (2015) 1, 32 (arXiv:1411.0675)
+  Eur.Phys.J.C 75 (2015) 6, 290 (arXiv:1503.03098)
+  Eur.Phys.J.C 77 (2017) 11, 758 (arXiv:1703.09237
+  Eur.Phys.J.C 77 (2017) 11, 757 (arXiv:1706.05372)
+  Eur.Phys.J.C 78 (2018) 8, 649 (arXiv:1805.07306)
+StyleForm[Download and Documentation:, Section, FontSize -> 10]
+  http://sarah.hepforge.org
+
+Start evaluation of a model with:
+StyleForm[   Start["Name of Model"], Section, FontSize -> 12]
+e.g. Start["MSSM"] or Start["NMSSM","CKM"]
+To get a list with all installed models, use StyleForm[ShowModels, Section, FontSize -> 12]
+Preparing arrays
+ ... checking Directory: /home/amine/zee-sarah-module0/work/sarah_zee/sarah_model_variants
+StyleForm[Model files loaded   , Section, FontSize -> 12]
+  Model    : StyleForm[ZeeTypeIIMajoranaAudit, Section, FontSize -> 10]
+  Author(s): StyleForm[Zee project implementation, Section, FontSize -> 10]
+  Date     : StyleForm[2026-10-21, Section, FontSize -> 10]
+******************************************************* 
+Loading StyleForm[Susyno, Section, FontSize -> 10] functions for the handling of Lie Groups 
+Based on Susyno v.2.0 by Renato Fonseca (1106.5016)
+webpage: StyleForm[web.ist.utl.pt/renato.fonseca/susyno.html, Section, FontSize -> 10]
+******************************************************* 
+StyleForm[Initialization, Section, FontSize -> 12]
+Checking model files: Dynamic[DynamicCheckModelFiles]
+Initialize gauge groups: Dynamic[DynamicInitGaugeG]
+Initialize field: Dynamic[DynamicInitFields]
+Preprocessing necessary information: Dynamic[DynamicInitMisc]
+Checking for anomalies: Dynamic[DynamicCheckAnomalies]
+StyleForm[Derive Lagrangian, Section, FontSize -> 12]
+Calculate kinetic Terms
+  ... for scalars: Dynamic[DynamicKineticScalarNr]/8 (Dynamic[DynamicKineticScalarName])
+  ... for fermions: Dynamic[DynamicKineticFermionNr]/8 (Dynamic[DynamicKineticFermionName])
+Calculate vector self-interactions: Dynamic[DynamicVectorNr]/3 (Dynamic[DynamicVectorName])
+Calculate gauge transformations: Dynamic[DynamicGaugeTNr]/11 (Dynamic[DynamicGaugeTName])
+Eleminate sums
+Calc Complete Lagrangian
+
+StyleForm[Evolve States: GaugeES, Section, FontSize -> 12]
+Adding terms to the Lagrangian: 
+ ... adding: M12Sq*conj[H1] . H2 + Yu*H2 . u . q - (Fzee*l . l . Splus)/2 - Yd*conj[H1] . d . q - Ye*conj[H1] . e . l - Ye2*conj[H2] . e . l - Mu4*conj[Splus] . H1 . H2 - (Lambda5*conj[H1] . H2 . conj[H1] . H2)/2 + K12*conj[Splus] . Splus . conj[H1] . H2 (Dynamic[DynamicStatusAddTerms[M12Sq*conj[H1] . H2 + Yu*H2 . u . q - (Fzee*l . l . Splus)/2 - Yd*conj[H1] . d . q - Ye*conj[H1] . e . l - Ye2*conj[H2] . e . l - Mu4*conj[Splus] . H1 . H2 - (Lambda5*conj[H1] . H2 . conj[H1] . H2)/2 + K12*conj[Splus] . Splus . conj[H1] . H2]])
+ ... adding: -(M112*conj[H1] . H1) - M222*conj[H2] . H2 - MCS2*conj[Splus] . Splus - (Lambda1*conj[H1] . H1 . conj[H1] . H1)/2 - Lambda3*conj[H1] . H1 . conj[H2] . H2 - Lambda4*conj[H1] . H2 . conj[H2] . H1 - (Lambda2*conj[H2] . H2 . conj[H2] . H2)/2 - K1*conj[Splus] . Splus . conj[H1] . H1 - K2*conj[Splus] . Splus . conj[H2] . H2 - LambdaC*conj[Splus] . Splus . conj[Splus] . Splus (Dynamic[DynamicStatusAddTerms[-(M112*conj[H1] . H1) - M222*conj[H2] . H2 - MCS2*conj[Splus] . Splus - (Lambda1*conj[H1] . H1 . conj[H1] . H1)/2 - Lambda3*conj[H1] . H1 . conj[H2] . H2 - Lambda4*conj[H1] . H2 . conj[H2] . H1 - (Lambda2*conj[H2] . H2 . conj[H2] . H2)/2 - K1*conj[Splus] . Splus . conj[H1] . H1 - K2*conj[Splus] . Splus . conj[H2] . H2 - LambdaC*conj[Splus] . Splus . conj[Splus] . Splus]])
+Rotate Lagrangian: Dynamic[DynamicRotateLag[1]]/14
+Derive ghost terms: 
+  ... generate gauge fixing terms: Dynamic[DynamicGFnr[GaugeES]]/3 (Dynamic[DynamicGFname[GaugeES]])
+  ... calculate Ghost interactions
+Calc Mixings of Matter Fields
+Save information (Dynamic[DynamicSaveInfo[GaugeES]])
+
+StyleForm[Evolve States: EWSB, Section, FontSize -> 12]
+Parametrize Higgs Sector
+   Update gauge transformations: Dynamic[DynamicUGT[UGTvev[2]]]/22 (Dynamic[DynamicUGTname[UGTvev[2]]])
+Calc mass matrices gauge sector: Dynamic[DynamicMMgaugeNr[EWSB]]/2(Dynamic[DynamicMMgaugeName[EWSB]])
+   Update gauge transformations: Dynamic[DynamicUGT[UGTgaugeMM[2]]]/29 (Dynamic[DynamicUGTname[UGTgaugeMM[2]]])
+Rotate Lagrangian: Dynamic[DynamicRotateLag[2]]/14
+Derive ghost terms: 
+  ... generate gauge fixing terms: Dynamic[DynamicGFnr[EWSB]]/4 (Dynamic[DynamicGFname[EWSB]])
+  ... calculate Ghost interactions
+Calc Mixings of Matter Fields
+   Calculate mass matrices Dynamic[DynamicNrMass[{{{phi1, phi2}, {phi1, phi2}}, {{sigma1, sigma2}, {sigma1, sigma2}}, {{conj[H1p], conj[H2p], conj[Sp]}, {H1p, H2p, Sp}}, {{dL}, {conj[dR]}}, {{uL}, {conj[uR]}}, {{eL}, {conj[eR]}}}]]/6 (Dynamic[DynamicNameMass[{{{phi1, phi2}, {phi1, phi2}}, {{sigma1, sigma2}, {sigma1, sigma2}}, {{conj[H1p], conj[H2p], conj[Sp]}, {H1p, H2p, Sp}}, {{dL}, {conj[dR]}}, {{uL}, {conj[uR]}}, {{eL}, {conj[eR]}}}]])
+   Update gauge transformations: Dynamic[DynamicUGT[UGTmatterMM[2]]]/34 (Dynamic[DynamicUGTname[UGTmatterMM[2]]])
+Calculate Tadpole Equations
+Save information (Dynamic[DynamicSaveInfo[EWSB]])
+
+StyleForm[Finishing, Section, FontSize -> 12]
+Calculate final Lagrangian
+Cleaning up
+   ... add matrix products
+   ... checking for massless particles
+   ... calculating tree level masses (Dynamic[DynamicCalcTreeMasses])
+   ... simplify mass matrices
+Numerical calculations (if necessary)
+   ... checking for spectrum file: Dynamic[DynamicSpectrumFileInput]
+   ... reading parameter values and dependences
+   ... calculate mixing matrices
+Checking for CP even and odd scalars
+
+All Done. ZeeTypeIIMajoranaAudit is ready!
+(Model initialized in 6.295835999999998s)
+
+
+Are you unfamiliar with SARAH? Use StyleForm[SARAH`FirstSteps, Section, FontSize -> 12]
+ZEE_E3_MAJORANA_AB_SPINOR_DEFINITION_EXPECTED True
+ZEE_E3_MAJORANA_AB_LISTED_AS_MAJORANA True
+ZEE_E3_MAJORANA_AB_ANTIFIELD_SELF_CONJUGATE True
+ZEE_E3_MAJORANA_AB_FZEE_GAUGE_VERTEX_PRESENT True
+ZEE_E3_MAJORANA_AB_LOOP_SOURCE SARAH_COMPUTED
+Generate Directories
+Building Particle List
+StyleForm[Calculate all vertices, Section, FontSize -> 12]
+StyleForm[      Three Scalar - Interactions, Section, FontSize -> 12]
+     Found 6 potential vertices. Calculating Dynamic[progressNrGV[SSS]]/6*. (Dynamic[progressCurrentGV[SSS]])
+StyleForm[      Four Scalar - Interactions, Section, FontSize -> 12]
+     Found 9 potential vertices. Calculating Dynamic[progressNrGV[SSSS]]/9*. (Dynamic[progressCurrentGV[SSSS]])
+StyleForm[      Two Scalar - One Vector Boson - Interactions, Section, FontSize -> 12]
+     Found 32 potential vertices. Calculating Dynamic[progressNrGV[SSV]]/32*. (Dynamic[progressCurrentGV[SSV]])
+StyleForm[      One Scalar - Two Vector Boson - Interactions, Section, FontSize -> 12]
+     Found 36 potential vertices. Calculating Dynamic[progressNrGV[SVV]]/36*. (Dynamic[progressCurrentGV[SVV]])
+StyleForm[      Two Scalar - Two Vector Boson - Interactions, Section, FontSize -> 12]
+     Found 80 potential vertices. Calculating Dynamic[progressNrGV[SSVV]]/80*. (Dynamic[progressCurrentGV[SSVV]])
+StyleForm[      Three Vector Boson - Interactions, Section, FontSize -> 12]
+     Found 21 potential vertices. Calculating Dynamic[progressNrGV[VVV]]/21*. (Dynamic[progressCurrentGV[VVV]])
+StyleForm[      Two Fermion - One Scalar - Interactions, Section, FontSize -> 12]
+     Found 10 potential vertices. Calculating Dynamic[progressNrGV[FFS]]/10*. (Dynamic[progressCurrentGV[FFS]])
+StyleForm[      Two Fermion - One Vector Boson - Interactions, Section, FontSize -> 12]
+     Found 34 potential vertices. Calculating Dynamic[progressNrGV[FFV]]/34*. (Dynamic[progressCurrentGV[FFV]])
+StyleForm[      Four Vector Boson - Interactions, Section, FontSize -> 12]
+     Found 36 potential vertices. Calculating Dynamic[progressNrGV[VVVV]]/36*. (Dynamic[progressCurrentGV[VVVV]])
+StyleForm[      Two Ghost - One Vector Boson - Interactions, Section, FontSize -> 12]
+     Found 65 potential vertices. Calculating Dynamic[progressNrGV[GGV]]/65*. (Dynamic[progressCurrentGV[GGV]])
+StyleForm[      Two Ghost - One Scalar - Interactions, Section, FontSize -> 12]
+     Found 48 potential vertices. Calculating Dynamic[progressNrGV[GGS]]/48*. (Dynamic[progressCurrentGV[GGS]])
+StyleForm[      Two Scalar - One Auxiliary - Interactions, Section, FontSize -> 12]
+
+Simplify Vertices
+Writing vertices to files
+All vertices calculated. (Time needed: 84.94444800000001s)
+The vertices are saved in StyleForm[/home/amine/zee-sarah-module0/work/sarah_zee/native_output/ZeeTypeIIMajoranaAudit/EWSB/Vertices/, Section, FontSize -> 10]
+Generate interaction list
+StyleForm[Calculate 1-loop corrections, Section, FontSize -> 12]
+  For rotated fields
+  ... processing: Dynamic[DynamicOneLoopNameMM](Dynamic[DynamicOneLoopNrMM]/6)
+  For tadpoles
+    ... processing: Dynamic[DynamicOneLoopTadName](Dynamic[DynamicOneLoopTadNr]/Dynamic[DynamicOneLoopTadNrAll])
+  For gauge eigenstates
+    ... processing: Dynamic[DynamicOneLoopNameNM](Dynamic[DynamicOneLoopNrNM]/5)
+   Simplify expression
+ZEE_E3_MAJORANA_AB_NEUTRINO_EXTERNAL InputForm[Fv]
+ZEE_E3_MAJORANA_AB_SIGMAS_DIMENSIONS InputForm[{3}]
+ZEE_E3_MAJORANA_AB_SIGMAS_B0 True
+ZEE_E3_MAJORANA_AB_SIGMAS_MASS_FE True
+ZEE_E3_MAJORANA_AB_SIGMAS_CHARGED_HIGGS True
+ZEE_E3_MAJORANA_AB_SIGMAS_COUPLINGS True
+ZEE_E3_MAJORANA_AB_SIGMAS_CP_ATOMS 10
+ZEE_E3_MAJORANA_AB_SIGMAS_EXPLICIT_F_AND_Y False
+ZEE_E3_MAJORANA_AB_SIGMA_COUPLING_INVENTORY /home/amine/zee-sarah-module0/work/sarah_zee/e3_majorana_ab_sigma_couplings.txt
+ZEE_E3_MAJORANA_AB_SIGMA_MACHINE_EXPRESSION /home/amine/zee-sarah-module0/work/sarah_zee/e3_majorana_ab_sigma_machine.m
+ZEE_E3_MAJORANA_AB_TREE_F_VERTEX_COUNT 7
+ZEE_E3_MAJORANA_AB_TREE_Y_VERTEX_COUNT 7
+ZEE_E3_MAJORANA_AB_TREE_VERTEX_INVENTORY /home/amine/zee-sarah-module0/work/sarah_zee/e3_majorana_ab_physical_vertices.txt
+ZEE_E3_MAJORANA_AB_TREE_E3_AMPLITUDE_MATCH_VERIFIED False
+ZEE_E3_MAJORANA_AB_SIGMAS_TREE_MNU_ZERO_IDENTICALLY_ZERO False
+ZEE_E3_MAJORANA_AB_SIGMAS_TREE_MNU_ZERO_MASS_SYMBOL_REMAINING False
+ZEE_E3_MAJORANA_AB_COMPLEX_MNU_MATRIX_EXTRACTED False
+ZEE_E3_MAJORANA_AB_CHEN_E3_NUMERIC_MATCH False
+ZEE_E3_MAJORANA_AB_CP_EXPANSION_TO_FLAVOR_COUPLINGS_VERIFIED False
+ZEE_E3_MAJORANA_AB_SIGMA_FILE /home/amine/zee-sarah-module0/work/sarah_zee/e3_majorana_ab_sigma.txt
+ZEE_E3_MAJORANA_FINITE_B0_REFERENCE ANALYTIC_CLOSED_FORM
+ZEE_E3_MAJORANA_AB_ZERO_TREE_TERM_COUNT 4
+ZEE_E3_MAJORANA_AB_ZERO_TREE_HM_TERM_COUNT 2
+ZEE_E3_MAJORANA_AB_ZERO_TREE_W_TERM_COUNT 2
+ZEE_E3_MAJORANA_AB_VERTEX_CHIRALITY_PREFLIGHT_PASS 8
+ZEE_E3_MAJORANA_NUMERIC_CASE_BEGIN A1b_original
+ZEE_E3_MAJORANA_COMPLEX_VERTEX_CONVENTIONS A1b_original COUNT=72 MAX_RESIDUAL=InputForm[0.]
+ZEE_E3_MAJORANA_CP_LOOP_AMPLITUDE_DERIVATION A1b_original CP_PRODUCTS=2 MAJORANA_FACTOR=2 EACH_DIAGRAM_SYMMETRY=1/2 MAX_RAW_RESIDUAL_GEV=InputForm[8.272815805866723*^-25]
+ZEE_E3_MAJORANA_MASS_SINGULAR_VALUES A1b_original SARAH_EV=InputForm[{0.0009998870661336342, 0.008712825174090997, 0.050342825915071325}] E3_EV=InputForm[{0.00099988706613412380161936898733957822`17.327065356069518, 0.00871282517409305026458243771424170285`17.327065356069518, 0.05034282591506900061024799224935917106`17.327065356069518}] MAX_RESIDUAL_EV=InputForm[2.3245294578089215*^-15]
+ZEE_E3_MAJORANA_FIXED_NEGCONJ_COMPARISON A1b_original ABS_RESIDUAL_EV=InputForm[2.5084101472715546*^-15] REL_RESIDUAL=InputForm[8.183918101628462*^-14]
+ZEE_E3_MAJORANA_NUMERIC_CASE A1b_original MNU_RAW=InputForm[{{-4.3282023886220045*^-10 + 1.5122063069417282*^-10*I, 3.902043430001165*^-11 - 8.060600851650877*^-10*I, 7.762928169863916*^-10 - 7.132374691733001*^-10*I}, {3.9020434300011755*^-11 - 8.060600851650877*^-10*I, -4.8395141339554776*^-9 - 7.719305978227268*^-11*I, -3.3533974136442636*^-9 + 3.7821020502962104*^-12*I}, {7.762928169863917*^-10 - 7.132374691732999*^-10*I, -3.3533974136442636*^-9 + 3.7821020502962104*^-12*I, -3.931956556570431*^-9 + 6.709694172314359*^-11*I}}] SARAH_PLUS_EV=InputForm[{{-0.002740866181617344 + 0.0009576158308171515*I, 0.0002470997868447035 - 0.0051044351197356425*I, 0.004915931691881618 - 0.00451662903716901*I}, {0.00024709978684470417 - 0.0051044351197356425*I, -0.03064658126913701 - 0.0004888307616321005*I, -0.021235637198349432 + 0.000023950441024507783*I}, {0.004915931691881618 - 0.004516629037169009*I, -0.021235637198349432 + 0.000023950441024507783*I, -0.024899405771372916 + 0.0004248963471356167*I}}] REFERENCE_E3_FINITE_EV=InputForm[{{0.00274086618161734422`17.437887832327583 + 0.000957615830817151064`17.981191316992867*I, -0.000247099786844707364`17.39287237076749 - 0.00510443511973564332`17.70794768805748*I, -0.00491593169188204223`17.691605839624344 - 0.00451662903716940154`17.65481442225805*I}, {-0.000247099786844707364`17.39287237076749 - 0.00510443511973564332`17.70794768805748*I, 0.0306465812691370069`17.486382034522965 - 0.000488830761632100264`17.689158527812882*I, 0.0212356371983469239`17.327065296999603 + 0.0000239504410245078539`17.379313514942513*I}, {-0.00491593169188204223`17.691605839624344 - 0.00451662903716940154`17.65481442225805*I, 0.0212356371983469239`17.327065296999603 + 0.0000239504410245078539`17.379313514942513*I, 0.0248994057713729164`17.396188982706455 + 0.000424896347135616712`17.628282997444742*I}}]
+ZEE_E3_MAJORANA_NUMERIC_SIGNAL_MAX_EV A1b_original InputForm[0.030650479588406727]
+ZEE_E3_MAJORANA_NUMERIC_RESIDUALS A1b_original SYMMETRY_GEV=InputForm[2.3120400991731073*^-25] SCALE_GEV=InputForm[1.2651727469658735*^-21] W_GAUGE_GEV=InputForm[0.] SCHEME_GEV=InputForm[0.] E3_PLUS_EV=InputForm[0.06129316253827402] E3_MINUS_EV=InputForm[0.010208870239471285] E3_CONJ_PLUS_EV=InputForm[0.061300959176813455] E3_CONJ_MINUS_EV=InputForm[2.5084101472715546*^-15]
+ZEE_E3_MAJORANA_NULL_RESULT A1b_original/f_zero MAX_GEV=InputForm[0.]
+ZEE_E3_MAJORANA_NULL_RESULT A1b_original/gamma_zero MAX_GEV=InputForm[0.]
+ZEE_E3_MAJORANA_NULL_RESULT A1b_original/charged_masses_degenerate MAX_GEV=InputForm[3.2938311355582754*^-22]
+ZEE_E3_MAJORANA_NULL_RESULT A1b_original/nonvev_Y_zero MAX_GEV=InputForm[1.0310898048417192*^-21]
+ZEE_E3_MAJORANA_NUMERIC_CASE_BEGIN B2_second_null_root
+ZEE_E3_MAJORANA_COMPLEX_VERTEX_CONVENTIONS B2_second_null_root COUNT=72 MAX_RESIDUAL=InputForm[0.]
+ZEE_E3_MAJORANA_CP_LOOP_AMPLITUDE_DERIVATION B2_second_null_root CP_PRODUCTS=2 MAJORANA_FACTOR=2 EACH_DIAGRAM_SYMMETRY=1/2 MAX_RAW_RESIDUAL_GEV=InputForm[8.271806125530277*^-25]
+ZEE_E3_MAJORANA_MASS_SINGULAR_VALUES B2_second_null_root SARAH_EV=InputForm[{0.0010000930796443628, 0.008712715649841116, 0.05034457129990445}] E3_EV=InputForm[{0.00100009307964424582402897832903865322`17.3270844725718, 0.00871271564984058555003421156813398859`17.3270844725718, 0.05034457129990514520107881436216202324`17.3270844725718}] MAX_RESIDUAL_EV=InputForm[6.938893903907228*^-16]
+ZEE_E3_MAJORANA_FIXED_NEGCONJ_COMPARISON B2_second_null_root ABS_RESIDUAL_EV=InputForm[7.008283073000786*^-16] REL_RESIDUAL=InputForm[2.2863808155204075*^-14]
+ZEE_E3_MAJORANA_NUMERIC_CASE B2_second_null_root MNU_RAW=InputForm[{{-4.328748511398398*^-10 + 1.511241626514419*^-10*I, 3.901578095029079*^-11 - 8.061090419054396*^-10*I, 7.762545205574591*^-10 - 7.130675400397442*^-10*I}, {3.9015780950290683*^-11 - 8.061090419054392*^-10*I, -4.839801569307277*^-9 - 7.719764440503285*^-11*I, -3.3535450104155273*^-9 + 3.794857805598074*^-12*I}, {7.762545205574593*^-10 - 7.130675400397439*^-10*I, -3.3535450104155286*^-9 + 3.794857805597997*^-12*I, -3.931957892958176*^-9 + 6.7096964527927*^-11*I}}] SARAH_PLUS_EV=InputForm[{{-0.0027412120179055835 + 0.0009570049398000792*I, 0.00024707031916335227 - 0.005104745141915625*I, 0.004915689176912323 - 0.00451555294835981*I}, {0.0002470703191633516 - 0.005104745141915622*I, -0.03064840147476607 - 0.0004888597940948889*I, -0.021236571865822323 + 0.00002403121778859759*I}, {0.004915689176912324 - 0.004515552948359808*I, -0.02123657186582233 + 0.000024031217788597097*I, -0.024899414234147176 + 0.00042489649154859465*I}}] REFERENCE_E3_FINITE_EV=InputForm[{{0.00274121201790558438`17.437942627165 + 0.000957004939800079352`17.98091417949302*I, -0.000247070319163348207`17.392820576248685 - 0.00510474514191562589`17.70797406449881*I, -0.00491568917691222618`17.691584414283682 - 0.00451555294835998596`17.654710939083124*I}, {-0.000247070319163348207`17.392820576248685 - 0.00510474514191562589`17.70797406449881*I, 0.0306484014747660689`17.486407827996608 - 0.000488859794094888712`17.689184320510407*I, 0.0212365718658230236`17.32708441166005 + 0.0000240312177885977682`17.38077577935435*I}, {-0.00491568917691222618`17.691584414283682 - 0.00451555294835998596`17.654710939083124*I, 0.0212365718658230236`17.32708441166005 + 0.0000240312177885977682`17.38077577935435*I, 0.0248994142341471859`17.396189130313815 + 0.000424896491548594761`17.628283145051917*I}}]
+ZEE_E3_MAJORANA_NUMERIC_SIGNAL_MAX_EV B2_second_null_root InputForm[0.030652300025556408]
+ZEE_E3_MAJORANA_NUMERIC_RESIDUALS B2_second_null_root SYMMETRY_GEV=InputForm[1.2431919375586428*^-24] SCALE_GEV=InputForm[3.3748969388140763*^-22] W_GAUGE_GEV=InputForm[0.] SCHEME_GEV=InputForm[0.] E3_PLUS_EV=InputForm[0.06129680294953214] E3_MINUS_EV=InputForm[0.010209490283831252] E3_CONJ_PLUS_EV=InputForm[0.061304600051112816] E3_CONJ_MINUS_EV=InputForm[7.008283073000786*^-16]
+ZEE_E3_MAJORANA_NULL_RESULT B2_second_null_root/f_zero MAX_GEV=InputForm[0.]
+ZEE_E3_MAJORANA_NULL_RESULT B2_second_null_root/gamma_zero MAX_GEV=InputForm[0.]
+ZEE_E3_MAJORANA_NULL_RESULT B2_second_null_root/charged_masses_degenerate MAX_GEV=InputForm[1.1969308840316292*^-22]
+ZEE_E3_MAJORANA_NULL_RESULT B2_second_null_root/nonvev_Y_zero MAX_GEV=InputForm[4.046421439441035*^-21]
+ZEE_E3_MAJORANA_NUMERIC_REPORT /home/amine/zee-sarah-module0/work/sarah_zee/e3_majorana_ab_numeric_matrix_report.txt
+ZEE_E3_MAJORANA_NUMERIC_FAILURE_LABELS InputForm[{}]
+ZEE_E3_MAJORANA_PHASE_SIGN_WAVEFUNCTION_DERIVATION_PENDING True
+ZEE_E3_MAJORANA_NUMERIC_MNU_INDEPENDENTLY_MATCHED False
+ZEE_E3_MAJORANA_SARAH_GENERATED_COMPLEX_3X3_EVALUATED True
+ZEE_E3_MAJORANA_NEGCONJ_AGREEMENT_ONLY_FIXED_REFERENCE True
+ZEE_E3_MAJORANA_AB_STATUS MAJORANA_AB_SARAH_3X3_FINITE_B0_NEGCONJ_MATCH_PHASE_SIGN_DERIVATION_PENDING

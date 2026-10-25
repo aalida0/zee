@@ -29,6 +29,9 @@ PrependTo[$Path,DirectoryName[zeeSfile]];
 zeeLoaded=CheckAbort[(Get[zeeSfile];True),False];
 If[!TrueQ[zeeLoaded]||!ValueQ[SA`Version],
  zeeSetStatus["SARAH_LOAD_FAILED"];Exit[4]];
+(* Keep all generated native output inside this checkout. *)
+SARAH[OutputDirectory]=FileNameJoin[{Directory[],"work","sarah_zee","native_output"}];
+If[!DirectoryQ[SARAH[OutputDirectory]],CreateDirectory[SARAH[OutputDirectory],CreateIntermediateDirectories->True]];
 SARAH[InputDirectories]=Prepend[SARAH[InputDirectories],
  FileNameJoin[{zeeRoot,"models","SARAH"}]];
 SARAH`Start["ZeeTypeII"];

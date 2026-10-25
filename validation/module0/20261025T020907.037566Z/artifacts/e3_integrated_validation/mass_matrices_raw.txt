@@ -1,0 +1,8 @@
+HH:
+{{M112 + (3*Lambda1*v1^2)/2 + (Lambda3*v2^2)/2 + (Lambda4*v2^2)/2 + (Lambda5*v2^2)/2, -M12Sq + Lambda3*v1*v2 + Lambda4*v1*v2 + Lambda5*v1*v2}, {-M12Sq + Lambda3*v1*v2 + Lambda4*v1*v2 + Lambda5*v1*v2, M222 + (Lambda3*v1^2)/2 + (Lambda4*v1^2)/2 + (Lambda5*v1^2)/2 + (3*Lambda2*v2^2)/2}}
+
+AH:
+{{M112 + (Lambda1*v1^2)/2 + (Lambda3*v2^2)/2 + (Lambda4*v2^2)/2 - (Lambda5*v2^2)/2 + (g2^2*v1^2*Cos[ThetaW]^2*RXi[Z])/4 + (g1*g2*v1^2*Cos[ThetaW]*RXi[Z]*Sin[ThetaW])/2 + (g1^2*v1^2*RXi[Z]*Sin[ThetaW]^2)/4, -M12Sq + Lambda5*v1*v2 + (g2^2*v1*v2*Cos[ThetaW]^2*RXi[Z])/4 + (g1*g2*v1*v2*Cos[ThetaW]*RXi[Z]*Sin[ThetaW])/2 + (g1^2*v1*v2*RXi[Z]*Sin[ThetaW]^2)/4}, {-M12Sq + Lambda5*v1*v2 + (g2^2*v1*v2*Cos[ThetaW]^2*RXi[Z])/4 + (g1*g2*v1*v2*Cos[ThetaW]*RXi[Z]*Sin[ThetaW])/2 + (g1^2*v1*v2*RXi[Z]*Sin[ThetaW]^2)/4, M222 + (Lambda3*v1^2)/2 + (Lambda4*v1^2)/2 - (Lambda5*v1^2)/2 + (Lambda2*v2^2)/2 + (g2^2*v2^2*Cos[ThetaW]^2*RXi[Z])/4 + (g1*g2*v2^2*Cos[ThetaW]*RXi[Z]*Sin[ThetaW])/2 + (g1^2*v2^2*RXi[Z]*Sin[ThetaW]^2)/4}}
+
+HM:
+{{M112 + (Lambda1*v1^2)/2 + (Lambda3*v2^2)/2 + (g2^2*v1^2*RXi[Wm])/4, -M12Sq + (Lambda4*v1*v2)/2 + (Lambda5*v1*v2)/2 + (g2^2*v1*v2*RXi[Wm])/4, (Mu4*v2)/Sqrt[2]}, {-M12Sq + (Lambda4*v1*v2)/2 + (Lambda5*v1*v2)/2 + (g2^2*v1*v2*RXi[Wm])/4, M222 + (Lambda3*v1^2)/2 + (Lambda2*v2^2)/2 + (g2^2*v2^2*RXi[Wm])/4, -((Mu4*v1)/Sqrt[2])}, {(Mu4*v2)/Sqrt[2], -((Mu4*v1)/Sqrt[2]), MCS2 + (K1*v1^2)/2 - K12*v1*v2 + (K2*v2^2)/2}}

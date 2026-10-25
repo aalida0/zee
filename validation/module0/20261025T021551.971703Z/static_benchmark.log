@@ -1,0 +1,14 @@
+test_all_four_unitarity_scattering_matrices (test_gate6_benchmark.Gate6ScalarTests) ... ok
+test_beta_equals_alpha_invalid (test_gate6_benchmark.Gate6ScalarTests) ... ok
+test_beta_shift_scalar_bound_and_unitarity (test_gate6_benchmark.Gate6ScalarTests) ... ok
+test_conditional_widths_reference (test_gate6_benchmark.Gate6ScalarTests) ... ok
+test_h1_h2_mass_reconstruction (test_gate6_benchmark.Gate6ScalarTests) ... ok
+test_light_charged_tb_width (test_gate6_benchmark.Gate6ScalarTests) ... ok
+test_nominal_fraction_is_not_physical_br (test_gate6_benchmark.Gate6ScalarTests) ... ok
+test_p2_transcription (test_gate6_benchmark.Gate6ScalarTests) ... ok
+test_z_width_follows_charged_mixing (test_gate6_benchmark.Gate6ScalarTests) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.004s
+
+OK

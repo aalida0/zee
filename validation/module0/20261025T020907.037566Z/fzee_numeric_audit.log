@@ -1,0 +1,114 @@
+ZEE_F_NUMERIC_STATUS FZEE_COMPLEX_NUMERIC_NOT_VALIDATED
+StyleForm[SARAH , Section, FontSize -> 14]StyleForm[4.15.4, Section, FontSize -> 14]
+by Florian Staub, Mark Goodsell and Werner Porod, 2020
+StyleForm[contributions by M. Gabelmann, K. Nickel, FontSize -> 10]
+
+StyleForm[References:, Section, FontSize -> 10]
+  Comput.Phys.Commun.181 (2010) 1077-1086. (arXiv:0909.2863)
+  Comput.Phys.Commun.182 (2011) 808-833. (arXiv:1002.0840)
+  Comput.Phys.Commun.184 (2013) 1792-1809. (arXiv:1207.0906)
+  Comput.Phys.Commun.185 (2014) 1773-1790. (arXiv:1309.7223)
+  Eur.Phys.J.C 74 (2014) 8, 2992 (arXiv:1405.1434)
+  Eur.Phys.J.C 75 (2015) 1, 32 (arXiv:1411.0675)
+  Eur.Phys.J.C 75 (2015) 6, 290 (arXiv:1503.03098)
+  Eur.Phys.J.C 77 (2017) 11, 758 (arXiv:1703.09237
+  Eur.Phys.J.C 77 (2017) 11, 757 (arXiv:1706.05372)
+  Eur.Phys.J.C 78 (2018) 8, 649 (arXiv:1805.07306)
+StyleForm[Download and Documentation:, Section, FontSize -> 10]
+  http://sarah.hepforge.org
+
+Start evaluation of a model with:
+StyleForm[   Start["Name of Model"], Section, FontSize -> 12]
+e.g. Start["MSSM"] or Start["NMSSM","CKM"]
+To get a list with all installed models, use StyleForm[ShowModels, Section, FontSize -> 12]
+Preparing arrays
+ ... checking Directory: /home/amine/zee-sarah-module0/models/SARAH
+StyleForm[Model files loaded   , Section, FontSize -> 12]
+  Model    : StyleForm[ZeeTypeII, Section, FontSize -> 10]
+  Author(s): StyleForm[Zee project implementation, Section, FontSize -> 10]
+  Date     : StyleForm[2026-10-21, Section, FontSize -> 10]
+******************************************************* 
+Loading StyleForm[Susyno, Section, FontSize -> 10] functions for the handling of Lie Groups 
+Based on Susyno v.2.0 by Renato Fonseca (1106.5016)
+webpage: StyleForm[web.ist.utl.pt/renato.fonseca/susyno.html, Section, FontSize -> 10]
+******************************************************* 
+StyleForm[Initialization, Section, FontSize -> 12]
+Checking model files: Dynamic[DynamicCheckModelFiles]
+Initialize gauge groups: Dynamic[DynamicInitGaugeG]
+Initialize field: Dynamic[DynamicInitFields]
+Preprocessing necessary information: Dynamic[DynamicInitMisc]
+Checking for anomalies: Dynamic[DynamicCheckAnomalies]
+StyleForm[Derive Lagrangian, Section, FontSize -> 12]
+Calculate kinetic Terms
+  ... for scalars: Dynamic[DynamicKineticScalarNr]/8 (Dynamic[DynamicKineticScalarName])
+  ... for fermions: Dynamic[DynamicKineticFermionNr]/8 (Dynamic[DynamicKineticFermionName])
+Calculate vector self-interactions: Dynamic[DynamicVectorNr]/3 (Dynamic[DynamicVectorName])
+Calculate gauge transformations: Dynamic[DynamicGaugeTNr]/11 (Dynamic[DynamicGaugeTName])
+Eleminate sums
+Calc Complete Lagrangian
+
+StyleForm[Evolve States: GaugeES, Section, FontSize -> 12]
+Adding terms to the Lagrangian: 
+ ... adding: M12Sq*conj[H1] . H2 + Yu*H2 . u . q - (Fzee*l . l . Splus)/2 - Yd*conj[H1] . d . q - Ye*conj[H1] . e . l - Ye2*conj[H2] . e . l - Mu4*conj[Splus] . H1 . H2 - (Lambda5*conj[H1] . H2 . conj[H1] . H2)/2 + K12*conj[Splus] . Splus . conj[H1] . H2 (Dynamic[DynamicStatusAddTerms[M12Sq*conj[H1] . H2 + Yu*H2 . u . q - (Fzee*l . l . Splus)/2 - Yd*conj[H1] . d . q - Ye*conj[H1] . e . l - Ye2*conj[H2] . e . l - Mu4*conj[Splus] . H1 . H2 - (Lambda5*conj[H1] . H2 . conj[H1] . H2)/2 + K12*conj[Splus] . Splus . conj[H1] . H2]])
+ ... adding: -(M112*conj[H1] . H1) - M222*conj[H2] . H2 - MCS2*conj[Splus] . Splus - (Lambda1*conj[H1] . H1 . conj[H1] . H1)/2 - Lambda3*conj[H1] . H1 . conj[H2] . H2 - Lambda4*conj[H1] . H2 . conj[H2] . H1 - (Lambda2*conj[H2] . H2 . conj[H2] . H2)/2 - K1*conj[Splus] . Splus . conj[H1] . H1 - K2*conj[Splus] . Splus . conj[H2] . H2 - LambdaC*conj[Splus] . Splus . conj[Splus] . Splus (Dynamic[DynamicStatusAddTerms[-(M112*conj[H1] . H1) - M222*conj[H2] . H2 - MCS2*conj[Splus] . Splus - (Lambda1*conj[H1] . H1 . conj[H1] . H1)/2 - Lambda3*conj[H1] . H1 . conj[H2] . H2 - Lambda4*conj[H1] . H2 . conj[H2] . H1 - (Lambda2*conj[H2] . H2 . conj[H2] . H2)/2 - K1*conj[Splus] . Splus . conj[H1] . H1 - K2*conj[Splus] . Splus . conj[H2] . H2 - LambdaC*conj[Splus] . Splus . conj[Splus] . Splus]])
+Rotate Lagrangian: Dynamic[DynamicRotateLag[1]]/14
+Derive ghost terms: 
+  ... generate gauge fixing terms: Dynamic[DynamicGFnr[GaugeES]]/3 (Dynamic[DynamicGFname[GaugeES]])
+  ... calculate Ghost interactions
+Calc Mixings of Matter Fields
+Save information (Dynamic[DynamicSaveInfo[GaugeES]])
+
+StyleForm[Evolve States: EWSB, Section, FontSize -> 12]
+Parametrize Higgs Sector
+   Update gauge transformations: Dynamic[DynamicUGT[UGTvev[2]]]/22 (Dynamic[DynamicUGTname[UGTvev[2]]])
+Calc mass matrices gauge sector: Dynamic[DynamicMMgaugeNr[EWSB]]/2(Dynamic[DynamicMMgaugeName[EWSB]])
+   Update gauge transformations: Dynamic[DynamicUGT[UGTgaugeMM[2]]]/29 (Dynamic[DynamicUGTname[UGTgaugeMM[2]]])
+Rotate Lagrangian: Dynamic[DynamicRotateLag[2]]/14
+Derive ghost terms: 
+  ... generate gauge fixing terms: Dynamic[DynamicGFnr[EWSB]]/4 (Dynamic[DynamicGFname[EWSB]])
+  ... calculate Ghost interactions
+Calc Mixings of Matter Fields
+   Calculate mass matrices Dynamic[DynamicNrMass[{{{phi1, phi2}, {phi1, phi2}}, {{sigma1, sigma2}, {sigma1, sigma2}}, {{conj[H1p], conj[H2p], conj[Sp]}, {H1p, H2p, Sp}}, {{dL}, {conj[dR]}}, {{uL}, {conj[uR]}}, {{eL}, {conj[eR]}}}]]/6 (Dynamic[DynamicNameMass[{{{phi1, phi2}, {phi1, phi2}}, {{sigma1, sigma2}, {sigma1, sigma2}}, {{conj[H1p], conj[H2p], conj[Sp]}, {H1p, H2p, Sp}}, {{dL}, {conj[dR]}}, {{uL}, {conj[uR]}}, {{eL}, {conj[eR]}}}]])
+   Update gauge transformations: Dynamic[DynamicUGT[UGTmatterMM[2]]]/34 (Dynamic[DynamicUGTname[UGTmatterMM[2]]])
+Calculate Tadpole Equations
+Save information (Dynamic[DynamicSaveInfo[EWSB]])
+
+StyleForm[Finishing, Section, FontSize -> 12]
+Calculate final Lagrangian
+Cleaning up
+   ... add matrix products
+   ... checking for massless particles
+   ... calculating tree level masses (Dynamic[DynamicCalcTreeMasses])
+   ... simplify mass matrices
+Numerical calculations (if necessary)
+   ... checking for spectrum file: Dynamic[DynamicSpectrumFileInput]
+   ... reading parameter values and dependences
+   ... calculate mixing matrices
+Checking for CP even and odd scalars
+
+All Done. ZeeTypeII is ready!
+(Model initialized in 6.235899999999999s)
+
+
+Are you unfamiliar with SARAH? Use StyleForm[SARAH`FirstSteps, Section, FontSize -> 12]
+ZEE_F_MIXING_SINGLET_H1 InputForm[0.8861639858462725]
+ZEE_F_MIXING_SINGLET_H2 InputForm[0.4633717623993151]
+ZEE_F_NUMERIC_N_VERTICES 8
+ZEE_F_COMPLEX_RESULT identity_rotation gauge12 actual=InputForm[-0.003 + 0.002*I] expected=InputForm[-0.003 + 0.002*I] residual=InputForm[0.]
+ZEE_F_COMPLEX_RESULT identity_rotation gauge21 actual=InputForm[0.003 - 0.002*I] expected=InputForm[0.003 - 0.002*I] residual=InputForm[0.]
+ZEE_F_COMPLEX_RESULT identity_rotation gauge11 actual=InputForm[0.] expected=InputForm[0. + 0.*I] residual=InputForm[0.]
+ZEE_F_COMPLEX_RESULT identity_rotation plus12_H1 actual=InputForm[-0.0026584919575388176 + 0.0017723279716925452*I] expected=InputForm[-0.0026584919575388176 + 0.0017723279716925452*I] residual=InputForm[0.]
+ZEE_F_COMPLEX_RESULT identity_rotation plus21_H1 actual=InputForm[0.0026584919575388176 - 0.0017723279716925452*I] expected=InputForm[0.0026584919575388176 - 0.0017723279716925452*I] residual=InputForm[0.]
+ZEE_F_COMPLEX_RESULT identity_rotation plus12_H2 actual=InputForm[-0.0013901152871979453 + 0.0009267435247986302*I] expected=InputForm[-0.0013901152871979453 + 0.0009267435247986302*I] residual=InputForm[0.]
+ZEE_F_COMPLEX_RESULT identity_rotation minus12_H1 actual=InputForm[0.0026584919575388176 + 0.0017723279716925452*I] expected=InputForm[0.0026584919575388176 + 0.0017723279716925452*I] residual=InputForm[0.]
+ZEE_F_COMPLEX_RESULT identity_rotation minus12_H2 actual=InputForm[0.0013901152871979453 + 0.0009267435247986302*I] expected=InputForm[0.0013901152871979453 + 0.0009267435247986302*I] residual=InputForm[0.]
+ZEE_F_COMPLEX_RESULT complex_rotation gauge12 actual=InputForm[-0.001 - 0.006*I] expected=InputForm[-0.001 - 0.006*I] residual=InputForm[0.]
+ZEE_F_COMPLEX_RESULT complex_rotation gauge21 actual=InputForm[0.001 + 0.006*I] expected=InputForm[0.001 + 0.006*I] residual=InputForm[0.]
+ZEE_F_COMPLEX_RESULT complex_rotation gauge11 actual=InputForm[0.] expected=InputForm[0. + 0.*I] residual=InputForm[0.]
+ZEE_F_COMPLEX_RESULT complex_rotation plus12_H1 actual=InputForm[-0.0008261949166957188 - 0.004957169500174313*I] expected=InputForm[-0.0008261949166957188 - 0.004957169500174313*I] residual=InputForm[0.]
+ZEE_F_COMPLEX_RESULT complex_rotation plus21_H1 actual=InputForm[0.0008261949166957188 + 0.004957169500174313*I] expected=InputForm[0.0008261949166957188 + 0.004957169500174313*I] residual=InputForm[0.]
+ZEE_F_COMPLEX_RESULT complex_rotation plus12_H2 actual=InputForm[-0.00043201416526654355 - 0.0025920849915992616*I] expected=InputForm[-0.00043201416526654355 - 0.0025920849915992616*I] residual=InputForm[0.]
+ZEE_F_COMPLEX_RESULT complex_rotation minus12_H1 actual=InputForm[0.0008261949166957188 - 0.004957169500174313*I] expected=InputForm[0.0008261949166957188 - 0.004957169500174313*I] residual=InputForm[0.]
+ZEE_F_COMPLEX_RESULT complex_rotation minus12_H2 actual=InputForm[0.00043201416526654355 - 0.0025920849915992616*I] expected=InputForm[0.00043201416526654355 - 0.0025920849915992616*I] residual=InputForm[0.]
+ZEE_F_COMPLEX_MAX_RESIDUAL InputForm[0.]
+ZEE_F_NUMERIC_STATUS SARAH_ZEE_F_COMPLEX_VERTEX_NORMALIZATION_PASS_E3_UNMATCHED

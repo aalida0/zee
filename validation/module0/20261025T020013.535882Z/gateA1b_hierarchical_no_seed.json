@@ -1,0 +1,143 @@
+{
+  "status": "ALGEBRAIC_NEUTRINO_SEED_ONLY_NOT_LFV_OR_GLOBAL_ALLOWED",
+  "convention": "Chen 2508.18757 Eq.(5)-(6); Higgs basis, charged lepton diagonal",
+  "mass_ordering": "normal",
+  "neutrino_inputs": {
+    "lightest_eV": 0.001,
+    "dm21_eV2": 7.49e-05,
+    "dm31_eV2": 0.002534,
+    "sin2_t12": 0.307,
+    "sin2_t13": 0.02195,
+    "sin2_t23": 0.561,
+    "delta_cp_deg": 240.0,
+    "majorana_phases_rad": [
+      0.0,
+      0.0
+    ]
+  },
+  "sum_m_eV": 0.06006084410654622,
+  "masses_eV": [
+    0.001,
+    0.008712060605849802,
+    0.050348783500696416
+  ],
+  "mass_bb_eV": 0.0029033925283528197,
+  "chosen_null_vector_n": {
+    "real": [
+      1.0,
+      -0.1674352295193875,
+      0.25
+    ],
+    "imag": [
+      0.0,
+      -0.15526085292553826,
+      0.1
+    ]
+  },
+  "null_condition_abs_eV": 3.352710057511404e-19,
+  "f_times_n_max_abs": 3.3881317890172014e-21,
+  "f": {
+    "real": [
+      [
+        0.0,
+        0.00025,
+        0.0001674352295193875
+      ],
+      [
+        -0.00025,
+        0.0,
+        0.001
+      ],
+      [
+        -0.0001674352295193875,
+        -0.001,
+        0.0
+      ]
+    ],
+    "imag": [
+      [
+        0.0,
+        0.0001,
+        0.00015526085292553828
+      ],
+      [
+        -0.0001,
+        0.0,
+        0.0
+      ],
+      [
+        -0.00015526085292553828,
+        0.0,
+        0.0
+      ]
+    ]
+  },
+  "Y_ell": {
+    "real": [
+      [
+        -6.679588351361858e-09,
+        1.3516617341704514e-09,
+        7.839338280540624e-09
+      ],
+      [
+        -3.8722783054765184e-06,
+        1.4330884393464153e-06,
+        9.45409356915848e-06
+      ],
+      [
+        1.0856145238796125e-07,
+        -6.920479928835986e-07,
+        -8.738368062096344e-07
+      ]
+    ],
+    "imag": [
+      [
+        -9.158851984610631e-10,
+        -9.43929026571707e-10,
+        -6.994232007304426e-09
+      ],
+      [
+        -4.696779286263161e-06,
+        1.8877275124495909e-07,
+        1.613295209486432e-07
+      ],
+      [
+        3.2480204204580986e-07,
+        1.1038540206782947e-08,
+        1.0145018480228772e-08
+      ]
+    ]
+  },
+  "max_abs_f": 0.001,
+  "max_abs_Y_ell": 9.455469973974495e-06,
+  "linear_system_rank": 5,
+  "singular_values": [
+    44679.158848482264,
+    24165.50274635748,
+    22753.84243968323,
+    2664.193603028471,
+    1459.0105105168186,
+    1.6117434848112732e-12
+  ],
+  "max_matrix_closure_abs_eV": 3.7599154853757774e-17,
+  "max_takagi_diagonal_closure_abs_eV": 1.9902489742263604e-17,
+  "scalar_inputs": {
+    "mH1_GeV": 300.0,
+    "mH2_GeV": 700.0,
+    "gamma_rad": 1.089,
+    "kappa_chen_convention": -0.012463356897731334,
+    "cascade_kinematically_open": true
+  },
+  "cosmology": {
+    "sum_m_below_0p12_eV": true,
+    "sum_m_below_0p0642_eV": true,
+    "interpretation": "threshold-only diagnostic; cosmological bounds are dataset/model/prior dependent"
+  },
+  "not_checked": [
+    "neutrino correlations; Majorana-phase variations and full likelihood",
+    "all LFV, dipoles, Barr-Zee, mu-to-e conversion, leptonic universality",
+    "scalar-sector constraints and complete widths",
+    "quark Type-II flavour protection and RG consistency",
+    "two charged Higgs b->s gamma, EWPO, HiggsTools, collider rate"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "diagnostics": [
+    "PossibleTerms::NonSUSY: The following terms are not present in the potential but allowed by gauge invariance: {{d, q, conj[H2]}, {d, conj[Splus], conj[u]}, {H1, H1, conj[Splus]}, {H1, q, u}, {H2, H2, conj[Splus]}, {H1, H1, conj[H1], conj[H2]}, {H1, H2, conj[H1], conj[H1]}, {H1, H2, conj[H2], conj[H2]}, {H2, H2, conj[H1], conj[H2]}}."
+  ],
+  "review": "validation/module0/CONVENTIONS.md"
+}

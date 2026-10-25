@@ -46,10 +46,23 @@ class Gate6ScalarTests(unittest.TestCase):
     def test_conditional_widths_reference(self):
         result=inventory()
         h2=result["partial_widths_GeV"]["H2"]
-        self.assertAlmostEqual(h2["H1_Z"],9.411343197933336,places=9)
+        # Independent 70-digit two-body-current calculation with
+        # g12=(MZ/v)*sin(gamma)*cos(gamma); the former reference used
+        # a rounded historical G12, shifting this by 6.07e-8 GeV.
+        self.assertAlmostEqual(h2["H1_Z"],9.411343258642539,places=9)
         self.assertAlmostEqual(h2["W_hheavy"],1.07103074347,places=7)
         self.assertAlmostEqual(h2["H1_h125"],0.267036408817508,places=7)
         self.assertAlmostEqual(h2["tb"],1.558105504752286,places=7)
+
+    def test_z_width_follows_charged_mixing(self):
+        # Cancel MZ^2 analytically between the derivative coupling and
+        # longitudinal polarization sum, instead of using vector_width.
+        M,m,mz,v=700.,300.,91.1876,246.21965
+        discriminant=(M*M-m*m-mz*mz)**2-4*m*m*mz*mz
+        for gamma in (.2,.71,1.3):
+            expected=math.sin(2*gamma)**2*discriminant**1.5/(64*math.pi*v*v*M**3)
+            actual=inventory(gamma=gamma)["partial_widths_GeV"]["H2"]["H1_Z"]
+            self.assertAlmostEqual(actual,expected,places=11)
 
     def test_nominal_fraction_is_not_physical_br(self):
         r=inventory()

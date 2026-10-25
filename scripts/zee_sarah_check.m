@@ -66,6 +66,9 @@ If[!TrueQ[loadCompleted] ||
 ];
 Print["ZEE_SARAH_LOADED ", SA`Version];
 
+(* Keep all generated native output inside this checkout. *)
+SARAH[OutputDirectory]=FileNameJoin[{Directory[],"work","sarah_zee","native_output"}];
+If[!DirectoryQ[SARAH[OutputDirectory]],CreateDirectory[SARAH[OutputDirectory],CreateIntermediateDirectories->True]];
 If[!ListQ[SARAH[InputDirectories]],
   Print["FAIL SARAH_INPUT_DIRS_UNAVAILABLE"];
   writeStatus["SARAH_INPUT_DIRS_UNAVAILABLE"]; Close[messageStream]; Exit[5]

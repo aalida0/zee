@@ -1,0 +1,17 @@
+{
+  "baseline_sha256": {
+    "ZeeTypeII.m": "78d6b48232f9a75a21b058301d9233dba3ed067e21f534d27c0d6f415484aa4d",
+    "parameters.m": "499dbcc555dedf5f2cb45a69664812d4e919513500cf6bd91332b9e61b4aba6b",
+    "particles.m": "91b550b69fdcdd3dc409979f6621f1654d57881e36e125e786c2e9ad54c9c6a7"
+  },
+  "changed_lines_exactly": [
+    "Model name"
+  ],
+  "diagnostic_directory": "/home/amine/zee-sarah-module0/work/sarah_zee/sarah_model_variants/ZeeTypeIIMajoranaAudit",
+  "diagnostic_model_sha256": "cfc272fc995dcbecf412f686dc2a4036aeb76a081bcca93635564ded31f59c2e",
+  "majorana_variant_name": "ZeeTypeIIMajoranaAudit",
+  "no_majorana_mass_added": true,
+  "production_majorana": true,
+  "production_untouched": true,
+  "status": "DIAGNOSTIC_MAJORANA_SPINOR_VARIANT_CREATED_NOT_MNU_VALIDATED"
+}

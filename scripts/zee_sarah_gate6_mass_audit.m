@@ -18,6 +18,9 @@ PrependTo[$Path,DirectoryName[install]];
 loaded=CheckAbort[(Get[install];True),False];
 If[!TrueQ[loaded] || !ValueQ[SA`Version],
  Print["FAIL SARAH_LOAD"];Exit[4]];
+(* Keep all generated native output inside this checkout. *)
+SARAH[OutputDirectory]=FileNameJoin[{Directory[],"work","sarah_zee","native_output"}];
+If[!DirectoryQ[SARAH[OutputDirectory]],CreateDirectory[SARAH[OutputDirectory],CreateIntermediateDirectories->True]];
 SARAH[InputDirectories]=Prepend[SARAH[InputDirectories],
  FileNameJoin[{root,"models","SARAH"}]];
 Print["ZEE_MASS_AUDIT_START_MODEL"];

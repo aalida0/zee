@@ -1,0 +1,60 @@
+{
+  "status": "PARTIAL_LO_WIDTH_INVENTORY_NOT_PHYSICAL_ZEE_BRANCHING_RATIOS",
+  "input": {
+    "beta": 1.394,
+    "mH1": 300.0,
+    "mH2": 700.0,
+    "gamma": 1.089
+  },
+  "trilinear_H2_H1_h125_GeV": 110.51063743041504,
+  "g12_used": 0.15207461883074225,
+  "partial_widths_GeV": {
+    "H1": {
+      "tb": 0.09094937533835987,
+      "tau_nu_TypeII": 0.004181269664251293,
+      "W_h125": 1.1358987787624308e-05,
+      "W_hheavy": 0.0,
+      "W_A": 0.0
+    },
+    "H2": {
+      "H1_Z": 9.411343258642544,
+      "H1_h125": 0.26703640881750823,
+      "H1_hheavy": 0.0,
+      "tb": 1.558105504752286,
+      "tau_nu_TypeII": 0.035684441188340375,
+      "W_h125": 0.0012237058202773194,
+      "W_hheavy": 1.0710307434738882,
+      "W_A": 0.0
+    }
+  },
+  "sum_of_included_widths_GeV": {
+    "H1": 0.09514200399039878,
+    "H2": 12.344424062694845
+  },
+  "conditional_fractions_included_channels_only": {
+    "H1": {
+      "tb": 0.9559329373337353,
+      "tau_nu_TypeII": 0.043947672835157485,
+      "W_h125": 0.00011938983110730562,
+      "W_hheavy": 0.0,
+      "W_A": 0.0
+    },
+    "H2": {
+      "H1_Z": 0.7623963022368825,
+      "H1_h125": 0.02163214804200537,
+      "H1_hheavy": 0.0,
+      "tb": 0.1262193762008646,
+      "tau_nu_TypeII": 0.0028907335819886196,
+      "W_h125": 9.913024812355472e-05,
+      "W_hheavy": 0.08676230969013529,
+      "W_A": 0.0
+    }
+  },
+  "missing": [
+    "independent Zee singlet charged-lepton interactions",
+    "full neutrino/LFV-sector fit",
+    "QCD corrections to tb",
+    "additional fermionic/off-shell channels",
+    "physical total widths"
+  ]
+}

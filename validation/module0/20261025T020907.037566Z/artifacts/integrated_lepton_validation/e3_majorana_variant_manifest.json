@@ -1,0 +1,17 @@
+{
+  "baseline_sha256": {
+    "ZeeTypeII.m": "aa60cd0b06971046a33b6859022fb8092c9f8525817ac8a95f78c75b77a39aeb",
+    "parameters.m": "499dbcc555dedf5f2cb45a69664812d4e919513500cf6bd91332b9e61b4aba6b",
+    "particles.m": "91b550b69fdcdd3dc409979f6621f1654d57881e36e125e786c2e9ad54c9c6a7"
+  },
+  "changed_lines_exactly": [
+    "Model name",
+    "EWSB DiracSpinors Fv declaration"
+  ],
+  "diagnostic_directory": "/home/amine/zee-sarah-module0/work/sarah_zee/sarah_model_variants/ZeeTypeIIMajoranaAudit",
+  "diagnostic_model_sha256": "8a45af93cc0b264572c600e578d334281cbfd1c4582838627af13af69b96cac4",
+  "majorana_variant_name": "ZeeTypeIIMajoranaAudit",
+  "no_majorana_mass_added": true,
+  "production_untouched": true,
+  "status": "DIAGNOSTIC_MAJORANA_SPINOR_VARIANT_CREATED_NOT_MNU_VALIDATED"
+}

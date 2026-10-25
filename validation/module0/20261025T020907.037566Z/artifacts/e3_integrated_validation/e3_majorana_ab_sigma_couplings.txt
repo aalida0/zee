@@ -1,0 +1,12 @@
+Independent SARAH SigmaS coupling-factor inventory
+These are Cp operators from SARAH, not yet matched to Zee f/Y.
+Cp[Fv[{gO2}], bar[Fe[{gI1}]], Hm[{gI2}]][PL]
+Cp[Fv[{gO1}], bar[Fe[{gI1}]], Hm[{gI2}]][PR]
+Cp[Fv[{gO2}], conj[Hm[{gI1}]], Fe[{gI2}]][PL]
+Cp[Fv[{gO1}], conj[Hm[{gI1}]], Fe[{gI2}]][PR]
+Cp[Fv[{gO2}], bar[Fe[{gI1}]], VWm][PR]
+Cp[Fv[{gO1}], bar[Fe[{gI1}]], VWm][PL]
+Cp[Fv[{gO2}], VZ, Fv[{gI2}]][PR]
+Cp[Fv[{gO1}], VZ, Fv[{gI2}]][PL]
+Cp[Fv[{gO2}], conj[VWm], Fe[{gI2}]][PR]
+Cp[Fv[{gO1}], conj[VWm], Fe[{gI2}]][PL]
