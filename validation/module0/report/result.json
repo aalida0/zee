@@ -1,0 +1,27 @@
+{
+  "failed_stages": [],
+  "full_stage_selection": true,
+  "gates": {
+    "1": "PASS",
+    "2": "PASS",
+    "3": "PASS",
+    "4": "PASS",
+    "5": "BLOCKED",
+    "6": "PASS"
+  },
+  "initial_work_empty": true,
+  "previous_run_inputs_used": false,
+  "run_id": "20261025T025501.309151Z",
+  "scope": "same Zee Lagrangian; finite representative fixtures and physical limits",
+  "source_commit": "8ead13a593c3963b4f298985df84889d511fd31e",
+  "stage_count": 25,
+  "unit_test_counts": {
+    "static_benchmark": 9,
+    "static_source": 22
+  },
+  "versions": {
+    "Mathematica": "15.0.1",
+    "SARAH": "4.15.4",
+    "SPheno": "NOT_RUN"
+  }
+}

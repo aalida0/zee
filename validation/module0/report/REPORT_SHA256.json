@@ -1,0 +1,15 @@
+{
+  "fixtures/e3_charged_loop_fixture.m": "11b0e60b311f7567b844f0b30e873feaaac35ea4bf5043efcdb817025c33d26a",
+  "fixtures/gate6_fixture.m": "048f5969b837ca9a9c815743b0bf28b3b939fc8bd6b6b3b80afceb54f1c363c4",
+  "fixtures/module0_native_inputs.m": "eb509209e7cd49d7362526a29ce43f6f6e7b6f07adfe37ac441af92287a3479e",
+  "fixtures/module0_quark_inputs.m": "865b8cd0a09d928c5ffa765f1091c75985d5f48b8f225ad2495adb3e2831a77b",
+  "fixtures/numerics_inputs.json": "6ba96222ce63b3fa0236d38073a3e1c694e857944ed719e011570122fe77f6e3",
+  "report/SHA256SUMS.json": "2671558eb462004eedfdd003490ce84c9ef41231b7e8e6805556ff8a018ffc74",
+  "report/checkmodel_diagnostics.json": "8b2ac650f5c2307b8517abb9590ef004f69dda1bfd28cf100885b720ddeba572",
+  "report/inventory.json": "e8d76668e7380dba7f19a987ef5e6971d36e3cd6fc3e8010bfc4e90f325d7e22",
+  "report/majorana_physical.json": "a73fcff2e08403b103888f2fc76f5ca2c06c717f65d01762c2087942f9649659",
+  "report/native_residuals.json": "ae597cb135d5ca7823c6d99d5daa537e6151d117c392458b4e50df76e390c46e",
+  "report/numerics.json": "53227de75cd6eb0c575efec2c32ff59a4e53e84db030a5e89df15fc0f0d51ed6",
+  "report/result.json": "1d992954a3c2e831e9d57e7cef5ed3d98c0a1c8b69d0dc532962baaace5c2517",
+  "report/trace.jsonl": "a7bfbb0fa06857b01de436e8e651b576eb16cefb9fe618a44f3f63fc56b98177"
+}

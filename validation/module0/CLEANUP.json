@@ -1,0 +1,32 @@
+{
+  "audited_full_run": "20261025T025501.309151Z",
+  "correction_explanations": {
+    "scripts/zee_sarah_gate6_mass_audit.m": "Inspect actual[[sector,row,column]], retaining the original mass construction, comparison and tolerance.",
+    "scripts/zee_sarah_integrated_lepton_validation.m": "Inspect only existing Global symbols with HoldAll; retain contamination detection without creating shadowing symbols."
+  },
+  "diagnostic_only_changes": {
+    "scripts/zee_sarah_gate6_mass_audit.m": {
+      "after_sha256": "a264f4a48ad354b3f6bd68f8023661dd5d08fb0ea113a472b453128b975c5f2b",
+      "before_sha256": "5b7d832a71a3a63869fed6ed7c27435c99a50e029bf323f0b85901ddc7c72c05"
+    },
+    "scripts/zee_sarah_integrated_lepton_validation.m": {
+      "after_sha256": "8e077aa194e2a3ab342acf029dfed0a5b86662d74544db9eed924e165cff82cb",
+      "before_sha256": "afd9849d28d3469c53f33554880f6e889c340be4fafdf98e673d60ebd864e75c"
+    }
+  },
+  "final_code_matches_validated_hashes": true,
+  "full_run_only_no_combined_acceptance": true,
+  "legacy_bytes_preserved": 6339688,
+  "legacy_files_preserved_locally": true,
+  "legacy_files_removed_from_git": 1135,
+  "model_sha256": {
+    "models/SARAH/ZeeTypeII/ZeeTypeII.m": "78d6b48232f9a75a21b058301d9233dba3ed067e21f534d27c0d6f415484aa4d",
+    "models/SARAH/ZeeTypeII/parameters.m": "499dbcc555dedf5f2cb45a69664812d4e919513500cf6bd91332b9e61b4aba6b",
+    "models/SARAH/ZeeTypeII/particles.m": "91b550b69fdcdd3dc409979f6621f1654d57881e36e125e786c2e9ad54c9c6a7"
+  },
+  "orchestration": "Fresh isolated workspace, rebuilt prerequisites, mandatory fresh outputs/statuses, finite residual/count checks and committed-source enforcement.",
+  "spheno_flavorkit": "NOT_DEVELOPED_NOT_RUN_NOT_VALIDATED",
+  "unchanged_frozen_files": 31,
+  "validated_source_commit": "8ead13a593c3963b4f298985df84889d511fd31e",
+  "verified_local_artifact_count": 149
+}

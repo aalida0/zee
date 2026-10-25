@@ -1,0 +1,42 @@
+{
+  "TypeII": {
+    "count": 144,
+    "max_residual": 8.824766327896538e-18,
+    "tolerance": 1e-12
+  },
+  "W_": {
+    "count": 32,
+    "max_residual": 0.0,
+    "tolerance": 1e-12
+  },
+  "charged_mix": {
+    "count": 2,
+    "max_residual": 5.877779459546165e-11,
+    "tolerance": 1e-07
+  },
+  "down_mass": {
+    "count": 2,
+    "max_residual": 2.2079425200240585e-16,
+    "tolerance": 1e-10
+  },
+  "goldstone": {
+    "count": 4,
+    "max_residual": 3.637978807091713e-12,
+    "tolerance": 1e-07
+  },
+  "hessian": {
+    "count": 6,
+    "max_residual": 0.0,
+    "tolerance": 1e-07
+  },
+  "scalar": {
+    "count": 434,
+    "max_residual": 1.1368683772161603e-13,
+    "tolerance": 1e-07
+  },
+  "up_mass": {
+    "count": 2,
+    "max_residual": 2.8424061754350615e-14,
+    "tolerance": 1e-10
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "checks": [
+    {
+      "label": "finite_integral_(300.0, 700.0, 1.77686)",
+      "residual": 2.220446049250313e-16,
+      "tolerance": 2e-12
+    },
+    {
+      "label": "finite_integral_(375.0, 925.0, 0.105658)",
+      "residual": 2.220446049250313e-16,
+      "tolerance": 2e-12
+    },
+    {
+      "label": "finite_integral_(300.0, 300.0, 1.7)",
+      "residual": 0.0,
+      "tolerance": 2e-12
+    },
+    {
+      "label": "finite_integral_(300.0, 300.00001, 1.7)",
+      "residual": 5.2848807564029353e-17,
+      "tolerance": 2e-12
+    },
+    {
+      "label": "finite_integral_(300.0, 700.0, 0.0)",
+      "residual": 2.220446049250313e-16,
+      "tolerance": 2e-12
+    },
+    {
+      "label": "finite_integral_(300.0, 700.0, 300.0)",
+      "residual": 2.220446049250313e-16,
+      "tolerance": 2e-12
+    },
+    {
+      "label": "finite_integral_(300.0, 700.0, 700.0)",
+      "residual": 2.220446049250313e-16,
+      "tolerance": 2e-12
+    },
+    {
+      "label": "finite_integral_(300.0, 700.0, 1e-07)",
+      "residual": 2.220446049250313e-16,
+      "tolerance": 2e-12
+    },
+    {
+      "label": "complex_matrix_integral_0",
+      "residual": 2.27882561751653e-19,
+      "tolerance": 2e-16
+    },
+    {
+      "label": "majorana_symmetry_0",
+      "residual": 0.0,
+      "tolerance": 1e-20
+    },
+    {
+      "label": "complex_rephasing_0",
+      "residual": 1.0913769718461603e-22,
+      "tolerance": 1e-20
+    },
+    {
+      "label": "mass_swap_0",
+      "residual": 1.0339757656912846e-25,
+      "tolerance": 1e-20
+    },
+    {
+      "label": "degenerate_0",
+      "residual": 0.0,
+      "tolerance": 1e-20
+    },
+    {
+      "label": "zero_mixing_0",
+      "residual": 0.0,
+      "tolerance": 1e-20
+    },
+    {
+      "label": "zero_f_0",
+      "residual": 0.0,
+      "tolerance": 1e-20
+    },
+    {
+      "label": "zero_d_0",
+      "residual": 0.0,
+      "tolerance": 1e-20
+    },
+    {
+      "label": "takagi_0",
+      "residual": 4.994308026642103e-22,
+      "tolerance": 1e-20
+    },
+    {
+      "label": "complex_matrix_integral_1",
+      "residual": 6.5017186584711575e-19,
+      "tolerance": 2e-16
+    },
+    {
+      "label": "majorana_symmetry_1",
+      "residual": 0.0,
+      "tolerance": 1e-20
+    },
+    {
+      "label": "complex_rephasing_1",
+      "residual": 5.293955920339377e-23,
+      "tolerance": 1e-20
+    },
+    {
+      "label": "mass_swap_1",
+      "residual": 0.0,
+      "tolerance": 1e-20
+    },
+    {
+      "label": "degenerate_1",
+      "residual": 0.0,
+      "tolerance": 1e-20
+    },
+    {
+      "label": "zero_mixing_1",
+      "residual": 0.0,
+      "tolerance": 1e-20
+    },
+    {
+      "label": "zero_f_1",
+      "residual": 0.0,
+      "tolerance": 1e-20
+    },
+    {
+      "label": "zero_d_1",
+      "residual": 0.0,
+      "tolerance": 1e-20
+    },
+    {
+      "label": "takagi_1",
+      "residual": 2.1827539436923206e-22,
+      "tolerance": 1e-20
+    },
+    {
+      "label": "scalar_charged_spectrum_0",
+      "residual": 0.0,
+      "tolerance": 1e-08
+    },
+    {
+      "label": "scalar_charged_spectrum_1",
+      "residual": 0.0,
+      "tolerance": 1e-08
+    },
+    {
+      "label": "vector_threshold",
+      "residual": 0.0,
+      "tolerance": 1e-30
+    },
+    {
+      "label": "scalar_threshold",
+      "residual": 0.0,
+      "tolerance": 1e-30
+    },
+    {
+      "label": "tb_threshold",
+      "residual": 0.0,
+      "tolerance": 1e-30
+    }
+  ],
+  "seed": 20261025,
+  "status": "PASS_ANALYTIC_NUMERICAL_REGRESSIONS_ONLY"
+}
