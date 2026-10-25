@@ -1,8 +1,8 @@
 """Zee Type-II charged-scalar B->Xs gamma: LO C7,C8 *matching only*.
 
-Source equations: SuperIso v3.4 arXiv:0808.3144 Appendix C.1.2
-Eqs.(47)-(49); Florentino/Romao/Silva EPJC81(2021)1148
-Appendix B.3 (X,Y rotations) and C (Wilson coefficient decomposition).
+Source equations: SuperIso v3.0 arXiv:0808.3144v3 Appendix C.2
+Eqs.(48)-(50); Florentino/Romao/Silva arXiv:2106.08332v1
+Appendix A.3 (X,Y rotations), Section IV.C.1 Eqs.(62)-(63).
 No RGE, NLO/NNLO, branching ratio, experimental exclusion, or viable point.
 """
 import argparse
@@ -12,6 +12,7 @@ from pathlib import Path
 
 BASIS = 'ZeeTypeII_FLAVOUR_XY_SuperIso_LO'
 STATUS = 'LO_MATCHING_ONLY_NOT_BR_OR_EXCLUSION'
+MATCHING_CONVENTION = 'MATCHING_CONVENTION_UNKNOWN'
 
 def _positive_finite(v, name):
     if isinstance(v,bool) or not isinstance(v,(float,int)) or not math.isfinite(v) or v<=0:
@@ -23,19 +24,19 @@ def _finite(v, name):
         raise ValueError(f'{name}: expected finite real number')
     return float(v)
 
-# Taylor series about x=1 derived independently with symbolic series to O((x-1)^7).
+# Taylor series through (x-1)^20; see independent integral checks in tests.
 # This avoids catastrophic cancellation in direct rational/logarithmic expressions.
 _SERIES = {
- 'F7_1':(-5/48,-13/240,1/48,-17/1680,19/3360,-1/288,23/10080),
- 'F8_1':(-1/16,-1/40,1/80,-1/140,1/224,-1/336,1/480),
- 'F7_2':(-7/36,-5/72,1/30,-7/360,4/315,-1/112,5/756),
- 'F8_2':(-1/6,-1/24,1/40,-1/60,1/84,-1/112,1/144),
+ 'F7_1':(-5/48,-13/240,1/48,-17/1680,19/3360,-1/288,23/10080,-5/3168,1/880,-29/34320,31/48048,-11/21840,1/2496,-37/114240,13/48960,-41/186048,43/232560,-1/6384,47/351120,-7/60720,17/170016),
+ 'F8_1':(-1/16,-1/40,1/80,-1/140,1/224,-1/336,1/480,-1/660,1/880,-1/1144,1/1456,-1/1820,1/2240,-1/2720,1/3264,-1/3876,1/4560,-1/5320,1/6160,-1/7084,1/8096),
+ 'F7_2':(-7/36,-5/72,1/30,-7/360,4/315,-1/112,5/756,-11/2160,2/495,-13/3960,7/2574,-5/2184,8/4095,-17/10080,1/680,-19/14688,10/8721,-7/6840,11/11970,-23/27720,4/5313),
+ 'F8_2':(-1/6,-1/24,1/40,-1/60,1/84,-1/112,1/144,-1/180,1/220,-1/264,1/312,-1/364,1/420,-1/480,1/544,-1/612,1/684,-1/760,1/840,-1/924,1/1012),
 }
 
 def loop_functions(x):
     x = _positive_finite(x,'x=mt^2/mH^2')
     t=x-1
-    if abs(t)<0.04:
+    if abs(t)<0.25:
         return {k:math.fsum(c*t**i for i,c in enumerate(coeffs))
                 for k,coeffs in _SERIES.items()}
     lx=math.log(x);a=x-1
@@ -86,7 +87,9 @@ def compute(mH1_GeV,mH2_GeV,beta_rad,gamma_rad,mt_MSbar_GeV,
                         'delta_C8':math.fsum((d8_YY,d8_XY))})
     c7=math.fsum(r['delta_C7'] for r in entries)
     c8=math.fsum(r['delta_C8'] for r in entries)
-    return {'schema_version':'1.0.0','status':STATUS,'basis':BASIS,
+    return {'schema_version':'1.1.0','status':STATUS,'basis':BASIS,
+            'matching_convention_status':MATCHING_CONVENTION,
+            'downstream_use':'BLOCKED_PENDING_OPERATOR_NORMALIZATION_AND_RELEASE_AUDIT',
             'input':{'mH1_GeV':masses[0],'mH2_GeV':masses[1],
                      'beta_rad':beta,'gamma_rad':gamma,
                      'mt_MSbar_GeV':mt,'matching_scale_GeV':mu,
@@ -101,7 +104,8 @@ def compute(mH1_GeV,mH2_GeV,beta_rad,gamma_rad,mt_MSbar_GeV,
                 'Common supplied matching scale used for both charged states; no multiscale threshold treatment.',
                 'The user must independently provide a consistent renormalized MSbar mt(mu); no QCD running occurs.',
                 'No primed coefficients, power corrections, non-SM quark flavour couplings or observable comparison.',
-                'Type-II quark Yukawas and CP-conserving real charged mixing assumed, as in frozen ZeeTypeII.'
+                'Type-II quark Yukawas and CP-conserving real charged mixing assumed, as in frozen ZeeTypeII.',
+                'Exact Hamiltonian/operator normalization mapping to 2026 and HyperIso is not certified; do not inject or screen.'
             ]}
 
 def _unique(pairs):

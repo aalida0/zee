@@ -1,7 +1,7 @@
 """Independent mathematical checks of Zee Type-II two-Higgs LO b->s gamma.
 
-Uses standalone high precision mpmath transcription of SuperIso Eq. 49,
-NOT production functions, plus exact Zee mixing identities from EPJC 2021.
+Uses 90-digit integral and rational oracles for arXiv:0808.3144v3
+Eqs.(48)-(50), plus frozen charged rotations and Zee mixing identities.
 No branching ratios or exclusion calculation.
 """
 import copy
@@ -9,17 +9,33 @@ import json
 import math
 import sys
 import tempfile
+import subprocess
 import unittest
 from pathlib import Path
 
 import mpmath as mp
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
-from module5.bsgamma_lo import loop_functions,compute,STATUS
+from module5.bsgamma_lo import loop_functions,compute,STATUS,MATCHING_CONVENTION
+
+def integral_oracle(x):
+    """Independent parameter integrals: no rational/log cancellations or series.
+
+    Integrating these polynomials / (1+(x-1)t) gives the published kernels.
+    Negative integrands prove the four signs for every positive x.
+    """
+    with mp.workdps(90):
+        y=mp.mpf(x)
+        def q(p):
+            return mp.quad(lambda t:p(t)/(1+(y-1)*t),[0,mp.mpf('.5'),1])
+        return dict(F7_1=-y*q(lambda t:t*(1-t)*(3-t))/4,
+                    F8_1=-3*y*q(lambda t:t*t*(1-t))/4,
+                    F7_2=-y*q(lambda t:t*(3-t))/6,
+                    F8_2=-y*q(lambda t:t*t)/2)
 
 def oracle(x):
     with mp.workdps(90):
-        y=mp.mpf(str(x))
+        y=mp.mpf(x)
         if y==1: return dict(F7_1=mp.mpf(-5)/48,F8_1=mp.mpf(-1)/16,F7_2=mp.mpf(-7)/36,F8_2=mp.mpf(-1)/6)
         d=y-1
         return dict(F7_1=y*(7-5*y-8*y*y)/(24*d**3)+y*y*(3*y-2)*mp.log(y)/(4*d**4),
@@ -47,6 +63,62 @@ class LoMatchingTests(unittest.TestCase):
         expected={'F7_1':-5/48,'F8_1':-1/16,'F7_2':-7/36,'F8_2':-1/6}
         self.assertEqual(loop_functions(1.),expected)
 
+    def test_independent_integrals_and_switch_boundaries_90digits(self):
+        grid=[1e-8,1e-5,.01,.1,.5,.96,.98,1.,1.02,1.04,1.0442,2.,10.,1e4]
+        for edge in (.75,1.25):
+            grid.extend((math.nextafter(edge,0),edge,math.nextafter(edge,math.inf)))
+        for x in grid:
+            expected=integral_oracle(x)
+            for k,v in loop_functions(x).items():
+                with self.subTest(x=x,kernel=k):
+                    self.assertLess(v,0)
+                    self.assertAlmostEqual(v/float(expected[k]),1,delta=2e-12)
+                    with mp.workdps(90):
+                        self.assertLess(abs(oracle(x)[k]/expected[k]-1),mp.mpf('1e-75'))
+
+    def test_frozen_rotation_gives_signed_type_ii_couplings(self):
+        from module4.couplings import rotations
+        for beta in (.2,math.atan(5.3),1.4):
+            for gamma in (-1.09,0.,.7,math.pi/2):
+                zp=rotations(dict(alpha=.3,beta=beta,gamma=gamma))[2]
+                r=self.result(beta_rad=beta,gamma_rad=gamma)
+                for row,admixture,a in zip(zp[1:],(math.cos(gamma),-math.sin(gamma)),r['charged_scalars']):
+                    # H_D+ = -sin(beta) H1+ + cos(beta) H2+.
+                    x=-row[0]/math.cos(beta)
+                    y=row[1]/math.sin(beta)
+                    self.assertAlmostEqual(x,math.tan(beta)*admixture)
+                    self.assertAlmostEqual(y,admixture/math.tan(beta))
+                    self.assertAlmostEqual(x*y,a['XY_conjugate_coupling'])
+                    self.assertAlmostEqual(y*y,a['YY_coupling_squared'])
+
+    def test_complex_extension_is_not_claimed(self):
+        for key in {**self.common,**self.masses}:
+            with self.subTest(field=key),self.assertRaises(ValueError):
+                self.result(**{key:1+2j})
+
+    def test_matching_scale_labels_do_not_run_top_mass(self):
+        a=self.result(matching_scale_GeV=80.)
+        b=self.result(matching_scale_GeV=160.)
+        for key in ('delta_C7_LO_at_matching_scale','delta_C8_LO_at_matching_scale'):
+            self.assertEqual(a[key],b[key])
+            self.assertNotEqual(b[key],self.result(mt_MSbar_GeV=172.5)[key])
+
+    def test_cli_example_and_rejected_json(self):
+        inp=json.loads((ROOT/'module5/example_bsgamma_input.json').read_text())
+        with tempfile.TemporaryDirectory() as td:
+            src=Path(td)/'input.json';dst=Path(td)/'output.json'
+            cmd=[sys.executable,str(ROOT/'module5/bsgamma_lo.py'),'--input',str(src),'--output',str(dst)]
+            src.write_text(json.dumps(inp))
+            p=subprocess.run(cmd,capture_output=True,text=True)
+            self.assertEqual(p.returncode,0,p.stderr)
+            self.assertEqual(json.loads(dst.read_text()),compute(**inp))
+            valid=dst.read_bytes()
+            for bad in ('[]','{"mH1_GeV":1,"mH1_GeV":2}',json.dumps({**inp,'extra':1}),json.dumps({**inp,'mt_MSbar_GeV':float('nan')})):
+                src.write_text(bad)
+                p=subprocess.run(cmd,capture_output=True,text=True)
+                self.assertNotEqual(p.returncode,0)
+                self.assertEqual(dst.read_bytes(),valid)
+
     def test_source_superiso_type_ii_sign_and_quark_weights(self):
         r=self.result(gamma_rad=0)
         self.assertEqual(r['charged_scalars'][1]['delta_C7'],0.)
@@ -62,8 +134,8 @@ class LoMatchingTests(unittest.TestCase):
 
     def test_two_scalar_high_precision_independent_evaluation(self):
         r=self.result()
-        weights=[mp.cos(mp.mpf('1.09'))**2,mp.sin(mp.mpf('1.09'))**2]
-        with mp.workdps(80):
+        with mp.workdps(90):
+            weights=[mp.cos(mp.mpf('1.09'))**2,mp.sin(mp.mpf('1.09'))**2]
             b=mp.mpf('5.3')
             for i,mass in enumerate((550,900)):
                 y=(mp.mpf(163)/mass)**2
@@ -112,6 +184,9 @@ class LoMatchingTests(unittest.TestCase):
     def test_fail_closed_physics_and_input_validation(self):
         r=self.result()
         self.assertEqual(r['status'],STATUS)
+        self.assertEqual(r['matching_convention_status'],MATCHING_CONVENTION)
+        self.assertEqual(MATCHING_CONVENTION,'MATCHING_CONVENTION_UNKNOWN')
+        self.assertTrue(r['downstream_use'].startswith('BLOCKED'))
         self.assertEqual(r['experimental_comparison'],'NOT_EVALUATED')
         self.assertIsNone(r['global_zee_acceptance'])
         self.assertNotIn('partial_BR',str(r))

@@ -1,0 +1,170 @@
+{
+  "blockers": [
+    "Exact end-to-end 2026/HyperIso Hamiltonian and dipole normalization not certified; pinned HyperIso manuscript retains Check sign marker.",
+    "Native charged-quark SARAH amplitude closure unavailable; frozen Yukawa and charged rotation algebra checked instead.",
+    "Gate B runtime references and supported complex/two-state injection audit not performed in this Gate A task."
+  ],
+  "branch": "feature/zee-bsgamma-module5",
+  "downstream": {
+    "2026_eq4": "NOT_EVALUATED_MATCHING_CONVENTION_UNKNOWN",
+    "branching_ratio": null,
+    "exclusion": null,
+    "global_zee_acceptance": null,
+    "hyperiso_coefficient_injection": "NOT_ATTEMPTED"
+  },
+  "example": {
+    "absolute_residual": {
+      "C7": 6.595838218997492e-19,
+      "C8": 5.3582341466053335e-18
+    },
+    "command": "python module5/bsgamma_lo.py --input module5/example_bsgamma_input.json --output validation/module5/local/bsgamma_LO_example.json",
+    "delta_C7_LO": -0.03708502841033828,
+    "delta_C8_LO": -0.04201213114029559,
+    "independent_90digit_integral_totals": {
+      "delta_C7": "-0.03708502841033828257388783488594665134207224961246166458723487416870732245675715641782",
+      "delta_C8": "-0.04201213114029559417413690747614665890315874225083028750230629243216294090870511030598"
+    },
+    "input": {
+      "beta_rad": 1.3843094251276797,
+      "gamma_rad": 1.09,
+      "mH1_GeV": 550.0,
+      "mH2_GeV": 900.0,
+      "matching_scale_GeV": 160.0,
+      "mt_MSbar_GeV": 163.0,
+      "top_mass_input_definition": "USER_SUPPLIED_MSbar_TOP_MASS_AT_MATCHING_SCALE_NO_RUNNING"
+    },
+    "output_sha256": "ad52d448a7dba7bea2651113426dd3fd233c0b70decfdd20cdf59b17e64161a3",
+    "per_scalar": [
+      {
+        "XY_conjugate_coupling": 0.21389271457378156,
+        "YY_coupling_squared": 0.007614550180625909,
+        "delta_C7": -0.012656187961325465,
+        "delta_C7_XY": -0.012606511874554718,
+        "delta_C7_YY": -4.967608677074775e-05,
+        "delta_C8": -0.013702857361132022,
+        "delta_C8_XY": -0.01366517900681201,
+        "delta_C8_YY": -3.7678354320012574e-05,
+        "doublet_fraction": 0.21389271457378156,
+        "mass_GeV": 550.0,
+        "scalar": "H1_charged",
+        "x_mt2_over_mH2": 0.0878314049586777
+      },
+      {
+        "XY_conjugate_coupling": 0.7861072854262184,
+        "YY_coupling_squared": 0.027985307419943727,
+        "delta_C7": -0.024428840449012817,
+        "delta_C7_XY": -0.02435126831511343,
+        "delta_C7_YY": -7.757213389938569e-05,
+        "delta_C8": -0.028309273779163563,
+        "delta_C8_XY": -0.0282472352051582,
+        "delta_C8_YY": -6.203857400536565e-05,
+        "doublet_fraction": 0.7861072854262184,
+        "mass_GeV": 900.0,
+        "scalar": "H2_charged",
+        "x_mt2_over_mH2": 0.03280123456790123
+      }
+    ]
+  },
+  "falsified_candidate": {
+    "fix": "Degree-20 Taylor series inside abs(x-1)<0.25; regression tests at old failure and new switches",
+    "kernel": "F8_1",
+    "relative_error": 5.823064253007715e-11,
+    "target": 2e-11,
+    "x": 1.0442
+  },
+  "hyperiso": {
+    "R1": "NOT_RUN",
+    "R3": "NOT_RUN",
+    "R6": "NOT_RUN",
+    "annotated_tag_object": "5a93aca5e28011df3a348954cdc7c7c330ea2169",
+    "lo_kernel_algebra": "AGREES_UNDER_REAL_lu=Y_ld=-X",
+    "manifest_version": "1.0.3",
+    "peeled_commit": "09d26ac6e71d1528922097a896d15693589f636b",
+    "source_access": "raw release files, no local checkout/build",
+    "source_sha256": {
+      "Hyperiso/Hyperiso/core/src/Math/domain/special/special_SM.cpp": "2ab4973b561d6ae1a9b4ab66e6ab562ec7bbf64a931c60b63ebf342171147b78",
+      "Hyperiso/Hyperiso/core/src/PhysicalModel/domain/Helper/BSM/THDMParametersHelper.cpp": "60274a32da96ddf96f14088d6bd65617814d40d7f2fe60a209e5404292948fae",
+      "Hyperiso/Hyperiso/core/src/PhysicalModel/domain/WCoef/BSM/BWilsonTHDM.cpp": "d8bc4fb10a249ca0f16fc5d9582877c84545a24d619738304ec7417d139b4c2d",
+      "docs/main.tex": "fffde75426d4250bbc1cdea84e6ee976cdd9072cac9c57f9669b23a7a675fbea",
+      "reproducibility/manifest.json": "3169195bed1b2ba55e483d4956538043115a5e65abbfcd545900ade3d9bc0cd4"
+    },
+    "status": "SOURCE_INSPECTED_RUNTIME_NOT_AUDITED_GATE_A_ONLY",
+    "tag": "v1.0.3",
+    "two_state_complex_injection": "NOT_VERIFIED"
+  },
+  "limitations": [
+    "Real Type-II charged mixing only; arbitrary complex inputs rejected.",
+    "User must supply MSbar top mass at matching scale; example input is illustrative, no mass running.",
+    "LO only, common scale, no RGE, multiscale matching, primed sector, NLO/NNLO or likelihood.",
+    "Historical SuperIso NLO context and operator-sector NNLO discrepancies not re-evaluated; no additive BR recalibration."
+  ],
+  "matching_convention_status": "MATCHING_CONVENTION_UNKNOWN",
+  "outcome": "LO_MATCHING_ONLY",
+  "references": {
+    "2026_operators": "https://arxiv.org/html/2608.29863v1",
+    "historic_lo": "https://arxiv.org/pdf/0808.3144v3",
+    "two_state": "https://arxiv.org/pdf/2106.08332v1"
+  },
+  "reviewed_file_sha256": {
+    "models/SARAH/ZeeTypeII/ZeeTypeII.m": "78d6b48232f9a75a21b058301d9233dba3ed067e21f534d27c0d6f415484aa4d",
+    "module4/couplings.py": "12f57fed5a82c010e59f779b93824542ca0fbc0b8ae1a56484bed56517f5d924",
+    "module5/bsgamma_lo.py": "251cc9effc80010f65982cc980d0c170dc19785b2385d962afbed4549cfcd5e5",
+    "module5/example_bsgamma_input.json": "225ae57a503140eea437bcef89652f9acee8720e07a3c2fd2985cab1e4d15c08",
+    "tests/test_module5_bsgamma_lo.py": "54dac367944cf549b68b75890e29efe8b9874cba77616ebb211b1689e31740fd"
+  },
+  "reviewed_start_commit": "09b0a56b884b075d8c8439f90c8ca25d4c2d1068",
+  "schema_version": "1.0.0",
+  "scope": "GATE_A_ONLY",
+  "tests": {
+    "command": "python -m unittest discover -s tests -p 'test_module5_bsgamma_lo.py' -v",
+    "dense_grid": {
+      "comparisons": 16004,
+      "count": 4001,
+      "residual": {
+        "kernel": "F8_1",
+        "max_relative_error": 4.4497738826976274e-13,
+        "x": 1.2527499999999998
+      },
+      "start": 0.7,
+      "step": 0.00015
+    },
+    "errors": 0,
+    "failures": 0,
+    "independent_integral_grid": [
+      1e-08,
+      1e-05,
+      0.01,
+      0.1,
+      0.5,
+      0.96,
+      0.98,
+      1.0,
+      1.02,
+      1.04,
+      1.0442,
+      2.0,
+      10.0,
+      10000.0,
+      0.7499999999999999,
+      0.75,
+      0.7500000000000001,
+      1.2499999999999998,
+      1.25,
+      1.2500000000000002
+    ],
+    "integral_grid_comparisons": 80,
+    "integral_grid_residual": {
+      "kernel": "F8_1",
+      "max_relative_error": 2.651212582804874e-13,
+      "x": 1.2500000000000002
+    },
+    "run": 16,
+    "working_decimal_digits": 90
+  },
+  "validated_ancestor": "22d249fb57d55a88b266b69d1575be66ec7209b3",
+  "versions": {
+    "mpmath": "1.3.0",
+    "numpy": "2.2.6",
+    "python": "3.10.12"
+  }
+}
