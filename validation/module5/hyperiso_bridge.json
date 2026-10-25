@@ -1,0 +1,182 @@
+{
+  "B1": {
+    "R1_C7_C8_matching": [
+      -0.210135,
+      -0.114968
+    ],
+    "R1_C7_C8_running_q4_8_GeV": [
+      -0.293757,
+      -0.160027
+    ],
+    "R3_BR_B_Xs_gamma_dimensionless": 0.00032967,
+    "R6_BSM_C7_C8_matching": [
+      0.000800431,
+      0.000870192
+    ],
+    "official_full_suite": "R1-R7_PASS_200_SERIAL_DRAWS_SEED_123456",
+    "precision": "Official comparator, including half-unit serialization tolerance; no expected-output updates.",
+    "selected": {
+      "R1": {
+        "abs_tol": 1e-12,
+        "qmatch_GeV": 81,
+        "rel_tol": 1e-08,
+        "sha256": "de137e041d0a8e8612751d95ca9fac2b916c50d33dd4f72d2d6ba7b069958745",
+        "source_expected_sha256": "de137e041d0a8e8612751d95ca9fac2b916c50d33dd4f72d2d6ba7b069958745",
+        "status": "PASS"
+      },
+      "R3": {
+        "abs_tol": 1e-14,
+        "qmatch_GeV": null,
+        "rel_tol": 1e-08,
+        "sha256": "c0976401d27f33df760035e523aeadc56ee110c69fb7fd0e8cff20d874a4f425",
+        "source_expected_sha256": "c0976401d27f33df760035e523aeadc56ee110c69fb7fd0e8cff20d874a4f425",
+        "status": "PASS"
+      },
+      "R6": {
+        "abs_tol": 1e-12,
+        "qmatch_GeV": 81,
+        "rel_tol": 1e-07,
+        "sha256": "04c11b6fac1e6b5fead8a162933f9fe6a326368965602da66a5ba48253f8fc4b",
+        "source_expected_sha256": "04c11b6fac1e6b5fead8a162933f9fe6a326368965602da66a5ba48253f8fc4b",
+        "status": "PASS"
+      }
+    },
+    "selected_normalized_outputs_byte_identical": true,
+    "status": "HYPERISO_REFERENCE_PASS"
+  },
+  "B2": {
+    "LO_four_quark_BSM_coefficients": "C1-C6_ZERO_IN_ALL_PROBES",
+    "compared_dipoles": 36,
+    "comparison_absolute_tolerance": 2e-14,
+    "comparison_relative_tolerance": 2e-11,
+    "couplings": "lu=cot(beta)=Y; ld=-tan(beta)=-X; real Type-II quark sector",
+    "dedicated_zee_two_state_api": "ZEE_TWO_STATE_INJECTION_NOT_AVAILABLE",
+    "effective_plain_mapping": "Delta C7eff=Delta C7 and Delta C8eff=Delta C8 only for retained LO dipole shift; no alpha_s/(4pi) multiplier at LO.",
+    "executable_comparison": "SAME_INPUT_LO_NUMERICAL_PASS_OPERATOR_CONVENTION_UNCERTIFIED",
+    "gamma_rad": 0,
+    "generic_api_caveat": "Public documented C++ WilsonInterface::addMatchingPatch accepts complex scalar_t; nonphysical coefficient test (-0.002,+0.006i) passes. No bundled two-state Zee wrapper, public CLI coefficient injection, or certified Zee BR adapter demonstrated.",
+    "generic_complex_matching_patch": "EXECUTABLE_PASS_NONPHYSICAL_API_VALUES",
+    "independent_integral_working_digits": 70,
+    "mass_scan_GeV": [
+      300,
+      550,
+      900,
+      2000,
+      100000
+    ],
+    "matching_convention_status": "MATCHING_CONVENTION_UNKNOWN",
+    "max_absolute_residual": 9.71445146547012e-17,
+    "max_relative_residual": 8.814469452255025e-16,
+    "misiak_sign_sanity": "QUALITATIVE_DIRECTION_AGREES_ONLY",
+    "mt_MSbar_160_GeV": 163.96892236746697,
+    "order": "alpha_s^0",
+    "probes": 18,
+    "qmatch_GeV": 160,
+    "status": "PARTIAL",
+    "tanbeta_scan_at_550_GeV": [
+      0.2,
+      1,
+      2,
+      10,
+      50
+    ],
+    "top_mass_provenance": "Same QCDHelper::msbar_mass(6,160,MassType::MSBAR) call used by upstream matching helper; exported value supplied unchanged to frozen Zee compute and independent integrals."
+  },
+  "blockers": [
+    "No executed external dipole-operator insertion fixes the sigma/Fourier normalization relative to the Gate A2 conditional amplitude and Misiak Eq.(2). HyperIso MARTY templates expose prefactors, CKM conjugation and R chirality but delegate the operator to an optional external backend, not the executed native THDM path.",
+    "Historical native_numerical.json is absent locally; standalone native tree test class skipped honestly."
+  ],
+  "branch": "feature/zee-hyperiso-runtime-bridge",
+  "ignored_local_sha256": {
+    "hyperiso_bridge/one_scalar.json": "b04e7253db3c9a8ac30b9730ba60b6e005a623f556264a21a592ed915cef9cda",
+    "hyperiso_build.log": "49ac8324377692f721f76853e3946e569a7a6fc535377859be3244253647859a",
+    "hyperiso_configure.log": "77054a1b1de513b13f10b940629728707cb137715b2fbffe02b76fb434155082",
+    "hyperiso_full_suite.log": "e4428c745415d176fecc2d5fb268322aa03a8af8bff66bd7cf503a1171c92e65",
+    "hyperiso_runtime.json": "29912561940db91dd04db4cbe18dada784f4de9d5ccc6591a99af72369151b6a",
+    "misiak_2608.29863v1.html": "5300aaf2e8d0015fbb37f52aefd866b0d9c5c270e18921e71971b0e0f4724b7b",
+    "test_module5_bsgamma_lo.py.log": "e4bf02b955e3ce99dad8c5e7801e97044be87e41933ee9e57be096b1c427b680",
+    "test_module5_dipole_projection.py.log": "e7fbe4448e1a9f89759e87e34aec642c7911006c14bc00c942215c22a9880789",
+    "test_module5_hyperiso_runtime.py.log": "177027a0fda17ce70163f4bea6b87a1fae80d35105e5163a761c0d05237912c9",
+    "test_module5_native_amplitudes.py.log": "295cf668d102af7a7ca1ee6770c30541473d0c325f4183691a91ae8248df2f8a"
+  },
+  "limitations": [
+    "Numerical residuals are not theory uncertainties.",
+    "No Zee BR, likelihood, exclusion, allowed label, mass cut, Zee scan, NLO calibration, scale conversion or theory covariance.",
+    "The archived R6 spectrum is not a Type-II benchmark; the separate LO client sets Type-II quark Yukawas explicitly.",
+    "The archived R3 SM prediction and Misiak 2026 have different versioned prediction bases and are not compared as the same NNLO calculation."
+  ],
+  "linear_screen_created": false,
+  "misiak_2026_formula_used": false,
+  "next_physical_action": "Pin and audit or execute a trusted external O7/O8 insertion with explicit sigma/Fourier/CKM/chirality conventions; restore hash-verified historical native evidence. Then implement a separate minimal Zee adapter using the existing complex matching-patch API, without changing HyperIso.",
+  "reviewed_start_commit": "43b63462bfb54f3afc79822ebf04a769bca9b4a7",
+  "schema_version": "1.0.0",
+  "scope": "GATE_B_EXTERNAL_REFERENCE_ONLY",
+  "scoped_file_sha256": {
+    "module5/HYPERISO_BRIDGE.md": "85b4942629c69c3bee01eb9f5edea48ca338ae8dca264657b6f275dd53f9032e",
+    "scripts/zee_module5_hyperiso_bridge.py": "4079132779e1aa0c59ee3d7702987f6e69390224173d1eb5acb5336cbb68e952",
+    "scripts/zee_module5_hyperiso_probe.cpp": "f077230362ef2c237185fc037f7d29f0104d53c2e6e0a55133fb88eeb94c4eae",
+    "scripts/zee_module5_hyperiso_runtime.py": "26ae7d68656506ed2882ecdf286a1ae0654cb311ce0a0f2a08990a53cf548d73",
+    "tests/test_module5_hyperiso_runtime.py": "20edee38a572f7ad277c22e9adcd6f54cfb2242b44cdedeb2ea068925b62ce8b",
+    "validation/module5/STATUS.md": "c8a20e67cfabe0af7cd874c0889f79571d3187de3be2c32f86aa9843229dc824"
+  },
+  "status": "PARTIAL",
+  "tests": {
+    "by_suite": {
+      "test_module5_bsgamma_lo.py": 16,
+      "test_module5_dipole_projection.py": 7,
+      "test_module5_hyperiso_runtime.py": 6,
+      "test_module5_native_amplitudes.py": 4
+    },
+    "errors": 0,
+    "failures": 0,
+    "historical_gate_A2_hashed_files_unchanged": true,
+    "official_runtime_cases_passed": 7,
+    "passed": 33,
+    "skip_reason": "NativeTreeAmplitudeTests: Genuine local SARAH numerical evidence absent (seven historical live tests not rerun); four local amplitude algebra tests passed.",
+    "skipped_test_classes": 1
+  },
+  "upstream": {
+    "actual_program_version": "1.0.3",
+    "binary_sha256": "7f0c0b0b0a0461c7f7b672bf89ba13b06a9eda41c3f6dafd5c48564e83d6670a",
+    "peeled_commit": "09d26ac6e71d1528922097a896d15693589f636b",
+    "release_date": "2026-07-17",
+    "tag": "v1.0.3",
+    "tracked_checkout_clean": true,
+    "url": "https://github.com/Hyperiso/Hyperiso"
+  },
+  "upstream_source_sha256": {
+    "Assets/default/parameters.json": "cc3866c5e08d29cd9ed32dbd1a211b5a5830dcc446750497bbfbbcbf74fb3b5f",
+    "Assets/template/MARTY/C7.cpp": "462e2fd8198a262f74af3fa765b3e48bf0c62c87ae4aa9127f08666fdb165a93",
+    "Assets/template/MARTY/C8.cpp": "6270212ea758436ca49f12ad0a2c1c5c19eed0686f99471a142bd71ea6d66e4b",
+    "Hyperiso/Hyperiso/core/src/BusinessLogic/domain/Decays/BXsDecay.cpp": "de8e4edee4aae4496d00e5449512b4e90fd5e9a9d0ed518278341c9e95778887",
+    "Hyperiso/Hyperiso/core/src/Math/domain/linalg/scalar.h": "1f9b1a5645a3aaa593082f59515519cba8d44e6a513c6834963f0a93337d5f2f",
+    "Hyperiso/Hyperiso/core/src/PhysicalModel/adapters/WilsonInterface.h": "e3368b7056929100fc55bb85b3ba2190ab4f9d806236caaa29f80dd7a21bb151",
+    "Hyperiso/Hyperiso/core/src/PhysicalModel/domain/Helper/BSM/THDMParametersHelper.cpp": "60274a32da96ddf96f14088d6bd65617814d40d7f2fe60a209e5404292948fae",
+    "Hyperiso/Hyperiso/core/src/PhysicalModel/domain/Helper/BWilsonRunningParameters.h": "3e0902126e53faf79313a48370e82a6a77fdf9862320eaa8bf99f278dd05b588",
+    "Hyperiso/Hyperiso/core/src/PhysicalModel/domain/Helper/WilsonParametersHelper.cpp": "1470324721caa4357cdeea0e6ca26a0f1690fd5a5fab206544e6055e964c2233",
+    "Hyperiso/Hyperiso/core/src/PhysicalModel/domain/WCoef/BSM/BWilsonTHDM.cpp": "d8bc4fb10a249ca0f16fc5d9582877c84545a24d619738304ec7417d139b4c2d",
+    "Hyperiso/Hyperiso/core/src/PhysicalModel/domain/WGroup/BWilsonGroup.cpp": "47712a28c66c91bc7894dacd88fdfc2b19ac7971af20dc293f967dec5281171a",
+    "Hyperiso/Hyperiso/core/src/PhysicalModel/domain/WilsonManager.cpp": "79895315a773889714dc3c46e8b790cd02b4e4291611f919f725db19b58ded68",
+    "Hyperiso/Hyperiso/core/src/PhysicalModel/domain/WilsonMatchingPatch.h": "b8b5a55f31ed774db9687f068e6f84f13d9b7a959993db7f13116bf7596e1744",
+    "Hyperiso/Hyperiso/core/src/UserInterface/WilsonHandler.cpp": "d417589287cf5dfe2cbe1c722e1c80921b7e83eddee89ecca689cc828ce6737c",
+    "docs/main.tex": "fffde75426d4250bbc1cdea84e6ee976cdd9072cac9c57f9669b23a7a675fbea",
+    "reproducibility/README.md": "1dfce95eaf6222ec6401953e623200cf1361d33b3db8cbc8ec036ae69691c217",
+    "reproducibility/expected_outputs/reference_metadata.json": "189c13efefeb0c4f74c8a5cf54ca26878651dc44b5b036c9fdf494188d84dc50",
+    "reproducibility/inputs/sm_reference.flha": "40b0a3d68090611ff7bcdb4c26abcc6e9f7f6171d6ef86833def536d76cd0c0e",
+    "reproducibility/inputs/thdm_reference.lha": "984391031656a5f4f86ee71f5b60e7d0cb2b1b80edabd9ff6ba912da3ba39374",
+    "reproducibility/manifest.json": "3169195bed1b2ba55e483d4956538043115a5e65abbfcd545900ade3d9bc0cd4",
+    "reproducibility/scripts/check_expected_outputs.py": "cce10fc27a5155b54d3ae6ab4b7bae39c6257ac03bc43a52eddbbd1e57109be7",
+    "reproducibility/scripts/normalize_cli_output.py": "ac40de798c488d41b909d12ec2c5057d5d405ceb96a8b017e329907fd655f900",
+    "reproducibility/scripts/run_cli_suite.sh": "2c9163bf8150e83dc4a558f9671ab412e7b499dd96041d5055cae0fc0c15030f"
+  },
+  "versions": {
+    "CXX_standard": "gnu++20",
+    "cmake": "3.22.1",
+    "eigen": "3.4.0",
+    "gcc": "11.4.0",
+    "gsl": "2.7.1",
+    "ninja": "1.10.1",
+    "python": "3.10.12"
+  },
+  "zee_BR_status": "NOT_EVALUATED"
+}

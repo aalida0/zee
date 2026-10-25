@@ -108,3 +108,27 @@ Derivation, assumptions, falsifiers and reproduction commands:
 actual residuals and hashes: `validation/module5/native_matching.json`.
 Detailed Mathematica output, source downloads and witness data remain ignored.
 No uncertainty covariance, mass-running calibration or NP NLO was computed.
+
+## Gate B — pinned external runtime audit (2026-10-25)
+
+- **B1 `HYPERISO_REFERENCE_PASS`**: clean HyperIso v1.0.3 checkout at
+  `09d26ac6e71d1528922097a896d15693589f636b`, freshly built CLI version
+  1.0.3. R1/R3/R6 normalized outputs are byte-identical to upstream frozen
+  references; official full R1–R7 suite also passes. R1/R6 matching scale
+  is 81 GeV. Archived R3 BR(B→Xsγ)=3.2967e−4 is not the 2026 SM baseline.
+- **B2 PARTIAL, `MATCHING_CONVENTION_UNKNOWN`**: 18 separate LO executions
+  at 160 GeV compare signed one-scalar C7/C8 against frozen γ=0 Zee and
+  independent 70-digit diagram integrals. Maximum absolute/relative
+  residuals: 9.71445146547012e−17 / 8.814469452255025e−16. Source tracing
+  fixes the LO alpha_s factor and plain/effective shift; the external
+  sigma/Fourier and full complex CKM/chirality insertion remains unexecuted.
+- Generic documented C++ complex matching patches pass an executable API
+  test. Dedicated Zee wrapper: `ZEE_TWO_STATE_INJECTION_NOT_AVAILABLE`;
+  use a separate minimal adapter after closing the operator gate.
+- **33 tests passed**, zero failures/errors; one native tree class skipped
+  because historical local numerical evidence is absent. No regeneration
+  or branch-guard relabeling. Historical Gate A2 hashed files are unchanged.
+- No `EXTERNAL_CONVENTION_PASS`, Zee BR, Eq.(4) screen, exclusion or mass cut.
+  Next: trusted pinned O7/O8 operator-insertion audit and restoration of
+  hash-verified native evidence. Details/hashes: `module5/HYPERISO_BRIDGE.md`
+  and `validation/module5/hyperiso_bridge.json`; detailed logs stay ignored.

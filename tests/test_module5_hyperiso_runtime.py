@@ -42,4 +42,32 @@ class TestPinnedGate(unittest.TestCase):
                         gate.main()
             self.assertFalse(dest.exists())
 
+    def test_dirty_pinned_checkout_fails_closed(self):
+        with patch.object(gate,"checked_run",side_effect=[
+                subprocess.CompletedProcess([],0,stdout=gate.PIN+"\n"),
+                subprocess.CompletedProcess([],1,stdout="changed fixture")]):
+            with self.assertRaisesRegex(ValueError,"local changes"):
+                gate.verify_checkout(ROOT)
+
+    def test_manifest_lha_uses_official_runner_absolute_path(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            lha=root/"input.flha";lha.write_text("fixture")
+            cmd=gate.official_command(Path("/build/hyperiso-ui"),root,
+                "hyperiso-ui wilson summary --lha input.flha --qmatch 81 --order NNLO")
+            self.assertEqual(cmd[cmd.index("--lha")+1],str(lha))
+            self.assertEqual(cmd[cmd.index("--qmatch")+1],"81")
+
+    def test_unattributed_binary_fails_closed(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            binary=root/"build"/"hyperiso-ui"
+            binary.parent.mkdir();binary.write_bytes(b"not an upstream build")
+            with self.assertRaisesRegex(ValueError,"requires a CMake build"):
+                gate.verify_build(root,binary)
+            (binary.parent/"CMakeCache.txt").write_text(
+                "CMAKE_HOME_DIRECTORY:INTERNAL=/different/checkout\n")
+            with self.assertRaisesRegex(ValueError,"different source"):
+                gate.verify_build(root,binary)
+
 if __name__=="__main__":unittest.main()
