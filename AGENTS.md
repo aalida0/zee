@@ -1,55 +1,31 @@
-# Zee Module 5 — Type-II quark flavor: B -> X_s gamma, Gate A only
+# Zee Module 5 — HyperIso + 2026 B -> X_s gamma, two charged scalars
 
-## Identity, branch, and scientific scope
-Work only on `feature/zee-bsgamma-module5` of `aalida0/zee`, branched from `22d249fb57d55a88b266b69d1575be66ec7209b3`. The preceding Module 4 amplitudes remain PARTIAL and the Wgamma matching remains BLOCKED. This task **does not fix Module4**; it starts the **quark-flavor validation** essential for the first Zee phenomenology paper.
+## Scientific task (corrected source hierarchy)
+Work only on branch `feature/zee-bsgamma-module5` in `aalida0/zee`, created from validated `22d249fb57d55a88b266b69d1575be66ec7209b3`. This task was updated *before Codex execution* to use **HyperIso (NOT SuperIso)** as the primary modern flavor backend, and the **August 2026 Misiak et al. result** as the primary current B->Xs gamma theory/experiment reference. Frozen model and Modules 0–4 are read-only, including their documented PARTIAL status. Do not modify a different checkout, main, or Module4 physics.
 
-Implement and independently validate the **charged-scalar leading-order matching-scale shifts Delta C7 and Delta C8 for the TWO physical charged Higgs bosons**. Do NOT compute B->Xs gamma branching ratios, exclusions, full NLO/NNLO, multiscale QCD evolution, or global viability in this task. The existing historical `reference/` calculations are unvalidated inspiration only, not physical acceptance evidence.
+Review only `module5/bsgamma_lo.py`, `tests/test_module5_bsgamma_lo.py`, `module5/example_bsgamma_input.json`, `module5/FLAVOR_2026_SOURCES.md`, `module4/couplings.py`, and the directly relevant frozen SARAH vertices; read more only when justified.
 
-## Read only these first
-- `module5/bsgamma_lo.py` (prewritten production implementation).
-- `tests/test_module5_bsgamma_lo.py` (prewritten independent 90-digit mathematical tests).
-- `module5/example_bsgamma_input.json` (illustrative input).
-- `module4/couplings.py` (charged-scalar rotation and frozen Type-II Yukawa context).
-- Relevant frozen model in `models/SARAH/ZeeTypeII/` only as necessary.
-- Historical `reference/` only for a specific cross-code comparison, not as a source of truth.
+## Mandatory pinned references
+1. **HyperIso**: Reymermier, Fardeau, Mahmoudi, *HyperIso: A general BSM calculator for flavour observables*, arXiv:2607.18222. Source `https://github.com/Hyperiso/Hyperiso` at TAG **v1.0.3** (17 July 2026), software DOI 10.5281/zenodo.21447072. Inspect tag and `reproducibility/manifest.json`. Native R1 checks B-sector C7/C8 (matching/low scales), R3 checks inclusive BR, R6 provides THDM NNLO Wilson benchmark. HyperIso has SM/THDM/SUSY backends, MARTY-based generic-LO route, Python/CLI/C++ interfaces, but **Zee two-charged-scalar input/injection support is NOT presumed**. Verify API on actual checked-out release; never pretend a standard THDM LHA input automatically describes both Zee charged mass eigenstates.
+2. **2026 BR update**: Misiak et al., arXiv:2608.29863v1, *The Inclusive Bbar -> X_s gamma Decay Rate with Higher Precision* (30 Aug 2026), https://arxiv.org/html/2608.29863v1. CP/isospin averaged, E_gamma>1.6 GeV:
+   `BR_SM=(3.54 +/- 0.14)*1e-4`, `BR_exp=(3.49 +/- 0.19)*1e-4`.
+   Section IV **Eq. (4)** for small perturbative BSM shifts, in their LEFT operator basis Eq. (2), at matching scale **mu0=160 GeV**:
+   `1e4 * BR = (3.54 +/- 0.14) - 8.51*DeltaC7(mu0) - 2.16*DeltaC8(mu0)`.
+   Quadratic BSM terms and possible contributions from other LEFT operators are OMITTED. Paper's 2HDM-II **single** charged-Higgs bound `M_H+ > 670 GeV (95% CL)` uses 2HDM higher-order matching. **NEVER apply that mass bound individually to H1+ or H2+ in the Zee model.** Do not simply update an older HyperIso/SuperIso SM number by an arbitrary additive shift and call it a consistent NNLO result.
+3. **Two charged-state theory comparison**: Florentino, Romão, Silva, arXiv:2106.08332 (2021): mixing weights `w=(cos^2(gamma),sin^2(gamma))`, Type-II quark-coupling structure `X=(tanbeta*cosgamma,-tanbeta*singamma)`, `Y=(cotbeta*cosgamma,-cotbeta*singamma)`. Cross-check actual frozen Zee charged rotations and signed high-scale C7/C8 definitions. The two-state weighted structure is **not novel**.
+4. **Historical**: our legacy SuperIso 5.0/A1V two-state work had NLO matching bugs/context dependence and unresolved operator-sector NNLO cross-code differences; its older ~3.382e-4 baseline is NOT the 2026 SM prediction. SuperIso formulas (arXiv:0808.3144) may validate independent LO mathematics only; do not make it the final phenomenology backend.
 
-Do not scan the entire repository unnecessarily. No changes to frozen Modules 0–4, `models/SARAH/ZeeTypeII/`, their established tests, or previous validation. Do not touch another working directory or main. Old branch-bound test runners are not valid on this isolated branch; run focused Gate A tests.
+## Narrow, ordered execution
+**Gate A: independently validate LO physics.** The prewritten `module5/bsgamma_lo.py` and `tests/test_module5_bsgamma_lo.py` are an *initial candidate*, not certified. Independently check the four F7/F8 functions and signs, exact convention mapping to 2026 Q7/Q8 and HyperIso, `mt_MSbar(mu0)` input, complex orientation, Type-II quark couplings, gamma weights, and no automatic BR/exclusion. Run `python -m unittest discover -s tests -p 'test_module5_bsgamma_lo.py' -v`, add falsifying independent 90-digit tests where necessary. Run `python module5/bsgamma_lo.py --input module5/example_bsgamma_input.json --output validation/module5/local/bsgamma_LO_example.json`. If sign/basis mapping uncertain mark `MATCHING_CONVENTION_UNKNOWN`, **do not feed coefficients into Eq.(4) or HyperIso**.
 
-## Pinned physics definitions and primary literature
-**Use the following exact conventions, and independently verify them.**
-- SuperIso 3.4 paper, Mahmoudi, arXiv:0808.3144, Appendix C.1.2, Eqs. (47)–(49):
-  https://superiso.in2p3.fr/superiso3.4.pdf
-- Florentino, Romão and Silva, EPJC 81 (2021) 1148, DOI 10.1140/epjc/s10052-021-09956-2, Appendices B.3 and C:
-  https://link.springer.com/article/10.1140/epjc/s10052-021-09956-2
-- The Zee model has Type-II QUARK couplings. The doublet charged component mixes with the charged singlet. Florentino B.9 gives
-  `X=(tan(beta)*cos(gamma),-tan(beta)*sin(gamma))`;
-  `Y=(cot(beta)*cos(gamma),-cot(beta)*sin(gamma))`.
-  Therefore `|Y_a|^2=(cot(beta))^2*w_a`, `X_a*conj(Y_a)=w_a`, with `w=(cos(gamma)^2,sin(gamma)^2)`.
-- In the SuperIso convention (lambda_tt=cot(beta), lambda_bb=-tan(beta)), at LO the charged-scalar matching contribution is
-  `Delta C7,8 = sum_a [(|Y_a|^2/3) F7,8^(1)(x_a) + (X_a Y_a*) F7,8^(2)(x_a)]`,
-  `x_a = [m_t_MSbar(mu_match)/m_Ha]^2`. **Check the sign and operator normalization** against BOTH sources; do not conflate with the 2017/2021 branching ratio or an effective low-scale coefficient.
-- The four F functions are explicitly programmed from SuperIso Eq.49. The near-x=1 Taylor expansions were derived independently and should be checked against 90-digit evaluation. Do not infer new charged Higgs lower mass bounds or experimental likelihoods from LO matching.
-- This task requires **explicit** top MSbar mass at the user-supplied matching scale, no pole-mass substitutions or guessed running. A single matching scale for both mass eigenstates is an LO fixed-order approximation; flag this limitation.
+**Gate B: audit HyperIso official release.** Prefer existing local installed HyperIso; otherwise clone pinned v1.0.3 in ignored local cache (not vendored) and check package/build availability. If runnable, execute version check and the official R1, R3, and R6 comparisons using release manifest *as applicable* and report actual outputs, order, scales, uncertainties and hashes. If unavailable, record `HYPERISO_RUNTIME_BLOCKED`; do not fabricate tests. Determine whether an actual supported API can inject full complex and multiple-charged-scalar C7/C8 at **mu0=160 GeV** in the same LEFT basis without silently rerunning 2HDM single-state matching. If no supported interface, document this limitation and recommend a small adapter/injection in a later task; never modify the upstream source or invent a functioning integration.
 
-## Work required
-1. Independently audit the prewritten code and tests for algebra, source signs, convention, floating stability, complex/chirality issues, basis/mixing, and fail-closed input. Fix actual errors. Independently compare frozen SARAH quark charged vertices or frozen model quark/charged-scalar rotations to the X,Y mapping before declaring full Gate A verification. If native Mathematica/SARAH calculation is not feasible locally, use the explicit frozen model and source as a scoped check; clearly identify what was NOT freshly validated.
-2. Run `python -m unittest discover -s tests -p 'test_module5_bsgamma_lo.py' -v`. Confirm 90-digit source evaluations across small, near-degenerate, large x; x=1 analytic limits; gamma=0 single-2HDM case; gamma=pi/2 singlet/doublet assignment; swapped spectra; equal charged masses; tanbeta dependence; heavy decoupling; missing/NaN/invalid scheme inputs. Expand tests only if a real gap is identified.
-3. Run a real CLI smoke test:
-   ```bash
-   mkdir -p validation/module5/local
-   python module5/bsgamma_lo.py --input module5/example_bsgamma_input.json --output validation/module5/local/bsgamma_LO_example.json
-   ```
-   Do not claim that 550/900 GeV illustrative fixture is an accepted benchmark.
-4. Create `validation/module5/STATUS.md`, concise `validation/module5/results.json`, and `module5/CONVENTIONS.md` with inputs, equations, residuals, source links, known limitations, source/provenance SHA256, and next milestone. Reproducible numerical results MUST come from actual runs; keep raw logs/cache ignored locally. Reference model cross-checks and exact version/commit.
-5. Specifically compare to Florentino 2021: the mixing-weighted C7, C8 treatment **already exists**, so do not claim it as new. The novelty later requires *full general Zee lepton/neutrino constraints plus collider correlations*, and that cannot be inferred from Gate A.
-6. Evaluate which subsequent **well-scoped** Gate B is necessary for a physically defensible B->Xs gamma observable: consistent scale/mass/Yukawa treatment, NLO/NNLO SM+NP matching, QCD running and experimental covariance. Distinguish math-matched coefficients from physical prediction. If this exceeds available tools, flag the blocker rather than applying an approximate 'type-II 580 GeV' mass cut.
+**Gate C: use the pinned 2026 literature correctly.** Create a small source-locked machine-readable fixture with SM/experimental central values, respective quoted 1sigma errors, E_gamma cut, 2026 Eq.(4) 8.51/2.16 coefficients and 160 GeV scale, and the **single-2HDM** 670 GeV reference flag. Validate arithmetic (zero NP returns 2026 SM; independent numeric nonzero Delta C7/C8); explicitly mark that Eq.(4) is only a *linearized* NP screening and may fail in cancellation/large-contribution domains or for mismatched schemes/operators. Do **NOT** combine user-supplied separate projected errors as independent if they share inputs; distinguish theoretical from experimental covariance assumptions. Actual exclusion likelihood, if implemented later, requires documented statistical prescription, correct model amplitude and uncertainties.
 
-## Completion contract
-- Do not change physical coefficients in Modules 0–4. No silent historical changes.
-- Tests and actual independent source/mathematical comparisons must pass for `VALIDATION_PASS_LO_MATCHING`; otherwise mark `PARTIAL/BLOCKED`.
-- Always output `LO_MATCHING_ONLY_NOT_BR_OR_EXCLUSION`, no unsupported exclusion/allowed claims.
-- Commit only scoped `module5/`, `tests/test_module5_bsgamma_lo.py`, `validation/module5/`, and this AGENTS.md if amended.
-- `git push origin feature/zee-bsgamma-module5`.
-- Verify `git rev-parse HEAD` = `git ls-remote origin refs/heads/feature/zee-bsgamma-module5`.
-- Report commit SHA and canonical GitHub URL, tests, numerical residuals and scope limitations. If push fails report PUSH_BLOCKED.
-- Keep Codex chatter brief; place detail in audit files. Preserve exact code and source hashes. Never claim delivery without a verified remote commit.
+**Gate D: deliver narrow scientific report** `module5/CONVENTIONS.md`, `validation/module5/STATUS.md`, `validation/module5/results.json`, with actual tests/residuals, HyperIso status, source tag/hash/versions, LO-C7/C8 baseline, 2026 Eq.(4) agreement, old SuperIso discrepancies, physics limitations and precise next action. Full two-state physical BR/NLO/NNLO is NOT required in this setup pass. Label outcomes `LO_MATCHING_ONLY`, `HYPERISO_REFERENCE_VERIFIED` (only if run), `2026_LINEARIZED_SCREEN` (only after operator-scale mapping) or `UNKNOWN/BLOCKED` with stated reason; no declaration of globally allowed Zee points.
+
+## Scope / token discipline / delivery
+- Never edit frozen model, Modules 0–4, their tests/hashes or earlier validation. Do not treat branch-guard failures of frozen modules as physics failures.
+- Commit only `module5/`, `tests/test_module5_*.py`, `validation/module5/` and scoped `AGENTS.md`, with tiny numeric fixtures. Ignore binaries, logs, complete external clones and PDFs.
+- Keep external source references *version-locked* and distinguish mathematical consistency from physical validation.
+- Commit, run `git push origin feature/zee-bsgamma-module5`, verify `git rev-parse HEAD` equals `git ls-remote origin refs/heads/feature/zee-bsgamma-module5`; report SHA and GitHub commit URL, tests and unresolved blockers. If push fails explicitly say PUSH_BLOCKED. Keep chat terse; detail in audit files.
