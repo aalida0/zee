@@ -1,7 +1,0 @@
-{
-  "failed_commands": [
-    "static_benchmark"
-  ],
-  "full_stage_selection": true,
-  "physics_acceptance": "SEE_STATUS_NOT_INFERRED_FROM_EXIT_CODES"
-}

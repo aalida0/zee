@@ -1,5 +1,11 @@
 # Module 0 conventions and diagnostic review
 
+Current acceptance requires one complete invocation of the committed runner
+in a newly empty workspace. Detailed output is preserved locally under
+`validation/module0/local/runs/`; concise current reports and essential
+fixtures are tracked. Legacy timestamped directories remain locally ignored
+and contribute no acceptance. `STATUS.md` identifies the current invocation.
+
 This is a finite, reproducible validation of the specified Zee Lagrangian.
 It establishes neither phenomenological acceptance nor a complete RG,
 vacuum, collider, LFV, SPheno or FlavorKit implementation. Archived numerical

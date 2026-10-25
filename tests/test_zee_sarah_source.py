@@ -416,6 +416,67 @@ class TestSarahZeeSource(unittest.TestCase):
             if independent is not None:
                 self.assertAlmostEqual(actual, independent, places=11)
 
+    def test_module0_fresh_workspace_excludes_old_success_artifacts(self):
+        # Filesystem/orchestration regression only; no mocked physics result
+        # is ever accepted as native validation by this test.
+        import sys
+        import tempfile
+        sys.path.insert(0, str(ROOT / "scripts"))
+        from zee_sarah_module0 import fresh_workspace
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            old = root / "work" / "sarah_zee"
+            old.mkdir(parents=True)
+            (old / "module0_majorana_status.txt").write_text("OLD_PASS")
+            run = root / "local" / "runs" / "first"
+            run.mkdir(parents=True)
+            work = fresh_workspace(root, run)
+            self.assertEqual(list(work.iterdir()), [])
+            self.assertTrue(old.is_symlink())
+            self.assertEqual(old.resolve(), work.resolve())
+            archived = root / "local" / "previous_work" / "first"
+            self.assertEqual((archived / "module0_majorana_status.txt").read_text(), "OLD_PASS")
+            (work / "new_result.txt").write_text("preserve")
+            second = run.parent / "second"
+            second.mkdir()
+            self.assertEqual(list(fresh_workspace(root, second).iterdir()), [])
+            self.assertEqual((work / "new_result.txt").read_text(), "preserve")
+
+    def test_module0_partial_selection_rebuilds_native_prerequisites(self):
+        import sys
+        sys.path.insert(0, str(ROOT / "scripts"))
+        from zee_sarah_module0 import select_stages, stage_commands
+        names = [name for name, _ in stage_commands("python3", "math", ROOT)]
+        selected = select_stages(["majorana_closure"], names)
+        self.assertTrue({"e3_fixture", "e3_integrated_validation", "e3_independent_selfenergy_audit",
+                         "majorana_variant", "e3_majorana_ab_validation", "majorana_closure"} <= selected)
+        self.assertIn("gate6_fixture", select_stages(["fzee_numeric_audit"], names))
+        self.assertEqual(select_stages(None, names), set(names))
+        with self.assertRaises(ValueError):
+            select_stages(["nonexistent_stage"], names)
+
+    def test_module0_contract_rejects_missing_stale_and_incomplete_outputs(self):
+        import os
+        import sys
+        import tempfile
+        import time
+        sys.path.insert(0, str(ROOT / "scripts"))
+        from zee_sarah_module0 import CONTRACTS, check_stage_outputs
+        stage = "fzee_numeric_audit"
+        status, accepted, artifacts = CONTRACTS[stage]
+        with tempfile.TemporaryDirectory() as tmp:
+            work = pathlib.Path(tmp)
+            started = time.time_ns()
+            self.assertTrue(check_stage_outputs(work, stage, started))
+            (work / status).write_text(accepted)
+            for name in artifacts:
+                (work / name).write_text("orchestration unit-test artifact")
+            self.assertEqual(check_stage_outputs(work, stage, started), [])
+            os.utime(work / artifacts[0], ns=(1, 1))
+            self.assertTrue(any("predates" in e for e in check_stage_outputs(work, stage, started)))
+            (work / status).write_text("NOT_VALIDATED")
+            self.assertTrue(any("Unaccepted" in e for e in check_stage_outputs(work, stage, started)))
+
     def test_no_false_validation_claims(self):
         self.assertIn("SOURCE_IMPLEMENTED_NOT_VALIDATED", self.model)
         self.assertNotIn("MakeSPheno[]", self.model)

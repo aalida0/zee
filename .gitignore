@@ -1,0 +1,9 @@
+# Native output and immutable detailed local evidence; concise reports stay tracked.
+/work/
+/validation/module0/local/
+/validation/module0/20*/
+/validation/module0/*.log
+/validation/module0/.runner.lock
+/validation/module0/FINAL.json
+__pycache__/
+*.py[cod]

@@ -1,7 +1,0 @@
-Wrote /home/amine/zee-sarah-module0/validation/module0/20261025T020907.037566Z/gateA1b_hierarchical_no_seed.json
-Neutrino mass sum (eV): 0.06006084410654622
-Maximum |f|: 0.001
-Maximum |Y_ell|: 9.455469973974495e-06
-Matrix closure (eV): 3.7599154853757774e-17
-Linear rank: 5
-Cosmology threshold diagnostics: {'sum_m_below_0p12_eV': True, 'sum_m_below_0p0642_eV': True, 'interpretation': 'threshold-only diagnostic; cosmological bounds are dataset/model/prior dependent'}
