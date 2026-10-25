@@ -1,0 +1,134 @@
+{
+  "blockers": [
+    "The inspected 2026 Letter does not explicitly fix Hamiltonian/sigma/Fourier conventions.",
+    "Pinned HyperIso matching/helper/manuscript sources do not close executable O7/O8 insertion conventions; editorial note is not a sign determination."
+  ],
+  "branch": "feature/zee-bsgamma-native-convention",
+  "file_sha256": {
+    "models/SARAH/ZeeTypeII/ZeeTypeII.m": "78d6b48232f9a75a21b058301d9233dba3ed067e21f534d27c0d6f415484aa4d",
+    "module4/couplings.py": "12f57fed5a82c010e59f779b93824542ca0fbc0b8ae1a56484bed56517f5d924",
+    "module5/NATIVE_OPERATOR_MATCHING.md": "757b768f534c2c65b5798e022e5dfff2d8811c05f4ecd403f4142c68085fd521",
+    "module5/bsgamma_lo.py": "251cc9effc80010f65982cc980d0c170dc19785b2385d962afbed4549cfcd5e5",
+    "scripts/validate_zee_module5_matching.py": "208d182723ea174d4f6b8c703dc5ecb2f7ebcae263eecf500fddb3300186f2a3",
+    "scripts/validate_zee_module5_native.py": "f9f43466d34f4ed3c239bcd76dbdd89e25f8dbe3bfa60a647d10c19063733349",
+    "scripts/zee_module5_charged_quark_vertices.m": "949580a34841415c8cce2d98ef4a74070a18b40a852d508bd9d4e2a3036e0b21",
+    "scripts/zee_module5_dipole_projection.py": "18bb21a25d0283086d0f16c8e17fc521eb884c3b64021a6edde7b9b312a5e4ac",
+    "scripts/zee_module5_native_compare.py": "a91b993f9773d541d8b5eb481e258d56227c1ac25eb2a604c9aa47992e9b9948",
+    "tests/test_module5_bsgamma_lo.py": "54dac367944cf549b68b75890e29efe8b9874cba77616ebb211b1689e31740fd",
+    "tests/test_module5_dipole_projection.py": "884a4ba584e88d301ee6e646ebc1136281e5cf632e9b5ff85589ce26e9d359c5",
+    "tests/test_module5_native_amplitudes.py": "0b92201e1ee913c7ed3564a34941a87a4c651056570e9d241de5244bbef91124",
+    "tests/test_module5_native_gate.py": "8a802d6772ed235a9ba2a5f0c7069d29df244566f1dc3e43d16903063649fbab"
+  },
+  "gates": {
+    "A2.1": {
+      "comparison": {
+        "charged_masses_GeV": [
+          550.0,
+          900.0
+        ],
+        "ckm_Vts_star_Vtb": [
+          -0.1709236243675297,
+          0.01771288625595481
+        ],
+        "complex_coefficients": 952,
+        "mass_note": "Nondegenerate loop masses reserved; tree rules do not depend on them",
+        "max_absolute_residual": 8.909917792212513e-16,
+        "scope": "NATIVE_TREE_VERTICES_ONLY_NOT_LOOP_MATCHING",
+        "status": "PASS",
+        "tolerance": 2e-12,
+        "witnesses": 8,
+        "worst": [
+          "beta_small",
+          "plus_{2, 3, 3}"
+        ]
+      },
+      "native_inventory": {
+        "count": 58,
+        "operator_matching": "NOT_EVALUATED",
+        "physical_B_to_Xs_gamma": "NOT_EVALUATED",
+        "status": "RAW_VERTICES_EXTRACTED_NOT_MATCHED"
+      },
+      "status": "PASS"
+    },
+    "A2.2": {
+      "exact_2026_HyperIso_convention": "BLOCKED",
+      "independent_conditional_amplitude_projection": "PASS",
+      "status": "PARTIAL"
+    },
+    "A2.3": {
+      "diagnostic_created": false,
+      "status": "BLOCKED"
+    }
+  },
+  "hyperiso": {
+    "R1": "NOT_RUN",
+    "R1_R6_qmatch_GeV": 81,
+    "R3": "NOT_RUN",
+    "R6": "NOT_RUN",
+    "peeled_commit": "09d26ac6e71d1528922097a896d15693589f636b",
+    "runtime_gate": "DEFERRED_GATE_B",
+    "source_hashes_match_Gate_A": true
+  },
+  "ignored_local_sha256": {
+    "BWilsonTHDM.cpp": "d8bc4fb10a249ca0f16fc5d9582877c84545a24d619738304ec7417d139b4c2d",
+    "THDMParametersHelper.cpp": "60274a32da96ddf96f14088d6bd65617814d40d7f2fe60a209e5404292948fae",
+    "charged_quark_vertices.json": "571c8b32863cd827a573f1ffdbd1ee2815217c0d2289ed775b302e449467124c",
+    "hyperiso_main.tex": "fffde75426d4250bbc1cdea84e6ee976cdd9072cac9c57f9669b23a7a675fbea",
+    "hyperiso_manifest.json": "3169195bed1b2ba55e483d4956538043115a5e65abbfcd545900ade3d9bc0cd4",
+    "native_driver.log": "7c93c266e5fef58a6b08a3e17781517770c0d301bd19ca6cf3a600d83fd81b5c",
+    "native_numerical.json": "29dfc697859c2b2b8d67c6393482df0f15e0336ee5997c60d7e6f1920cbd4690",
+    "native_witnesses.m": "3e638d6c2d4d2533795cb26b28f19034bb538e46a5ead074c7ec87cd3dcd1b87"
+  },
+  "independent_projection": {
+    "test_module5_dipole_projection.DiagramProjectionTests.test_diagram_integrals_against_frozen_kernels": {
+      "diagram_kernel_comparisons": 32,
+      "max_relative_residual": 7.49600253313853e-14,
+      "working_decimal_digits": 70
+    },
+    "test_module5_dipole_projection.DiagramProjectionTests.test_signed_two_state_and_interchange": {
+      "independent_C7_C8": [
+        "-0.05238880756883794255744627721739910287301808022331065195428772883101235",
+        "-0.05660246808718226538404934111590770855955369320625641774450662433030466"
+      ],
+      "two_state_absolute_residuals_C7_C8": [
+        8.920822600063753e-18,
+        9.727881400400765e-19
+      ]
+    },
+    "test_module5_dipole_projection.LoopNumeratorTests.test_on_shell_numerators_and_gordon_projection": {
+      "max_numerator_matrix_norm": 3.08396340716532e-14,
+      "on_shell_numerator_comparisons": 20
+    }
+  },
+  "limitations": [
+    "LO leading top and external mb chirality flip; ms/primed and light internal loops omitted in projection.",
+    "Independent loop sign established only under documented explicit conventions; external convention closure remains unproven.",
+    "No running mass calibration, scale transport, NP NLO, BR, exclusion, or uncertainty covariance.",
+    "Numerical residuals do not quantify theory uncertainty."
+  ],
+  "matching_convention_status": "MATCHING_CONVENTION_UNKNOWN",
+  "reviewed_start_commit": "e121a4ca425eca20630bb847a148dc2a5d3b349a",
+  "schema_version": "1.0.0",
+  "scope": "GATE_A2",
+  "status": "PARTIAL",
+  "tests": {
+    "by_suite": {
+      "test_module5_bsgamma_lo.py": 16,
+      "test_module5_dipole_projection.py": 7,
+      "test_module5_native_amplitudes.py": 11,
+      "test_module5_native_gate.py": 3
+    },
+    "errors": 0,
+    "failures": 0,
+    "run": 37,
+    "skipped": 0
+  },
+  "validated_gate_A_commit": "09e0e6788f2206e767742730a9fe4c9427f1c097",
+  "versions": {
+    "mathematica": "15.0.1 for Linux x86 (64-bit) (July 2, 2026)",
+    "mpmath": "1.3.0",
+    "numpy": "2.2.6",
+    "python": "3.10.12",
+    "sarah": "4.15.4"
+  }
+}

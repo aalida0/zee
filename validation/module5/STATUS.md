@@ -67,3 +67,44 @@ Close the charged-quark native vertex-to-dipole normalization and exact
 references and supported two-state/complex injection audit; only after
 that mapping undertake Gate C. Details, versions, hashes, residuals and
 limitations: `results.json` and `module5/CONVENTIONS.md`.
+
+## Gate A2 — appended native/amplitude audit (2026-10-25)
+
+Branch `feature/zee-bsgamma-native-convention`, exact validated Gate A
+ancestor `09e0e6788f2206e767742730a9fe4c9427f1c097`. The evidence above
+is retained unchanged. New outcome: **PARTIAL**, with production
+`MATCHING_CONVENTION_UNKNOWN` unchanged.
+
+- **A2.1 PASS**: genuine Mathematica 15.0.1 / SARAH 4.15.4 extraction,
+  58 original vertices plus three scalar photon vertices. Eight complex
+  flavor witnesses compare 952 coefficients, maximum absolute residual
+  **8.909917792212513e-16**. Both h.c. channels, CKM phase, Goldstone,
+  physical admixtures, quark mass suppression and gauge charges tested.
+- **A2.2 PARTIAL**: independent diagram numerator/Gordon reduction and
+  signed dipole projection pass under explicit Hamiltonian/sigma/Fourier
+  conventions. Twenty on-shell matrix comparisons: maximum norm residual
+  **3.08396340716532e-14**. Thirty-two 70-digit diagram/kernel comparisons:
+  maximum relative residual **7.49600253313853e-14**. Independent 550/900
+  GeV two-state residuals C7/C8: **8.920822600063753e-18** and
+  **9.727881400400765e-19**. These are numerical checks, not theory errors.
+- **Exact external convention BLOCKED**: the inspected 2026 Letter
+  specifies Q7/Q8 but not explicit Hamiltonian/sigma/Fourier conventions;
+  the pinned HyperIso files print the Hamiltonian and scalar matching,
+  without establishing the executable dipole operator insertion. Its
+  editorial marker determines no correction factor. Full external
+  normalization is consequently not certified despite conditional LO
+  agreement. Required next evidence is an explicit pinned convention
+  definition or trusted executable operator/amplitude insertion comparison.
+- **A2.3 BLOCKED**: no linear diagnostic, BR, exclusion or per-state bound.
+  HyperIso R1/R3/R6 remain **NOT_RUN**, deferred to separate Gate B.
+  Source hashes match Gate A; this is not a runtime validation. R1/R6
+  use 81 GeV; no conversion into the 160 GeV 2026 formula was attempted.
+- Actual tests: **37 passed**, zero failures/errors/skips: structural 3,
+  existing LO 16, native/local-operator amplitude 11, independent loop
+  projection 7. Frozen model, Modules 0–4 and production LO code unchanged.
+
+Derivation, assumptions, falsifiers and reproduction commands:
+`module5/NATIVE_OPERATOR_MATCHING.md`. Small machine-readable evidence,
+actual residuals and hashes: `validation/module5/native_matching.json`.
+Detailed Mathematica output, source downloads and witness data remain ignored.
+No uncertainty covariance, mass-running calibration or NP NLO was computed.
