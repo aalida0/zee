@@ -64,4 +64,33 @@ class GridTests(unittest.TestCase):
         generate(seed)
         self.assertEqual(seed,before)
 
+    def test_nested_schema_and_no_defaults(self):
+        for field,value in (("ordering","bad"),("matching_scale_GeV",160),
+                            ("lepton_masses_GeV",[True,.1,1.7])):
+            seed=source();seed["module2_input"][field]=value
+            with self.subTest(field=field),self.assertRaises(ValueError):generate(seed)
+        seed=source();del seed["module2_input"]["scalar"]["record"]["search"]
+        seed["module2_input"]["scalar"]["sha256"]=canonical_hash(seed["module2_input"]["scalar"]["record"])
+        with self.assertRaises(ValueError):generate(seed)
+
+    def test_coefficients_and_nonfinite_fail_closed(self):
+        for values in ([1,2,3],[1,2,3,True],[1,2,3,"4"],[1,2,3,math.nan],
+                       [1,2,3,math.inf],[1e308]*4):
+            seed=source();seed["module2_input"]["homogeneous_coefficients"]["real"]=values
+            with self.subTest(values=values),self.assertRaises(ValueError):generate(seed)
+
+    def test_identity_mismatch(self):
+        for location in ("module2","scalar"):
+            seed=source();m2=seed["module2_input"]
+            if location=="module2":m2["benchmark_id"]="swapped"
+            else:
+                m2["scalar"]["record"]["benchmark_id"]="swapped"
+                m2["scalar"]["sha256"]=canonical_hash(m2["scalar"]["record"])
+            with self.subTest(location=location),self.assertRaises(ValueError):generate(seed)
+
+    def test_rows_do_not_alias(self):
+        rows,_=generate(source())
+        rows[0]["module2_input"]["target_eV"]["real"][0][0]=42
+        self.assertNotEqual(rows[0]["module2_input"]["target_eV"],rows[1]["module2_input"]["target_eV"])
+
 if __name__=="__main__":unittest.main()

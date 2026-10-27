@@ -11,7 +11,7 @@ import json
 import math
 from pathlib import Path
 
-from module2.interface import canonical_hash, strict_loads, scalar_input
+from module2.interface import canonical_hash, strict_loads, scalar_input, validate_schema as validate2
 from module3.interface import validate as validate3
 
 STATUS="D1_INPUTS_GENERATED_NOT_EVALUATED"
@@ -30,9 +30,14 @@ def generate(seed):
     if not isinstance(seed,dict):raise ValueError("Seed must be an input object")
     validate3(seed,"input.schema.json")
     m2=seed["module2_input"]
+    validate2(m2,"input.schema.json")
+    if "module2_output" in seed:
+        raise ValueError("Input-only seed required; embedded output would become stale")
     if m2["mode"]!="inverse" or m2["scalar"]["kind"]!="module1_input":
         raise ValueError("Require Module2 inverse mode and SHA-bound full Module1 scalar input")
     scalar_input(m2["scalar"])
+    if set(m2["scalar"]["record"].get("search",{}))!={"starts","seeds"}:
+        raise ValueError("Explicit vacuum search configuration required")
     if not (m2["benchmark_id"]==seed["benchmark_id"]==m2["scalar"]["record"]["benchmark_id"]):
         raise ValueError("Inconsistent benchmark IDs")
     coeff=m2["homogeneous_coefficients"]
@@ -61,6 +66,7 @@ def generate(seed):
             family["real"]=[z.real for z in transformed]
             family["imag"]=[z.imag for z in transformed]
             validate3(record,"input.schema.json")
+            validate2(record["module2_input"],"input.schema.json")
             verified, _=scalar_input(wrapper)
             if not (0<verified["mH1"]<=verified["mH2"] and abs(verified["gamma"])<=math.pi/2):
                 raise ValueError("Invalid derived charged-scalar spectrum")
@@ -73,6 +79,8 @@ def generate(seed):
                              "bound_scalar_input_sha256":wrapper["sha256"],
                              "module3_input_sha256":canonical_hash(record),
                              "physical_status":"NOT_EVALUATED",
+                             "constraints_complete":False,"COMPLETE_LFV":False,
+                             "flavor_experimental_comparison":"NOT_EVALUATED",
                              "global_zee_acceptance":None})
     if len({x["benchmark_id"] for x in manifest})!=len(manifest) or len(results)!=6:
         raise ValueError("Incomplete/duplicate illustrative grid")
@@ -84,8 +92,8 @@ def main():
     ap.add_argument("--output-jsonl",required=True,type=Path)
     ap.add_argument("--manifest",required=True,type=Path)
     args=ap.parse_args()
-    if args.output_jsonl.resolve()==args.manifest.resolve():
-        raise ValueError("Distinct manifest and JSONL output required")
+    if len({p.resolve() for p in (args.seed,args.output_jsonl,args.manifest)})!=3:
+        raise ValueError("Distinct seed, manifest and JSONL paths required")
     raw=args.seed.read_bytes()
     seed=strict_loads(raw.decode())
     grid,entries=generate(seed)
@@ -94,6 +102,7 @@ def main():
              "generation_scope":"TWO_ILLUSTRATIVE_SPECTRA_X_THREE_COMPLEX_INVERSE_FAMILIES",
              "points":entries,
              "constraints_complete":False,
+             "COMPLETE_LFV":False,"flavor_experimental_comparison":"NOT_EVALUATED",
              "global_zee_acceptance":None}
     dests=[(args.output_jsonl,"".join(json.dumps(r,sort_keys=True,allow_nan=False)+"\n" for r in grid)),
            (args.manifest,json.dumps(payload,sort_keys=True,indent=2,allow_nan=False)+"\n")]
