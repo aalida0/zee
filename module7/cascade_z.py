@@ -40,7 +40,7 @@ def cascade_width(values):
         raise ValueError("Outside frozen physical gamma convention")
     cw = w/z
     g = 2*w/vev
-    offdiagonal = -0.5*math.sin(2*gamma)
+    offdiagonal = 0.0 if gamma == 0.0 or abs(gamma) == math.pi/2 else -0.5*math.sin(2*gamma)
     gauge_coupling = g/(2*cw)*offdiagonal
     threshold = light+z
     if heavy <= threshold:
