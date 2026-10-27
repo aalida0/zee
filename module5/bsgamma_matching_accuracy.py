@@ -18,6 +18,7 @@ from module5.hyperiso_patch_contract import INPUT_FIELDS, unique_pairs
 EXPECTED_UPSTREAM = "09d26ac6e71d1528922097a896d15693589f636b"
 STATUS = "NLO_MATCHING_SENSITIVITY_ONLY_NOT_SCAN_FILTER"
 COEFFICIENT_CONVENTION = "C_0_PLUS_ALPHA_S_OVER_4PI_TIMES_C_1"
+MATCHING_BASIS = "BMU_ORDINARY_P4_P7_P8"
 SHA_LEN=64
 
 def real(value, name, positive=False):
@@ -50,6 +51,8 @@ def evaluate(contract, witness):
         raise ValueError("NLO witness must originate in an actual pinned HyperIso run")
     if not all(valid_sha(witness.get(k)) for k in ("binary_sha256","source_LHA_sha256","runtime_log_sha256")):
         raise ValueError("Missing external provenance SHA256")
+    if witness.get("matching_basis")!=MATCHING_BASIS:
+        raise ValueError("Need explicit ordinary BMU matching basis, not effective dipoles")
     q=real(witness.get("qmatch_GeV"),"qmatch",positive=True)
     mt=real(witness.get("mt_MSbar_at_qmatch_GeV"),"top MSbar",positive=True)
     tanb=real(witness.get("tan_beta"),"tanbeta",positive=True)
@@ -93,6 +96,8 @@ def evaluate(contract, witness):
         "schema_version":"1.0.0","status":STATUS,
         "model":"ZeeTypeII_two_charged_scalar_real_quark_sector",
         "upstream_commit":EXPECTED_UPSTREAM,
+        "matching_basis":MATCHING_BASIS,
+        "sensitivity_status":"NLO_MATCHING_DIPOLE_ONLY_SENSITIVITY",
         "matching_scale_GeV":q,"alpha_s_160":alphas,"alpha_s_over_4pi":ratio,
         "weights":list(weights),"matching_coefficients":{
           "LO":{"DeltaC7":lo_c7,"DeltaC8":lo_c8},

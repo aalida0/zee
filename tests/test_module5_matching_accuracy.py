@@ -9,7 +9,7 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 from module5.hyperiso_patch_contract import make_contract
 from module5.bsgamma_lo import compute
-from module5.bsgamma_matching_accuracy import evaluate, STATUS, EXPECTED_UPSTREAM
+from module5.bsgamma_matching_accuracy import evaluate, STATUS, EXPECTED_UPSTREAM, MATCHING_BASIS
 
 M_T=163.96892236746697
 BETA=math.atan(5.3)
@@ -27,7 +27,7 @@ def mock_witness(phys=PHYS):
                        "C1_to_C6_LO_zero":True})
     return {"schema_version":"1.0.0","upstream_commit":EXPECTED_UPSTREAM,
             "source_status":"EXECUTED_HYPERISO_UNMODIFIED",
-            "normalization":"C_0_PLUS_ALPHA_S_OVER_4PI_TIMES_C_1",
+            "normalization":"C_0_PLUS_ALPHA_S_OVER_4PI_TIMES_C_1","matching_basis":MATCHING_BASIS,
             "binary_sha256":"a"*64,"source_LHA_sha256":"b"*64,"runtime_log_sha256":"c"*64,
             "qmatch_GeV":160.,"mt_MSbar_at_qmatch_GeV":phys["mt_MSbar_GeV"],
             "tan_beta":math.tan(phys["beta_rad"]),"alpha_s_at_qmatch":0.108,
@@ -74,6 +74,8 @@ class MatchingAccuracyMathTests(unittest.TestCase):
             lambda d:d.__setitem__("upstream_commit","bad"),
             lambda d:d.__setitem__("normalization","ALPHA_S_ALREADY_MULTIPLIED"),
             lambda d:d.__setitem__("binary_sha256",""),
+            lambda d:d.pop("matching_basis"),
+            lambda d:d.__setitem__("matching_basis","EFFECTIVE_DIPOLES"),
             lambda d:d.__setitem__("qmatch_GeV",81),
             lambda d:d.__setitem__("mt_MSbar_at_qmatch_GeV",163.),
             lambda d:d.__setitem__("tan_beta",1.),

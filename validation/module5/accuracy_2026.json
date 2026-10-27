@@ -1,0 +1,1414 @@
+{
+  "C1_LO_max_absolute_residual": 6.938893903907228e-18,
+  "basis_conversion": {
+    "C7_ordinary_1": "getM(C7,NLO)+4/9*getM(C4,NLO)",
+    "C8_ordinary_1": "getM(C8,NLO)+1/6*getM(C4,NLO)",
+    "native": "effective dipoles as BG 9802391v1 Sec.3/App.A4",
+    "witness": "ordinary BMU P4,P7,P8"
+  },
+  "blockers": [
+    "No numerical 160-GeV quadratic response implemented/validated from the inspected 2026 sources; the companion gives a low-scale bilinear rate framework, not an authenticated high-scale response matrix.",
+    "C4 NLO running/matrix elements and other operators not propagated to rate.",
+    "NP uncertainty, validity domain, covariance and statistical prescription unvalidated."
+  ],
+  "controls": {
+    "common_scale_GeV": 160,
+    "equal_mass_max_residual": 2.168404344971009e-19,
+    "equal_masses": "PASS",
+    "extra_alpha_s_factor_detected": "PASS",
+    "gamma_endpoints": "PASS",
+    "heavy_decoupling": "PASS",
+    "interchange_max_residual": 1.1102230246251565e-16,
+    "missing_basis_conversion_detected": "PASS_WITH_NONZERO_C4",
+    "negative_rejections": [
+      "effective_basis_label",
+      "wrong_scale",
+      "wrong_top_mass",
+      "reversed_LO_sign"
+    ],
+    "positive_negative_Yukawa_controls": "PASS",
+    "tanbeta_variation": "PASS"
+  },
+  "exclusion": null,
+  "gates": {
+    "2026_LINEARIZED_FLAVOR_FILTER_READY": false,
+    "curvature": "QUADRATIC_VALIDITY_UNKNOWN",
+    "independent": "C2_INDEPENDENT_NLO_PASS",
+    "native": "C2_NATIVE_NLO_MATCHING_PASS"
+  },
+  "impact": {
+    "2026_Eq4_matching_dipole_sensitivity_in_units_1e_minus4": {
+      "LO_NP_dipole_linear_shift": 0.4094799731787267,
+      "NLO_increment_over_LO_shift": -0.17630676528259454,
+      "NLO_matching_dipole_only_increment": -0.07219408951914487
+    },
+    "NP_theory_uncertainty": "NOT_QUANTIFIED",
+    "alpha_s_160": 0.10868631788645876,
+    "alpha_s_over_4pi": 0.008648982369043495,
+    "contract_sha256": "a297a28dfde8e7a8b1d80f8fb5a7721679b6b565421194cffa2a61b5a4e85daa",
+    "experimental_comparison": "NOT_EVALUATED",
+    "external_convention_status": "PASS_FOR_RETAINED_REAL_TOP_LO_ONLY",
+    "full_NP_NLO_rate": "NOT_EVALUATED",
+    "global_zee_acceptance": null,
+    "limitations": [
+      "This is a source-pinned matching sensitivity test, NOT a direct 2026 higher-order BR.",
+      "C4 NLO and other operators are NOT propagated into the 2026 Eq4 formula.",
+      "NLO increment is not a calibrated theory uncertainty.",
+      "Quadratic NP terms and matching-scale, mass-input and perturbative uncertainties remain open.",
+      "One-state 670 GeV Type-II limit cannot be applied to either Zee charged state."
+    ],
+    "matching_basis": "BMU_ORDINARY_P4_P7_P8",
+    "matching_coefficients": {
+      "LO": {
+        "DeltaC7": -0.03737804303348145,
+        "DeltaC8": -0.042311493964722
+      },
+      "LO_plus_NLO_dipole_only": {
+        "DeltaC7": -0.029984015312754186,
+        "DeltaC8": -0.038019404327798004
+      },
+      "NLO_raw_unmultiplied": {
+        "DeltaC4": 0.001068928996949981,
+        "DeltaC7": 0.8549014676214426,
+        "DeltaC8": 0.4962537156147157
+      },
+      "NLO_shift_times_alpha_s_over_4pi": {
+        "DeltaC4": 9.245148048379732e-06,
+        "DeltaC7": 0.007394027720727265,
+        "DeltaC8": 0.004292089636924
+      }
+    },
+    "matching_scale_GeV": 160.0,
+    "model": "ZeeTypeII_two_charged_scalar_real_quark_sector",
+    "nonlinear_BSM_curvature": "NOT_EVALUATED",
+    "omitted_NLO_fourquark_effects": "NOT_EVALUATED",
+    "physical_BR": null,
+    "provenance": {
+      "binary_sha256": "7c8e1ace8e50ace645e74ba7592ed85e737c91febdb70a2bf5915aec96b38881",
+      "runtime_log_sha256": "1c309ea82e04b5d915a0330cedaa38b4d2810dd999080a8b357e49b4f1853b01",
+      "source_LHA_sha256": "984391031656a5f4f86ee71f5b60e7d0cb2b1b80edabd9ff6ba912da3ba39374"
+    },
+    "schema_version": "1.0.0",
+    "sensitivity_status": "NLO_MATCHING_DIPOLE_ONLY_SENSITIVITY",
+    "status": "NLO_MATCHING_SENSITIVITY_ONLY_NOT_SCAN_FILTER",
+    "upstream_commit": "09d26ac6e71d1528922097a896d15693589f636b",
+    "weights": [
+      0.21389271457378156,
+      0.7861072854262184
+    ],
+    "witness_sha256": "2ccb9c5b044145e6db200a7c389728c774af644d8114e98fc375e2083b35d7fa"
+  },
+  "max_BMU_absolute_residual": 2.9976021664879227e-15,
+  "max_expansion_absolute_residual": 6.938893903907228e-18,
+  "physical_BR": null,
+  "published_values_1e_minus4": {
+    "SM_central": 3.54,
+    "SM_sigma": 0.14,
+    "experiment_central": 3.49,
+    "experiment_sigma": 0.19
+  },
+  "required_ancestor": "429a9d6de26a072dc0290db6ca1d050a362f5ecf",
+  "rows": [
+    {
+      "BMU": {
+        "C4_NLO_raw": 0.0016444129377754177,
+        "C7_LO": -0.05960262467298261,
+        "C7_NLO_raw": 1.1751998025266217,
+        "C8_LO": -0.06447194324898141,
+        "C8_NLO_raw": 0.6205402124890784
+      },
+      "BMU_residuals": {
+        "C4_NLO_raw": -6.505213034913027e-19,
+        "C7_LO": 2.0816681711721685e-17,
+        "C7_NLO_raw": 0.0,
+        "C8_LO": 1.3877787807814457e-17,
+        "C8_NLO_raw": 5.551115123125783e-16
+      },
+      "alpha_s": 0.10868631788645876,
+      "command": [
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/nlo_probe",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_0.lha",
+        "--spectrum",
+        "true"
+      ],
+      "expansion_max_residual": 1.734723475976807e-18,
+      "flip_down_Yukawa": false,
+      "frozen_LO_residuals": {
+        "C7": 1.3877787807814457e-17,
+        "C8": 2.7755575615628914e-17
+      },
+      "lha_sha256": "4fe33b5ddbaf05b073c354d87a9e65d79267bc01cac0625372f9d8cf20155e13",
+      "log_sha256": "e2f1ffa28a321d77b3946f7dca646b8f2019c3b955e82f14f93a8facc9f38b8b",
+      "mass": 550.0,
+      "mt": 163.96892236746697,
+      "native": {
+        "C1": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C2": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C3": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C4": {
+          "LO": 0.0,
+          "NLO_raw": 0.001644412937775417,
+          "full_LO": 0.0,
+          "full_NLO": 1.42224985062466e-05
+        },
+        "C5": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C6": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C7": {
+          "LO": -0.059602624672982586,
+          "NLO_raw": 1.1744689523320548,
+          "full_LO": -0.059602624672982586,
+          "full_NLO": -0.04944466341127366
+        },
+        "C8": {
+          "LO": -0.0644719432489814,
+          "NLO_raw": 0.6202661436661164,
+          "full_LO": -0.0644719432489814,
+          "full_NLO": -0.059107272308298556
+        }
+      },
+      "state": {
+        "C1_to_C6_LO_zero": true,
+        "C4_NLO_raw": 0.001644412937775417,
+        "C7_LO": -0.059602624672982586,
+        "C7_NLO_raw": 1.1751998025266217,
+        "C8_LO": -0.0644719432489814,
+        "C8_NLO_raw": 0.620540212489079,
+        "mH_GeV": 550.0
+      },
+      "tanbeta": 5.299999999999997
+    },
+    {
+      "BMU": {
+        "C4_NLO_raw": 0.0009123449980750296,
+        "C7_LO": -0.031330934470478966,
+        "C7_NLO_raw": 0.7677511745298495,
+        "C8_LO": -0.03628183523815912,
+        "C8_NLO_raw": 0.4624364788403356
+      },
+      "BMU_residuals": {
+        "C4_NLO_raw": 1.0842021724855044e-19,
+        "C7_LO": 0.0,
+        "C7_NLO_raw": 6.661338147750939e-16,
+        "C8_LO": 0.0,
+        "C8_NLO_raw": 2.7755575615628914e-16
+      },
+      "alpha_s": 0.10868631788645876,
+      "command": [
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/nlo_probe",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_1.lha",
+        "--spectrum",
+        "true"
+      ],
+      "expansion_max_residual": 8.673617379884035e-19,
+      "flip_down_Yukawa": false,
+      "frozen_LO_residuals": {
+        "C7": -6.938893903907228e-18,
+        "C8": 0.0
+      },
+      "lha_sha256": "09e9bc266b5b92b77cda07d6e6b2a4fd5d978bd63d1e83b69c8ad46c629865eb",
+      "log_sha256": "32945e66ba97bfe4f3d4dddcb718427726648f9dab396435e9762727901afc34",
+      "mass": 900.0,
+      "mt": 163.96892236746697,
+      "native": {
+        "C1": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C2": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C3": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C4": {
+          "LO": 0.0,
+          "NLO_raw": 0.0009123449980750297,
+          "full_LO": 0.0,
+          "full_NLO": 7.890855802835953e-06
+        },
+        "C5": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C6": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C7": {
+          "LO": -0.031330934470478966,
+          "NLO_raw": 0.7673456878640391,
+          "full_LO": -0.031330934470478966,
+          "full_NLO": -0.024694175145181338
+        },
+        "C8": {
+          "LO": -0.03628183523815912,
+          "NLO_raw": 0.4622844213406567,
+          "full_LO": -0.03628183523815912,
+          "full_NLO": -0.03228354542850031
+        }
+      },
+      "state": {
+        "C1_to_C6_LO_zero": true,
+        "C4_NLO_raw": 0.0009123449980750297,
+        "C7_LO": -0.031330934470478966,
+        "C7_NLO_raw": 0.7677511745298502,
+        "C8_LO": -0.03628183523815912,
+        "C8_NLO_raw": 0.4624364788403359,
+        "mH_GeV": 900.0
+      },
+      "tanbeta": 5.299999999999997
+    },
+    {
+      "BMU": {
+        "C4_NLO_raw": 0.3319504272005279,
+        "C7_LO": -0.1828745095243148,
+        "C7_NLO_raw": 2.252757410689201,
+        "C8_LO": -0.15873212263641728,
+        "C8_NLO_raw": 0.9946651603241619
+      },
+      "BMU_residuals": {
+        "C4_NLO_raw": -5.551115123125783e-17,
+        "C7_LO": -2.7755575615628914e-17,
+        "C7_NLO_raw": 2.220446049250313e-15,
+        "C8_LO": -5.551115123125783e-17,
+        "C8_NLO_raw": 2.220446049250313e-16
+      },
+      "alpha_s": 0.10868631788645876,
+      "command": [
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/nlo_probe",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_2.lha",
+        "--spectrum",
+        "true"
+      ],
+      "expansion_max_residual": 6.938893903907228e-18,
+      "flip_down_Yukawa": false,
+      "frozen_LO_residuals": {
+        "C7": 0.0,
+        "C8": -8.326672684688674e-17
+      },
+      "lha_sha256": "2684a7b78f37434399c05e1a9f924e4c4c7365154ea1fa85031cb8349ce49269",
+      "log_sha256": "89d7b4ace08b02d4ce3ed99eefdb38570dc45789552a6b64dd99d21e8208a5ab",
+      "mass": 300.0,
+      "mt": 163.96892236746697,
+      "native": {
+        "C1": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C2": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C3": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C4": {
+          "LO": 0.0,
+          "NLO_raw": 0.33195042720052786,
+          "full_LO": 0.0,
+          "full_NLO": 0.0028710333922538217
+        },
+        "C5": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C6": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C7": {
+          "LO": -0.18287450952431483,
+          "NLO_raw": 2.105223887488969,
+          "full_LO": -0.18287450952431483,
+          "full_NLO": -0.16466646523853354
+        },
+        "C8": {
+          "LO": -0.15873212263641734,
+          "NLO_raw": 0.9393400891240741,
+          "full_LO": -0.15873212263641734,
+          "full_NLO": -0.15060778676704747
+        }
+      },
+      "state": {
+        "C1_to_C6_LO_zero": true,
+        "C4_NLO_raw": 0.33195042720052786,
+        "C7_LO": -0.18287450952431483,
+        "C7_NLO_raw": 2.2527574106892034,
+        "C8_LO": -0.15873212263641734,
+        "C8_NLO_raw": 0.9946651603241621,
+        "mH_GeV": 300.0
+      },
+      "tanbeta": 0.5
+    },
+    {
+      "BMU": {
+        "C4_NLO_raw": 0.3319504272005279,
+        "C7_LO": 0.04969197255873771,
+        "C7_NLO_raw": -1.252923698952069,
+        "C8_LO": 0.06739688947316579,
+        "C8_NLO_raw": -0.565827715878391
+      },
+      "BMU_residuals": {
+        "C4_NLO_raw": -5.551115123125783e-17,
+        "C7_LO": -1.3877787807814457e-17,
+        "C7_NLO_raw": 2.220446049250313e-16,
+        "C8_LO": 1.1102230246251565e-16,
+        "C8_NLO_raw": 2.9976021664879227e-15
+      },
+      "alpha_s": 0.10868631788645876,
+      "command": [
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/nlo_probe",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_3.lha",
+        "--spectrum",
+        "true"
+      ],
+      "expansion_max_residual": 1.734723475976807e-18,
+      "flip_down_Yukawa": true,
+      "frozen_LO_residuals": {},
+      "lha_sha256": "a990d83a9d967804f3677df20389b32abc3eedaded9d98bf8697e48e44a7d708",
+      "log_sha256": "b51032b11ebbd49771881d26d9bd599e23e17769a50d1657c66e10013820affd",
+      "mass": 300.0,
+      "mt": 163.96892236746697,
+      "native": {
+        "C1": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C2": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C3": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C4": {
+          "LO": 0.0,
+          "NLO_raw": 0.33195042720052786,
+          "full_LO": 0.0,
+          "full_NLO": 0.0028710333922538217
+        },
+        "C5": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C6": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C7": {
+          "LO": 0.049691972558737696,
+          "NLO_raw": -1.4004572221523033,
+          "full_LO": 0.049691972558737696,
+          "full_NLO": 0.0375794427357428
+        },
+        "C8": {
+          "LO": 0.0673968894731659,
+          "NLO_raw": -0.621152787078476,
+          "full_LO": 0.0673968894731659,
+          "full_NLO": 0.06202454996924193
+        }
+      },
+      "state": {
+        "C1_to_C6_LO_zero": true,
+        "C4_NLO_raw": 0.33195042720052786,
+        "C7_LO": 0.049691972558737696,
+        "C7_NLO_raw": -1.2529236989520687,
+        "C8_LO": 0.0673968894731659,
+        "C8_NLO_raw": -0.565827715878388,
+        "mH_GeV": 300.0
+      },
+      "tanbeta": 0.5
+    },
+    {
+      "BMU": {
+        "C4_NLO_raw": 0.011547889855527859,
+        "C7_LO": -0.061015148990460254,
+        "C7_NLO_raw": 1.1880171117666185,
+        "C8_LO": -0.06554247561193854,
+        "C8_NLO_raw": 0.6272135354344152
+      },
+      "BMU_residuals": {
+        "C4_NLO_raw": -3.469446951953614e-18,
+        "C7_LO": 2.7755575615628914e-17,
+        "C7_NLO_raw": 0.0,
+        "C8_LO": 2.7755575615628914e-17,
+        "C8_NLO_raw": 2.220446049250313e-16
+      },
+      "alpha_s": 0.10868631788645876,
+      "command": [
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/nlo_probe",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_4.lha",
+        "--spectrum",
+        "true"
+      ],
+      "expansion_max_residual": 8.673617379884035e-19,
+      "flip_down_Yukawa": false,
+      "frozen_LO_residuals": {
+        "C7": 2.0816681711721685e-17,
+        "C8": 2.7755575615628914e-17
+      },
+      "lha_sha256": "8f72bb7e9e1eeea8904cbc6d08ad7430d25aba35ecdaac3e41d87bb00f80667b",
+      "log_sha256": "f91f277cb48a99e2ada30fdb62a794555fbce027f62705cd191cfecb4f616da1",
+      "mass": 550.0,
+      "mt": 163.96892236746697,
+      "native": {
+        "C1": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C2": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C3": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C4": {
+          "LO": 0.0,
+          "NLO_raw": 0.011547889855527856,
+          "full_LO": 0.0,
+          "full_NLO": 9.987749576011665e-05
+        },
+        "C5": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C6": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C7": {
+          "LO": -0.061015148990460226,
+          "NLO_raw": 1.1828847162752727,
+          "full_LO": -0.061015148990460226,
+          "full_NLO": -0.050784399934784376
+        },
+        "C8": {
+          "LO": -0.06554247561193852,
+          "NLO_raw": 0.6252888871251607,
+          "full_LO": -0.06554247561193852,
+          "full_NLO": -0.06013436305163417
+        }
+      },
+      "state": {
+        "C1_to_C6_LO_zero": true,
+        "C4_NLO_raw": 0.011547889855527856,
+        "C7_LO": -0.061015148990460226,
+        "C7_NLO_raw": 1.1880171117666185,
+        "C8_LO": -0.06554247561193852,
+        "C8_NLO_raw": 0.6272135354344154,
+        "mH_GeV": 550.0
+      },
+      "tanbeta": 2.0
+    },
+    {
+      "BMU": {
+        "C4_NLO_raw": 0.011547889855527859,
+        "C7_LO": 0.05772101797527163,
+        "C7_NLO_raw": -1.158126018653168,
+        "C8_LO": 0.06304589993111946,
+        "C8_NLO_raw": -0.6116507590513094
+      },
+      "BMU_residuals": {
+        "C4_NLO_raw": -3.469446951953614e-18,
+        "C7_LO": -2.0816681711721685e-17,
+        "C7_NLO_raw": 0.0,
+        "C8_LO": -1.3877787807814457e-17,
+        "C8_NLO_raw": -3.3306690738754696e-16
+      },
+      "alpha_s": 0.10868631788645876,
+      "command": [
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/nlo_probe",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_5.lha",
+        "--spectrum",
+        "true"
+      ],
+      "expansion_max_residual": 1.734723475976807e-18,
+      "flip_down_Yukawa": true,
+      "frozen_LO_residuals": {},
+      "lha_sha256": "636141e9b8d16be08a58cbeac0b15dac887ca5968541de62f012d5a3a6e1fee0",
+      "log_sha256": "e1fdf6b90afb3e992e1dd94170c3dffd3ea515d0d9b36a6b1d658d2b1063382c",
+      "mass": 550.0,
+      "mt": 163.96892236746697,
+      "native": {
+        "C1": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C2": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C3": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C4": {
+          "LO": 0.0,
+          "NLO_raw": 0.011547889855527856,
+          "full_LO": 0.0,
+          "full_NLO": 9.987749576011665e-05
+        },
+        "C5": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C6": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C7": {
+          "LO": 0.057721017975271606,
+          "NLO_raw": -1.163258414144514,
+          "full_LO": 0.057721017975271606,
+          "full_NLO": 0.04766001646069421
+        },
+        "C8": {
+          "LO": 0.06304589993111945,
+          "NLO_raw": -0.6135754073605644,
+          "full_LO": 0.06304589993111945,
+          "full_NLO": 0.057739097050779245
+        }
+      },
+      "state": {
+        "C1_to_C6_LO_zero": true,
+        "C4_NLO_raw": 0.011547889855527856,
+        "C7_LO": 0.057721017975271606,
+        "C7_NLO_raw": -1.158126018653168,
+        "C8_LO": 0.06304589993111945,
+        "C8_NLO_raw": -0.6116507590513097,
+        "mH_GeV": 550.0
+      },
+      "tanbeta": 2.0
+    },
+    {
+      "BMU": {
+        "C4_NLO_raw": 1.0251108398371021e-05,
+        "C7_LO": -0.03123231462560748,
+        "C7_NLO_raw": 0.7667504429171231,
+        "C8_LO": -0.036203003436604944,
+        "C8_NLO_raw": 0.46183230835568967
+      },
+      "BMU_residuals": {
+        "C4_NLO_raw": 1.6940658945086007e-21,
+        "C7_LO": -6.938893903907228e-18,
+        "C7_NLO_raw": 5.551115123125783e-16,
+        "C8_LO": 6.938893903907228e-18,
+        "C8_NLO_raw": 1.1102230246251565e-16
+      },
+      "alpha_s": 0.10868631788645876,
+      "command": [
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/nlo_probe",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_6.lha",
+        "--spectrum",
+        "true"
+      ],
+      "expansion_max_residual": 2.6020852139652106e-18,
+      "flip_down_Yukawa": false,
+      "frozen_LO_residuals": {
+        "C7": -6.938893903907228e-18,
+        "C8": 0.0
+      },
+      "lha_sha256": "b0a25692e500ea955f3c0ee04ea32c6695c204083949bf1affff81223bba36ad",
+      "log_sha256": "1bae818a1db115c2c95708f6b24a54f82bb838d3a5b556ac13f5f98ba37a0a0e",
+      "mass": 900.0,
+      "mt": 163.96892236746697,
+      "native": {
+        "C1": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C2": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C3": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C4": {
+          "LO": 0.0,
+          "NLO_raw": 1.0251108398371023e-05,
+          "full_LO": 0.0,
+          "full_NLO": 8.866165580066468e-08
+        },
+        "C5": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C6": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C7": {
+          "LO": -0.031232314625607487,
+          "NLO_raw": 0.7667458868689466,
+          "full_LO": -0.031232314625607487,
+          "full_NLO": -0.02460074296854135
+        },
+        "C8": {
+          "LO": -0.03620300343660494,
+          "NLO_raw": 0.46183059983762337,
+          "full_LO": -0.03620300343660494,
+          "full_NLO": -0.032208638721124554
+        }
+      },
+      "state": {
+        "C1_to_C6_LO_zero": true,
+        "C4_NLO_raw": 1.0251108398371023e-05,
+        "C7_LO": -0.031232314625607487,
+        "C7_NLO_raw": 0.7667504429171237,
+        "C8_LO": -0.03620300343660494,
+        "C8_NLO_raw": 0.4618323083556898,
+        "mH_GeV": 900.0
+      },
+      "tanbeta": 50.0
+    },
+    {
+      "BMU": {
+        "C4_NLO_raw": 1.0251108398371021e-05,
+        "C7_LO": 0.031230073256429444,
+        "C7_NLO_raw": -0.7667276989248245,
+        "C8_LO": 0.03620121179750348,
+        "C8_NLO_raw": -0.4618185771527626
+      },
+      "BMU_residuals": {
+        "C4_NLO_raw": 1.6940658945086007e-21,
+        "C7_LO": 6.938893903907228e-18,
+        "C7_NLO_raw": -5.551115123125783e-16,
+        "C8_LO": -6.938893903907228e-18,
+        "C8_NLO_raw": -3.885780586188048e-16
+      },
+      "alpha_s": 0.10868631788645876,
+      "command": [
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/nlo_probe",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_7.lha",
+        "--spectrum",
+        "true"
+      ],
+      "expansion_max_residual": 8.673617379884035e-19,
+      "flip_down_Yukawa": true,
+      "frozen_LO_residuals": {},
+      "lha_sha256": "4fa9f431adb53e9d50fa7fa10db0b2f94cc268387d0d601f6d9363718e76f26d",
+      "log_sha256": "d391949c5fd269de38e83518c270575d8c50db7646fb5d84a80605ad500f98f9",
+      "mass": 900.0,
+      "mt": 163.96892236746697,
+      "native": {
+        "C1": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C2": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C3": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C4": {
+          "LO": 0.0,
+          "NLO_raw": 1.0251108398371023e-05,
+          "full_LO": 0.0,
+          "full_NLO": 8.866165580066468e-08
+        },
+        "C5": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C6": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C7": {
+          "LO": 0.03123007325642945,
+          "NLO_raw": -0.7667322549730021,
+          "full_LO": 0.03123007325642945,
+          "full_NLO": 0.024598619501390993
+        },
+        "C8": {
+          "LO": 0.03620121179750347,
+          "NLO_raw": -0.4618202856708294,
+          "full_LO": 0.03620121179750347,
+          "full_NLO": 0.032206936289069836
+        }
+      },
+      "state": {
+        "C1_to_C6_LO_zero": true,
+        "C4_NLO_raw": 1.0251108398371023e-05,
+        "C7_LO": 0.03123007325642945,
+        "C7_NLO_raw": -0.7667276989248251,
+        "C8_LO": 0.03620121179750347,
+        "C8_NLO_raw": -0.461818577152763,
+        "mH_GeV": 900.0
+      },
+      "tanbeta": 50.0
+    },
+    {
+      "BMU": {
+        "C4_NLO_raw": 0.00029857587604772734,
+        "C7_LO": -0.009659832708610995,
+        "C7_NLO_raw": 0.32616165295333543,
+        "C8_LO": -0.012076001836761772,
+        "C8_NLO_raw": 0.23219254603920195
+      },
+      "BMU_residuals": {
+        "C4_NLO_raw": 5.421010862427522e-20,
+        "C7_LO": 0.0,
+        "C7_NLO_raw": 1.1102230246251565e-16,
+        "C8_LO": 0.0,
+        "C8_NLO_raw": 2.7755575615628914e-17
+      },
+      "alpha_s": 0.10868631788645876,
+      "command": [
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/nlo_probe",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_8.lha",
+        "--spectrum",
+        "true"
+      ],
+      "expansion_max_residual": 4.336808689942018e-19,
+      "flip_down_Yukawa": false,
+      "frozen_LO_residuals": {
+        "C7": 1.734723475976807e-18,
+        "C8": 0.0
+      },
+      "lha_sha256": "d62db8216d5d2470ea0363f915e7598539264f8282e753c4a359c31113979749",
+      "log_sha256": "f7950da4383eb894ea55ba8c6102133a449172a9c32acb1cec39a90e15ed904a",
+      "mass": 2000.0,
+      "mt": 163.96892236746697,
+      "native": {
+        "C1": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C2": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C3": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C4": {
+          "LO": 0.0,
+          "NLO_raw": 0.0002985758760477274,
+          "full_LO": 0.0,
+          "full_NLO": 2.58237748775851e-06
+        },
+        "C5": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C6": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C7": {
+          "LO": -0.009659832708610995,
+          "NLO_raw": 0.326028952563981,
+          "full_LO": -0.009659832708610995,
+          "full_NLO": -0.006840014046087405
+        },
+        "C8": {
+          "LO": -0.012076001836761772,
+          "NLO_raw": 0.23214278339319402,
+          "full_LO": -0.012076001836761772,
+          "full_NLO": -0.010068202996093354
+        }
+      },
+      "state": {
+        "C1_to_C6_LO_zero": true,
+        "C4_NLO_raw": 0.0002985758760477274,
+        "C7_LO": -0.009659832708610995,
+        "C7_NLO_raw": 0.32616165295333555,
+        "C8_LO": -0.012076001836761772,
+        "C8_NLO_raw": 0.23219254603920197,
+        "mH_GeV": 2000.0
+      },
+      "tanbeta": 5.3
+    },
+    {
+      "BMU": {
+        "C4_NLO_raw": 0.00029857587604772734,
+        "C7_LO": 0.009615312374563064,
+        "C7_NLO_raw": -0.3256707385844176,
+        "C8_LO": 0.012038756159352453,
+        "C8_NLO_raw": -0.23183120928987672
+      },
+      "BMU_residuals": {
+        "C4_NLO_raw": 5.421010862427522e-20,
+        "C7_LO": 0.0,
+        "C7_NLO_raw": -5.551115123125783e-17,
+        "C8_LO": 1.734723475976807e-18,
+        "C8_NLO_raw": -5.551115123125783e-17
+      },
+      "alpha_s": 0.10868631788645876,
+      "command": [
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/nlo_probe",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_9.lha",
+        "--spectrum",
+        "true"
+      ],
+      "expansion_max_residual": 4.336808689942018e-19,
+      "flip_down_Yukawa": true,
+      "frozen_LO_residuals": {},
+      "lha_sha256": "8e97c89d73713483f775187af7ea2553a47d47283ed6f1590476243e3e0bb4fa",
+      "log_sha256": "3649d112cab095db00b66ae8646d8dc99525d13c97349d3f5c6dc96c680853b5",
+      "mass": 2000.0,
+      "mt": 163.96892236746697,
+      "native": {
+        "C1": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C2": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C3": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C4": {
+          "LO": 0.0,
+          "NLO_raw": 0.0002985758760477274,
+          "full_LO": 0.0,
+          "full_NLO": 2.58237748775851e-06
+        },
+        "C5": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C6": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C7": {
+          "LO": 0.009615312374563064,
+          "NLO_raw": -0.3258034389737722,
+          "full_LO": 0.009615312374563064,
+          "full_NLO": 0.00679744417510517
+        },
+        "C8": {
+          "LO": 0.012038756159352454,
+          "NLO_raw": -0.23188097193588472,
+          "full_LO": 0.012038756159352454,
+          "full_NLO": 0.010033221721362317
+        }
+      },
+      "state": {
+        "C1_to_C6_LO_zero": true,
+        "C4_NLO_raw": 0.0002985758760477274,
+        "C7_LO": 0.009615312374563064,
+        "C7_NLO_raw": -0.32567073858441764,
+        "C8_LO": 0.012038756159352454,
+        "C8_NLO_raw": -0.23183120928987677,
+        "mH_GeV": 2000.0
+      },
+      "tanbeta": 5.3
+    },
+    {
+      "BMU": {
+        "C4_NLO_raw": 3.6668469471231975e-07,
+        "C7_LO": -1.0832229918500744e-05,
+        "C7_NLO_raw": 0.0009807674067560399,
+        "C8_LO": -1.5234206465763425e-05,
+        "C8_NLO_raw": 0.000936419341307001
+      },
+      "BMU_residuals": {
+        "C4_NLO_raw": 0.0,
+        "C7_LO": 3.3881317890172014e-21,
+        "C7_NLO_raw": 8.673617379884035e-19,
+        "C8_LO": 1.6940658945086007e-21,
+        "C8_NLO_raw": 1.0842021724855044e-19
+      },
+      "alpha_s": 0.10868631788645876,
+      "command": [
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/nlo_probe",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_10.lha",
+        "--spectrum",
+        "true"
+      ],
+      "expansion_max_residual": 0.0,
+      "flip_down_Yukawa": false,
+      "frozen_LO_residuals": {
+        "C7": 0.0,
+        "C8": 0.0
+      },
+      "lha_sha256": "dcd6ae104846250bc73f6db811c1403430812652a290cd58ccc658f751560110",
+      "log_sha256": "af26fcf6b3aef2acc4dc653a74b4b241f729125e4a934f4804c8096940123512",
+      "mass": 100000.0,
+      "mt": 163.96892236746697,
+      "native": {
+        "C1": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C2": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C3": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C4": {
+          "LO": 0.0,
+          "NLO_raw": 3.6668469471231975e-07,
+          "full_LO": 0.0,
+          "full_NLO": 3.17144945956495e-09
+        },
+        "C5": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C6": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C7": {
+          "LO": -1.0832229918500741e-05,
+          "NLO_raw": 0.0009806044357806131,
+          "full_LO": -1.0832229918500741e-05,
+          "full_NLO": -2.3509994424283737e-06
+        },
+        "C8": {
+          "LO": -1.5234206465763423e-05,
+          "NLO_raw": 0.0009363582271912157,
+          "full_LO": -1.5234206465763423e-05,
+          "full_NLO": -7.135660667677775e-06
+        }
+      },
+      "state": {
+        "C1_to_C6_LO_zero": true,
+        "C4_NLO_raw": 3.6668469471231975e-07,
+        "C7_LO": -1.0832229918500741e-05,
+        "C7_NLO_raw": 0.0009807674067560408,
+        "C8_LO": -1.5234206465763423e-05,
+        "C8_NLO_raw": 0.0009364193413070011,
+        "mH_GeV": 100000.0
+      },
+      "tanbeta": 5.3
+    },
+    {
+      "BMU": {
+        "C4_NLO_raw": 3.6668469471231975e-07,
+        "C7_LO": 1.0813620025390157e-05,
+        "C7_NLO_raw": -0.000980655042604719,
+        "C8_LO": 1.5218255698252154e-05,
+        "C8_NLO_raw": -0.0009362199540099643
+      },
+      "BMU_residuals": {
+        "C4_NLO_raw": 0.0,
+        "C7_LO": -1.6940658945086007e-21,
+        "C7_NLO_raw": -6.505213034913027e-19,
+        "C8_LO": -3.3881317890172014e-21,
+        "C8_NLO_raw": -3.2526065174565133e-19
+      },
+      "alpha_s": 0.10868631788645876,
+      "command": [
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/nlo_probe",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_11.lha",
+        "--spectrum",
+        "true"
+      ],
+      "expansion_max_residual": 0.0,
+      "flip_down_Yukawa": true,
+      "frozen_LO_residuals": {},
+      "lha_sha256": "57e57bb4a9f290cba5634c2f8153dd41a732628c95cd74f0997f6b6b77ddde28",
+      "log_sha256": "ba83d1b98ed156c3866ec4d792541e46e34ca28901c5b59308b9e68a829997ab",
+      "mass": 100000.0,
+      "mt": 163.96892236746697,
+      "native": {
+        "C1": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C2": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C3": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C4": {
+          "LO": 0.0,
+          "NLO_raw": 3.6668469471231975e-07,
+          "full_LO": 0.0,
+          "full_NLO": 3.17144945956495e-09
+        },
+        "C5": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C6": {
+          "LO": 0.0,
+          "NLO_raw": 0.0,
+          "full_LO": 0.0,
+          "full_NLO": 0.0
+        },
+        "C7": {
+          "LO": 1.0813620025390155e-05,
+          "NLO_raw": -0.0009808180135801473,
+          "full_LO": 1.0813620025390155e-05,
+          "full_NLO": 2.3305423186951984e-06
+        },
+        "C8": {
+          "LO": 1.521825569825215e-05,
+          "NLO_raw": -0.00093628106812575,
+          "full_LO": 1.521825569825215e-05,
+          "full_NLO": 7.120377247563327e-06
+        }
+      },
+      "state": {
+        "C1_to_C6_LO_zero": true,
+        "C4_NLO_raw": 3.6668469471231975e-07,
+        "C7_LO": 1.0813620025390155e-05,
+        "C7_NLO_raw": -0.0009806550426047196,
+        "C8_LO": 1.521825569825215e-05,
+        "C8_NLO_raw": -0.0009362199540099646,
+        "mH_GeV": 100000.0
+      },
+      "tanbeta": 5.3
+    }
+  ],
+  "schema_version": "1.0.0",
+  "sensitivity_status": "NLO_MATCHING_DIPOLE_ONLY_SENSITIVITY",
+  "sources": [
+    {
+      "sha256": "c40593a2da269c29442462bdbaad56009daae25c76579521ec8d75394bc233ed",
+      "url": "https://arxiv.org/html/hep-ph/9904413v1"
+    },
+    {
+      "sha256": "3a08ec1038498f6f73ac14f62ea672de586b038aa335822c28d37b7fd21defe6",
+      "url": "https://arxiv.org/html/hep-ph/9802391v1"
+    },
+    {
+      "sha256": "5300aaf2e8d0015fbb37f52aefd866b0d9c5c270e18921e71971b0e0f4724b7b",
+      "url": "https://arxiv.org/html/2608.29863v1"
+    },
+    {
+      "sha256": "9f3c7513ef3730b188fed186c70e58589048949c6f1d62c4dab3fe57974d1d78",
+      "url": "https://arxiv.org/html/2608.29864v1"
+    }
+  ],
+  "tests": [
+    {
+      "command": [
+        "/usr/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_module5_matching_accuracy.py",
+        "-v"
+      ],
+      "log_sha256": "0a37dc6dbf77c2bba1aa7e62e6fb0fe93cf433fea182dda2150137d93434ae68",
+      "returncode": 0,
+      "tests_run": 5
+    },
+    {
+      "command": [
+        "/usr/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_module5_bsgamma_2026_linear.py",
+        "-v"
+      ],
+      "log_sha256": "54761b141dbc42825e817f5a3f5318b0dfd466ecbf1aeb2b6ee8671145eff1e3",
+      "returncode": 0,
+      "tests_run": 11
+    },
+    {
+      "command": [
+        "/usr/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_module5_two_state_patch_contract.py",
+        "-v"
+      ],
+      "log_sha256": "848297e47814471c7fec88b433c55c1a61950d51da891c6c08c363df5e9a5a01",
+      "returncode": 0,
+      "tests_run": 7
+    }
+  ],
+  "tests_total": 23,
+  "upstream": {
+    "binary_sha256": "7f0c0b0b0a0461c7f7b672bf89ba13b06a9eda41c3f6dafd5c48564e83d6670a",
+    "build_directory": "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/build",
+    "cmake_cache_sha256": "d926f3779c085426b1ba55e2f7cceb9447451202941b37f897242793dd2023a4",
+    "commit": "09d26ac6e71d1528922097a896d15693589f636b",
+    "tracked_clean": true,
+    "version": "1.0.3"
+  },
+  "verified_artifacts_sha256": {
+    "/home/amine/zee-bsgamma-accuracy/module5/bsgamma_matching_accuracy.py": "1e80bf7650de2bff9bb0d6ca01805988f35e495fd99d6abd1655a61bf4828232",
+    "/home/amine/zee-bsgamma-accuracy/scripts/zee_module5_bmu_nlo.py": "0c2dfb32a7138b02fa4a52c163c63f942f313bb5d697545e138ef1915c200c4e",
+    "/home/amine/zee-bsgamma-accuracy/scripts/zee_module5_nlo_probe.cpp": "803b2eeb74ab7e6cb3e9b049fa4ee964575b218ffb155a07bb6eaa2c560634d9",
+    "/home/amine/zee-bsgamma-accuracy/scripts/zee_module5_nlo_validate.py": "e9549b025e389be468b6e1aca11609c712c2b8c0efec85555aa359c710577823",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/2026_reference_input.json": "4955cab1809f1b89c2078af5dacaa8eda19f7de9523689e2884e30a724eedc38",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/bg.html": "3a08ec1038498f6f73ac14f62ea672de586b038aa335822c28d37b7fd21defe6",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/bmu.html": "c40593a2da269c29442462bdbaad56009daae25c76579521ec8d75394bc233ed",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/companion.html": "9f3c7513ef3730b188fed186c70e58589048949c6f1d62c4dab3fe57974d1d78",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/misiak.html": "5300aaf2e8d0015fbb37f52aefd866b0d9c5c270e18921e71971b0e0f4724b7b",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/nlo_probe": "7c8e1ace8e50ace645e74ba7592ed85e737c91febdb70a2bf5915aec96b38881",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/runtime.log": "1c309ea82e04b5d915a0330cedaa38b4d2810dd999080a8b357e49b4f1853b01",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_0.lha": "4fe33b5ddbaf05b073c354d87a9e65d79267bc01cac0625372f9d8cf20155e13",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_0.log": "e2f1ffa28a321d77b3946f7dca646b8f2019c3b955e82f14f93a8facc9f38b8b",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_1.lha": "09e9bc266b5b92b77cda07d6e6b2a4fd5d978bd63d1e83b69c8ad46c629865eb",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_1.log": "32945e66ba97bfe4f3d4dddcb718427726648f9dab396435e9762727901afc34",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_10.lha": "dcd6ae104846250bc73f6db811c1403430812652a290cd58ccc658f751560110",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_10.log": "af26fcf6b3aef2acc4dc653a74b4b241f729125e4a934f4804c8096940123512",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_11.lha": "57e57bb4a9f290cba5634c2f8153dd41a732628c95cd74f0997f6b6b77ddde28",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_11.log": "ba83d1b98ed156c3866ec4d792541e46e34ca28901c5b59308b9e68a829997ab",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_2.lha": "2684a7b78f37434399c05e1a9f924e4c4c7365154ea1fa85031cb8349ce49269",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_2.log": "89d7b4ace08b02d4ce3ed99eefdb38570dc45789552a6b64dd99d21e8208a5ab",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_3.lha": "a990d83a9d967804f3677df20389b32abc3eedaded9d98bf8697e48e44a7d708",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_3.log": "b51032b11ebbd49771881d26d9bd599e23e17769a50d1657c66e10013820affd",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_4.lha": "8f72bb7e9e1eeea8904cbc6d08ad7430d25aba35ecdaac3e41d87bb00f80667b",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_4.log": "f91f277cb48a99e2ada30fdb62a794555fbce027f62705cd191cfecb4f616da1",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_5.lha": "636141e9b8d16be08a58cbeac0b15dac887ca5968541de62f012d5a3a6e1fee0",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_5.log": "e1fdf6b90afb3e992e1dd94170c3dffd3ea515d0d9b36a6b1d658d2b1063382c",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_6.lha": "b0a25692e500ea955f3c0ee04ea32c6695c204083949bf1affff81223bba36ad",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_6.log": "1bae818a1db115c2c95708f6b24a54f82bb838d3a5b556ac13f5f98ba37a0a0e",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_7.lha": "4fa9f431adb53e9d50fa7fa10db0b2f94cc268387d0d601f6d9363718e76f26d",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_7.log": "d391949c5fd269de38e83518c270575d8c50db7646fb5d84a80605ad500f98f9",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_8.lha": "d62db8216d5d2470ea0363f915e7598539264f8282e753c4a359c31113979749",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_8.log": "f7950da4383eb894ea55ba8c6102133a449172a9c32acb1cec39a90e15ed904a",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_9.lha": "8e97c89d73713483f775187af7ea2553a47d47283ed6f1590476243e3e0bb4fa",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/state_9.log": "3649d112cab095db00b66ae8646d8dc99525d13c97349d3f5c6dc96c680853b5",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/test_module5_bsgamma_2026_linear.py.log": "54761b141dbc42825e817f5a3f5318b0dfd466ecbf1aeb2b6ee8671145eff1e3",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/test_module5_matching_accuracy.py.log": "0a37dc6dbf77c2bba1aa7e62e6fb0fe93cf433fea182dda2150137d93434ae68",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2/test_module5_two_state_patch_contract.py.log": "848297e47814471c7fec88b433c55c1a61950d51da891c6c08c363df5e9a5a01",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2_contract.json": "a297a28dfde8e7a8b1d80f8fb5a7721679b6b565421194cffa2a61b5a4e85daa",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2_native_nlo_witness.json": "2ccb9c5b044145e6db200a7c389728c774af644d8114e98fc375e2083b35d7fa",
+    "/home/amine/zee-bsgamma-accuracy/validation/module5/local/c2_nlo_impact.json": "561c96693493a9568202f43f8fd357020b805dab34f114704154e29dbee8a416",
+    "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/Hyperiso/Hyperiso/core/src/Core/infrastructure/QCDHelper.cpp": "47dbcb5c107774a33395b6a8a31c284f87289ef2c4a9d7a87059482c70f2d86b",
+    "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/Hyperiso/Hyperiso/core/src/Math/domain/special/special_SM.cpp": "2ab4973b561d6ae1a9b4ab66e6ab562ec7bbf64a931c60b63ebf342171147b78",
+    "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/Hyperiso/Hyperiso/core/src/PhysicalModel/adapters/WilsonInterface.cpp": "5935193ba28c071babff812c2048d0d935980485c9c24348dcdba3c3f38ed58f",
+    "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/Hyperiso/Hyperiso/core/src/PhysicalModel/domain/Helper/BSM/THDMParametersHelper.cpp": "60274a32da96ddf96f14088d6bd65617814d40d7f2fe60a209e5404292948fae",
+    "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/Hyperiso/Hyperiso/core/src/PhysicalModel/domain/Helper/WilsonParametersHelper.cpp": "1470324721caa4357cdeea0e6ca26a0f1690fd5a5fab206544e6055e964c2233",
+    "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/Hyperiso/Hyperiso/core/src/PhysicalModel/domain/WCoef/BSM/BWilsonTHDM.cpp": "d8bc4fb10a249ca0f16fc5d9582877c84545a24d619738304ec7417d139b4c2d",
+    "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/Hyperiso/Hyperiso/core/src/PhysicalModel/domain/WGroup/BWilsonGroup.cpp": "47712a28c66c91bc7894dacd88fdfc2b19ac7971af20dc293f967dec5281171a",
+    "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/reproducibility/inputs/thdm_reference.lha": "984391031656a5f4f86ee71f5b60e7d0cb2b1b80edabd9ff6ba912da3ba39374"
+  },
+  "witness": {
+    "alpha_s_at_qmatch": 0.10868631788645876,
+    "binary_sha256": "7c8e1ace8e50ace645e74ba7592ed85e737c91febdb70a2bf5915aec96b38881",
+    "matching_basis": "BMU_ORDINARY_P4_P7_P8",
+    "mt_MSbar_at_qmatch_GeV": 163.96892236746697,
+    "normalization": "C_0_PLUS_ALPHA_S_OVER_4PI_TIMES_C_1",
+    "qmatch_GeV": 160.0,
+    "runtime_log_sha256": "1c309ea82e04b5d915a0330cedaa38b4d2810dd999080a8b357e49b4f1853b01",
+    "schema_version": "1.0.0",
+    "source_LHA_sha256": "984391031656a5f4f86ee71f5b60e7d0cb2b1b80edabd9ff6ba912da3ba39374",
+    "source_status": "EXECUTED_HYPERISO_UNMODIFIED",
+    "tan_beta": 5.299999999999997,
+    "unweighted_native_states": [
+      {
+        "C1_to_C6_LO_zero": true,
+        "C4_NLO_raw": 0.001644412937775417,
+        "C7_LO": -0.059602624672982586,
+        "C7_NLO_raw": 1.1751998025266217,
+        "C8_LO": -0.0644719432489814,
+        "C8_NLO_raw": 0.620540212489079,
+        "mH_GeV": 550.0
+      },
+      {
+        "C1_to_C6_LO_zero": true,
+        "C4_NLO_raw": 0.0009123449980750297,
+        "C7_LO": -0.031330934470478966,
+        "C7_NLO_raw": 0.7677511745298502,
+        "C8_LO": -0.03628183523815912,
+        "C8_NLO_raw": 0.4624364788403359,
+        "mH_GeV": 900.0
+      }
+    ],
+    "upstream_commit": "09d26ac6e71d1528922097a896d15693589f636b"
+  }
+}

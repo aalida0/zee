@@ -192,3 +192,20 @@ No uncertainty covariance, mass-running calibration or NP NLO was computed.
 - Exact source chain, numerical scope and reproduction:
   `module5/BSGAMMA_2026_CONVENTION.md`; inputs, diagnostics, source/input/code
   SHA256 values and executed test records: `validation/module5/linear_2026.json`.
+
+## Gate C2 (2026-10-27): matching sensitivity, filter still unready
+
+`C2_NATIVE_NLO_MATCHING_PASS` and `C2_INDEPENDENT_NLO_PASS`: unmodified pinned
+HyperIso v1.0.3, 12 native mass/Yukawa runs, independent 70-digit generic BMU
+C4/C7/C8 NLO evaluation, maximum residual 2.998e-15; 23 focused tests pass.
+Native NLO dipoles contain the published effective-basis C4 shifts; raw API
+outputs are preserved and explicitly converted to ordinary BMU coefficients.
+Weighted unmultiplied `(C4^1,C7^1,C8^1)=(0.001068928997,0.8549014676,0.4962537156)`;
+alpha_s(160)=0.10868631788645876 with the exact C1 reference-LHA top mass.
+`NLO_MATCHING_DIPOLE_ONLY_SENSITIVITY`: naive Eq.(4) increment -0.07219409e-4,
+not a corrected BR or uncertainty. `QUADRATIC_VALIDITY_UNKNOWN`;
+`2026_LINEARIZED_FLAVOR_FILTER_READY=false`: complete C4/rate treatment,
+nonlinear domain, omitted operators, NP uncertainties and covariance/statistics
+remain open. No exclusion or per-state mass cut. Full source/basis audit and
+reproduction: `module5/BSGAMMA_2026_ACCURACY.md`; actual outputs/hashes/tests:
+`validation/module5/accuracy_2026.json`. All previous evidence is preserved.
