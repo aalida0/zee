@@ -1,0 +1,487 @@
+{
+  "artifacts_sha256": {
+    "module5/BSGAMMA_2026_ACCURACY.md": "69deb6a6ebafe0c4e42fe9b1c709f664af5add4eca9bd93c30ffa8a2b2608143",
+    "module5/BSGAMMA_2026_CONVENTION.md": "f4a79f4125e2785a36e2af982790c3c629b1ece6eac5d21acf7bd18c630ce2a4",
+    "module5/bsgamma_2026_linear_diagnostic.py": "7f1248cec5e2710ab242cb44a33409c2a1a50547a88947860c414242e763f7b1",
+    "module5/bsgamma_lo.py": "251cc9effc80010f65982cc980d0c170dc19785b2385d962afbed4549cfcd5e5",
+    "module5/bsgamma_scan_triage.py": "919a0da90c1e9d76c641c4bd9170bc3494079acf8efe7414c55944e4d7474b46",
+    "module5/example_scan_triage.json": "b87ff66e5c301514972bcd325d5734cd776928529561de81b025f7bba5ff98a1",
+    "module5/hyperiso_patch_contract.py": "43b177cacdc1a9ba0f887809ea44591e83c40e70618c2a19b8fdfd36320ae1df",
+    "tests/test_module5_scan_triage.py": "766fe88987d6e9c219311ec6306aa7164dbfcad45685a7f921e31c4deba28e9e",
+    "validation/module5/accuracy_2026.json": "169b31df3d5d3d7a0ce7ef97bf1409b0be3e5e0d7389f0e3560f145f57cc88a9"
+  },
+  "curvature_status": "QUADRATIC_VALIDITY_UNKNOWN",
+  "date": "2026-10-27",
+  "decision": "NO-GO for building a complete validated 2026 nonlinear rate from the inspected numerical sources; source acquisition must precede implementation",
+  "example": {
+    "command": "python -m module5.bsgamma_scan_triage --input module5/example_scan_triage.json --output validation/module5/local/c3_scan_example.json",
+    "output": {
+      "2026_LINEARIZED_FLAVOR_FILTER_READY": false,
+      "C1_status": "2026_EQ4_LO_LINEARIZED_DIAGNOSTIC_NOT_A_CONSTRAINT",
+      "FULL_ZEE_ALLOWED": "NOT_EVALUATED",
+      "SM_reference_in_1e_minus4": {
+        "central": 3.54,
+        "reported_sigma": 0.14
+      },
+      "assumed_scenarios": [
+        {
+          "assumed_NP_sigma_in_1e_minus4": 0.0,
+          "assumed_rho_SM_exp": 0.0,
+          "assumptions": "SM/experiment bivariate Gaussian with stated rho; NP-model error independent Gaussian with stated sigma, NOT experimentally/theoretically calibrated",
+          "hypothetical_sigma_in_1e_minus4": 0.23600847442411893,
+          "name": "zero_NP_sigma_independent_Gaussians_hypothesis_only"
+        },
+        {
+          "assumed_NP_sigma_in_1e_minus4": 0.2,
+          "assumed_rho_SM_exp": 0.0,
+          "assumptions": "SM/experiment bivariate Gaussian with stated rho; NP-model error independent Gaussian with stated sigma, NOT experimentally/theoretically calibrated",
+          "hypothetical_sigma_in_1e_minus4": 0.3093541659651604,
+          "name": "assumed_extra_NP_sigma_0p2e_minus4_hypothesis_only"
+        },
+        {
+          "assumed_NP_sigma_in_1e_minus4": 0.0,
+          "assumed_rho_SM_exp": -0.5,
+          "assumptions": "SM/experiment bivariate Gaussian with stated rho; NP-model error independent Gaussian with stated sigma, NOT experimentally/theoretically calibrated",
+          "hypothetical_sigma_in_1e_minus4": 0.286879765755621,
+          "name": "negative_rho_0p5_zero_NP_sigma_hypothesis_only"
+        },
+        {
+          "assumed_NP_sigma_in_1e_minus4": 0.0,
+          "assumed_rho_SM_exp": 0.5,
+          "assumptions": "SM/experiment bivariate Gaussian with stated rho; NP-model error independent Gaussian with stated sigma, NOT experimentally/theoretically calibrated",
+          "hypothetical_sigma_in_1e_minus4": 0.1705872210923198,
+          "name": "positive_rho_0p5_zero_NP_sigma_hypothesis_only"
+        }
+      ],
+      "experiment_in_1e_minus4": {
+        "central": 3.49,
+        "reported_sigma": 0.19
+      },
+      "filter_ready": false,
+      "implementation_sha256": {
+        "BSGAMMA_2026_CONVENTION.md": "f4a79f4125e2785a36e2af982790c3c629b1ece6eac5d21acf7bd18c630ce2a4",
+        "bsgamma_2026_linear_diagnostic.py": "7f1248cec5e2710ab242cb44a33409c2a1a50547a88947860c414242e763f7b1",
+        "bsgamma_lo.py": "251cc9effc80010f65982cc980d0c170dc19785b2385d962afbed4549cfcd5e5",
+        "hyperiso_patch_contract.py": "43b177cacdc1a9ba0f887809ea44591e83c40e70618c2a19b8fdfd36320ae1df"
+      },
+      "limitations": [
+        "All pulls are hypothetical sensitivity scenarios, NOT exclusion confidence levels.",
+        "Uncertainty/covariance assumptions are user-defined, not a validated Zee NP error budget.",
+        "No quadratic NP response, C4 NLO rate term, NP NLO/NNLO uncertainties or validated applicability domain.",
+        "No complete Zee flavor/combined viability is inferred.",
+        "The one-charged-Higgs Type-II 670 GeV exclusion is not applied to individual Zee masses."
+      ],
+      "linear_formula_source": "Misiak et al. arXiv:2608.29863v1 Eq.(4), mu0=160 GeV, Egamma>1.6 GeV",
+      "linear_formula_source_url": "https://arxiv.org/html/2608.29863v1",
+      "operator_convention_scope": "C1 real top-only LO, ms=0, BMU source bridge",
+      "physical_exclusions": null,
+      "points": [
+        {
+          "C1_status": "2026_EQ4_LO_LINEARIZED_DIAGNOSTIC_NOT_A_CONSTRAINT",
+          "NP_NLO_rate_and_theory_error": "UNKNOWN",
+          "delta_C7": -0.03737804303348145,
+          "delta_C8": -0.04231149396472201,
+          "external_convention_status": "EXTERNAL_CONVENTION_PASS",
+          "flavor_classification": "UNCLASSIFIED",
+          "global_zee_acceptance": null,
+          "hypothetical_scenario_comparisons": [
+            {
+              "hypothetical_abs_pull": 1.9468791292342247,
+              "hypothetical_signed_pull": 1.9468791292342247,
+              "not_an_exclusion": true,
+              "scenario": "zero_NP_sigma_independent_Gaussians_hypothesis_only"
+            },
+            {
+              "hypothetical_abs_pull": 1.4852878148422066,
+              "hypothetical_signed_pull": 1.4852878148422066,
+              "not_an_exclusion": true,
+              "scenario": "assumed_extra_NP_sigma_0p2e_minus4_hypothesis_only"
+            },
+            {
+              "hypothetical_abs_pull": 1.6016465015177654,
+              "hypothetical_signed_pull": 1.6016465015177654,
+              "not_an_exclusion": true,
+              "scenario": "negative_rho_0p5_zero_NP_sigma_hypothesis_only"
+            },
+            {
+              "hypothetical_abs_pull": 2.6935193048842816,
+              "hypothetical_signed_pull": 2.6935193048842816,
+              "not_an_exclusion": true,
+              "scenario": "positive_rho_0p5_zero_NP_sigma_hypothesis_only"
+            }
+          ],
+          "linearized_minus_experiment_in_1e_minus4": 0.45947997317872646,
+          "linearized_value_in_1e_minus4": 3.9494799731787267,
+          "matching_input": {
+            "beta_rad": 1.3843094251276797,
+            "gamma_rad": 1.09,
+            "mH1_GeV": 550.0,
+            "mH2_GeV": 900.0,
+            "matching_scale_GeV": 160.0,
+            "mt_MSbar_GeV": 163.96892236746697,
+            "top_mass_input_definition": "USER_SUPPLIED_MSbar_TOP_MASS_AT_MATCHING_SCALE_NO_RUNNING"
+          },
+          "nonlinear_error": "UNKNOWN",
+          "np_shift_in_1e_minus4": 0.40947997317872675,
+          "physical_BR": null,
+          "point_id": "illustrative_550_900_not_accepted"
+        },
+        {
+          "C1_status": "2026_EQ4_LO_LINEARIZED_DIAGNOSTIC_NOT_A_CONSTRAINT",
+          "NP_NLO_rate_and_theory_error": "UNKNOWN",
+          "delta_C7": -0.0596026246729826,
+          "delta_C8": -0.06447194324898142,
+          "external_convention_status": "EXTERNAL_CONVENTION_PASS",
+          "flavor_classification": "UNCLASSIFIED",
+          "global_zee_acceptance": null,
+          "hypothetical_scenario_comparisons": [
+            {
+              "hypothetical_abs_pull": 2.9510708676217976,
+              "hypothetical_signed_pull": 2.9510708676217976,
+              "not_an_exclusion": true,
+              "scenario": "zero_NP_sigma_independent_Gaussians_hypothesis_only"
+            },
+            {
+              "hypothetical_abs_pull": 2.251392772461707,
+              "hypothetical_signed_pull": 2.251392772461707,
+              "not_an_exclusion": true,
+              "scenario": "assumed_extra_NP_sigma_0p2e_minus4_hypothesis_only"
+            },
+            {
+              "hypothetical_abs_pull": 2.427768760722487,
+              "hypothetical_signed_pull": 2.427768760722487,
+              "not_an_exclusion": true,
+              "scenario": "negative_rho_0p5_zero_NP_sigma_hypothesis_only"
+            },
+            {
+              "hypothetical_abs_pull": 4.082824779752734,
+              "hypothetical_signed_pull": 4.082824779752734,
+              "not_an_exclusion": true,
+              "scenario": "positive_rho_0p5_zero_NP_sigma_hypothesis_only"
+            }
+          ],
+          "linearized_minus_experiment_in_1e_minus4": 0.6964777333848815,
+          "linearized_value_in_1e_minus4": 4.186477733384882,
+          "matching_input": {
+            "beta_rad": 1.3843094251276797,
+            "gamma_rad": 0.0,
+            "mH1_GeV": 550.0,
+            "mH2_GeV": 900.0,
+            "matching_scale_GeV": 160.0,
+            "mt_MSbar_GeV": 163.96892236746697,
+            "top_mass_input_definition": "USER_SUPPLIED_MSbar_TOP_MASS_AT_MATCHING_SCALE_NO_RUNNING"
+          },
+          "nonlinear_error": "UNKNOWN",
+          "np_shift_in_1e_minus4": 0.6464777333848818,
+          "physical_BR": null,
+          "point_id": "illustrative_gamma0_550_900_not_accepted"
+        },
+        {
+          "C1_status": "2026_EQ4_LO_LINEARIZED_DIAGNOSTIC_NOT_A_CONSTRAINT",
+          "NP_NLO_rate_and_theory_error": "UNKNOWN",
+          "delta_C7": -0.03133093447047896,
+          "delta_C8": -0.03628183523815912,
+          "external_convention_status": "EXTERNAL_CONVENTION_PASS",
+          "flavor_classification": "UNCLASSIFIED",
+          "global_zee_acceptance": null,
+          "hypothetical_scenario_comparisons": [
+            {
+              "hypothetical_abs_pull": 1.6736475985534902,
+              "hypothetical_signed_pull": 1.6736475985534902,
+              "not_an_exclusion": true,
+              "scenario": "zero_NP_sigma_independent_Gaussians_hypothesis_only"
+            },
+            {
+              "hypothetical_abs_pull": 1.2768375535717982,
+              "hypothetical_signed_pull": 1.2768375535717982,
+              "not_an_exclusion": true,
+              "scenario": "assumed_extra_NP_sigma_0p2e_minus4_hypothesis_only"
+            },
+            {
+              "hypothetical_abs_pull": 1.3768660728574234,
+              "hypothetical_signed_pull": 1.3768660728574234,
+              "not_an_exclusion": true,
+              "scenario": "negative_rho_0p5_zero_NP_sigma_hypothesis_only"
+            },
+            {
+              "hypothetical_abs_pull": 2.315501793914755,
+              "hypothetical_signed_pull": 2.315501793914755,
+              "not_an_exclusion": true,
+              "scenario": "positive_rho_0p5_zero_NP_sigma_hypothesis_only"
+            }
+          ],
+          "linearized_minus_experiment_in_1e_minus4": 0.39499501645819945,
+          "linearized_value_in_1e_minus4": 3.8849950164581997,
+          "matching_input": {
+            "beta_rad": 1.3843094251276797,
+            "gamma_rad": 1.5707963267948966,
+            "mH1_GeV": 550.0,
+            "mH2_GeV": 900.0,
+            "matching_scale_GeV": 160.0,
+            "mt_MSbar_GeV": 163.96892236746697,
+            "top_mass_input_definition": "USER_SUPPLIED_MSbar_TOP_MASS_AT_MATCHING_SCALE_NO_RUNNING"
+          },
+          "nonlinear_error": "UNKNOWN",
+          "np_shift_in_1e_minus4": 0.3449950164581997,
+          "physical_BR": null,
+          "point_id": "illustrative_gamma_pi2_550_900_not_accepted"
+        },
+        {
+          "C1_status": "2026_EQ4_LO_LINEARIZED_DIAGNOSTIC_NOT_A_CONSTRAINT",
+          "NP_NLO_rate_and_theory_error": "UNKNOWN",
+          "delta_C7": -0.035193258862325535,
+          "delta_C8": -0.04026360669367648,
+          "external_convention_status": "EXTERNAL_CONVENTION_PASS",
+          "flavor_classification": "UNCLASSIFIED",
+          "global_zee_acceptance": null,
+          "hypothetical_scenario_comparisons": [
+            {
+              "hypothetical_abs_pull": 1.8493574200746017,
+              "hypothetical_signed_pull": 1.8493574200746017,
+              "not_an_exclusion": true,
+              "scenario": "zero_NP_sigma_independent_Gaussians_hypothesis_only"
+            },
+            {
+              "hypothetical_abs_pull": 1.410887815313552,
+              "hypothetical_signed_pull": 1.410887815313552,
+              "not_an_exclusion": true,
+              "scenario": "assumed_extra_NP_sigma_0p2e_minus4_hypothesis_only"
+            },
+            {
+              "hypothetical_abs_pull": 1.5214179439498488,
+              "hypothetical_signed_pull": 1.5214179439498488,
+              "not_an_exclusion": true,
+              "scenario": "negative_rho_0p5_zero_NP_sigma_hypothesis_only"
+            },
+            {
+              "hypothetical_abs_pull": 2.5585974176841884,
+              "hypothetical_signed_pull": 2.5585974176841884,
+              "not_an_exclusion": true,
+              "scenario": "positive_rho_0p5_zero_NP_sigma_hypothesis_only"
+            }
+          ],
+          "linearized_minus_experiment_in_1e_minus4": 0.4364640233767312,
+          "linearized_value_in_1e_minus4": 3.9264640233767314,
+          "matching_input": {
+            "beta_rad": 1.3843094251276797,
+            "gamma_rad": 0.3,
+            "mH1_GeV": 800.0,
+            "mH2_GeV": 1300.0,
+            "matching_scale_GeV": 160.0,
+            "mt_MSbar_GeV": 163.96892236746697,
+            "top_mass_input_definition": "USER_SUPPLIED_MSbar_TOP_MASS_AT_MATCHING_SCALE_NO_RUNNING"
+          },
+          "nonlinear_error": "UNKNOWN",
+          "np_shift_in_1e_minus4": 0.38646402337673147,
+          "physical_BR": null,
+          "point_id": "illustrative_mixed_800_1300_not_accepted"
+        },
+        {
+          "C1_status": "2026_EQ4_LO_LINEARIZED_DIAGNOSTIC_NOT_A_CONSTRAINT",
+          "NP_NLO_rate_and_theory_error": "UNKNOWN",
+          "delta_C7": -0.006057503544198263,
+          "delta_C8": -0.007707077904200777,
+          "external_convention_status": "EXTERNAL_CONVENTION_PASS",
+          "flavor_classification": "UNCLASSIFIED",
+          "global_zee_acceptance": null,
+          "hypothetical_scenario_comparisons": [
+            {
+              "hypothetical_abs_pull": 0.5008152513277788,
+              "hypothetical_signed_pull": 0.5008152513277788,
+              "not_an_exclusion": true,
+              "scenario": "zero_NP_sigma_independent_Gaussians_hypothesis_only"
+            },
+            {
+              "hypothetical_abs_pull": 0.3820754864103305,
+              "hypothetical_signed_pull": 0.3820754864103305,
+              "not_an_exclusion": true,
+              "scenario": "assumed_extra_NP_sigma_0p2e_minus4_hypothesis_only"
+            },
+            {
+              "hypothetical_abs_pull": 0.41200759880321003,
+              "hypothetical_signed_pull": 0.41200759880321003,
+              "not_an_exclusion": true,
+              "scenario": "negative_rho_0p5_zero_NP_sigma_hypothesis_only"
+            },
+            {
+              "hypothetical_abs_pull": 0.6928809947037835,
+              "hypothetical_signed_pull": 0.6928809947037835,
+              "not_an_exclusion": true,
+              "scenario": "positive_rho_0p5_zero_NP_sigma_hypothesis_only"
+            }
+          ],
+          "linearized_minus_experiment_in_1e_minus4": 0.11819664343420078,
+          "linearized_value_in_1e_minus4": 3.608196643434201,
+          "matching_input": {
+            "beta_rad": 1.3843094251276797,
+            "gamma_rad": 1.09,
+            "mH1_GeV": 2000.0,
+            "mH2_GeV": 3000.0,
+            "matching_scale_GeV": 160.0,
+            "mt_MSbar_GeV": 163.96892236746697,
+            "top_mass_input_definition": "USER_SUPPLIED_MSbar_TOP_MASS_AT_MATCHING_SCALE_NO_RUNNING"
+          },
+          "nonlinear_error": "UNKNOWN",
+          "np_shift_in_1e_minus4": 0.0681966434342009,
+          "physical_BR": null,
+          "point_id": "illustrative_heavy_2000_3000_not_accepted"
+        }
+      ],
+      "schema_version": "1.0.0",
+      "source_batch_sha256": "b87ff66e5c301514972bcd325d5734cd776928529561de81b025f7bba5ff98a1",
+      "status": "EXPLORATORY_LINEAR_SCAN_TRIAGE_NOT_A_FLAVOR_CONSTRAINT"
+    },
+    "output_sha256": "296b530c2a66aa07b0cd9290fee3cb3185dc08e1ddca4a4a87422d29a82b3b7f",
+    "point_count": 5,
+    "returncode": 0,
+    "scenario_count": 4,
+    "source_batch_sha256": "b87ff66e5c301514972bcd325d5734cd776928529561de81b025f7bba5ff98a1"
+  },
+  "exclusion": null,
+  "gates": {
+    "2026_LINEARIZED_FLAVOR_FILTER_READY": false,
+    "FULL_ZEE_ALLOWED": "NOT_EVALUATED",
+    "exploratory": "C3_EXPLORATORY_SCAN_DIAGNOSTIC_PASS",
+    "quadratic_source": "C3_QUADRATIC_SOURCE_NOT_READY"
+  },
+  "git": {
+    "audited_checkout_HEAD": "68139ccc16c52088dadb5da06cc457666376fdb0",
+    "branch": "feature/zee-bsgamma-2026-scan-triage",
+    "parent_workspace_ignore": ".git/info/exclude:7:/workspaces/ (read-only verified)",
+    "required_base": "5e6914fec7ecaad4f9a8295aa43b9efa2fcdfe2e"
+  },
+  "independent_oracle": {
+    "NP_sigma_values_1e_minus4": [
+      0,
+      0.2
+    ],
+    "absolute_tolerance_pull": 1e-12,
+    "method": "60-digit Decimal, literal -8.51/-2.16 slopes, 3.54/3.49 central values and .14/.19 errors; no production arithmetic helpers/constants",
+    "points": 5,
+    "pull_comparisons": 50,
+    "rho_values": [
+      -1,
+      -0.5,
+      0,
+      0.5,
+      1
+    ]
+  },
+  "mass_cut": null,
+  "missing_ingredients": [
+    "Versioned executable or numeric high-scale ordinary-basis rate response at mu0=160 GeV: linear interference vector and C7^2, C7*C8, C8^2 coefficients, with coefficient expansion/truncation convention",
+    "NLO DeltaC4 ordinary/effective conversion, full mixing and low-scale matrix-element/interference response consistent with DeltaC7/8 NLO and SM Q1..6",
+    "2026 evolution/input/scheme configuration and cut implementation, kinetic normalization and Wilson-dependent resolved-photon/HQE terms; reproduce published approximation for uncut non-BLM G17/G27",
+    "Independent zero-NP and one-state higher-order numerical benchmarks with provenance and source access/reuse terms",
+    "Bounded validity domain, omitted-operator/finite-ms assessment and model NP uncertainty/correlations; nuisance and CL prescription"
+  ],
+  "next_physical_task": "Obtain an author-maintained 2026 coefficient-to-rate executable or response tables with C4 and a reproducible benchmark/input card; then validate before calibrating a Zee applicability/error domain",
+  "not_repeated": [
+    "native matching",
+    "BMU integrals",
+    "R1-R7",
+    "HyperIso patches",
+    "nonlinear reconstruction"
+  ],
+  "physical_BR": null,
+  "publication_hashes_match_C2": true,
+  "schema_version": "1.0.0",
+  "sources": [
+    {
+      "access": "HTTP download successful",
+      "license": "CC BY 4.0",
+      "revision": "2608.29863v1, 30 August 2026",
+      "sha256": "5300aaf2e8d0015fbb37f52aefd866b0d9c5c270e18921e71971b0e0f4724b7b",
+      "url": "https://arxiv.org/html/2608.29863v1"
+    },
+    {
+      "access": "HTTP download successful",
+      "license": "CC BY 4.0",
+      "revision": "2608.29864v1, 30 August 2026",
+      "sha256": "9f3c7513ef3730b188fed186c70e58589048949c6f1d62c4dab3fe57974d1d78",
+      "url": "https://arxiv.org/html/2608.29864v1"
+    },
+    {
+      "access": "HTTP download successful",
+      "license": "No data/code license stated on inspected page",
+      "revision": "unversioned landing page, retrieved 2026-10-27",
+      "sha256": "25d65d01e544f760dbdc9356581f3c71f758335e7c647459f09b28aaf1fe42de",
+      "url": "https://www.ttp.kit.edu/preprints/2026/ttp26-034"
+    },
+    {
+      "access": "HTTP download successful",
+      "license": "arXiv perpetual non-exclusive publication license",
+      "revision": "1503.01791v1",
+      "sha256": "852be60c4c5241bc61e8708846d4fc72ad1c15c68256df11d2a1f59b38ad6486",
+      "url": "https://arxiv.org/html/1503.01791v1"
+    },
+    {
+      "access": "HTTP download successful",
+      "license": "arXiv perpetual non-exclusive publication license",
+      "revision": "1503.01789v1",
+      "sha256": "f3ef75b8c4f790558e17b7665aabf61d823b94a4412ceeb5f3770713b7591f88",
+      "url": "https://arxiv.org/html/1503.01789v1"
+    },
+    {
+      "access": "HTTP download successful",
+      "license": "arXiv perpetual non-exclusive publication license",
+      "revision": "2002.01548v2",
+      "sha256": "6e09d8bcb28d8d35a6bc62b3926842d90b62226aca0fc9ad8411a7c037ade06a",
+      "url": "https://arxiv.org/html/2002.01548v2"
+    },
+    {
+      "access": "HTTP download successful",
+      "license": "arXiv perpetual non-exclusive publication license",
+      "revision": "1702.04571v1",
+      "sha256": "b087ef1dc27339b9c17b5f6718dded06b03975e56f5b64c605585b7bb1495586",
+      "url": "https://arxiv.org/html/1702.04571v1"
+    },
+    {
+      "access": "HTTP download successful; inspected without executing",
+      "bytes": 2793,
+      "license": "No LICENSE in archive; no independent software reuse grant established",
+      "members": [
+        {
+          "bytes": 1542,
+          "name": "README",
+          "sha256": "ffc3a2013c7d83929bc22b0b38402a27bf93d93c342a9df8791e2725b0cb1fea"
+        },
+        {
+          "bytes": 10310,
+          "name": "G27_3P.m",
+          "sha256": "8110c5129347396796c24e2637b555b53f52d1ca8539be6dbc14b14041a74214"
+        }
+      ],
+      "revision": "unversioned archive retrieved 2026-10-27; byte-pinned here",
+      "sha256": "180b967024fdc7e6c845094a0defa798e6f1d53150bd71145a4884f53946dd5a",
+      "url": "https://www.ttp.kit.edu/_media/progdata/2026/ttp26-034.tar.gz"
+    }
+  ],
+  "statistics": {
+    "CL_prescription": "NOT_EVALUATED",
+    "NP_error": "Assumed independent Gaussian in this tool; neither cross-point nor SM/NP/experiment correlations calibrated",
+    "nuisance_treatment": "No profiling or marginalization",
+    "quadratic_domain": "UNKNOWN",
+    "rho_SM_exp": "Explicit user hypothesis; not inferred from published errors"
+  },
+  "tests": [
+    {
+      "command": "python -m unittest discover -s tests -p 'test_module5_scan_triage.py' -v",
+      "errors": 0,
+      "failures": 0,
+      "returncode": 0,
+      "skips": 0,
+      "tests_run": 8
+    },
+    {
+      "command": "python -m unittest discover -s tests -p 'test_module5_bsgamma_2026_linear.py' -v",
+      "errors": 0,
+      "failures": 0,
+      "returncode": 0,
+      "skips": 0,
+      "tests_run": 11
+    }
+  ],
+  "tests_total": 19,
+  "validation_scope": "Conditional formula/scenario arithmetic, C1 regression, integrity and rejection controls; NOT 2026 physical-rate validation"
+}

@@ -209,3 +209,5 @@ nonlinear domain, omitted operators, NP uncertainties and covariance/statistics
 remain open. No exclusion or per-state mass cut. Full source/basis audit and
 reproduction: `module5/BSGAMMA_2026_ACCURACY.md`; actual outputs/hashes/tests:
 `validation/module5/accuracy_2026.json`. All previous evidence is preserved.
+
+Gate C3 (2026-10-27): `C3_EXPLORATORY_SCAN_DIAGNOSTIC_PASS` (8 scan + 11 C1 tests, 19 PASS; five illustrative points, independent arithmetic/integrity checks only). `C3_QUADRATIC_SOURCE_NOT_READY`: the actual linked data archive contains only partial O2–O7 functions, not a complete 2026 high-scale C7/C8 curvature and C4 rate response. Reference hypothetical pull changes 1.946879→1.485288 for assumed NP sigma 0→0.2e-4 at rho=0; no exclusion follows. `2026_LINEARIZED_FLAVOR_FILTER_READY=false`, curvature/domain unknown, `FULL_ZEE_ALLOWED=NOT_EVALUATED`, no mass cut. Next: obtain a versioned author rate response/input card including C4 before physical validation and uncertainty/covariance calibration. Audit: `module5/BSGAMMA_SCAN_TRIAGE.md`; evidence: `validation/module5/scan_triage.json`.
