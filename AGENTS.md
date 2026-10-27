@@ -1,49 +1,48 @@
-# Module 5 Gate C0 — Zee two-charged-Higgs LO patch into pinned HyperIso
+# Zee Module 5 Gate C1 — direct 2026 B -> Xs gamma EFT diagnostic and convention decision
 
-## Identity / immutable baseline
-Use ONLY Git branch `feature/zee-hyperiso-two-state-patch` in repo `aalida0/zee`, forked from verified Gate B commit `218fe01d893730bc2699c270d10db85a22708616`. This task makes a **minimal external adapter, not a physically validated B->Xs gamma constraint**. Current validated facts: HyperIso v1.0.3 R1-R7 PASS, matched LO C7/C8 at 160 GeV through 18 real Type-II probes, and native SARAH dipole matching within explicit conventions. Gate B still has `MATCHING_CONVENTION_UNKNOWN`. Retain this status unless genuinely new external operator evidence closes it.
+## Scope
+Work **only** on `feature/zee-2026-bsgamma-linear-diagnostic` in `aalida0/zee`, branched from `7a0509696779998dc2de737da330404c2d8c56dd`. This is a bounded route toward the phenomenological scan, **not another HyperIso matching-patch repair**.
 
-Do not edit `models/SARAH/ZeeTypeII`, Modules 0–4, the frozen `module5/bsgamma_lo.py`, prior tests, results or audits. Do not modify or vendor HyperIso. Do not change main, baseline branch, prior commit history or unrelated files.
+Known evidence: Modules 0–4 frozen. Module 5: native SARAH charged-quark vertices, independent diagram-level signed LO C7/C8 under explicit conventions, and HyperIso Type-II same-scale/scheme LO matching agree; HyperIso v1.0.3 R1–R7 PASS. Previous C0 experiment proved HyperIso **SM mode forces BSM matching to zero**, while THDM+patch double-counts. Do not retry failed C0 using SM, THDM+patch, hidden subtraction, or patched upstream binaries.
 
-Read initially only:
-- `AGENTS.md`, `module5/hyperiso_patch_contract.py` (prewritten), `tests/test_module5_two_state_patch_contract.py` (prewritten).
-- `scripts/zee_module5_hyperiso_probe.cpp`, `scripts/zee_module5_hyperiso_bridge.py`, `module5/HYPERISO_BRIDGE.md`, `module5/CONVENTIONS.md`, `module5/NATIVE_OPERATOR_MATCHING.md`, `validation/module5/hyperiso_bridge.json`.
-- In external HyperIso, only pinned `WilsonInterface.h`, `WilsonMatchingPatch.h`, `BWilsonTHDM.cpp`, `WilsonManager.cpp`, `BWilsonGroup.cpp`, `BXsDecay.cpp` and any direct dependencies needed to build.
-- Sources: HyperIso `v1.0.3` **peeled commit `09d26ac6e71d1528922097a896d15693589f636b`**; Misiak et al. arXiv:2608.29863v1 Eqs. (2),(4) at mu0=160 GeV; Florentino et al. arXiv:2106.08332v1 charged mixing Eq. (62)-(63); no broader literature hunt.
+**Freeze** `models/SARAH/ZeeTypeII`, Modules 0–4, `module5/bsgamma_lo.py`, `module5/hyperiso_patch_contract.py`, previous evidence, and HyperIso itself. Scope changes to source review, this Gate C1 diagnostic/tests, and its concise evidence only. Do not edit main or unrelated checkouts.
 
-## 0. Prewritten test contract / build
-The Python contract produces explicitly signed C7/C8 BSM LO contributions, each with two state components, from the frozen validated `module5.bsgamma_lo.compute`; inputs include TWO charged masses, beta ANGLE, gamma ANGLE, matching-scale-renormalized MSbar top mass and mu_match. It is a conditional coefficient payload, **not a physical prediction**. Fix actual scaffold bugs only after independent checks; do not claim prewritten tests pass until actually run.
-Run:
+Initially inspect only `AGENTS.md`, `module5/bsgamma_2026_linear_diagnostic.py`, `tests/test_module5_bsgamma_2026_linear.py`, `module5/FLAVOR_2026_SOURCES.md`, `module5/NATIVE_OPERATOR_MATCHING.md`, `module5/HYPERISO_BRIDGE.md`, `module5/TWO_STATE_PATCH_AUDIT.md`, `validation/module5/{native_matching,hyperiso_bridge,two_state_patch}.json`. Read other source only to resolve a concrete convention ambiguity.
+
+## Primary 2026 reference: no claim inflation
+Misiak et al., arXiv:2608.29863v1 (2026-08-30), `https://arxiv.org/html/2608.29863v1`, Eq.(2) operators and Eq.(4) formula at `mu0=160 GeV`:
+`BR(Bbar->Xs gamma) * 10^4 = (3.54 +/- 0.14) - 8.51 DeltaC7 - 2.16 DeltaC8`,
+inclusive CP/isospin averaged `Egamma >1.6 GeV`. Experiment `(3.49 +/- 0.19) *1e-4`. The authors explicitly recommend LO new-physics coefficients as an approximation for small shifts, neglect `O(DeltaC^2)`, and mention higher-order NP/operators for refinement. Their 670 GeV 95% bound refers to a ONE-charged-state Type-II 2HDM with higher-order matching; **never apply to either individual Zee mass**.
+
+The earlier Florentino/Romao/Silva arXiv:2106.08332v1 independently provides the two-state mixing-weighted matching structure; the 2017 general Zee constraints and 2021 cascade paper are priority novelty comparators later, not constraints to rewrite now. Pinned HyperIso is v1.0.3 peeled `09d26ac6e71d1528922097a896d15693589f636b`; don't combine its archived R3 BR baseline with Misiak's updated SM result.
+
+## Task A: independent source-to-operator convention determination, **bounded**
+1. Inspect only the pinned 2026 and 2021 B->Xs gamma operator/Hamiltonian definitions, their cited standard EFT convention if needed, and existing independent native amplitude proof. Trace exact sign and factor(s) of `H_eff=-4GF/sqrt(2)*Vtb Vts* sum C_i Q_i`, sigma^{mu nu}, field strength, L=-H, CKM rephasing, color, ordinary/effective C7,C8 shifts, Q7/Q8 chirality and the 160-GeV matching mass definition.
+2. Test the independent Type-II limit and **the sign/trend of the 2026 paper's published 2HDM calculation**. A qualitative trend match is a cross-check, NOT full operator-level proof. If possible reproduce quantitative heavy-mass small-shift points from the published formula with clearly stated higher-order differences. Do not derive a 670-GeV two-state Zee cut.
+3. Write a compact `module5/BSGAMMA_2026_CONVENTION.md` with the exact verification chain (equations, reference version, basis transformations, residuals) and classification: `EXTERNAL_CONVENTION_PASS` **only with an explicit independent operator-level normalization/source bridge**; otherwise retain `MATCHING_CONVENTION_UNKNOWN`. Do not perpetually demand unobservable global sigma sign if convention changes cancel everywhere: distinguish physical relative sign from notation choices in your audit. Source ambiguity should be stated precisely, not treated as a numerical failure.
+4. **No arbitrary declaration of success:** if proof is insufficient, keep `UNKNOWN`, do not create a physical exclusion/allowed label. This task is not a new SARAH run or rederivation of the four kernels.
+
+## Task B: implement/run conditional direct EFT computation (already scaffolded)
+The prewritten `module5/bsgamma_2026_linear_diagnostic.py` and `tests/test_module5_bsgamma_2026_linear.py` use Eq.(4) **directly from verified two-state LO C7/C8**; they do not inject a BSM patch into HyperIso. Independently review and fix actual bugs before execution.
+- Run `python -m unittest discover -s tests -p 'test_module5_bsgamma_2026_linear.py' -v`.
+- Run `python -m unittest discover -s tests -p 'test_module5_two_state_patch_contract.py' -v`; run frozen Gate A `test_module5_bsgamma_lo.py` only if needed for regressions.
+- Generate an actual input contract, with explicitly sourced matching mass at mu=160 (use the validated HyperIso helper/reference LHA if already available, otherwise a declared illustrative input):
 ```bash
-python -m unittest discover -s tests -p 'test_module5_two_state_patch_contract.py' -v
 mkdir -p validation/module5/local
-python -m module5.hyperiso_patch_contract --input module5/example_bsgamma_input.json --output validation/module5/local/zee_patch_contract.json
+python -m module5.hyperiso_patch_contract --input module5/example_bsgamma_input.json --output validation/module5/local/2026_contract.json
+python -m module5.bsgamma_2026_linear_diagnostic --input validation/module5/local/2026_contract.json --output validation/module5/local/2026_conditional.json
 ```
-Build/reference pinned HyperIso only in ignored local cache, preferably reuse the already built v1.0.3 binary if actually present. Check actual `git rev-parse HEAD`, release hash, and `hyperiso-ui --version`. An unavailable existing binary is not a failed physics test. **Do not rerun the expensive R1–R7 full reference suite** unless upstream content changed or a directly relevant regression occurs; Gate B already validated it.
+- Demonstrate Eq4 zero-NP limit 3.54e-4, correct signs, separate C7/C8 terms, physical-state interchange, gamma limits, and scale=160 guard; reject duplicate keys/nonfinite/tampered contract, no silent top-mass scheme assumption.
+- Crucial: label output `2026_EQ4_CONDITIONAL_DIAGNOSTIC_OPERATOR_MAPPING_UNCERTIFIED` until source-to-operator mapping genuinely passes. Even when it does pass, a linearized `screen` is **not** the full Zee BR or likelihood. Do not add a 95% CL exclusion, chi2, allowed label or arbitrarily chosen validity threshold; uncertainties 0.14/0.19e-4 are documented published values, not a correlated Zee-model NP uncertainty. Track uncomputed `O(DeltaC^2)`, NP NLO, mass matching choices and LEFT operator omissions.
 
-## 1. Implement a minimal external C++ adapter (principal task)
-Create a small self-contained `scripts/zee_module5_two_state_patch.cpp` and a narrow Python launcher (if useful) using **public existing** `WilsonInterface::addMatchingPatch` (or equivalent verified v1.0.3 public API) without editing HyperIso.
-- Use **SM baseline plus BSM patches**, NOT built-in THDM BSM plus the same shifts. Add EXACTLY one additive patch for **C7 LO** and one for **C8 LO** (or independently justified per-state patches that sum exactly once). `contribution=BSM`, `order=LO`, `group=B`, explicit `q_match=160` for 2026 tests, and explicit `q_hadronic` for running tests. Input signed coefficients from the vetted contract. No arbitrary (\alpha_s/4\pi\) rescaling at LO. No C1-C6 additions.
-- Verify the actual contribution semantics: at the matching scale `C_BSM^{patch} = Delta C^{Zee,LO}`, `C_TOTAL = C_SM + C_BSM` exactly once. Ensure model setup doesn't discard a BSM patch in SM mode; if it does, stop and document the supported alternative instead of forcing a silent THDM double count. Verify full complex `scalar_t` through a synthetic complex test, but **the physical frozen Type-II quark-sector C7/C8 are real up to CKM factoring**; do not invent Zee complex phases.
-- At one-state `gamma=0`, compare signed C7/C8 patch vs the **native, separately executed Type-II THDM LO BSM calculation**, using identical `mt_MSbar(mu_match)`, `tanbeta`, scalar mass and matching scale. Test gamma=pi/2 with swapped physical masses. For nontrivial gamma/mH1/mH2, compare the patch's signed C7/C8 with direct independent summation of **two separate native THDM LO BSM results**, weighted by `cos²gamma, sin²gamma` (no direct Zee backend assumed). Test degeneracy, interchange, zero-doublet, heavy decoupling and sign-flipped ld controls.
-- Test LO running via public `getFR` / requested basis: `TOTAL = SM + BSM` at low scale, confirm patch contributes (no silent drop); compare a synthetic linearity/additivity run with two separate scalar patches. Do not interpret low-scale running or order LO as a complete NLO/NNLO observable. Suppress unrelated SM-vs-2026 absolute-BR comparisons.
-- Demonstrate a hard **double-counting trap** by proving native THDM BSM + patch produces two copies at gamma=0 and reject that configuration. Fail closed if matching scale differs, top mass definitions differ, or `CONTRIBUTION` is wrongly SM/TOTAL. Never infer the top running mass just from the user's illustrative `163 GeV`; preferably retrieve `mt_MSbar(160)` with the exact v1.0.3 QCDHelper used by its THDM matching, as Gate B did.
+## Gate C1 deliverables
+Produce `module5/BSGAMMA_2026_CONVENTION.md`, `validation/module5/linear_2026.json`, and a concise appended section in `validation/module5/STATUS.md`, with exact status, sources, actual numerical diagnostic, source/input hashes, tests and remaining steps to have a **scan-ready** flavor filter. Report the failure of the HyperIso SM patch honestly and **do not spend this gate fixing it**. HyperIso v1.0.3 reference remains a matching cross-check.
 
-## 2. Distinguish the three claims
-1. `HYPERISO_PATCH_INTEGRATION_PASS`: executable injection, same-source signed coefficient trace, and no double count, plus running/additivity tests.
-2. `EXTERNAL_OPERATOR_CONVENTION_PASS`: requires independent pinned Misiak 2026 Hamiltonian/sigma/Fourier/operator insertion alignment or trusted external operator-level amplitude result; numerical THDM LO matching agreement, source editorial text, or trend sign alone **do not** establish this. It can remain `MATCHING_CONVENTION_UNKNOWN`.
-3. `ZEE_B_TO_XS_GAMMA_PHYSICAL_PASS`: NOT part of this task. Do not calculate a full Zee BR, exclusion/allowed labels or a mass cut; HyperIso's R3 legacy SM baseline is not the Misiak 2026 SM baseline.
+Review success separately:
+- `GATE_C1_NUMERICAL_DIAGNOSTIC_PASS`: source-locked algebra and tests run, but not a constraint;
+- `EXTERNAL_CONVENTION_PASS`: only if the independent operator bridge actually proves it;
+- `2026_LINEARIZED_FLAVOR_FILTER_READY`: only if convention, scheme, validity envelope, statistical prescription and NP errors are justified. This is NOT automatic from first two gates.
 
-Only if a **new external operator-level proof is genuinely achieved** may a separately labeled 2026 `LINEARIZED_BSM_SCREEN_CONDITIONAL` be added with:
-`10^4 BR = (3.54 +/- 0.14) - 8.51*DeltaC7(160) - 2.16*DeltaC8(160)`,
-`BRexp=(3.49 +/- 0.19)*1e-4`, `Egamma>1.6 GeV`. Linear expansion omits quadratic NP and uncomputed NLO, and is NOT an exclusion/likelihood. Otherwise leave it `NOT_EVALUATED`. Do **not** apply single-Higgs Type-II 670 GeV exclusion to either Zee mass.
+If no new operator source is found, declare uncertainty accurately and give a precise next action instead of embarking on another open-ended spinor/loop calculation. Do not regenerate old local-only SARAH output merely to increase test counts.
 
-## 3. Validation evidence and completion contract
-- Add narrow C++/Python regression tests for matching/running/double count and real two-state inputs. If compile impossible mark `HYPERISO_ADAPTER_RUNTIME_BLOCKED` with actual error; do not fabricate passed tests.
-- Preserve original actual Gate B tests and evidence, ideally rerun just `test_module5_bsgamma_lo.py` and newly written scoped tests. Historical native-tree file `native_numerical.json` was local-only; its absent data is not a physics failure. If useful, **regenerate with genuine SARAH** on this checkout and validate source hashes against historical evidence; do not misreport regenerated data as restored byte-identical, and do not require that regeneration to run adapter tests.
-- Write `module5/TWO_STATE_PATCH_AUDIT.md` plus `validation/module5/two_state_patch.json` with actual executable output, source SHA256, reference release, tests, quantitative residuals, status hierarchy, and explicit remaining physics barriers. Append new section to `validation/module5/STATUS.md`, preserving prior results and numeric evidence.
-- Only commit scoped `module5/`, `scripts/zee_module5_two_state_*`, `tests/test_module5_two_state_*`, `validation/module5/` and `AGENTS.md`; keep logs, external clones/binaries, other local outputs ignored.
-- Commit, `git push origin feature/zee-hyperiso-two-state-patch`; verify `git rev-parse HEAD` equals `git ls-remote origin refs/heads/feature/zee-hyperiso-two-state-patch`. Report commit SHA, URL, test totals, injection signs/sums, scopes and blockers, concise chat. `PUSH_BLOCKED` if push fails.
-
-### Cost discipline
-No whole-repository exploration, no source download when already pinned/local, no repetition of full native SARAH+LO kernel derivation, no new phenomenology scan. Avoid long Codex narrative.
+Commit scoped files, `git push origin feature/zee-2026-bsgamma-linear-diagnostic`, then verify `git rev-parse HEAD` equals `git ls-remote origin refs/heads/feature/zee-2026-bsgamma-linear-diagnostic`. Report exact SHA/URL, numeric results, tests, classification and blockers. Minimize Codex chat tokens. If push fails: `PUSH_BLOCKED`.
