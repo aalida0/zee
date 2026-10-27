@@ -1,0 +1,686 @@
+{
+  "benchmark_id": "module3_NO_spectrum0",
+  "bsgamma": {
+    "bound_scalar_sha256": "4ee55ddb553124a910ff4fc871a4110cb9ea2c9c24b705d52d6d3f87516e3f15",
+    "coefficients": {
+      "C7": {
+        "imag": 0.0,
+        "per_state_real": [
+          -0.025081667239615992,
+          -0.03447187720438246
+        ],
+        "real": -0.05955354444399845
+      },
+      "C8": {
+        "imag": 0.0,
+        "per_state_real": [
+          -0.02435471088499075,
+          -0.038644472934599425
+        ],
+        "real": -0.06299918381959017
+      }
+    },
+    "delta_C7": -0.05955354444399845,
+    "delta_C8": -0.06299918381959017,
+    "experiment_comparison": "NOT_EVALUATED",
+    "flavor_classification": "UNCLASSIFIED",
+    "linearized": {
+      "C7_linear_term_times_1e4": 0.5068006632184268,
+      "C8_linear_term_times_1e4": 0.13607823705031477,
+      "conditional_B_times_1e4": 4.182878900268742,
+      "delta_B_times_1e4": 0.6428789002687415
+    },
+    "linearized_value_in_1e_minus4": 4.182878900268742,
+    "matching_input": {
+      "beta_rad": 1.394,
+      "gamma_rad": 1.089,
+      "mH1_GeV": 300.0,
+      "mH2_GeV": 700.0,
+      "matching_scale_GeV": 160.0,
+      "mt_MSbar_GeV": 163.96892236746697,
+      "top_mass_input_definition": "USER_SUPPLIED_MSbar_TOP_MASS_AT_MATCHING_SCALE_NO_RUNNING"
+    },
+    "nonlinear_reliability": "UNKNOWN",
+    "operator_scope": "Real top-only charged-scalar LO dipoles, ms=0; no full Zee matching claim",
+    "output_sha256": "b6fc3600b2871502e9f94c27c77c5a150df3e77a271e10c256432d7e560e4ad8",
+    "paper_url": "https://arxiv.org/html/2608.29863v1",
+    "source_input_hash_verification": "VERIFIED",
+    "source_input_sha256": "ee35cec8f55df27a8248d3c9d1fc04c01ce4ce48cf039b21a98c86d63070dd80",
+    "status": "2026_EQ4_LO_LINEARIZED_DIAGNOSTIC_NOT_A_CONSTRAINT"
+  },
+  "code_versions": {
+    "branch": "feature/zee-coherent-scan-pilot",
+    "checkout_before_D0": "a3b039d81b5511bdf9988c8d427113b5e11e5d57",
+    "content_version_note": "Implementation versions are the source SHA256 below; no self-referential final commit hash.",
+    "module1_version": "1.0.0",
+    "module2_module3_schema": "1.0.0",
+    "module5_coefficient_order": "ALPHA_S_0",
+    "mpmath": "1.3.0",
+    "numpy": "2.2.6",
+    "parent_ancestry_verified": true,
+    "python": "3.10.12",
+    "required_parent": "6cafa9c37baea9ba3228e1d7fd58fd048cc3e10a",
+    "scipy": "1.15.3"
+  },
+  "constraints_complete": false,
+  "date": "2026-10-27",
+  "execution_blockers": [],
+  "future_scan_design": "Explicit scalar sampler with declared distributions and ranges; source-bound canonical per-point records; NO/IO inverse-family exploration with complex Yukawas; consistent per-point complete constraints/benchmarks and prompt collider observables; three-valued PASS/FAIL/UNKNOWN gates with unresolved gates remaining UNKNOWN. Exploratory channel correlations do not establish discovery/exclusion prospects or publication novelty.",
+  "global_zee_acceptance": null,
+  "lfv": {
+    "COMPLETE_LFV": false,
+    "gates": {
+      "exact_one_loop": "UNKNOWN",
+      "full_lfv": "NOT_EVALUATED",
+      "higgs_widths": "PASS",
+      "provenance": "PASS",
+      "scalar_one_loop_approximation": "PASS",
+      "tree": "PASS",
+      "universality_subset": "PASS"
+    },
+    "missing_contributions": [
+      "Two-loop fermion-gamma Barr-Zee (Type-II quarks and charged leptons)",
+      "Two-loop W-gamma Barr-Zee including gauge completion",
+      "Two-loop charged-scalar-gamma Barr-Zee",
+      "Two-loop Z-photon Barr-Zee",
+      "Two-loop W-Z Barr-Zee and remaining two-loop matching",
+      "Three-body off-shell photon non-dipole and dipole, Z penguins, boxes, and all interference with tree exchange",
+      "Muon-electron conversion: tree semileptonic scalar, photon/Z penguins, boxes, nuclear matrix elements",
+      "QED running, real/virtual radiation and higher-order corrections",
+      "Universality charged-doublet D operators, mixed F-D operators and quadratic dimension-six rates",
+      "Finite-neutrino-mass scalar chirality mixing and W/Goldstone GIM terms",
+      "External-invariant corrections to radiative scalar matching"
+    ],
+    "module4": "NOT_EVALUATED",
+    "observables": {
+      "A_to_e_mu": {
+        "charge_orientations": 2,
+        "experimental_comparison": "NOT_EVALUATED",
+        "physical_status": "LO_TWO_BODY_PARTIAL_WIDTH",
+        "status": "PASS",
+        "width_GeV": 1.005521652580783e-09
+      },
+      "A_to_e_tau": {
+        "charge_orientations": 2,
+        "experimental_comparison": "NOT_EVALUATED",
+        "physical_status": "LO_TWO_BODY_PARTIAL_WIDTH",
+        "status": "PASS",
+        "width_GeV": 2.3789759413573832e-12
+      },
+      "A_to_mu_tau": {
+        "charge_orientations": 2,
+        "experimental_comparison": "NOT_EVALUATED",
+        "physical_status": "LO_TWO_BODY_PARTIAL_WIDTH",
+        "status": "PASS",
+        "width_GeV": 1.7484531898889907e-09
+      },
+      "H_to_e_mu": {
+        "charge_orientations": 2,
+        "experimental_comparison": "NOT_EVALUATED",
+        "physical_status": "LO_TWO_BODY_PARTIAL_WIDTH",
+        "status": "PASS",
+        "width_GeV": 9.214093025413022e-10
+      },
+      "H_to_e_tau": {
+        "charge_orientations": 2,
+        "experimental_comparison": "NOT_EVALUATED",
+        "physical_status": "LO_TWO_BODY_PARTIAL_WIDTH",
+        "status": "PASS",
+        "width_GeV": 2.179967006224242e-12
+      },
+      "H_to_mu_tau": {
+        "charge_orientations": 2,
+        "experimental_comparison": "NOT_EVALUATED",
+        "physical_status": "LO_TWO_BODY_PARTIAL_WIDTH",
+        "status": "PASS",
+        "width_GeV": 1.60218951393824e-09
+      },
+      "h_to_e_mu": {
+        "charge_orientations": 2,
+        "experimental_comparison": "NOT_EVALUATED",
+        "physical_status": "LO_TWO_BODY_PARTIAL_WIDTH",
+        "status": "PASS",
+        "width_GeV": 3.173472965727805e-15
+      },
+      "h_to_e_tau": {
+        "charge_orientations": 2,
+        "experimental_comparison": "NOT_EVALUATED",
+        "physical_status": "LO_TWO_BODY_PARTIAL_WIDTH",
+        "status": "PASS",
+        "width_GeV": 7.505253589738096e-18
+      },
+      "h_to_mu_tau": {
+        "charge_orientations": 2,
+        "experimental_comparison": "NOT_EVALUATED",
+        "physical_status": "LO_TWO_BODY_PARTIAL_WIDTH",
+        "status": "PASS",
+        "width_GeV": 5.516058297239828e-15
+      },
+      "mu_to_3e": {
+        "experimental_comparison": "NOT_EVALUATED",
+        "partial_BR": 1.5564763897885017e-26,
+        "physical_status": "TREE_SUBSET_ONLY",
+        "quadrature_relative_change": 4.214815815314081e-06,
+        "status": "PASS",
+        "width_GeV": 4.663177896211018e-45
+      },
+      "mu_to_e_gamma": {
+        "C_L": {
+          "imag": 1.3312951785432418e-17,
+          "real": 2.630082484911828e-18
+        },
+        "C_R": {
+          "imag": 2.495576568765072e-15,
+          "real": 3.9247956398816687e-16
+        },
+        "experimental_comparison": "NOT_EVALUATED",
+        "partial_BR": 5.117059759419609e-19,
+        "physical_status": "SCALAR_ONE_LOOP_APPROXIMATION",
+        "status": "PASS",
+        "width_GeV": 1.5330627640910629e-37
+      },
+      "tau_to_3e": {
+        "experimental_comparison": "NOT_EVALUATED",
+        "partial_BR": 6.551877212744812e-30,
+        "physical_status": "TREE_SUBSET_ONLY",
+        "quadrature_relative_change": 1.3680264976851515e-07,
+        "status": "PASS",
+        "width_GeV": 1.4855404483531796e-41
+      },
+      "tau_to_3mu": {
+        "experimental_comparison": "NOT_EVALUATED",
+        "partial_BR": 3.9039078619695206e-23,
+        "physical_status": "TREE_SUBSET_ONLY",
+        "quadrature_relative_change": 2.3266489606961762e-10,
+        "status": "PASS",
+        "width_GeV": 8.85152887834741e-35
+      },
+      "tau_to_e_gamma": {
+        "C_L": {
+          "imag": -1.3592305160964513e-17,
+          "real": -1.2068541093777401e-17
+        },
+        "C_R": {
+          "imag": -1.9199645160603167e-15,
+          "real": 4.841382263719563e-15
+        },
+        "experimental_comparison": "NOT_EVALUATED",
+        "partial_BR": 3.86573009085753e-19,
+        "physical_status": "SCALAR_ONE_LOOP_APPROXIMATION",
+        "status": "PASS",
+        "width_GeV": 8.764966475888906e-31
+      },
+      "tau_to_e_mumu": {
+        "experimental_comparison": "NOT_EVALUATED",
+        "partial_BR": 3.2429443841634627e-24,
+        "physical_status": "TREE_SUBSET_ONLY",
+        "quadrature_relative_change": 6.612984516030955e-10,
+        "status": "PASS",
+        "width_GeV": 7.352892763410604e-36
+      },
+      "tau_to_mu_ee": {
+        "experimental_comparison": "NOT_EVALUATED",
+        "partial_BR": 6.89377285294868e-27,
+        "physical_status": "TREE_SUBSET_ONLY",
+        "quadrature_relative_change": 7.053207915571561e-08,
+        "status": "PASS",
+        "width_GeV": 1.563060186001876e-38
+      },
+      "tau_to_mu_gamma": {
+        "C_L": {
+          "imag": -4.940460433851427e-16,
+          "real": -4.816508019145406e-16
+        },
+        "C_R": {
+          "imag": -7.1180512877584e-16,
+          "real": -1.1075202371797533e-16
+        },
+        "experimental_comparison": "NOT_EVALUATED",
+        "partial_BR": 1.4030119451446245e-20,
+        "physical_status": "SCALAR_ONE_LOOP_APPROXIMATION",
+        "status": "PASS",
+        "width_GeV": 3.181120351249462e-32
+      }
+    },
+    "status": "SCOPED_LFV_COMPUTED",
+    "universality": {
+      "delta_GF_mu_over_GF": 4.027628705159165e-08,
+      "experimental_comparison": "NOT_EVALUATED",
+      "g_mu_over_g_e_squared_minus1": 1.0913879647836965e-06,
+      "g_tau_over_g_e_squared_minus1": 1.030517413526931e-06,
+      "g_tau_over_g_mu_squared_minus1": -6.087055125676544e-08,
+      "physical_status": "SUBSET_DIAGNOSTIC",
+      "provenance": "Herrero-Garcia 1701.05345 eqs.3.26-3.33; F=2f; general f_e_mu restored",
+      "rate_shifts_before_GF_subtraction": {
+        "mu_e": 8.05525741031833e-08,
+        "tau_e": 1.9682022846417867e-08,
+        "tau_mu": 1.1110699876301143e-06
+      },
+      "status": "PASS"
+    }
+  },
+  "neutrino": {
+    "D": {
+      "imag": [
+        [
+          1.7010879607956144e-07,
+          1.8771853357193572e-07,
+          -2.3493104208937388e-07
+        ],
+        [
+          7.377026257690367e-06,
+          -2.8415455142979305e-07,
+          -8.126504593576614e-06
+        ],
+        [
+          -2.532322496413992e-07,
+          5.981825823001321e-07,
+          6.989715673989236e-07
+        ]
+      ],
+      "real": [
+        [
+          1.4146442239076168e-07,
+          9.988164419157512e-08,
+          -2.4270970143882104e-07
+        ],
+        [
+          -5.02920303549246e-06,
+          -1.2862043795506866e-06,
+          -8.474086135532208e-06
+        ],
+        [
+          1.0236048816821419e-07,
+          6.946666040384624e-07,
+          1.2914271122724957e-06
+        ]
+      ]
+    },
+    "F": {
+      "imag": [
+        [
+          0.0,
+          0.00039022855114958247,
+          0.00022044708519790567
+        ],
+        [
+          -0.00039022855114958247,
+          0.0,
+          0.0008337416048584215
+        ],
+        [
+          -0.00022044708519790567,
+          -0.0008337416048584215,
+          0.0
+        ]
+      ],
+      "real": [
+        [
+          0.0,
+          0.00037110871435160037,
+          -0.0001492011642252908
+        ],
+        [
+          -0.00037110871435160037,
+          0.0,
+          0.0018179314993497701
+        ],
+        [
+          0.0001492011642252908,
+          -0.0018179314993497701,
+          0.0
+        ]
+      ]
+    },
+    "gates": {
+      "data_comparison": "NOT_EVALUATED",
+      "forward": "PASS",
+      "global_vacuum": "NOT_EVALUATED",
+      "inverse": "PASS",
+      "lfv": "NOT_EVALUATED",
+      "observables": "PASS",
+      "rg_closure": "NOT_EVALUATED"
+    },
+    "inverse_family_relative_residual": 3.029000106635716e-15,
+    "observables": {
+      "alpha21_rad": 0.7000000000000108,
+      "alpha31_rad": 2.1000000000000014,
+      "delta_rad": 4.199999999999994,
+      "dm21_eV2": 7.489999999999887e-05,
+      "dm3l_eV2": 0.0025339999999999976,
+      "masses_eV": [
+        0.000999999999999982,
+        0.008712060605849734,
+        0.050348783500696395
+      ],
+      "sin2_theta12": 0.30700000000000227,
+      "sin2_theta13": 0.02195000000000001,
+      "sin2_theta23": 0.561,
+      "sum_m_eV": 0.06006084410654611
+    },
+    "status": "NEUTRINO_COMPUTED"
+  },
+  "next_external_data_request": "Ask the 2026 B->Xs gamma authors for released coefficient-to-rate numerical response and reproducible input card with basis, scheme, scale, cut, normalization and perturbative order. No additional nonlinear code without data; do not repeat C3 no-go search.",
+  "ordering": "NO",
+  "physical_limitations": [
+    "Scalar numerical vacuum is UNKNOWN and not a global proof.",
+    "Module2 inverse target closure has no experimental NuFIT likelihood; official NuFIT 6.1 source remains missing.",
+    "Module3 exact one-loop UNKNOWN; full LFV and all Module4 two-loop terms NOT_EVALUATED; Wgamma gauge completion unresolved.",
+    "2026 Eq4 LO linear conditional diagnostic only: no C3 nonlinear response, physical BR, model uncertainty, statistics, CL, experimental classification or separate 670 GeV Zee mass cuts.",
+    "No global fit, RG closure or collider processes."
+  ],
+  "provenance": {
+    "bound_scalar_sha256": "4ee55ddb553124a910ff4fc871a4110cb9ea2c9c24b705d52d6d3f87516e3f15",
+    "flavor_derived_input_sha256": "ee35cec8f55df27a8248d3c9d1fc04c01ce4ce48cf039b21a98c86d63070dd80",
+    "hyperiso_reference_LHA_sha256": "984391031656a5f4f86ee71f5b60e7d0cb2b1b80edabd9ff6ba912da3ba39374",
+    "module2_input_sha256": "0ea9b76e6c5e834bbc7f57bc7e8329a9df9586a1423d1e9cdb8833f235327ad8",
+    "module3_input_bytes_sha256": "6a55f774041a9d5e06bd6ea30a628bfcf5c840af0ddff30bce5f692a551c2915",
+    "module3_input_sha256": "8e6d0ac27c439176f89f36c4b5ab55054ef3faf3f36abb4a4d0929675a137981",
+    "mt_MSbar_160_GeV": 163.96892236746697,
+    "per_sector_output_canonical_sha256": {
+      "bsgamma": "b6fc3600b2871502e9f94c27c77c5a150df3e77a271e10c256432d7e560e4ad8",
+      "neutrino": "44c0f7bc1958661334cf12546d37691530ee48d2a4332993e3a1a549869c904d",
+      "neutrino_lfv": "91dd22961cb4e72252e730e77887efc12b157e56af4082c8d26eddacacd62408",
+      "scalar": "e4224c2751945a3e9f4f31c69eff8a62140688641c64e6a6f7c76591de9b6063"
+    },
+    "scalar_provenance": {
+      "benchmark_id": "module3_NO_spectrum0",
+      "kind": "module1_input",
+      "module1_version": "1.0.0",
+      "scalar_gates": "NOT_EVALUATED",
+      "sha256": "4ee55ddb553124a910ff4fc871a4110cb9ea2c9c24b705d52d6d3f87516e3f15"
+    }
+  },
+  "real_cli": {
+    "command": "python -m module6.coherent_pilot --module3-input module3/example.json --mt-MSbar-160 163.96892236746697 --reference-lha-sha256 984391031656a5f4f86ee71f5b60e7d0cb2b1b80edabd9ff6ba912da3ba39374 --output validation/module6/local/coherent_NO.json",
+    "exit_code": 0,
+    "output_bytes_sha256": "0a0f21929b4d9d95732f9c38736f02d49fababecb760a162ccb55baf43266247",
+    "output_canonical_sha256": "73cd039fd9db6caaab28866350bc9ce919e1b51af6e1f97e8331026a3ce54026",
+    "output_path": "validation/module6/local/coherent_NO.json",
+    "status": "COHERENT_ZEE_CANDIDATE_DIAGNOSTIC_ONLY",
+    "stdout_sha256": "e8c5431d32c0f28f3f27ca3dc2d260b3f57e1da06932a313eb3086e33ee78b43"
+  },
+  "scalar": {
+    "STU": {
+      "S": 0.0044404330206560625,
+      "T": -0.0049021783175765745,
+      "U": 5.733708113025872e-05
+    },
+    "gates": {
+      "bfb": {
+        "assessment": "PASS",
+        "status": "BFB_CERTIFIED_SUFFICIENT"
+      },
+      "ewpo": {
+        "assessment": "PASS",
+        "status": "SCALAR_OBLIQUE_INSIDE_95"
+      },
+      "reconstruction": {
+        "assessment": "PASS",
+        "status": "RECONSTRUCTION_VALIDATED"
+      },
+      "unitarity": {
+        "assessment": "PASS",
+        "status": "TREE_UNITARITY_PASS"
+      },
+      "vacuum": {
+        "assessment": "UNKNOWN",
+        "status": "VACUUM_NO_DEEPER_WITNESS_FOUND"
+      }
+    },
+    "lagrangian_parameters": {
+      "K1": 1.082,
+      "K12": -0.001266,
+      "K2": 0.00398,
+      "Lambda1": 2.5323266017251225,
+      "Lambda2": 0.2523142747149227,
+      "Lambda3": 2.6450955022574054,
+      "Lambda4": -1.2105423724307023,
+      "Lambda5": -1.1267818464232178,
+      "LambdaC": 4.473,
+      "M112": 311541.7625481541,
+      "M12Sq": 57700.0,
+      "M222": 2608.616327149539,
+      "MCS2": 174740.64023808957,
+      "Mu4": 943.4001484550731
+    },
+    "max_unitarity_eigenvalue": 18.136779085730428,
+    "physical_input": {
+      "alpha": 1.398,
+      "beta": 1.394,
+      "gamma": 1.089,
+      "k1": 1.082,
+      "k12": -0.001266,
+      "k2": 0.00398,
+      "lc": 4.473,
+      "m12sq": 57700.0,
+      "mH1": 300.0,
+      "mH2": 700.0,
+      "ma": 633.7,
+      "mh1": 125.0,
+      "mh2": 580.7,
+      "v": 246.21965
+    },
+    "reconstruction": {
+      "assessment": "PASS",
+      "full_hessian_eigenvalues_GeV2": [
+        -7.916369800623278e-11,
+        -3.058859085466277e-11,
+        -9.126493313511336e-12,
+        15625.000000000004,
+        89999.9999999999,
+        90000.00000000004,
+        337212.4900000001,
+        401575.69000000024,
+        490000.0000000001,
+        490000.0000000001
+      ],
+      "mixing_max_residual_GeV2": 1.1641532182693481e-10,
+      "mixing_rows": {
+        "ZA": [
+          [
+            0.17587674640465137,
+            0.9844121952079393
+          ],
+          [
+            -0.9844121952079393,
+            0.17587674640465137
+          ]
+        ],
+        "ZH": [
+          [
+            0.17193770111211276,
+            0.9851078250304794
+          ],
+          [
+            -0.9851078250304794,
+            0.17193770111211276
+          ]
+        ],
+        "ZP": [
+          [
+            0.17587674640465137,
+            0.9844121952079393,
+            0.0
+          ],
+          [
+            -0.45614881382088146,
+            0.08149631794658072,
+            0.8861639858462725
+          ],
+          [
+            0.8723506346211464,
+            -0.15585563861161994,
+            0.4633717623993151
+          ]
+        ]
+      },
+      "order": "tree",
+      "spectrum_max_relative_residual": 7.916369800623278e-11,
+      "status": "RECONSTRUCTION_VALIDATED",
+      "tadpole_max_over_v3": 2.339716667824362e-17
+    },
+    "selected_scalar_EWPO_chi2": 0.8726172333959237,
+    "selected_scalar_EWPO_fit": "Gfitter_2026_U_floating",
+    "status": "SCALAR_PIPELINE_UNKNOWN",
+    "vacuum": {
+      "all_attempts_converged": false,
+      "assessment": "UNKNOWN",
+      "deeper_witness": null,
+      "global_stability_proven": false,
+      "neutral_value_over_v4": -0.032227573760635495,
+      "runs": [
+        {
+          "attempts": 66,
+          "boundary_hits": 0,
+          "chart": "H1_neutral_H2charged_real",
+          "credible_stationary_minima": 65,
+          "rejected_or_nonconverged": 1,
+          "seed": 123
+        },
+        {
+          "attempts": 66,
+          "boundary_hits": 0,
+          "chart": "H2_neutral_H1charged_real",
+          "credible_stationary_minima": 65,
+          "rejected_or_nonconverged": 1,
+          "seed": 123
+        },
+        {
+          "attempts": 18,
+          "boundary_hits": 0,
+          "chart": "neutral_complex",
+          "credible_stationary_minima": 17,
+          "rejected_or_nonconverged": 1,
+          "seed": 123
+        },
+        {
+          "attempts": 66,
+          "boundary_hits": 0,
+          "chart": "H1_neutral_H2charged_real",
+          "credible_stationary_minima": 65,
+          "rejected_or_nonconverged": 1,
+          "seed": 104852
+        },
+        {
+          "attempts": 66,
+          "boundary_hits": 0,
+          "chart": "H2_neutral_H1charged_real",
+          "credible_stationary_minima": 65,
+          "rejected_or_nonconverged": 1,
+          "seed": 104852
+        },
+        {
+          "attempts": 18,
+          "boundary_hits": 0,
+          "chart": "neutral_complex",
+          "credible_stationary_minima": 17,
+          "rejected_or_nonconverged": 1,
+          "seed": 104852
+        }
+      ],
+      "status": "VACUUM_NO_DEEPER_WITNESS_FOUND"
+    }
+  },
+  "schema_version": "1.0.0",
+  "source_sha256": {
+    "models/SARAH/ZeeTypeII/ZeeTypeII.m": "78d6b48232f9a75a21b058301d9233dba3ed067e21f534d27c0d6f415484aa4d",
+    "module1/__init__.py": "ff5a32c77d51bb826c8a0fd35384ded0abba37847b7871b51e99df347586e16a",
+    "module1/bfb.py": "f93b6e74d6bc003b82f6f44b3688b1aa7a7e8b0038f4f1456b28360cbd2b4846",
+    "module1/foundation.json": "57b566d87a38e8d178ee9084f51b08938e3d881a97d87f20c805f7f8eb0e9e86",
+    "module1/input.schema.json": "494b4bd31243e2992c2ec3575bcd7f883ad1a3212f6f5cefbb943a88b315c464",
+    "module1/output.schema.json": "58a0b2b9835e0caba100f70da56fbe4471174103562cd5be188e376a681a57bd",
+    "module1/potential.py": "510e04d7ed14f8be88332e6ed15f662bd87f5c6052109884e3547082c2872265",
+    "module1/scalar_constraints.py": "283902ff57de55e17e4d02900de07850265d306d1481e49db4dc96c08744cbac",
+    "module1/vacuum.py": "3896bc54edd13dfadfb8623e5f487f5fd95de194342b2d16ded943a3b5e04c10",
+    "module1/validate.py": "7377218c3c9c426194340478e4ba2406657355a735e2bcb63eb99d385129b079",
+    "module2/__init__.py": "185d23b2bd54685fb1ce7faad4788b4e222e1edb7c2d65a88006ff2f3f0daeea",
+    "module2/core.py": "c0f43ad019929afc80951b0813a9bf4a35a9c3059ae9d0ff220aa7046c45b5a6",
+    "module2/data.py": "f54968b42e449a323d6b686c20c69deadc123cba3c952e1c049d1818c497715c",
+    "module2/input.schema.json": "8ecc574d3136058c4937f17dfd5d910ba5f3454574c64cb3e48bae6e615d33df",
+    "module2/interface.py": "b98eea5a98c171565bc7bf632288039d8e5e2fb762fb0aa474fc8becec8cc1d2",
+    "module2/nufit.py": "6ab90d764924a3465682b23217d85c9005588c49814167b47d2d32e31bc01805",
+    "module2/observables.py": "8e9c60711b3cf0cebcfceb8fd7d46d93120c7c1ae174b77043a82768d5337795",
+    "module2/output.schema.json": "f65707a18ee39458e2d9f5cc8a00283d4f3989ebc025c7f10439309635c039b6",
+    "module2/schema.py": "36715dbd0be7adabf014f336460f34c2ac158ef212c96d7cf39a7e2100d2ce97",
+    "module2/validate.py": "078e4f6ce77f85faa771d5a50f3f8d4dc8103b6a061a2d57ae140a2ac68bfb91",
+    "module3/CONVENTIONS.md": "1e7908cd9901aa3930738dbe9162ee31a0777cde3739cd55611e3c20a38dffe5",
+    "module3/README.md": "2cace9b309c6861beb956aed57f80ddebfec4f16e1da8611829a4f614423ad3e",
+    "module3/__init__.py": "d11a5b6eda4f5b18df02f78a1e66c7d6cf2a4998a5fc13d24485953385e88732",
+    "module3/core.py": "5390e63af12a27c8e53823cc3625cd54851b10f5205d5ed2aab2ddd6767fd494",
+    "module3/example.json": "6a55f774041a9d5e06bd6ea30a628bfcf5c840af0ddff30bce5f692a551c2915",
+    "module3/foundations.json": "343b7cba10457b7ceb7aa9d1e211ec228b81f798f39819fd4eb2ad4a1192fbbf",
+    "module3/input.schema.json": "cee4db18a8291d0a8524fcfe5e975e977c57453046b2583e1e4d9e9d67f329c8",
+    "module3/interface.py": "27508b714b93aa074bb86bec90b221d9fd7ae8a64d60b63b7bd6dc8365e87386",
+    "module3/output.schema.json": "0aebf665c9849d4e1dab9f56a9305f6c8b30c4b63b4432585ba43036019aa361",
+    "module3/sources.json": "49bcdd271e93771c467a5f2602ddc9cce239b8a55c900516ed407c947a74ccbf",
+    "module3/tree.py": "e0886ac383e32f16eeaa888c9c2c50e124460fc08243d37917156c19ff091bd5",
+    "module3/validate.py": "983af1db9bbda94eb6eab5de8009e4ab31d146ef8cd7e6567009a2f0520c4e46",
+    "module3/witnesses.py": "7d791ebe3c1edecca87c72afc8c0fde3b3c1015f10b47e1e146a464b974b7465",
+    "module5/BSGAMMA_2026_CONVENTION.md": "f4a79f4125e2785a36e2af982790c3c629b1ece6eac5d21acf7bd18c630ce2a4",
+    "module5/BSGAMMA_SCAN_TRIAGE.md": "17851e840cec78e66cbc3efb347e898caf4d6cd57a02403076284a9b107bcb5a",
+    "module5/bsgamma_2026_linear_diagnostic.py": "7f1248cec5e2710ab242cb44a33409c2a1a50547a88947860c414242e763f7b1",
+    "module5/bsgamma_lo.py": "251cc9effc80010f65982cc980d0c170dc19785b2385d962afbed4549cfcd5e5",
+    "module5/hyperiso_patch_contract.py": "43b177cacdc1a9ba0f887809ea44591e83c40e70618c2a19b8fdfd36320ae1df",
+    "module6/coherent_pilot.py": "95df0b9a65dd7c0f30a2eb7f244178e79bf244eb4fa42bbc3ab99dd71f87eead",
+    "scripts/gate6_benchmark.py": "a0da0a51b7ea6c8b7b85b1517ff311a7c2f558d3e39e246bd99fa989effa14cf",
+    "scripts/gate6_vacuum_search.py": "42efc13e3dbe2cc13f93fee2c3f634da311410ea077415d0162908c800fb26c6",
+    "scripts/gateA1g_zee_oblique_T.py": "1b2b4bfa44ffbb26ad298c63debd2b072d3907b40d1a64d4c08fe744d805f92c",
+    "scripts/gateA1h_correlated_stu_ewpo.py": "a49d6f20c5f559c4e198583ff8e2bec74f6b7637fe4fc2c119b148a00c06d0f3",
+    "tests/test_module6_coherent_pilot.py": "775b877dfa660ac66c99e8c7705ffb4b1076c9655597c8c2739a79e05ddfbba4",
+    "validation/module5/linear_2026.json": "ac1e36c7769016608becd60cd3d87b8d2392414575bc4af5fd7f8613efc7dd7e"
+  },
+  "status": "D0_COHERENT_EXECUTION_PASS_NOT_PHYSICAL_ACCEPTANCE",
+  "tests": {
+    "command": "python -m unittest discover -s tests -p 'test_module6_coherent_pilot.py' -v",
+    "controls": [
+      "stale scalar SHA rejected",
+      "correctly rehashed scalar mH1/mH2/beta/gamma propagate into derived flavor input and shift C7 (structural scalar/LFV stubs, real neutrino/flavor)",
+      "benchmark ID mismatches rejected before scalar evaluation",
+      "170 GeV matching rejected by frozen Eq4; matching-scale fields in Module3/2 rejected",
+      "booleans, strings, arrays and nonfinite/overflow top inputs rejected",
+      "sector provenance tampering rejected",
+      "unexpected full-LFV claim rejected",
+      "FAIL and UNKNOWN retained; no global acceptance",
+      "all real LFV experimental comparisons NOT_EVALUATED"
+    ],
+    "errors": 0,
+    "exit_code": 0,
+    "failures": 0,
+    "log_sha256": "29323de5c2348a5e81343b6a57b3602a225f91cbb16ab12b0cf613923384fcd2",
+    "oracle": "Independent 60-digit Decimal rational/log loop formulas and signed Eq4; mass/beta/gamma literals; actual sector inputs/output hashes; real vacuum 300 attempts.",
+    "real_integration_tests": 1,
+    "run": 11,
+    "seconds": 3.345,
+    "skipped": 0,
+    "structural_tests": 10
+  },
+  "top_mass_source": {
+    "D0_mass_running_or_scheme_conversion": "NOT_PERFORMED",
+    "frozen_evidence": "validation/module5/linear_2026.json#matching_mass_provenance",
+    "frozen_evidence_sha256": "ac1e36c7769016608becd60cd3d87b8d2392414575bc4af5fd7f8613efc7dd7e",
+    "reference_lha_bytes_rehashed": true,
+    "reference_lha_path_read_only": "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/reproducibility/inputs/thdm_reference.lha",
+    "source": {
+      "command": [
+        "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/hyperiso_bridge/hyperiso_probe",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/reproducibility/inputs/thdm_reference.lha",
+        "--spectrum",
+        "true"
+      ],
+      "helper_binary_sha256": "e7dd4f4ee954bf15a0f31f353416d478c7f6be640cf42cb9f7c74360e6edc068",
+      "helper_call": "QCDHelper::msbar_mass(6,160.,MassType::MSBAR)",
+      "helper_source_sha256": "f077230362ef2c237185fc037f7d29f0104d53c2e6e0a55133fb88eeb94c4eae",
+      "lha_sha256": "984391031656a5f4f86ee71f5b60e7d0cb2b1b80edabd9ff6ba912da3ba39374",
+      "mt_MSbar_160_GeV": 163.96892236746697,
+      "parameter_source": "reproducibility/inputs/thdm_reference.lha",
+      "raw_log_sha256": "2045d0ab6d5f492dfeefb90d9ab9efeac14e7bce13ed3835cc199ed164b58259",
+      "scope": "Explicit reference input, not calibrated to the 2026 SM fit; read-only helper execution, no matching patch",
+      "upstream_commit": "09d26ac6e71d1528922097a896d15693589f636b",
+      "upstream_tracked_clean": true
+    }
+  }
+}
