@@ -1,0 +1,5960 @@
+{
+ "schema_version": "1.0.0",
+ "statuses": [
+  "D4_TREE_DECAY_TABLE_PASS",
+  "D4_COMPLETE_TWO_BODY_BR_PASS",
+  "PHYSICAL_LHC_CLAIM_NOT_EVALUATED"
+ ],
+ "approximation": "LO on-shell tree two-body only; native tree neutrinos massless; no off-shell, finite unstable daughter width, loop decay or NLO QCD/EW correction",
+ "d3_base": "5f70b8cddaf1092d9c97f3c2cb4e2eab5dfa8a36",
+ "pinned_input_bytes_sha256": {
+  "module3/example.json": "6a55f774041a9d5e06bd6ea30a628bfcf5c840af0ddff30bce5f692a551c2915",
+  "validation/module6/d2_scoped_scan.json": "79f4164b1bf74b21576e2711960dca3a415cc9eb03f133eb5a885ad10b607b84",
+  "validation/module7/cascade_d3.json": "cf9a9314197265a172305c287b9c3d306ec654e83ceeae6374e1dcf7c3346376"
+ },
+ "native_evidence": "validation/module7/d4_native_validation.json",
+ "native_raw_output_sha256": "192eadb0d3829eb0a2f59a6abdf5156f6a98ce2b5ad684ce805911fafc29353a",
+ "SM_input_card": {
+  "units": "GeV unless dimensionless",
+  "quark_order": [
+   "u",
+   "c",
+   "t",
+   "d",
+   "s",
+   "b"
+  ],
+  "quark_reference_masses": [
+   0.00216,
+   1.273,
+   162.5,
+   0.0047,
+   0.0935,
+   4.183
+  ],
+  "quark_reference_scales": [
+   2.0,
+   1.273,
+   162.5,
+   2.0,
+   2.0,
+   4.183
+  ],
+  "kinematic_masses": [
+   0.00216,
+   1.273,
+   172.4,
+   0.0047,
+   0.0935,
+   4.78
+  ],
+  "kinematic_scheme": "t pole from cross section; b approximate two-loop pole; light/c reference MS masses used as partonic thresholds",
+  "quark_source": "https://pdg.lbl.gov/2024/download/db2024.pdf",
+  "bottom_pole_source": "https://pdg.lbl.gov/2024/listings/rpp2024-list-b-quark.pdf",
+  "yukawa_scheme": "MSbar one-loop QCD evolution to mother mass; continuous matching at mb=4.183 and mt_pole=172.4; no finite threshold terms",
+  "alpha_s_mZ": 0.118,
+  "alpha_s_reference_GeV": 91.1876,
+  "QCD_source": "https://pdg.lbl.gov/2024/reviews/rpp2024-rev-qcd.pdf (9.3), one-loop mass anomalous dimension",
+  "running_formula": "alpha(Q)=alpha(q)/(1+alpha(q)*(11-2nf/3)*ln(Q/q)/(2pi)); m(Q)/m(q)=(alpha(Q)/alpha(q))**(12/(33-2nf)) piecewise",
+  "scheme_sensitivity": "also report same kinematics with unevolved reference Yukawa masses; diagnostic, not theory uncertainty",
+  "CKM_Wolfenstein": {
+   "lambda": 0.22501,
+   "A": 0.826,
+   "rhobar": 0.1591,
+   "etabar": 0.3523
+  },
+  "CKM_source": "https://pdg.lbl.gov/2024/reviews/rpp2024-rev-ckm-matrix.pdf Eq12.3,12.4,12.26 (exact unitary construction)",
+  "lepton_masses": [
+   0.00051099895,
+   0.1056583755,
+   1.77686
+  ],
+  "lepton_scheme": "frozen D2 charged-lepton pole snapshot; no QED running",
+  "lepton_source": "module3/example.json module2_input.lepton_masses_GeV; https://pdg.lbl.gov/2024/listings/particle_properties.html",
+  "EW": {
+   "mW": 80.379,
+   "mZ": 91.1876,
+   "v": 246.21965
+  },
+  "EW_scheme": "frozen D2 on-shell MW/MZ; g2=2mW/v, cw=mW/mZ, g1=g2*tan(thetaW)",
+  "EW_source": "module3/example.json SHA-bound snapshot; 2021 reference Appendix C; v from frozen scalar normalization",
+  "neutrino_scheme": "exact massless tree-level native Fv; inclusive three unitary-rotated neutrinos, both helicities; loop-induced mass effects uncomputed"
+ },
+ "reference": "https://link.springer.com/article/10.1140/epjc/s10052-021-09956-2",
+ "source_sha256": {
+  "module7/d4_decay_table.py": "74bffc62c7ed0b3acd9bf8b1f529011f38772fb237cf31d0e3e45ba0782542ba",
+  "module7/d4_inputs.py": "c65e18276738e46ed4378d46c76992cd13995de6d3d810b2a51d9fdd841ef7cf",
+  "module7/d4_native.py": "1dfe147395e821917f7bf7d41e72e0590f7143eb4d037907d642a288c81221d1",
+  "module7/d4_tree_kernels.py": "d4964ca641d486abf60ceff1f9ff5a95560c20fb844c086d88c02f114d83d856",
+  "tests/test_module7_d4_decay_table.py": "5c4e281bc776789c866638ab4eb2d2a74793bedc4711f7f7d7b2f2e70ef7d49e",
+  "tests/test_module7_d4_tree_kernels.py": "c9cb0adff240736db4d6a8c6f2c1f448797bc606f0f767061bab483349717fe6"
+ },
+ "validation": {
+  "generic_kernels": {
+   "passed": 8,
+   "log_sha256": "10450e632e2bc9e83e39f42a6aeeba7b57746c3a20b618cdb7353b436336d7cc",
+   "log": "validation/module7/local/d4_kernel_tests.log"
+  },
+  "D4": {
+   "passed": 18,
+   "log_sha256": "a1bbeb3fad61b056008171d39a4b5705f4491c30e61eec892f17c05c42297a36",
+   "log": "validation/module7/local/d4_tests.log"
+  },
+  "D3_regression": {
+   "passed": 9,
+   "log_sha256": "74ef852727b6af89a65a44342ee1ec2c6b4de70fcf3318962232656ee319c46a",
+   "log": "validation/module7/local/d4_D3_regression_tests.log"
+  },
+  "all_Module7": {
+   "passed": 34,
+   "log_sha256": "baac81a66785c25428ae7bb3313decba16c440168588180f5f95a57dd4a65431",
+   "log": "validation/module7/local/d4_all_module7_tests.log"
+  }
+ },
+ "spectrum_tables": {
+  "source": {
+   "physical": {
+    "mh1": 125.0,
+    "mh2": 580.7,
+    "ma": 633.7,
+    "mH1": 300.0,
+    "mH2": 700.0,
+    "alpha": 1.398,
+    "beta": 1.394,
+    "gamma": 1.089,
+    "m12sq": 57700.0,
+    "lc": 4.473,
+    "k1": 1.082,
+    "k2": 0.00398,
+    "k12": -0.001266,
+    "v": 246.21965
+   },
+   "mothers": {
+    "H1": {
+     "mother_mass_GeV": 300.0,
+     "channels": [
+      {
+       "channel": "u anti-d",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        0.00216,
+        0.0047
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 3.063735419259929e-08,
+       "width_minus_GeV": 3.063735419259929e-08,
+       "native_query_indices": [
+        0,
+        1
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "u anti-s",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        0.00216,
+        0.0935
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 6.46477438330863e-07,
+       "width_minus_GeV": 6.46477438330863e-07,
+       "native_query_indices": [
+        2,
+        3
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "u anti-b",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        0.00216,
+        4.78
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 4.445799370888716e-07,
+       "width_minus_GeV": 4.445799370888716e-07,
+       "native_query_indices": [
+        4,
+        5
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "c anti-d",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        1.273,
+        0.0047
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 1.0473943650255249e-07,
+       "width_minus_GeV": 1.0473943650255249e-07,
+       "native_query_indices": [
+        6,
+        7
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "c anti-s",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        1.273,
+        0.0935
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 1.4032730825009707e-05,
+       "width_minus_GeV": 1.4032730825009707e-05,
+       "native_query_indices": [
+        8,
+        9
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "c anti-b",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        1.273,
+        4.78
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 5.585646041486724e-05,
+       "width_minus_GeV": 5.585646041486725e-05,
+       "native_query_indices": [
+        10,
+        11
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "t anti-d",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        172.4,
+        0.0047
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 3.2535265755489174e-06,
+       "width_minus_GeV": 3.2535265755489182e-06,
+       "native_query_indices": [
+        12,
+        13
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "t anti-s",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        172.4,
+        0.0935
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 7.463519545095503e-05,
+       "width_minus_GeV": 7.463519545095503e-05,
+       "native_query_indices": [
+        14,
+        15
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "t anti-b",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        172.4,
+        4.78
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.05697133258372113,
+       "width_minus_GeV": 0.05697133258372113,
+       "native_query_indices": [
+        16,
+        17
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W h",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        125.0
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 1.139974732598333e-05,
+       "width_minus_GeV": 1.139974732598333e-05,
+       "native_query_indices": [
+        36,
+        37
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W H",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        580.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        38,
+        39
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W A",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        633.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        44,
+        45
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 Z",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        300.0,
+        91.1876
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 photon",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        300.0,
+        0.0
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 h",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        300.0,
+        125.0
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 H",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        300.0,
+        580.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 A",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        300.0,
+        633.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 Z",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        91.1876
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        91
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 photon",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        0.0
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        90
+       ],
+       "independently_validated": true,
+       "exact_zero": "GAUGE",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 h",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        125.0
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        48,
+        51
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 H",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        580.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        49,
+        52
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 A",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        633.7
+       ],
+       "kinematically_open": false,
+       "status": "FORBIDDEN_CP",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        50,
+        53
+       ],
+       "independently_validated": true,
+       "exact_zero": "CP",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W Z",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        91.1876
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        92,
+        96
+       ],
+       "independently_validated": true,
+       "exact_zero": "GAUGE",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W photon",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        0.0
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        93,
+        97
+       ],
+       "independently_validated": true,
+       "exact_zero": "GAUGE",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      }
+     ],
+     "decay_yukawa_masses_GeV": [
+      0.0013096137063846336,
+      0.7096948955253382,
+      155.97430234629496,
+      0.0028496224166702677,
+      0.056689297012482986,
+      2.835854896791177
+     ],
+     "quark_sum_GeV": 0.05712033693115363,
+     "quark_sum_unevolved_reference_Yukawas_GeV": 0.0770501184396167
+    },
+    "H2": {
+     "mother_mass_GeV": 700.0,
+     "channels": [
+      {
+       "channel": "u anti-d",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        0.00216,
+        0.0047
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 2.3553621714280284e-07,
+       "width_minus_GeV": 2.3553621714280284e-07,
+       "native_query_indices": [
+        18,
+        19
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "u anti-s",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        0.00216,
+        0.0935
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 4.970039952622269e-06,
+       "width_minus_GeV": 4.970039952622269e-06,
+       "native_query_indices": [
+        20,
+        21
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "u anti-b",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        0.00216,
+        4.78
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 3.4192931256462107e-06,
+       "width_minus_GeV": 3.419293125646211e-06,
+       "native_query_indices": [
+        22,
+        23
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "c anti-d",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        1.273,
+        0.0047
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 8.052476207430071e-07,
+       "width_minus_GeV": 8.052476207430071e-07,
+       "native_query_indices": [
+        24,
+        25
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "c anti-s",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        1.273,
+        0.0935
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.00010788526065723806,
+       "width_minus_GeV": 0.00010788526065723806,
+       "native_query_indices": [
+        26,
+        27
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "c anti-b",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        1.273,
+        4.78
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0004296090538352548,
+       "width_minus_GeV": 0.0004296090538352548,
+       "native_query_indices": [
+        28,
+        29
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "t anti-d",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        172.4,
+        0.0047
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 4.9200943196894716e-05,
+       "width_minus_GeV": 4.920094319689472e-05,
+       "native_query_indices": [
+        30,
+        31
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "t anti-s",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        172.4,
+        0.0935
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0011286713447274848,
+       "width_minus_GeV": 0.001128671344727485,
+       "native_query_indices": [
+        32,
+        33
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "t anti-b",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        172.4,
+        4.78
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.8804837496179675,
+       "width_minus_GeV": 0.8804837496179675,
+       "native_query_indices": [
+        34,
+        35
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W h",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        125.0
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0012280968527578655,
+       "width_minus_GeV": 0.0012280968527578655,
+       "native_query_indices": [
+        40,
+        41
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W H",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        580.7
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 1.0748739308677497,
+       "width_minus_GeV": 1.0748739308677497,
+       "native_query_indices": [
+        42,
+        43
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W A",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        633.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        46,
+        47
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 Z",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        300.0,
+        91.1876
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 9.411343258642537,
+       "width_minus_GeV": 9.411343258642537,
+       "native_query_indices": [
+        91
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 photon",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        300.0,
+        0.0
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        90
+       ],
+       "independently_validated": true,
+       "exact_zero": "GAUGE",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 h",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        300.0,
+        125.0
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.2670364088175085,
+       "width_minus_GeV": 0.2670364088175085,
+       "native_query_indices": [
+        51,
+        48
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 H",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        300.0,
+        580.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        52,
+        49
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 A",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        300.0,
+        633.7
+       ],
+       "kinematically_open": false,
+       "status": "FORBIDDEN_CP",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        53,
+        50
+       ],
+       "independently_validated": true,
+       "exact_zero": "CP",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 Z",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        91.1876
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 photon",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        0.0
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 h",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        125.0
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 H",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        580.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 A",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        633.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W Z",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        91.1876
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        94,
+        98
+       ],
+       "independently_validated": true,
+       "exact_zero": "GAUGE",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W photon",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        0.0
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        95,
+        99
+       ],
+       "independently_validated": true,
+       "exact_zero": "GAUGE",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      }
+     ],
+     "decay_yukawa_masses_GeV": [
+      0.0012430068061882603,
+      0.6735998418116529,
+      148.0414556305571,
+      0.0027046907356874186,
+      0.053806081656760346,
+      2.69162343131315
+     ],
+     "quark_sum_GeV": 0.8822085463373005,
+     "quark_sum_unevolved_reference_Yukawas_GeV": 1.3241754829841754
+    }
+   },
+   "conditional_D3_context": {
+    "conditional_linear_value_1e_minus4": 4.182878900268742,
+    "delta_C7": -0.05955354444399845,
+    "delta_C8": -0.06299918381959017,
+    "partial_width_GeV": 9.411343258642537,
+    "spectrum_name": "source"
+   }
+  },
+  "mH1_m50p0": {
+   "physical": {
+    "mh1": 125.0,
+    "mh2": 580.7,
+    "ma": 633.7,
+    "mH1": 250.0,
+    "mH2": 700.0,
+    "alpha": 1.398,
+    "beta": 1.394,
+    "gamma": 1.089,
+    "m12sq": 57700.0,
+    "lc": 4.473,
+    "k1": 1.082,
+    "k2": 0.00398,
+    "k12": -0.001266,
+    "v": 246.21965
+   },
+   "mothers": {
+    "H1": {
+     "mother_mass_GeV": 250.0,
+     "channels": [
+      {
+       "channel": "u anti-d",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        0.00216,
+        0.0047
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 2.614521552267716e-08,
+       "width_minus_GeV": 2.614521552267716e-08,
+       "native_query_indices": [
+        0,
+        1
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "u anti-s",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        0.00216,
+        0.0935
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 5.516889744558291e-07,
+       "width_minus_GeV": 5.516889744558291e-07,
+       "native_query_indices": [
+        2,
+        3
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "u anti-b",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        0.00216,
+        4.78
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 3.7930954775476927e-07,
+       "width_minus_GeV": 3.7930954775476927e-07,
+       "native_query_indices": [
+        4,
+        5
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "c anti-d",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        1.273,
+        0.0047
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 8.938081574332713e-08,
+       "width_minus_GeV": 8.938081574332713e-08,
+       "native_query_indices": [
+        6,
+        7
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "c anti-s",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        1.273,
+        0.0935
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 1.1975010323924595e-05,
+       "width_minus_GeV": 1.1975010323924595e-05,
+       "native_query_indices": [
+        8,
+        9
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "c anti-b",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        1.273,
+        4.78
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 4.765516994980505e-05,
+       "width_minus_GeV": 4.765516994980504e-05,
+       "native_query_indices": [
+        10,
+        11
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "t anti-d",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        172.4,
+        0.0047
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 1.7024345899343123e-06,
+       "width_minus_GeV": 1.7024345899343123e-06,
+       "native_query_indices": [
+        12,
+        13
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "t anti-s",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        172.4,
+        0.0935
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 3.905306026215439e-05,
+       "width_minus_GeV": 3.905306026215439e-05,
+       "native_query_indices": [
+        14,
+        15
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "t anti-b",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        172.4,
+        4.78
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.029163064129260525,
+       "width_minus_GeV": 0.02916306412926052,
+       "native_query_indices": [
+        16,
+        17
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W h",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        125.0
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 3.1105668794037422e-06,
+       "width_minus_GeV": 3.1105668794037422e-06,
+       "native_query_indices": [
+        36,
+        37
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W H",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        580.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        38,
+        39
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W A",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        633.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        44,
+        45
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 Z",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        250.0,
+        91.1876
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 photon",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        250.0,
+        0.0
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 h",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        250.0,
+        125.0
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 H",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        250.0,
+        580.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 A",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        250.0,
+        633.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 Z",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        91.1876
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        91
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 photon",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        0.0
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        90
+       ],
+       "independently_validated": true,
+       "exact_zero": "GAUGE",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 h",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        125.0
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        48,
+        51
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 H",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        580.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        49,
+        52
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 A",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        633.7
+       ],
+       "kinematically_open": false,
+       "status": "FORBIDDEN_CP",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        50,
+        53
+       ],
+       "independently_validated": true,
+       "exact_zero": "CP",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W Z",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        91.1876
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        92,
+        96
+       ],
+       "independently_validated": true,
+       "exact_zero": "GAUGE",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W photon",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        0.0
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        93,
+        97
+       ],
+       "independently_validated": true,
+       "exact_zero": "GAUGE",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      }
+     ],
+     "decay_yukawa_masses_GeV": [
+      0.001325269854206908,
+      0.7181791440780904,
+      157.83894130212192,
+      0.0028836890346168836,
+      0.057367005263123105,
+      2.8697569270236274
+     ],
+     "quark_sum_GeV": 0.02926449632893982,
+     "quark_sum_unevolved_reference_Yukawas_GeV": 0.03845942656974127
+    },
+    "H2": {
+     "mother_mass_GeV": 700.0,
+     "channels": [
+      {
+       "channel": "u anti-d",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        0.00216,
+        0.0047
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 2.3553621714280284e-07,
+       "width_minus_GeV": 2.3553621714280284e-07,
+       "native_query_indices": [
+        18,
+        19
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "u anti-s",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        0.00216,
+        0.0935
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 4.970039952622269e-06,
+       "width_minus_GeV": 4.970039952622269e-06,
+       "native_query_indices": [
+        20,
+        21
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "u anti-b",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        0.00216,
+        4.78
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 3.4192931256462107e-06,
+       "width_minus_GeV": 3.419293125646211e-06,
+       "native_query_indices": [
+        22,
+        23
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "c anti-d",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        1.273,
+        0.0047
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 8.052476207430071e-07,
+       "width_minus_GeV": 8.052476207430071e-07,
+       "native_query_indices": [
+        24,
+        25
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "c anti-s",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        1.273,
+        0.0935
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.00010788526065723806,
+       "width_minus_GeV": 0.00010788526065723806,
+       "native_query_indices": [
+        26,
+        27
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "c anti-b",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        1.273,
+        4.78
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0004296090538352548,
+       "width_minus_GeV": 0.0004296090538352548,
+       "native_query_indices": [
+        28,
+        29
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "t anti-d",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        172.4,
+        0.0047
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 4.9200943196894716e-05,
+       "width_minus_GeV": 4.920094319689472e-05,
+       "native_query_indices": [
+        30,
+        31
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "t anti-s",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        172.4,
+        0.0935
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0011286713447274848,
+       "width_minus_GeV": 0.001128671344727485,
+       "native_query_indices": [
+        32,
+        33
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "t anti-b",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        172.4,
+        4.78
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.8804837496179675,
+       "width_minus_GeV": 0.8804837496179675,
+       "native_query_indices": [
+        34,
+        35
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W h",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        125.0
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0012280968527578655,
+       "width_minus_GeV": 0.0012280968527578655,
+       "native_query_indices": [
+        40,
+        41
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W H",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        580.7
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 1.0748739308677497,
+       "width_minus_GeV": 1.0748739308677497,
+       "native_query_indices": [
+        42,
+        43
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W A",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        633.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        46,
+        47
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 Z",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        250.0,
+        91.1876
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 11.671906176399391,
+       "width_minus_GeV": 11.671906176399391,
+       "native_query_indices": [
+        91
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 photon",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        250.0,
+        0.0
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        90
+       ],
+       "independently_validated": true,
+       "exact_zero": "GAUGE",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 h",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        250.0,
+        125.0
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.5773812845483025,
+       "width_minus_GeV": 0.5773812845483025,
+       "native_query_indices": [
+        51,
+        48
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 H",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        250.0,
+        580.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        52,
+        49
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 A",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        250.0,
+        633.7
+       ],
+       "kinematically_open": false,
+       "status": "FORBIDDEN_CP",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        53,
+        50
+       ],
+       "independently_validated": true,
+       "exact_zero": "CP",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 Z",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        91.1876
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 photon",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        0.0
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 h",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        125.0
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 H",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        580.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 A",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        633.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W Z",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        91.1876
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        94,
+        98
+       ],
+       "independently_validated": true,
+       "exact_zero": "GAUGE",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W photon",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        0.0
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        95,
+        99
+       ],
+       "independently_validated": true,
+       "exact_zero": "GAUGE",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      }
+     ],
+     "decay_yukawa_masses_GeV": [
+      0.0012430068061882603,
+      0.6735998418116529,
+      148.0414556305571,
+      0.0027046907356874186,
+      0.053806081656760346,
+      2.69162343131315
+     ],
+     "quark_sum_GeV": 0.8822085463373005,
+     "quark_sum_unevolved_reference_Yukawas_GeV": 1.3241754829841754
+    }
+   },
+   "conditional_D3_context": {
+    "conditional_linear_value_1e_minus4": 4.230787153913907,
+    "delta_C7": -0.06428360601034018,
+    "delta_C8": -0.06654336424347776,
+    "partial_width_GeV": 11.671906176399391,
+    "spectrum_name": "mH1_m50p0"
+   }
+  },
+  "mH1_p50p0": {
+   "physical": {
+    "mh1": 125.0,
+    "mh2": 580.7,
+    "ma": 633.7,
+    "mH1": 350.0,
+    "mH2": 700.0,
+    "alpha": 1.398,
+    "beta": 1.394,
+    "gamma": 1.089,
+    "m12sq": 57700.0,
+    "lc": 4.473,
+    "k1": 1.082,
+    "k2": 0.00398,
+    "k12": -0.001266,
+    "v": 246.21965
+   },
+   "mothers": {
+    "H1": {
+     "mother_mass_GeV": 350.0,
+     "channels": [
+      {
+       "channel": "u anti-d",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        0.00216,
+        0.0047
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 3.504573348088744e-08,
+       "width_minus_GeV": 3.504573348088744e-08,
+       "native_query_indices": [
+        0,
+        1
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "u anti-s",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        0.00216,
+        0.0935
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 7.394984902258134e-07,
+       "width_minus_GeV": 7.394984902258134e-07,
+       "native_query_indices": [
+        2,
+        3
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "u anti-b",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        0.00216,
+        4.78
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 5.08618639574987e-07,
+       "width_minus_GeV": 5.08618639574987e-07,
+       "native_query_indices": [
+        4,
+        5
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "c anti-d",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        1.273,
+        0.0047
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 1.1981143855648004e-07,
+       "width_minus_GeV": 1.1981143855648004e-07,
+       "native_query_indices": [
+        6,
+        7
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "c anti-s",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        1.273,
+        0.0935
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 1.6052048856016056e-05,
+       "width_minus_GeV": 1.6052048856016056e-05,
+       "native_query_indices": [
+        8,
+        9
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "c anti-b",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        1.273,
+        4.78
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 6.390284963640688e-05,
+       "width_minus_GeV": 6.390284963640688e-05,
+       "native_query_indices": [
+        10,
+        11
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "t anti-d",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        172.4,
+        0.0047
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 4.759071547912034e-06,
+       "width_minus_GeV": 4.759071547912036e-06,
+       "native_query_indices": [
+        12,
+        13
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "t anti-s",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        172.4,
+        0.0935
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.00010917255587257187,
+       "width_minus_GeV": 0.00010917255587257188,
+       "native_query_indices": [
+        14,
+        15
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "t anti-b",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        172.4,
+        4.78
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.08407841584192231,
+       "width_minus_GeV": 0.08407841584192233,
+       "native_query_indices": [
+        16,
+        17
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W h",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        125.0
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 2.5039038712974065e-05,
+       "width_minus_GeV": 2.5039038712974065e-05,
+       "native_query_indices": [
+        36,
+        37
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W H",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        580.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        38,
+        39
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W A",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        633.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        44,
+        45
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 Z",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        350.0,
+        91.1876
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 photon",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        350.0,
+        0.0
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 h",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        350.0,
+        125.0
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 H",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        350.0,
+        580.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 A",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        350.0,
+        633.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 Z",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        91.1876
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        91
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 photon",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        0.0
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        90
+       ],
+       "independently_validated": true,
+       "exact_zero": "GAUGE",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 h",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        125.0
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        48,
+        51
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 H",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        580.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        49,
+        52
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 A",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        633.7
+       ],
+       "kinematically_open": false,
+       "status": "FORBIDDEN_CP",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        50,
+        53
+       ],
+       "independently_validated": true,
+       "exact_zero": "CP",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W Z",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        91.1876
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        92,
+        96
+       ],
+       "independently_validated": true,
+       "exact_zero": "GAUGE",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W photon",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        0.0
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        93,
+        97
+       ],
+       "independently_validated": true,
+       "exact_zero": "GAUGE",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      }
+     ],
+     "decay_yukawa_masses_GeV": [
+      0.0012967664477033939,
+      0.7027328166595481,
+      154.4442006070572,
+      0.002821667733428682,
+      0.05613317725012377,
+      2.808035272375276
+     ],
+     "quark_sum_GeV": 0.08427370534213706,
+     "quark_sum_unevolved_reference_Yukawas_GeV": 0.116053876955761
+    },
+    "H2": {
+     "mother_mass_GeV": 700.0,
+     "channels": [
+      {
+       "channel": "u anti-d",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        0.00216,
+        0.0047
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 2.3553621714280284e-07,
+       "width_minus_GeV": 2.3553621714280284e-07,
+       "native_query_indices": [
+        18,
+        19
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "u anti-s",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        0.00216,
+        0.0935
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 4.970039952622269e-06,
+       "width_minus_GeV": 4.970039952622269e-06,
+       "native_query_indices": [
+        20,
+        21
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "u anti-b",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        0.00216,
+        4.78
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 3.4192931256462107e-06,
+       "width_minus_GeV": 3.419293125646211e-06,
+       "native_query_indices": [
+        22,
+        23
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "c anti-d",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        1.273,
+        0.0047
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 8.052476207430071e-07,
+       "width_minus_GeV": 8.052476207430071e-07,
+       "native_query_indices": [
+        24,
+        25
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "c anti-s",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        1.273,
+        0.0935
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.00010788526065723806,
+       "width_minus_GeV": 0.00010788526065723806,
+       "native_query_indices": [
+        26,
+        27
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "c anti-b",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        1.273,
+        4.78
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0004296090538352548,
+       "width_minus_GeV": 0.0004296090538352548,
+       "native_query_indices": [
+        28,
+        29
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "t anti-d",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        172.4,
+        0.0047
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 4.9200943196894716e-05,
+       "width_minus_GeV": 4.920094319689472e-05,
+       "native_query_indices": [
+        30,
+        31
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "t anti-s",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        172.4,
+        0.0935
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0011286713447274848,
+       "width_minus_GeV": 0.001128671344727485,
+       "native_query_indices": [
+        32,
+        33
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "t anti-b",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        172.4,
+        4.78
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.8804837496179675,
+       "width_minus_GeV": 0.8804837496179675,
+       "native_query_indices": [
+        34,
+        35
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W h",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        125.0
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0012280968527578655,
+       "width_minus_GeV": 0.0012280968527578655,
+       "native_query_indices": [
+        40,
+        41
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W H",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        580.7
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 1.0748739308677497,
+       "width_minus_GeV": 1.0748739308677497,
+       "native_query_indices": [
+        42,
+        43
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W A",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        633.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        46,
+        47
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 Z",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        350.0,
+        91.1876
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 7.1240428396019855,
+       "width_minus_GeV": 7.1240428396019855,
+       "native_query_indices": [
+        91
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 photon",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        350.0,
+        0.0
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        90
+       ],
+       "independently_validated": true,
+       "exact_zero": "GAUGE",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 h",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        350.0,
+        125.0
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.06268184759713855,
+       "width_minus_GeV": 0.06268184759713855,
+       "native_query_indices": [
+        51,
+        48
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 H",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        350.0,
+        580.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        52,
+        49
+       ],
+       "independently_validated": true,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H1 A",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        350.0,
+        633.7
+       ],
+       "kinematically_open": false,
+       "status": "FORBIDDEN_CP",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        53,
+        50
+       ],
+       "independently_validated": true,
+       "exact_zero": "CP",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 Z",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        91.1876
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 photon",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        0.0
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 h",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        125.0
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 H",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        580.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "H2 A",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        700.0,
+        633.7
+       ],
+       "kinematically_open": false,
+       "status": "CLOSED",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [],
+       "independently_validated": false,
+       "exact_zero": null,
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W Z",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        91.1876
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        94,
+        98
+       ],
+       "independently_validated": true,
+       "exact_zero": "GAUGE",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      },
+      {
+       "channel": "W photon",
+       "mother_charge": "+",
+       "conjugate_mother_charge": "-",
+       "daughter_masses_GeV": [
+        80.379,
+        0.0
+       ],
+       "kinematically_open": true,
+       "status": "OPEN",
+       "width_GeV": 0.0,
+       "width_minus_GeV": 0.0,
+       "native_query_indices": [
+        95,
+        99
+       ],
+       "independently_validated": true,
+       "exact_zero": "GAUGE",
+       "scheme": "d4_SM_input_card",
+       "errors": []
+      }
+     ],
+     "decay_yukawa_masses_GeV": [
+      0.0012430068061882603,
+      0.6735998418116529,
+      148.0414556305571,
+      0.0027046907356874186,
+      0.053806081656760346,
+      2.69162343131315
+     ],
+     "quark_sum_GeV": 0.8822085463373005,
+     "quark_sum_unevolved_reference_Yukawas_GeV": 1.3241754829841754
+    }
+   },
+   "conditional_D3_context": {
+    "conditional_linear_value_1e_minus4": 4.145521835221139,
+    "delta_C7": -0.055903518399357255,
+    "delta_C8": -0.06008467298268906,
+    "partial_width_GeV": 7.1240428396019855,
+    "spectrum_name": "mH1_p50p0"
+   }
+  }
+ },
+ "conditional_lepton_families": [
+  {
+   "benchmark_id": "d2_NO_source_baseline",
+   "spectrum_name": "source",
+   "family_name": "baseline",
+   "scalar_sha256": "c8d0a20ce0d03f36802ea93905643a4c7ac140665bd8a5f129f9bb36340072c9",
+   "module2_input_sha256": "76baba406a978c83a649d0774daf98c1c2563e23eec991b00a3ff2434f3f9b77",
+   "D_sha256": "88004a236507cbdc2c1b42cfc31c347533e3d20ec163724cb7cf5ddd2de2e987",
+   "full_Module2_sha256": "176ee77dc61d4189f95ac9b77273331b0532dc28df91a004b232303059c3fdea",
+   "leptonic_channels": {
+    "H1": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.6912814412299753e-06,
+      "width_minus_GeV": 1.6912814412299753e-06,
+      "native_query_indices": [
+       54,
+       55,
+       56,
+       57,
+       58,
+       59
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 2.0106794814119777e-05,
+      "width_minus_GeV": 2.0106794814119777e-05,
+      "native_query_indices": [
+       60,
+       61,
+       62,
+       63,
+       64,
+       65
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.9078101439179745e-05,
+      "width_minus_GeV": 1.9078101439179745e-05,
+      "native_query_indices": [
+       66,
+       67,
+       68,
+       69,
+       70,
+       71
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ],
+    "H2": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.0790074760939344e-06,
+      "width_minus_GeV": 1.0790074760939344e-06,
+      "native_query_indices": [
+       72,
+       73,
+       74,
+       75,
+       76,
+       77
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2829973939247068e-05,
+      "width_minus_GeV": 1.2829973939247071e-05,
+      "native_query_indices": [
+       78,
+       79,
+       80,
+       81,
+       82,
+       83
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2172193818412547e-05,
+      "width_minus_GeV": 1.2172193818412547e-05,
+      "native_query_indices": [
+       84,
+       85,
+       86,
+       87,
+       88,
+       89
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ]
+   },
+   "mothers": {
+    "H1": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 0.05717261285617414,
+     "Gamma_total_on_shell_two_body_GeV": 0.05717261285617414,
+     "total_width_minus_GeV": 0.05717261285617414,
+     "branching_fraction": null,
+     "branching_fractions": {
+      "u anti-d": 5.358746550498212e-07,
+      "u anti-s": 1.1307467090181258e-05,
+      "u anti-b": 7.776099689676171e-06,
+      "c anti-d": 1.8319861778232783e-06,
+      "c anti-s": 0.0002454449801045658,
+      "c anti-b": 0.0009769793197204775,
+      "t anti-d": 5.690708213272721e-05,
+      "t anti-s": 0.0013054361471761052,
+      "t anti-b": 0.9964794284816165,
+      "W h": 0.00019939174993910145,
+      "e nu_all": 2.9582021124076222e-05,
+      "mu nu_all": 0.0003516857776764775,
+      "tau nu_all": 0.0003336930128971616
+     },
+     "missing_widths": []
+    },
+    "H2": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 11.636716322693088,
+     "Gamma_total_on_shell_two_body_GeV": 11.636716322693088,
+     "total_width_minus_GeV": 11.636716322693088,
+     "branching_fraction": 0.8087627985129457,
+     "branching_fractions": {
+      "u anti-d": 2.0240780183278767e-08,
+      "u anti-s": 4.270998634666426e-07,
+      "u anti-b": 2.9383659709725424e-07,
+      "c anti-d": 6.919887006033404e-08,
+      "c anti-s": 9.271108589873243e-06,
+      "c anti-b": 3.6918409104590964e-05,
+      "t anti-d": 4.228077907248334e-06,
+      "t anti-s": 9.699225395109366e-05,
+      "t anti-b": 0.07566427892556866,
+      "W h": 0.00010553637458386085,
+      "W H": 0.09236917881822107,
+      "H1 Z": 0.8087627985129457,
+      "H1 h": 0.02294774585995134,
+      "e nu_all": 9.272439459486793e-08,
+      "mu nu_all": 1.1025424684648345e-06,
+      "tau nu_all": 1.046016202584161e-06
+     },
+     "missing_widths": []
+    }
+   }
+  },
+  {
+   "benchmark_id": "d2_NO_source_index0",
+   "spectrum_name": "source",
+   "family_name": "index0",
+   "scalar_sha256": "c8d02274d8cb1aa7f53b7a77371836f774b08f99cfb1b93b4c967f162a33a122",
+   "module2_input_sha256": "50048b713fb1b29a2a1d026c032a668b14d9739e8685b7a886c02e37e58de891",
+   "D_sha256": "9f4db8c7a731547de33bb06287dd9ef5bdeaf430006b7f06de58fd03991bdcb3",
+   "full_Module2_sha256": "851787675f7be3655f97be2f6ac208e44cae18cbe043c88e9424704220e16327",
+   "leptonic_channels": {
+    "H1": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.6912905288113207e-06,
+      "width_minus_GeV": 1.6912905288113207e-06,
+      "native_query_indices": [
+       54,
+       55,
+       56,
+       57,
+       58,
+       59
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 2.0106794882440245e-05,
+      "width_minus_GeV": 2.0106794882440245e-05,
+      "native_query_indices": [
+       60,
+       61,
+       62,
+       63,
+       64,
+       65
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.907810144583194e-05,
+      "width_minus_GeV": 1.907810144583194e-05,
+      "native_query_indices": [
+       66,
+       67,
+       68,
+       69,
+       70,
+       71
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ],
+    "H2": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.0790850283005898e-06,
+      "width_minus_GeV": 1.0790850283005898e-06,
+      "native_query_indices": [
+       72,
+       73,
+       74,
+       75,
+       76,
+       77
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.282997452228495e-05,
+      "width_minus_GeV": 1.2829974522284952e-05,
+      "native_query_indices": [
+       78,
+       79,
+       80,
+       81,
+       82,
+       83
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2172193875184715e-05,
+      "width_minus_GeV": 1.2172193875184715e-05,
+      "native_query_indices": [
+       84,
+       85,
+       86,
+       87,
+       88,
+       89
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ]
+   },
+   "mothers": {
+    "H1": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 0.057172612865336696,
+     "Gamma_total_on_shell_two_body_GeV": 0.057172612865336696,
+     "total_width_minus_GeV": 0.057172612865336696,
+     "branching_fraction": null,
+     "branching_fractions": {
+      "u anti-d": 5.358746549639413e-07,
+      "u anti-s": 1.1307467088369109e-05,
+      "u anti-b": 7.776099688429964e-06,
+      "c anti-d": 1.8319861775296818e-06,
+      "c anti-s": 0.0002454449800652305,
+      "c anti-b": 0.0009769793195639055,
+      "t anti-d": 5.6907082123607206e-05,
+      "t anti-s": 0.0013054361469668943,
+      "t anti-b": 0.9964794283219196,
+      "W h": 0.00019939174990714668,
+      "e nu_all": 2.9582180069239703e-05,
+      "mu nu_all": 0.0003516857788151018,
+      "tau nu_all": 0.00033369301296003634
+     },
+     "missing_widths": []
+    },
+    "H2": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 11.63671632277128,
+     "Gamma_total_on_shell_two_body_GeV": 11.63671632277128,
+     "total_width_minus_GeV": 11.63671632277128,
+     "branching_fraction": 0.8087627985075113,
+     "branching_fractions": {
+      "u anti-d": 2.0240780183142762e-08,
+      "u anti-s": 4.2709986346377276e-07,
+      "u anti-b": 2.938365970952798e-07,
+      "c anti-d": 6.919887005986906e-08,
+      "c anti-s": 9.271108589810947e-06,
+      "c anti-b": 3.691840910434289e-05,
+      "t anti-d": 4.2280779072199234e-06,
+      "t anti-s": 9.699225395044193e-05,
+      "t anti-b": 0.07566427892506024,
+      "W h": 0.00010553637458315172,
+      "W H": 0.0923691788176004,
+      "H1 Z": 0.8087627985075113,
+      "H1 h": 0.022947745859797145,
+      "e nu_all": 9.273105903501187e-08,
+      "mu nu_all": 1.1025425185607253e-06,
+      "tau nu_all": 1.0460162074558427e-06
+     },
+     "missing_widths": []
+    }
+   }
+  },
+  {
+   "benchmark_id": "d2_NO_source_index2",
+   "spectrum_name": "source",
+   "family_name": "index2",
+   "scalar_sha256": "3bbefd7652e959da05065520021ef5c7ac1b359e15f3e8fa8cc9b1beeea0538e",
+   "module2_input_sha256": "e3a6ddc486cf767f943bc3cd7c4bb81b11fd70b3965a07710dc0cf3afe3c4682",
+   "D_sha256": "b2acc804873ccd258cb534068dc5e61ba25d5fcf3104410b0bed12637596a255",
+   "full_Module2_sha256": "248a6ffbb2945c93b1cc53adf9829e4c66dc27f7f139c13f7f65cf99109e52cf",
+   "leptonic_channels": {
+    "H1": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.6913136870043163e-06,
+      "width_minus_GeV": 1.6913136870043163e-06,
+      "native_query_indices": [
+       54,
+       55,
+       56,
+       57,
+       58,
+       59
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 2.0106803442850292e-05,
+      "width_minus_GeV": 2.0106803442850292e-05,
+      "native_query_indices": [
+       60,
+       61,
+       62,
+       63,
+       64,
+       65
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.907810195631618e-05,
+      "width_minus_GeV": 1.907810195631618e-05,
+      "native_query_indices": [
+       66,
+       67,
+       68,
+       69,
+       70,
+       71
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ],
+    "H2": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.0792826572296394e-06,
+      "width_minus_GeV": 1.0792826572296394e-06,
+      "native_query_indices": [
+       72,
+       73,
+       74,
+       75,
+       76,
+       77
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2830047575696896e-05,
+      "width_minus_GeV": 1.2830047575696897e-05,
+      "native_query_indices": [
+       78,
+       79,
+       80,
+       81,
+       82,
+       83
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2172198231838679e-05,
+      "width_minus_GeV": 1.2172198231838679e-05,
+      "native_query_indices": [
+       84,
+       85,
+       86,
+       87,
+       88,
+       89
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ]
+   },
+   "mothers": {
+    "H1": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 0.05717261289756578,
+     "Gamma_total_on_shell_two_body_GeV": 0.05717261289756578,
+     "total_width_minus_GeV": 0.05717261289756578,
+     "branching_fraction": null,
+     "branching_fractions": {
+      "u anti-d": 5.358746546618604e-07,
+      "u anti-s": 1.1307467081994915e-05,
+      "u anti-b": 7.776099684046456e-06,
+      "c anti-d": 1.831986176496963e-06,
+      "c anti-s": 0.0002454449799268694,
+      "c anti-b": 0.0009769793190131672,
+      "t anti-d": 5.6907082091527805e-05,
+      "t anti-s": 0.0013054361462309998,
+      "t anti-b": 0.9964794277601886,
+      "W h": 0.00019939174979474646,
+      "e nu_all": 2.9582585110017365e-05,
+      "mu nu_all": 0.00035168592834605906,
+      "tau nu_all": 0.0003336930217007532
+     },
+     "missing_widths": []
+    },
+    "H2": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 11.636716323046318,
+     "Gamma_total_on_shell_two_body_GeV": 11.636716323046318,
+     "total_width_minus_GeV": 11.636716323046318,
+     "branching_fraction": 0.8087627984883959,
+     "branching_fractions": {
+      "u anti-d": 2.0240780182664364e-08,
+      "u anti-s": 4.270998634536781e-07,
+      "u anti-b": 2.938365970883349e-07,
+      "c anti-d": 6.919887005823352e-08,
+      "c anti-s": 9.27110858959182e-06,
+      "c anti-b": 3.691840910347031e-05,
+      "t anti-d": 4.228077907119991e-06,
+      "t anti-s": 9.699225394814948e-05,
+      "t anti-b": 0.07566427892327189,
+      "W h": 0.00010553637458065732,
+      "W H": 0.09236917881541722,
+      "H1 Z": 0.8087627984883959,
+      "H1 h": 0.022947745859254767,
+      "e nu_all": 9.274804225416568e-08,
+      "mu nu_all": 1.1025487963719805e-06,
+      "tau nu_all": 1.0460165818197224e-06
+     },
+     "missing_widths": []
+    }
+   }
+  },
+  {
+   "benchmark_id": "d2_NO_source_mixed13",
+   "spectrum_name": "source",
+   "family_name": "mixed13",
+   "scalar_sha256": "cdd9d980d6df666f9b5b28d205782b0a16c488bd417708159523617812da3edd",
+   "module2_input_sha256": "078b41b14ddd7eca4854bf156339d11e1fe08e4f0e1ab70915f5c5e893cbfc7d",
+   "D_sha256": "4aacc8eb54518e2156ff0192ab71195569c6485cfe6df77cddb1cbb314dfc72a",
+   "full_Module2_sha256": "4c2115a10ff0d912259ec4b81d2080cb95abdb83e5a636acb1b54294ef43a292",
+   "leptonic_channels": {
+    "H1": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.6913010867267078e-06,
+      "width_minus_GeV": 1.6913010867267078e-06,
+      "native_query_indices": [
+       54,
+       55,
+       56,
+       57,
+       58,
+       59
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 2.010680827465954e-05,
+      "width_minus_GeV": 2.010680827465954e-05,
+      "native_query_indices": [
+       60,
+       61,
+       62,
+       63,
+       64,
+       65
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.9078101138950472e-05,
+      "width_minus_GeV": 1.9078101138950472e-05,
+      "native_query_indices": [
+       66,
+       67,
+       68,
+       69,
+       70,
+       71
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ],
+    "H2": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.0791751281417702e-06,
+      "width_minus_GeV": 1.0791751281417702e-06,
+      "native_query_indices": [
+       72,
+       73,
+       74,
+       75,
+       76,
+       77
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2830088809720692e-05,
+      "width_minus_GeV": 1.2830088809720693e-05,
+      "native_query_indices": [
+       78,
+       79,
+       80,
+       81,
+       82,
+       83
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2172191256149228e-05,
+      "width_minus_GeV": 1.2172191256149228e-05,
+      "native_query_indices": [
+       84,
+       85,
+       86,
+       87,
+       88,
+       89
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ]
+   },
+   "mothers": {
+    "H1": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 0.05717261288897995,
+     "Gamma_total_on_shell_two_body_GeV": 0.05717261288897995,
+     "total_width_minus_GeV": 0.05717261288897995,
+     "branching_fraction": null,
+     "branching_fractions": {
+      "u anti-d": 5.358746547423348e-07,
+      "u anti-s": 1.1307467083693e-05,
+      "u anti-b": 7.776099685214224e-06,
+      "c anti-d": 1.8319861767720795e-06,
+      "c anti-s": 0.0002454449799637288,
+      "c anti-b": 0.0009769793191598838,
+      "t anti-d": 5.6907082100073765e-05,
+      "t anti-s": 0.0013054361464270422,
+      "t anti-b": 0.9964794279098339,
+      "W h": 0.00019939174982468988,
+      "e nu_all": 2.9582364724364502e-05,
+      "mu nu_all": 0.0003516860129115271,
+      "tau nu_all": 0.0003336930074544098
+     },
+     "missing_widths": []
+    },
+    "H2": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 11.636716322973047,
+     "Gamma_total_on_shell_two_body_GeV": 11.636716322973047,
+     "total_width_minus_GeV": 11.636716322973047,
+     "branching_fraction": 0.8087627984934883,
+     "branching_fractions": {
+      "u anti-d": 2.024078018279181e-08,
+      "u anti-s": 4.270998634563673e-07,
+      "u anti-b": 2.93836597090185e-07,
+      "c anti-d": 6.919887005866924e-08,
+      "c anti-s": 9.271108589650196e-06,
+      "c anti-b": 3.691840910370277e-05,
+      "t anti-d": 4.228077907146614e-06,
+      "t anti-s": 9.69922539487602e-05,
+      "t anti-b": 0.07566427892374832,
+      "W h": 0.00010553637458132183,
+      "W H": 0.09236917881599882,
+      "H1 Z": 0.8087627984934883,
+      "H1 h": 0.02294774585939926,
+      "e nu_all": 9.27388017538313e-08,
+      "mu nu_all": 1.1025523398204444e-06,
+      "tau nu_all": 1.0460159823711654e-06
+     },
+     "missing_widths": []
+    }
+   }
+  },
+  {
+   "benchmark_id": "d2_NO_mH1_m50p0_baseline",
+   "spectrum_name": "mH1_m50p0",
+   "family_name": "baseline",
+   "scalar_sha256": "1615777f7abcf670a276fbf5ee072ced1eebfcf1a3e5c8335ff2f8633c0f1aa4",
+   "module2_input_sha256": "aedecd844f83141bf13bdc341f9db8e98bfb308b1778fd3a37ca207681debddc",
+   "D_sha256": "bce6a5beb57ad87f82dc877dc4ede95d40c52aa1d70769a188a5ce33c069d7d3",
+   "full_Module2_sha256": "71fa9d89d56d0f72b91c81803d34ccafd353d4dda3c674117457ede55af446f9",
+   "leptonic_channels": {
+    "H1": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.4094012406536655e-06,
+      "width_minus_GeV": 1.4094012406536655e-06,
+      "native_query_indices": [
+       54,
+       55,
+       56,
+       57,
+       58,
+       59
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.675558493964636e-05,
+      "width_minus_GeV": 1.675558493964636e-05,
+      "native_query_indices": [
+       60,
+       61,
+       62,
+       63,
+       64,
+       65
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.5897925968468965e-05,
+      "width_minus_GeV": 1.5897925968468968e-05,
+      "native_query_indices": [
+       66,
+       67,
+       68,
+       69,
+       70,
+       71
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ],
+    "H2": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.0790078819538869e-06,
+      "width_minus_GeV": 1.0790078819538869e-06,
+      "native_query_indices": [
+       72,
+       73,
+       74,
+       75,
+       76,
+       77
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2829199987587905e-05,
+      "width_minus_GeV": 1.2829199987587907e-05,
+      "native_query_indices": [
+       78,
+       79,
+       80,
+       81,
+       82,
+       83
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2172182668700946e-05,
+      "width_minus_GeV": 1.2172182668700946e-05,
+      "native_query_indices": [
+       84,
+       85,
+       86,
+       87,
+       88,
+       89
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ]
+   },
+   "mothers": {
+    "H1": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 0.029301669807967994,
+     "Gamma_total_on_shell_two_body_GeV": 0.029301669807967994,
+     "total_width_minus_GeV": 0.02930166980796799,
+     "branching_fraction": null,
+     "branching_fractions": {
+      "u anti-d": 8.922773239212292e-07,
+      "u anti-s": 1.8827902234629934e-05,
+      "u anti-b": 1.2944980618531977e-05,
+      "c anti-d": 3.0503659460056383e-06,
+      "c anti-s": 0.00040868013333043,
+      "c anti-b": 0.001626363625763273,
+      "t anti-d": 5.810025848668085e-05,
+      "t anti-s": 0.0013327929950099535,
+      "t anti-b": 0.9952697003407711,
+      "W h": 0.00010615664225927107,
+      "e nu_all": 4.809969021869216e-05,
+      "mu nu_all": 0.0005718303785912576,
+      "tau nu_all": 0.0005425604094462168
+     },
+     "missing_widths": []
+    },
+    "H2": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 14.20762411539604,
+     "Gamma_total_on_shell_two_body_GeV": 14.20762411539604,
+     "total_width_minus_GeV": 14.20762411539604,
+     "branching_fraction": 0.8215241395463984,
+     "branching_fractions": {
+      "u anti-d": 1.6578156574931122e-08,
+      "u anti-s": 3.4981499455890753e-07,
+      "u anti-b": 2.4066607462826286e-07,
+      "c anti-d": 5.667714842416217e-08,
+      "c anti-s": 7.593476557444153e-06,
+      "c anti-b": 3.02379236912462e-05,
+      "t anti-d": 3.462995839225384e-06,
+      "t anti-s": 7.94412447542446e-05,
+      "t anti-b": 0.061972624167599875,
+      "W h": 8.643928378053321e-05,
+      "W H": 0.07565472749965045,
+      "H1 Z": 0.8215241395463984,
+      "H1 h": 0.040638834463717646,
+      "e nu_all": 7.594569459256906e-08,
+      "mu nu_all": 9.029799693029314e-07,
+      "tau nu_all": 8.567359728718192e-07
+     },
+     "missing_widths": []
+    }
+   }
+  },
+  {
+   "benchmark_id": "d2_NO_mH1_m50p0_index0",
+   "spectrum_name": "mH1_m50p0",
+   "family_name": "index0",
+   "scalar_sha256": "f1492298a73d1054f7fb522e8e906e496419a90fe92600c1f2cf843266ad53d1",
+   "module2_input_sha256": "f27a00d8a7a2d8bff5b09f6d94e793284eb3e9e06e0a651ced646c918da59496",
+   "D_sha256": "78fc6985db45a54db5d8b3328875e63eb16931b874cbbad9387efea8d3da16b2",
+   "full_Module2_sha256": "1a8de8884d90ad3e8149e1414cde12863c825dab206209528ee2c7dc3b5fa3b4",
+   "leptonic_channels": {
+    "H1": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.4094089157455114e-06,
+      "width_minus_GeV": 1.4094089157455114e-06,
+      "native_query_indices": [
+       54,
+       55,
+       56,
+       57,
+       58,
+       59
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.675558488394127e-05,
+      "width_minus_GeV": 1.675558488394127e-05,
+      "native_query_indices": [
+       60,
+       61,
+       62,
+       63,
+       64,
+       65
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.589792598454268e-05,
+      "width_minus_GeV": 1.5897925984542682e-05,
+      "native_query_indices": [
+       66,
+       67,
+       68,
+       69,
+       70,
+       71
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ],
+    "H2": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.0790864798055679e-06,
+      "width_minus_GeV": 1.0790864798055679e-06,
+      "native_query_indices": [
+       72,
+       73,
+       74,
+       75,
+       76,
+       77
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.282919941713194e-05,
+      "width_minus_GeV": 1.2829199417131942e-05,
+      "native_query_indices": [
+       78,
+       79,
+       80,
+       81,
+       82,
+       83
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2172182833320594e-05,
+      "width_minus_GeV": 1.2172182833320594e-05,
+      "native_query_indices": [
+       84,
+       85,
+       86,
+       87,
+       88,
+       89
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ]
+   },
+   "mothers": {
+    "H1": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 0.029301669815603452,
+     "Gamma_total_on_shell_two_body_GeV": 0.029301669815603452,
+     "total_width_minus_GeV": 0.02930166981560345,
+     "branching_fraction": null,
+     "branching_fractions": {
+      "u anti-d": 8.922773236887187e-07,
+      "u anti-s": 1.882790222972374e-05,
+      "u anti-b": 1.2944980615158761e-05,
+      "c anti-d": 3.0503659452107707e-06,
+      "c anti-s": 0.0004086801332239357,
+      "c anti-b": 0.0016263636253394736,
+      "t anti-d": 5.810025847154102e-05,
+      "t anti-s": 0.001332792994662653,
+      "t anti-b": 0.9952697000814227,
+      "W h": 0.00010615664223160866,
+      "e nu_all": 4.8099952139757786e-05,
+      "mu nu_all": 0.0005718303765411602,
+      "tau nu_all": 0.0005425604098533956
+     },
+     "missing_widths": []
+    },
+    "H2": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 14.207624115474232,
+     "Gamma_total_on_shell_two_body_GeV": 14.207624115474232,
+     "total_width_minus_GeV": 14.207624115474232,
+     "branching_fraction": 0.8215241395418771,
+     "branching_fractions": {
+      "u anti-d": 1.6578156574839884e-08,
+      "u anti-s": 3.4981499455698233e-07,
+      "u anti-b": 2.4066607462693837e-07,
+      "c anti-d": 5.6677148423850244e-08,
+      "c anti-s": 7.593476557402363e-06,
+      "c anti-b": 3.023792369107979e-05,
+      "t anti-d": 3.4629958392063253e-06,
+      "t anti-s": 7.944124475380739e-05,
+      "t anti-b": 0.061972624167258815,
+      "W h": 8.64392837800575e-05,
+      "W H": 0.07565472749923409,
+      "H1 Z": 0.8215241395418771,
+      "H1 h": 0.040638834463493985,
+      "e nu_all": 7.595122668189686e-08,
+      "mu nu_all": 9.029799291465643e-07,
+      "tau nu_all": 8.567359844538161e-07
+     },
+     "missing_widths": []
+    }
+   }
+  },
+  {
+   "benchmark_id": "d2_NO_mH1_m50p0_index2",
+   "spectrum_name": "mH1_m50p0",
+   "family_name": "index2",
+   "scalar_sha256": "8a15dc202de148f233aed68fc49186eccec7af24013e3565cd71341e30f468ac",
+   "module2_input_sha256": "6e295006699307c50e7ef8e4e496196f40dec989d9ecaea9dad8f8e2788e1e26",
+   "D_sha256": "ba43c4f1d12c2824713c5ce4b540853a17564e1be7ccfb1cb1821e477b333007",
+   "full_Module2_sha256": "31e1f5939bf28557414c376e656160325e0a0b0f3534b026b318d0dddd8b6bd9",
+   "leptonic_channels": {
+    "H1": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.4094251080681955e-06,
+      "width_minus_GeV": 1.4094251080681955e-06,
+      "native_query_indices": [
+       54,
+       55,
+       56,
+       57,
+       58,
+       59
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.6755595898741404e-05,
+      "width_minus_GeV": 1.6755595898741404e-05,
+      "native_query_indices": [
+       60,
+       61,
+       62,
+       63,
+       64,
+       65
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.5897925635055597e-05,
+      "width_minus_GeV": 1.58979256350556e-05,
+      "native_query_indices": [
+       66,
+       67,
+       68,
+       69,
+       70,
+       71
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ],
+    "H2": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.0792522995510827e-06,
+      "width_minus_GeV": 1.0792522995510827e-06,
+      "native_query_indices": [
+       72,
+       73,
+       74,
+       75,
+       76,
+       77
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2829312215768691e-05,
+      "width_minus_GeV": 1.2829312215768693e-05,
+      "native_query_indices": [
+       78,
+       79,
+       80,
+       81,
+       82,
+       83
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2172179254033752e-05,
+      "width_minus_GeV": 1.2172179254033752e-05,
+      "native_query_indices": [
+       84,
+       85,
+       86,
+       87,
+       88,
+       89
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ]
+   },
+   "mothers": {
+    "H1": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 0.02930166984246109,
+     "Gamma_total_on_shell_two_body_GeV": 0.02930166984246109,
+     "total_width_minus_GeV": 0.029301669842461086,
+     "branching_fraction": null,
+     "branching_fractions": {
+      "u anti-d": 8.922773228708656e-07,
+      "u anti-s": 1.882790221246626e-05,
+      "u anti-b": 1.2944980603293512e-05,
+      "c anti-d": 3.0503659424148335e-06,
+      "c anti-s": 0.0004086801328493433,
+      "c anti-b": 0.0016263636238487637,
+      "t anti-d": 5.810025841828687e-05,
+      "t anti-s": 0.0013327929934410273,
+      "t anti-b": 0.9952696991691677,
+      "W h": 0.00010615664213430648,
+      "e nu_all": 4.81005047031755e-05,
+      "mu nu_all": 0.0005718307519273474,
+      "tau nu_all": 0.0005425603974288828
+     },
+     "missing_widths": []
+    },
+    "H2": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 14.20762411574927,
+     "Gamma_total_on_shell_two_body_GeV": 14.20762411574927,
+     "total_width_minus_GeV": 14.20762411574927,
+     "branching_fraction": 0.8215241395259736,
+     "branching_fractions": {
+      "u anti-d": 1.6578156574518954e-08,
+      "u anti-s": 3.498149945502104e-07,
+      "u anti-b": 2.406660746222794e-07,
+      "c anti-d": 5.667714842275306e-08,
+      "c anti-s": 7.593476557255364e-06,
+      "c anti-b": 3.0237923690494425e-05,
+      "t anti-d": 3.462995839139287e-06,
+      "t anti-s": 7.944124475226953e-05,
+      "t anti-b": 0.061972624166059115,
+      "W h": 8.643928377838416e-05,
+      "W H": 0.07565472749776952,
+      "H1 Z": 0.8215241395259736,
+      "H1 h": 0.04063883446270728,
+      "e nu_all": 7.596289786092541e-08,
+      "mu nu_all": 9.029878684323645e-07,
+      "tau nu_all": 8.567357325100394e-07
+     },
+     "missing_widths": []
+    }
+   }
+  },
+  {
+   "benchmark_id": "d2_NO_mH1_m50p0_mixed13",
+   "spectrum_name": "mH1_m50p0",
+   "family_name": "mixed13",
+   "scalar_sha256": "a52fd416f09bb2c1a3e160715de4b1aaae1d813d46a42195267473d133240baf",
+   "module2_input_sha256": "ce2b9c1128c29950597096277d18aab064aff1d34fc966eb81c3df4fc4dbeaf6",
+   "D_sha256": "2b5705d49e9a8dd66a894822548901b0dd1efae6c8c6fe3c25f93cb8fe9987e9",
+   "full_Module2_sha256": "5fca469d9bd07a727e6fc8ece73e328fab5c5031a9ca116146703a3ee7b49332",
+   "leptonic_channels": {
+    "H1": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.4094165359132387e-06,
+      "width_minus_GeV": 1.4094165359132387e-06,
+      "native_query_indices": [
+       54,
+       55,
+       56,
+       57,
+       58,
+       59
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.675559736024379e-05,
+      "width_minus_GeV": 1.675559736024379e-05,
+      "native_query_indices": [
+       60,
+       61,
+       62,
+       63,
+       64,
+       65
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.58979255908036e-05,
+      "width_minus_GeV": 1.5897925590803604e-05,
+      "native_query_indices": [
+       66,
+       67,
+       68,
+       69,
+       70,
+       71
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ],
+    "H2": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.0791645151991282e-06,
+      "width_minus_GeV": 1.0791645151991282e-06,
+      "native_query_indices": [
+       72,
+       73,
+       74,
+       75,
+       76,
+       77
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2829327182492987e-05,
+      "width_minus_GeV": 1.2829327182492989e-05,
+      "native_query_indices": [
+       78,
+       79,
+       80,
+       81,
+       82,
+       83
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2172178800825032e-05,
+      "width_minus_GeV": 1.2172178800825032e-05,
+      "native_query_indices": [
+       84,
+       85,
+       86,
+       87,
+       88,
+       89
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ]
+   },
+   "mothers": {
+    "H1": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 0.029301669835306184,
+     "Gamma_total_on_shell_two_body_GeV": 0.029301669835306184,
+     "total_width_minus_GeV": 0.02930166983530618,
+     "branching_fraction": null,
+     "branching_fractions": {
+      "u anti-d": 8.922773230887426e-07,
+      "u anti-s": 1.8827902217063674e-05,
+      "u anti-b": 1.2944980606454429e-05,
+      "c anti-d": 3.0503659431596745e-06,
+      "c anti-s": 0.0004086801329491352,
+      "c anti-b": 0.0016263636242458905,
+      "t anti-d": 5.8100258432473835e-05,
+      "t anti-s": 0.0013327929937664697,
+      "t anti-b": 0.9952696994121936,
+      "W h": 0.00010615664216022788,
+      "e nu_all": 4.810021216657775e-05,
+      "mu nu_all": 0.0005718308019447625,
+      "tau nu_all": 0.0005425603960511447
+     },
+     "missing_widths": []
+    },
+    "H2": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 14.207624115676,
+     "Gamma_total_on_shell_two_body_GeV": 14.207624115676,
+     "total_width_minus_GeV": 14.207624115676,
+     "branching_fraction": 0.8215241395302103,
+     "branching_fractions": {
+      "u anti-d": 1.657815657460445e-08,
+      "u anti-s": 3.498149945520145e-07,
+      "u anti-b": 2.406660746235206e-07,
+      "c anti-d": 5.667714842304536e-08,
+      "c anti-s": 7.593476557294525e-06,
+      "c anti-b": 3.0237923690650367e-05,
+      "t anti-d": 3.462995839157146e-06,
+      "t anti-s": 7.944124475267922e-05,
+      "t anti-b": 0.06197262416637872,
+      "W h": 8.643928377882995e-05,
+      "W H": 0.07565472749815969,
+      "H1 Z": 0.8215241395302103,
+      "H1 h": 0.04063883446291686,
+      "e nu_all": 7.595671918209257e-08,
+      "mu nu_all": 9.02988921866094e-07,
+      "tau nu_all": 8.567357006154775e-07
+     },
+     "missing_widths": []
+    }
+   }
+  },
+  {
+   "benchmark_id": "d2_NO_mH1_p50p0_baseline",
+   "spectrum_name": "mH1_p50p0",
+   "family_name": "baseline",
+   "scalar_sha256": "65ac249b96d46997b4572412a97dcdc96880b5e7dc1244077810651552f9746a",
+   "module2_input_sha256": "e0bb94593b5f34746d9cbd4aaf3827d450c1b1d28670f5f6e826e70b43275c7a",
+   "D_sha256": "41ad16a4f3c28299c5e59996529f2166456a9311d0391cea2bc471073191bed0",
+   "full_Module2_sha256": "d34b505bcaf30a923209e0712c4d8f6e5ab2334e3395c336ae76a36f34a08075",
+   "leptonic_channels": {
+    "H1": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.973161700106787e-06,
+      "width_minus_GeV": 1.9731617001067876e-06,
+      "native_query_indices": [
+       54,
+       55,
+       56,
+       57,
+       58,
+       59
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 2.345809071880508e-05,
+      "width_minus_GeV": 2.345809071880508e-05,
+      "native_query_indices": [
+       60,
+       61,
+       62,
+       63,
+       64,
+       65
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 2.2258201679099923e-05,
+      "width_minus_GeV": 2.2258201679099923e-05,
+      "native_query_indices": [
+       66,
+       67,
+       68,
+       69,
+       70,
+       71
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ],
+    "H2": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.0790076126512445e-06,
+      "width_minus_GeV": 1.0790076126512445e-06,
+      "native_query_indices": [
+       72,
+       73,
+       74,
+       75,
+       76,
+       77
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2831158135687966e-05,
+      "width_minus_GeV": 1.2831158135687966e-05,
+      "native_query_indices": [
+       78,
+       79,
+       80,
+       81,
+       82,
+       83
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2172210953478034e-05,
+      "width_minus_GeV": 1.2172210953478034e-05,
+      "native_query_indices": [
+       84,
+       85,
+       86,
+       87,
+       88,
+       89
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ]
+   },
+   "mothers": {
+    "H1": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 0.08434643383494804,
+     "Gamma_total_on_shell_two_body_GeV": 0.08434643383494804,
+     "total_width_minus_GeV": 0.08434643383494805,
+     "branching_fraction": null,
+     "branching_fractions": {
+      "u anti-d": 4.1549751290571593e-07,
+      "u anti-s": 8.767394857177827e-06,
+      "u anti-b": 6.0301143326375735e-06,
+      "c anti-d": 1.4204683364673262e-06,
+      "c anti-s": 0.00019031093700330295,
+      "c anti-b": 0.0007576236093330767,
+      "t anti-d": 5.642291359021469e-05,
+      "t anti-s": 0.0012943351711372222,
+      "t anti-b": 0.9968224146435143,
+      "W h": 0.00029685948266611135,
+      "e nu_all": 2.339354031218364e-05,
+      "mu nu_all": 0.0002781159754152578,
+      "tau nu_all": 0.0002638902519892605
+     },
+     "missing_widths": []
+    },
+    "H2": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 9.145061343633634,
+     "Gamma_total_on_shell_two_body_GeV": 9.145061343633634,
+     "total_width_minus_GeV": 9.145061343633634,
+     "branching_fraction": 0.7790043797312975,
+     "branching_fractions": {
+      "u anti-d": 2.5755564483640364e-08,
+      "u anti-s": 5.43467098346167e-07,
+      "u anti-b": 3.738950453324803e-07,
+      "c anti-d": 8.805273037381899e-08,
+      "c anti-s": 1.179710628538788e-05,
+      "c anti-b": 4.697716479882649e-05,
+      "t anti-d": 5.3800561142376726e-06,
+      "t anti-s": 0.000123418674005201,
+      "t anti-b": 0.09627969857533207,
+      "W h": 0.00013429071786520157,
+      "W H": 0.11753600008555733,
+      "H1 Z": 0.7790043797312975,
+      "H1 h": 0.006854174645944254,
+      "e nu_all": 1.179880125574444e-07,
+      "mu nu_all": 1.4030696627989732e-06,
+      "tau nu_all": 1.3310146860799093e-06
+     },
+     "missing_widths": []
+    }
+   }
+  },
+  {
+   "benchmark_id": "d2_NO_mH1_p50p0_index0",
+   "spectrum_name": "mH1_p50p0",
+   "family_name": "index0",
+   "scalar_sha256": "12a4f9fb254fed6282bc55c3b46e0ec829c93126e3ebd0687eb4508cfc67e158",
+   "module2_input_sha256": "f4015f7944dce33f5d31fbfcaa1ff649bac1ab94a59a6541409a3231e7a30bc7",
+   "D_sha256": "fee291df84c5de0c3eed2299294b881edf48cb7f919b610b3007a04ca3ceed6a",
+   "full_Module2_sha256": "c3620ed96d589a22eb40d97342580ac72a257f884ea5fef6d4c7d3e58cfd6a37",
+   "leptonic_channels": {
+    "H1": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.9731724260271717e-06,
+      "width_minus_GeV": 1.9731724260271717e-06,
+      "native_query_indices": [
+       54,
+       55,
+       56,
+       57,
+       58,
+       59
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 2.345809068342839e-05,
+      "width_minus_GeV": 2.345809068342839e-05,
+      "native_query_indices": [
+       60,
+       61,
+       62,
+       63,
+       64,
+       65
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 2.2258201678203183e-05,
+      "width_minus_GeV": 2.2258201678203183e-05,
+      "native_query_indices": [
+       66,
+       67,
+       68,
+       69,
+       70,
+       71
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ],
+    "H2": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.0790860699998842e-06,
+      "width_minus_GeV": 1.0790860699998842e-06,
+      "native_query_indices": [
+       72,
+       73,
+       74,
+       75,
+       76,
+       77
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2831157876916541e-05,
+      "width_minus_GeV": 1.2831157876916543e-05,
+      "native_query_indices": [
+       78,
+       79,
+       80,
+       81,
+       82,
+       83
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2172210946918378e-05,
+      "width_minus_GeV": 1.2172210946918378e-05,
+      "native_query_indices": [
+       84,
+       85,
+       86,
+       87,
+       88,
+       89
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ]
+   },
+   "mothers": {
+    "H1": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 0.0843464338456377,
+     "Gamma_total_on_shell_two_body_GeV": 0.0843464338456377,
+     "total_width_minus_GeV": 0.08434643384563771,
+     "branching_fraction": null,
+     "branching_fractions": {
+      "u anti-d": 4.154975128530578e-07,
+      "u anti-s": 8.767394856066691e-06,
+      "u anti-b": 6.0301143318733465e-06,
+      "c anti-d": 1.420468336287303e-06,
+      "c anti-s": 0.00019031093697918387,
+      "c anti-b": 0.0007576236092370593,
+      "t anti-d": 5.642291358306393e-05,
+      "t anti-s": 0.0012943351709731846,
+      "t anti-b": 0.9968224145171818,
+      "W h": 0.00029685948262848883,
+      "e nu_all": 2.339366747429147e-05,
+      "mu nu_all": 0.0002781159749605895,
+      "tau nu_all": 0.0002638902519451847
+     },
+     "missing_widths": []
+    },
+    "H2": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 9.145061343711825,
+     "Gamma_total_on_shell_two_body_GeV": 9.145061343711825,
+     "total_width_minus_GeV": 9.145061343711825,
+     "branching_fraction": 0.779004379724637,
+     "branching_fractions": {
+      "u anti-d": 2.5755564483420148e-08,
+      "u anti-s": 5.434670983415202e-07,
+      "u anti-b": 3.7389504532928343e-07,
+      "c anti-d": 8.805273037306612e-08,
+      "c anti-s": 1.1797106285287013e-05,
+      "c anti-b": 4.6977164798424826e-05,
+      "t anti-d": 5.380056114191672e-06,
+      "t anti-s": 0.00012341867400414574,
+      "t anti-b": 0.09627969857450885,
+      "W h": 0.00013429071786405337,
+      "W H": 0.11753600008455237,
+      "H1 Z": 0.779004379724637,
+      "H1 h": 0.00685417464588565,
+      "e nu_all": 1.1799659176063017e-07,
+      "mu nu_all": 1.4030696344906738e-06,
+      "tau nu_all": 1.3310146853512394e-06
+     },
+     "missing_widths": []
+    }
+   }
+  },
+  {
+   "benchmark_id": "d2_NO_mH1_p50p0_index2",
+   "spectrum_name": "mH1_p50p0",
+   "family_name": "index2",
+   "scalar_sha256": "65452f4c89f4d81b1535aff1a781f71737cf809069b84713188515227b3c67a3",
+   "module2_input_sha256": "106fcf0da2ed5477adbaaf4d3879bc83359f4f62dac6b78c854de7838bdd4560",
+   "D_sha256": "48385dd54635235ea6eb9d596688b9ec4e0babce1f9e534b7e7b6b9d1f77e855",
+   "full_Module2_sha256": "0a032519ff11a1fe2038e257073a35e7c2a91c5d1d4f026b8ac6cca7c8a7646d",
+   "leptonic_channels": {
+    "H1": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.9732018411590544e-06,
+      "width_minus_GeV": 1.9732018411590544e-06,
+      "native_query_indices": [
+       54,
+       55,
+       56,
+       57,
+       58,
+       59
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 2.3458098453123175e-05,
+      "width_minus_GeV": 2.3458098453123175e-05,
+      "native_query_indices": [
+       60,
+       61,
+       62,
+       63,
+       64,
+       65
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 2.225820209399977e-05,
+      "width_minus_GeV": 2.225820209399977e-05,
+      "native_query_indices": [
+       66,
+       67,
+       68,
+       69,
+       70,
+       71
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ],
+    "H2": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.079301234123305e-06,
+      "width_minus_GeV": 1.079301234123305e-06,
+      "native_query_indices": [
+       72,
+       73,
+       74,
+       75,
+       76,
+       77
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2831214710243115e-05,
+      "width_minus_GeV": 1.2831214710243117e-05,
+      "native_query_indices": [
+       78,
+       79,
+       80,
+       81,
+       82,
+       83
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2172213988481031e-05,
+      "width_minus_GeV": 1.2172213988481031e-05,
+      "native_query_indices": [
+       84,
+       85,
+       86,
+       87,
+       88,
+       89
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ]
+   },
+   "mothers": {
+    "H1": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 0.08434643388323831,
+     "Gamma_total_on_shell_two_body_GeV": 0.08434643388323831,
+     "total_width_minus_GeV": 0.08434643388323833,
+     "branching_fraction": null,
+     "branching_fractions": {
+      "u anti-d": 4.1549751266783403e-07,
+      "u anti-s": 8.767394852158293e-06,
+      "u anti-b": 6.030114329185194e-06,
+      "c anti-d": 1.4204683356540755e-06,
+      "c anti-s": 0.00019031093689434556,
+      "c anti-b": 0.0007576236088993199,
+      "t anti-d": 5.642291355791128e-05,
+      "t anti-s": 0.0012943351703961856,
+      "t anti-b": 0.9968224140728105,
+      "W h": 0.00029685948249615247,
+      "e nu_all": 2.339401620571866e-05,
+      "mu nu_all": 0.00027811606695306735,
+      "tau nu_all": 0.00026389025675717414
+     },
+     "missing_widths": []
+    },
+    "H2": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 9.145061343986866,
+     "Gamma_total_on_shell_two_body_GeV": 9.145061343986866,
+     "total_width_minus_GeV": 9.145061343986866,
+     "branching_fraction": 0.7790043797012082,
+     "branching_fractions": {
+      "u anti-d": 2.5755564482645543e-08,
+      "u anti-s": 5.434670983251753e-07,
+      "u anti-b": 3.7389504531803843e-07,
+      "c anti-d": 8.805273037041791e-08,
+      "c anti-s": 1.1797106284932211e-05,
+      "c anti-b": 4.6977164797011975e-05,
+      "t anti-d": 5.380056114029866e-06,
+      "t anti-s": 0.0001234186740004339,
+      "t anti-b": 0.09627969857161321,
+      "W h": 0.00013429071786001453,
+      "W H": 0.11753600008101744,
+      "H1 Z": 0.7790043797012082,
+      "H1 h": 0.006854174645679508,
+      "e nu_all": 1.1802011966086764e-07,
+      "mu nu_all": 1.403075849095315e-06,
+      "tau nu_all": 1.3310150179019414e-06
+     },
+     "missing_widths": []
+    }
+   }
+  },
+  {
+   "benchmark_id": "d2_NO_mH1_p50p0_mixed13",
+   "spectrum_name": "mH1_p50p0",
+   "family_name": "mixed13",
+   "scalar_sha256": "873cdeb5e7157117715c53fe27fdfcf7a04ec3dd84040aece95500252ef5f645",
+   "module2_input_sha256": "9938837d039a37e682ee1f192c800f75df6f4b898bd59d7c4f4ba36ca48aaa0c",
+   "D_sha256": "d75549b954d88c1f1ecd76245a0f4bbdedb7eb4e961318c956c57ea5ce593b29",
+   "full_Module2_sha256": "94ecf837b714634c384505ccf26bf3ad2ddd5f5a663df4f8bb23efd1e6d82054",
+   "leptonic_channels": {
+    "H1": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.973179965638241e-06,
+      "width_minus_GeV": 1.9731799656382415e-06,
+      "native_query_indices": [
+       54,
+       55,
+       56,
+       57,
+       58,
+       59
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 2.3458110062086643e-05,
+      "width_minus_GeV": 2.3458110062086643e-05,
+      "native_query_indices": [
+       60,
+       61,
+       62,
+       63,
+       64,
+       65
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 2.22582023436702e-05,
+      "width_minus_GeV": 2.22582023436702e-05,
+      "native_query_indices": [
+       66,
+       67,
+       68,
+       69,
+       70,
+       71
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ],
+    "H2": [
+     {
+      "channel": "e nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.00051099895,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.0791412203154819e-06,
+      "width_minus_GeV": 1.0791412203154819e-06,
+      "native_query_indices": [
+       72,
+       73,
+       74,
+       75,
+       76,
+       77
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "mu nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       0.1056583755,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.283129962683639e-05,
+      "width_minus_GeV": 1.283129962683639e-05,
+      "native_query_indices": [
+       78,
+       79,
+       80,
+       81,
+       82,
+       83
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     },
+     {
+      "channel": "tau nu_all",
+      "mother_charge": "+",
+      "conjugate_mother_charge": "-",
+      "daughter_masses_GeV": [
+       1.77686,
+       0.0
+      ],
+      "kinematically_open": true,
+      "status": "OPEN",
+      "width_GeV": 1.2172215814826636e-05,
+      "width_minus_GeV": 1.2172215814826636e-05,
+      "native_query_indices": [
+       84,
+       85,
+       86,
+       87,
+       88,
+       89
+      ],
+      "independently_validated": true,
+      "exact_zero": null,
+      "scheme": "d4_SM_input_card",
+      "errors": [],
+      "neutrino_sum": "three massless tree eigenstates; two orthogonal helicities, PMNS invariant"
+     }
+    ]
+   },
+   "mothers": {
+    "H1": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 0.08434643387322142,
+     "Gamma_total_on_shell_two_body_GeV": 0.08434643387322142,
+     "total_width_minus_GeV": 0.08434643387322144,
+     "branching_fraction": null,
+     "branching_fractions": {
+      "u anti-d": 4.1549751271717804e-07,
+      "u anti-s": 8.767394853199498e-06,
+      "u anti-b": 6.030114329901324e-06,
+      "c anti-d": 1.4204683358227686e-06,
+      "c anti-s": 0.00019031093691694668,
+      "c anti-b": 0.0007576236089892943,
+      "t anti-d": 5.6422913564612004e-05,
+      "t anti-s": 0.0012943351705498995,
+      "t anti-b": 0.996822414191192,
+      "W h": 0.00029685948253140715,
+      "e nu_all": 2.3393756855258023e-05,
+      "mu nu_all": 0.00027811620462040896,
+      "tau nu_all": 0.00026389025974857255
+     },
+     "missing_widths": []
+    },
+    "H2": {
+     "status": "D4_COMPLETE_TWO_BODY_BR_PASS",
+     "total_width_GeV": 9.145061343913595,
+     "Gamma_total_on_shell_two_body_GeV": 9.145061343913595,
+     "total_width_minus_GeV": 9.145061343913595,
+     "branching_fraction": 0.7790043797074496,
+     "branching_fractions": {
+      "u anti-d": 2.5755564482851898e-08,
+      "u anti-s": 5.434670983295295e-07,
+      "u anti-b": 3.738950453210341e-07,
+      "c anti-d": 8.80527303711234e-08,
+      "c anti-s": 1.179710628502673e-05,
+      "c anti-b": 4.6977164797388356e-05,
+      "t anti-d": 5.380056114072971e-06,
+      "t anti-s": 0.00012341867400142274,
+      "t anti-b": 0.09627969857238462,
+      "W h": 0.0001342907178610905,
+      "W H": 0.11753600008195915,
+      "H1 Z": 0.7790043797074496,
+      "H1 h": 0.0068541746457344245,
+      "e nu_all": 1.1800262236990828e-07,
+      "mu nu_all": 1.4030851346203528e-06,
+      "tau nu_all": 1.3310152176210097e-06
+     },
+     "missing_widths": []
+    }
+   }
+  }
+ ],
+ "family_contrasts": {
+  "source": {
+   "nonleptonic_width_spread_GeV": 0.0,
+   "independent_D_hashes": 4,
+   "leptonic_sum_GeV": {
+    "H1": {
+     "baseline": 4.0876177694529494e-05,
+     "index0": 4.08761868570835e-05,
+     "index2": 4.087621908617079e-05,
+     "mixed13": 4.087621050033672e-05
+    },
+    "H2": {
+     "baseline": 2.608117523375355e-05,
+     "index0": 2.6081253425770254e-05,
+     "index2": 2.6081528464765214e-05,
+     "mixed13": 2.608145519401169e-05
+    }
+   }
+  },
+  "mH1_m50p0": {
+   "nonleptonic_width_spread_GeV": 0.0,
+   "independent_D_hashes": 4,
+   "leptonic_sum_GeV": {
+    "H1": {
+     "baseline": 3.406291214876899e-05,
+     "index0": 3.406291978422946e-05,
+     "index2": 3.40629466418652e-05,
+     "mixed13": 3.406293948696063e-05
+    },
+    "H2": {
+     "baseline": 2.6080390538242737e-05,
+     "index0": 2.6080468730258103e-05,
+     "index2": 2.6080743769353524e-05,
+     "mixed13": 2.608067049851715e-05
+    }
+   }
+  },
+  "mH1_p50p0": {
+   "nonleptonic_width_spread_GeV": 0.0,
+   "independent_D_hashes": 4,
+   "leptonic_sum_GeV": {
+    "H1": {
+     "baseline": 4.768945409801179e-05,
+     "index0": 4.768946478765874e-05,
+     "index2": 4.7689502388282e-05,
+     "mixed13": 4.768949237139508e-05
+    },
+    "H2": {
+     "baseline": 2.6082376701817243e-05,
+     "index0": 2.6082454893834805e-05,
+     "index2": 2.608272993284745e-05,
+     "mixed13": 2.6082656661978508e-05
+    }
+   }
+  }
+ },
+ "inventory_proof": [
+  "Frozen physical charged particles: H1,H2,W,quarks,charged leptons. No new colored scalars, right neutrinos, or doubly charged particles.",
+  "Charge,color,Lorentz invariance: charged scalar + neutral h/H/A/Z/photon; W + neutral h/H/A/Z/photon; all nine u anti-d; three charged leptons times all three neutrinos.",
+  "WZ and Wphoton amplitudes vanish after physical Goldstone-orthogonal projection; offdiagonal H photon exact zero. Same-parent scalar daughters closed.",
+  "Fermion-boson final states cannot couple a spin-zero mother by Lorentz invariance. Gluon plus color-singlet charged state forbidden by color. Goldstones/ghosts are not additional physical states.",
+  "Each mother has exactly 27 exclusive or proven inclusive channels. Charge-conjugate widths checked individually, never added to the H+ total."
+ ],
+ "leptonic_status": "NATIVE_GENERAL_ZEE_INCLUSIVE_MASSLESS_TREE_WIDTHS_VALIDATED",
+ "blockers_to_tree_two_body_BR": [],
+ "uncomputed": [
+  "loop-induced neutrino-mass effects and F-D helicity interference proportional to mnu",
+  "off-shell three-body channels",
+  "finite unstable daughter widths",
+  "loop-only channels",
+  "NLO QCD/EW and uncertainties",
+  "production cross sections and detector/LHC reach",
+  "joint constrained neutrino/flavor population and complete LFV"
+ ],
+ "publication_decision": "No new mechanism/formula or scalar-only BR novelty over 2021; conditional leptonic final states vary with inverse families; constrained flavor-correlated signatures and justified parton-level production rates still required.",
+ "2026_LINEARIZED_FLAVOR_FILTER_READY": false,
+ "COMPLETE_LFV": false,
+ "global_zee_acceptance": null,
+ "preserved_D3_statuses": [
+  "TREE_Z_CASCADE_WIDTH_VALIDATED",
+  "NATIVE_VERTEX_VERIFIED",
+  "D3_COUPLED_DIAGNOSTIC_PASS",
+  "BR_NOT_EVALUATED",
+  "PHYSICAL_LHC_CLAIM_NOT_EVALUATED"
+ ]
+}

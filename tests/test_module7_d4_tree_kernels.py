@@ -1,6 +1,7 @@
 """Generic matrix-element kernels only; real Zee vertex validation is D4 work."""
 import math
 import unittest
+import numpy as np
 
 from module7.d4_tree_kernels import (
     STATUS,phase_space,scalar_vector,scalar_scalar,scalar_fermions
@@ -9,6 +10,38 @@ from module7.cascade_z import cascade_width
 
 
 class TreeKernelTests(unittest.TestCase):
+    def test_independent_dirac_spin_trace(self):
+        # Clifford matrices constructed from Pauli matrices, metric +---.
+        eye=np.eye(2);zero=np.zeros((2,2))
+        pauli=[np.array([[0,1],[1,0]]),np.array([[0,-1j],[1j,0]]),np.diag([1,-1])]
+        g0=np.block([[eye,zero],[zero,-eye]])
+        gs=[np.block([[zero,s],[-s,zero]]) for s in pauli]
+        g5=1j*g0@gs[0]@gs[1]@gs[2]; one=np.eye(4)
+        pl,pr=(one-g5)/2,(one+g5)/2
+        for M,mi,mj in [(700.,172.4,4.78),(250.,172.4,4.78),(9.,3.,5.),(700.,1.77686,0.)]:
+            E=(M*M+mi*mi-mj*mj)/(2*M); F=M-E
+            p=math.sqrt(max(0.,E*E-mi*mi))
+            slash1=E*g0-p*gs[2];slash2=F*g0+p*gs[2]
+            for a,b in [(1,1),(1,-1),(.13+.19j,-.08+.02j),(1j,0),(0,1j)]:
+                vertex=a*pl+b*pr
+                trace=np.trace((slash1+mi*one)@vertex@(slash2-mj*one)@g0@vertex.conj().T@g0)
+                self.assertLess(abs(trace.imag),1e-9)
+                for nc in (1,3):
+                    width=nc*p*trace.real/(8*math.pi*M*M)
+                    self.assertAlmostEqual(width,scalar_fermions(M,mi,mj,a,b,nc),delta=1e-11)
+
+    def test_independent_four_vector_polarizations(self):
+        for M,ms,mv in [(700.,300.,91.1876),(700.,580.7,80.379),(250.,125.,80.379)]:
+            e=(M*M+mv*mv-ms*ms)/(2*M);p=math.sqrt(e*e-mv*mv)
+            q=np.array([e,0,0,p]);j=np.array([2*M-e,0,0,-p])
+            pol=[np.array([0,1,0,0]),np.array([0,0,1,0]),np.array([p,0,0,e])/mv]
+            dot=lambda x,y:x[0]*y[0]-np.dot(x[1:],y[1:])
+            for eps in pol:self.assertAlmostEqual(dot(q,eps),0.,delta=1e-10)
+            squared=sum(abs(dot(j,eps))**2 for eps in pol)
+            for c in (.17,.17j):
+                direct=abs(c)**2*squared*p/(8*math.pi*M*M)
+                self.assertAlmostEqual(direct,scalar_vector(M,ms,mv,c),delta=1e-11)
+
     def test_vector_agrees_independently_with_validated_D3(self):
         for m in (250.,300.,350.):
             args=dict(mH1_GeV=m,mH2_GeV=700.,mZ_GeV=91.1876,
