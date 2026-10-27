@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "points": [
+    {
+      "point_id": "illustrative_550_900_not_accepted",
+      "mH1_GeV": 550.0,
+      "mH2_GeV": 900.0,
+      "beta_rad": 1.3843094251276797,
+      "gamma_rad": 1.09,
+      "mt_MSbar_GeV": 163.96892236746697,
+      "matching_scale_GeV": 160.0
+    }
+  ],
+  "assumed_uncertainty_scenarios": [
+    {
+      "name": "zero_NP_sigma_independent_Gaussians_hypothesis_only",
+      "rho_SM_exp": 0.0,
+      "assumed_NP_sigma_in_1e_minus4": 0.0
+    },
+    {
+      "name": "assumed_extra_NP_sigma_0p2e_minus4_hypothesis_only",
+      "rho_SM_exp": 0.0,
+      "assumed_NP_sigma_in_1e_minus4": 0.2
+    }
+  ]
+}
