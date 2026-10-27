@@ -160,3 +160,35 @@ No uncertainty covariance, mass-running calibration or NP NLO was computed.
   `module5/TWO_STATE_PATCH_AUDIT.md`, `validation/module5/two_state_patch.json`.
   Required next integration work is a separately audited compatible
   zero-native-BSM group or upstream API fix, outside this minimal SM patch.
+
+## Gate C1 — direct 2026 EFT diagnostic (2026-10-27)
+
+- **`GATE_C1_NUMERICAL_DIAGNOSTIC_PASS`**; **`EXTERNAL_CONVENTION_PASS`**
+  for retained real, top-only, ms=0 LO dipoles. New independent bridge:
+  2608.29863v1 ref.42 (BMU 9904413v1) explicitly supplies positive effective
+  Lagrangian, identical Q7/Q8 and normalized scalar matching. Its charged
+  scalar substitution agrees at 64 dipole values, max absolute residual
+  `5.551115123125783e-17`. Sigma/Fourier notation changes cancel consistently;
+  Type-II enhancement/tanbeta/mass trends provide a separate cross-check.
+- Explicit reference-LHA helper mass `mt_MSbar(160)=163.96892236746697 GeV`;
+  mH1/mH2=550/900 GeV, tanbeta=5.3, gamma=1.09 gives
+  `DeltaC7=-0.03737804303348145`, `DeltaC8=-0.04231149396472201`.
+  Eq.(4) terms in units 1e-4: `+0.3180871462149272`,
+  `+0.09139282696379955`; total **`3.9494799731787267e-4`**.
+  This is a linearized diagnostic; zero NP gives `3.54e-4`.
+- **18 tests pass**, no skips/failures/errors: direct/source 11, frozen
+  contract 7. Boolean/zero tampering and original input hash checks fixed.
+  Interchange, gamma limits, scale=160, signed terms, duplicate/nonfinite
+  JSON and explicit top-mass/scheme guards pass. No SARAH regeneration.
+- **`2026_LINEARIZED_FLAVOR_FILTER_READY`: false**. Need nonlinear validity
+  envelope, matching-input/NP-error calibration, other-operator assessment
+  and statistical/covariance prescription. No likelihood, exclusion, allowed
+  label, arbitrary threshold or per-state 670-GeV cut. Published SM/experiment
+  errors are not a correlated Zee NP error model.
+- C0 SM patch drop and THDM double counting remain historical failures;
+  neither retried nor repaired. Pinned HyperIso v1.0.3 R1–R7 historical PASS
+  remains a matching cross-check; archived R3 is not the 2026 SM baseline.
+  Frozen source/contract labels and previous evidence remain unchanged.
+- Exact source chain, numerical scope and reproduction:
+  `module5/BSGAMMA_2026_CONVENTION.md`; inputs, diagnostics, source/input/code
+  SHA256 values and executed test records: `validation/module5/linear_2026.json`.

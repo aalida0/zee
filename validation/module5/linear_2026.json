@@ -1,0 +1,411 @@
+{
+  "allowed": null,
+  "arbitrary_validity_threshold": null,
+  "branch": "feature/zee-2026-bsgamma-linear-diagnostic",
+  "chi2": null,
+  "date": "2026-10-27",
+  "diagnostic_status": "2026_EQ4_LO_LINEARIZED_DIAGNOSTIC_NOT_A_CONSTRAINT",
+  "exclusion": null,
+  "file_sha256": {
+    "module5/BSGAMMA_2026_CONVENTION.md": "f4a79f4125e2785a36e2af982790c3c629b1ece6eac5d21acf7bd18c630ce2a4",
+    "module5/HYPERISO_BRIDGE.md": "85b4942629c69c3bee01eb9f5edea48ca338ae8dca264657b6f275dd53f9032e",
+    "module5/NATIVE_OPERATOR_MATCHING.md": "757b768f534c2c65b5798e022e5dfff2d8811c05f4ecd403f4142c68085fd521",
+    "module5/TWO_STATE_PATCH_AUDIT.md": "bea981fc11f80a2699978dff93ce95783429d16d68c0810d6968595f2260acf0",
+    "module5/bsgamma_2026_linear_diagnostic.py": "7f1248cec5e2710ab242cb44a33409c2a1a50547a88947860c414242e763f7b1",
+    "module5/bsgamma_lo.py": "251cc9effc80010f65982cc980d0c170dc19785b2385d962afbed4549cfcd5e5",
+    "module5/hyperiso_patch_contract.py": "43b177cacdc1a9ba0f887809ea44591e83c40e70618c2a19b8fdfd36320ae1df",
+    "tests/test_module5_bsgamma_2026_linear.py": "2701b044857cdd79edd425231d972e4f842f7154a86ace3fe40559d8c77a4438",
+    "tests/test_module5_two_state_patch_contract.py": "220bfdf0dc437069c1af69a557b32c81e8c1fd02324cc5de572fb800d903227b",
+    "validation/module5/STATUS.md": "613c982cea49cee062457e54b5bca003632ef0b90003bfec732a1dfb3b213f2e",
+    "validation/module5/hyperiso_bridge.json": "12e493f3aed88234eaa3ce1bc5381624fe714e2d4dc3e127fc1c4b21d554aa59",
+    "validation/module5/native_matching.json": "bbc6d05a9eed7ac89d0062cae63cf006fdb337762258760db03467a7b05717be",
+    "validation/module5/two_state_patch.json": "37d3f90f587a858b1fa9096cd6169d8e0ee8b81621890307cbc7394409c6b338"
+  },
+  "frozen_source_sha256_matches_C0": true,
+  "gates": {
+    "2026_LINEARIZED_FLAVOR_FILTER_READY": false,
+    "numerical": "GATE_C1_NUMERICAL_DIAGNOSTIC_PASS",
+    "operator_mapping": "EXTERNAL_CONVENTION_PASS"
+  },
+  "heavy_mass_eq4_checks": [
+    {
+      "linearized": {
+        "C7_linear_term_times_1e4": 0.22952736636537543,
+        "C8_linear_term_times_1e4": 0.06836576993167384,
+        "conditional_B_times_1e4": 3.8378931362970494,
+        "delta_B_times_1e4": 0.2978931362970493
+      },
+      "mass_GeV": 1000.0,
+      "source_LO": {
+        "C7": -0.02697148840956233,
+        "C8": -0.03165081941281196
+      },
+      "tanbeta": 50.0
+    },
+    {
+      "linearized": {
+        "C7_linear_term_times_1e4": 0.08201787080956977,
+        "C8_linear_term_times_1e4": 0.026044390607629243,
+        "conditional_B_times_1e4": 3.648062261417199,
+        "delta_B_times_1e4": 0.108062261417199
+      },
+      "mass_GeV": 2000.0,
+      "source_LO": {
+        "C7": -0.009637822656823709,
+        "C8": -0.012057588244272797
+      },
+      "tanbeta": 50.0
+    },
+    {
+      "linearized": {
+        "C7_linear_term_times_1e4": 0.018596467057275887,
+        "C8_linear_term_times_1e4": 0.006219080087140322,
+        "conditional_B_times_1e4": 3.5648155471444163,
+        "delta_B_times_1e4": 0.02481554714441621
+      },
+      "mass_GeV": 5000.0,
+      "source_LO": {
+        "C7": -0.0021852487728878833,
+        "C8": -0.002879203744046445
+      },
+      "tanbeta": 50.0
+    }
+  ],
+  "higher_order_curve_comparison": "NOT_REPRODUCED: Fig.3 includes NP alpha_s and alpha_s^2 matching and companion-paper inputs; rows reproduce Eq.(4) with LO, not digitized NNLO central values",
+  "historical_hyperiso": {
+    "C0": "HYPERISO_PATCH_INTEGRATION_BLOCKED_SM_BSM_PATCH_DROPPED",
+    "R1_R7": "PASS_HISTORICAL_NOT_RERUN",
+    "THDM_plus_patch": "DOUBLE_COUNTING_HISTORICAL_NOT_RETRIED",
+    "archived_R3_baseline_used": false,
+    "used_for_direct_diagnostic": false
+  },
+  "illustrative_163_GeV_example_run": {
+    "coefficient_components": {
+      "C7": {
+        "imag": 0.0,
+        "per_state_real": [
+          -0.012656187961325465,
+          -0.024428840449012817
+        ],
+        "real": -0.03708502841033828
+      },
+      "C8": {
+        "imag": 0.0,
+        "per_state_real": [
+          -0.013702857361132022,
+          -0.028309273779163563
+        ],
+        "real": -0.04201213114029559
+      }
+    },
+    "contract_sha256": "aecd314fe3da6793c5540bbfbc104029d7a294a4eb9a013cab1e703cf7e2595a",
+    "diagnostic": {
+      "coefficient_order": "ALPHA_S_0",
+      "convention_audit": "module5/BSGAMMA_2026_CONVENTION.md",
+      "convention_scope": "Real top-only charged-scalar LO dipoles, ms=0; no full Zee matching claim",
+      "energy_cut_Egamma_GeV": 1.6,
+      "experiment_comparison": "NOT_EVALUATED",
+      "external_convention_status": "EXTERNAL_CONVENTION_PASS",
+      "global_zee_acceptance": null,
+      "hyperiso_injection": "NOT_USED_SM_BSM_PATCH_DROPPED",
+      "input_contract_sha256": "aecd314fe3da6793c5540bbfbc104029d7a294a4eb9a013cab1e703cf7e2595a",
+      "limitations": [
+        "Operator bridge passes only for the retained real top-only LO dipoles; frozen upstream contract metadata is historical.",
+        "The explicit MSbar top mass is an input; this diagnostic performs no running, conversion or calibration.",
+        "Quadratic new-physics Wilson terms, additional operators, NP NLO/NNLO and finite-ms effects are omitted.",
+        "SM 0.14e-4 error is NOT a derived Zee BSM theory uncertainty.",
+        "No covariance or justified scan-point exclusion/acceptance; not a physical BR prediction.",
+        "Do not impose the single-state Type-II 2HDM 670 GeV lower mass bound separately on Zee charged scalars."
+      ],
+      "linearized": {
+        "C7_linear_term_times_1e4": 0.31559359177197877,
+        "C8_linear_term_times_1e4": 0.09074620326303848,
+        "conditional_B_times_1e4": 3.9463397950350174,
+        "delta_B_times_1e4": 0.40633979503501727
+      },
+      "matching_input": {
+        "beta_rad": 1.3843094251276797,
+        "gamma_rad": 1.09,
+        "mH1_GeV": 550.0,
+        "mH2_GeV": 900.0,
+        "matching_scale_GeV": 160.0,
+        "mt_MSbar_GeV": 163.0,
+        "top_mass_input_definition": "USER_SUPPLIED_MSbar_TOP_MASS_AT_MATCHING_SCALE_NO_RUNNING"
+      },
+      "matching_scale_GeV": 160.0,
+      "operator_basis": "Eq.(2)",
+      "paper": "arXiv:2608.29863v1",
+      "paper_url": "https://arxiv.org/html/2608.29863v1",
+      "published_values_in_units_1e-4": {
+        "SM_central": 3.54,
+        "SM_reported_sigma": 0.14,
+        "experimental_central": 3.49,
+        "experimental_reported_sigma": 0.19
+      },
+      "schema_version": "1.0.0",
+      "shift_input": {
+        "DeltaC7": -0.03708502841033828,
+        "DeltaC8": -0.04201213114029559
+      },
+      "source_equation": "Eq.(4)",
+      "source_input_hash_verification": "VERIFIED",
+      "source_input_sha256": "225ae57a503140eea437bcef89652f9acee8720e07a3c2fd2985cab1e4d15c08",
+      "status": "2026_EQ4_LO_LINEARIZED_DIAGNOSTIC_NOT_A_CONSTRAINT",
+      "zee_exclusion": null,
+      "zee_likelihood": null
+    },
+    "diagnostic_sha256": "0bc0ed4da047dbacf18cdf867e66582e040650266a94969cbf2e0f0da3147486",
+    "input": {
+      "beta_rad": 1.3843094251276797,
+      "gamma_rad": 1.09,
+      "mH1_GeV": 550.0,
+      "mH2_GeV": 900.0,
+      "matching_scale_GeV": 160.0,
+      "mt_MSbar_GeV": 163.0
+    },
+    "input_sha256": "225ae57a503140eea437bcef89652f9acee8720e07a3c2fd2985cab1e4d15c08"
+  },
+  "independent_operator_bridge": {
+    "2026_cited_source": "reference 42, BMU hep-ph/9904413v1",
+    "classification_basis": "Explicit independent Lagrangian/operator normalization plus scalar matching, not qualitative trend or same-code agreement",
+    "hamiltonian": "H_eff=-4 GF/sqrt(2) Vtb Vts* sum C_i Q_i; L_int=-H_eff",
+    "inverse_gs_basis": "1208.2788v2 / 0401041v1: P=Q/a_s, C_Q=C_P/a_s, C_P=a_s C_H(1)+...; no extra alpha_s on frozen LO",
+    "notation": "Simultaneous operator/coefficient/slope redefinition preserves amplitudes; no unresolved global sigma/Fourier sign is promoted to a physical ambiguity",
+    "operator_normalization": "BMU Eq.(10) P7=2026 Eq.(2) Q7, P8=Q8; mb/(16 pi^2), e/gs, PR, T^a",
+    "ordinary_effective_shifts": "DeltaC1..6=0 at this order => DeltaC7eff=DeltaC7, DeltaC8eff=DeltaC8",
+    "scalar_substitution": {
+      "NR1": "x |Y|^2/2",
+      "NR2": "x X Y*/2",
+      "Qphi": -1,
+      "Qpsi": 0.6666666666666666,
+      "kappaphi": 0,
+      "kappapsi": 1.3333333333333333,
+      "phi": "H-",
+      "psi": "t",
+      "xi": 1
+    }
+  },
+  "likelihood": null,
+  "matching_mass_provenance": {
+    "command": [
+      "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/hyperiso_bridge/hyperiso_probe",
+      "--model",
+      "THDM",
+      "--lha",
+      "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/reproducibility/inputs/thdm_reference.lha",
+      "--spectrum",
+      "true"
+    ],
+    "helper_binary_sha256": "e7dd4f4ee954bf15a0f31f353416d478c7f6be640cf42cb9f7c74360e6edc068",
+    "helper_call": "QCDHelper::msbar_mass(6,160.,MassType::MSBAR)",
+    "helper_source_sha256": "f077230362ef2c237185fc037f7d29f0104d53c2e6e0a55133fb88eeb94c4eae",
+    "lha_sha256": "984391031656a5f4f86ee71f5b60e7d0cb2b1b80edabd9ff6ba912da3ba39374",
+    "mt_MSbar_160_GeV": 163.96892236746697,
+    "parameter_source": "reproducibility/inputs/thdm_reference.lha",
+    "raw_log_sha256": "2045d0ab6d5f492dfeefb90d9ab9efeac14e7bce13ed3835cc199ed164b58259",
+    "scope": "Explicit reference input, not calibrated to the 2026 SM fit; read-only helper execution, no matching patch",
+    "upstream_commit": "09d26ac6e71d1528922097a896d15693589f636b",
+    "upstream_tracked_clean": true
+  },
+  "operator_mapping_scope": "Real top-only charged-scalar LO dipoles, ms=0, explicit MSbar top at mu0=160 GeV; no full Zee or generic HyperIso observable certification",
+  "per_state_mass_cut": null,
+  "physical_BR": null,
+  "published_2026_type_ii_trend": {
+    "decouples_with_mass": true,
+    "decreases_with_tanbeta": true,
+    "enhancement": true,
+    "scope": "Qualitative independent cross-check, not operator-level proof or NNLO curve reproduction",
+    "source": "Sec.IV and Fig.3"
+  },
+  "python_version": "3.10.12",
+  "reference_run": {
+    "coefficient_components": {
+      "C7": {
+        "imag": 0.0,
+        "per_state_real": [
+          -0.012748567187026497,
+          -0.024629475846454953
+        ],
+        "real": -0.03737804303348145
+      },
+      "C8": {
+        "imag": 0.0,
+        "per_state_real": [
+          -0.013790078955371425,
+          -0.028521415009350584
+        ],
+        "real": -0.04231149396472201
+      }
+    },
+    "contract_sha256": "a297a28dfde8e7a8b1d80f8fb5a7721679b6b565421194cffa2a61b5a4e85daa",
+    "diagnostic": {
+      "coefficient_order": "ALPHA_S_0",
+      "convention_audit": "module5/BSGAMMA_2026_CONVENTION.md",
+      "convention_scope": "Real top-only charged-scalar LO dipoles, ms=0; no full Zee matching claim",
+      "energy_cut_Egamma_GeV": 1.6,
+      "experiment_comparison": "NOT_EVALUATED",
+      "external_convention_status": "EXTERNAL_CONVENTION_PASS",
+      "global_zee_acceptance": null,
+      "hyperiso_injection": "NOT_USED_SM_BSM_PATCH_DROPPED",
+      "input_contract_sha256": "a297a28dfde8e7a8b1d80f8fb5a7721679b6b565421194cffa2a61b5a4e85daa",
+      "limitations": [
+        "Operator bridge passes only for the retained real top-only LO dipoles; frozen upstream contract metadata is historical.",
+        "The explicit MSbar top mass is an input; this diagnostic performs no running, conversion or calibration.",
+        "Quadratic new-physics Wilson terms, additional operators, NP NLO/NNLO and finite-ms effects are omitted.",
+        "SM 0.14e-4 error is NOT a derived Zee BSM theory uncertainty.",
+        "No covariance or justified scan-point exclusion/acceptance; not a physical BR prediction.",
+        "Do not impose the single-state Type-II 2HDM 670 GeV lower mass bound separately on Zee charged scalars."
+      ],
+      "linearized": {
+        "C7_linear_term_times_1e4": 0.3180871462149272,
+        "C8_linear_term_times_1e4": 0.09139282696379955,
+        "conditional_B_times_1e4": 3.9494799731787267,
+        "delta_B_times_1e4": 0.40947997317872675
+      },
+      "matching_input": {
+        "beta_rad": 1.3843094251276797,
+        "gamma_rad": 1.09,
+        "mH1_GeV": 550.0,
+        "mH2_GeV": 900.0,
+        "matching_scale_GeV": 160.0,
+        "mt_MSbar_GeV": 163.96892236746697,
+        "top_mass_input_definition": "USER_SUPPLIED_MSbar_TOP_MASS_AT_MATCHING_SCALE_NO_RUNNING"
+      },
+      "matching_scale_GeV": 160.0,
+      "operator_basis": "Eq.(2)",
+      "paper": "arXiv:2608.29863v1",
+      "paper_url": "https://arxiv.org/html/2608.29863v1",
+      "published_values_in_units_1e-4": {
+        "SM_central": 3.54,
+        "SM_reported_sigma": 0.14,
+        "experimental_central": 3.49,
+        "experimental_reported_sigma": 0.19
+      },
+      "schema_version": "1.0.0",
+      "shift_input": {
+        "DeltaC7": -0.03737804303348145,
+        "DeltaC8": -0.04231149396472201
+      },
+      "source_equation": "Eq.(4)",
+      "source_input_hash_verification": "VERIFIED",
+      "source_input_sha256": "4955cab1809f1b89c2078af5dacaa8eda19f7de9523689e2884e30a724eedc38",
+      "status": "2026_EQ4_LO_LINEARIZED_DIAGNOSTIC_NOT_A_CONSTRAINT",
+      "zee_exclusion": null,
+      "zee_likelihood": null
+    },
+    "diagnostic_sha256": "67863da5293e33eced2d2fed47830accc226eded9e81b4956be964bdd96c3d0a",
+    "input": {
+      "beta_rad": 1.3843094251276797,
+      "gamma_rad": 1.09,
+      "mH1_GeV": 550.0,
+      "mH2_GeV": 900.0,
+      "matching_scale_GeV": 160.0,
+      "mt_MSbar_GeV": 163.96892236746697
+    },
+    "input_sha256": "4955cab1809f1b89c2078af5dacaa8eda19f7de9523689e2884e30a724eedc38"
+  },
+  "remaining_filter_requirements": [
+    "Quantify O(DeltaC^2) and justify accuracy/validity envelope against nonlinear treatment",
+    "Calibrate matching masses/schemes/scales and NP NLO/NNLO errors",
+    "Assess omitted LEFT operators, internal light quarks, finite-ms/primed effects",
+    "Specify covariance, statistical prescription and correlated Zee NP uncertainty"
+  ],
+  "required_base": "7a0509696779998dc2de737da330404c2d8c56dd",
+  "reviewed_start_commit": "95b1caf494284c17e61292bb52614f2067618ed0",
+  "schema_version": "1.0.0",
+  "source_matching_check": {
+    "absolute_tolerance": 2e-15,
+    "dipole_values": 64,
+    "implementation": "tests/test_module5_bsgamma_2026_linear.py:bmu_scalar_lo",
+    "masses_GeV": [
+      163.96892236746697,
+      300,
+      550,
+      900,
+      1000,
+      2000,
+      5000,
+      100000
+    ],
+    "max_absolute_residual": 5.551115123125783e-17,
+    "max_relative_residual": 3.5998244370031013e-16,
+    "one_state_points": 32,
+    "precision_decimal_digits": 70,
+    "relative_tolerance": 3e-13,
+    "residuals_are_theory_errors": false,
+    "tanbeta_values": [
+      0.5,
+      2,
+      5.3,
+      50
+    ]
+  },
+  "sources": [
+    {
+      "download_sha256": "5300aaf2e8d0015fbb37f52aefd866b0d9c5c270e18921e71971b0e0f4724b7b",
+      "reviewed_locations": "Eq.(2), Sec.IV Eq.(4), Fig.3 and references 42/43",
+      "url": "https://arxiv.org/html/2608.29863v1",
+      "version": "2608.29863v1"
+    },
+    {
+      "download_sha256": "c575bd5a02a35245b46f0e3b21ec9504b800d63e2aa78c664ace5c72ad45d293",
+      "reviewed_locations": "Sec.IV.C.1 Eqs.(62)-(64), App.A.3, reference 16",
+      "url": "https://arxiv.org/html/2106.08332v1",
+      "version": "2106.08332v1"
+    },
+    {
+      "download_sha256": "c40593a2da269c29442462bdbaad56009daae25c76579521ec8d75394bc233ed",
+      "reviewed_locations": "Sec.2 Eqs.(4),(5),(9)-(11), LO scalar matching, N/R1/R2, App.B g1/g2",
+      "url": "https://arxiv.org/html/hep-ph/9904413v1",
+      "version": "9904413v1"
+    },
+    {
+      "download_sha256": "3a08ec1038498f6f73ac14f62ea672de586b038aa335822c28d37b7fd21defe6",
+      "reviewed_locations": "Eqs.(6),(10)-(12), Sec.3.1 ordinary/effective relation",
+      "url": "https://arxiv.org/html/hep-ph/9802391v1",
+      "version": "9802391v1"
+    },
+    {
+      "download_sha256": "5dab3b1ff4172ccd6a7f821f31cf299eba9694130a8b169374f79ccbb099b877",
+      "reviewed_locations": "Sec.2.1 Eqs.(3),(4), reference 13",
+      "url": "https://arxiv.org/html/1208.2788v2",
+      "version": "1208.2788v2"
+    },
+    {
+      "download_sha256": "de65b143258ba111bb21c271242f2b81a825c809a1a28de92875bb1b724706d5",
+      "reviewed_locations": "Eqs.(2.1),(2.2) inverse-gs-normalized dipoles",
+      "url": "https://arxiv.org/html/hep-ph/0401041v1",
+      "version": "0401041v1"
+    }
+  ],
+  "tests": [
+    {
+      "command": "python -m unittest discover -s tests -p 'test_module5_bsgamma_2026_linear.py' -v",
+      "errors": 0,
+      "failures": 0,
+      "log": "validation/module5/local/test_module5_bsgamma_2026_linear.py.log",
+      "log_sha256": "f7a71d9d790658cf400d280fb5aa91e1f439ca5217e0cb5e4ae0371b7e076253",
+      "returncode": 0,
+      "skips": 0,
+      "tests_run": 11
+    },
+    {
+      "command": "python -m unittest discover -s tests -p 'test_module5_two_state_patch_contract.py' -v",
+      "errors": 0,
+      "failures": 0,
+      "log": "validation/module5/local/test_module5_two_state_patch_contract.py.log",
+      "log_sha256": "df7525e28ba7a48f5a6fe48f9878f4f94371237c992c2da8bf575137c0066c43",
+      "returncode": 0,
+      "skips": 0,
+      "tests_run": 7
+    }
+  ],
+  "tests_total": 18,
+  "uncertainty_scope": "Published SM 0.14e-4 and experimental 0.19e-4 are recorded separately, not used as a correlated Zee NP error model",
+  "zero_NP": {
+    "C7_linear_term_times_1e4": -0.0,
+    "C8_linear_term_times_1e4": -0.0,
+    "conditional_B_times_1e4": 3.54,
+    "delta_B_times_1e4": 0.0
+  }
+}
