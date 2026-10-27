@@ -11,11 +11,12 @@ import hashlib
 import json
 import math
 from pathlib import Path
+import numpy as np
 
 from module1.scalar_constraints import (
     validate_input, reconstruct, check_bfb, unitarity, ewpo
 )
-from module2.interface import scalar_input, canonical_hash, strict_loads
+from module2.interface import scalar_input, canonical_hash, strict_loads, validate_schema as validate2
 from module3.interface import validate as validate3
 
 STATUS = "D2_SCOPED_SCALAR_PREFILTER_NO_VACUUM"
@@ -53,11 +54,17 @@ def neighborhood():
 
 def candidate(seed, name, offsets):
     validate3(seed, "input.schema.json")
+    validate2(seed["module2_input"], "input.schema.json")
+    if "module2_output" in seed:
+        raise ValueError("Input-only seed required")
     if seed["module2_input"]["mode"]!="inverse" or seed["module2_input"]["scalar"]["kind"]!="module1_input":
         raise ValueError("Require complete inverse input with bound Module1 scalar")
     scalar_input(seed["module2_input"]["scalar"])
-    if seed["module2_input"]["benchmark_id"]!=seed["benchmark_id"]:
+    if not (seed["module2_input"]["benchmark_id"]==seed["benchmark_id"]
+            ==seed["module2_input"]["scalar"]["record"]["benchmark_id"]):
         raise ValueError("Incoherent seed benchmark IDs")
+    if set(seed["module2_input"]["scalar"]["record"].get("search", {})) != {"starts", "seeds"}:
+        raise ValueError("Explicit vacuum search configuration required")
     if not isinstance(offsets,dict) or not set(offsets)<=set(STEP):
         raise ValueError("Unsupported spectrum perturbations")
     out=copy.deepcopy(seed)
@@ -72,6 +79,7 @@ def candidate(seed, name, offsets):
         row["physical"][key]=float(row["physical"][key]+d)
     wrapper["sha256"]=canonical_hash(row)
     validate3(out,"input.schema.json")
+    validate2(out["module2_input"],"input.schema.json")
     physical,_=scalar_input(wrapper)
     validate_input(row)
     return out,physical
@@ -81,22 +89,20 @@ def prefilter(seed):
     outputs=[]
     for name,deltas in specs:
         c=None
+        gates={}
         try:
             c,x=candidate(seed,name,deltas)
             scalar=c["module2_input"]["scalar"]["record"]
             _, ew, _, _=validate_input(scalar)
             p, inherited, reconstruction=reconstruct(x)
-            gates={
-                "reconstruction":reconstruction,
-                "bfb":check_bfb(p),
-                "unitarity":unitarity(p,inherited),
-                "ewpo":ewpo(x,ew,scalar["ew_fit"]),
-            }
+            gates["reconstruction"]=reconstruction
+            gates["bfb"]=check_bfb(p)
+            gates["unitarity"]=unitarity(p,inherited)
+            gates["ewpo"]=ewpo(x,ew,scalar["ew_fit"])
             valid=all(g.get("assessment")=="PASS" for g in gates.values())
             status="PASSES_SCOPED_TREE_AND_EWPO" if valid else "HAS_SCOPED_FAIL_OR_UNKNOWN"
             error=None
-        except (ValueError, TypeError, OverflowError, ArithmeticError, KeyError) as exc:
-            gates={}
+        except (ValueError, TypeError, ArithmeticError, KeyError, np.linalg.LinAlgError) as exc:
             status="SCREEN_EVALUATION_BLOCKED"
             error=f"{type(exc).__name__}: {exc}"
             valid=False
@@ -108,7 +114,8 @@ def prefilter(seed):
             "status":status,
             "passes_scoped_tree_and_EWPO":valid,
             "gates":{k:{"status":v.get("status"),"assessment":v.get("assessment"),
-                         "chi2":v.get("selected_fit_result",{}).get("chi2_relative_to_fit_minimum")}
+                         "STU":v.get("STU"),
+                         "chi2":v.get("alternative_fits_not_combined",{}).get(v.get("selected_fit"),{}).get("chi2_relative_to_fit_minimum")}
                      for k,v in gates.items()},
             "vacuum":"NOT_EVALUATED",
             "neutrino":"NOT_EVALUATED",
@@ -122,6 +129,8 @@ def prefilter(seed):
         "source_input_sha256":canonical_hash(seed),
         "point_count":len(outputs),
         "scoped_pass_count":sum(x["passes_scoped_tree_and_EWPO"] for x in outputs),
+        "scoped_fail_count":sum(x["status"]=="HAS_SCOPED_FAIL_OR_UNKNOWN" for x in outputs),
+        "computation_blocked_count":sum(x["status"]=="SCREEN_EVALUATION_BLOCKED" for x in outputs),
         "points":outputs,
         "sampling_scope":"DETERMINISTIC_SMALL_NEIGHBORHOOD_NOT_PRIOR",
         "vacuum":"NOT_EVALUATED",
