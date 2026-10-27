@@ -132,3 +132,31 @@ No uncertainty covariance, mass-running calibration or NP NLO was computed.
   Next: trusted pinned O7/O8 operator-insertion audit and restoration of
   hash-verified native evidence. Details/hashes: `module5/HYPERISO_BRIDGE.md`
   and `validation/module5/hyperiso_bridge.json`; detailed logs stay ignored.
+
+## Gate C0 — two-state external patch candidate (2026-10-27)
+
+- **`HYPERISO_PATCH_INTEGRATION_BLOCKED_SM_BSM_PATCH_DROPPED`**: external
+  adapter compiles against unchanged pinned v1.0.3. Exactly one additive
+  BSM LO patch per C7/C8 is requested on SM at 160 GeV; native SM rejects
+  BSM decoration and composes BSM=0. Both matching and public LO running
+  at 4.8 GeV stay zero. Production exits 3. No integration PASS claimed.
+- **31 scoped regressions passed**, zero failures/errors/skips: frozen LO
+  16, prewritten contract 7, new adapter 8; 19 executable calls. Separate
+  native THDM results reproduce weighted two-state matching; limits,
+  sign-flipped ld, synthetic complex transport, diagnostic running and
+  split/separate patch additivity pass. Maximum absolute residual
+  `2.7755575615628914e-17`. These THDM diagnostics are not SM integration.
+- Explicit gamma=0 native THDM plus contract doubles the BSM coefficient;
+  production rejects THDM instead of silently using it. Scale, mass scheme,
+  top value, SM/TOTAL contribution and contract-tampering guards pass.
+- Actual QCDHelper reference-LHA MSbar top at 160 GeV:
+  `163.96892236746697 GeV`. Explicit LHA provenance is required; the default
+  SM LHA gives a different value. Historical Gate B R1–R7 PASS retained,
+  not rerun; no upstream change or SARAH regeneration.
+- **`MATCHING_CONVENTION_UNKNOWN`** retained. External operator convention
+  PASS not achieved; physical Zee prediction and 2026 conditional screen
+  **NOT_EVALUATED**. No BR, exclusion, allowed label or charged-mass cut.
+- Audit and actual coefficient outputs/source hashes:
+  `module5/TWO_STATE_PATCH_AUDIT.md`, `validation/module5/two_state_patch.json`.
+  Required next integration work is a separately audited compatible
+  zero-native-BSM group or upstream API fix, outside this minimal SM patch.

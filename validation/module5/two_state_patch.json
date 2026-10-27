@@ -1,0 +1,1672 @@
+{
+  "blockers": [
+    "Pinned SM group rejects BSM contribution patches and SM setup forces BSM=0. Production exits 3; no safe SM injection demonstrated.",
+    "External operator Hamiltonian/sigma/Fourier/CKM insertion remains uncertified.",
+    "No complete Zee observable, higher-order NP matching or calibrated uncertainty model; physical use outside scope."
+  ],
+  "branch": "feature/zee-hyperiso-two-state-patch",
+  "contract": {
+    "coefficient_basis": "B_C7_C8_CONDITIONAL_MATCHING_NOT_EXTERNAL_OPERATOR_CERTIFIED",
+    "coefficients": {
+      "C7": {
+        "imag": 0.0,
+        "per_state_real": [
+          -0.012748567187026497,
+          -0.024629475846454953
+        ],
+        "real": -0.03737804303348145
+      },
+      "C8": {
+        "imag": 0.0,
+        "per_state_real": [
+          -0.013790078955371425,
+          -0.028521415009350584
+        ],
+        "real": -0.04231149396472201
+      }
+    },
+    "contribution": "BSM",
+    "experimental_comparison": "NOT_EVALUATED",
+    "global_zee_acceptance": null,
+    "hyperiso_release_commit": "09d26ac6e71d1528922097a896d15693589f636b",
+    "input": {
+      "beta_rad": 1.3843094251276797,
+      "gamma_rad": 1.09,
+      "mH1_GeV": 550.0,
+      "mH2_GeV": 900.0,
+      "matching_scale_GeV": 160.0,
+      "mt_MSbar_GeV": 163.96892236746697,
+      "top_mass_input_definition": "USER_SUPPLIED_MSbar_TOP_MASS_AT_MATCHING_SCALE_NO_RUNNING"
+    },
+    "limitations": [
+      "Not a calibrated or validated external Hamiltonian/operator match.",
+      "No actual HyperIso injection has been executed by this pure-Python contract.",
+      "The MSbar top mass is explicitly supplied; no mass running or scheme conversion occurs.",
+      "Do not add to a native THDM charged-Higgs calculation (double counting).",
+      "No NP NLO/NNLO, BR, likelihood, exclusion, or full Zee viability."
+    ],
+    "matching_scale_GeV": 160.0,
+    "misiak_2026_screen": null,
+    "model": "ZeeTypeII_REAL_QUARK_SECTOR_TWO_CHARGED_STATES",
+    "order": "LO_ALPHA_S_0",
+    "physical_BR": null,
+    "scalar_rows": [
+      {
+        "XY_conjugate_coupling": 0.21389271457378156,
+        "YY_coupling_squared": 0.007614550180625909,
+        "delta_C7": -0.012748567187026497,
+        "delta_C7_XY": -0.012698400535193078,
+        "delta_C7_YY": -5.016665183341992e-05,
+        "delta_C8": -0.013790078955371425,
+        "delta_C8_XY": -0.01375205835376877,
+        "delta_C8_YY": -3.8020601602654275e-05,
+        "doublet_fraction": 0.21389271457378156,
+        "mass_GeV": 550.0,
+        "scalar": "H1_charged",
+        "x_mt2_over_mH2": 0.08887870248710218
+      },
+      {
+        "XY_conjugate_coupling": 0.7861072854262184,
+        "YY_coupling_squared": 0.027985307419943727,
+        "delta_C7": -0.024629475846454953,
+        "delta_C7_XY": -0.024551069089593786,
+        "delta_C7_YY": -7.84067568611678e-05,
+        "delta_C8": -0.028521415009350584,
+        "delta_C8_XY": -0.028458740545550306,
+        "delta_C8_YY": -6.26744638002765e-05,
+        "doublet_fraction": 0.7861072854262184,
+        "mass_GeV": 900.0,
+        "scalar": "H2_charged",
+        "x_mt2_over_mH2": 0.03319235494117088
+      }
+    ],
+    "schema_version": "1.0.0",
+    "status": "PATCH_INPUT_ONLY_EXTERNAL_OPERATOR_CONVENTION_UNCERTIFIED",
+    "top_mass_MSbar_at_matching_scale_GeV": 163.96892236746697,
+    "zee_lo_source_sha256": "251cc9effc80010f65982cc980d0c170dc19785b2385d962afbed4549cfcd5e5",
+    "zee_source_ancestor": "218fe01d893730bc2699c270d10db85a22708616"
+  },
+  "diagnostic_scope": "THDM diagnostics explicitly include native BSM. Complex transport, running and additive patches work there; not a Zee adapter or integration PASS.",
+  "exclusion": null,
+  "executable_runs": [
+    {
+      "argv": [
+        "--mode",
+        "native",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-hyperiso-two-state-patch/validation/module5/local/two_state/native_550.0_5.3_False.lha",
+        "--spectrum",
+        "true",
+        "--contribution",
+        "BSM",
+        "--order",
+        "LO",
+        "--top-scheme",
+        "MSBAR_AT_QMATCH",
+        "--qmatch",
+        "160",
+        "--qhad",
+        "4.8"
+      ],
+      "coefficient_output": [
+        "C0 MT 163.96892236746697",
+        "C0 BEFORE C1 0 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C1 1 (0,0) (0,0)",
+        "C0 BEFORE C1 2 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C2 0 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C2 1 (0,0) (0,0)",
+        "C0 BEFORE C2 2 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C3 0 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C3 1 (0,0) (0,0)",
+        "C0 BEFORE C3 2 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C4 0 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C4 1 (0,0) (0,0)",
+        "C0 BEFORE C4 2 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C5 0 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C5 1 (0,0) (0,0)",
+        "C0 BEFORE C5 2 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C6 0 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C6 1 (0,0) (0,0)",
+        "C0 BEFORE C6 2 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C7 0 (-0.18813229936476678,0) (-0.32741646329251828,0)",
+        "C0 BEFORE C7 1 (-0.059602624672982586,0) (-0.043641535443273316,0)",
+        "C0 BEFORE C7 2 (-0.24773492403774935,0) (-0.37105799873579159,0)",
+        "C0 BEFORE C8 0 (-0.09502061539765283,0) (-0.15457853329347271,0)",
+        "C0 BEFORE C8 1 (-0.064471943248981395,0) (-0.042591185129702627,0)",
+        "C0 BEFORE C8 2 (-0.15949255864663422,0) (-0.19716971842317532,0)"
+      ],
+      "label": "native (550.0, 5.3, False)",
+      "returncode": 0,
+      "stderr": "",
+      "stdout_sha256": "a4c68ec726b25d8a3012293c985757e61b2657427695563d1c9edf3b72a77471"
+    },
+    {
+      "argv": [
+        "--mode",
+        "diagnostic",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-hyperiso-two-state-patch/validation/module5/local/two_state/native_550.0_5.3_False.lha",
+        "--spectrum",
+        "true",
+        "--contribution",
+        "BSM",
+        "--order",
+        "LO",
+        "--top-scheme",
+        "MSBAR_AT_QMATCH",
+        "--qmatch",
+        "160",
+        "--qhad",
+        "4.8",
+        "--mt",
+        "163.96892236746697",
+        "--split",
+        "false",
+        "--c7",
+        "-0.002",
+        "--c7-imag",
+        "0.006",
+        "--c8",
+        "0.003",
+        "--c8-imag",
+        "-0.004"
+      ],
+      "coefficient_output": [
+        "C0 MT 163.96892236746697",
+        "C0 BEFORE C1 0 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C1 1 (0,0) (0,0)",
+        "C0 BEFORE C1 2 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C2 0 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C2 1 (0,0) (0,0)",
+        "C0 BEFORE C2 2 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C3 0 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C3 1 (0,0) (0,0)",
+        "C0 BEFORE C3 2 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C4 0 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C4 1 (0,0) (0,0)",
+        "C0 BEFORE C4 2 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C5 0 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C5 1 (0,0) (0,0)",
+        "C0 BEFORE C5 2 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C6 0 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C6 1 (0,0) (0,0)",
+        "C0 BEFORE C6 2 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C7 0 (-0.18813229936476678,0) (-0.32741646329251828,0)",
+        "C0 BEFORE C7 1 (-0.059602624672982586,0) (-0.043641535443273316,0)",
+        "C0 BEFORE C7 2 (-0.24773492403774935,0) (-0.37105799873579159,0)",
+        "C0 BEFORE C8 0 (-0.09502061539765283,0) (-0.15457853329347271,0)",
+        "C0 BEFORE C8 1 (-0.064471943248981395,0) (-0.042591185129702627,0)",
+        "C0 BEFORE C8 2 (-0.15949255864663422,0) (-0.19716971842317532,0)",
+        "C0 AFTER C1 0 (0,0) (-0.58947781662308352,0)",
+        "C0 AFTER C1 1 (0,0) (0,0)",
+        "C0 AFTER C1 2 (0,0) (-0.58947781662308352,0)",
+        "C0 AFTER C2 0 (1,0) (1.0337040733126455,0)",
+        "C0 AFTER C2 1 (0,0) (0,0)",
+        "C0 AFTER C2 2 (1,0) (1.0337040733126455,0)",
+        "C0 AFTER C3 0 (0,0) (-0.0066873306540469087,0)",
+        "C0 AFTER C3 1 (0,0) (0,0)",
+        "C0 AFTER C3 2 (0,0) (-0.0066873306540469087,0)",
+        "C0 AFTER C4 0 (0,0) (-0.081760509813311996,0)",
+        "C0 AFTER C4 1 (0,0) (0,0)",
+        "C0 AFTER C4 2 (0,0) (-0.081760509813311996,0)",
+        "C0 AFTER C5 0 (0,0) (0.00063801701700909514,0)",
+        "C0 AFTER C5 1 (0,0) (0,0)",
+        "C0 AFTER C5 2 (0,0) (0.00063801701700909514,0)",
+        "C0 AFTER C6 0 (0,0) (0.0013755733207386272,0)",
+        "C0 AFTER C6 1 (0,0) (0,0)",
+        "C0 AFTER C6 2 (0,0) (0.0013755733207386272,0)",
+        "C0 AFTER C7 0 (-0.18813229936476678,0) (-0.32741646329251828,0)",
+        "C0 AFTER C7 1 (-0.061602624672982588,0.0060000000000000001) (-0.044582870511670258,0.0033305340721744188)",
+        "C0 AFTER C7 2 (-0.24973492403774936,0.0060000000000000001) (-0.37199933380418854,0.0033305340721744188)",
+        "C0 AFTER C8 0 (-0.09502061539765283,0) (-0.15457853329347271,0)",
+        "C0 AFTER C8 1 (-0.061471943248981392,-0.0040000000000000001) (-0.040609337694211739,-0.0026424632473211846)",
+        "C0 AFTER C8 2 (-0.15649255864663422,-0.0040000000000000001) (-0.19518787098768445,-0.0026424632473211846)",
+        "C0 DIAGNOSTIC_ONLY_NOT_ZEE_ADAPTER"
+      ],
+      "label": "THDM diagnostic split=False",
+      "returncode": 0,
+      "stderr": "",
+      "stdout_sha256": "236b8d73813d863b0a17dfeeb47f858113e377cab6e88d92bffca71422abed6c"
+    },
+    {
+      "argv": [
+        "--mode",
+        "diagnostic",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-hyperiso-two-state-patch/validation/module5/local/two_state/native_550.0_5.3_False.lha",
+        "--spectrum",
+        "true",
+        "--contribution",
+        "BSM",
+        "--order",
+        "LO",
+        "--top-scheme",
+        "MSBAR_AT_QMATCH",
+        "--qmatch",
+        "160",
+        "--qhad",
+        "4.8",
+        "--mt",
+        "163.96892236746697",
+        "--split",
+        "true",
+        "--c7",
+        "-0.002",
+        "--c7-imag",
+        "0.006",
+        "--c8",
+        "0.003",
+        "--c8-imag",
+        "-0.004"
+      ],
+      "coefficient_output": [
+        "C0 MT 163.96892236746697",
+        "C0 BEFORE C1 0 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C1 1 (0,0) (0,0)",
+        "C0 BEFORE C1 2 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C2 0 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C2 1 (0,0) (0,0)",
+        "C0 BEFORE C2 2 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C3 0 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C3 1 (0,0) (0,0)",
+        "C0 BEFORE C3 2 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C4 0 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C4 1 (0,0) (0,0)",
+        "C0 BEFORE C4 2 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C5 0 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C5 1 (0,0) (0,0)",
+        "C0 BEFORE C5 2 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C6 0 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C6 1 (0,0) (0,0)",
+        "C0 BEFORE C6 2 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C7 0 (-0.18813229936476678,0) (-0.32741646329251828,0)",
+        "C0 BEFORE C7 1 (-0.059602624672982586,0) (-0.043641535443273316,0)",
+        "C0 BEFORE C7 2 (-0.24773492403774935,0) (-0.37105799873579159,0)",
+        "C0 BEFORE C8 0 (-0.09502061539765283,0) (-0.15457853329347271,0)",
+        "C0 BEFORE C8 1 (-0.064471943248981395,0) (-0.042591185129702627,0)",
+        "C0 BEFORE C8 2 (-0.15949255864663422,0) (-0.19716971842317532,0)",
+        "C0 AFTER C1 0 (0,0) (-0.58947781662308352,0)",
+        "C0 AFTER C1 1 (0,0) (0,0)",
+        "C0 AFTER C1 2 (0,0) (-0.58947781662308352,0)",
+        "C0 AFTER C2 0 (1,0) (1.0337040733126455,0)",
+        "C0 AFTER C2 1 (0,0) (0,0)",
+        "C0 AFTER C2 2 (1,0) (1.0337040733126455,0)",
+        "C0 AFTER C3 0 (0,0) (-0.0066873306540469087,0)",
+        "C0 AFTER C3 1 (0,0) (0,0)",
+        "C0 AFTER C3 2 (0,0) (-0.0066873306540469087,0)",
+        "C0 AFTER C4 0 (0,0) (-0.081760509813311996,0)",
+        "C0 AFTER C4 1 (0,0) (0,0)",
+        "C0 AFTER C4 2 (0,0) (-0.081760509813311996,0)",
+        "C0 AFTER C5 0 (0,0) (0.00063801701700909514,0)",
+        "C0 AFTER C5 1 (0,0) (0,0)",
+        "C0 AFTER C5 2 (0,0) (0.00063801701700909514,0)",
+        "C0 AFTER C6 0 (0,0) (0.0013755733207386272,0)",
+        "C0 AFTER C6 1 (0,0) (0,0)",
+        "C0 AFTER C6 2 (0,0) (0.0013755733207386272,0)",
+        "C0 AFTER C7 0 (-0.18813229936476678,0) (-0.32741646329251828,0)",
+        "C0 AFTER C7 1 (-0.061602624672982588,0.0060000000000000001) (-0.044582870511670258,0.0033305340721744188)",
+        "C0 AFTER C7 2 (-0.24973492403774936,0.0060000000000000001) (-0.37199933380418854,0.0033305340721744188)",
+        "C0 AFTER C8 0 (-0.09502061539765283,0) (-0.15457853329347271,0)",
+        "C0 AFTER C8 1 (-0.061471943248981392,-0.0040000000000000001) (-0.040609337694211739,-0.0026424632473211846)",
+        "C0 AFTER C8 2 (-0.15649255864663422,-0.0040000000000000001) (-0.19518787098768445,-0.0026424632473211846)",
+        "C0 DIAGNOSTIC_ONLY_NOT_ZEE_ADAPTER"
+      ],
+      "label": "THDM diagnostic split=True",
+      "returncode": 0,
+      "stderr": "",
+      "stdout_sha256": "236b8d73813d863b0a17dfeeb47f858113e377cab6e88d92bffca71422abed6c"
+    },
+    {
+      "argv": [
+        "--mode",
+        "diagnostic",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-hyperiso-two-state-patch/validation/module5/local/two_state/native_550.0_5.3_False.lha",
+        "--spectrum",
+        "true",
+        "--contribution",
+        "BSM",
+        "--order",
+        "LO",
+        "--top-scheme",
+        "MSBAR_AT_QMATCH",
+        "--qmatch",
+        "160",
+        "--qhad",
+        "4.8",
+        "--mt",
+        "163.96892236746697",
+        "--split",
+        "false",
+        "--c7",
+        "-0.002",
+        "--c7-imag",
+        "0.006",
+        "--c8",
+        "0.0",
+        "--c8-imag",
+        "0.0"
+      ],
+      "coefficient_output": [
+        "C0 MT 163.96892236746697",
+        "C0 BEFORE C1 0 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C1 1 (0,0) (0,0)",
+        "C0 BEFORE C1 2 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C2 0 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C2 1 (0,0) (0,0)",
+        "C0 BEFORE C2 2 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C3 0 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C3 1 (0,0) (0,0)",
+        "C0 BEFORE C3 2 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C4 0 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C4 1 (0,0) (0,0)",
+        "C0 BEFORE C4 2 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C5 0 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C5 1 (0,0) (0,0)",
+        "C0 BEFORE C5 2 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C6 0 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C6 1 (0,0) (0,0)",
+        "C0 BEFORE C6 2 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C7 0 (-0.18813229936476678,0) (-0.32741646329251828,0)",
+        "C0 BEFORE C7 1 (-0.059602624672982586,0) (-0.043641535443273316,0)",
+        "C0 BEFORE C7 2 (-0.24773492403774935,0) (-0.37105799873579159,0)",
+        "C0 BEFORE C8 0 (-0.09502061539765283,0) (-0.15457853329347271,0)",
+        "C0 BEFORE C8 1 (-0.064471943248981395,0) (-0.042591185129702627,0)",
+        "C0 BEFORE C8 2 (-0.15949255864663422,0) (-0.19716971842317532,0)",
+        "C0 AFTER C1 0 (0,0) (-0.58947781662308352,0)",
+        "C0 AFTER C1 1 (0,0) (0,0)",
+        "C0 AFTER C1 2 (0,0) (-0.58947781662308352,0)",
+        "C0 AFTER C2 0 (1,0) (1.0337040733126455,0)",
+        "C0 AFTER C2 1 (0,0) (0,0)",
+        "C0 AFTER C2 2 (1,0) (1.0337040733126455,0)",
+        "C0 AFTER C3 0 (0,0) (-0.0066873306540469087,0)",
+        "C0 AFTER C3 1 (0,0) (0,0)",
+        "C0 AFTER C3 2 (0,0) (-0.0066873306540469087,0)",
+        "C0 AFTER C4 0 (0,0) (-0.081760509813311996,0)",
+        "C0 AFTER C4 1 (0,0) (0,0)",
+        "C0 AFTER C4 2 (0,0) (-0.081760509813311996,0)",
+        "C0 AFTER C5 0 (0,0) (0.00063801701700909514,0)",
+        "C0 AFTER C5 1 (0,0) (0,0)",
+        "C0 AFTER C5 2 (0,0) (0.00063801701700909514,0)",
+        "C0 AFTER C6 0 (0,0) (0.0013755733207386272,0)",
+        "C0 AFTER C6 1 (0,0) (0,0)",
+        "C0 AFTER C6 2 (0,0) (0.0013755733207386272,0)",
+        "C0 AFTER C7 0 (-0.18813229936476678,0) (-0.32741646329251828,0)",
+        "C0 AFTER C7 1 (-0.061602624672982588,0.0060000000000000001) (-0.044886787831860411,0.0037357571657612924)",
+        "C0 AFTER C7 2 (-0.24973492403774936,0.0060000000000000001) (-0.37230325112437868,0.0037357571657612924)",
+        "C0 AFTER C8 0 (-0.09502061539765283,0) (-0.15457853329347271,0)",
+        "C0 AFTER C8 1 (-0.064471943248981395,0) (-0.042591185129702627,0)",
+        "C0 AFTER C8 2 (-0.15949255864663422,0) (-0.19716971842317532,0)",
+        "C0 DIAGNOSTIC_ONLY_NOT_ZEE_ADAPTER"
+      ],
+      "label": "THDM diagnostic split=False",
+      "returncode": 0,
+      "stderr": "",
+      "stdout_sha256": "17131e9098ea0f17bb5c1360539c652b3f8568deca130f947c644b2c34b4cf60"
+    },
+    {
+      "argv": [
+        "--mode",
+        "diagnostic",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-hyperiso-two-state-patch/validation/module5/local/two_state/native_550.0_5.3_False.lha",
+        "--spectrum",
+        "true",
+        "--contribution",
+        "BSM",
+        "--order",
+        "LO",
+        "--top-scheme",
+        "MSBAR_AT_QMATCH",
+        "--qmatch",
+        "160",
+        "--qhad",
+        "4.8",
+        "--mt",
+        "163.96892236746697",
+        "--split",
+        "false",
+        "--c7",
+        "0.0",
+        "--c7-imag",
+        "0.0",
+        "--c8",
+        "0.003",
+        "--c8-imag",
+        "-0.004"
+      ],
+      "coefficient_output": [
+        "C0 MT 163.96892236746697",
+        "C0 BEFORE C1 0 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C1 1 (0,0) (0,0)",
+        "C0 BEFORE C1 2 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C2 0 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C2 1 (0,0) (0,0)",
+        "C0 BEFORE C2 2 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C3 0 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C3 1 (0,0) (0,0)",
+        "C0 BEFORE C3 2 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C4 0 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C4 1 (0,0) (0,0)",
+        "C0 BEFORE C4 2 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C5 0 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C5 1 (0,0) (0,0)",
+        "C0 BEFORE C5 2 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C6 0 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C6 1 (0,0) (0,0)",
+        "C0 BEFORE C6 2 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C7 0 (-0.18813229936476678,0) (-0.32741646329251828,0)",
+        "C0 BEFORE C7 1 (-0.059602624672982586,0) (-0.043641535443273316,0)",
+        "C0 BEFORE C7 2 (-0.24773492403774935,0) (-0.37105799873579159,0)",
+        "C0 BEFORE C8 0 (-0.09502061539765283,0) (-0.15457853329347271,0)",
+        "C0 BEFORE C8 1 (-0.064471943248981395,0) (-0.042591185129702627,0)",
+        "C0 BEFORE C8 2 (-0.15949255864663422,0) (-0.19716971842317532,0)",
+        "C0 AFTER C1 0 (0,0) (-0.58947781662308352,0)",
+        "C0 AFTER C1 1 (0,0) (0,0)",
+        "C0 AFTER C1 2 (0,0) (-0.58947781662308352,0)",
+        "C0 AFTER C2 0 (1,0) (1.0337040733126455,0)",
+        "C0 AFTER C2 1 (0,0) (0,0)",
+        "C0 AFTER C2 2 (1,0) (1.0337040733126455,0)",
+        "C0 AFTER C3 0 (0,0) (-0.0066873306540469087,0)",
+        "C0 AFTER C3 1 (0,0) (0,0)",
+        "C0 AFTER C3 2 (0,0) (-0.0066873306540469087,0)",
+        "C0 AFTER C4 0 (0,0) (-0.081760509813311996,0)",
+        "C0 AFTER C4 1 (0,0) (0,0)",
+        "C0 AFTER C4 2 (0,0) (-0.081760509813311996,0)",
+        "C0 AFTER C5 0 (0,0) (0.00063801701700909514,0)",
+        "C0 AFTER C5 1 (0,0) (0,0)",
+        "C0 AFTER C5 2 (0,0) (0.00063801701700909514,0)",
+        "C0 AFTER C6 0 (0,0) (0.0013755733207386272,0)",
+        "C0 AFTER C6 1 (0,0) (0,0)",
+        "C0 AFTER C6 2 (0,0) (0.0013755733207386272,0)",
+        "C0 AFTER C7 0 (-0.18813229936476678,0) (-0.32741646329251828,0)",
+        "C0 AFTER C7 1 (-0.059602624672982586,0) (-0.043337618123083163,-0.00040522309358687368)",
+        "C0 AFTER C7 2 (-0.24773492403774935,0) (-0.37075408141560146,-0.00040522309358687368)",
+        "C0 AFTER C8 0 (-0.09502061539765283,0) (-0.15457853329347271,0)",
+        "C0 AFTER C8 1 (-0.061471943248981392,-0.0040000000000000001) (-0.040609337694211739,-0.0026424632473211846)",
+        "C0 AFTER C8 2 (-0.15649255864663422,-0.0040000000000000001) (-0.19518787098768445,-0.0026424632473211846)",
+        "C0 DIAGNOSTIC_ONLY_NOT_ZEE_ADAPTER"
+      ],
+      "label": "THDM diagnostic split=False",
+      "returncode": 0,
+      "stderr": "",
+      "stdout_sha256": "8034260e49361a5891211b97eec17b2a85f3392d20ab783cd7448c8ebf3dfed5"
+    },
+    {
+      "argv": [
+        "--mode",
+        "diagnostic",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-hyperiso-two-state-patch/validation/module5/local/two_state/native_550.0_5.3_False.lha",
+        "--spectrum",
+        "true",
+        "--contribution",
+        "BSM",
+        "--order",
+        "LO",
+        "--top-scheme",
+        "MSBAR_AT_QMATCH",
+        "--qmatch",
+        "160",
+        "--qhad",
+        "4.8",
+        "--mt",
+        "163.96892236746697",
+        "--split",
+        "false",
+        "--c7",
+        "-0.0596026246729826",
+        "--c7-imag",
+        "0.0",
+        "--c8",
+        "-0.06447194324898142",
+        "--c8-imag",
+        "0.0"
+      ],
+      "coefficient_output": [
+        "C0 MT 163.96892236746697",
+        "C0 BEFORE C1 0 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C1 1 (0,0) (0,0)",
+        "C0 BEFORE C1 2 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C2 0 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C2 1 (0,0) (0,0)",
+        "C0 BEFORE C2 2 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C3 0 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C3 1 (0,0) (0,0)",
+        "C0 BEFORE C3 2 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C4 0 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C4 1 (0,0) (0,0)",
+        "C0 BEFORE C4 2 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C5 0 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C5 1 (0,0) (0,0)",
+        "C0 BEFORE C5 2 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C6 0 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C6 1 (0,0) (0,0)",
+        "C0 BEFORE C6 2 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C7 0 (-0.18813229936476678,0) (-0.32741646329251828,0)",
+        "C0 BEFORE C7 1 (-0.059602624672982586,0) (-0.043641535443273316,0)",
+        "C0 BEFORE C7 2 (-0.24773492403774935,0) (-0.37105799873579159,0)",
+        "C0 BEFORE C8 0 (-0.09502061539765283,0) (-0.15457853329347271,0)",
+        "C0 BEFORE C8 1 (-0.064471943248981395,0) (-0.042591185129702627,0)",
+        "C0 BEFORE C8 2 (-0.15949255864663422,0) (-0.19716971842317532,0)",
+        "C0 AFTER C1 0 (0,0) (-0.58947781662308352,0)",
+        "C0 AFTER C1 1 (0,0) (0,0)",
+        "C0 AFTER C1 2 (0,0) (-0.58947781662308352,0)",
+        "C0 AFTER C2 0 (1,0) (1.0337040733126455,0)",
+        "C0 AFTER C2 1 (0,0) (0,0)",
+        "C0 AFTER C2 2 (1,0) (1.0337040733126455,0)",
+        "C0 AFTER C3 0 (0,0) (-0.0066873306540469087,0)",
+        "C0 AFTER C3 1 (0,0) (0,0)",
+        "C0 AFTER C3 2 (0,0) (-0.0066873306540469087,0)",
+        "C0 AFTER C4 0 (0,0) (-0.081760509813311996,0)",
+        "C0 AFTER C4 1 (0,0) (0,0)",
+        "C0 AFTER C4 2 (0,0) (-0.081760509813311996,0)",
+        "C0 AFTER C5 0 (0,0) (0.00063801701700909514,0)",
+        "C0 AFTER C5 1 (0,0) (0,0)",
+        "C0 AFTER C5 2 (0,0) (0.00063801701700909514,0)",
+        "C0 AFTER C6 0 (0,0) (0.0013755733207386272,0)",
+        "C0 AFTER C6 1 (0,0) (0,0)",
+        "C0 AFTER C6 2 (0,0) (0.0013755733207386272,0)",
+        "C0 AFTER C7 0 (-0.18813229936476678,0) (-0.32741646329251828,0)",
+        "C0 AFTER C7 1 (-0.11920524934596519,0) (-0.087283070886546646,0)",
+        "C0 AFTER C7 2 (-0.30733754871073193,0) (-0.41469953417906491,0)",
+        "C0 AFTER C8 0 (-0.09502061539765283,0) (-0.15457853329347271,0)",
+        "C0 AFTER C8 1 (-0.12894388649796282,0) (-0.085182370259405268,0)",
+        "C0 AFTER C8 2 (-0.22396450189561565,0) (-0.23976090355287799,0)",
+        "C0 DIAGNOSTIC_ONLY_NOT_ZEE_ADAPTER"
+      ],
+      "label": "THDM diagnostic split=False",
+      "returncode": 0,
+      "stderr": "",
+      "stdout_sha256": "83a74bb02389d2d196834349747f3daf585e7faed717836c5fc33a6e3c360619"
+    },
+    {
+      "argv": [
+        "--lha",
+        "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/reproducibility/inputs/thdm_reference.lha",
+        "--spectrum",
+        "true",
+        "--mode",
+        "patch",
+        "--model",
+        "THDM",
+        "--contribution",
+        "BSM",
+        "--order",
+        "LO",
+        "--top-scheme",
+        "MSBAR_AT_QMATCH",
+        "--qmatch",
+        "160",
+        "--qhad",
+        "4.8",
+        "--mt",
+        "163.96892236746697",
+        "--c7",
+        "-0.0596026246729826",
+        "--c7-imag",
+        "0.0",
+        "--c8",
+        "-0.06447194324898142",
+        "--c8-imag",
+        "0.0"
+      ],
+      "coefficient_output": [],
+      "label": "production THDM rejected",
+      "returncode": 2,
+      "stderr": "C0 REJECTED Production requires SM; THDM is diagnostic/native only (double-count risk)\n",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "--mode",
+        "native",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-hyperiso-two-state-patch/validation/module5/local/two_state/native_550.0_5.3_True.lha",
+        "--spectrum",
+        "true",
+        "--contribution",
+        "BSM",
+        "--order",
+        "LO",
+        "--top-scheme",
+        "MSBAR_AT_QMATCH",
+        "--qmatch",
+        "160",
+        "--qhad",
+        "4.8"
+      ],
+      "coefficient_output": [
+        "C0 MT 163.96892236746697",
+        "C0 BEFORE C1 0 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C1 1 (0,0) (0,0)",
+        "C0 BEFORE C1 2 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C2 0 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C2 1 (0,0) (0,0)",
+        "C0 BEFORE C2 2 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C3 0 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C3 1 (0,0) (0,0)",
+        "C0 BEFORE C3 2 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C4 0 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C4 1 (0,0) (0,0)",
+        "C0 BEFORE C4 2 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C5 0 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C5 1 (0,0) (0,0)",
+        "C0 BEFORE C5 2 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C6 0 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C6 1 (0,0) (0,0)",
+        "C0 BEFORE C6 2 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C7 0 (-0.18813229936476678,0) (-0.32741646329251828,0)",
+        "C0 BEFORE C7 1 (0.059133542292749246,0) (0.043313457153820831,0)",
+        "C0 BEFORE C7 2 (-0.12899875707201752,0) (-0.28410300613869743,0)",
+        "C0 BEFORE C8 0 (-0.09502061539765283,0) (-0.15457853329347271,0)",
+        "C0 BEFORE C8 1 (0.06411643229407657,0) (0.042356328971613615,0)",
+        "C0 BEFORE C8 2 (-0.03090418310357626,0) (-0.11222220432185909,0)"
+      ],
+      "label": "native (550.0, 5.3, True)",
+      "returncode": 0,
+      "stderr": "",
+      "stdout_sha256": "9679f1fd17da0348095d35c0ab2994af9d7e7b6f415a3bc4e6b9dca12a8cb355"
+    },
+    {
+      "argv": [
+        "--mode",
+        "native",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-hyperiso-two-state-patch/validation/module5/local/two_state/native_900.0_5.3_False.lha",
+        "--spectrum",
+        "true",
+        "--contribution",
+        "BSM",
+        "--order",
+        "LO",
+        "--top-scheme",
+        "MSBAR_AT_QMATCH",
+        "--qmatch",
+        "160",
+        "--qhad",
+        "4.8"
+      ],
+      "coefficient_output": [
+        "C0 MT 163.96892236746697",
+        "C0 BEFORE C1 0 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C1 1 (0,0) (0,0)",
+        "C0 BEFORE C1 2 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C2 0 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C2 1 (0,0) (0,0)",
+        "C0 BEFORE C2 2 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C3 0 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C3 1 (0,0) (0,0)",
+        "C0 BEFORE C3 2 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C4 0 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C4 1 (0,0) (0,0)",
+        "C0 BEFORE C4 2 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C5 0 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C5 1 (0,0) (0,0)",
+        "C0 BEFORE C5 2 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C6 0 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C6 1 (0,0) (0,0)",
+        "C0 BEFORE C6 2 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C7 0 (-0.18813229936476678,0) (-0.32741646329251828,0)",
+        "C0 BEFORE C7 1 (-0.031330934470478966,0) (-0.023183019872068902,0)",
+        "C0 BEFORE C7 2 (-0.21946323383524574,0) (-0.35059948316458717,0)",
+        "C0 BEFORE C8 0 (-0.09502061539765283,0) (-0.15457853329347271,0)",
+        "C0 BEFORE C8 1 (-0.036281835238159123,0) (-0.023968354040549537,0)",
+        "C0 BEFORE C8 2 (-0.13130245063581195,0) (-0.17854688733402224,0)"
+      ],
+      "label": "native (900.0, 5.3, False)",
+      "returncode": 0,
+      "stderr": "",
+      "stdout_sha256": "dd438d80c428c8e076dd1450220d29233f8861c78194c0253265047139bd3426"
+    },
+    {
+      "argv": [
+        "--mode",
+        "native",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-hyperiso-two-state-patch/validation/module5/local/two_state/native_100000.0_5.3_False.lha",
+        "--spectrum",
+        "true",
+        "--contribution",
+        "BSM",
+        "--order",
+        "LO",
+        "--top-scheme",
+        "MSBAR_AT_QMATCH",
+        "--qmatch",
+        "160",
+        "--qhad",
+        "4.8"
+      ],
+      "coefficient_output": [
+        "C0 MT 163.96892236746697",
+        "C0 BEFORE C1 0 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C1 1 (0,0) (0,0)",
+        "C0 BEFORE C1 2 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C2 0 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C2 1 (0,0) (0,0)",
+        "C0 BEFORE C2 2 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C3 0 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C3 1 (0,0) (0,0)",
+        "C0 BEFORE C3 2 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C4 0 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C4 1 (0,0) (0,0)",
+        "C0 BEFORE C4 2 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C5 0 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C5 1 (0,0) (0,0)",
+        "C0 BEFORE C5 2 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C6 0 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C6 1 (0,0) (0,0)",
+        "C0 BEFORE C6 2 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C7 0 (-0.18813229936476678,0) (-0.32741646329251828,0)",
+        "C0 BEFORE C7 1 (-1.0832229918500741e-05,0) (-8.2877431579682849e-06,0)",
+        "C0 BEFORE C7 2 (-0.18814313159468526,0) (-0.32742475103567625,0)",
+        "C0 BEFORE C8 0 (-0.09502061539765283,0) (-0.15457853329347271,0)",
+        "C0 BEFORE C8 1 (-1.5234206465763423e-05,0) (-1.0063957671970651e-05,0)",
+        "C0 BEFORE C8 2 (-0.095035849604118594,0) (-0.15458859725114468,0)"
+      ],
+      "label": "native (100000.0, 5.3, False)",
+      "returncode": 0,
+      "stderr": "",
+      "stdout_sha256": "c30aed5740a1623b536c0c272a3b086c47a579c826b3bbe4af29b747f37b5584"
+    },
+    {
+      "argv": [
+        "--mode",
+        "native",
+        "--model",
+        "THDM",
+        "--lha",
+        "/home/amine/zee-hyperiso-two-state-patch/validation/module5/local/two_state/native_200000.0_5.3_False.lha",
+        "--spectrum",
+        "true",
+        "--contribution",
+        "BSM",
+        "--order",
+        "LO",
+        "--top-scheme",
+        "MSBAR_AT_QMATCH",
+        "--qmatch",
+        "160",
+        "--qhad",
+        "4.8"
+      ],
+      "coefficient_output": [
+        "C0 MT 163.96892236746697",
+        "C0 BEFORE C1 0 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C1 1 (0,0) (0,0)",
+        "C0 BEFORE C1 2 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C2 0 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C2 1 (0,0) (0,0)",
+        "C0 BEFORE C2 2 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C3 0 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C3 1 (0,0) (0,0)",
+        "C0 BEFORE C3 2 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C4 0 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C4 1 (0,0) (0,0)",
+        "C0 BEFORE C4 2 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C5 0 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C5 1 (0,0) (0,0)",
+        "C0 BEFORE C5 2 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C6 0 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C6 1 (0,0) (0,0)",
+        "C0 BEFORE C6 2 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C7 0 (-0.18813229936476678,0) (-0.32741646329251828,0)",
+        "C0 BEFORE C7 1 (-3.0186463300715158e-06,0) (-2.3125120895764038e-06,0)",
+        "C0 BEFORE C7 2 (-0.18813531801109684,0) (-0.32741877580460788,0)",
+        "C0 BEFORE C8 0 (-0.09502061539765283,0) (-0.15457853329347271,0)",
+        "C0 BEFORE C8 1 (-4.2744238422626302e-06,0) (-2.8237519766631013e-06,0)",
+        "C0 BEFORE C8 2 (-0.095024889821495095,0) (-0.15458135704544937,0)"
+      ],
+      "label": "native (200000.0, 5.3, False)",
+      "returncode": 0,
+      "stderr": "",
+      "stdout_sha256": "83c15da679a67e75061b6778e828a687725fe227a3d45a099a8813080768bb10"
+    },
+    {
+      "argv": [
+        "--lha",
+        "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/reproducibility/inputs/thdm_reference.lha",
+        "--spectrum",
+        "true",
+        "--mode",
+        "patch",
+        "--model",
+        "SM",
+        "--contribution",
+        "BSM",
+        "--order",
+        "LO",
+        "--top-scheme",
+        "MSBAR_AT_QMATCH",
+        "--qmatch",
+        "81",
+        "--qhad",
+        "4.8",
+        "--mt",
+        "163.96892236746697",
+        "--c7",
+        "-0.03737804303348145",
+        "--c7-imag",
+        "0.0",
+        "--c8",
+        "-0.04231149396472201",
+        "--c8-imag",
+        "0.0"
+      ],
+      "coefficient_output": [],
+      "label": "guard --qmatch=81",
+      "returncode": 2,
+      "stderr": "C0 REJECTED Require BSM, LO, qmatch=160, MSBAR_AT_QMATCH\n",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "--lha",
+        "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/reproducibility/inputs/thdm_reference.lha",
+        "--spectrum",
+        "true",
+        "--mode",
+        "patch",
+        "--model",
+        "SM",
+        "--contribution",
+        "BSM",
+        "--order",
+        "LO",
+        "--top-scheme",
+        "MSBAR_AT_QMATCH",
+        "--qmatch",
+        "160",
+        "--qhad",
+        "4.8",
+        "--mt",
+        "163",
+        "--c7",
+        "-0.03737804303348145",
+        "--c7-imag",
+        "0.0",
+        "--c8",
+        "-0.04231149396472201",
+        "--c8-imag",
+        "0.0"
+      ],
+      "coefficient_output": [
+        "C0 MT 163.96892236746697"
+      ],
+      "label": "guard --mt=163",
+      "returncode": 2,
+      "stderr": "C0 REJECTED Top mass differs from native QCDHelper MSbar(160)\n",
+      "stdout_sha256": "f914e14f26f39e04e796b2f6e6855c2429d54dda3b42a7b412ba6c84374be848"
+    },
+    {
+      "argv": [
+        "--lha",
+        "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/reproducibility/inputs/thdm_reference.lha",
+        "--spectrum",
+        "true",
+        "--mode",
+        "patch",
+        "--model",
+        "SM",
+        "--contribution",
+        "BSM",
+        "--order",
+        "LO",
+        "--top-scheme",
+        "POLE",
+        "--qmatch",
+        "160",
+        "--qhad",
+        "4.8",
+        "--mt",
+        "163.96892236746697",
+        "--c7",
+        "-0.03737804303348145",
+        "--c7-imag",
+        "0.0",
+        "--c8",
+        "-0.04231149396472201",
+        "--c8-imag",
+        "0.0"
+      ],
+      "coefficient_output": [],
+      "label": "guard --top-scheme=POLE",
+      "returncode": 2,
+      "stderr": "C0 REJECTED Require BSM, LO, qmatch=160, MSBAR_AT_QMATCH\n",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "--lha",
+        "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/reproducibility/inputs/thdm_reference.lha",
+        "--spectrum",
+        "true",
+        "--mode",
+        "patch",
+        "--model",
+        "SM",
+        "--contribution",
+        "SM",
+        "--order",
+        "LO",
+        "--top-scheme",
+        "MSBAR_AT_QMATCH",
+        "--qmatch",
+        "160",
+        "--qhad",
+        "4.8",
+        "--mt",
+        "163.96892236746697",
+        "--c7",
+        "-0.03737804303348145",
+        "--c7-imag",
+        "0.0",
+        "--c8",
+        "-0.04231149396472201",
+        "--c8-imag",
+        "0.0"
+      ],
+      "coefficient_output": [],
+      "label": "guard --contribution=SM",
+      "returncode": 2,
+      "stderr": "C0 REJECTED Require BSM, LO, qmatch=160, MSBAR_AT_QMATCH\n",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "--lha",
+        "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/reproducibility/inputs/thdm_reference.lha",
+        "--spectrum",
+        "true",
+        "--mode",
+        "patch",
+        "--model",
+        "SM",
+        "--contribution",
+        "TOTAL",
+        "--order",
+        "LO",
+        "--top-scheme",
+        "MSBAR_AT_QMATCH",
+        "--qmatch",
+        "160",
+        "--qhad",
+        "4.8",
+        "--mt",
+        "163.96892236746697",
+        "--c7",
+        "-0.03737804303348145",
+        "--c7-imag",
+        "0.0",
+        "--c8",
+        "-0.04231149396472201",
+        "--c8-imag",
+        "0.0"
+      ],
+      "coefficient_output": [],
+      "label": "guard --contribution=TOTAL",
+      "returncode": 2,
+      "stderr": "C0 REJECTED Require BSM, LO, qmatch=160, MSBAR_AT_QMATCH\n",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "--lha",
+        "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/reproducibility/inputs/thdm_reference.lha",
+        "--spectrum",
+        "true",
+        "--mode",
+        "patch",
+        "--model",
+        "SM",
+        "--contribution",
+        "BSM",
+        "--order",
+        "NLO",
+        "--top-scheme",
+        "MSBAR_AT_QMATCH",
+        "--qmatch",
+        "160",
+        "--qhad",
+        "4.8",
+        "--mt",
+        "163.96892236746697",
+        "--c7",
+        "-0.03737804303348145",
+        "--c7-imag",
+        "0.0",
+        "--c8",
+        "-0.04231149396472201",
+        "--c8-imag",
+        "0.0"
+      ],
+      "coefficient_output": [],
+      "label": "guard --order=NLO",
+      "returncode": 2,
+      "stderr": "C0 REJECTED Require BSM, LO, qmatch=160, MSBAR_AT_QMATCH\n",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "--lha",
+        "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/reproducibility/inputs/thdm_reference.lha",
+        "--spectrum",
+        "true",
+        "--mode",
+        "patch",
+        "--model",
+        "SM",
+        "--contribution",
+        "BSM",
+        "--order",
+        "LO",
+        "--top-scheme",
+        "MSBAR_AT_QMATCH",
+        "--qmatch",
+        "160",
+        "--qhad",
+        "nan",
+        "--mt",
+        "163.96892236746697",
+        "--c7",
+        "-0.03737804303348145",
+        "--c7-imag",
+        "0.0",
+        "--c8",
+        "-0.04231149396472201",
+        "--c8-imag",
+        "0.0"
+      ],
+      "coefficient_output": [],
+      "label": "guard --qhad=nan",
+      "returncode": 2,
+      "stderr": "C0 REJECTED Explicit positive qhad required\n",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "--lha",
+        "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/reproducibility/inputs/thdm_reference.lha",
+        "--spectrum",
+        "true",
+        "--mode",
+        "patch",
+        "--model",
+        "SM",
+        "--contribution",
+        "BSM",
+        "--order",
+        "LO",
+        "--top-scheme",
+        "MSBAR_AT_QMATCH",
+        "--qmatch",
+        "160",
+        "--qhad",
+        "4.8",
+        "--mt",
+        "163.96892236746697",
+        "--c7",
+        "-0.03737804303348145",
+        "--c7-imag",
+        "0.0",
+        "--c8",
+        "-0.04231149396472201",
+        "--c8-imag",
+        "0.0"
+      ],
+      "coefficient_output": [
+        "C0 MT 163.96892236746697",
+        "C0 BEFORE C1 0 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C1 1 (0,0) (0,0)",
+        "C0 BEFORE C1 2 (0,0) (-0.58947781662308352,0)",
+        "C0 BEFORE C2 0 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C2 1 (0,0) (0,0)",
+        "C0 BEFORE C2 2 (1,0) (1.0337040733126455,0)",
+        "C0 BEFORE C3 0 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C3 1 (0,0) (0,0)",
+        "C0 BEFORE C3 2 (0,0) (-0.0066873306540469087,0)",
+        "C0 BEFORE C4 0 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C4 1 (0,0) (0,0)",
+        "C0 BEFORE C4 2 (0,0) (-0.081760509813311996,0)",
+        "C0 BEFORE C5 0 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C5 1 (0,0) (0,0)",
+        "C0 BEFORE C5 2 (0,0) (0.00063801701700909514,0)",
+        "C0 BEFORE C6 0 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C6 1 (0,0) (0,0)",
+        "C0 BEFORE C6 2 (0,0) (0.0013755733207386272,0)",
+        "C0 BEFORE C7 0 (-0.18813229936476678,0) (-0.32741646329251828,0)",
+        "C0 BEFORE C7 1 (0,0) (0,0)",
+        "C0 BEFORE C7 2 (-0.18813229936476678,0) (-0.32741646329251828,0)",
+        "C0 BEFORE C8 0 (-0.09502061539765283,0) (-0.15457853329347271,0)",
+        "C0 BEFORE C8 1 (0,0) (0,0)",
+        "C0 BEFORE C8 2 (-0.09502061539765283,0) (-0.15457853329347271,0)",
+        "C0 AFTER C1 0 (0,0) (-0.58947781662308352,0)",
+        "C0 AFTER C1 1 (0,0) (0,0)",
+        "C0 AFTER C1 2 (0,0) (-0.58947781662308352,0)",
+        "C0 AFTER C2 0 (1,0) (1.0337040733126455,0)",
+        "C0 AFTER C2 1 (0,0) (0,0)",
+        "C0 AFTER C2 2 (1,0) (1.0337040733126455,0)",
+        "C0 AFTER C3 0 (0,0) (-0.0066873306540469087,0)",
+        "C0 AFTER C3 1 (0,0) (0,0)",
+        "C0 AFTER C3 2 (0,0) (-0.0066873306540469087,0)",
+        "C0 AFTER C4 0 (0,0) (-0.081760509813311996,0)",
+        "C0 AFTER C4 1 (0,0) (0,0)",
+        "C0 AFTER C4 2 (0,0) (-0.081760509813311996,0)",
+        "C0 AFTER C5 0 (0,0) (0.00063801701700909514,0)",
+        "C0 AFTER C5 1 (0,0) (0,0)",
+        "C0 AFTER C5 2 (0,0) (0.00063801701700909514,0)",
+        "C0 AFTER C6 0 (0,0) (0.0013755733207386272,0)",
+        "C0 AFTER C6 1 (0,0) (0,0)",
+        "C0 AFTER C6 2 (0,0) (0.0013755733207386272,0)",
+        "C0 AFTER C7 0 (-0.18813229936476678,0) (-0.32741646329251828,0)",
+        "C0 AFTER C7 1 (0,0) (0,0)",
+        "C0 AFTER C7 2 (-0.18813229936476678,0) (-0.32741646329251828,0)",
+        "C0 AFTER C8 0 (-0.09502061539765283,0) (-0.15457853329347271,0)",
+        "C0 AFTER C8 1 (0,0) (0,0)",
+        "C0 AFTER C8 2 (-0.09502061539765283,0) (-0.15457853329347271,0)"
+      ],
+      "label": "production SM two-state rejection",
+      "returncode": 3,
+      "stderr": "HYPERISO_PATCH_INTEGRATION_BLOCKED_SM_BSM_PATCH_DROPPED residual=0.042311493964722009\n",
+      "stdout_sha256": "26b2411a023a056d5eaafbf9e426cc70c8e9d10548394687043c310b7d5e48e5"
+    }
+  ],
+  "external_operator_convention": "MATCHING_CONVENTION_UNKNOWN",
+  "gate_B_ancestor": "218fe01d893730bc2699c270d10db85a22708616",
+  "historical_source_hashes_match": true,
+  "integration_pass": false,
+  "linearized_bsm_screen": "NOT_EVALUATED",
+  "local_evidence_sha256": {
+    "validation/module5/local/two_state/runtime.json": "b67775bf4bd611906eba3e424ddd70a2fe46cbc62bf6bef6c6247e24584ee7bd",
+    "validation/module5/local/two_state/test_module5_bsgamma_lo.py.log": "5799367854921f3ddcc8eafd3f12a7a296e5f455bf13fa439ff414cc2d47ad8d",
+    "validation/module5/local/two_state/test_module5_two_state_adapter.py.log": "32c4a4f924d822c1ded3ce02f30476d3dda7990a23fb89ed25a07f55544dbe83",
+    "validation/module5/local/two_state/test_module5_two_state_patch_contract.py.log": "848297e47814471c7fec88b433c55c1a61950d51da891c6c08c363df5e9a5a01"
+  },
+  "mass_cut": null,
+  "max_absolute_residual": 2.7755575615628914e-17,
+  "native_sarah": "Historical local-only native_numerical.json not required or regenerated.",
+  "native_weighted_max_absolute_residual": 2.7755575615628914e-17,
+  "physical_BR": null,
+  "physical_pass": "NOT_EVALUATED",
+  "quantitative_residuals": [
+    {
+      "absolute": 1.734723475976807e-18,
+      "label": "complex matching C7"
+    },
+    {
+      "absolute": 0.0,
+      "label": "split additivity C7"
+    },
+    {
+      "absolute": 0.0,
+      "label": "separate dipole running C7"
+    },
+    {
+      "absolute": 0.0,
+      "label": "split additivity C7"
+    },
+    {
+      "absolute": 0.0,
+      "label": "separate dipole running C7"
+    },
+    {
+      "absolute": 2.6020852139652106e-18,
+      "label": "complex matching C8"
+    },
+    {
+      "absolute": 0.0,
+      "label": "split additivity C8"
+    },
+    {
+      "absolute": 0.0,
+      "label": "separate dipole running C8"
+    },
+    {
+      "absolute": 0.0,
+      "label": "split additivity C8"
+    },
+    {
+      "absolute": 0.0,
+      "label": "separate dipole running C8"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C1 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C1 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C2 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C2 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C3 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C3 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C4 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C4 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C5 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C5 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C6 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C6 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C7 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C7 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C8 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C8 total scale1"
+    },
+    {
+      "absolute": 1.3877787807814457e-17,
+      "label": "native gamma0 C7"
+    },
+    {
+      "absolute": 1.3877787807814457e-17,
+      "label": "double counting C7"
+    },
+    {
+      "absolute": 2.7755575615628914e-17,
+      "label": "native gamma0 C8"
+    },
+    {
+      "absolute": 2.7755575615628914e-17,
+      "label": "double counting C8"
+    },
+    {
+      "absolute": 0.0,
+      "label": "ld sign C7"
+    },
+    {
+      "absolute": 1.3877787807814457e-17,
+      "label": "ld sign C8"
+    },
+    {
+      "absolute": 0.0,
+      "label": "BEFORE C1 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "BEFORE C1 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "BEFORE C2 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "BEFORE C2 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "BEFORE C3 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "BEFORE C3 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "BEFORE C4 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "BEFORE C4 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "BEFORE C5 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "BEFORE C5 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "BEFORE C6 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "BEFORE C6 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "BEFORE C7 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "BEFORE C7 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "BEFORE C8 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "BEFORE C8 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "native weighted C7{}"
+    },
+    {
+      "absolute": 1.734723475976807e-18,
+      "label": "per state C7"
+    },
+    {
+      "absolute": 3.469446951953614e-18,
+      "label": "per state C7"
+    },
+    {
+      "absolute": 6.938893903907228e-18,
+      "label": "native weighted C8{}"
+    },
+    {
+      "absolute": 5.204170427930421e-18,
+      "label": "per state C8"
+    },
+    {
+      "absolute": 0.0,
+      "label": "per state C8"
+    },
+    {
+      "absolute": 1.3877787807814457e-17,
+      "label": "native weighted C7{'gamma_rad': 0.0}"
+    },
+    {
+      "absolute": 1.3877787807814457e-17,
+      "label": "per state C7"
+    },
+    {
+      "absolute": 0.0,
+      "label": "per state C7"
+    },
+    {
+      "absolute": 2.7755575615628914e-17,
+      "label": "native weighted C8{'gamma_rad': 0.0}"
+    },
+    {
+      "absolute": 2.7755575615628914e-17,
+      "label": "per state C8"
+    },
+    {
+      "absolute": 0.0,
+      "label": "per state C8"
+    },
+    {
+      "absolute": 1.3877787807814457e-17,
+      "label": "native weighted C7{'gamma_rad': 1.5707963267948966, 'mH1_GeV': 900.0, 'mH2_GeV': 550.0}"
+    },
+    {
+      "absolute": 0.0,
+      "label": "per state C7"
+    },
+    {
+      "absolute": 1.3877787807814457e-17,
+      "label": "per state C7"
+    },
+    {
+      "absolute": 2.7755575615628914e-17,
+      "label": "native weighted C8{'gamma_rad': 1.5707963267948966, 'mH1_GeV': 900.0, 'mH2_GeV': 550.0}"
+    },
+    {
+      "absolute": 0.0,
+      "label": "per state C8"
+    },
+    {
+      "absolute": 2.7755575615628914e-17,
+      "label": "per state C8"
+    },
+    {
+      "absolute": 2.0816681711721685e-17,
+      "label": "native weighted C7{'mH2_GeV': 550.0}"
+    },
+    {
+      "absolute": 1.734723475976807e-18,
+      "label": "per state C7"
+    },
+    {
+      "absolute": 1.3877787807814457e-17,
+      "label": "per state C7"
+    },
+    {
+      "absolute": 2.7755575615628914e-17,
+      "label": "native weighted C8{'mH2_GeV': 550.0}"
+    },
+    {
+      "absolute": 5.204170427930421e-18,
+      "label": "per state C8"
+    },
+    {
+      "absolute": 2.0816681711721685e-17,
+      "label": "per state C8"
+    },
+    {
+      "absolute": 0.0,
+      "label": "native weighted C7{'mH1_GeV': 900.0, 'mH2_GeV': 550.0, 'gamma_rad': 0.4807963267948965}"
+    },
+    {
+      "absolute": 3.469446951953614e-18,
+      "label": "per state C7"
+    },
+    {
+      "absolute": 1.734723475976807e-18,
+      "label": "per state C7"
+    },
+    {
+      "absolute": 0.0,
+      "label": "native weighted C8{'mH1_GeV': 900.0, 'mH2_GeV': 550.0, 'gamma_rad': 0.4807963267948965}"
+    },
+    {
+      "absolute": 0.0,
+      "label": "per state C8"
+    },
+    {
+      "absolute": 5.204170427930421e-18,
+      "label": "per state C8"
+    },
+    {
+      "absolute": 0.0,
+      "label": "native weighted C7{'mH1_GeV': 100000.0, 'mH2_GeV': 200000.0}"
+    },
+    {
+      "absolute": 0.0,
+      "label": "per state C7"
+    },
+    {
+      "absolute": 0.0,
+      "label": "per state C7"
+    },
+    {
+      "absolute": 8.470329472543003e-22,
+      "label": "native weighted C8{'mH1_GeV': 100000.0, 'mH2_GeV': 200000.0}"
+    },
+    {
+      "absolute": 0.0,
+      "label": "per state C8"
+    },
+    {
+      "absolute": 4.235164736271502e-22,
+      "label": "per state C8"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C1 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C1 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C2 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C2 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C3 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C3 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C4 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C4 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C5 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C5 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C6 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C6 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C7 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C7 total scale1"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C8 total scale0"
+    },
+    {
+      "absolute": 0.0,
+      "label": "AFTER C8 total scale1"
+    }
+  ],
+  "reference_suite": "Historical Gate B R1-R7 PASS retained; not rerun (no upstream change).",
+  "reviewed_start_commit": "76d8299db01c5622e38a7bd79db5cc0ce967cdec",
+  "schema_version": "1.0.0",
+  "scope": "GATE_C0_EXTERNAL_ADAPTER_ONLY",
+  "source_sha256": {
+    "module5/TWO_STATE_PATCH_AUDIT.md": "bea981fc11f80a2699978dff93ce95783429d16d68c0810d6968595f2260acf0",
+    "module5/bsgamma_lo.py": "251cc9effc80010f65982cc980d0c170dc19785b2385d962afbed4549cfcd5e5",
+    "module5/hyperiso_patch_contract.py": "43b177cacdc1a9ba0f887809ea44591e83c40e70618c2a19b8fdfd36320ae1df",
+    "scripts/zee_module5_two_state_patch.cpp": "6e5489cbdac095d33b3d983701ac23f0d1b602720aabde4bf7ff4e0d7fec3fdd",
+    "scripts/zee_module5_two_state_patch.py": "5e1dc398fa6d4b0d0f80be6eecc2af0904c05cb4949886c8b9a05fed1be8ff48",
+    "scripts/zee_module5_two_state_validate.py": "6fb2183cb3edbccf855ef6334041a56d91a8c9ffbee259d4eeb4ac117aec780c",
+    "tests/test_module5_two_state_adapter.py": "c386063bf3a4bb53b15bc2e22d901044bcfe954dda6e038140673984369f63da",
+    "tests/test_module5_two_state_patch_contract.py": "220bfdf0dc437069c1af69a557b32c81e8c1fd02324cc5de572fb800d903227b"
+  },
+  "status": "HYPERISO_PATCH_INTEGRATION_BLOCKED_SM_BSM_PATCH_DROPPED",
+  "tests": {
+    "all_scoped_regressions_pass": true,
+    "by_suite": {
+      "test_module5_bsgamma_lo.py": {
+        "errors": 0,
+        "failures": 0,
+        "run": 16,
+        "skipped": 0
+      },
+      "test_module5_two_state_adapter.py": {
+        "errors": 0,
+        "failures": 0,
+        "run": 8,
+        "skipped": 0
+      },
+      "test_module5_two_state_patch_contract.py": {
+        "errors": 0,
+        "failures": 0,
+        "run": 7,
+        "skipped": 0
+      }
+    },
+    "example_cli_returncode": 0,
+    "total_run": 31
+  },
+  "upstream": {
+    "adapter_binary_sha256": "969c36bbfba22418052b2672674c76fc4ee045ba1d55bd5070093d7e1c1d5515",
+    "binary_sha256": "7f0c0b0b0a0461c7f7b672bf89ba13b06a9eda41c3f6dafd5c48564e83d6670a",
+    "build_directory": "/home/amine/zee-hyperiso-runtime-bridge/validation/module5/local/HyperIso/build",
+    "cmake_cache_sha256": "d926f3779c085426b1ba55e2f7cceb9447451202941b37f897242793dd2023a4",
+    "head": "09d26ac6e71d1528922097a896d15693589f636b",
+    "peeled_commit": "09d26ac6e71d1528922097a896d15693589f636b",
+    "tag_hash": "5a93aca5e28011df3a348954cdc7c7c330ea2169",
+    "version": "1.0.3"
+  },
+  "upstream_source_sha256": {
+    "BusinessLogic/domain/Decays/BXsDecay.cpp": "de8e4edee4aae4496d00e5449512b4e90fd5e9a9d0ed518278341c9e95778887",
+    "PhysicalModel/adapters/WilsonInterface.h": "e3368b7056929100fc55bb85b3ba2190ab4f9d806236caaa29f80dd7a21bb151",
+    "PhysicalModel/domain/WCoef/BSM/BWilsonTHDM.cpp": "d8bc4fb10a249ca0f16fc5d9582877c84545a24d619738304ec7417d139b4c2d",
+    "PhysicalModel/domain/WGroup/BWilsonGroup.cpp": "47712a28c66c91bc7894dacd88fdfc2b19ac7971af20dc293f967dec5281171a",
+    "PhysicalModel/domain/WilsonManager.cpp": "79895315a773889714dc3c46e8b790cd02b4e4291611f919f725db19b58ded68",
+    "PhysicalModel/domain/WilsonMatchingPatch.h": "b8b5a55f31ed774db9687f068e6f84f13d9b7a959993db7f13116bf7596e1744",
+    "UserInterface/CliUtils.cpp": "2756b0e03a2310b93aaa63001cb414aa71f8d0191cd696aa3c47ebb0397e0e76",
+    "UserInterface/CliUtils.h": "f3552702c77fa3796f079876e6ee56682267535507af3e973d01f0a164433bcd"
+  }
+}
