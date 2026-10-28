@@ -6,7 +6,10 @@ if [[ $# -ne 1 || ! "$1" =~ ^part_[0-9]{3}\.jsonl$ ]]; then
     exit 64
 fi
 shard="$1"
-[[ -s "$shard" && -s scan_bundle.tar.gz ]] || { echo D7_MISSING_TRANSFER_INPUT >&2; exit 66; }
+[[ -s "$shard" && -s scan_bundle.tar.gz && -s bundle.sha256 && -s source_commit.txt ]] || { echo D7_MISSING_TRANSFER_INPUT >&2; exit 66; }
+sha256sum --check bundle.sha256
+export ZEE_D7_SOURCE_COMMIT="$(cat source_commit.txt)"
+export ZEE_D7_BUNDLE_SHA256="$(cut -d " " -f 1 bundle.sha256)"
 mkdir -p source
 tar -xzf scan_bundle.tar.gz -C source
 # The runtime MUST be prevalidated on CERN worker or bound via a documented
