@@ -7,7 +7,7 @@ executable               = worker.sh
 arguments                = $(shard)
 should_transfer_files    = YES
 when_to_transfer_output  = ON_EXIT
-transfer_input_files     = scan_bundle.tar.gz,shards/$(shard)
+transfer_input_files     = scan_bundle.tar.gz,bundle.sha256,source_commit.txt,shards/$(shard)
 transfer_output_files    = results.jsonl,receipt.json
 transfer_output_remaps   = "results.jsonl=results/result_$(Process).jsonl;receipt.json=status/receipt_$(Process).json"
 output                   = logs/d7.$(Cluster).$(Process).out
