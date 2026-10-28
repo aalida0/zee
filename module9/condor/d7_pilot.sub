@@ -1,0 +1,24 @@
+# D7 CERN LXPLUS HTCondor pilot (generated files run from an AFS submit directory).
+# Requires: scan_bundle.tar.gz, worker.sh, shards/part_*.jsonl, shards.txt,
+#            logs/, results/, status/. NO EOS path for scheduler log/output.
+# Four small jobs. NO physics results/accepted points are claimed by submit.
+universe                 = vanilla
+executable               = worker.sh
+arguments                = $(shard)
+should_transfer_files    = YES
+when_to_transfer_output  = ON_EXIT
+transfer_input_files     = scan_bundle.tar.gz,shards/$(shard)
+transfer_output_files    = results.jsonl,receipt.json
+transfer_output_remaps   = "results.jsonl=results/result_$(Process).jsonl;receipt.json=status/receipt_$(Process).json"
+output                   = logs/d7.$(Cluster).$(Process).out
+error                    = logs/d7.$(Cluster).$(Process).err
+log                      = logs/d7.$(Cluster).log
+request_cpus             = 1
+request_memory           = 2 GB
+request_disk             = 2 GB
++JobFlavour              = "longlunch"
+getenv                   = FALSE
+# CERN Python scientific stack must be checked first on an lxplus pilot worker;
+# add documented/supported CVMFS runtime setup after preflight if needed.
+# No automatic retry until provenance/held-job behavior is validated.
+queue shard from shards.txt
