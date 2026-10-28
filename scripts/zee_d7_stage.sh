@@ -26,7 +26,7 @@ cp module9/condor/worker.sh "$run/worker.sh"
 cp module9/condor/d7_pilot.sub "$run/d7_pilot.sub"
 chmod 700 "$run/worker.sh"
 mkdir -p "$run/logs" "$run/results" "$run/status"
-sha256sum "$run/scan_bundle.tar.gz" > "$run/bundle.sha256"
+(cd "$run" && sha256sum scan_bundle.tar.gz > bundle.sha256)
 git rev-parse HEAD > "$run/source_commit.txt"
 echo "D7_STAGED_UNSUBMITTED $run"
 echo "CERN: cd \"$run\" && condor_submit d7_pilot.sub"
