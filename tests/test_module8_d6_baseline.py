@@ -61,6 +61,10 @@ class D6ReferenceTests(unittest.TestCase):
           lambda d:d["tree_BR_composition"][0].__setitem__("BR1_tb",10),
           lambda d:d["tree_BR_composition"][0]["rates"]["tbH2_5FS"].__setitem__(
               "conditional_sigma_times_tree_BR_pb",0.),
+          lambda d:d["settings"].__setitem__("renormalization_scale_GeV",350.),
+          lambda d:d["spectra"][0]["physical"].__setitem__("gamma",0.),
+          lambda d:d["tree_BR_composition"][0]["rates"]["tbH2_5FS"].__setitem__("tree_BR_product",0.),
+          lambda d:d["tree_BR_composition"][0]["rates"]["tbH2_5FS"].__setitem__("integration_error_only_pb",0.),
           lambda d:d["spectra"].pop(),
         )
         for change in mutate:

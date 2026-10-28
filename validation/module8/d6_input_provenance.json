@@ -1,0 +1,52 @@
+{
+  "schema_version": "d6-input-provenance-1",
+  "D5_base": "e15e9badb8be8be848b1ec8737977086f5ba8e20",
+  "D5_read_only_source": "/home/amine/zee/workspaces/zee-production-d5/validation/module8/local",
+  "D6_isolated_runtime": "/home/amine/zee/workspaces/zee-production-d6/validation/module8/local",
+  "D5_revalidation_command": "module8.real_run_validation.validate_all() with ROOT and LOCAL pointing read-only to the original D5 checkout; no report main() called",
+  "D5_revalidation_sha256": "877b55446e4de9c306e50bd468e5e70dbe810134328812987fa38a9d3666bd4b",
+  "copied_inputs": [
+    "MG5_aMC_v3_6_7",
+    "mg5amcnlo-mg5amcnlo-0e6c945",
+    "native",
+    "cards",
+    "pdf",
+    "lhapdf",
+    "MG5_v3.6.7.tar.gz",
+    "MG5_release_v3.6.7.tar.gz",
+    "LHAPDF-6.5.6.tar.gz",
+    "ufo_audit.json",
+    "release_comparison.json"
+  ],
+  "copy_policy": "shutil.copytree with dereferenced symlinks, ignoring dangling unused NLO links and Python/parser caches; no writes in D5",
+  "configuration_relocation": "D6 installed lhapdf/bin/lhapdf-config replaces D5 prefix with D6 prefix; shared library and official sources unchanged",
+  "native_recheck_command": "module8.ufo_audit.audit() evaluated on the D6 UFO; output written only to d6_native_checks.json, preserving original copied ufo_audit.json",
+  "native_recheck_sha256": "f34e20390815cac044fcd284776cf64317f6ffd383676723b30c1d25c52d1cc0",
+  "official_runtime_check": "d6_generator_validate.validate_all() re-compares 827 relevant source files byte-for-byte with pinned official release archive",
+  "artifact_sha256": {
+    "MG5_v3.6.7.tar.gz": "12e576dcb0055ccaab88b7065aa766a9fb2dc3b7c9d28c0ef96f82b037046c54",
+    "MG5_release_v3.6.7.tar.gz": "f85e69f26440705cff4ac0b0bdaf003882b4089c4fcf0f0b981718139594d981",
+    "LHAPDF-6.5.6.tar.gz": "6b8b7e38dc26a977a24f5a321215b7054c14a4469d04134d70cb93a860eeeea7",
+    "lhapdf/bin/lhapdf-config": "57fce7f358b9f0d3cb96092138c78e58234f93907d998f858eb69fdb5a3138a4",
+    "lhapdf/lib/libLHAPDF.so": "1dadb94eeb56c34bb0a765e1d2a256a1fe44f95c1fb91d48d97c9a91bbdb8891",
+    "MG5_aMC_v3_6_7/VERSION": "89f9b26aa167b7accd08814f5f3d6e936ff38966992bd579df19be6be38bdf1d",
+    "d6_generate.txt": "e73afd4c6cbb179d5ede74a093963faa163b00eaee07f8abea2012bf30da996f",
+    "d6_generate.log": "d600e37eff29502a329134a071fe4ab90d8974175cf3e66d74e78155aa8ea287"
+  },
+  "observed_compiler": "GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+  "observed_lhapdf_config_version": "6.5.6",
+  "executed_launcher_archives": {
+    "module8/d6_capture.py": {
+      "executed_sha256": "426fef7d74bac43e9c111b5cba48a3fdda7408e892b390802d18f77431a7df86",
+      "archive": "validation/module8/local/d6_executed_launchers/426fef7d74bac43e9c111b5cba48a3fdda7408e892b390802d18f77431a7df86.py",
+      "current_sha256": "c4210b56ec2afae21aac9844259039e282202eac0b48b169663eceaf87c23290",
+      "change": "Remove one extra final newline only after execution; executed bytes archived verbatim"
+    },
+    "module8/d6_evolved.py": {
+      "executed_sha256": "e90dbce66dd0d7147ea7ecd54b09541752538797e0427a11458d9563fad251d8",
+      "archive": "validation/module8/local/d6_executed_launchers/e90dbce66dd0d7147ea7ecd54b09541752538797e0427a11458d9563fad251d8.py",
+      "current_sha256": "ab97c84957e19d1b140cc98b3c35807257aee41a946bc91e883793aacd8546a3",
+      "change": "Remove one extra final newline only after execution; executed bytes archived verbatim"
+    }
+  }
+}

@@ -36,6 +36,11 @@ def audit(d5):
     settings=d5["settings"]
     if settings["sqrt_s_TeV"]!=13.6 or settings["lhaid"]!=263000:
         raise ValueError("This audit is explicitly 13.6 TeV PDF263000")
+    for key,want in {"renormalization_scale_GeV":700.,
+                     "factorization_scales_GeV":[700.,700.],
+                     "pdf_member":0,"PDF_NumFlavors":5,
+                     "beta_rad":1.394,"gamma_rad":1.089}.items():
+        if settings[key]!=want:raise ValueError("D5 reference setting changed: "+key)
     spectra=d5.get("spectra")
     if not isinstance(spectra,list) or len(spectra)!=3 or set(r["spectrum"] for r in spectra)!=set(SPECTRA):
         raise ValueError("Expected three distinct D5 spectra")
@@ -55,6 +60,9 @@ def audit(d5):
         name=s["spectrum"]; row={"spectrum":name,
             "charged_masses_GeV":[s["physical"]["mH1"],s["physical"]["mH2"]],
             "reference_only":True,"processes":{}}
+        expected_mass={"source":300.,"mH1_m50p0":250.,"mH1_p50p0":350.}[name]
+        if row["charged_masses_GeV"]!=[expected_mass,700.] or s["physical"]["gamma"]!=1.089 or s["physical"]["beta"]!=1.394:
+            raise ValueError("D5 reference spectrum changed")
         chain=base[name]
         b2=number(chain["BR2_H1Z"],"BR2")
         b1=number(chain["BR1_tb"],"BR1")
@@ -72,7 +80,12 @@ def audit(d5):
             if err>sig:raise ValueError("Unphysical integration error")
             product=number(chain[fac],"BR product")
             total=sig*product
-            observed=chain["rates"][label]["conditional_sigma_times_tree_BR_pb"]
+            linked=chain["rates"][label]
+            if not math.isclose(number(linked["tree_BR_product"],"linked product"),product,rel_tol=2e-13):
+                raise ValueError("D5 linked BR product mismatch")
+            if not math.isclose(number(linked["integration_error_only_pb"],"linked error"),err*product,rel_tol=2e-12,abs_tol=1e-18):
+                raise ValueError("D5 linked integration error mismatch")
+            observed=number(linked["conditional_sigma_times_tree_BR_pb"],"linked rate")
             if not math.isclose(observed,total,rel_tol=2e-12,abs_tol=1e-16):
                 raise ValueError("D5 x BR composition mismatch")
             row["processes"][key]={"definition":label,
