@@ -1,0 +1,568 @@
+{
+  "D0_NO_source_oracle": {
+    "ewpo_chi2": 0.8726172333959237,
+    "gates": {
+      "bfb": {
+        "assessment": "PASS",
+        "status": "BFB_CERTIFIED_SUFFICIENT"
+      },
+      "ewpo": {
+        "assessment": "PASS",
+        "status": "SCALAR_OBLIQUE_INSIDE_95"
+      },
+      "reconstruction": {
+        "assessment": "PASS",
+        "status": "RECONSTRUCTION_VALIDATED"
+      },
+      "unitarity": {
+        "assessment": "PASS",
+        "status": "TREE_UNITARITY_PASS"
+      }
+    },
+    "neutrino_inverse_relative_residual": 3.029000106635716e-15,
+    "neutrino_status": "INVERSE_TARGET_CLOSURE_PASS",
+    "physical": {
+      "alpha": 1.398,
+      "beta": 1.394,
+      "gamma": 1.089,
+      "m12sq": 57700.0,
+      "mH1": 300.0,
+      "mH2": 700.0,
+      "ma": 633.7,
+      "mh2": 580.7
+    },
+    "point_id": "module3_NO_spectrum0",
+    "reconstruction_residuals": {
+      "mixing_max_residual_GeV2": 1.1641532182693481e-10,
+      "spectrum_max_relative_residual": 7.916369800623278e-11,
+      "tadpole_max_over_v3": 2.339716667824362e-17
+    },
+    "scalar_status": "SCOPED_PASS",
+    "selected_STU": {
+      "S": 0.0044404330206560625,
+      "T": -0.0049021783175765745,
+      "U": 5.733708113025872e-05
+    },
+    "unitarity_max_abs_eigenvalue": 18.136779085730428
+  },
+  "D7_AGGREGATE_BLOCKED": true,
+  "D7_AGGREGATE_PASS": false,
+  "D7_BATCH_PILOT_COMPLETE": false,
+  "D7_GRID_GENERATION_PASS": true,
+  "D7_LOCAL_AGGREGATE_PASS": true,
+  "D7_LOCAL_WORKER_PASS": true,
+  "D7_LXPLUS_CONDOR_EXECUTION_BLOCKED": true,
+  "D7_LXPLUS_CONDOR_EXECUTION_PASS": false,
+  "NO_closure_residuals": {
+    "d7_NO_neutral_near_heavy_07": 3.875782149384548e-14
+  },
+  "ancestor_commit": "a39afed7cd0ee7f4358dabdbde32729818f1f909",
+  "arms": {
+    "broad": {
+      "count": 16,
+      "scoped_pass": 0
+    },
+    "neutral_near_heavy": {
+      "count": 16,
+      "scoped_pass": 1
+    }
+  },
+  "blockers": [
+    "CERN execution explicitly deferred to user; no SSH attempted.",
+    "CERN account/quota, authentication, OS, JobFlavour and worker scientific Python setup unverified.",
+    "No real CERN scheduler history or four returned CERN receipts."
+  ],
+  "branch": "feature/zee-d7-lxplus-condor-scan-pilot",
+  "cern_job_ids": [],
+  "cern_jobs_executed": 0,
+  "cern_jobs_submitted": 0,
+  "cern_python_setup": null,
+  "cern_status": "NOT_ATTEMPTED_USER_RESERVED_MANUAL_EXECUTION",
+  "cern_time_memory": null,
+  "condor_submit_syntax_validation": "NOT_RUN_NO_LOCAL_HTCONDOR",
+  "constraints_complete": false,
+  "date": "2026-10-28",
+  "evaluation_errors": [],
+  "executed_code_sha256": {
+    "module9/condor/d7_pilot.sub": "9d630c2f7637ef1617a4f3bf81fff90922af7c9a1d17975197f55efd92949749",
+    "module9/condor/environment.sh": "8f2e61a1e98011338588ff2e2858768ee117a96dc353e23e745219b47717c7e3",
+    "module9/condor/worker.sh": "15eca4eed2af634ff196ff668f830b7ed8c364cd7d5878fb36d1b34b0e1a6f83",
+    "module9/d7_collect.py": "f9f4250d0dbc022fb03fa82616f8854110765a99a5e68bd7f4832bbd796ea342",
+    "module9/d7_inputs.py": "ecd649b19767074a57757abc91258b41a26c02a6e4dfdeabb6ef058be492c5e8",
+    "module9/d7_prepare.py": "7ffc02c13cd45f0074bbaf2e7963fcd7e2f61b5da5dec4157ae201c24633a085",
+    "module9/d7_worker.py": "53603905403812abe1fb2d27054ea101cf6002c45bda56964a196c2fa642c4d4",
+    "scripts/zee_d7_preflight.sh": "e9d02b6ee4836f0ba9f914f85405acaa34d2b16e991771334b8cd9a4785bb33e",
+    "scripts/zee_d7_stage.sh": "af8873095461cadde53359aa374055efd14e2b1aa5f23345a2e504d4587d70f4"
+  },
+  "execution_mode": "LOCAL_SIMULATION",
+  "execution_source_commit": "aded8e1496d99a5edb33586378114988d9ec3dd4",
+  "gate_assessments_not_sequential": {
+    "bfb": {
+      "FAIL": 14,
+      "PASS": 18
+    },
+    "ewpo": {
+      "FAIL": 28,
+      "PASS": 4
+    },
+    "reconstruction": {
+      "PASS": 32
+    },
+    "unitarity": {
+      "FAIL": 31,
+      "PASS": 1
+    }
+  },
+  "global_zee_acceptance": null,
+  "heavy_H2_above_1TeV_count": 19,
+  "heavy_H2_above_1TeV_scoped_pass": 0,
+  "interpretation": "Exploratory NO development support only; scoped survivors are not globally accepted Zee points or a model-wide allowed fraction.",
+  "inverse_neutrino_closure_pass": 1,
+  "local_output_dir": "validation/module9/local/staged_local_v1",
+  "local_receipts": [
+    {
+      "receipt": {
+        "completed_utc": "2026-10-28T11:27:20.163837+00:00",
+        "condor_cluster_id": null,
+        "condor_proc_id": null,
+        "constraints_complete": false,
+        "elapsed_seconds": 2.4660163660000762,
+        "environment_cvmfs_selected": "SYSTEM_PYTHON_UNVERIFIED_ON_CERN",
+        "environment_setup_sha256": "8f2e61a1e98011338588ff2e2858768ee117a96dc353e23e745219b47717c7e3",
+        "evaluation_error": 0,
+        "execution_host": "amine",
+        "execution_mode": "LOCAL_SIMULATION",
+        "global_zee_acceptance": null,
+        "input_count": 8,
+        "installed_distribution_inventory_sha256": "e17d82f7f7a1ace41283621e7039cfb22e3be2ad60c9f500cbeedd0b47cfed7f",
+        "library_versions": {
+          "jsonschema": "4.23.0",
+          "mpmath": "1.3.0",
+          "numpy": "2.2.6",
+          "scipy": "1.15.3"
+        },
+        "machine": "x86_64",
+        "numpy_version": "2.2.6",
+        "output_count": 8,
+        "peak_rss_KiB": 97504,
+        "pip_version": "22.0.2",
+        "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+        "python_executable": "/home/amine/zee/workspaces/zee-condor-d7/validation/module9/local/venv/bin/python3",
+        "python_executable_sha256": "a2f33a6e006989270f4340528eb61f8f97366e00a5d1b602ac8672ea44fc56ae",
+        "python_version": "3.10.12",
+        "result_bytes_sha256": "aecfe0f75f7e690ff957858d7665f9966fc249f624bfc586d0fb866030dfd62f",
+        "schema_version": "d7-worker-1.0.0",
+        "scoped_fail_or_unknown": 8,
+        "scoped_pass": 0,
+        "source_bundle_sha256": "021b1a3061198ec5e3e82bc0372ed2a3331f9d21a075748d68b0960646f192bc",
+        "source_commit": "aded8e1496d99a5edb33586378114988d9ec3dd4",
+        "source_shard_sha256": "4d4ba6c4eec50911e322d5a6091eabdf7a1e05e29a11817e5e165ec95c9edb77",
+        "status": "D7_SCOPED_EVALUATION_ONLY_GLOBAL_UNKNOWN",
+        "worker_exit_code": 0
+      },
+      "receipt_bytes_sha256": "783e9ed5593f5e8790618c734aa88a53380bc45c33318fe9d9e75868521c0316",
+      "shard": {
+        "name": "part_000.jsonl",
+        "points": 8,
+        "sha256": "4d4ba6c4eec50911e322d5a6091eabdf7a1e05e29a11817e5e165ec95c9edb77"
+      }
+    },
+    {
+      "receipt": {
+        "completed_utc": "2026-10-28T11:27:23.532128+00:00",
+        "condor_cluster_id": null,
+        "condor_proc_id": null,
+        "constraints_complete": false,
+        "elapsed_seconds": 2.4011822410002424,
+        "environment_cvmfs_selected": "SYSTEM_PYTHON_UNVERIFIED_ON_CERN",
+        "environment_setup_sha256": "8f2e61a1e98011338588ff2e2858768ee117a96dc353e23e745219b47717c7e3",
+        "evaluation_error": 0,
+        "execution_host": "amine",
+        "execution_mode": "LOCAL_SIMULATION",
+        "global_zee_acceptance": null,
+        "input_count": 8,
+        "installed_distribution_inventory_sha256": "e17d82f7f7a1ace41283621e7039cfb22e3be2ad60c9f500cbeedd0b47cfed7f",
+        "library_versions": {
+          "jsonschema": "4.23.0",
+          "mpmath": "1.3.0",
+          "numpy": "2.2.6",
+          "scipy": "1.15.3"
+        },
+        "machine": "x86_64",
+        "numpy_version": "2.2.6",
+        "output_count": 8,
+        "peak_rss_KiB": 97472,
+        "pip_version": "22.0.2",
+        "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+        "python_executable": "/home/amine/zee/workspaces/zee-condor-d7/validation/module9/local/venv/bin/python3",
+        "python_executable_sha256": "a2f33a6e006989270f4340528eb61f8f97366e00a5d1b602ac8672ea44fc56ae",
+        "python_version": "3.10.12",
+        "result_bytes_sha256": "9eed3805260978ceca5ce9ae731a7357660b435f520745ad7fe4a5fec70e7eba",
+        "schema_version": "d7-worker-1.0.0",
+        "scoped_fail_or_unknown": 8,
+        "scoped_pass": 0,
+        "source_bundle_sha256": "021b1a3061198ec5e3e82bc0372ed2a3331f9d21a075748d68b0960646f192bc",
+        "source_commit": "aded8e1496d99a5edb33586378114988d9ec3dd4",
+        "source_shard_sha256": "67893b6949dded2f9347dd200331428e7c65d4661051607a4860ee558a86569f",
+        "status": "D7_SCOPED_EVALUATION_ONLY_GLOBAL_UNKNOWN",
+        "worker_exit_code": 0
+      },
+      "receipt_bytes_sha256": "9845f66f0dadbfcbb78911085b348ccf9508104998e8de27ce0056172ac0fadc",
+      "shard": {
+        "name": "part_001.jsonl",
+        "points": 8,
+        "sha256": "67893b6949dded2f9347dd200331428e7c65d4661051607a4860ee558a86569f"
+      }
+    },
+    {
+      "receipt": {
+        "completed_utc": "2026-10-28T11:27:24.870418+00:00",
+        "condor_cluster_id": null,
+        "condor_proc_id": null,
+        "constraints_complete": false,
+        "elapsed_seconds": 0.38726975600002334,
+        "environment_cvmfs_selected": "SYSTEM_PYTHON_UNVERIFIED_ON_CERN",
+        "environment_setup_sha256": "8f2e61a1e98011338588ff2e2858768ee117a96dc353e23e745219b47717c7e3",
+        "evaluation_error": 0,
+        "execution_host": "amine",
+        "execution_mode": "LOCAL_SIMULATION",
+        "global_zee_acceptance": null,
+        "input_count": 8,
+        "installed_distribution_inventory_sha256": "e17d82f7f7a1ace41283621e7039cfb22e3be2ad60c9f500cbeedd0b47cfed7f",
+        "library_versions": {
+          "jsonschema": "4.23.0",
+          "mpmath": "1.3.0",
+          "numpy": "2.2.6",
+          "scipy": "1.15.3"
+        },
+        "machine": "x86_64",
+        "numpy_version": "2.2.6",
+        "output_count": 8,
+        "peak_rss_KiB": 97812,
+        "pip_version": "22.0.2",
+        "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+        "python_executable": "/home/amine/zee/workspaces/zee-condor-d7/validation/module9/local/venv/bin/python3",
+        "python_executable_sha256": "a2f33a6e006989270f4340528eb61f8f97366e00a5d1b602ac8672ea44fc56ae",
+        "python_version": "3.10.12",
+        "result_bytes_sha256": "c6cfdd6eb3a2946c712e2dcd5dd69f48eb8dfb65ed1faf3ebdeaef9aa45d64f5",
+        "schema_version": "d7-worker-1.0.0",
+        "scoped_fail_or_unknown": 7,
+        "scoped_pass": 1,
+        "source_bundle_sha256": "021b1a3061198ec5e3e82bc0372ed2a3331f9d21a075748d68b0960646f192bc",
+        "source_commit": "aded8e1496d99a5edb33586378114988d9ec3dd4",
+        "source_shard_sha256": "db3c1c7fbb39fb5f759aee8508c87c2bfe1b515b88eddec0842aa7742e0687d8",
+        "status": "D7_SCOPED_EVALUATION_ONLY_GLOBAL_UNKNOWN",
+        "worker_exit_code": 0
+      },
+      "receipt_bytes_sha256": "835d7fedde36ad05ce6dbd232505735f15a5db31cb0677472b630a670e69c22f",
+      "shard": {
+        "name": "part_002.jsonl",
+        "points": 8,
+        "sha256": "db3c1c7fbb39fb5f759aee8508c87c2bfe1b515b88eddec0842aa7742e0687d8"
+      }
+    },
+    {
+      "receipt": {
+        "completed_utc": "2026-10-28T11:27:26.773977+00:00",
+        "condor_cluster_id": null,
+        "condor_proc_id": null,
+        "constraints_complete": false,
+        "elapsed_seconds": 0.9605585310000606,
+        "environment_cvmfs_selected": "SYSTEM_PYTHON_UNVERIFIED_ON_CERN",
+        "environment_setup_sha256": "8f2e61a1e98011338588ff2e2858768ee117a96dc353e23e745219b47717c7e3",
+        "evaluation_error": 0,
+        "execution_host": "amine",
+        "execution_mode": "LOCAL_SIMULATION",
+        "global_zee_acceptance": null,
+        "input_count": 8,
+        "installed_distribution_inventory_sha256": "e17d82f7f7a1ace41283621e7039cfb22e3be2ad60c9f500cbeedd0b47cfed7f",
+        "library_versions": {
+          "jsonschema": "4.23.0",
+          "mpmath": "1.3.0",
+          "numpy": "2.2.6",
+          "scipy": "1.15.3"
+        },
+        "machine": "x86_64",
+        "numpy_version": "2.2.6",
+        "output_count": 8,
+        "peak_rss_KiB": 97244,
+        "pip_version": "22.0.2",
+        "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+        "python_executable": "/home/amine/zee/workspaces/zee-condor-d7/validation/module9/local/venv/bin/python3",
+        "python_executable_sha256": "a2f33a6e006989270f4340528eb61f8f97366e00a5d1b602ac8672ea44fc56ae",
+        "python_version": "3.10.12",
+        "result_bytes_sha256": "7a594afe4b74bea1b93e3f146e4e2342ac9edb6ec1e685c9e572f44e481b8e75",
+        "schema_version": "d7-worker-1.0.0",
+        "scoped_fail_or_unknown": 8,
+        "scoped_pass": 0,
+        "source_bundle_sha256": "021b1a3061198ec5e3e82bc0372ed2a3331f9d21a075748d68b0960646f192bc",
+        "source_commit": "aded8e1496d99a5edb33586378114988d9ec3dd4",
+        "source_shard_sha256": "9efd4ffeb0fe5843041e13fed3210409482ad8e4a2aff5b5ab50edddfe2be375",
+        "status": "D7_SCOPED_EVALUATION_ONLY_GLOBAL_UNKNOWN",
+        "worker_exit_code": 0
+      },
+      "receipt_bytes_sha256": "819e21d3fcd297fbf923f732907049ddbe4e51d2da3f961ed270f7bb08b5f2b4",
+      "shard": {
+        "name": "part_003.jsonl",
+        "points": 8,
+        "sha256": "9efd4ffeb0fe5843041e13fed3210409482ad8e4a2aff5b5ab50edddfe2be375"
+      }
+    }
+  ],
+  "local_worker_exit_codes": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "lxplus_access_attempts": 0,
+  "manifest_bytes_sha256": "0fcf86e2e63397137991c065fbb6a446643c523460b4e05c3c3e663265bc6ec2",
+  "mass_minmax_GeV": {
+    "mH1": [
+      254.95482419446594,
+      1192.8731458421948
+    ],
+    "mH2": [
+      532.9329127809378,
+      1917.2741294890407
+    ]
+  },
+  "maximum_reconstruction_residuals": {
+    "mixing_max_residual_GeV2": 1.3969838619232178e-09,
+    "spectrum_max_relative_residual": 1.0080137971084283e-09,
+    "tadpole_max_over_v3": 5.989674669630367e-15
+  },
+  "missing_global_gates": {
+    "RG_closure": "UNKNOWN",
+    "collider_constraints": "UNKNOWN",
+    "full_LFV_Wgamma": "UNKNOWN",
+    "global_vacuum": "UNKNOWN",
+    "official_NuFIT_joint_likelihood": "UNKNOWN",
+    "other_flavor": "UNKNOWN",
+    "physical_bsgamma": "UNKNOWN"
+  },
+  "next_D8": "Separate physically motivated multi-TeV NO and genuinely sourced IO scan, efficient scalar screening, representative complex inverse-Yukawa families and full D4 decays. Conditional Module5 flavor/LFV remains incomplete. Study flavor-collider correlations and backgrounds/reach only after calibrated signal selection; no publication-novelty claim.",
+  "point_count": 32,
+  "points_per_shard": 8,
+  "schema_version": "d7-local-evidence-1.0.0",
+  "scoped_scalar_fail_or_unknown": 31,
+  "scoped_scalar_pass": 1,
+  "selected_mass_examples": [
+    {
+      "ewpo_chi2": 5.345899291729484,
+      "gates": {
+        "bfb": {
+          "assessment": "PASS",
+          "status": "BFB_CERTIFIED_SUFFICIENT"
+        },
+        "ewpo": {
+          "assessment": "PASS",
+          "status": "SCALAR_OBLIQUE_INSIDE_95"
+        },
+        "reconstruction": {
+          "assessment": "PASS",
+          "status": "RECONSTRUCTION_VALIDATED"
+        },
+        "unitarity": {
+          "assessment": "FAIL",
+          "status": "TREE_UNITARITY_FAIL"
+        }
+      },
+      "neutrino_inverse_relative_residual": null,
+      "neutrino_status": "NOT_EVALUATED",
+      "physical": {
+        "alpha": 1.1297093826856592,
+        "beta": 1.2451962138083528,
+        "gamma": 0.8821922194923604,
+        "m12sq": 214447.8465973849,
+        "mH1": 1042.8249659248775,
+        "mH2": 1917.2741294890407,
+        "ma": 1315.2061329855524,
+        "mh2": 1573.699928720136
+      },
+      "point_id": "d7_NO_broad_03",
+      "reconstruction_residuals": {
+        "mixing_max_residual_GeV2": 6.984919309616089e-10,
+        "spectrum_max_relative_residual": 2.656416956469129e-10,
+        "tadpole_max_over_v3": 3.4939768906177138e-15
+      },
+      "scalar_status": "SCOPED_FAIL_OR_UNKNOWN",
+      "selected_STU": {
+        "S": 0.0017578989313920598,
+        "T": 0.05613908480771372,
+        "U": -0.0001124240349923592
+      },
+      "unitarity_max_abs_eigenvalue": 673.6046261622885
+    },
+    {
+      "ewpo_chi2": 95620.73173110608,
+      "gates": {
+        "bfb": {
+          "assessment": "PASS",
+          "status": "BFB_CERTIFIED_SUFFICIENT"
+        },
+        "ewpo": {
+          "assessment": "FAIL",
+          "status": "SCALAR_OBLIQUE_OUTSIDE_95"
+        },
+        "reconstruction": {
+          "assessment": "PASS",
+          "status": "RECONSTRUCTION_VALIDATED"
+        },
+        "unitarity": {
+          "assessment": "FAIL",
+          "status": "TREE_UNITARITY_FAIL"
+        }
+      },
+      "neutrino_inverse_relative_residual": null,
+      "neutrino_status": "NOT_EVALUATED",
+      "physical": {
+        "alpha": 1.1832687218377114,
+        "beta": 0.927407535009047,
+        "gamma": 0.5726591390690481,
+        "m12sq": 72745.2341932198,
+        "mH1": 1108.5152100012192,
+        "mH2": 1914.0989236877333,
+        "ma": 829.7803863200528,
+        "mh2": 693.1419546894779
+      },
+      "point_id": "d7_NO_broad_02",
+      "reconstruction_residuals": {
+        "mixing_max_residual_GeV2": 4.656612873077393e-10,
+        "spectrum_max_relative_residual": 1.3075608920890264e-10,
+        "tadpole_max_over_v3": 3.6187617795683465e-15
+      },
+      "scalar_status": "SCOPED_FAIL_OR_UNKNOWN",
+      "selected_STU": {
+        "S": -0.020650368941374966,
+        "T": 6.145996248418734,
+        "U": 0.005831872868313129
+      },
+      "unitarity_max_abs_eigenvalue": 106.3037031539135
+    },
+    {
+      "ewpo_chi2": 5199.407732257042,
+      "gates": {
+        "bfb": {
+          "assessment": "FAIL",
+          "status": "BFB_NEGATIVE_WITNESS"
+        },
+        "ewpo": {
+          "assessment": "FAIL",
+          "status": "SCALAR_OBLIQUE_OUTSIDE_95"
+        },
+        "reconstruction": {
+          "assessment": "PASS",
+          "status": "RECONSTRUCTION_VALIDATED"
+        },
+        "unitarity": {
+          "assessment": "FAIL",
+          "status": "TREE_UNITARITY_FAIL"
+        }
+      },
+      "neutrino_inverse_relative_residual": null,
+      "neutrino_status": "NOT_EVALUATED",
+      "physical": {
+        "alpha": 1.2347065816275875,
+        "beta": 0.6954011955617252,
+        "gamma": 1.330379564617417,
+        "m12sq": 294936.3734572678,
+        "mH1": 1179.8014342290787,
+        "mH2": 1752.6074659264443,
+        "ma": 1808.1616180162398,
+        "mh2": 1045.1976099018582
+      },
+      "point_id": "d7_NO_broad_04",
+      "reconstruction_residuals": {
+        "mixing_max_residual_GeV2": 4.656612873077393e-10,
+        "spectrum_max_relative_residual": 5.419693254428601e-10,
+        "tadpole_max_over_v3": 1.996558223210122e-15
+      },
+      "scalar_status": "SCOPED_FAIL_OR_UNKNOWN",
+      "selected_STU": {
+        "S": 0.025627645823541247,
+        "T": -1.406418845798899,
+        "U": -0.0018231423557727299
+      },
+      "unitarity_max_abs_eigenvalue": 144.85970264612936
+    },
+    {
+      "ewpo_chi2": 0.17331837110169435,
+      "gates": {
+        "bfb": {
+          "assessment": "PASS",
+          "status": "BFB_CERTIFIED_SUFFICIENT"
+        },
+        "ewpo": {
+          "assessment": "PASS",
+          "status": "SCALAR_OBLIQUE_INSIDE_95"
+        },
+        "reconstruction": {
+          "assessment": "PASS",
+          "status": "RECONSTRUCTION_VALIDATED"
+        },
+        "unitarity": {
+          "assessment": "PASS",
+          "status": "TREE_UNITARITY_PASS"
+        }
+      },
+      "neutrino_inverse_relative_residual": 3.875782149384548e-14,
+      "neutrino_status": "INVERSE_TARGET_CLOSURE_PASS",
+      "physical": {
+        "alpha": 0.7919087742464253,
+        "beta": 0.840042107971211,
+        "gamma": 1.3165278528084012,
+        "m12sq": 37805.29796645005,
+        "mH1": 298.7266553444879,
+        "mH2": 532.9329127809378,
+        "ma": 493.16131740168134,
+        "mh2": 492.4307830996228
+      },
+      "point_id": "d7_NO_neutral_near_heavy_07",
+      "reconstruction_residuals": {
+        "mixing_max_residual_GeV2": 1.1641532182693481e-10,
+        "spectrum_max_relative_residual": 6.268357943784196e-11,
+        "tadpole_max_over_v3": 2.846655279186307e-16
+      },
+      "scalar_status": "SCOPED_PASS",
+      "selected_STU": {
+        "S": -0.0017831059221008864,
+        "T": 0.012218366722914304,
+        "U": 6.084172558617905e-05
+      },
+      "unitarity_max_abs_eigenvalue": 18.2450673853302
+    }
+  ],
+  "sequential_cutflow": {
+    "after_bfb": 18,
+    "after_ewpo": 1,
+    "after_reconstruction": 32,
+    "after_unitarity": 1,
+    "generated": 32
+  },
+  "shard_count": 4,
+  "source_bundle_sha256": "021b1a3061198ec5e3e82bc0372ed2a3331f9d21a075748d68b0960646f192bc",
+  "source_seed_bytes_sha256": "6a55f774041a9d5e06bd6ea30a628bfcf5c840af0ddff30bce5f692a551c2915",
+  "staged_artifact_sha256": {
+    "bundle.sha256": "8eae4e7abcaa21972af96f1125a21c9b30744fb17a38752f2308afbb76c558ea",
+    "d7_pilot.sub": "9d630c2f7637ef1617a4f3bf81fff90922af7c9a1d17975197f55efd92949749",
+    "shards.txt": "aa64ec03dee2baf57d87166e88ee1e34fb411a15bd6043aae59f4518615d2b3f",
+    "source_commit.txt": "8d3a3f0e9701ef1e3a81652e86fc660ab515413ed1e67de67a4751751fe0ad95",
+    "worker.sh": "15eca4eed2af634ff196ff668f830b7ed8c364cd7d5878fb36d1b34b0e1a6f83"
+  },
+  "summary_bytes_sha256": "cf3a1190384d54a5f052ebeb2a60e59a3c777a104479869b47d4d206f825f063",
+  "tests": {
+    "bash_syntax_check": "PASS",
+    "command": "python3 -m unittest discover -s tests -p 'test_module9_*.py' -v",
+    "deterministic_generated_bytes_match": "PASS",
+    "environment": "validation/module9/local/venv (system-site-packages plus jsonschema==4.23.0)",
+    "failures": 0,
+    "git_diff_check": "PASS",
+    "passed": 25,
+    "runtime_seconds": 16.466,
+    "staging_existing_directory_refusal": {
+      "exit_code": 66,
+      "message": "D7_REFUSE_OVERWRITE_EXISTING_BATCH_RUN: validation/module9/local/staged_local_v1"
+    }
+  }
+}
