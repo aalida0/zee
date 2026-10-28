@@ -14,8 +14,9 @@ import math
 from pathlib import Path
 import random
 
-from module2.interface import canonical_hash, strict_loads, scalar_input
+from module2.interface import canonical_hash
 from module3.interface import validate as validate3
+from module9.d7_inputs import seed_input, validate_point, VARIED
 
 STATUS="D7_DEVELOPMENT_SCAN_INPUTS_ONLY"
 SEED=20261028
@@ -23,9 +24,6 @@ TOTAL=32
 SHARDS=4
 POINTS_PER_SHARD=TOTAL//SHARDS
 ANCESTOR="a39afed7cd0ee7f4358dabdbde32729818f1f909"
-
-def _uniform(rng,lo,hi):
-    return lo+(hi-lo)*rng.random()
 
 def _latin(rng,count,dims):
     out={}
@@ -71,12 +69,9 @@ def design():
     return points
 
 def make_point(source,identity,physical):
-    validate3(source,"input.schema.json")
-    if source["module2_input"]["ordering"]!="NO" or source["module2_input"]["mode"]!="inverse":
-        raise ValueError("This pilot uses genuine NO source only; IO requires a different target")
-    scalar_input(source["module2_input"]["scalar"])
-    if source["module2_input"]["scalar"]["kind"]!="module1_input":
-        raise ValueError("Require full SHA-bound Module1 source")
+    validate_point(source)
+    if not isinstance(physical, dict) or not set(physical) <= set(VARIED):
+        raise ValueError("Unsupported D7 scalar variation")
     point=copy.deepcopy(source)
     point["benchmark_id"]=identity
     point["module2_input"]["benchmark_id"]=identity
@@ -84,8 +79,7 @@ def make_point(source,identity,physical):
     wrapper["record"]["benchmark_id"]=identity
     wrapper["record"]["physical"].update(physical)
     wrapper["sha256"]=canonical_hash(wrapper["record"])
-    validate3(point,"input.schema.json")
-    resolved,_=scalar_input(wrapper)
+    resolved=validate_point(point)
     for key in physical:
         if resolved[key]!=physical[key]:
             raise ValueError("Generator scalar/mass mix mismatch")
@@ -93,7 +87,7 @@ def make_point(source,identity,physical):
 
 def prepare(seed_json,folder):
     """Create all shards and manifest; refuses to overwrite any prior scan run."""
-    src=strict_loads(seed_json.decode())
+    src=seed_input(seed_json)
     validate3(src,"input.schema.json")
     folder=Path(folder)
     if folder.exists() and any(folder.iterdir()):
