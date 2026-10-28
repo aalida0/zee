@@ -33,8 +33,8 @@ def compose(d4, xsecs):
     if xsecs["schema_version"]!="1.0.0":
         raise ValueError("Unknown rate-card schema")
     energy=finite(xsecs["sqrt_s_TeV"],"sqrt_s_TeV")
-    if energy not in (13.6,14.0):
-        raise ValueError("Only explicit 13.6/14 TeV development energy")
+    if energy != 13.6:
+        raise ValueError("D5 requires exactly 13.6 TeV")
     if xsecs["generator_validation"] not in ("UNVERIFIED", "EXECUTED_EXTERNAL_UNCERTIFIED"):
         raise ValueError("This arithmetic layer cannot certify generator provenance")
     rows=xsecs["rate_cards"]
@@ -56,7 +56,7 @@ def compose(d4, xsecs):
                 raise ValueError("Missing generator input label "+k)
         sigma=finite(row["sigma_LO_pb"],"sigma_LO_pb",True)
         error=finite(row["integration_error_pb"],"integration_error_pb",True)
-        if error>sigma and sigma>0:
+        if error>sigma:
             raise ValueError("Integration error exceeds LO central estimate")
         got[tag]=(sigma,error,row)
     if set(got)!=expected:
@@ -65,10 +65,14 @@ def compose(d4, xsecs):
     if not isinstance(families,list) or len(families)!=12:
         raise ValueError("Expected twelve D4 families")
     outputs=[]
+    seen_families=set()
     for entry in families:
         spec=entry["spectrum_name"];fam=entry["family_name"]
         if spec not in ("mH1_m50p0","source","mH1_p50p0") or fam not in FAMILIES:
             raise ValueError("Unexpected D4 spectrum/family")
+        if (spec,fam) in seen_families:
+            raise ValueError("Duplicate D4 spectrum/family")
+        seen_families.add((spec,fam))
         mothers=entry["mothers"]
         h2=mothers["H2"];h1=mothers["H1"]
         if (h2["status"]!="D4_COMPLETE_TWO_BODY_BR_PASS" or

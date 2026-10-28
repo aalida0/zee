@@ -68,6 +68,7 @@ class RateCompositionTests(unittest.TestCase):
             lambda c:c["rate_cards"][0].__setitem__("accepted",True),
             lambda c:c.__setitem__("generator_validation","PHYSICS_VERIFIED"),
             lambda c:c.__setitem__("sqrt_s_TeV",13.),
+            lambda c:c.__setitem__("sqrt_s_TeV",14.),
         )
         for mut in mutations:
             card=synthetic_card();mut(card)
@@ -80,6 +81,16 @@ class RateCompositionTests(unittest.TestCase):
         with self.assertRaises(ValueError):compose(d4,synthetic_card())
         d4=ledger();d4["statuses"]=[]
         with self.assertRaises(ValueError):compose(d4,synthetic_card())
+
+    def test_duplicate_family_with_unique_id_rejected(self):
+        d4=ledger()
+        d4['conditional_lepton_families'][1]=copy.deepcopy(d4['conditional_lepton_families'][0])
+        d4['conditional_lepton_families'][1]['benchmark_id']='different_id'
+        with self.assertRaises(ValueError):compose(d4,synthetic_card())
+
+    def test_zero_central_nonzero_error_rejected(self):
+        card=synthetic_card();card['rate_cards'][0]['sigma_LO_pb']=0.
+        with self.assertRaises(ValueError):compose(ledger(),card)
 
 if __name__=="__main__":
     unittest.main()

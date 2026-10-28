@@ -1,0 +1,2247 @@
+{
+  "schema_version": "d5-real-two-process-1.0.0",
+  "date": "2026-10-28",
+  "D4_exact_base": "d0a276950dfbe0417c6cd22731b7f62f3285d789",
+  "statuses": [
+    "D5_UFO_VERTEX_PASS",
+    "D5_EXECUTED_PARTON_LO_RATE_PASS",
+    "D5_CHAIN_LO_ARITHMETIC_PASS",
+    "D5_NOVELTY_NOT_ESTABLISHED"
+  ],
+  "label": "LO parton-level reference benchmark; central scales/PDF only; incomplete Zee constraints",
+  "native_model": {
+    "status": "D5_UFO_VERTEX_PASS",
+    "comparisons": 5904,
+    "cases": 36,
+    "maximum_absolute_residuals": {
+      "physical_parameters": 5.684341886080802e-14,
+      "photon": 5.551115123125783e-17,
+      "Z": 1.1102230246251565e-16,
+      "CKM_unitarity": 6.905405183539222e-18,
+      "quarks": 2.7755575615628914e-17,
+      "complex_leptons": 6.938893903907228e-18
+    },
+    "raw_evidence_sha256": "f34e20390815cac044fcd284776cf64317f6ffd383676723b30c1d25c52d1cc0",
+    "export": {
+      "status": "D5_UFO_EXPORTED_UNCERTIFIED",
+      "math_version": "15.0.1 for Linux x86 (64-bit) (July 2, 2026)",
+      "sarah_version": "4.15.4",
+      "source_sha256": {
+        "models/SARAH/ZeeTypeII/ZeeTypeII.m": "78d6b48232f9a75a21b058301d9233dba3ed067e21f534d27c0d6f415484aa4d",
+        "models/SARAH/ZeeTypeII/parameters.m": "499dbcc555dedf5f2cb45a69664812d4e919513500cf6bd91332b9e61b4aba6b",
+        "models/SARAH/ZeeTypeII/particles.m": "91b550b69fdcdd3dc409979f6621f1654d57881e36e125e786c2e9ad54c9c6a7"
+      },
+      "sarah_sha256": "8ed36ea4ed97e9f032ced9887a13594b4a40fe0f09fda475c69f7c5633be4d01",
+      "ufo_directory": "/home/amine/zee/workspaces/zee-production-d5/validation/module8/local/native/sarah/ZeeTypeII/EWSB/UFO",
+      "required_files_present": true
+    },
+    "ufo_sha256": {
+      "__init__.py": "a765c6118c79c84f1bf48e6e3ec256f03ab4762665b28a41ec5848955a5b6c33",
+      "coupling_orders.py": "48bd370eea7543fcec68bedea26499e20c9329a2863972c4b4e5b4fc48a62830",
+      "couplings.py": "14ac1c7ec05af210e5c04a5ab21d9fda9c85b2d9ad7914ab1872ac438d481e1a",
+      "function_library.py": "41e80369069e3569b069dfa507224f9d48a0fbb4d4a1786c697443be3106c256",
+      "lorentz.py": "6fb9d159dfac37854fdc106e05fc239d665e08ee6a4a0efe21a239ba66ba7bd3",
+      "object_library.py": "792123bf0ad3de02e2f64a58bdcc7b2ad5cf7f2cd015972bf017e950ae9285f2",
+      "parameters.py": "1064ffb4d904c97077b96d0979d17c4bb1eedeef9a5ed5937321bc52bebc2beb",
+      "particles.py": "04cc25124c15e11967b84441ede6b0cddda3e78605cf28ff7f7d4798efe3cb95",
+      "vertices.py": "070f349f12782bf30fde5075c2dbbd14007a8065f3b8cc2f609154b4f7d8296d",
+      "write_param_card.py": "dff8f8f94ad54b2bc5941bd6384956ece28c0fa3dc4f35bf926d05d121f26429"
+    },
+    "lha_mapping": "all external entries explicitly mapped and serialized/reloaded; unused noncharged DECAY defaults retained as metadata; effective loop vertices zero",
+    "frozen_mass_terms": "M112,M222,MCS2,M12Sq absent from UFO three/four-point parameters; reconstructed and Hessian/tadpole-checked in Module1, never added as fictitious LHA inputs",
+    "source_sha256": {
+      "module8/ufo_audit.py": "ae44f4db61c30cb89be0d30d4696b1d5b6236fc140c4fc6d517a2f8e5ad67752",
+      "scripts/zee_d5_export.m": "76dc74907ebf744a4b76f4e74fbc25b7c9b10319820d7e6024b4d51175bd7262",
+      "module7/d4_inputs.py": "c65e18276738e46ed4378d46c76992cd13995de6d3d810b2a51d9fdd841ef7cf",
+      "module1/scalar_constraints.py": "283902ff57de55e17e4d02900de07850265d306d1481e49db4dc96c08744cbac"
+    },
+    "per_case": [
+      {
+        "id": "d2_NO_source_baseline/H1",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 6.938893903907228e-18,
+          "complex_leptons": 8.660918357501556e-20
+        },
+        "card_sha256": "0e626d79b735d6728437ee099e8e45479be6b544715d61a50eb56793f0b9b45b",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 2.339716667824362e-17,
+          "spectrum_max_relative_residual": 7.916369800623278e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_source_baseline/H2",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 8.660918357501556e-20
+        },
+        "card_sha256": "db7b06427d5d913a5ae2dda2ff80e50b3aa173e00e23b3091e241e67b7e59f07",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 2.339716667824362e-17,
+          "spectrum_max_relative_residual": 7.916369800623278e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_source_index0/H1",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 6.938893903907228e-18,
+          "complex_leptons": 5.52689251625323e-20
+        },
+        "card_sha256": "f05492506cd12af5f4116830480da5eae3361ef54b0c0f772e735d09b07ccd59",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 2.339716667824362e-17,
+          "spectrum_max_relative_residual": 7.916369800623278e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_source_index0/H2",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 5.52689251625323e-20
+        },
+        "card_sha256": "6630168d3e358d96de50d65ceb1a90941edaa2981b3271decd9c556fea180c3d",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 2.339716667824362e-17,
+          "spectrum_max_relative_residual": 7.916369800623278e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_source_index2/H1",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 6.938893903907228e-18,
+          "complex_leptons": 5.293955920339377e-20
+        },
+        "card_sha256": "8cbbcee3d2c0fb5da4ee913d9f19d6504075442d489ca402db71783813e0dcab",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 2.339716667824362e-17,
+          "spectrum_max_relative_residual": 7.916369800623278e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_source_index2/H2",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 5.293955920339377e-20
+        },
+        "card_sha256": "7799a053a5d8303f53e2e921646961a472d7dfc38d8ddf5d368e5eedf79d4308",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 2.339716667824362e-17,
+          "spectrum_max_relative_residual": 7.916369800623278e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_source_mixed13/H1",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 6.938893903907228e-18,
+          "complex_leptons": 1.3171366585395258e-19
+        },
+        "card_sha256": "7511b356a3c1712e5f83cdc033ff142c26d7b0e2eb52dce6ec750a88c2658109",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 2.339716667824362e-17,
+          "spectrum_max_relative_residual": 7.916369800623278e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_source_mixed13/H2",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 1.3171366585395258e-19
+        },
+        "card_sha256": "cff259323d65fddcbc0bb2c54f3aee935d681661c916e3d80cc006ec4d471528",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 2.339716667824362e-17,
+          "spectrum_max_relative_residual": 7.916369800623278e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_mH1_m50p0_baseline/H1",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 2.7755575615628914e-17,
+          "complex_leptons": 1.6538321684356204e-19
+        },
+        "card_sha256": "10a52e2e01008ad59f36fe54575af775c1c85730149472fae0f4465a967afaa8",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 6.239244447531632e-17,
+          "spectrum_max_relative_residual": 1.0639910880517628e-10,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_mH1_m50p0_baseline/H2",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 1.6538321684356204e-19
+        },
+        "card_sha256": "ff2fa9809aa90b5d88e66c05c0c08f62f8a521537f6d327bfc37f0e558cf7b81",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 6.239244447531632e-17,
+          "spectrum_max_relative_residual": 1.0639910880517628e-10,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_mH1_m50p0_index0/H1",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 2.7755575615628914e-17,
+          "complex_leptons": 1.860296110407257e-19
+        },
+        "card_sha256": "6745867fc554c843620196b28e5ddfc4808ba281e1689d78369933a6ea84e266",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 6.239244447531632e-17,
+          "spectrum_max_relative_residual": 1.0639910880517628e-10,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_mH1_m50p0_index0/H2",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 1.860296110407257e-19
+        },
+        "card_sha256": "0b81cc54dc3d161bf4c321e81bb1599f8b48e5c866bbe26ff74a34f48ffd8207",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 6.239244447531632e-17,
+          "spectrum_max_relative_residual": 1.0639910880517628e-10,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_mH1_m50p0_index2/H1",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 2.7755575615628914e-17,
+          "complex_leptons": 4.0223478476251573e-19
+        },
+        "card_sha256": "e1d91c16ce065e368caebfee91223f9076796f024b557e6f5403678de32751eb",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 6.239244447531632e-17,
+          "spectrum_max_relative_residual": 1.0639910880517628e-10,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_mH1_m50p0_index2/H2",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 4.0223478476251573e-19
+        },
+        "card_sha256": "9f0dc2ffb38973907fe56b3845cdc71cae5cbb15116ffad543c631853a619404",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 6.239244447531632e-17,
+          "spectrum_max_relative_residual": 1.0639910880517628e-10,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_mH1_m50p0_mixed13/H1",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 2.7755575615628914e-17,
+          "complex_leptons": 8.893845946170154e-20
+        },
+        "card_sha256": "08dfec8dd8e542b8b6f2b83ecfc332a266ea24cf8a10444626206280880747a0",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 6.239244447531632e-17,
+          "spectrum_max_relative_residual": 1.0639910880517628e-10,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_mH1_m50p0_mixed13/H2",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 8.893845946170154e-20
+        },
+        "card_sha256": "0a05e480ddbda2ef37e1d4a26f3487945ac54c0b1658fd43a6e2577fe7067a01",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 6.239244447531632e-17,
+          "spectrum_max_relative_residual": 1.0639910880517628e-10,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_mH1_p50p0_baseline/H1",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 6.405686663610646e-20
+        },
+        "card_sha256": "61a116a3e50fb6c31b2de8258a37311ca0450841e2825350ac7fe305580f0f2b",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 4.289480557677997e-17,
+          "spectrum_max_relative_residual": 5.1078172498141747e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_mH1_p50p0_baseline/H2",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 6.405686663610646e-20
+        },
+        "card_sha256": "18fb64e9c0089f04bb04ff1d79bfad009131e3bca77e1015998cdb15013a236e",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 4.289480557677997e-17,
+          "spectrum_max_relative_residual": 5.1078172498141747e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_mH1_p50p0_index0/H1",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 6.818615225397118e-20
+        },
+        "card_sha256": "f3044e3e7d1ee54fec6e0fd66215206cb742adb0b9dc8fe71480eb90cba65f73",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 4.289480557677997e-17,
+          "spectrum_max_relative_residual": 5.1078172498141747e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_mH1_p50p0_index0/H2",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 6.818615225397118e-20
+        },
+        "card_sha256": "0ed0429f17a6972ccfd4a7bd6751ba463b975f30e9cbcca6ed19e76b7f5efa31",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 4.289480557677997e-17,
+          "spectrum_max_relative_residual": 5.1078172498141747e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_mH1_p50p0_index2/H1",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 3.483423639225308e-19
+        },
+        "card_sha256": "2cf63d487b44d79ec0a92229cd6f9f9308dfb8eeeae77b68ef46aacf9f0fde17",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 4.289480557677997e-17,
+          "spectrum_max_relative_residual": 5.1078172498141747e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_mH1_p50p0_index2/H2",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 3.483423639225308e-19
+        },
+        "card_sha256": "195752f7dacf254b1168f1e61a11f6613e15004751d6ac19da270ae532d18604",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 4.289480557677997e-17,
+          "spectrum_max_relative_residual": 5.1078172498141747e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_mH1_p50p0_mixed13/H1",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 2.1133474686277153e-19
+        },
+        "card_sha256": "260a1a2e1d277bba572962707b4549f44bd2f057dcdc9f4334d09a0138deb7e7",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 4.289480557677997e-17,
+          "spectrum_max_relative_residual": 5.1078172498141747e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "d2_NO_mH1_p50p0_mixed13/H2",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 2.1133474686277153e-19
+        },
+        "card_sha256": "32d917760d3120801d6cae5606a15ff930a287730c3742a4a95c935b81511102",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 4.289480557677997e-17,
+          "spectrum_max_relative_residual": 5.1078172498141747e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "control/0.6/0.0",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 0.0,
+          "Z": 8.326672684688674e-17,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.734723475976807e-18,
+          "complex_leptons": 0.0
+        },
+        "card_sha256": "16393b3f03fd62affa9e0b3b34e847ded8d5de0de6d1a68a8767540763592f22",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 1.2478488895063263e-16,
+          "spectrum_max_relative_residual": 1.300318778456306e-10,
+          "mixing_max_residual_GeV2": 1.7462298274040222e-10
+        }
+      },
+      {
+        "id": "control/0.6/1.5707963267948966",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 1.5407439555097887e-33,
+          "Z": 8.326672684688674e-17,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.734723475976807e-18,
+          "complex_leptons": 7.703719777548943e-34
+        },
+        "card_sha256": "0be1a4c7ae19ff11c3789d3f1b4df51e320d48eaf10b764914057e9d73f1ae9b",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 1.7157922230711987e-16,
+          "spectrum_max_relative_residual": 3.2741809263825417e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "control/0.6/-1.5707963267948966",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 1.5407439555097887e-33,
+          "Z": 8.326672684688674e-17,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.734723475976807e-18,
+          "complex_leptons": 7.703719777548943e-34
+        },
+        "card_sha256": "0205daef8832d1a8771d2d08195ff062056119df614dba8d4865f245de801237",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 1.7157922230711987e-16,
+          "spectrum_max_relative_residual": 3.2741809263825417e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "control/0.6/1.089",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 5.551115123125783e-17,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.734723475976807e-18,
+          "complex_leptons": 6.938893903907228e-18
+        },
+        "card_sha256": "fd227557d685107233849f5b2294cf71ea6ff2710bf233eff0195d726c720086",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 3.119622223765816e-17,
+          "spectrum_max_relative_residual": 1.5524239318119627e-11,
+          "mixing_max_residual_GeV2": 1.7462298274040222e-10
+        }
+      },
+      {
+        "id": "control/0.6/-1.089",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 5.551115123125783e-17,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.734723475976807e-18,
+          "complex_leptons": 6.938893903907228e-18
+        },
+        "card_sha256": "eee2c8315a76f6f3e5c1cbfa806c59d5250082f4d497360def797e03eebf772c",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 3.119622223765816e-17,
+          "spectrum_max_relative_residual": 1.5524239318119627e-11,
+          "mixing_max_residual_GeV2": 1.7462298274040222e-10
+        }
+      },
+      {
+        "id": "control/0.6/0.4817963267948966",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 5.551115123125783e-17,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.734723475976807e-18,
+          "complex_leptons": 6.938893903907228e-18
+        },
+        "card_sha256": "b7adc50c30a24408273cdf1542bdddbaef31ff44fe796911e36e1c12d2a6dec2",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 6.239244447531632e-17,
+          "spectrum_max_relative_residual": 1.0196549125979794e-10,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "control/1.394/0.0",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 5.551115123125783e-17,
+          "Z": 8.326672684688674e-17,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 0.0
+        },
+        "card_sha256": "bbd59e92d57cdab92ef5c33775207df8056dc6da32a4c62fbf978bab78707c2c",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 2.4956977790126526e-16,
+          "spectrum_max_relative_residual": 2.3646862246096134e-11,
+          "mixing_max_residual_GeV2": 1.7462298274040222e-10
+        }
+      },
+      {
+        "id": "control/1.394/1.5707963267948966",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 5.551115123125783e-17,
+          "Z": 8.326672684688674e-17,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 3.97040629412426e-34
+        },
+        "card_sha256": "12f5d3f5ead25fe9b64ca521c6cd6ea4d43322668e0a6e24fdbb9b2138b09046",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 2.4956977790126526e-16,
+          "spectrum_max_relative_residual": 2.7293121415366572e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "control/1.394/-1.5707963267948966",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 5.551115123125783e-17,
+          "Z": 8.326672684688674e-17,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 3.97040629412426e-34
+        },
+        "card_sha256": "868bd98acb21fbc34451519eb90eee35578a27d742185fc47b19e801270b7dff",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 2.4956977790126526e-16,
+          "spectrum_max_relative_residual": 2.7293121415366572e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "control/1.394/1.089",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 3.878959614448864e-18
+        },
+        "card_sha256": "e1f12307f23f769dc15a09e86fe654a7e7d17e493291b55be34c23c71b65e86d",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 2.4956977790126526e-16,
+          "spectrum_max_relative_residual": 2.066799821492811e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "control/1.394/-1.089",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 4.336808689942018e-18,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 3.878959614448864e-18
+        },
+        "card_sha256": "a7f495b8c9b4234a0610b2c536c769e4ad98cb38ae56e7c83e875fb8333fb1ca",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 2.4956977790126526e-16,
+          "spectrum_max_relative_residual": 2.066799821492811e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      },
+      {
+        "id": "control/1.394/0.4817963267948966",
+        "comparisons": 164,
+        "residuals": {
+          "physical_parameters": 5.684341886080802e-14,
+          "photon": 1.8214596497756474e-17,
+          "Z": 1.1102230246251565e-16,
+          "CKM_unitarity": 6.905405183539222e-18,
+          "quarks": 1.3877787807814457e-17,
+          "complex_leptons": 3.878959614448864e-18
+        },
+        "card_sha256": "2bcfe7b1f2ed92630a15286806082454c131e615ccb35a1adb1cd3475dcf35e6",
+        "scalar_closure": {
+          "status": "RECONSTRUCTION_VALIDATED",
+          "assessment": "PASS",
+          "order": "tree",
+          "tadpole_max_over_v3": 2.4956977790126526e-16,
+          "spectrum_max_relative_residual": 5.350778154049096e-11,
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10
+        }
+      }
+    ]
+  },
+  "real_execution_validation": {
+    "schema_version": "d5-real-two-process-1.0.0",
+    "status": "D5_EXECUTED_PARTON_LO_RATE_PASS",
+    "rates": [
+      {
+        "process": "P1",
+        "spectrum": "source",
+        "sigma_LO_pb": 0.0001344,
+        "integration_error_pb": 1.3494e-07,
+        "relative_integration_error": 0.0010040178571428572,
+        "integration_samples": 235800,
+        "charge_scope": "H2plus_and_H2minus_inclusive",
+        "beam_orders": "both explicitly generated",
+        "receipt_sha256": "53bd44ca5e83b9c9aa2b362cfaf91ac682bfc8725d0affa32f11da2cdeaf25e7",
+        "results_sha256": "a95f6b1cf020af05becbbe7b4144163fed3d4d73f92a5b81f9cfbd8a58a3390c",
+        "execution_log_sha256": "7b97572306b3757d6f0ef5abd0bba0b9e6d0ef98e47620df22e3f72be5ca0060",
+        "banner_sha256": "82188c46ed27a6f1d0d60de620a4fc03f05e3e7b33492ea704beeb9d6be2fc39",
+        "source_tree_sha256": "df8526b132721d37eda2db4c1b01c572ea6eead10c168beee5dfaf1087a176a2",
+        "matrix_tree_sha256": "c1548d4d639bc4cdfb320ff671dc0dbd2f3bfa3534091b2307f7b7d5bd357d1d",
+        "source_manifest_sha256": "5188d5ecc7906e1c8e82ef057d98ca8c57313da0796fb8d46d1df6998b643d8d",
+        "input_sha256": {
+          "cards/d2_NO_source_baseline_H2.dat": "db7b06427d5d913a5ae2dda2ff80e50b3aa173e00e23b3091e241e67b7e59f07",
+          "ufo_audit.json": "f34e20390815cac044fcd284776cf64317f6ffd383676723b30c1d25c52d1cc0",
+          "full_D4_ledger": "4845f9e1e050c92cbffd4705a1edfc66d6b8b210a8ee5bc0613ed6a42a40e4e9",
+          "launcher_implementation": "3d8a5d3d09f47fe4e948705ca09949c52abdd3428672851c1fba4cdeac69f86e",
+          "P1_full/Cards/param_card.dat": "5cdecc55beb00a578ac331f2cbca1ae190593f4cef75b933da5304fb3051b75e",
+          "P1_full/Cards/delphes_trigger_CMS.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P1_full/Cards/plot_card_default.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P1_full/Cards/pgs_card_TEV.dat": "523df464434f492b0b915d7d5f22aee198a515696228bf859daba920fb6e2ed1",
+          "P1_full/Cards/delphes_card_CMS.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P1_full/Cards/.plot_card.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P1_full/Cards/ident_card.dat": "15b46b4b543365ee49384d5e0a97856613542746f3f22e7883779c0dab7e9af1",
+          "P1_full/Cards/run_card_default.dat": "df6032c59fada0b7e5db8d231f919050dadc87382077703854c90ce695f05a2f",
+          "P1_full/Cards/me5_configuration.txt": "f42bcbe931fef0de2e70f525a44c899ed4eef6f51cc17607e9cb2a2c68010b5e",
+          "P1_full/Cards/replace_card1.dat": "92d5563c5b5f8d68bc0dc3ee8c350eaee7d43d43aca4d9f6c94d3abc0e69a73a",
+          "P1_full/Cards/param_card_default.dat": "31e875b63b30ab9d86ac761f449956eb4ebc246c882df349a7f0d72bf1dda6f0",
+          "P1_full/Cards/madanalysis5_parton_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P1_full/Cards/grid_card.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P1_full/Cards/README": "eb3f39466976b976c213203c4a7d0f92eadd325d4e19903efea6fec1db695d65",
+          "P1_full/Cards/madanalysis5_hadron_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P1_full/Cards/pgs_card_ATLAS.dat": "4abbda9b8fc97521a6b510d200c3657695caea73054516ccac16fccd89f63f43",
+          "P1_full/Cards/delphes_card_ATLAS.dat": "b6a97bcd6e2b4f19e218eaa07b3afe1937d66452f0519de0b8c367eff46fe69d",
+          "P1_full/Cards/delphes_card_default.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P1_full/Cards/pgs_card_default.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P1_full/Cards/madspin_card_default.dat": "b49e3d4d382a4b66bae665d9b5af308de1d426e2aacdd45f0237c8be7a4f3524",
+          "P1_full/Cards/delphes_trigger_ATLAS.dat": "14ceb9ab08ebb8bcab3d750fe8b01ab1e3f44d2eacdc8bc944d6899ccafc3b90",
+          "P1_full/Cards/.delphes_trigger.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P1_full/Cards/grid_card_default.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P1_full/Cards/rivet_card_default.dat": "e1aa7c84051518a747156689b388d0d2428808c629b15b2770f50550d5a1b357",
+          "P1_full/Cards/pgs_card_LHC.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P1_full/Cards/pgs_card_CMS.dat": "2fa767eeb3d1a767e9b4da6f8f35099b6546943f9c3993291c9ab122554d43ca",
+          "P1_full/Cards/pythia8_card_default.dat": "eae9ab88aed291ccfa93aad879abb00c479fe5e852b50a14f48ee2c4ee25a255",
+          "P1_full/Cards/run_card.dat": "e3d6cc8a61d638df0376c6578b3680b6645529d93175e1fdfda006b595064eb6",
+          "P1_full/Cards/proc_card_mg5.dat": "01c02337f32393ee48af96e7bc12d5aba1805e325cb3934b65fa218a50535fea",
+          "P1_full/Cards/reweight_card_default.dat": "809ea5194d409c0ed9ed6bea00eb7280839003412cdde7ef1a2548b002dccb22",
+          "P1_full/Cards/pythia_card_default.dat": "392b11bcb52bfabab408edd2ee691e138f9e4f2d5d5c514287a25f4f29d7215b",
+          "P1_full/Cards/delphes_trigger_default.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info": "175605e0adb3e40a10b1738c01f52fb6f20c8600fa04f50fe362b71d4f5c6a94",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130_0000.dat": "95e0a68f75e9a1cb561e98a5180f27860a9c4dca7113eb8b716ab2558a35e0b2",
+          "P1_full/bin/generate_events": "cdaee2bb97775deec0b989641add69921c8b4e9a10e8187b5a1f694e104aa2a1"
+        },
+        "generator_source_archive_sha256": "12e576dcb0055ccaab88b7065aa766a9fb2dc3b7c9d28c0ef96f82b037046c54",
+        "independent_analytical_pb": 0.00013419314953467295,
+        "independent_deviation_in_integration_errors": 1.5329069610718284
+      },
+      {
+        "process": "P2",
+        "spectrum": "source",
+        "sigma_LO_pb": 0.0045246,
+        "integration_error_pb": 8.2534e-06,
+        "relative_integration_error": 0.0018241170490209079,
+        "integration_samples": 149642,
+        "charge_scope": "H2plus_and_H2minus_inclusive",
+        "beam_orders": "both explicitly generated",
+        "receipt_sha256": "4636a02efe8dcc1d5c53e269530b99be0c5c5320df68d984bc3c1cfa5fdbce44",
+        "results_sha256": "e3e82d0be27b8c1c0b0d9d0051f2906af5f1fdf2c1147d3e85c4f314ceb6f252",
+        "execution_log_sha256": "c39b6fd978ed06e85f9ecaddd11d2e868b84a91453793426c19e4e0248e99409",
+        "banner_sha256": "415de27247a6732bc2020bd34a07020b25eb2dcc1b2a381cf99b3ebe3ade5d38",
+        "source_tree_sha256": "e494aab08dfc5bb4dacc57fe6c611dea82400ccf1b4f11d3bc7bdccd15a10f26",
+        "matrix_tree_sha256": "beb96c8fcbefd01b123bc732090950c93d8e98d1390e97dc5c1618bdd475427a",
+        "source_manifest_sha256": "8e505312e67383870696816257325e7f702092f60afc25a7e6f9ad31ea1282b1",
+        "input_sha256": {
+          "cards/d2_NO_source_baseline_H2.dat": "db7b06427d5d913a5ae2dda2ff80e50b3aa173e00e23b3091e241e67b7e59f07",
+          "ufo_audit.json": "f34e20390815cac044fcd284776cf64317f6ffd383676723b30c1d25c52d1cc0",
+          "full_D4_ledger": "4845f9e1e050c92cbffd4705a1edfc66d6b8b210a8ee5bc0613ed6a42a40e4e9",
+          "launcher_implementation": "3d8a5d3d09f47fe4e948705ca09949c52abdd3428672851c1fba4cdeac69f86e",
+          "P2_full/Cards/param_card.dat": "5cdecc55beb00a578ac331f2cbca1ae190593f4cef75b933da5304fb3051b75e",
+          "P2_full/Cards/delphes_trigger_CMS.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P2_full/Cards/plot_card_default.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P2_full/Cards/pgs_card_TEV.dat": "523df464434f492b0b915d7d5f22aee198a515696228bf859daba920fb6e2ed1",
+          "P2_full/Cards/delphes_card_CMS.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P2_full/Cards/.plot_card.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P2_full/Cards/ident_card.dat": "48a8db8d6431f186bb35d8920f2d7709561027eb1e76d020f4a95c9fcafc63b2",
+          "P2_full/Cards/run_card_default.dat": "698e1a6292ff7fb2135a200777bf9e5c491f3d7bd82492aa51da5b08e8cc3ecc",
+          "P2_full/Cards/me5_configuration.txt": "f42bcbe931fef0de2e70f525a44c899ed4eef6f51cc17607e9cb2a2c68010b5e",
+          "P2_full/Cards/replace_card1.dat": "92d5563c5b5f8d68bc0dc3ee8c350eaee7d43d43aca4d9f6c94d3abc0e69a73a",
+          "P2_full/Cards/param_card_default.dat": "31e875b63b30ab9d86ac761f449956eb4ebc246c882df349a7f0d72bf1dda6f0",
+          "P2_full/Cards/madanalysis5_parton_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P2_full/Cards/grid_card.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P2_full/Cards/README": "eb3f39466976b976c213203c4a7d0f92eadd325d4e19903efea6fec1db695d65",
+          "P2_full/Cards/madanalysis5_hadron_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P2_full/Cards/pgs_card_ATLAS.dat": "4abbda9b8fc97521a6b510d200c3657695caea73054516ccac16fccd89f63f43",
+          "P2_full/Cards/delphes_card_ATLAS.dat": "b6a97bcd6e2b4f19e218eaa07b3afe1937d66452f0519de0b8c367eff46fe69d",
+          "P2_full/Cards/delphes_card_default.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P2_full/Cards/pgs_card_default.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P2_full/Cards/madspin_card_default.dat": "b49e3d4d382a4b66bae665d9b5af308de1d426e2aacdd45f0237c8be7a4f3524",
+          "P2_full/Cards/delphes_trigger_ATLAS.dat": "14ceb9ab08ebb8bcab3d750fe8b01ab1e3f44d2eacdc8bc944d6899ccafc3b90",
+          "P2_full/Cards/.delphes_trigger.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P2_full/Cards/grid_card_default.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P2_full/Cards/rivet_card_default.dat": "e1aa7c84051518a747156689b388d0d2428808c629b15b2770f50550d5a1b357",
+          "P2_full/Cards/pgs_card_LHC.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P2_full/Cards/pgs_card_CMS.dat": "2fa767eeb3d1a767e9b4da6f8f35099b6546943f9c3993291c9ab122554d43ca",
+          "P2_full/Cards/pythia8_card_default.dat": "eae9ab88aed291ccfa93aad879abb00c479fe5e852b50a14f48ee2c4ee25a255",
+          "P2_full/Cards/run_card.dat": "534313d3cb7ec6a43ca5f8dc0d3fd61f92d82c0557e59bd4b0c1b5fc4149e7bb",
+          "P2_full/Cards/proc_card_mg5.dat": "942bc01a82fe2610b4ef040c6d6c97f5f5f4ef843200fbff95e4d730d1e1ca45",
+          "P2_full/Cards/reweight_card_default.dat": "809ea5194d409c0ed9ed6bea00eb7280839003412cdde7ef1a2548b002dccb22",
+          "P2_full/Cards/pythia_card_default.dat": "392b11bcb52bfabab408edd2ee691e138f9e4f2d5d5c514287a25f4f29d7215b",
+          "P2_full/Cards/delphes_trigger_default.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info": "175605e0adb3e40a10b1738c01f52fb6f20c8600fa04f50fe362b71d4f5c6a94",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130_0000.dat": "95e0a68f75e9a1cb561e98a5180f27860a9c4dca7113eb8b716ab2558a35e0b2",
+          "P2_full/bin/generate_events": "cdaee2bb97775deec0b989641add69921c8b4e9a10e8187b5a1f694e104aa2a1"
+        },
+        "generator_source_archive_sha256": "12e576dcb0055ccaab88b7065aa766a9fb2dc3b7c9d28c0ef96f82b037046c54"
+      },
+      {
+        "process": "P1",
+        "spectrum": "mH1_m50p0",
+        "sigma_LO_pb": 0.00016119,
+        "integration_error_pb": 1.7615e-07,
+        "relative_integration_error": 0.0010928097276505988,
+        "integration_samples": 224560,
+        "charge_scope": "H2plus_and_H2minus_inclusive",
+        "beam_orders": "both explicitly generated",
+        "receipt_sha256": "42c0b22349f908e1b0d5fcbb0c4dc0cf4e2ef357dd342dcee029d3d8a7bfb6b4",
+        "results_sha256": "c3f94b9716d255272c6aa225d1ab4147bcc97ad293feaa156940e07d335ccc9e",
+        "execution_log_sha256": "ed3057eec81f215d48c8a960a7b7fe4fe5f5477eafc1dbf7640dbbcac5a132a2",
+        "banner_sha256": "437da3c7311fafb556f86fd4d13b7ed94d0506f8ac6ed76cf9517d9f54ad2026",
+        "source_tree_sha256": "c667ff0061bb2a4b274414d084582ec9baf82ee73dd3c1ac330ce556d4246840",
+        "matrix_tree_sha256": "963e17eb094937fb6ad3ea5fe4edcc0ca167f0f4eadf72a32de7876abc565c48",
+        "source_manifest_sha256": "9c515cdb6ac4f401ac24e29f6e256bf142c6ac36354f3bfcb0e4f752b3ce3ac1",
+        "input_sha256": {
+          "cards/d2_NO_mH1_m50p0_baseline_H2.dat": "ff2fa9809aa90b5d88e66c05c0c08f62f8a521537f6d327bfc37f0e558cf7b81",
+          "ufo_audit.json": "f34e20390815cac044fcd284776cf64317f6ffd383676723b30c1d25c52d1cc0",
+          "full_D4_ledger": "4845f9e1e050c92cbffd4705a1edfc66d6b8b210a8ee5bc0613ed6a42a40e4e9",
+          "launcher_implementation": "3d8a5d3d09f47fe4e948705ca09949c52abdd3428672851c1fba4cdeac69f86e",
+          "P1_full/Cards/param_card.dat": "5f19ad5c435aa89f5825a4148fd741b15765c589ddbd3b68438375d646d93f05",
+          "P1_full/Cards/delphes_trigger_CMS.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P1_full/Cards/plot_card_default.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P1_full/Cards/pgs_card_TEV.dat": "523df464434f492b0b915d7d5f22aee198a515696228bf859daba920fb6e2ed1",
+          "P1_full/Cards/delphes_card_CMS.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P1_full/Cards/.plot_card.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P1_full/Cards/ident_card.dat": "15b46b4b543365ee49384d5e0a97856613542746f3f22e7883779c0dab7e9af1",
+          "P1_full/Cards/run_card_default.dat": "df6032c59fada0b7e5db8d231f919050dadc87382077703854c90ce695f05a2f",
+          "P1_full/Cards/me5_configuration.txt": "4926aa6c971ab6eff48a2a6568ee794748c703c269fe514e3206da53f294984e",
+          "P1_full/Cards/replace_card1.dat": "92d5563c5b5f8d68bc0dc3ee8c350eaee7d43d43aca4d9f6c94d3abc0e69a73a",
+          "P1_full/Cards/param_card_default.dat": "31e875b63b30ab9d86ac761f449956eb4ebc246c882df349a7f0d72bf1dda6f0",
+          "P1_full/Cards/madanalysis5_parton_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P1_full/Cards/grid_card.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P1_full/Cards/README": "eb3f39466976b976c213203c4a7d0f92eadd325d4e19903efea6fec1db695d65",
+          "P1_full/Cards/madanalysis5_hadron_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P1_full/Cards/pgs_card_ATLAS.dat": "4abbda9b8fc97521a6b510d200c3657695caea73054516ccac16fccd89f63f43",
+          "P1_full/Cards/delphes_card_ATLAS.dat": "b6a97bcd6e2b4f19e218eaa07b3afe1937d66452f0519de0b8c367eff46fe69d",
+          "P1_full/Cards/delphes_card_default.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P1_full/Cards/pgs_card_default.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P1_full/Cards/madspin_card_default.dat": "b49e3d4d382a4b66bae665d9b5af308de1d426e2aacdd45f0237c8be7a4f3524",
+          "P1_full/Cards/delphes_trigger_ATLAS.dat": "14ceb9ab08ebb8bcab3d750fe8b01ab1e3f44d2eacdc8bc944d6899ccafc3b90",
+          "P1_full/Cards/.delphes_trigger.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P1_full/Cards/grid_card_default.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P1_full/Cards/rivet_card_default.dat": "e1aa7c84051518a747156689b388d0d2428808c629b15b2770f50550d5a1b357",
+          "P1_full/Cards/pgs_card_LHC.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P1_full/Cards/pgs_card_CMS.dat": "2fa767eeb3d1a767e9b4da6f8f35099b6546943f9c3993291c9ab122554d43ca",
+          "P1_full/Cards/pythia8_card_default.dat": "eae9ab88aed291ccfa93aad879abb00c479fe5e852b50a14f48ee2c4ee25a255",
+          "P1_full/Cards/run_card.dat": "e3d6cc8a61d638df0376c6578b3680b6645529d93175e1fdfda006b595064eb6",
+          "P1_full/Cards/proc_card_mg5.dat": "01c02337f32393ee48af96e7bc12d5aba1805e325cb3934b65fa218a50535fea",
+          "P1_full/Cards/reweight_card_default.dat": "809ea5194d409c0ed9ed6bea00eb7280839003412cdde7ef1a2548b002dccb22",
+          "P1_full/Cards/pythia_card_default.dat": "392b11bcb52bfabab408edd2ee691e138f9e4f2d5d5c514287a25f4f29d7215b",
+          "P1_full/Cards/delphes_trigger_default.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info": "175605e0adb3e40a10b1738c01f52fb6f20c8600fa04f50fe362b71d4f5c6a94",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130_0000.dat": "95e0a68f75e9a1cb561e98a5180f27860a9c4dca7113eb8b716ab2558a35e0b2",
+          "P1_full/bin/generate_events": "cdaee2bb97775deec0b989641add69921c8b4e9a10e8187b5a1f694e104aa2a1"
+        },
+        "generator_source_archive_sha256": "12e576dcb0055ccaab88b7065aa766a9fb2dc3b7c9d28c0ef96f82b037046c54",
+        "independent_analytical_pb": 0.00016094395502787894,
+        "independent_deviation_in_integration_errors": 1.3967923481183617
+      },
+      {
+        "process": "P2",
+        "spectrum": "mH1_m50p0",
+        "sigma_LO_pb": 0.0045246,
+        "integration_error_pb": 8.2534e-06,
+        "relative_integration_error": 0.0018241170490209079,
+        "integration_samples": 149642,
+        "charge_scope": "H2plus_and_H2minus_inclusive",
+        "beam_orders": "both explicitly generated",
+        "receipt_sha256": "5a3f0071948daa0175b958f07983f88682c6d0c065769f45de358b9bb9193899",
+        "results_sha256": "2c7879a2e905aa15741d16fb30d76fcb386fd55b5c8600abf9eb7e7419e33ae7",
+        "execution_log_sha256": "f24560018899def06d07680ea9bbe65286df45ce8bceee239c74814740987a45",
+        "banner_sha256": "3c8d7cf503a83d7eb90efced203885b64f79f4e7fbddba7b814c698351de8c7b",
+        "source_tree_sha256": "030b656451fa5597f624ec5379be83fe705ffdb22b9cf0b1af7bfa5a03dcbbad",
+        "matrix_tree_sha256": "ea58654d3f9dd908f0384eb874e7afc909bb7749d398374f7f7a7f33cfcdd1b9",
+        "source_manifest_sha256": "df6ef8af128a67681f8d08708bd697f8fb7154d2e4c0e74d51974cc913eeb1b5",
+        "input_sha256": {
+          "cards/d2_NO_mH1_m50p0_baseline_H2.dat": "ff2fa9809aa90b5d88e66c05c0c08f62f8a521537f6d327bfc37f0e558cf7b81",
+          "ufo_audit.json": "f34e20390815cac044fcd284776cf64317f6ffd383676723b30c1d25c52d1cc0",
+          "full_D4_ledger": "4845f9e1e050c92cbffd4705a1edfc66d6b8b210a8ee5bc0613ed6a42a40e4e9",
+          "launcher_implementation": "3d8a5d3d09f47fe4e948705ca09949c52abdd3428672851c1fba4cdeac69f86e",
+          "P2_full/Cards/param_card.dat": "5f19ad5c435aa89f5825a4148fd741b15765c589ddbd3b68438375d646d93f05",
+          "P2_full/Cards/delphes_trigger_CMS.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P2_full/Cards/plot_card_default.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P2_full/Cards/pgs_card_TEV.dat": "523df464434f492b0b915d7d5f22aee198a515696228bf859daba920fb6e2ed1",
+          "P2_full/Cards/delphes_card_CMS.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P2_full/Cards/.plot_card.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P2_full/Cards/ident_card.dat": "48a8db8d6431f186bb35d8920f2d7709561027eb1e76d020f4a95c9fcafc63b2",
+          "P2_full/Cards/run_card_default.dat": "698e1a6292ff7fb2135a200777bf9e5c491f3d7bd82492aa51da5b08e8cc3ecc",
+          "P2_full/Cards/me5_configuration.txt": "4926aa6c971ab6eff48a2a6568ee794748c703c269fe514e3206da53f294984e",
+          "P2_full/Cards/replace_card1.dat": "92d5563c5b5f8d68bc0dc3ee8c350eaee7d43d43aca4d9f6c94d3abc0e69a73a",
+          "P2_full/Cards/param_card_default.dat": "31e875b63b30ab9d86ac761f449956eb4ebc246c882df349a7f0d72bf1dda6f0",
+          "P2_full/Cards/madanalysis5_parton_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P2_full/Cards/grid_card.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P2_full/Cards/README": "eb3f39466976b976c213203c4a7d0f92eadd325d4e19903efea6fec1db695d65",
+          "P2_full/Cards/madanalysis5_hadron_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P2_full/Cards/pgs_card_ATLAS.dat": "4abbda9b8fc97521a6b510d200c3657695caea73054516ccac16fccd89f63f43",
+          "P2_full/Cards/delphes_card_ATLAS.dat": "b6a97bcd6e2b4f19e218eaa07b3afe1937d66452f0519de0b8c367eff46fe69d",
+          "P2_full/Cards/delphes_card_default.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P2_full/Cards/pgs_card_default.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P2_full/Cards/madspin_card_default.dat": "b49e3d4d382a4b66bae665d9b5af308de1d426e2aacdd45f0237c8be7a4f3524",
+          "P2_full/Cards/delphes_trigger_ATLAS.dat": "14ceb9ab08ebb8bcab3d750fe8b01ab1e3f44d2eacdc8bc944d6899ccafc3b90",
+          "P2_full/Cards/.delphes_trigger.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P2_full/Cards/grid_card_default.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P2_full/Cards/rivet_card_default.dat": "e1aa7c84051518a747156689b388d0d2428808c629b15b2770f50550d5a1b357",
+          "P2_full/Cards/pgs_card_LHC.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P2_full/Cards/pgs_card_CMS.dat": "2fa767eeb3d1a767e9b4da6f8f35099b6546943f9c3993291c9ab122554d43ca",
+          "P2_full/Cards/pythia8_card_default.dat": "eae9ab88aed291ccfa93aad879abb00c479fe5e852b50a14f48ee2c4ee25a255",
+          "P2_full/Cards/run_card.dat": "534313d3cb7ec6a43ca5f8dc0d3fd61f92d82c0557e59bd4b0c1b5fc4149e7bb",
+          "P2_full/Cards/proc_card_mg5.dat": "942bc01a82fe2610b4ef040c6d6c97f5f5f4ef843200fbff95e4d730d1e1ca45",
+          "P2_full/Cards/reweight_card_default.dat": "809ea5194d409c0ed9ed6bea00eb7280839003412cdde7ef1a2548b002dccb22",
+          "P2_full/Cards/pythia_card_default.dat": "392b11bcb52bfabab408edd2ee691e138f9e4f2d5d5c514287a25f4f29d7215b",
+          "P2_full/Cards/delphes_trigger_default.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info": "175605e0adb3e40a10b1738c01f52fb6f20c8600fa04f50fe362b71d4f5c6a94",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130_0000.dat": "95e0a68f75e9a1cb561e98a5180f27860a9c4dca7113eb8b716ab2558a35e0b2",
+          "P2_full/bin/generate_events": "cdaee2bb97775deec0b989641add69921c8b4e9a10e8187b5a1f694e104aa2a1"
+        },
+        "generator_source_archive_sha256": "12e576dcb0055ccaab88b7065aa766a9fb2dc3b7c9d28c0ef96f82b037046c54"
+      },
+      {
+        "process": "P1",
+        "spectrum": "mH1_p50p0",
+        "sigma_LO_pb": 0.00011155,
+        "integration_error_pb": 1.1348e-07,
+        "relative_integration_error": 0.001017301658449126,
+        "integration_samples": 235887,
+        "charge_scope": "H2plus_and_H2minus_inclusive",
+        "beam_orders": "both explicitly generated",
+        "receipt_sha256": "be2dd4ba5d5b6e040dab185e41f2ac4dc7a96a787d77d5653b82eeb5a2eefa84",
+        "results_sha256": "b3effe8f25b5c0ec3deabad3804f167a65047b165791ebbd333ffd5235e3bd7d",
+        "execution_log_sha256": "fa6afd986e9fe82d3e5fc50a8b5ef7964c594771ce403a386472b3fdfc4f41e6",
+        "banner_sha256": "8b2ee66329d8b6be44c31a2a8d0d959cff62df585433ced73eefd246a48ccc50",
+        "source_tree_sha256": "d8a9e946dcfe3081b1ab69bcd27924368a3a3764292e793d99583adfb47e410b",
+        "matrix_tree_sha256": "fde155905f9cdff836dd5d035f6be30d9df0455016a5b64b51b253568442fa59",
+        "source_manifest_sha256": "a2992afdb5e86ff4598d125c7d5127b79c1c8ea033741b6205eea6c623a8d0ae",
+        "input_sha256": {
+          "cards/d2_NO_mH1_p50p0_baseline_H2.dat": "18fb64e9c0089f04bb04ff1d79bfad009131e3bca77e1015998cdb15013a236e",
+          "ufo_audit.json": "f34e20390815cac044fcd284776cf64317f6ffd383676723b30c1d25c52d1cc0",
+          "full_D4_ledger": "4845f9e1e050c92cbffd4705a1edfc66d6b8b210a8ee5bc0613ed6a42a40e4e9",
+          "launcher_implementation": "3d8a5d3d09f47fe4e948705ca09949c52abdd3428672851c1fba4cdeac69f86e",
+          "P1_full/Cards/param_card.dat": "d19cc9280737dae2f5083942b802812ab208d4837113b9421b99d8cff064da5a",
+          "P1_full/Cards/delphes_trigger_CMS.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P1_full/Cards/plot_card_default.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P1_full/Cards/pgs_card_TEV.dat": "523df464434f492b0b915d7d5f22aee198a515696228bf859daba920fb6e2ed1",
+          "P1_full/Cards/delphes_card_CMS.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P1_full/Cards/.plot_card.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P1_full/Cards/ident_card.dat": "15b46b4b543365ee49384d5e0a97856613542746f3f22e7883779c0dab7e9af1",
+          "P1_full/Cards/run_card_default.dat": "df6032c59fada0b7e5db8d231f919050dadc87382077703854c90ce695f05a2f",
+          "P1_full/Cards/me5_configuration.txt": "a6dcff448ab65cd4997e8a93f14f197446f728b4bc60cd66262589647e7cd484",
+          "P1_full/Cards/replace_card1.dat": "92d5563c5b5f8d68bc0dc3ee8c350eaee7d43d43aca4d9f6c94d3abc0e69a73a",
+          "P1_full/Cards/param_card_default.dat": "31e875b63b30ab9d86ac761f449956eb4ebc246c882df349a7f0d72bf1dda6f0",
+          "P1_full/Cards/madanalysis5_parton_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P1_full/Cards/grid_card.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P1_full/Cards/README": "eb3f39466976b976c213203c4a7d0f92eadd325d4e19903efea6fec1db695d65",
+          "P1_full/Cards/madanalysis5_hadron_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P1_full/Cards/pgs_card_ATLAS.dat": "4abbda9b8fc97521a6b510d200c3657695caea73054516ccac16fccd89f63f43",
+          "P1_full/Cards/delphes_card_ATLAS.dat": "b6a97bcd6e2b4f19e218eaa07b3afe1937d66452f0519de0b8c367eff46fe69d",
+          "P1_full/Cards/delphes_card_default.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P1_full/Cards/pgs_card_default.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P1_full/Cards/madspin_card_default.dat": "b49e3d4d382a4b66bae665d9b5af308de1d426e2aacdd45f0237c8be7a4f3524",
+          "P1_full/Cards/delphes_trigger_ATLAS.dat": "14ceb9ab08ebb8bcab3d750fe8b01ab1e3f44d2eacdc8bc944d6899ccafc3b90",
+          "P1_full/Cards/.delphes_trigger.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P1_full/Cards/grid_card_default.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P1_full/Cards/rivet_card_default.dat": "e1aa7c84051518a747156689b388d0d2428808c629b15b2770f50550d5a1b357",
+          "P1_full/Cards/pgs_card_LHC.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P1_full/Cards/pgs_card_CMS.dat": "2fa767eeb3d1a767e9b4da6f8f35099b6546943f9c3993291c9ab122554d43ca",
+          "P1_full/Cards/pythia8_card_default.dat": "eae9ab88aed291ccfa93aad879abb00c479fe5e852b50a14f48ee2c4ee25a255",
+          "P1_full/Cards/run_card.dat": "e3d6cc8a61d638df0376c6578b3680b6645529d93175e1fdfda006b595064eb6",
+          "P1_full/Cards/proc_card_mg5.dat": "01c02337f32393ee48af96e7bc12d5aba1805e325cb3934b65fa218a50535fea",
+          "P1_full/Cards/reweight_card_default.dat": "809ea5194d409c0ed9ed6bea00eb7280839003412cdde7ef1a2548b002dccb22",
+          "P1_full/Cards/pythia_card_default.dat": "392b11bcb52bfabab408edd2ee691e138f9e4f2d5d5c514287a25f4f29d7215b",
+          "P1_full/Cards/delphes_trigger_default.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info": "175605e0adb3e40a10b1738c01f52fb6f20c8600fa04f50fe362b71d4f5c6a94",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130_0000.dat": "95e0a68f75e9a1cb561e98a5180f27860a9c4dca7113eb8b716ab2558a35e0b2",
+          "P1_full/bin/generate_events": "cdaee2bb97775deec0b989641add69921c8b4e9a10e8187b5a1f694e104aa2a1"
+        },
+        "generator_source_archive_sha256": "12e576dcb0055ccaab88b7065aa766a9fb2dc3b7c9d28c0ef96f82b037046c54",
+        "independent_analytical_pb": 0.0001113770796865897,
+        "independent_deviation_in_integration_errors": 1.5237955006195165
+      },
+      {
+        "process": "P2",
+        "spectrum": "mH1_p50p0",
+        "sigma_LO_pb": 0.0045246,
+        "integration_error_pb": 8.2534e-06,
+        "relative_integration_error": 0.0018241170490209079,
+        "integration_samples": 149642,
+        "charge_scope": "H2plus_and_H2minus_inclusive",
+        "beam_orders": "both explicitly generated",
+        "receipt_sha256": "c00915b565f80bb42a0405307ecf22338f3962a0be275729df65417d4900541a",
+        "results_sha256": "fea0224cdb6f610b7c5b9b1786a4256e03e399f1bd61c1841e55cb03aebe54c4",
+        "execution_log_sha256": "955ab5c484010bfe240932e169e944c9a427aab30eb81819893c5e3b0c5545f5",
+        "banner_sha256": "4df0ff12fa35a944f8eb2762e81a20abe379216e957af9782d5f33f050c0ece7",
+        "source_tree_sha256": "c8769b14c2215abefaa2085275f32b9ca83f8240ef8e2b4f262f822b60c05cfd",
+        "matrix_tree_sha256": "fdc404419fbc97f875ab483d1cb1f0665e29ab84a6a15a974623fb6899137732",
+        "source_manifest_sha256": "e1d5b4eeb1780c2c7125b1bf0c836693280597845a414fe19b7abfc158a0ebe2",
+        "input_sha256": {
+          "cards/d2_NO_mH1_p50p0_baseline_H2.dat": "18fb64e9c0089f04bb04ff1d79bfad009131e3bca77e1015998cdb15013a236e",
+          "ufo_audit.json": "f34e20390815cac044fcd284776cf64317f6ffd383676723b30c1d25c52d1cc0",
+          "full_D4_ledger": "4845f9e1e050c92cbffd4705a1edfc66d6b8b210a8ee5bc0613ed6a42a40e4e9",
+          "launcher_implementation": "3d8a5d3d09f47fe4e948705ca09949c52abdd3428672851c1fba4cdeac69f86e",
+          "P2_full/Cards/param_card.dat": "d19cc9280737dae2f5083942b802812ab208d4837113b9421b99d8cff064da5a",
+          "P2_full/Cards/delphes_trigger_CMS.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P2_full/Cards/plot_card_default.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P2_full/Cards/pgs_card_TEV.dat": "523df464434f492b0b915d7d5f22aee198a515696228bf859daba920fb6e2ed1",
+          "P2_full/Cards/delphes_card_CMS.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P2_full/Cards/.plot_card.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P2_full/Cards/ident_card.dat": "48a8db8d6431f186bb35d8920f2d7709561027eb1e76d020f4a95c9fcafc63b2",
+          "P2_full/Cards/run_card_default.dat": "698e1a6292ff7fb2135a200777bf9e5c491f3d7bd82492aa51da5b08e8cc3ecc",
+          "P2_full/Cards/me5_configuration.txt": "a6dcff448ab65cd4997e8a93f14f197446f728b4bc60cd66262589647e7cd484",
+          "P2_full/Cards/replace_card1.dat": "92d5563c5b5f8d68bc0dc3ee8c350eaee7d43d43aca4d9f6c94d3abc0e69a73a",
+          "P2_full/Cards/param_card_default.dat": "31e875b63b30ab9d86ac761f449956eb4ebc246c882df349a7f0d72bf1dda6f0",
+          "P2_full/Cards/madanalysis5_parton_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P2_full/Cards/grid_card.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P2_full/Cards/README": "eb3f39466976b976c213203c4a7d0f92eadd325d4e19903efea6fec1db695d65",
+          "P2_full/Cards/madanalysis5_hadron_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P2_full/Cards/pgs_card_ATLAS.dat": "4abbda9b8fc97521a6b510d200c3657695caea73054516ccac16fccd89f63f43",
+          "P2_full/Cards/delphes_card_ATLAS.dat": "b6a97bcd6e2b4f19e218eaa07b3afe1937d66452f0519de0b8c367eff46fe69d",
+          "P2_full/Cards/delphes_card_default.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P2_full/Cards/pgs_card_default.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P2_full/Cards/madspin_card_default.dat": "b49e3d4d382a4b66bae665d9b5af308de1d426e2aacdd45f0237c8be7a4f3524",
+          "P2_full/Cards/delphes_trigger_ATLAS.dat": "14ceb9ab08ebb8bcab3d750fe8b01ab1e3f44d2eacdc8bc944d6899ccafc3b90",
+          "P2_full/Cards/.delphes_trigger.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P2_full/Cards/grid_card_default.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P2_full/Cards/rivet_card_default.dat": "e1aa7c84051518a747156689b388d0d2428808c629b15b2770f50550d5a1b357",
+          "P2_full/Cards/pgs_card_LHC.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P2_full/Cards/pgs_card_CMS.dat": "2fa767eeb3d1a767e9b4da6f8f35099b6546943f9c3993291c9ab122554d43ca",
+          "P2_full/Cards/pythia8_card_default.dat": "eae9ab88aed291ccfa93aad879abb00c479fe5e852b50a14f48ee2c4ee25a255",
+          "P2_full/Cards/run_card.dat": "534313d3cb7ec6a43ca5f8dc0d3fd61f92d82c0557e59bd4b0c1b5fc4149e7bb",
+          "P2_full/Cards/proc_card_mg5.dat": "942bc01a82fe2610b4ef040c6d6c97f5f5f4ef843200fbff95e4d730d1e1ca45",
+          "P2_full/Cards/reweight_card_default.dat": "809ea5194d409c0ed9ed6bea00eb7280839003412cdde7ef1a2548b002dccb22",
+          "P2_full/Cards/pythia_card_default.dat": "392b11bcb52bfabab408edd2ee691e138f9e4f2d5d5c514287a25f4f29d7215b",
+          "P2_full/Cards/delphes_trigger_default.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info": "175605e0adb3e40a10b1738c01f52fb6f20c8600fa04f50fe362b71d4f5c6a94",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130_0000.dat": "95e0a68f75e9a1cb561e98a5180f27860a9c4dca7113eb8b716ab2558a35e0b2",
+          "P2_full/bin/generate_events": "cdaee2bb97775deec0b989641add69921c8b4e9a10e8187b5a1f694e104aa2a1"
+        },
+        "generator_source_archive_sha256": "12e576dcb0055ccaab88b7065aa766a9fb2dc3b7c9d28c0ef96f82b037046c54"
+      }
+    ],
+    "optional_4FS": {
+      "sigma_LO_pb": null,
+      "reason": "Not executed: separate 4F PDF/mass scheme not configured; overlapping alternative to 5FS, never summed"
+    },
+    "full_D4_ledger_sha256": "4845f9e1e050c92cbffd4705a1edfc66d6b8b210a8ee5bc0613ed6a42a40e4e9",
+    "ufo_audit_sha256": "f34e20390815cac044fcd284776cf64317f6ffd383676723b30c1d25c52d1cc0",
+    "mg_matrix_checks_sha256": "f20cb7156be0c77d2d2ffe37cd908e24c735a2ff54bb7a1424b1327ab6099e97",
+    "analytical_convolution_sha256": "4e3d9e41b02a4b5968f754d13c4670d15c640f2aa76ef1061845e4735a809b60",
+    "official_release_archive_sha256": "f85e69f26440705cff4ac0b0bdaf003882b4089c4fcf0f0b981718139594d981",
+    "label": "LO parton-level reference benchmark; central scales/PDF only; incomplete Zee constraints"
+  },
+  "runtime": {
+    "MG5": "3.6.7",
+    "MG5_tag_commit": "0e6c945573c8bab6246b9a172c219a7754125f51",
+    "source_urls": [
+      "https://github.com/mg5amcnlo/mg5amcnlo/tree/v3.6.7",
+      "https://launchpad.net/mg5amcnlo/3.0/3.6.x/+download/MG5_aMC_v3.6.7.tar.gz",
+      "https://lhapdf.hepforge.org/downloads/?f=LHAPDF-6.5.6.tar.gz"
+    ],
+    "initial_probe_sha256": "5d38879269018aeacdd8960255ca0b0177368cb688f7e977c87045a4dc441995",
+    "LHAPDF": "6.5.6",
+    "Wolfram": "15.0.1",
+    "SARAH": "4.15.4",
+    "compiler": "GNU Fortran 11.4.0 Ubuntu 22.04.3",
+    "official_release_source_comparison": {
+      "official_release": "validation/module8/local/MG5_aMC_v3_6_7",
+      "compared_files": 846,
+      "differences": []
+    },
+    "archive_banner_note": "GitHub tag archive lacks .git and retains create_release.py, triggering a generic unknown-development banner. All 846 relevant Python/Fortran/C++/include source files match the official Launchpad release byte for byte; warning retained in logs.",
+    "LHAPDF_source_archive_sha256": "6b8b7e38dc26a977a24f5a321215b7054c14a4469d04134d70cb93a860eeeea7"
+  },
+  "settings": {
+    "sqrt_s_TeV": 13.6,
+    "beam_energies_GeV": [
+      6800.0,
+      6800.0
+    ],
+    "pdf_set": "NNPDF30_lo_as_0130",
+    "pdf_member": 0,
+    "lhaid": 263000,
+    "PDF_NumFlavors": 5,
+    "PDF_metadata_url": "https://lhapdfsets.web.cern.ch/current/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info",
+    "alpha_s_production": "LHAPDF interpolated LO running, AlphaS_OrderQCD=0, AlphaS_MZ=0.130 at PDF MZ=91.199997 GeV",
+    "alpha_s_PDF_at_700": 0.0982405554086959,
+    "renormalization_scale_GeV": 700.0,
+    "factorization_scales_GeV": [
+      700.0,
+      700.0
+    ],
+    "scale_PDF_policy": "central member and fixed scales only; variations/uncertainties not evaluated; quoted errors are integration only",
+    "quark_kinematics_GeV": {
+      "u": 0.0,
+      "d": 0.0,
+      "s": 0.0,
+      "c": 0.0,
+      "b": 0.0,
+      "t": 172.4
+    },
+    "Yukawa_scheme": "D4 separate one-loop MS quark masses at Q=700 GeV using alpha_s(MZ=91.1876)=0.118, continuous thresholds 4.183/172.4; full complex CKM from exact D4 convention",
+    "mt_Y_GeV": 148.0414556305571,
+    "mb_Y_GeV": 2.69162343131315,
+    "beta_rad": 1.394,
+    "gamma_rad": 1.089,
+    "widths": "H1,H2,top stable on-shell external; WZ=2.4952 GeV; other internal defaults in hashed cards; no decay chains generated",
+    "MW_LHE_card_compatibility": "MASS 24=80.379 added as a computed dependent entry; UFO MW remains internal; no frozen model modification",
+    "cuts": "no hard-process kinematic cuts, no detector/shower/fiducial selection"
+  },
+  "spectra": [
+    {
+      "spectrum": "mH1_m50p0",
+      "physical": {
+        "mh1": 125.0,
+        "mh2": 580.7,
+        "ma": 633.7,
+        "mH1": 250.0,
+        "mH2": 700.0,
+        "alpha": 1.398,
+        "beta": 1.394,
+        "gamma": 1.089,
+        "m12sq": 57700.0,
+        "lc": 4.473,
+        "k1": 1.082,
+        "k2": 0.00398,
+        "k12": -0.001266,
+        "v": 246.21965
+      },
+      "P1": {
+        "process": "P1",
+        "spectrum": "mH1_m50p0",
+        "sigma_LO_pb": 0.00016119,
+        "integration_error_pb": 1.7615e-07,
+        "relative_integration_error": 0.0010928097276505988,
+        "integration_samples": 224560,
+        "charge_scope": "H2plus_and_H2minus_inclusive",
+        "beam_orders": "both explicitly generated",
+        "receipt_sha256": "42c0b22349f908e1b0d5fcbb0c4dc0cf4e2ef357dd342dcee029d3d8a7bfb6b4",
+        "results_sha256": "c3f94b9716d255272c6aa225d1ab4147bcc97ad293feaa156940e07d335ccc9e",
+        "execution_log_sha256": "ed3057eec81f215d48c8a960a7b7fe4fe5f5477eafc1dbf7640dbbcac5a132a2",
+        "banner_sha256": "437da3c7311fafb556f86fd4d13b7ed94d0506f8ac6ed76cf9517d9f54ad2026",
+        "source_tree_sha256": "c667ff0061bb2a4b274414d084582ec9baf82ee73dd3c1ac330ce556d4246840",
+        "matrix_tree_sha256": "963e17eb094937fb6ad3ea5fe4edcc0ca167f0f4eadf72a32de7876abc565c48",
+        "source_manifest_sha256": "9c515cdb6ac4f401ac24e29f6e256bf142c6ac36354f3bfcb0e4f752b3ce3ac1",
+        "input_sha256": {
+          "cards/d2_NO_mH1_m50p0_baseline_H2.dat": "ff2fa9809aa90b5d88e66c05c0c08f62f8a521537f6d327bfc37f0e558cf7b81",
+          "ufo_audit.json": "f34e20390815cac044fcd284776cf64317f6ffd383676723b30c1d25c52d1cc0",
+          "full_D4_ledger": "4845f9e1e050c92cbffd4705a1edfc66d6b8b210a8ee5bc0613ed6a42a40e4e9",
+          "launcher_implementation": "3d8a5d3d09f47fe4e948705ca09949c52abdd3428672851c1fba4cdeac69f86e",
+          "P1_full/Cards/param_card.dat": "5f19ad5c435aa89f5825a4148fd741b15765c589ddbd3b68438375d646d93f05",
+          "P1_full/Cards/delphes_trigger_CMS.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P1_full/Cards/plot_card_default.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P1_full/Cards/pgs_card_TEV.dat": "523df464434f492b0b915d7d5f22aee198a515696228bf859daba920fb6e2ed1",
+          "P1_full/Cards/delphes_card_CMS.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P1_full/Cards/.plot_card.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P1_full/Cards/ident_card.dat": "15b46b4b543365ee49384d5e0a97856613542746f3f22e7883779c0dab7e9af1",
+          "P1_full/Cards/run_card_default.dat": "df6032c59fada0b7e5db8d231f919050dadc87382077703854c90ce695f05a2f",
+          "P1_full/Cards/me5_configuration.txt": "4926aa6c971ab6eff48a2a6568ee794748c703c269fe514e3206da53f294984e",
+          "P1_full/Cards/replace_card1.dat": "92d5563c5b5f8d68bc0dc3ee8c350eaee7d43d43aca4d9f6c94d3abc0e69a73a",
+          "P1_full/Cards/param_card_default.dat": "31e875b63b30ab9d86ac761f449956eb4ebc246c882df349a7f0d72bf1dda6f0",
+          "P1_full/Cards/madanalysis5_parton_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P1_full/Cards/grid_card.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P1_full/Cards/README": "eb3f39466976b976c213203c4a7d0f92eadd325d4e19903efea6fec1db695d65",
+          "P1_full/Cards/madanalysis5_hadron_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P1_full/Cards/pgs_card_ATLAS.dat": "4abbda9b8fc97521a6b510d200c3657695caea73054516ccac16fccd89f63f43",
+          "P1_full/Cards/delphes_card_ATLAS.dat": "b6a97bcd6e2b4f19e218eaa07b3afe1937d66452f0519de0b8c367eff46fe69d",
+          "P1_full/Cards/delphes_card_default.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P1_full/Cards/pgs_card_default.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P1_full/Cards/madspin_card_default.dat": "b49e3d4d382a4b66bae665d9b5af308de1d426e2aacdd45f0237c8be7a4f3524",
+          "P1_full/Cards/delphes_trigger_ATLAS.dat": "14ceb9ab08ebb8bcab3d750fe8b01ab1e3f44d2eacdc8bc944d6899ccafc3b90",
+          "P1_full/Cards/.delphes_trigger.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P1_full/Cards/grid_card_default.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P1_full/Cards/rivet_card_default.dat": "e1aa7c84051518a747156689b388d0d2428808c629b15b2770f50550d5a1b357",
+          "P1_full/Cards/pgs_card_LHC.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P1_full/Cards/pgs_card_CMS.dat": "2fa767eeb3d1a767e9b4da6f8f35099b6546943f9c3993291c9ab122554d43ca",
+          "P1_full/Cards/pythia8_card_default.dat": "eae9ab88aed291ccfa93aad879abb00c479fe5e852b50a14f48ee2c4ee25a255",
+          "P1_full/Cards/run_card.dat": "e3d6cc8a61d638df0376c6578b3680b6645529d93175e1fdfda006b595064eb6",
+          "P1_full/Cards/proc_card_mg5.dat": "01c02337f32393ee48af96e7bc12d5aba1805e325cb3934b65fa218a50535fea",
+          "P1_full/Cards/reweight_card_default.dat": "809ea5194d409c0ed9ed6bea00eb7280839003412cdde7ef1a2548b002dccb22",
+          "P1_full/Cards/pythia_card_default.dat": "392b11bcb52bfabab408edd2ee691e138f9e4f2d5d5c514287a25f4f29d7215b",
+          "P1_full/Cards/delphes_trigger_default.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info": "175605e0adb3e40a10b1738c01f52fb6f20c8600fa04f50fe362b71d4f5c6a94",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130_0000.dat": "95e0a68f75e9a1cb561e98a5180f27860a9c4dca7113eb8b716ab2558a35e0b2",
+          "P1_full/bin/generate_events": "cdaee2bb97775deec0b989641add69921c8b4e9a10e8187b5a1f694e104aa2a1"
+        },
+        "generator_source_archive_sha256": "12e576dcb0055ccaab88b7065aa766a9fb2dc3b7c9d28c0ef96f82b037046c54",
+        "independent_analytical_pb": 0.00016094395502787894,
+        "independent_deviation_in_integration_errors": 1.3967923481183617
+      },
+      "P2": {
+        "process": "P2",
+        "spectrum": "mH1_m50p0",
+        "sigma_LO_pb": 0.0045246,
+        "integration_error_pb": 8.2534e-06,
+        "relative_integration_error": 0.0018241170490209079,
+        "integration_samples": 149642,
+        "charge_scope": "H2plus_and_H2minus_inclusive",
+        "beam_orders": "both explicitly generated",
+        "receipt_sha256": "5a3f0071948daa0175b958f07983f88682c6d0c065769f45de358b9bb9193899",
+        "results_sha256": "2c7879a2e905aa15741d16fb30d76fcb386fd55b5c8600abf9eb7e7419e33ae7",
+        "execution_log_sha256": "f24560018899def06d07680ea9bbe65286df45ce8bceee239c74814740987a45",
+        "banner_sha256": "3c8d7cf503a83d7eb90efced203885b64f79f4e7fbddba7b814c698351de8c7b",
+        "source_tree_sha256": "030b656451fa5597f624ec5379be83fe705ffdb22b9cf0b1af7bfa5a03dcbbad",
+        "matrix_tree_sha256": "ea58654d3f9dd908f0384eb874e7afc909bb7749d398374f7f7a7f33cfcdd1b9",
+        "source_manifest_sha256": "df6ef8af128a67681f8d08708bd697f8fb7154d2e4c0e74d51974cc913eeb1b5",
+        "input_sha256": {
+          "cards/d2_NO_mH1_m50p0_baseline_H2.dat": "ff2fa9809aa90b5d88e66c05c0c08f62f8a521537f6d327bfc37f0e558cf7b81",
+          "ufo_audit.json": "f34e20390815cac044fcd284776cf64317f6ffd383676723b30c1d25c52d1cc0",
+          "full_D4_ledger": "4845f9e1e050c92cbffd4705a1edfc66d6b8b210a8ee5bc0613ed6a42a40e4e9",
+          "launcher_implementation": "3d8a5d3d09f47fe4e948705ca09949c52abdd3428672851c1fba4cdeac69f86e",
+          "P2_full/Cards/param_card.dat": "5f19ad5c435aa89f5825a4148fd741b15765c589ddbd3b68438375d646d93f05",
+          "P2_full/Cards/delphes_trigger_CMS.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P2_full/Cards/plot_card_default.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P2_full/Cards/pgs_card_TEV.dat": "523df464434f492b0b915d7d5f22aee198a515696228bf859daba920fb6e2ed1",
+          "P2_full/Cards/delphes_card_CMS.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P2_full/Cards/.plot_card.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P2_full/Cards/ident_card.dat": "48a8db8d6431f186bb35d8920f2d7709561027eb1e76d020f4a95c9fcafc63b2",
+          "P2_full/Cards/run_card_default.dat": "698e1a6292ff7fb2135a200777bf9e5c491f3d7bd82492aa51da5b08e8cc3ecc",
+          "P2_full/Cards/me5_configuration.txt": "4926aa6c971ab6eff48a2a6568ee794748c703c269fe514e3206da53f294984e",
+          "P2_full/Cards/replace_card1.dat": "92d5563c5b5f8d68bc0dc3ee8c350eaee7d43d43aca4d9f6c94d3abc0e69a73a",
+          "P2_full/Cards/param_card_default.dat": "31e875b63b30ab9d86ac761f449956eb4ebc246c882df349a7f0d72bf1dda6f0",
+          "P2_full/Cards/madanalysis5_parton_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P2_full/Cards/grid_card.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P2_full/Cards/README": "eb3f39466976b976c213203c4a7d0f92eadd325d4e19903efea6fec1db695d65",
+          "P2_full/Cards/madanalysis5_hadron_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P2_full/Cards/pgs_card_ATLAS.dat": "4abbda9b8fc97521a6b510d200c3657695caea73054516ccac16fccd89f63f43",
+          "P2_full/Cards/delphes_card_ATLAS.dat": "b6a97bcd6e2b4f19e218eaa07b3afe1937d66452f0519de0b8c367eff46fe69d",
+          "P2_full/Cards/delphes_card_default.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P2_full/Cards/pgs_card_default.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P2_full/Cards/madspin_card_default.dat": "b49e3d4d382a4b66bae665d9b5af308de1d426e2aacdd45f0237c8be7a4f3524",
+          "P2_full/Cards/delphes_trigger_ATLAS.dat": "14ceb9ab08ebb8bcab3d750fe8b01ab1e3f44d2eacdc8bc944d6899ccafc3b90",
+          "P2_full/Cards/.delphes_trigger.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P2_full/Cards/grid_card_default.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P2_full/Cards/rivet_card_default.dat": "e1aa7c84051518a747156689b388d0d2428808c629b15b2770f50550d5a1b357",
+          "P2_full/Cards/pgs_card_LHC.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P2_full/Cards/pgs_card_CMS.dat": "2fa767eeb3d1a767e9b4da6f8f35099b6546943f9c3993291c9ab122554d43ca",
+          "P2_full/Cards/pythia8_card_default.dat": "eae9ab88aed291ccfa93aad879abb00c479fe5e852b50a14f48ee2c4ee25a255",
+          "P2_full/Cards/run_card.dat": "534313d3cb7ec6a43ca5f8dc0d3fd61f92d82c0557e59bd4b0c1b5fc4149e7bb",
+          "P2_full/Cards/proc_card_mg5.dat": "942bc01a82fe2610b4ef040c6d6c97f5f5f4ef843200fbff95e4d730d1e1ca45",
+          "P2_full/Cards/reweight_card_default.dat": "809ea5194d409c0ed9ed6bea00eb7280839003412cdde7ef1a2548b002dccb22",
+          "P2_full/Cards/pythia_card_default.dat": "392b11bcb52bfabab408edd2ee691e138f9e4f2d5d5c514287a25f4f29d7215b",
+          "P2_full/Cards/delphes_trigger_default.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info": "175605e0adb3e40a10b1738c01f52fb6f20c8600fa04f50fe362b71d4f5c6a94",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130_0000.dat": "95e0a68f75e9a1cb561e98a5180f27860a9c4dca7113eb8b716ab2558a35e0b2",
+          "P2_full/bin/generate_events": "cdaee2bb97775deec0b989641add69921c8b4e9a10e8187b5a1f694e104aa2a1"
+        },
+        "generator_source_archive_sha256": "12e576dcb0055ccaab88b7065aa766a9fb2dc3b7c9d28c0ef96f82b037046c54"
+      },
+      "P3": {
+        "sigma_LO_pb": null,
+        "reason": "Not executed: separate 4F PDF/mass scheme not configured; overlapping alternative to 5FS, never summed"
+      }
+    },
+    {
+      "spectrum": "source",
+      "physical": {
+        "mh1": 125.0,
+        "mh2": 580.7,
+        "ma": 633.7,
+        "mH1": 300.0,
+        "mH2": 700.0,
+        "alpha": 1.398,
+        "beta": 1.394,
+        "gamma": 1.089,
+        "m12sq": 57700.0,
+        "lc": 4.473,
+        "k1": 1.082,
+        "k2": 0.00398,
+        "k12": -0.001266,
+        "v": 246.21965
+      },
+      "P1": {
+        "process": "P1",
+        "spectrum": "source",
+        "sigma_LO_pb": 0.0001344,
+        "integration_error_pb": 1.3494e-07,
+        "relative_integration_error": 0.0010040178571428572,
+        "integration_samples": 235800,
+        "charge_scope": "H2plus_and_H2minus_inclusive",
+        "beam_orders": "both explicitly generated",
+        "receipt_sha256": "53bd44ca5e83b9c9aa2b362cfaf91ac682bfc8725d0affa32f11da2cdeaf25e7",
+        "results_sha256": "a95f6b1cf020af05becbbe7b4144163fed3d4d73f92a5b81f9cfbd8a58a3390c",
+        "execution_log_sha256": "7b97572306b3757d6f0ef5abd0bba0b9e6d0ef98e47620df22e3f72be5ca0060",
+        "banner_sha256": "82188c46ed27a6f1d0d60de620a4fc03f05e3e7b33492ea704beeb9d6be2fc39",
+        "source_tree_sha256": "df8526b132721d37eda2db4c1b01c572ea6eead10c168beee5dfaf1087a176a2",
+        "matrix_tree_sha256": "c1548d4d639bc4cdfb320ff671dc0dbd2f3bfa3534091b2307f7b7d5bd357d1d",
+        "source_manifest_sha256": "5188d5ecc7906e1c8e82ef057d98ca8c57313da0796fb8d46d1df6998b643d8d",
+        "input_sha256": {
+          "cards/d2_NO_source_baseline_H2.dat": "db7b06427d5d913a5ae2dda2ff80e50b3aa173e00e23b3091e241e67b7e59f07",
+          "ufo_audit.json": "f34e20390815cac044fcd284776cf64317f6ffd383676723b30c1d25c52d1cc0",
+          "full_D4_ledger": "4845f9e1e050c92cbffd4705a1edfc66d6b8b210a8ee5bc0613ed6a42a40e4e9",
+          "launcher_implementation": "3d8a5d3d09f47fe4e948705ca09949c52abdd3428672851c1fba4cdeac69f86e",
+          "P1_full/Cards/param_card.dat": "5cdecc55beb00a578ac331f2cbca1ae190593f4cef75b933da5304fb3051b75e",
+          "P1_full/Cards/delphes_trigger_CMS.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P1_full/Cards/plot_card_default.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P1_full/Cards/pgs_card_TEV.dat": "523df464434f492b0b915d7d5f22aee198a515696228bf859daba920fb6e2ed1",
+          "P1_full/Cards/delphes_card_CMS.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P1_full/Cards/.plot_card.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P1_full/Cards/ident_card.dat": "15b46b4b543365ee49384d5e0a97856613542746f3f22e7883779c0dab7e9af1",
+          "P1_full/Cards/run_card_default.dat": "df6032c59fada0b7e5db8d231f919050dadc87382077703854c90ce695f05a2f",
+          "P1_full/Cards/me5_configuration.txt": "f42bcbe931fef0de2e70f525a44c899ed4eef6f51cc17607e9cb2a2c68010b5e",
+          "P1_full/Cards/replace_card1.dat": "92d5563c5b5f8d68bc0dc3ee8c350eaee7d43d43aca4d9f6c94d3abc0e69a73a",
+          "P1_full/Cards/param_card_default.dat": "31e875b63b30ab9d86ac761f449956eb4ebc246c882df349a7f0d72bf1dda6f0",
+          "P1_full/Cards/madanalysis5_parton_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P1_full/Cards/grid_card.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P1_full/Cards/README": "eb3f39466976b976c213203c4a7d0f92eadd325d4e19903efea6fec1db695d65",
+          "P1_full/Cards/madanalysis5_hadron_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P1_full/Cards/pgs_card_ATLAS.dat": "4abbda9b8fc97521a6b510d200c3657695caea73054516ccac16fccd89f63f43",
+          "P1_full/Cards/delphes_card_ATLAS.dat": "b6a97bcd6e2b4f19e218eaa07b3afe1937d66452f0519de0b8c367eff46fe69d",
+          "P1_full/Cards/delphes_card_default.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P1_full/Cards/pgs_card_default.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P1_full/Cards/madspin_card_default.dat": "b49e3d4d382a4b66bae665d9b5af308de1d426e2aacdd45f0237c8be7a4f3524",
+          "P1_full/Cards/delphes_trigger_ATLAS.dat": "14ceb9ab08ebb8bcab3d750fe8b01ab1e3f44d2eacdc8bc944d6899ccafc3b90",
+          "P1_full/Cards/.delphes_trigger.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P1_full/Cards/grid_card_default.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P1_full/Cards/rivet_card_default.dat": "e1aa7c84051518a747156689b388d0d2428808c629b15b2770f50550d5a1b357",
+          "P1_full/Cards/pgs_card_LHC.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P1_full/Cards/pgs_card_CMS.dat": "2fa767eeb3d1a767e9b4da6f8f35099b6546943f9c3993291c9ab122554d43ca",
+          "P1_full/Cards/pythia8_card_default.dat": "eae9ab88aed291ccfa93aad879abb00c479fe5e852b50a14f48ee2c4ee25a255",
+          "P1_full/Cards/run_card.dat": "e3d6cc8a61d638df0376c6578b3680b6645529d93175e1fdfda006b595064eb6",
+          "P1_full/Cards/proc_card_mg5.dat": "01c02337f32393ee48af96e7bc12d5aba1805e325cb3934b65fa218a50535fea",
+          "P1_full/Cards/reweight_card_default.dat": "809ea5194d409c0ed9ed6bea00eb7280839003412cdde7ef1a2548b002dccb22",
+          "P1_full/Cards/pythia_card_default.dat": "392b11bcb52bfabab408edd2ee691e138f9e4f2d5d5c514287a25f4f29d7215b",
+          "P1_full/Cards/delphes_trigger_default.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info": "175605e0adb3e40a10b1738c01f52fb6f20c8600fa04f50fe362b71d4f5c6a94",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130_0000.dat": "95e0a68f75e9a1cb561e98a5180f27860a9c4dca7113eb8b716ab2558a35e0b2",
+          "P1_full/bin/generate_events": "cdaee2bb97775deec0b989641add69921c8b4e9a10e8187b5a1f694e104aa2a1"
+        },
+        "generator_source_archive_sha256": "12e576dcb0055ccaab88b7065aa766a9fb2dc3b7c9d28c0ef96f82b037046c54",
+        "independent_analytical_pb": 0.00013419314953467295,
+        "independent_deviation_in_integration_errors": 1.5329069610718284
+      },
+      "P2": {
+        "process": "P2",
+        "spectrum": "source",
+        "sigma_LO_pb": 0.0045246,
+        "integration_error_pb": 8.2534e-06,
+        "relative_integration_error": 0.0018241170490209079,
+        "integration_samples": 149642,
+        "charge_scope": "H2plus_and_H2minus_inclusive",
+        "beam_orders": "both explicitly generated",
+        "receipt_sha256": "4636a02efe8dcc1d5c53e269530b99be0c5c5320df68d984bc3c1cfa5fdbce44",
+        "results_sha256": "e3e82d0be27b8c1c0b0d9d0051f2906af5f1fdf2c1147d3e85c4f314ceb6f252",
+        "execution_log_sha256": "c39b6fd978ed06e85f9ecaddd11d2e868b84a91453793426c19e4e0248e99409",
+        "banner_sha256": "415de27247a6732bc2020bd34a07020b25eb2dcc1b2a381cf99b3ebe3ade5d38",
+        "source_tree_sha256": "e494aab08dfc5bb4dacc57fe6c611dea82400ccf1b4f11d3bc7bdccd15a10f26",
+        "matrix_tree_sha256": "beb96c8fcbefd01b123bc732090950c93d8e98d1390e97dc5c1618bdd475427a",
+        "source_manifest_sha256": "8e505312e67383870696816257325e7f702092f60afc25a7e6f9ad31ea1282b1",
+        "input_sha256": {
+          "cards/d2_NO_source_baseline_H2.dat": "db7b06427d5d913a5ae2dda2ff80e50b3aa173e00e23b3091e241e67b7e59f07",
+          "ufo_audit.json": "f34e20390815cac044fcd284776cf64317f6ffd383676723b30c1d25c52d1cc0",
+          "full_D4_ledger": "4845f9e1e050c92cbffd4705a1edfc66d6b8b210a8ee5bc0613ed6a42a40e4e9",
+          "launcher_implementation": "3d8a5d3d09f47fe4e948705ca09949c52abdd3428672851c1fba4cdeac69f86e",
+          "P2_full/Cards/param_card.dat": "5cdecc55beb00a578ac331f2cbca1ae190593f4cef75b933da5304fb3051b75e",
+          "P2_full/Cards/delphes_trigger_CMS.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P2_full/Cards/plot_card_default.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P2_full/Cards/pgs_card_TEV.dat": "523df464434f492b0b915d7d5f22aee198a515696228bf859daba920fb6e2ed1",
+          "P2_full/Cards/delphes_card_CMS.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P2_full/Cards/.plot_card.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P2_full/Cards/ident_card.dat": "48a8db8d6431f186bb35d8920f2d7709561027eb1e76d020f4a95c9fcafc63b2",
+          "P2_full/Cards/run_card_default.dat": "698e1a6292ff7fb2135a200777bf9e5c491f3d7bd82492aa51da5b08e8cc3ecc",
+          "P2_full/Cards/me5_configuration.txt": "f42bcbe931fef0de2e70f525a44c899ed4eef6f51cc17607e9cb2a2c68010b5e",
+          "P2_full/Cards/replace_card1.dat": "92d5563c5b5f8d68bc0dc3ee8c350eaee7d43d43aca4d9f6c94d3abc0e69a73a",
+          "P2_full/Cards/param_card_default.dat": "31e875b63b30ab9d86ac761f449956eb4ebc246c882df349a7f0d72bf1dda6f0",
+          "P2_full/Cards/madanalysis5_parton_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P2_full/Cards/grid_card.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P2_full/Cards/README": "eb3f39466976b976c213203c4a7d0f92eadd325d4e19903efea6fec1db695d65",
+          "P2_full/Cards/madanalysis5_hadron_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P2_full/Cards/pgs_card_ATLAS.dat": "4abbda9b8fc97521a6b510d200c3657695caea73054516ccac16fccd89f63f43",
+          "P2_full/Cards/delphes_card_ATLAS.dat": "b6a97bcd6e2b4f19e218eaa07b3afe1937d66452f0519de0b8c367eff46fe69d",
+          "P2_full/Cards/delphes_card_default.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P2_full/Cards/pgs_card_default.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P2_full/Cards/madspin_card_default.dat": "b49e3d4d382a4b66bae665d9b5af308de1d426e2aacdd45f0237c8be7a4f3524",
+          "P2_full/Cards/delphes_trigger_ATLAS.dat": "14ceb9ab08ebb8bcab3d750fe8b01ab1e3f44d2eacdc8bc944d6899ccafc3b90",
+          "P2_full/Cards/.delphes_trigger.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P2_full/Cards/grid_card_default.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P2_full/Cards/rivet_card_default.dat": "e1aa7c84051518a747156689b388d0d2428808c629b15b2770f50550d5a1b357",
+          "P2_full/Cards/pgs_card_LHC.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P2_full/Cards/pgs_card_CMS.dat": "2fa767eeb3d1a767e9b4da6f8f35099b6546943f9c3993291c9ab122554d43ca",
+          "P2_full/Cards/pythia8_card_default.dat": "eae9ab88aed291ccfa93aad879abb00c479fe5e852b50a14f48ee2c4ee25a255",
+          "P2_full/Cards/run_card.dat": "534313d3cb7ec6a43ca5f8dc0d3fd61f92d82c0557e59bd4b0c1b5fc4149e7bb",
+          "P2_full/Cards/proc_card_mg5.dat": "942bc01a82fe2610b4ef040c6d6c97f5f5f4ef843200fbff95e4d730d1e1ca45",
+          "P2_full/Cards/reweight_card_default.dat": "809ea5194d409c0ed9ed6bea00eb7280839003412cdde7ef1a2548b002dccb22",
+          "P2_full/Cards/pythia_card_default.dat": "392b11bcb52bfabab408edd2ee691e138f9e4f2d5d5c514287a25f4f29d7215b",
+          "P2_full/Cards/delphes_trigger_default.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info": "175605e0adb3e40a10b1738c01f52fb6f20c8600fa04f50fe362b71d4f5c6a94",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130_0000.dat": "95e0a68f75e9a1cb561e98a5180f27860a9c4dca7113eb8b716ab2558a35e0b2",
+          "P2_full/bin/generate_events": "cdaee2bb97775deec0b989641add69921c8b4e9a10e8187b5a1f694e104aa2a1"
+        },
+        "generator_source_archive_sha256": "12e576dcb0055ccaab88b7065aa766a9fb2dc3b7c9d28c0ef96f82b037046c54"
+      },
+      "P3": {
+        "sigma_LO_pb": null,
+        "reason": "Not executed: separate 4F PDF/mass scheme not configured; overlapping alternative to 5FS, never summed"
+      }
+    },
+    {
+      "spectrum": "mH1_p50p0",
+      "physical": {
+        "mh1": 125.0,
+        "mh2": 580.7,
+        "ma": 633.7,
+        "mH1": 350.0,
+        "mH2": 700.0,
+        "alpha": 1.398,
+        "beta": 1.394,
+        "gamma": 1.089,
+        "m12sq": 57700.0,
+        "lc": 4.473,
+        "k1": 1.082,
+        "k2": 0.00398,
+        "k12": -0.001266,
+        "v": 246.21965
+      },
+      "P1": {
+        "process": "P1",
+        "spectrum": "mH1_p50p0",
+        "sigma_LO_pb": 0.00011155,
+        "integration_error_pb": 1.1348e-07,
+        "relative_integration_error": 0.001017301658449126,
+        "integration_samples": 235887,
+        "charge_scope": "H2plus_and_H2minus_inclusive",
+        "beam_orders": "both explicitly generated",
+        "receipt_sha256": "be2dd4ba5d5b6e040dab185e41f2ac4dc7a96a787d77d5653b82eeb5a2eefa84",
+        "results_sha256": "b3effe8f25b5c0ec3deabad3804f167a65047b165791ebbd333ffd5235e3bd7d",
+        "execution_log_sha256": "fa6afd986e9fe82d3e5fc50a8b5ef7964c594771ce403a386472b3fdfc4f41e6",
+        "banner_sha256": "8b2ee66329d8b6be44c31a2a8d0d959cff62df585433ced73eefd246a48ccc50",
+        "source_tree_sha256": "d8a9e946dcfe3081b1ab69bcd27924368a3a3764292e793d99583adfb47e410b",
+        "matrix_tree_sha256": "fde155905f9cdff836dd5d035f6be30d9df0455016a5b64b51b253568442fa59",
+        "source_manifest_sha256": "a2992afdb5e86ff4598d125c7d5127b79c1c8ea033741b6205eea6c623a8d0ae",
+        "input_sha256": {
+          "cards/d2_NO_mH1_p50p0_baseline_H2.dat": "18fb64e9c0089f04bb04ff1d79bfad009131e3bca77e1015998cdb15013a236e",
+          "ufo_audit.json": "f34e20390815cac044fcd284776cf64317f6ffd383676723b30c1d25c52d1cc0",
+          "full_D4_ledger": "4845f9e1e050c92cbffd4705a1edfc66d6b8b210a8ee5bc0613ed6a42a40e4e9",
+          "launcher_implementation": "3d8a5d3d09f47fe4e948705ca09949c52abdd3428672851c1fba4cdeac69f86e",
+          "P1_full/Cards/param_card.dat": "d19cc9280737dae2f5083942b802812ab208d4837113b9421b99d8cff064da5a",
+          "P1_full/Cards/delphes_trigger_CMS.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P1_full/Cards/plot_card_default.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P1_full/Cards/pgs_card_TEV.dat": "523df464434f492b0b915d7d5f22aee198a515696228bf859daba920fb6e2ed1",
+          "P1_full/Cards/delphes_card_CMS.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P1_full/Cards/.plot_card.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P1_full/Cards/ident_card.dat": "15b46b4b543365ee49384d5e0a97856613542746f3f22e7883779c0dab7e9af1",
+          "P1_full/Cards/run_card_default.dat": "df6032c59fada0b7e5db8d231f919050dadc87382077703854c90ce695f05a2f",
+          "P1_full/Cards/me5_configuration.txt": "a6dcff448ab65cd4997e8a93f14f197446f728b4bc60cd66262589647e7cd484",
+          "P1_full/Cards/replace_card1.dat": "92d5563c5b5f8d68bc0dc3ee8c350eaee7d43d43aca4d9f6c94d3abc0e69a73a",
+          "P1_full/Cards/param_card_default.dat": "31e875b63b30ab9d86ac761f449956eb4ebc246c882df349a7f0d72bf1dda6f0",
+          "P1_full/Cards/madanalysis5_parton_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P1_full/Cards/grid_card.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P1_full/Cards/README": "eb3f39466976b976c213203c4a7d0f92eadd325d4e19903efea6fec1db695d65",
+          "P1_full/Cards/madanalysis5_hadron_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P1_full/Cards/pgs_card_ATLAS.dat": "4abbda9b8fc97521a6b510d200c3657695caea73054516ccac16fccd89f63f43",
+          "P1_full/Cards/delphes_card_ATLAS.dat": "b6a97bcd6e2b4f19e218eaa07b3afe1937d66452f0519de0b8c367eff46fe69d",
+          "P1_full/Cards/delphes_card_default.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P1_full/Cards/pgs_card_default.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P1_full/Cards/madspin_card_default.dat": "b49e3d4d382a4b66bae665d9b5af308de1d426e2aacdd45f0237c8be7a4f3524",
+          "P1_full/Cards/delphes_trigger_ATLAS.dat": "14ceb9ab08ebb8bcab3d750fe8b01ab1e3f44d2eacdc8bc944d6899ccafc3b90",
+          "P1_full/Cards/.delphes_trigger.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P1_full/Cards/grid_card_default.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P1_full/Cards/rivet_card_default.dat": "e1aa7c84051518a747156689b388d0d2428808c629b15b2770f50550d5a1b357",
+          "P1_full/Cards/pgs_card_LHC.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P1_full/Cards/pgs_card_CMS.dat": "2fa767eeb3d1a767e9b4da6f8f35099b6546943f9c3993291c9ab122554d43ca",
+          "P1_full/Cards/pythia8_card_default.dat": "eae9ab88aed291ccfa93aad879abb00c479fe5e852b50a14f48ee2c4ee25a255",
+          "P1_full/Cards/run_card.dat": "e3d6cc8a61d638df0376c6578b3680b6645529d93175e1fdfda006b595064eb6",
+          "P1_full/Cards/proc_card_mg5.dat": "01c02337f32393ee48af96e7bc12d5aba1805e325cb3934b65fa218a50535fea",
+          "P1_full/Cards/reweight_card_default.dat": "809ea5194d409c0ed9ed6bea00eb7280839003412cdde7ef1a2548b002dccb22",
+          "P1_full/Cards/pythia_card_default.dat": "392b11bcb52bfabab408edd2ee691e138f9e4f2d5d5c514287a25f4f29d7215b",
+          "P1_full/Cards/delphes_trigger_default.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info": "175605e0adb3e40a10b1738c01f52fb6f20c8600fa04f50fe362b71d4f5c6a94",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130_0000.dat": "95e0a68f75e9a1cb561e98a5180f27860a9c4dca7113eb8b716ab2558a35e0b2",
+          "P1_full/bin/generate_events": "cdaee2bb97775deec0b989641add69921c8b4e9a10e8187b5a1f694e104aa2a1"
+        },
+        "generator_source_archive_sha256": "12e576dcb0055ccaab88b7065aa766a9fb2dc3b7c9d28c0ef96f82b037046c54",
+        "independent_analytical_pb": 0.0001113770796865897,
+        "independent_deviation_in_integration_errors": 1.5237955006195165
+      },
+      "P2": {
+        "process": "P2",
+        "spectrum": "mH1_p50p0",
+        "sigma_LO_pb": 0.0045246,
+        "integration_error_pb": 8.2534e-06,
+        "relative_integration_error": 0.0018241170490209079,
+        "integration_samples": 149642,
+        "charge_scope": "H2plus_and_H2minus_inclusive",
+        "beam_orders": "both explicitly generated",
+        "receipt_sha256": "c00915b565f80bb42a0405307ecf22338f3962a0be275729df65417d4900541a",
+        "results_sha256": "fea0224cdb6f610b7c5b9b1786a4256e03e399f1bd61c1841e55cb03aebe54c4",
+        "execution_log_sha256": "955ab5c484010bfe240932e169e944c9a427aab30eb81819893c5e3b0c5545f5",
+        "banner_sha256": "4df0ff12fa35a944f8eb2762e81a20abe379216e957af9782d5f33f050c0ece7",
+        "source_tree_sha256": "c8769b14c2215abefaa2085275f32b9ca83f8240ef8e2b4f262f822b60c05cfd",
+        "matrix_tree_sha256": "fdc404419fbc97f875ab483d1cb1f0665e29ab84a6a15a974623fb6899137732",
+        "source_manifest_sha256": "e1d5b4eeb1780c2c7125b1bf0c836693280597845a414fe19b7abfc158a0ebe2",
+        "input_sha256": {
+          "cards/d2_NO_mH1_p50p0_baseline_H2.dat": "18fb64e9c0089f04bb04ff1d79bfad009131e3bca77e1015998cdb15013a236e",
+          "ufo_audit.json": "f34e20390815cac044fcd284776cf64317f6ffd383676723b30c1d25c52d1cc0",
+          "full_D4_ledger": "4845f9e1e050c92cbffd4705a1edfc66d6b8b210a8ee5bc0613ed6a42a40e4e9",
+          "launcher_implementation": "3d8a5d3d09f47fe4e948705ca09949c52abdd3428672851c1fba4cdeac69f86e",
+          "P2_full/Cards/param_card.dat": "d19cc9280737dae2f5083942b802812ab208d4837113b9421b99d8cff064da5a",
+          "P2_full/Cards/delphes_trigger_CMS.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P2_full/Cards/plot_card_default.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P2_full/Cards/pgs_card_TEV.dat": "523df464434f492b0b915d7d5f22aee198a515696228bf859daba920fb6e2ed1",
+          "P2_full/Cards/delphes_card_CMS.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P2_full/Cards/.plot_card.dat": "e0991ee24eb7cab4ca668da332ed637806e6473b32a929b2bd4f86bafab1d4b0",
+          "P2_full/Cards/ident_card.dat": "48a8db8d6431f186bb35d8920f2d7709561027eb1e76d020f4a95c9fcafc63b2",
+          "P2_full/Cards/run_card_default.dat": "698e1a6292ff7fb2135a200777bf9e5c491f3d7bd82492aa51da5b08e8cc3ecc",
+          "P2_full/Cards/me5_configuration.txt": "a6dcff448ab65cd4997e8a93f14f197446f728b4bc60cd66262589647e7cd484",
+          "P2_full/Cards/replace_card1.dat": "92d5563c5b5f8d68bc0dc3ee8c350eaee7d43d43aca4d9f6c94d3abc0e69a73a",
+          "P2_full/Cards/param_card_default.dat": "31e875b63b30ab9d86ac761f449956eb4ebc246c882df349a7f0d72bf1dda6f0",
+          "P2_full/Cards/madanalysis5_parton_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P2_full/Cards/grid_card.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P2_full/Cards/README": "eb3f39466976b976c213203c4a7d0f92eadd325d4e19903efea6fec1db695d65",
+          "P2_full/Cards/madanalysis5_hadron_card_default.dat": "46f8749617b7606256363a757f5c69896a2b812ab2b1bb7be8c7ca8b64f6000c",
+          "P2_full/Cards/pgs_card_ATLAS.dat": "4abbda9b8fc97521a6b510d200c3657695caea73054516ccac16fccd89f63f43",
+          "P2_full/Cards/delphes_card_ATLAS.dat": "b6a97bcd6e2b4f19e218eaa07b3afe1937d66452f0519de0b8c367eff46fe69d",
+          "P2_full/Cards/delphes_card_default.dat": "e363da8be306a024159b52547a80045bc48b770424fb5372ffc2ff8f1f5028c0",
+          "P2_full/Cards/pgs_card_default.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P2_full/Cards/madspin_card_default.dat": "b49e3d4d382a4b66bae665d9b5af308de1d426e2aacdd45f0237c8be7a4f3524",
+          "P2_full/Cards/delphes_trigger_ATLAS.dat": "14ceb9ab08ebb8bcab3d750fe8b01ab1e3f44d2eacdc8bc944d6899ccafc3b90",
+          "P2_full/Cards/.delphes_trigger.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "P2_full/Cards/grid_card_default.dat": "99aff9f047a6dfbaa59345cc56cb01cf422bb65eef996b6af6515f625e1c13b7",
+          "P2_full/Cards/rivet_card_default.dat": "e1aa7c84051518a747156689b388d0d2428808c629b15b2770f50550d5a1b357",
+          "P2_full/Cards/pgs_card_LHC.dat": "1e166308920fbb153706ec4338c81c2ae52753f8e3b8ae19bea32cc8618f85d4",
+          "P2_full/Cards/pgs_card_CMS.dat": "2fa767eeb3d1a767e9b4da6f8f35099b6546943f9c3993291c9ab122554d43ca",
+          "P2_full/Cards/pythia8_card_default.dat": "eae9ab88aed291ccfa93aad879abb00c479fe5e852b50a14f48ee2c4ee25a255",
+          "P2_full/Cards/run_card.dat": "534313d3cb7ec6a43ca5f8dc0d3fd61f92d82c0557e59bd4b0c1b5fc4149e7bb",
+          "P2_full/Cards/proc_card_mg5.dat": "942bc01a82fe2610b4ef040c6d6c97f5f5f4ef843200fbff95e4d730d1e1ca45",
+          "P2_full/Cards/reweight_card_default.dat": "809ea5194d409c0ed9ed6bea00eb7280839003412cdde7ef1a2548b002dccb22",
+          "P2_full/Cards/pythia_card_default.dat": "392b11bcb52bfabab408edd2ee691e138f9e4f2d5d5c514287a25f4f29d7215b",
+          "P2_full/Cards/delphes_trigger_default.dat": "dd9e5ef49193a9140ae577fb452af122b0a45a843043e482dfd43c1afd755475",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info": "175605e0adb3e40a10b1738c01f52fb6f20c8600fa04f50fe362b71d4f5c6a94",
+          "pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130_0000.dat": "95e0a68f75e9a1cb561e98a5180f27860a9c4dca7113eb8b716ab2558a35e0b2",
+          "P2_full/bin/generate_events": "cdaee2bb97775deec0b989641add69921c8b4e9a10e8187b5a1f694e104aa2a1"
+        },
+        "generator_source_archive_sha256": "12e576dcb0055ccaab88b7065aa766a9fb2dc3b7c9d28c0ef96f82b037046c54"
+      },
+      "P3": {
+        "sigma_LO_pb": null,
+        "reason": "Not executed: separate 4F PDF/mass scheme not configured; overlapping alternative to 5FS, never summed"
+      }
+    }
+  ],
+  "tree_BR_composition": [
+    {
+      "benchmark_id": "d2_NO_source_baseline",
+      "spectrum": "source",
+      "family": "baseline",
+      "BR2_H1Z": 0.8087627985129457,
+      "BR1_tb": 0.9964794284816165,
+      "single_H1_product": 0.805915491239373,
+      "two_H1_product": 0.8030782081146917,
+      "rates": {
+        "H1H2_mixed_DY_Z_only": {
+          "tree_BR_product": 0.8030782081146915,
+          "conditional_sigma_times_tree_BR_pb": 0.00010793371117061453,
+          "integration_error_only_pb": 1.0836737340299648e-07
+        },
+        "tbH2_5FS": {
+          "tree_BR_product": 0.805915491239373,
+          "conditional_sigma_times_tree_BR_pb": 0.003646445231661667,
+          "integration_error_only_pb": 6.651542915395041e-06
+        }
+      }
+    },
+    {
+      "benchmark_id": "d2_NO_source_index0",
+      "spectrum": "source",
+      "family": "index0",
+      "BR2_H1Z": 0.8087627985075113,
+      "BR1_tb": 0.9964794283219196,
+      "single_H1_product": 0.8059154911048008,
+      "two_H1_product": 0.803078207851891,
+      "rates": {
+        "H1H2_mixed_DY_Z_only": {
+          "tree_BR_product": 0.8030782078518909,
+          "conditional_sigma_times_tree_BR_pb": 0.00010793371113529412,
+          "integration_error_only_pb": 1.0836737336753414e-07
+        },
+        "tbH2_5FS": {
+          "tree_BR_product": 0.8059154911048008,
+          "conditional_sigma_times_tree_BR_pb": 0.003646445231052782,
+          "integration_error_only_pb": 6.651542914284363e-06
+        }
+      }
+    },
+    {
+      "benchmark_id": "d2_NO_source_index2",
+      "spectrum": "source",
+      "family": "index2",
+      "BR2_H1Z": 0.8087627984883959,
+      "BR1_tb": 0.9964794277601886,
+      "single_H1_product": 0.8059154906314455,
+      "two_H1_product": 0.8030782069274944,
+      "rates": {
+        "H1H2_mixed_DY_Z_only": {
+          "tree_BR_product": 0.8030782069274945,
+          "conditional_sigma_times_tree_BR_pb": 0.00010793371101105526,
+          "integration_error_only_pb": 1.083673732427961e-07
+        },
+        "tbH2_5FS": {
+          "tree_BR_product": 0.8059154906314455,
+          "conditional_sigma_times_tree_BR_pb": 0.0036464452289110385,
+          "integration_error_only_pb": 6.651542910377572e-06
+        }
+      }
+    },
+    {
+      "benchmark_id": "d2_NO_source_mixed13",
+      "spectrum": "source",
+      "family": "mixed13",
+      "BR2_H1Z": 0.8087627984934883,
+      "BR1_tb": 0.9964794279098339,
+      "single_H1_product": 0.8059154907575475,
+      "two_H1_product": 0.803078207173754,
+      "rates": {
+        "H1H2_mixed_DY_Z_only": {
+          "tree_BR_product": 0.803078207173754,
+          "conditional_sigma_times_tree_BR_pb": 0.00010793371104415252,
+          "integration_error_only_pb": 1.0836737327602636e-07
+        },
+        "tbH2_5FS": {
+          "tree_BR_product": 0.8059154907575475,
+          "conditional_sigma_times_tree_BR_pb": 0.0036464452294816,
+          "integration_error_only_pb": 6.651542911418343e-06
+        }
+      }
+    },
+    {
+      "benchmark_id": "d2_NO_mH1_m50p0_baseline",
+      "spectrum": "mH1_m50p0",
+      "family": "baseline",
+      "BR2_H1Z": 0.8215241395463984,
+      "BR1_tb": 0.9952697003407711,
+      "single_H1_product": 0.8176380841890537,
+      "two_H1_product": 0.8137704110380417,
+      "rates": {
+        "H1H2_mixed_DY_Z_only": {
+          "tree_BR_product": 0.8137704110380417,
+          "conditional_sigma_times_tree_BR_pb": 0.00013117165255522193,
+          "integration_error_only_pb": 1.4334565790435105e-07
+        },
+        "tbH2_5FS": {
+          "tree_BR_product": 0.8176380841890537,
+          "conditional_sigma_times_tree_BR_pb": 0.0036994852757217924,
+          "integration_error_only_pb": 6.748294164045935e-06
+        }
+      }
+    },
+    {
+      "benchmark_id": "d2_NO_mH1_m50p0_index0",
+      "spectrum": "mH1_m50p0",
+      "family": "index0",
+      "BR2_H1Z": 0.8215241395418771,
+      "BR1_tb": 0.9952697000814227,
+      "single_H1_product": 0.8176380839714928,
+      "two_H1_product": 0.8137704106094568,
+      "rates": {
+        "H1H2_mixed_DY_Z_only": {
+          "tree_BR_product": 0.8137704106094568,
+          "conditional_sigma_times_tree_BR_pb": 0.00013117165248613833,
+          "integration_error_only_pb": 1.433456578288558e-07
+        },
+        "tbH2_5FS": {
+          "tree_BR_product": 0.8176380839714928,
+          "conditional_sigma_times_tree_BR_pb": 0.0036994852747374166,
+          "integration_error_only_pb": 6.748294162250319e-06
+        }
+      }
+    },
+    {
+      "benchmark_id": "d2_NO_mH1_m50p0_index2",
+      "spectrum": "mH1_m50p0",
+      "family": "index2",
+      "BR2_H1Z": 0.8215241395259736,
+      "BR1_tb": 0.9952696991691677,
+      "single_H1_product": 0.8176380832062251,
+      "two_H1_product": 0.8137704091019146,
+      "rates": {
+        "H1H2_mixed_DY_Z_only": {
+          "tree_BR_product": 0.8137704091019147,
+          "conditional_sigma_times_tree_BR_pb": 0.00013117165224313761,
+          "integration_error_only_pb": 1.4334565756330226e-07
+        },
+        "tbH2_5FS": {
+          "tree_BR_product": 0.8176380832062251,
+          "conditional_sigma_times_tree_BR_pb": 0.0036994852712748864,
+          "integration_error_only_pb": 6.748294155934258e-06
+        }
+      }
+    },
+    {
+      "benchmark_id": "d2_NO_mH1_m50p0_mixed13",
+      "spectrum": "mH1_m50p0",
+      "family": "mixed13",
+      "BR2_H1Z": 0.8215241395302103,
+      "BR1_tb": 0.9952696994121936,
+      "single_H1_product": 0.8176380834100934,
+      "two_H1_product": 0.8137704095035256,
+      "rates": {
+        "H1H2_mixed_DY_Z_only": {
+          "tree_BR_product": 0.8137704095035257,
+          "conditional_sigma_times_tree_BR_pb": 0.00013117165230787332,
+          "integration_error_only_pb": 1.4334565763404605e-07
+        },
+        "tbH2_5FS": {
+          "tree_BR_product": 0.8176380834100934,
+          "conditional_sigma_times_tree_BR_pb": 0.0036994852721973087,
+          "integration_error_only_pb": 6.748294157616865e-06
+        }
+      }
+    },
+    {
+      "benchmark_id": "d2_NO_mH1_p50p0_baseline",
+      "spectrum": "mH1_p50p0",
+      "family": "baseline",
+      "BR2_H1Z": 0.7790043797312975,
+      "BR1_tb": 0.9968224146435143,
+      "single_H1_product": 0.7765290268216252,
+      "two_H1_product": 0.7740615395571107,
+      "rates": {
+        "H1H2_mixed_DY_Z_only": {
+          "tree_BR_product": 0.7740615395571107,
+          "conditional_sigma_times_tree_BR_pb": 8.63465647375957e-05,
+          "integration_error_only_pb": 8.784050350894091e-08
+        },
+        "tbH2_5FS": {
+          "tree_BR_product": 0.7765290268216252,
+          "conditional_sigma_times_tree_BR_pb": 0.003513483234757125,
+          "integration_error_only_pb": 6.409004669969601e-06
+        }
+      }
+    },
+    {
+      "benchmark_id": "d2_NO_mH1_p50p0_index0",
+      "spectrum": "mH1_p50p0",
+      "family": "index0",
+      "BR2_H1Z": 0.779004379724637,
+      "BR1_tb": 0.9968224145171818,
+      "single_H1_product": 0.7765290267165722,
+      "two_H1_product": 0.7740615393542907,
+      "rates": {
+        "H1H2_mixed_DY_Z_only": {
+          "tree_BR_product": 0.7740615393542907,
+          "conditional_sigma_times_tree_BR_pb": 8.634656471497113e-05,
+          "integration_error_only_pb": 8.78405034859249e-08
+        },
+        "tbH2_5FS": {
+          "tree_BR_product": 0.7765290267165722,
+          "conditional_sigma_times_tree_BR_pb": 0.0035134832342818027,
+          "integration_error_only_pb": 6.409004669102557e-06
+        }
+      }
+    },
+    {
+      "benchmark_id": "d2_NO_mH1_p50p0_index2",
+      "spectrum": "mH1_p50p0",
+      "family": "index2",
+      "BR2_H1Z": 0.7790043797012082,
+      "BR1_tb": 0.9968224140728105,
+      "single_H1_product": 0.7765290263470506,
+      "two_H1_product": 0.774061538640876,
+      "rates": {
+        "H1H2_mixed_DY_Z_only": {
+          "tree_BR_product": 0.774061538640876,
+          "conditional_sigma_times_tree_BR_pb": 8.634656463538972e-05,
+          "integration_error_only_pb": 8.784050340496661e-08
+        },
+        "tbH2_5FS": {
+          "tree_BR_product": 0.7765290263470506,
+          "conditional_sigma_times_tree_BR_pb": 0.003513483232609865,
+          "integration_error_only_pb": 6.409004666052747e-06
+        }
+      }
+    },
+    {
+      "benchmark_id": "d2_NO_mH1_p50p0_mixed13",
+      "spectrum": "mH1_p50p0",
+      "family": "mixed13",
+      "BR2_H1Z": 0.7790043797074496,
+      "BR1_tb": 0.996822414191192,
+      "single_H1_product": 0.7765290264454919,
+      "two_H1_product": 0.7740615388309312,
+      "rates": {
+        "H1H2_mixed_DY_Z_only": {
+          "tree_BR_product": 0.7740615388309312,
+          "conditional_sigma_times_tree_BR_pb": 8.634656465659038e-05,
+          "integration_error_only_pb": 8.784050342653406e-08
+        },
+        "tbH2_5FS": {
+          "tree_BR_product": 0.7765290264454919,
+          "conditional_sigma_times_tree_BR_pb": 0.003513483233055273,
+          "integration_error_only_pb": 6.409004666865223e-06
+        }
+      }
+    }
+  ],
+  "tree_BR_product_ranges": {
+    "single_H1_product": [
+      0.7765290263470506,
+      0.8176380841890537
+    ],
+    "two_H1_product": [
+      0.774061538640876,
+      0.8137704110380417
+    ]
+  },
+  "independent_MG_matrix_checks": {
+    "status": "D5_INDEPENDENT_MG_MATRIX_CHECK_PASS",
+    "matrix_checks": [
+      {
+        "process": "P1",
+        "gamma": 1.089,
+        "matrix_element_squared": 0.00010536991312793767,
+        "expected_scaling": 1.0,
+        "residual_over_baseline": 0.0
+      },
+      {
+        "process": "P2",
+        "gamma": 1.089,
+        "matrix_element_squared": 0.002698643363142046,
+        "expected_scaling": 1.0,
+        "residual_over_baseline": 0.0
+      },
+      {
+        "process": "P2cc",
+        "gamma": 1.089,
+        "matrix_element_squared": 0.002698643363142046,
+        "expected_scaling": 1.0,
+        "residual_over_baseline": 0.0
+      },
+      {
+        "process": "P1",
+        "gamma": 0.0,
+        "matrix_element_squared": 0.0,
+        "expected_scaling": 0.0,
+        "residual_over_baseline": 0.0
+      },
+      {
+        "process": "P2",
+        "gamma": 0.0,
+        "matrix_element_squared": 0.0,
+        "expected_scaling": 0.0,
+        "residual_over_baseline": 0.0
+      },
+      {
+        "process": "P2cc",
+        "gamma": 0.0,
+        "matrix_element_squared": 0.0,
+        "expected_scaling": 0.0,
+        "residual_over_baseline": 0.0
+      },
+      {
+        "process": "P1",
+        "gamma": 1.5707963267948966,
+        "matrix_element_squared": 2.3431010177796303e-36,
+        "expected_scaling": 2.223690755951077e-32,
+        "residual_over_baseline": 0.0
+      },
+      {
+        "process": "P2",
+        "gamma": 1.5707963267948966,
+        "matrix_element_squared": 0.0034365075495069353,
+        "expected_scaling": 1.2734204142876404,
+        "residual_over_baseline": 1.6070329074133924e-16
+      },
+      {
+        "process": "P2cc",
+        "gamma": 1.5707963267948966,
+        "matrix_element_squared": 0.0034365075495069353,
+        "expected_scaling": 1.2734204142876404,
+        "residual_over_baseline": 1.6070329074133924e-16
+      },
+      {
+        "process": "P1",
+        "gamma": -1.5707963267948966,
+        "matrix_element_squared": 2.3431010177796303e-36,
+        "expected_scaling": 2.223690755951077e-32,
+        "residual_over_baseline": 0.0
+      },
+      {
+        "process": "P2",
+        "gamma": -1.5707963267948966,
+        "matrix_element_squared": 0.0034365075495069353,
+        "expected_scaling": 1.2734204142876404,
+        "residual_over_baseline": 1.6070329074133924e-16
+      },
+      {
+        "process": "P2cc",
+        "gamma": -1.5707963267948966,
+        "matrix_element_squared": 0.0034365075495069353,
+        "expected_scaling": 1.2734204142876404,
+        "residual_over_baseline": 1.6070329074133924e-16
+      },
+      {
+        "process": "P1",
+        "gamma": -1.089,
+        "matrix_element_squared": 0.00010536991312793767,
+        "expected_scaling": 1.0,
+        "residual_over_baseline": 0.0
+      },
+      {
+        "process": "P2",
+        "gamma": -1.089,
+        "matrix_element_squared": 0.002698643363142046,
+        "expected_scaling": 1.0,
+        "residual_over_baseline": 0.0
+      },
+      {
+        "process": "P2cc",
+        "gamma": -1.089,
+        "matrix_element_squared": 0.002698643363142046,
+        "expected_scaling": 1.0,
+        "residual_over_baseline": 0.0
+      },
+      {
+        "process": "P1",
+        "gamma": 0.4,
+        "matrix_element_squared": 8.039682341402569e-05,
+        "expected_scaling": 0.7629960111707578,
+        "residual_over_baseline": 1.286185662847956e-16
+      },
+      {
+        "process": "P2",
+        "gamma": 0.4,
+        "matrix_element_squared": 0.0005211348415216338,
+        "expected_scaling": 0.1931099339168972,
+        "residual_over_baseline": 0.0
+      },
+      {
+        "process": "P2cc",
+        "gamma": 0.4,
+        "matrix_element_squared": 0.0005211348415216338,
+        "expected_scaling": 0.1931099339168972,
+        "residual_over_baseline": 0.0
+      },
+      {
+        "process": "P1",
+        "gamma": 0.4817963267948966,
+        "matrix_element_squared": 0.00010536991312793767,
+        "expected_scaling": 1.0,
+        "residual_over_baseline": 0.0
+      },
+      {
+        "process": "P2",
+        "gamma": 0.4817963267948966,
+        "matrix_element_squared": 0.0007378641863648892,
+        "expected_scaling": 0.2734204142876404,
+        "residual_over_baseline": 8.035164537066962e-17
+      },
+      {
+        "process": "P2cc",
+        "gamma": 0.4817963267948966,
+        "matrix_element_squared": 0.0007378641863648893,
+        "expected_scaling": 0.2734204142876404,
+        "residual_over_baseline": 4.017582268533481e-17
+      }
+    ],
+    "independent_normalization_checks": {
+      "P1": {
+        "MG_m2": 0.00010536991312793767,
+        "analytical_m2": 0.00010536991312793782,
+        "relative_residual": 1.4432899320127035e-15,
+        "MG_m2_at_threshold": 0.0
+      },
+      "P2": {
+        "MG_m2": 0.002698643363142046,
+        "independent_Dirac_trace_m2": 0.0026986433631420483,
+        "relative_residual": 7.771561172376096e-16,
+        "absolute_Ward_trace": 5.445910143848292e-12,
+        "threshold_phase_space_momentum_GeV": 0.0
+      }
+    },
+    "max_scaling_residual_over_baseline": 1.6070329074133924e-16,
+    "P2_charge_conjugation_relative_residual": 0.0,
+    "P1_analytical_spin_color_normalization_pass": true,
+    "P2_independent_Dirac_trace_and_gluon_Ward_pass": true,
+    "thresholds_GeV": {
+      "P1_source": 1000.0,
+      "P2": 872.4
+    },
+    "controls": "fixed external masses/energy/angles/Yukawas; vary charged mixing only, not globally viable scalar points",
+    "source_sha256": {
+      "module8/mg_matrix_checks.py": "7e7aa50935242ee6ae4e79d193670967d86d619a8c43cbe7eb1ff3b45cdc2bc7",
+      "validation/module8/local/receipts/d5_v2_source/P2/param_card.dat": "5cdecc55beb00a578ac331f2cbca1ae190593f4cef75b933da5304fb3051b75e",
+      "validation/module8/local/ufo_audit.json": "f34e20390815cac044fcd284776cf64317f6ffd383676723b30c1d25c52d1cc0",
+      "validation/module8/local/MG5_v3.6.7.tar.gz": "12e576dcb0055ccaab88b7065aa766a9fb2dc3b7c9d28c0ef96f82b037046c54"
+    }
+  },
+  "independent_Z_convolution": {
+    "status": "INDEPENDENT_ANALYTICAL_CONVOLUTION_NOT_GENERATOR_RATE",
+    "formula": "sigma_hat = |g_H12Z|^2*(gL^2+gR^2)*s*beta^3 / (288*pi*[(s-mZ^2)^2+(mZ*GammaZ)^2])",
+    "units": "GeV^-2 converted to pb with 389379372.1; spin/color averaged; one charge per sigma_hat",
+    "beam_orders_and_charges": "both q(x1)qbar(x2)+qbar(x1)q(x2), final charges twice",
+    "results": [
+      {
+        "mH1_GeV": 250.0,
+        "sigma_Z_only_charge_inclusive_pb": 0.00016094395502787894,
+        "quadrature_difference_pb": 6.292024193332857e-12,
+        "alpha_s_PDF_700": 0.0982405554086959,
+        "threshold_GeV": 950.0,
+        "nodes_per_dimension": [
+          100,
+          180
+        ]
+      },
+      {
+        "mH1_GeV": 300.0,
+        "sigma_Z_only_charge_inclusive_pb": 0.00013419314953467295,
+        "quadrature_difference_pb": 1.654961817544251e-11,
+        "alpha_s_PDF_700": 0.0982405554086959,
+        "threshold_GeV": 1000.0,
+        "nodes_per_dimension": [
+          100,
+          180
+        ]
+      },
+      {
+        "mH1_GeV": 350.0,
+        "sigma_Z_only_charge_inclusive_pb": 0.0001113770796865897,
+        "quadrature_difference_pb": 2.5331664256457095e-12,
+        "alpha_s_PDF_700": 0.0982405554086959,
+        "threshold_GeV": 1050.0,
+        "nodes_per_dimension": [
+          100,
+          180
+        ]
+      }
+    ],
+    "source_sha256": {
+      "module8/partonic_checks.py": "e1eccf21daa78f73bf49f4d96cbc52de491a6d3df7c799bb73425138fbf9f44d",
+      "module8/pdf_bridge.cc": "92c11001f502832aec8b88210bd727caae1bbd30cf1884fefffc01e5a5e34619",
+      "validation/module8/local/pdf_bridge.so": "6b55785ecc889ccbfac61531f7a98cc429124bb053becd72e8ccf8dc5932766d",
+      "validation/module8/local/lhapdf/lib/libLHAPDF.so": "1dadb94eeb56c34bb0a765e1d2a256a1fe44f95c1fb91d48d97c9a91bbdb8891",
+      "validation/module8/local/pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info": "175605e0adb3e40a10b1738c01f52fb6f20c8600fa04f50fe362b71d4f5c6a94",
+      "validation/module8/local/pdf/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130_0000.dat": "95e0a68f75e9a1cb561e98a5180f27860a9c4dca7113eb8b716ab2558a35e0b2"
+    }
+  },
+  "conditional_final_states": {
+    "P1": "H2+ H1- + conjugate -> H1+ H1- Z -> t anti-t b anti-b Z",
+    "P2": "g b -> t H2- -> t anti-t b Z; g anti-b -> anti-t H2+ -> anti-t t anti-b Z; incoming PDF bottom remnant is not an explicit final-state spectator",
+    "P3": "optional 4FS t anti-b H2- + conjugate -> t anti-t b anti-b Z; not evaluated, never summed with 5FS"
+  },
+  "prior_art": {
+    "status": "D5_NOVELTY_NOT_ESTABLISHED",
+    "review": "module8/PRIOR_ART.md",
+    "references": [
+      "https://link.springer.com/article/10.1140/epjc/s10052-021-09956-2",
+      "https://arxiv.org/abs/1701.05345v2",
+      "https://arxiv.org/html/2501.09796v1"
+    ],
+    "decision": "2021 already covers tbH production and cascade hierarchy. Mixed unequal-pair novelty unverified. New constrained neutrino/LFV flavor-collider correlations required; twelve D4 families do not substantiate measurable flavor discrimination."
+  },
+  "tests": {
+    "passed": 11,
+    "log_sha256": "ada1a1f101b4f549270fead624dd7613a0bba16912d0ee9e27a9142ecd5a54d4",
+    "required_arithmetic_passed": 7,
+    "arithmetic_log_sha256": "a147ad0084ef1ed86eb76973e4237bb5b144df888ae866597802d1829d639e15",
+    "scope": "arithmetic and gate falsifiers; native/generator evidence separately executed"
+  },
+  "2026_LINEARIZED_FLAVOR_FILTER_READY": false,
+  "COMPLETE_LFV": false,
+  "global_zee_acceptance": null,
+  "vacuum_status": "UNKNOWN for all D2 scalar points",
+  "physical_B_to_Xs_gamma_2026": "INCOMPLETE",
+  "fiducial_acceptance": null,
+  "experimental_exclusion": null,
+  "limitations": [
+    "LO hard stable-particle reference benchmarks only; no NLO accuracy or theory error assigned",
+    "P1 restricted to conserved massless-quark Z-current contribution: no mixed photon coupling; full model neutral-scalar s-channel and Yukawa quark-exchange diagrams excluded",
+    "D4 BRs are on-shell tree two-body; not physical NLO widths. Z/top/W BRs not included",
+    "No 4FS/5FS sum or matching, no LHC reach/acceptance/background/likelihood, no global Zee viability"
+  ],
+  "actual_process_syntax": {
+    "P1": [
+      "generate q qb > z > hm3c hm2 QCD=0",
+      "add process q qb > z > hm3 hm2c QCD=0",
+      "add process qb q > z > hm3c hm2 QCD=0",
+      "add process qb q > z > hm3 hm2c QCD=0"
+    ],
+    "P2": [
+      "generate g d3 > u3 hm3 QCD=1 QED=1",
+      "add process g d3bar > u3bar hm3c QCD=1 QED=1",
+      "add process d3 g > u3 hm3 QCD=1 QED=1",
+      "add process d3bar g > u3bar hm3c QCD=1 QED=1"
+    ]
+  },
+  "source_sha256": {
+    "module1/foundation.json": "57b566d87a38e8d178ee9084f51b08938e3d881a97d87f20c805f7f8eb0e9e86",
+    "module1/scalar_constraints.py": "283902ff57de55e17e4d02900de07850265d306d1481e49db4dc96c08744cbac",
+    "module8/D5_PRODUCTION_AUDIT.md": "c1d727573c1cfc76cbe1b014d2446ba158b72429ea37ff964c105dcfb3d3e7a5",
+    "module8/PRIOR_ART.md": "fb2bcbef45344cba49ccd6944b7375992241402553b93546748601752f7157ab",
+    "module8/RESUME.md": "73479962e3957a3bf0321a935678be251954ca79ebd2166a2922adb0e70110bd",
+    "module8/build_report.py": "460529583dd03448165c53438c3714f8f3bdc0a9628b3c6a4a926c3915850938",
+    "module8/generate_processes.py": "116ac2399071d677632503c763381d1cec73edf096979146379a73722f3a20d0",
+    "module8/mg_matrix_checks.py": "7e7aa50935242ee6ae4e79d193670967d86d619a8c43cbe7eb1ff3b45cdc2bc7",
+    "module8/partonic_checks.py": "e1eccf21daa78f73bf49f4d96cbc52de491a6d3df7c799bb73425138fbf9f44d",
+    "module8/pdf_bridge.cc": "92c11001f502832aec8b88210bd727caae1bbd30cf1884fefffc01e5a5e34619",
+    "module8/production_composition.py": "905a010ace233d65de8f86999268110f2eade102a5c3c9fe20cfb68420a78cea",
+    "module8/real_run_validation.py": "227dcdeea82783052bce80f63ced84cba9bc7638cf6976b96be4d2373fe7bf79",
+    "module8/run_capture.py": "3d8a5d3d09f47fe4e948705ca09949c52abdd3428672851c1fba4cdeac69f86e",
+    "module8/ufo_audit.py": "ae44f4db61c30cb89be0d30d4696b1d5b6236fc140c4fc6d517a2f8e5ad67752",
+    "scripts/zee_d5_export.m": "76dc74907ebf744a4b76f4e74fbc25b7c9b10319820d7e6024b4d51175bd7262",
+    "tests/test_module8_native_gates.py": "e8a618ee3f52b301218afe7c474d16c79bdb9c8c45452c0cb661674079ecaecd",
+    "tests/test_module8_production_composition.py": "68bf6e4b625fd68007c57e91873af9377309be1b4f9250832cb799820e77fb08",
+    "validation/module7/d4_decay_table.json": "4845f9e1e050c92cbffd4705a1edfc66d6b8b210a8ee5bc0613ed6a42a40e4e9",
+    "validation/module7/d4_native_validation.json": "29906751a66a6c6cc305272c5cdfec2bebfb2c7ccb987fc47faee86f6af6cfb7",
+    "validation/module7/native_vertex.json": "78697ff662f1ccc1ad792b998f846e55c27a05d47c0637ce5bf568ab153bad11"
+  }
+}
