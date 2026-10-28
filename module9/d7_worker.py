@@ -101,6 +101,8 @@ def run(shard_bytes):
       "numpy_version":np.__version__,
       "execution_host":platform.node(),
       "environment_cvmfs_selected":os.environ.get("ZEE_D7_ENV_ID","NOT_SET"),
+      "source_commit":os.environ.get("ZEE_D7_SOURCE_COMMIT","LOCAL_TEST_UNPINNED"),
+      "source_bundle_sha256":os.environ.get("ZEE_D7_BUNDLE_SHA256","LOCAL_TEST_UNPINNED"),
       "global_zee_acceptance":None,
       "constraints_complete":False}
     return output,receipt
