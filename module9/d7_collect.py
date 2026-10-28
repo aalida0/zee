@@ -33,6 +33,12 @@ def collect(manifest, shards_folder, results_folder, receipts_folder):
             continue
         receipt=strict_loads(receipt_path.read_text())
         raw=output_path.read_bytes()
+        if (manifest.get("execution_source_commit") is not None and
+            receipt.get("source_commit")!=manifest["execution_source_commit"]):
+            raise ValueError("Executing source commit differs from staged manifest")
+        if (manifest.get("source_bundle_sha256") is not None and
+            receipt.get("source_bundle_sha256")!=manifest["source_bundle_sha256"]):
+            raise ValueError("Executed source bundle differs from staged manifest")
         if (receipt.get("source_shard_sha256")!=item["sha256"] or
             receipt.get("result_bytes_sha256")!=hashlib.sha256(raw).hexdigest() or
             receipt.get("input_count")!=item["points"] or
