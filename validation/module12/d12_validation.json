@@ -1,0 +1,18 @@
+{
+  "COMPLETE_LFV": false,
+  "D11B_ancestor": "ad77620685a1dcf1f4ec1db612f2b3e1eacc8b31",
+  "git_diff_check": "PASS",
+  "global_zee_acceptance": null,
+  "mass_exclusion": null,
+  "previous_tracked_modules_unchanged": true,
+  "tests": {
+    "command": "python3 -m unittest discover -s tests -p 'test_module12_*.py' -v",
+    "errors": 0,
+    "failures": 0,
+    "live_superiso_test": "EXECUTED",
+    "log_sha256": "1e086b062151f7ff105262f72df4e91fefdc7a874a8480cfcb52837eb7d74c4d",
+    "passed": 10,
+    "skips": 0,
+    "source_sha256": "295ee89f96d804ddb807906ebc09934014131d0956a8542321570cf7a623edd1"
+  }
+}
