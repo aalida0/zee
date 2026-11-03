@@ -1,0 +1,117 @@
+{
+  "schema_version": "D11B_OFFLINE_NUFIT61_SECONDARY_SUMMARY_V1",
+  "physics_scope": "NuFIT 6.1 Nov-2025 IC24 including SK atmospheric best-fit and separately profiled 3-sigma one-parameter ranges, extracted by Bari group. NOT raw NuFIT grids, NOT joint 6D likelihood. Interpret each interval as marginalized one-parameter coverage only.",
+  "original_data_status": "UNAVAILABLE_DIRECT_SITE_TIMEOUT_NO_RAW_GRIDS",
+  "original_fit_release": "NuFIT 6.1",
+  "original_analysis_variant": "IC24_with_SK_atm",
+  "original_requested_primary_files": [
+    "v61.release-TByes-NO.txt.xz",
+    "v61.release-TByes-IO.txt.xz"
+  ],
+  "secondary_extractor": "Bari group comparison of global analyses using direct PCHIP interpolation of NuFIT official chi-squared data tables",
+  "secondary_source_url": "https://global-nu.org/results.html",
+  "secondary_source_section": "Comparison with other global analyses (NuFIT 6.1 column), accessed 2026-11-03",
+  "independent_range_crosscheck": "https://arxiv.org/abs/2610.27270, Table 2 ranges (Oct 2026), check differences attributable to source precision",
+  "oscillation_parameters": {
+    "NO": {
+      "dm21_eV2": {
+        "bestfit": 0.0000753,
+        "marginal3sigma": [
+          0.0000724,
+          0.0000782
+        ]
+      },
+      "sin2theta12": {
+        "bestfit": 0.3081,
+        "marginal3sigma": [
+          0.2893,
+          0.3295
+        ]
+      },
+      "sin2theta13": {
+        "bestfit": 0.0225,
+        "marginal3sigma": [
+          0.0206,
+          0.0242
+        ]
+      },
+      "sin2theta23": {
+        "bestfit": 0.4701,
+        "marginal3sigma": [
+          0.435,
+          0.5844
+        ]
+      },
+      "deltaCP_over_pi": {
+        "bestfit": 1.17,
+        "marginal3sigma": [
+          0.7,
+          2.03
+        ],
+        "period": 2
+      },
+      "dm3ell_eV2": {
+        "definition": "dm31_eV2",
+        "bestfit": 0.0025102,
+        "marginal3sigma": [
+          0.00245,
+          0.0025764
+        ]
+      }
+    },
+    "IO": {
+      "dm21_eV2": {
+        "bestfit": 0.0000753,
+        "marginal3sigma": [
+          0.0000724,
+          0.0000782
+        ]
+      },
+      "sin2theta12": {
+        "bestfit": 0.308,
+        "marginal3sigma": [
+          0.2892,
+          0.3295
+        ]
+      },
+      "sin2theta13": {
+        "bestfit": 0.0226,
+        "marginal3sigma": [
+          0.0209,
+          0.0244
+        ]
+      },
+      "sin2theta23": {
+        "bestfit": 0.5499,
+        "marginal3sigma": [
+          0.4391,
+          0.5839
+        ]
+      },
+      "deltaCP_over_pi": {
+        "bestfit": 1.53,
+        "marginal3sigma": [
+          1.12,
+          1.86
+        ],
+        "period": 2
+      },
+      "dm3ell_eV2": {
+        "definition": "dm32_eV2",
+        "bestfit": -0.0024848,
+        "marginal3sigma": [
+          -0.0025466,
+          -0.0024211
+        ]
+      }
+    }
+  },
+  "interpretation_rules": [
+    "Values transcribed from secondary independent table based on NuFIT 6.1 official grids, not direct official machine data. Keep provenance and precision.",
+    "Best-fit tuple is not guaranteed to equal the simultaneously fitted global 6D point when each value is read from separate profiled curves; treat as best-fit-like target and NEVER assign joint delta chi-square.",
+    "Separate 3sigma ranges do not specify a joint allowed hypervolume or statistical prior. Sampling their Cartesian product is an exploratory proposal only; do not label it a 3sigma global region.",
+    "Oscillation data do not measure the lightest mass or either Majorana phase. Treat all as explicit nuisance choices.",
+    "No mass-ordering likelihood or global model acceptance is inferred from these values alone.",
+    "When authenticated full grids become available, validate and replace these fallback summaries in a new dataset version."
+  ]
+}
