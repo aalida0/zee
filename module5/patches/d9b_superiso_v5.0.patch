@@ -1,0 +1,193 @@
+# D9B investigative local modifications, 2026-11-03; GPL-3.0-or-later.
+# Apply to the complete pinned SuperIso v5.0 archive; see D9B_SUPERISO_REPAIR_AUDIT.md.
+--- a/src/wilson.c
++++ b/src/wilson.c
+@@ -1749,8 +1749,8 @@
+ 
+ 	double complex C4H_1=EH(yt,lu);
+ 	
+- 	double complex C7H_1= G7H(yt,lu,ld)+Delta7H(yt,lu,ld)*log(pow(mu_W/param->mass_H,2.))-4./9.*C4H_1;
+-	double complex C8H_1= G8H(yt,lu,ld)+Delta8H(yt,lu,ld)*log(pow(mu_W/param->mass_H,2.))-1./6.*C4H_1;
++ 	double complex C7H_1= G7H(yt,lu,ld)+Delta7H(yt,lu,ld)*log(pow(mu_W/param->mass_H,2.)); /* D9B: ordinary BMU, not effective */
++	double complex C8H_1= G8H(yt,lu,ld)+Delta8H(yt,lu,ld)*log(pow(mu_W/param->mass_H,2.)); /* effective map is in C_calculator_base1 */
+ 	double complex C9H_1=(1.-4.*sw2)/sw2*C9llH1(xt,yt,lu,log(pow(mu_W/param->mass_H,2.)))-D9H1(yt,lu,log(pow(mu_W/param->mass_H,2.)));
+ 	double complex C10H_1=-C9llH1(xt,yt,lu,log(pow(mu_W/param->mass_H,2.)))/sw2;
+ 
+@@ -2165,24 +2165,7 @@
+ 	C1squark_2=0.;
+ #endif
+ 
+-	double alphas_mu=alphas_running(mu_W,param->mass_top_pole,param->mass_b_pole,param);
+-
+-	if(cabs(C7H_1)*alphas_mu/4./pi>cabs(C0w[7])) C7H_1*=cabs(C0w[7])/cabs(C7H_1)*4.*pi/alphas_mu;
+-	if(cabs(C7charg_1)*alphas_mu/4./pi>cabs(C0w[7])) C7charg_1*=cabs(C0w[7])/cabs(C7charg_1)*4.*pi/alphas_mu;
+-	if(cabs(C7four_1)*alphas_mu/4./pi>cabs(C0w[7])) C7four_1*=cabs(C0w[7])/cabs(C7four_1)*4.*pi/alphas_mu;
+-
+-	if(cabs(C8H_1)*alphas_mu/4./pi>cabs(C0w[8])) C8H_1*=cabs(C0w[8])/cabs(C8H_1)*4.*pi/alphas_mu;
+-	if(cabs(C8charg_1)*alphas_mu/4./pi>cabs(C0w[8])) C8charg_1*=cabs(C0w[8])/cabs(C8charg_1)*4.*pi/alphas_mu;
+-	if(cabs(C8four_1)*alphas_mu/4./pi>cabs(C0w[8])) C8four_1*=cabs(C0w[8])/cabs(C8four_1)*4.*pi/alphas_mu;   
+-
+-	if(cabs(C9H_1)*alphas_mu/4./pi>cabs(C0w[9])) C9H_1*=cabs(C0w[9])/cabs(C9H_1)*4.*pi/alphas_mu;
+-	if(cabs(C9charg_1)*alphas_mu/4./pi>cabs(C0w[9])) C9charg_1*=cabs(C0w[9])/cabs(C9charg_1)*4.*pi/alphas_mu;
+-	if(cabs(C9four_1)*alphas_mu/4./pi>cabs(C0w[9])) C9four_1*=cabs(C0w[9])/cabs(C9four_1)*4.*pi/alphas_mu;
+-
+-	if(cabs(C10H_1)*alphas_mu/4./pi>cabs(C0w[10])) C10H_1*=cabs(C0w[10])/cabs(C10H_1)*4.*pi/alphas_mu;
+-	if(cabs(C10charg_1)*alphas_mu/4./pi>cabs(C0w[10])) C10charg_1*=cabs(C0w[10])/cabs(C10charg_1)*4.*pi/alphas_mu;
+-	if(cabs(C10four_1)*alphas_mu/4./pi>cabs(C0w[10])) C10four_1*=cabs(C0w[10])/cabs(C10four_1)*4.*pi/alphas_mu;
+-
++	/* D9B: populate LO before the retained perturbative-size caps read it. */
+ 	if(param->THDM_model==0)
+ 	{
+ 		C0w[2]= C2SM_0;
+@@ -2190,6 +2173,36 @@
+ 		C0w[8]= C8SM_0+C8SMeps_0+C8H_0+C8Heps_0+C8Heps2_0+C8charg_0+C8_chargeps_0;
+ 		C0w[9]= C9SM_0+C9H_0+C9charg_0;
+ 		C0w[10]= C10SM_0+C10H_0+C10charg_0;
++	}
++	else
++	{
++		C0w[2]= C2SM_0;
++		C0w[7]= C7SM_0+C7H_0;
++		C0w[8]= C8SM_0+C8H_0;
++		C0w[9]= C9SM_0+C9H_0;
++		C0w[10]= C10SM_0+C10H_0;
++	}
++
++	double alphas_mu=alphas_running(mu_W,param->mass_top_pole,param->mass_b_pole,param);
++
++	if(cabs(C7H_1)*alphas_mu/4./pi>cabs(C0w[7])) C7H_1*=cabs(C0w[7])/cabs(C7H_1)*4.*pi/alphas_mu;
++	if(cabs(C7charg_1)*alphas_mu/4./pi>cabs(C0w[7])) C7charg_1*=cabs(C0w[7])/cabs(C7charg_1)*4.*pi/alphas_mu;
++	if(cabs(C7four_1)*alphas_mu/4./pi>cabs(C0w[7])) C7four_1*=cabs(C0w[7])/cabs(C7four_1)*4.*pi/alphas_mu;
++
++	if(cabs(C8H_1)*alphas_mu/4./pi>cabs(C0w[8])) C8H_1*=cabs(C0w[8])/cabs(C8H_1)*4.*pi/alphas_mu;
++	if(cabs(C8charg_1)*alphas_mu/4./pi>cabs(C0w[8])) C8charg_1*=cabs(C0w[8])/cabs(C8charg_1)*4.*pi/alphas_mu;
++	if(cabs(C8four_1)*alphas_mu/4./pi>cabs(C0w[8])) C8four_1*=cabs(C0w[8])/cabs(C8four_1)*4.*pi/alphas_mu;   
++
++	if(cabs(C9H_1)*alphas_mu/4./pi>cabs(C0w[9])) C9H_1*=cabs(C0w[9])/cabs(C9H_1)*4.*pi/alphas_mu;
++	if(cabs(C9charg_1)*alphas_mu/4./pi>cabs(C0w[9])) C9charg_1*=cabs(C0w[9])/cabs(C9charg_1)*4.*pi/alphas_mu;
++	if(cabs(C9four_1)*alphas_mu/4./pi>cabs(C0w[9])) C9four_1*=cabs(C0w[9])/cabs(C9four_1)*4.*pi/alphas_mu;
++
++	if(cabs(C10H_1)*alphas_mu/4./pi>cabs(C0w[10])) C10H_1*=cabs(C0w[10])/cabs(C10H_1)*4.*pi/alphas_mu;
++	if(cabs(C10charg_1)*alphas_mu/4./pi>cabs(C0w[10])) C10charg_1*=cabs(C0w[10])/cabs(C10charg_1)*4.*pi/alphas_mu;
++	if(cabs(C10four_1)*alphas_mu/4./pi>cabs(C0w[10])) C10four_1*=cabs(C0w[10])/cabs(C10four_1)*4.*pi/alphas_mu;
++
++	if(param->THDM_model==0)
++	{
+ 		C1w[1]= C1SM_1;
+ 		C1w[4]= C4SM_1+C4H_1+C4charg_1;
+ 		C1w[7]= C7SM_1+C7H_1+C7charg_1+C7four_1;
+@@ -2208,11 +2221,6 @@
+ 	}
+ 	else
+ 	{
+-		C0w[2]= C2SM_0;
+-		C0w[7]= C7SM_0+C7H_0;
+-		C0w[8]= C8SM_0+C8H_0;
+-		C0w[9]= C9SM_0+C9H_0;
+-		C0w[10]= C10SM_0+C10H_0;
+ 		C1w[1]= C1SM_1;
+ 		C1w[4]= C4SM_1+C4H_1;	
+ 		C1w[7]= C7SM_1+C7H_1;
+--- a/src/include.h
++++ b/src/include.h
+@@ -1401,4 +1401,22 @@
+ 
+ 
+ 
++/* D9B local investigative API. Ordinary NDR Q1-Q8 matching, C=C0+a*C1+a^2*C2.
++ * Supported NP: real top-only charged scalars, LO C2=1 and dipoles only.
++ * order=1: NLO QCD numerator with original legacy EM/power/normalization.
++ * order=2: legacy NNLO diagnostic ONLY; NP NNLO basis is not certified.
++ */
++struct d9b_matching {
++    double complex C0[11], C1[11], C2[11], Cp[11];
++    double mu_W;
++    int scheme; /* 1 = ordinary NDR, MSbar top */
++    int order;
++};
++struct d9b_rate_info {
++    double P0, P1, P2, P_em, N_E0, nnlo_relative;
++    int nnlo_dropped;
++};
++double d9b_bsgamma(struct d9b_matching *input, double mu, double E0,
++                  struct parameters *param, struct d9b_rate_info *info);
++
+ #endif
+--- a/src/bsgamma.c
++++ b/src/bsgamma.c
+@@ -334,7 +334,7 @@
+ /*----------------------------------------------------------------------*/
+ /*----------------------------------------------------------------------*/
+ 
+-double bsgamma_Ecut(double complex C0[], double complex C1[], double complex C2[], double complex Cp[], double mu, double mu_W, double E0, struct parameters* param)
++static double bsgamma_Ecut_core(double complex C0[], double complex C1[], double complex C2[], double complex Cp[], double mu, double mu_W, double E0, struct parameters* param, struct d9b_matching *input, struct d9b_rate_info *info)
+ /* computes the inclusive branching ratio of B -> Xs gamma for a given cut on the photon energy */
+ /* C0, C1, C2: respectively LO, NLO and NNLO contributions of the Wilson coefficients at scale mu=O(mb) */
+ /* E0: cut on the photon energy */
+@@ -671,7 +671,9 @@
+ 	double P2_2_rem=P2_2_rem3;
+ 	double P2_2=P2_2_beta+P2_2_rem;
+ 
+-	if(fabs((alphas_mu/4./pi*alphas_mu/4./pi *(P2_1 + P2_2 + P2_3))/(P0 + alphas_mu/4./pi * (P1_1 + P1_2))) > 0.4) P2_1=P2_2=P2_3=0.;
++	double nnlo_relative = (alphas_mu/4./pi*alphas_mu/4./pi *(P2_1 + P2_2 + P2_3))/(P0 + alphas_mu/4./pi * (P1_1 + P1_2));
++	if(info) { info->nnlo_relative=nnlo_relative; info->nnlo_dropped=fabs(nnlo_relative)>0.4; }
++	if(fabs(nnlo_relative)>0.4 || (input && input->order==1)) P2_1=P2_2=P2_3=0.;
+ 	
+ 
+ 	double P_E0 = P0 + alphas_mu/4./pi * (P1_1 + P1_2) + alphas_mu/4./pi*alphas_mu/4./pi *(P2_1 + P2_2 + P2_3);
+@@ -679,7 +681,9 @@
+ 
+ 	
+ 	double complex Cem[9],C0w[11],C1w[11],C2w[11];
+-	CW_calculator(2,C0w,C1w,C2w,mu_W,param);
++	if(input) {
++		for(ie=0;ie<=10;ie++) { C0w[ie]=input->C0[ie]; C1w[ie]=input->C1[ie]; C2w[ie]=input->C2[ie]; }
++	} else CW_calculator(2,C0w,C1w,C2w,mu_W,param);
+ 
+ 	double eta_mu=alphas_running(mu_W,param->mass_top_pole,param->mass_b_pole,param)/alphas_mu;
+ 
+@@ -710,12 +714,44 @@
+ 	printf("C2[7]=%f\n\n",C2[7]);
+ #endif
+ 
++	if(info) {
++		info->P0=P0; info->P1=alphas_mu/4./pi*(P1_1+P1_2);
++		info->P2=alphas_mu/4./pi*alphas_mu/4./pi*(P2_1+P2_2+P2_3);
++		info->P_em=P_em; info->N_E0=N_E0;
++	}
++
+ 	double BRinc=param->BR_BXclnu_exp*pow(cabs(conj(param->Vts)*param->Vtb/param->Vcb),2.)*6.*alpha_em/pi/Cbr*(P_E0+P_em+N_E0);
+ 
+ 	return BRinc;
+ }
+ 
+ /*---------------------------------------------------------------------*/
++
++/* Original low-scale entry point: native rematching and fallback preserved. */
++double bsgamma_Ecut(double complex C0[], double complex C1[], double complex C2[], double complex Cp[], double mu, double mu_W, double E0, struct parameters* param)
++{
++    return bsgamma_Ecut_core(C0,C1,C2,Cp,mu,mu_W,E0,param,NULL,NULL);
++}
++
++/* One input owns evolution AND all high-scale power/EM terms; no global state. */
++double d9b_bsgamma(struct d9b_matching *input, double mu, double E0,
++                  struct parameters *param, struct d9b_rate_info *info)
++{
++    if(!input || input->scheme!=1 || (input->order!=1 && input->order!=2)
++       || !isfinite(input->mu_W) || input->mu_W<=0. || !isfinite(mu) || mu<=0.
++       || !isfinite(E0) || E0<=0. || 2.*E0>=param->mass_b+0.37) return NAN;
++    /* Kc0/Cem[2] assume the SM LO current-current sector. Reject unsupported NP. */
++    for(int i=1;i<=10;i++) {
++        if(!isfinite(creal(input->C0[i])) || cimag(input->C0[i])!=0.
++           || !isfinite(creal(input->C1[i])) || cimag(input->C1[i])!=0.
++           || !isfinite(creal(input->C2[i])) || cimag(input->C2[i])!=0.
++           || input->Cp[i]!=0.) return NAN; /* ms=0 unprimed scope */
++        if(i<=6 && input->C0[i]!=(i==2 ? 1. : 0.)) return NAN;
++    }
++    double complex C0[11]={0},C1[11]={0},C2[11]={0};
++    C_calculator_base1(input->C0,input->C1,input->C2,input->mu_W,C0,C1,C2,mu,param);
++    return bsgamma_Ecut_core(C0,C1,C2,input->Cp,mu,input->mu_W,E0,param,input,info);
++}
+ 
+ double bsgamma(double complex C0[], double complex C1[], double complex C2[], double complex Cp[], double mu, double mu_W, struct parameters* param)
+ /* computes the inclusive branching ratio of B -> Xs gamma */

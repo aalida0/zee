@@ -1,0 +1,3 @@
+# Unified patch embeds upstream tabs/trailing spaces and bsgamma.c CRLF bytes.
+# Preserve exact replay; this does not relax checks on runner/test source files.
+d9b_superiso_v5.0.patch -whitespace -text
