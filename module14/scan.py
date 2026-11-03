@@ -10,6 +10,13 @@ import random
 import resource
 import time
 import tempfile
+import platform
+import importlib.metadata
+import contextlib
+import io
+import sys
+
+import numpy as np
 
 
 from module1.scalar_constraints import validate_input, reconstruct, check_bfb, unitarity, ewpo
@@ -121,7 +128,76 @@ def temporary(path):
     return name
 
 
-def run(shard, output, receipt, config, families=2, limit=math.sqrt(4*math.pi), resume=False):
+def scalar_gates(row):
+    gates = {k: {'assessment': 'NOT_EVALUATED'} for k in ('reconstruction', 'bfb', 'unitarity', 'ewpo', 'vacuum')}
+    try:
+        x, ew, _, _ = validate_input(row['scalar'])
+        p, inherited, gates['reconstruction'] = reconstruct(x)
+        for name, fn in [('bfb', lambda: check_bfb(p)), ('unitarity', lambda: unitarity(p, inherited)), ('ewpo', lambda: ewpo(x, ew, row['scalar']['ew_fit']))]:
+            try: gates[name] = fn()
+            except Exception as exc: gates[name] = {'assessment': 'ERROR', 'reason': str(exc)}
+        if all(gates[k]['assessment'] == 'PASS' for k in ('reconstruction', 'bfb', 'unitarity', 'ewpo')):
+            try:
+                cert = attempt_certificate(p, x)
+                gates['vacuum'] = {'assessment': 'PASS' if cert['certified'] else 'UNKNOWN', 'certificate': cert}
+            except Exception as exc:
+                gates['vacuum'] = {'assessment': 'ERROR', 'reason': str(exc)}
+    except Exception as exc:
+        gates['reconstruction'] = {'assessment': 'ERROR', 'reason': str(exc)}
+    return gates
+
+
+def runtime_info():
+    versions = {}
+    for name in ('numpy', 'scipy', 'mpmath', 'jsonschema', 'sympy'):
+        try:
+            versions[name] = importlib.metadata.version(name)
+        except importlib.metadata.PackageNotFoundError:
+            versions[name] = 'UNAVAILABLE'
+    config = io.StringIO()
+    with contextlib.redirect_stdout(config):
+        np.show_config()
+    return {'python': sys.version, 'platform': platform.platform(),
+            'machine': platform.machine(), 'dependencies': versions,
+            'numpy_build_sha256': hashlib.sha256(config.getvalue().encode()).hexdigest(),
+            'thread_environment': {k: os.environ.get(k) for k in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS')}}
+
+
+def scalar_source_version():
+    root = Path(__file__).resolve().parents[1]
+    files = [Path(__file__).resolve()]
+    for directory in ('module0', 'module1', 'scripts'):
+        files.extend(p for p in (root / directory).rglob('*') if p.is_file() and p.suffix in ('.py', '.json'))
+    sources = {str(p.relative_to(root)): file_sha(p) for p in sorted(files)}
+    return digest({'schema': 'd14-scalar-cache-v1', 'sources': sources, 'runtime': runtime_info()})
+
+
+def cached_scalar_gates(row, cache_dir, version):
+    key_data = {'schema': 'd14-scalar-cache-v1', 'scalar_sha256': row['scalar_sha256'],
+                'source_version': version, 'settings': 'module1-cheap-gates-d10-exact-v1'}
+    key = digest(key_data)
+    path = Path(cache_dir) / (key + '.json')
+    if path.exists():
+        entry = json.loads(path.read_text())
+        if entry.get('key') != key_data or entry.get('gates_sha256') != digest(entry.get('gates')):
+            raise ValueError('Corrupt or stale scalar cache entry: ' + str(path))
+        return entry['gates']
+    gates = scalar_gates(row)
+    # Transient computational errors are never persisted.
+    if any(v['assessment'] == 'ERROR' for v in gates.values()):
+        return gates
+    Path(cache_dir).mkdir(parents=True, exist_ok=True)
+    tmp = temporary(path)
+    Path(tmp).write_text(encode({'key': key_data, 'gates': gates, 'gates_sha256': digest(gates)})+'\n')
+    try:
+        publish(path, tmp)
+    except FileExistsError:
+        os.unlink(tmp)
+        return cached_scalar_gates(row, cache_dir, version)
+    return gates
+
+
+def run(shard, output, receipt, config, families=2, limit=math.sqrt(4*math.pi), resume=False, cache_dir=None):
     if families < 1 or not math.isfinite(limit) or limit <= 0:
         raise ValueError("Invalid neutrino family settings")
     if len({Path(p).resolve() for p in (shard, output, receipt)}) != 3:
@@ -129,13 +205,17 @@ def run(shard, output, receipt, config, families=2, limit=math.sqrt(4*math.pi), 
     source = file_sha(shard)
     settings = {'shard_sha256': source, 'config_sha256': digest(config),
                 'families': families, 'perturbativity_limit': limit,
-                'worker_sha256': file_sha(__file__)}
+                'worker_sha256': file_sha(__file__),
+                'source_commit': os.environ.get('ZEE_D14_SOURCE_COMMIT', 'LOCAL_UNSPECIFIED'),
+                'source_bundle_sha256': os.environ.get('ZEE_D14_BUNDLE_SHA256', 'LOCAL_UNSPECIFIED'),
+                'runtime': runtime_info()}
     if Path(output).exists() or Path(receipt).exists():
         if resume and Path(output).is_file() and Path(receipt).is_file():
             saved = json.loads(Path(receipt).read_text())
             if all(saved.get(k) == v for k, v in settings.items()) and saved.get('output_sha256') == file_sha(output):
                 return saved
         raise FileExistsError('Output or receipt exists; use --resume for a matching completed pair, or new paths for an incomplete pair')
+    scalar_version = scalar_source_version() if cache_dir else None
     start = time.monotonic()
     cpu_start = time.process_time()
     count = 0
@@ -149,21 +229,7 @@ def run(shard, output, receipt, config, families=2, limit=math.sqrt(4*math.pi), 
                 raise ValueError('config hash mismatch')
             if digest(row['scalar']) != row['scalar_sha256']:
                 raise ValueError('scalar hash mismatch')
-            gates = {k: {'assessment': 'NOT_EVALUATED'} for k in ('reconstruction', 'bfb', 'unitarity', 'ewpo', 'vacuum')}
-            try:
-                x, ew, _, _ = validate_input(row['scalar'])
-                p, inherited, gates['reconstruction'] = reconstruct(x)
-                for name, fn in [('bfb', lambda: check_bfb(p)), ('unitarity', lambda: unitarity(p, inherited)), ('ewpo', lambda: ewpo(x, ew, row['scalar']['ew_fit']))]:
-                    try: gates[name] = fn()
-                    except Exception as exc: gates[name] = {'assessment': 'ERROR', 'reason': str(exc)}
-                if all(gates[k]['assessment'] == 'PASS' for k in ('reconstruction', 'bfb', 'unitarity', 'ewpo')):
-                    try:
-                        cert = attempt_certificate(p, x)
-                        gates['vacuum'] = {'assessment': 'PASS' if cert['certified'] else 'UNKNOWN', 'certificate': cert}
-                    except Exception as exc:
-                        gates['vacuum'] = {'assessment': 'ERROR', 'reason': str(exc)}
-            except Exception as exc:
-                gates['reconstruction'] = {'assessment': 'ERROR', 'reason': str(exc)}
+            gates = cached_scalar_gates(row, cache_dir, scalar_version) if cache_dir else scalar_gates(row)
             for name, result in gates.items():
                 key = name + ':' + result['assessment']
                 counts[key] = counts.get(key, 0) + 1
@@ -192,9 +258,9 @@ def main():
     p = argparse.ArgumentParser()
     sub = p.add_subparsers(dest='action', required=True)
     g = sub.add_parser('generate'); g.add_argument('--config', required=True); g.add_argument('--output', required=True)
-    w = sub.add_parser('worker'); w.add_argument('--shard', required=True); w.add_argument('--output', required=True); w.add_argument('--receipt', required=True); w.add_argument('--config', required=True); w.add_argument('--families', type=int, default=2); w.add_argument('--perturbativity-limit', type=float, default=math.sqrt(4*math.pi)); w.add_argument('--resume', action='store_true')
+    w = sub.add_parser('worker'); w.add_argument('--shard', required=True); w.add_argument('--output', required=True); w.add_argument('--receipt', required=True); w.add_argument('--config', required=True); w.add_argument('--families', type=int, default=2); w.add_argument('--perturbativity-limit', type=float, default=math.sqrt(4*math.pi)); w.add_argument('--resume', action='store_true'); w.add_argument('--cache-dir')
     a = p.parse_args()
     if a.action == 'generate': generate(json.loads(Path(a.config).read_text()), a.output)
-    else: run(a.shard, a.output, a.receipt, json.loads(Path(a.config).read_text()), a.families, a.perturbativity_limit, a.resume)
+    else: run(a.shard, a.output, a.receipt, json.loads(Path(a.config).read_text()), a.families, a.perturbativity_limit, a.resume, a.cache_dir)
 
 if __name__ == '__main__': main()

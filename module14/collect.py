@@ -16,7 +16,7 @@ def cut():
     return {s: 0 for s in STATUSES}
 
 
-def collect(manifest, config, triples, families=2, limit=math.sqrt(4*math.pi)):
+def collect(manifest, config, triples, families=2, limit=math.sqrt(4*math.pi), source_commit=None, source_bundle_sha256=None):
     """Validate manifest and (shard, result, receipt) triples using a temporary SQLite index."""
     config_hash = digest(config)
     stats = {'scalar': cut(), 'gates': {g: cut() for g in GATES},
@@ -37,8 +37,16 @@ def collect(manifest, config, triples, families=2, limit=math.sqrt(4*math.pi)):
                     raise ValueError('Duplicate manifest point ID') from e
                 total += 1
         db.commit()
+        provenance = None
         for shard_index, (shard, output, receipt) in enumerate(triples):
             rec = json.loads(Path(receipt).read_text())
+            identity = (rec.get('source_commit'), rec.get('source_bundle_sha256'))
+            if provenance is None:
+                provenance = identity
+            elif provenance != identity:
+                raise ValueError('Shard source provenance mismatch')
+            if (source_commit is not None and identity[0] != source_commit) or (source_bundle_sha256 is not None and identity[1] != source_bundle_sha256):
+                raise ValueError('Source does not match required provenance')
             if rec.get('schema') != 'd14-worker-receipt-1' or rec.get('shard_sha256') != file_sha(shard) or rec.get('output_sha256') != file_sha(output):
                 raise ValueError('Receipt or file hash mismatch')
             if rec.get('config_sha256') != config_hash or rec.get('families') != families or rec.get('perturbativity_limit') != limit:
@@ -108,7 +116,7 @@ def collect(manifest, config, triples, families=2, limit=math.sqrt(4*math.pi)):
         missing = db.execute('select count(*) from points where seen=0').fetchone()[0]
         return {'status': 'COMPLETE' if not missing else 'INCOMPLETE', 'manifest_sha256': file_sha(manifest),
                 'config_sha256': config_hash, 'manifest_points': total, 'evaluated_points': total-missing,
-                'missing_points': missing, 'families_per_ordering': families, 'cutflow': stats, 'resources': resources}
+                'missing_points': missing, 'source_provenance': provenance, 'families_per_ordering': families, 'cutflow': stats, 'resources': resources}
 
 
 def main():
@@ -116,9 +124,10 @@ def main():
     p.add_argument('--manifest', required=True); p.add_argument('--config', required=True)
     p.add_argument('--part', nargs=3, action='append', default=[], metavar=('SHARD', 'RESULT', 'RECEIPT'))
     p.add_argument('--families', type=int, default=2); p.add_argument('--perturbativity-limit', type=float, default=math.sqrt(4*math.pi))
+    p.add_argument('--source-commit'); p.add_argument('--source-bundle-sha256')
     p.add_argument('--output', required=True)
     a = p.parse_args()
-    report = collect(a.manifest, json.loads(Path(a.config).read_text()), a.part, a.families, a.perturbativity_limit)
+    report = collect(a.manifest, json.loads(Path(a.config).read_text()), a.part, a.families, a.perturbativity_limit, a.source_commit, a.source_bundle_sha256)
     with open(a.output, 'x') as f:
         f.write(encode(report)+'\n')
     return 0 if report['status'] == 'COMPLETE' else 2

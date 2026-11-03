@@ -1,0 +1,74 @@
+{
+  "cold_equals_warm_cache": true,
+  "cold_seconds": 24.20381333100522,
+  "cutflow": {
+    "gates": {
+      "bfb": {
+        "ERROR": 0,
+        "FAIL": 63,
+        "NOT_EVALUATED": 0,
+        "PASS": 35,
+        "UNKNOWN": 2
+      },
+      "ewpo": {
+        "ERROR": 0,
+        "FAIL": 86,
+        "NOT_EVALUATED": 0,
+        "PASS": 14,
+        "UNKNOWN": 0
+      },
+      "reconstruction": {
+        "ERROR": 0,
+        "FAIL": 0,
+        "NOT_EVALUATED": 0,
+        "PASS": 100,
+        "UNKNOWN": 0
+      },
+      "unitarity": {
+        "ERROR": 0,
+        "FAIL": 49,
+        "NOT_EVALUATED": 0,
+        "PASS": 51,
+        "UNKNOWN": 0
+      },
+      "vacuum": {
+        "ERROR": 0,
+        "FAIL": 0,
+        "NOT_EVALUATED": 98,
+        "PASS": 1,
+        "UNKNOWN": 1
+      }
+    },
+    "neutrino": {
+      "IO": {
+        "ERROR": 0,
+        "FAIL": 0,
+        "NOT_EVALUATED": 196,
+        "PASS": 4,
+        "UNKNOWN": 0
+      },
+      "NO": {
+        "ERROR": 0,
+        "FAIL": 0,
+        "NOT_EVALUATED": 196,
+        "PASS": 4,
+        "UNKNOWN": 0
+      }
+    },
+    "scalar": {
+      "ERROR": 0,
+      "FAIL": 98,
+      "NOT_EVALUATED": 0,
+      "PASS": 1,
+      "UNKNOWN": 1
+    }
+  },
+  "cutflows_equal": true,
+  "package_bundle_sha256": "a83d58d73b483514ed06d851325cf67165a534a09116c14a3e96eb0bdc213c77",
+  "package_source_commit": "bc26744b1586ed39797816d038ecdbbd421ef6aa",
+  "package_test": "Local temporary committed snapshot: archive checksum and commit verified; two-survivor wrapper output matched prior independent run. No scheduler submission.",
+  "points": 100,
+  "result_sha256": "cddd5a42e8395e0d05c91dd25d026947a9232e92f772bfb6fc3c627f4859bbc1",
+  "uncached_reused_equals_cold_cache": true,
+  "warm_seconds": 0.07813011200050823
+}
