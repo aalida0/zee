@@ -1,0 +1,22 @@
+{
+  "families": 8,
+  "max_abs_yukawas": {
+    "D": 0.14023569787115633,
+    "F": 0.00647417698684657,
+    "Ye": 0.11228491948642634,
+    "Ye2": 0.0840149754833248
+  },
+  "max_relative_residual": 2.5687273110502267e-13,
+  "perturbativity_limit": 3.5449077018110318,
+  "result_sha256": "0ff7fb118e853db6b23c55f930b408c115a76285622b937503cf56de74581f67",
+  "scalar_status": {
+    "50": "UNKNOWN",
+    "91": "PASS"
+  },
+  "source_shard_sha256": "f06c1edcf5ca4ecbbe7ba7a58327aeea682b14a0c68130448355c11c9271d35e",
+  "status_counts": {
+    "ERROR": 0,
+    "FAIL": 0,
+    "PASS": 8
+  }
+}
