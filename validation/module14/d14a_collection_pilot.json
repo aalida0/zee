@@ -1,0 +1,180 @@
+{
+  "cutflow": {
+    "gates": {
+      "bfb": {
+        "ERROR": 0,
+        "FAIL": 63,
+        "NOT_EVALUATED": 0,
+        "PASS": 35,
+        "UNKNOWN": 2
+      },
+      "ewpo": {
+        "ERROR": 0,
+        "FAIL": 86,
+        "NOT_EVALUATED": 0,
+        "PASS": 14,
+        "UNKNOWN": 0
+      },
+      "reconstruction": {
+        "ERROR": 0,
+        "FAIL": 0,
+        "NOT_EVALUATED": 0,
+        "PASS": 100,
+        "UNKNOWN": 0
+      },
+      "unitarity": {
+        "ERROR": 0,
+        "FAIL": 49,
+        "NOT_EVALUATED": 0,
+        "PASS": 51,
+        "UNKNOWN": 0
+      },
+      "vacuum": {
+        "ERROR": 0,
+        "FAIL": 0,
+        "NOT_EVALUATED": 98,
+        "PASS": 1,
+        "UNKNOWN": 1
+      }
+    },
+    "neutrino": {
+      "IO": {
+        "ERROR": 0,
+        "FAIL": 0,
+        "NOT_EVALUATED": 196,
+        "PASS": 4,
+        "UNKNOWN": 0
+      },
+      "NO": {
+        "ERROR": 0,
+        "FAIL": 0,
+        "NOT_EVALUATED": 196,
+        "PASS": 4,
+        "UNKNOWN": 0
+      }
+    },
+    "scalar": {
+      "ERROR": 0,
+      "FAIL": 98,
+      "NOT_EVALUATED": 0,
+      "PASS": 1,
+      "UNKNOWN": 1
+    }
+  },
+  "description": "Repackaged verified previous 100-point scalar pilot and two previously evaluated neutrino survivors; no new physics evaluations. Split comparison is repackaging, not independent reruns. Resource usage below is from original execution.",
+  "independent_survivor_reruns": {
+    "cutflow": {
+      "gates": {
+        "bfb": {
+          "ERROR": 0,
+          "FAIL": 0,
+          "NOT_EVALUATED": 0,
+          "PASS": 2,
+          "UNKNOWN": 0
+        },
+        "ewpo": {
+          "ERROR": 0,
+          "FAIL": 0,
+          "NOT_EVALUATED": 0,
+          "PASS": 2,
+          "UNKNOWN": 0
+        },
+        "reconstruction": {
+          "ERROR": 0,
+          "FAIL": 0,
+          "NOT_EVALUATED": 0,
+          "PASS": 2,
+          "UNKNOWN": 0
+        },
+        "unitarity": {
+          "ERROR": 0,
+          "FAIL": 0,
+          "NOT_EVALUATED": 0,
+          "PASS": 2,
+          "UNKNOWN": 0
+        },
+        "vacuum": {
+          "ERROR": 0,
+          "FAIL": 0,
+          "NOT_EVALUATED": 0,
+          "PASS": 1,
+          "UNKNOWN": 1
+        }
+      },
+      "neutrino": {
+        "IO": {
+          "ERROR": 0,
+          "FAIL": 0,
+          "NOT_EVALUATED": 0,
+          "PASS": 4,
+          "UNKNOWN": 0
+        },
+        "NO": {
+          "ERROR": 0,
+          "FAIL": 0,
+          "NOT_EVALUATED": 0,
+          "PASS": 4,
+          "UNKNOWN": 0
+        }
+      },
+      "scalar": {
+        "ERROR": 0,
+        "FAIL": 0,
+        "NOT_EVALUATED": 0,
+        "PASS": 1,
+        "UNKNOWN": 1
+      }
+    },
+    "points": 2,
+    "serial_resources": {
+      "cpu_seconds_sum": 1.5632210699999995,
+      "elapsed_seconds_sum": 0.2805459220035118,
+      "peak_rss_kib_max": 98104
+    },
+    "serial_vs_split_bytes_equal": true,
+    "split_resources": {
+      "cpu_seconds_sum": 2.8062097020000007,
+      "elapsed_seconds_sum": 0.4600562359992182,
+      "peak_rss_kib_max": 97716
+    }
+  },
+  "manifest_sha256": "034ae9e3a7bb3d86bb2cbe2a5b94ef0459d201e517e0469c3019892a3a32c47d",
+  "merged_result_sha256": "cddd5a42e8395e0d05c91dd25d026947a9232e92f772bfb6fc3c627f4859bbc1",
+  "original_neutrino_receipt": {
+    "counts": {
+      "bfb:PASS": 2,
+      "ewpo:PASS": 2,
+      "neutrino:IO:PASS": 4,
+      "neutrino:NO:PASS": 4,
+      "reconstruction:PASS": 2,
+      "unitarity:PASS": 2,
+      "vacuum:PASS": 1,
+      "vacuum:UNKNOWN": 1
+    },
+    "elapsed_seconds": 0.2840770260008867,
+    "output_sha256": "0ff7fb118e853db6b23c55f930b408c115a76285622b937503cf56de74581f67",
+    "peak_rss_kib": 98140,
+    "shard_sha256": "f06c1edcf5ca4ecbbe7ba7a58327aeea682b14a0c68130448355c11c9271d35e"
+  },
+  "original_scalar_receipt": {
+    "counts": {
+      "bfb:FAIL": 63,
+      "bfb:PASS": 35,
+      "bfb:UNKNOWN": 2,
+      "ewpo:FAIL": 86,
+      "ewpo:PASS": 14,
+      "reconstruction:PASS": 100,
+      "unitarity:FAIL": 49,
+      "unitarity:PASS": 51,
+      "vacuum:NOT_EVALUATED": 98,
+      "vacuum:PASS": 1,
+      "vacuum:UNKNOWN": 1
+    },
+    "elapsed_seconds": 24.298999661004927,
+    "output_sha256": "c0b719b94cde730ea5f96379342e84c1ea8fb14e90656daa57b6487d727e6e24",
+    "peak_rss_kib": 97968,
+    "shard_sha256": "034ae9e3a7bb3d86bb2cbe2a5b94ef0459d201e517e0469c3019892a3a32c47d"
+  },
+  "points": 100,
+  "result_bytes_equal": true
+}

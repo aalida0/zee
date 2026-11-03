@@ -1,0 +1,7 @@
+# Collection and restart
+
+Run each shard with `python -m module14.scan worker --shard SHARD --output RESULT --receipt RECEIPT --config CONFIG`. Add `--resume` to reuse an intact result and receipt with matching input, settings and worker code. Existing destinations are never overwritten. If a run stopped after publishing only one file, keep it for inspection and restart that shard with new output and receipt paths.
+
+Collect with `python -m module14.collect --manifest MANIFEST --config CONFIG --part SHARD RESULT RECEIPT --output REPORT`. Repeat `--part` for each completed shard. Use the same `--families` and `--perturbativity-limit` as the worker. The collector validates full manifest rows and receipts against the submitted shard and result files. An incomplete manifest yields an `INCOMPLETE` report and exit code 2; corrupt, duplicated or unexpected inputs raise an error. Cutflows cover evaluated scalar points; missing manifest points are counted separately. Neutrino NOT_EVALUATED counts are family slots, including both scalar failures and unknowns that did not reach the inverse solver.
+
+The index is disk-backed and scales with manifest size; result and shard files are read incrementally. Wall and CPU times are summed over receipts and peak memory is the maximum worker RSS. Receipts attest to bytes and settings, not to an independently verified source bundle or runtime environment.
