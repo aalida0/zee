@@ -1,0 +1,120 @@
+{
+  "archives": [
+    {
+      "download_url": null,
+      "local_path": null,
+      "ordering": "NO",
+      "release_variant": "IC23 w/o SK-atm",
+      "sections": null,
+      "sha256": null,
+      "size_bytes": null,
+      "status": "BLOCKED_RELEASE_PAGE_UNREACHABLE",
+      "version": "NuFIT 6.1 (2025)"
+    },
+    {
+      "download_url": null,
+      "local_path": null,
+      "ordering": "IO",
+      "release_variant": "IC23 w/o SK-atm",
+      "sections": null,
+      "sha256": null,
+      "size_bytes": null,
+      "status": "BLOCKED_RELEASE_PAGE_UNREACHABLE",
+      "version": "NuFIT 6.1 (2025)"
+    },
+    {
+      "download_url": null,
+      "local_path": null,
+      "ordering": "NO",
+      "release_variant": "IC24 with SK-atm",
+      "sections": null,
+      "sha256": null,
+      "size_bytes": null,
+      "status": "BLOCKED_RELEASE_PAGE_UNREACHABLE",
+      "version": "NuFIT 6.1 (2025)"
+    },
+    {
+      "download_url": null,
+      "local_path": null,
+      "ordering": "IO",
+      "release_variant": "IC24 with SK-atm",
+      "sections": null,
+      "sha256": null,
+      "size_bytes": null,
+      "status": "BLOCKED_RELEASE_PAGE_UNREACHABLE",
+      "version": "NuFIT 6.1 (2025)"
+    }
+  ],
+  "attempts": [
+    {
+      "method": "web.open",
+      "result": "Timeout fetching; no page obtained",
+      "url": "https://www.nu-fit.org/?q=node%2F12"
+    },
+    {
+      "method": "web.open",
+      "result": "Timeout fetching; no PDF obtained",
+      "url": "https://www.nu-fit.org/sites/default/files/v61.release-notes.pdf"
+    },
+    {
+      "connect_timeout_seconds": 20,
+      "exit_code": 28,
+      "max_time_seconds": 45,
+      "method": "curl sandbox",
+      "stderr": "curl: (28) Connection timeout after 20000 ms",
+      "url": "https://www.nu-fit.org/?q=node%2F12"
+    },
+    {
+      "connect_timeout_seconds": 20,
+      "exit_code": 28,
+      "max_time_seconds": 45,
+      "method": "curl escalated",
+      "stderr": "curl: (28) Connection timeout after 20000 ms",
+      "url": "https://www.nu-fit.org/?q=node%2F12"
+    },
+    {
+      "connect_timeout_seconds": 15,
+      "exit_code": 28,
+      "max_time_seconds": 25,
+      "method": "curl escalated",
+      "stderr": "curl: (28) Connection timeout after 15000 ms",
+      "url": "https://www.nu-fit.org/sites/default/files/v61.release-notes.pdf"
+    },
+    {
+      "connect_timeout_seconds": 10,
+      "exit_code": 6,
+      "max_time_seconds": 20,
+      "method": "curl escalated",
+      "stderr": "curl: (6) Could not resolve host: nu-fit.org",
+      "url": "https://nu-fit.org/?q=node%2F12"
+    },
+    {
+      "method": "web.open",
+      "result": "Timeout fetching; legacy release URL found in frozen module2/validate.py, no page obtained",
+      "url": "https://www.nu-fit.org/?q=node/309"
+    },
+    {
+      "method": "web.open",
+      "result": "URL not accessible",
+      "url": "https://nu-fit.org/?q=node/12"
+    },
+    {
+      "method": "web.open",
+      "result": "Resolved by tool to HTTPS; Timeout fetching",
+      "url": "http://www.nu-fit.org/?q=node/12"
+    },
+    {
+      "method": "browser cua.createBrowserTab",
+      "result": "The browser access host is unavailable",
+      "url": "https://www.nu-fit.org/?q=node%2F12"
+    }
+  ],
+  "authentic_archives_downloaded": 0,
+  "checked_date": "2026-11-03",
+  "redistribution": "No source tables acquired or redistributed; future raw downloads belong in ignored validation/module11/local/.",
+  "release_notes_sha256": null,
+  "release_notes_url": "https://www.nu-fit.org/sites/default/files/v61.release-notes.pdf",
+  "release_page": "https://www.nu-fit.org/?q=node%2F12",
+  "schema_version": "1.0.0",
+  "url_resolution": "Archive URLs not resolved: official release page unavailable. No archive URLs guessed."
+}

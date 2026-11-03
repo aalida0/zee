@@ -1,0 +1,183 @@
+{
+  "COMPLETE_LFV": false,
+  "D10_base_commit": "4fc4bd32a72432dc915f411d32f3381e96d989c3",
+  "authentic_archives_downloaded": 0,
+  "branch": "feature/zee-d11-nufit-oscillation",
+  "checked_date": "2026-11-03",
+  "execution": "BOUNDED_STOP_GATE_A",
+  "failure_reasons": [
+    "Official www.nu-fit.org release page and release notes timed out via web retrieval and direct curl, including escalated curl.",
+    "Official apex nu-fit.org failed DNS resolution; browser access host unavailable.",
+    "No official release-page links could be followed; four archive URLs, sizes and hashes remain unknown.",
+    "No 6.0/5.2 substitution, rounded-table reconstruction, or synthetic NuFIT target used."
+  ],
+  "global_zee_acceptance": null,
+  "inverse_attempt_count": 0,
+  "normalization_verified": false,
+  "official_full_6D_joint_likelihood_obtained": false,
+  "official_projection_ingestion": false,
+  "physics_result": "No D11 numerical physics result can be assigned without authentic data. Conditional solution availability and perturbativity remain unevaluated.",
+  "preserved_D10_records": [
+    {
+      "D10_status": "D10_UNKNOWN",
+      "benchmark_id": "P2_beta_shift",
+      "input_hash_verified": true,
+      "input_sha256": "034e7f9e65606fae1cd7b052feb2a122ddbbf9887e424b7323161687dc8ae7c5",
+      "lagrangian_parameters_sha256": "81ace22289094d3bd6eeaf74f10e6a84af405e11d9f01e43c066feff8d720b54",
+      "role": "representative"
+    },
+    {
+      "D10_status": "D10_GLOBAL_CERTIFIED",
+      "benchmark_id": "d7_NO_neutral_near_heavy_07",
+      "input_hash_verified": true,
+      "input_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+      "lagrangian_parameters_sha256": "3255fb07c0724a9e1ed0f9865c9895c43be2a683614b2f5ebe9d245b6286f6ce",
+      "role": "representative"
+    },
+    {
+      "D10_status": "D10_UNKNOWN",
+      "benchmark_id": "F13_heavy_0000981",
+      "input_hash_verified": true,
+      "input_sha256": "e13c2c028ca21023fdbedce81cc13f9be4461f3b6439b025eb3ff0eb298b753f",
+      "lagrangian_parameters_sha256": "c8f07204a9da13cdccddee2345d646c0c54dd2b0accb10faa3c00d8496b16795",
+      "role": "representative"
+    },
+    {
+      "D10_status": "D10_UNKNOWN",
+      "benchmark_id": "F13_heavy_0001003",
+      "input_hash_verified": true,
+      "input_sha256": "42b18df7604d17994a970c189dfc4779f93a371cacdec8e8df1a2b6f4dc9c349",
+      "lagrangian_parameters_sha256": "53500ad23545e395cc19eb8231c9f30d1b439c8ad51636d4cee96cb603533af0",
+      "role": "representative"
+    },
+    {
+      "D10_status": "D10_GLOBAL_CERTIFIED",
+      "benchmark_id": "F13_heavy_0001330",
+      "input_hash_verified": true,
+      "input_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+      "lagrangian_parameters_sha256": "1af48885ec9934265d9ff5acef1768ad497e92456d70ab8711955256df0ebd8c",
+      "role": "representative"
+    },
+    {
+      "D10_status": "D10_GLOBAL_CERTIFIED",
+      "benchmark_id": "aligned_decoupling_1500",
+      "input_hash_verified": true,
+      "input_sha256": "8ec7ad0635c98d554fc659e5033f16be47a5680d0e13dca1a8f9af5c120e9b23",
+      "lagrangian_parameters_sha256": "9eaeb0c5449e7b10d651b2e8ea6c3fa0de9d889d396fe612fda9d0692879b062",
+      "role": "control"
+    },
+    {
+      "D10_status": "D10_DEEPER_VACUUM_WITNESS",
+      "benchmark_id": "physical_deeper_singlet",
+      "input_hash_verified": true,
+      "input_sha256": "4242602b9b4c74f59496a791d30db49de12c2da20399299ce5e05dabf5c4c200",
+      "lagrangian_parameters_sha256": "2318d32cd4c239c4f8c41b56abed419d91d207ef00ae99e4c01c5752d392ff8d",
+      "role": "control"
+    }
+  ],
+  "preserved_source_sha256": {
+    "module1/D10_VACUUM_GLOBAL_AUDIT.md": "8e950931ed7ec736e41480f967eacd9df7698777cd58059adf0e4d077769c96d",
+    "module1/d10_benchmarks.json": "d354481895850cdaa6846a0728e1114a5ada6a7c1210260f350b79c1aba65015",
+    "validation/module1/d10_vacuum_global.json": "2658636db96bab6d009c90e09cb6fb45c2c702863545006dbaeb0db78b729466"
+  },
+  "proposal_distribution": null,
+  "results": [
+    {
+      "D10_status": "D10_GLOBAL_CERTIFIED",
+      "Yukawa_ranges": null,
+      "attempted_targets": 0,
+      "benchmark_id": "d7_NO_neutral_near_heavy_07",
+      "charged_masses_GeV": [
+        298.7266553444879,
+        532.9329127809378
+      ],
+      "inverse_residual": null,
+      "ordering": "NO",
+      "perturbative_fraction": null,
+      "projected_delta_chi2": null,
+      "reason": "Authentic NuFIT 6.1 archives unavailable; mandatory Gate A bounded stop before target construction.",
+      "scalar_input_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+      "solver_input_sha256": [],
+      "status": "BLOCKED",
+      "target_sha256": []
+    },
+    {
+      "D10_status": "D10_GLOBAL_CERTIFIED",
+      "Yukawa_ranges": null,
+      "attempted_targets": 0,
+      "benchmark_id": "d7_NO_neutral_near_heavy_07",
+      "charged_masses_GeV": [
+        298.7266553444879,
+        532.9329127809378
+      ],
+      "inverse_residual": null,
+      "ordering": "IO",
+      "perturbative_fraction": null,
+      "projected_delta_chi2": null,
+      "reason": "Authentic NuFIT 6.1 archives unavailable; mandatory Gate A bounded stop before target construction.",
+      "scalar_input_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+      "solver_input_sha256": [],
+      "status": "BLOCKED",
+      "target_sha256": []
+    },
+    {
+      "D10_status": "D10_GLOBAL_CERTIFIED",
+      "Yukawa_ranges": null,
+      "attempted_targets": 0,
+      "benchmark_id": "F13_heavy_0001330",
+      "charged_masses_GeV": [
+        572.2316243593124,
+        873.2076828282773
+      ],
+      "inverse_residual": null,
+      "ordering": "NO",
+      "perturbative_fraction": null,
+      "projected_delta_chi2": null,
+      "reason": "Authentic NuFIT 6.1 archives unavailable; mandatory Gate A bounded stop before target construction.",
+      "scalar_input_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+      "solver_input_sha256": [],
+      "status": "BLOCKED",
+      "target_sha256": []
+    },
+    {
+      "D10_status": "D10_GLOBAL_CERTIFIED",
+      "Yukawa_ranges": null,
+      "attempted_targets": 0,
+      "benchmark_id": "F13_heavy_0001330",
+      "charged_masses_GeV": [
+        572.2316243593124,
+        873.2076828282773
+      ],
+      "inverse_residual": null,
+      "ordering": "IO",
+      "perturbative_fraction": null,
+      "projected_delta_chi2": null,
+      "reason": "Authentic NuFIT 6.1 archives unavailable; mandatory Gate A bounded stop before target construction.",
+      "scalar_input_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+      "solver_input_sha256": [],
+      "status": "BLOCKED",
+      "target_sha256": []
+    }
+  ],
+  "schema_version": "1.0.0",
+  "source_manifest": "module11/sources.json",
+  "source_manifest_sha256": "510752549351c030b070a086dd688a877382f5f21935d2e6f47eaf7caaaa7247",
+  "starting_commit": "a2266ab5ae0a09346f9918b6d804a15d4e64c7ca",
+  "statuses": [
+    "D11_NUFIT_PROJECTIONS_AUTHENTICATED_BLOCKED",
+    "D11_INVERSE_NO_BLOCKED",
+    "D11_INVERSE_IO_BLOCKED",
+    "D11_FULL_6D_JOINT_LIKELIHOOD_NOT_AVAILABLE"
+  ],
+  "target_count": 0,
+  "validation": {
+    "command": "python3 -m unittest discover -s tests -p 'test_module2_*.py' -v",
+    "diff_check": "PASS",
+    "errors": 0,
+    "failures": 0,
+    "meaning": "Frozen solver regressions only; native profile tests are synthetic and do not authenticate NuFIT 6.1.",
+    "new_real_data_tests": "NOT_IMPLEMENTED_GATE_A_BOUNDED_STOP",
+    "result": "PASS",
+    "tests_run": 25
+  }
+}
