@@ -1,0 +1,551 @@
+{
+  "hash_convention": "SHA256 sorted compact JSON; file hashes are raw bytes",
+  "records": [
+    {
+      "role": "representative",
+      "input": {
+        "schema_version": "1.0.0",
+        "benchmark_id": "P2_beta_shift",
+        "model": "ZeeTypeII_Module0_v1_restricted_CP",
+        "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+        "units": {
+          "masses": "GeV",
+          "angles": "rad",
+          "mass_squared": "GeV^2",
+          "quartics": "1"
+        },
+        "physical": {
+          "mh1": 125.0,
+          "mh2": 580.7,
+          "ma": 633.7,
+          "mH1": 300.0,
+          "mH2": 700.0,
+          "alpha": 1.398,
+          "beta": 1.394,
+          "gamma": 1.089,
+          "m12sq": 57700.0,
+          "lc": 4.473,
+          "k1": 1.082,
+          "k2": 0.00398,
+          "k12": -0.001266,
+          "v": 246.21965
+        },
+        "electroweak": {
+          "mW": 80.379,
+          "mZ": 91.1876,
+          "SM_reference_mh": 125.0,
+          "scheme": "on_shell_MW_MZ"
+        },
+        "ew_fit": "Gfitter_2026_U_floating",
+        "search": {
+          "starts": 64,
+          "seeds": [
+            123,
+            104852
+          ]
+        }
+      },
+      "source": "module1/example.json",
+      "source_sha256": "116f6756fcdff11eb66311b6bd684bfaee5847bbd2288fb0b2dec6bca976ca10",
+      "input_sha256": "034e7f9e65606fae1cd7b052feb2a122ddbbf9887e424b7323161687dc8ae7c5"
+    },
+    {
+      "role": "representative",
+      "input": {
+        "schema_version": "1.0.0",
+        "benchmark_id": "d7_NO_neutral_near_heavy_07",
+        "model": "ZeeTypeII_Module0_v1_restricted_CP",
+        "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+        "units": {
+          "masses": "GeV",
+          "angles": "rad",
+          "mass_squared": "GeV^2",
+          "quartics": "1"
+        },
+        "physical": {
+          "mh1": 125.0,
+          "mh2": 492.4307830996228,
+          "ma": 493.16131740168134,
+          "mH1": 298.7266553444879,
+          "mH2": 532.9329127809378,
+          "alpha": 0.7919087742464253,
+          "beta": 0.840042107971211,
+          "gamma": 1.3165278528084012,
+          "m12sq": 37805.29796645005,
+          "lc": 4.473,
+          "k1": 1.082,
+          "k2": 0.00398,
+          "k12": -0.001266,
+          "v": 246.21965
+        },
+        "electroweak": {
+          "mW": 80.379,
+          "mZ": 91.1876,
+          "SM_reference_mh": 125.0,
+          "scheme": "on_shell_MW_MZ"
+        },
+        "ew_fit": "Gfitter_2026_U_floating",
+        "search": {
+          "starts": 64,
+          "seeds": [
+            123,
+            104852
+          ]
+        }
+      },
+      "source": "/home/amine/zee/workspaces/zee-condor-d7/validation/module9/local/staged_local_v1/shards/part_002.jsonl",
+      "source_sha256": "db3c1c7fbb39fb5f759aee8508c87c2bfe1b515b88eddec0842aa7742e0687d8",
+      "staged_nested_input_sha256": "370637c9b913c61b7e2c56721aa17909ea5a0fb4147e11e787ec23e72c45154a",
+      "deterministic_regeneration_equal_to_staged_input": true,
+      "generator_sha256": "7ffc02c13cd45f0074bbaf2e7963fcd7e2f61b5da5dec4157ae201c24633a085",
+      "input_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862"
+    },
+    {
+      "role": "representative",
+      "input": {
+        "schema_version": "1.0.0",
+        "benchmark_id": "F13_heavy_0000981",
+        "model": "ZeeTypeII_Module0_v1_restricted_CP",
+        "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+        "units": {
+          "masses": "GeV",
+          "angles": "rad",
+          "mass_squared": "GeV^2",
+          "quartics": "1"
+        },
+        "physical": {
+          "mh1": 125.0,
+          "mh2": 708.4391474697823,
+          "ma": 799.6582703582463,
+          "mH1": 552.6456569760471,
+          "mH2": 885.7888053165332,
+          "alpha": 1.387281047407182,
+          "beta": 1.38571012121753,
+          "gamma": 1.0983292889548868,
+          "m12sq": 88773.17953416877,
+          "lc": 0.8829525698053143,
+          "k1": 0.3206441759290613,
+          "k2": 0.7418435617343322,
+          "k12": 0.025459023193872297,
+          "v": 246.21965
+        },
+        "electroweak": {
+          "mW": 80.379,
+          "mZ": 91.1876,
+          "SM_reference_mh": 125.0,
+          "scheme": "on_shell_MW_MZ"
+        },
+        "ew_fit": "Gfitter_2026_U_floating",
+        "search": {
+          "starts": 64,
+          "seeds": [
+            123,
+            104852
+          ]
+        }
+      },
+      "source": "/home/amine/zee/work/zee_paper1_F16_exact_SARAH_three_heavy_20261021T143647Z/F16_three_exact_F13_Zee_input_reconstruction.json",
+      "source_sha256": "8d2ff3cac333774c08358af856f3f29f07ac626ef1a3a81df65e839297c2e5e0",
+      "source_record_sha256": "0268cfb5e9647ff53a7d3d5bbee5ea1c5e4c5c9975893625c8ddb77939c0c7f7",
+      "staged_SARAH_parameter_max_scaled_difference": 4.097132230682511e-16,
+      "staged_scalar_record": {
+        "2026_Eq4_LO_linearized_BRx1e4": 3.949965404031954,
+        "2026_Eq4_LO_linearized_NP_shift_x1e4": 0.4099654040319539,
+        "2026_Eq4_same_tanbeta_TypeII670_NP_shift_x1e4": 0.5042796632676727,
+        "BR_H1_tb_nonleptonic_included_upper_proxy": 0.9999266433513837,
+        "BR_H2_H1Z_nonleptonic_included_upper_proxy": 0.4738905317295889,
+        "S": -0.002601121946677878,
+        "SM_2026_reference_1e4": 3.54,
+        "T": 0.036347472270232564,
+        "U": 2.4764644064032334e-05,
+        "Zee_to_same_tanbeta_TypeII670_2026Eq4_LO_NP_ratio_NOT_CL": 0.8129723125763718,
+        "abs_z_illustrative_NOT_CL": 1.9489359657711824,
+        "alpha": 1.387281047407182,
+        "beta": 1.38571012121753,
+        "candidate_status": "SCALAR_EWPO_PLUS_2026_EQ4_SCREEN_ONLY_NOT_ALLOWED",
+        "chi2_Gfitter": 2.245593708314007,
+        "chi2_PDG": 0.295209718914471,
+        "delta_C7_LO": -0.03741742808917921,
+        "delta_C8_LO": -0.042381060644925396,
+        "diagnostic_below_1p96_NOT_allowed": true,
+        "experiment_2026_reference_1e4": 3.49,
+        "flavor_and_HiggsTools_applied": false,
+        "fully_allowed_Zee_model": null,
+        "gamma": 1.0983292889548868,
+        "id": "F13_heavy_0000981",
+        "iteration": 981,
+        "k1": 0.3206441759290613,
+        "k12": 0.025459023193872297,
+        "k2": 0.7418435617343322,
+        "lambda1": 5.625754344705972,
+        "lambda2": 0.25946822533783914,
+        "lambda3": 6.559610305691571,
+        "lambda4": -3.967710746579611,
+        "lambda5": -2.4526600605737485,
+        "lc": 0.8829525698053143,
+        "m12sq": 88773.17953416877,
+        "mH1": 552.6456569760471,
+        "mH2": 885.7888053165332,
+        "ma": 799.6582703582463,
+        "max_unitarity": 21.05651850591694,
+        "mh2": 708.4391474697823,
+        "modern_2026_full_NNLO_excluded_or_allowed": null,
+        "no_BSM_covariance_and_quadratic_NP_terms": true,
+        "production_weighted_nonleptonic_cascade_upper_proxy": 0.37571936455651356,
+        "proposal_objective_NOT_physics_likelihood": 0.37571936455651356,
+        "seed_id": "P1_INSP_0408",
+        "signed_z_illustrative_NOT_CL": 1.9489359657711824,
+        "tanbeta": 5.34105102616313
+      },
+      "staged_SARAH_parameters": {
+        "K1": 0.3206441759290613,
+        "K12": 0.025459023193872297,
+        "K2": 0.7418435617343322,
+        "Lambda1": 5.625754344705972,
+        "Lambda2": 0.25946822533783914,
+        "Lambda3": 6.559610305691571,
+        "Lambda4": -3.967710746579611,
+        "Lambda5": -2.4526600605737485,
+        "LambdaC": 0.8829525698053143,
+        "M112": 464289.02349345706,
+        "M12Sq": 88773.17953416877,
+        "M222": 8879.329741538972,
+        "MCS2": 382886.15999323456,
+        "Mu4": 1115.3571128804765,
+        "v1": 45.312114256027066,
+        "v2": 242.01431434477433
+      },
+      "input_sha256": "e13c2c028ca21023fdbedce81cc13f9be4461f3b6439b025eb3ff0eb298b753f"
+    },
+    {
+      "role": "representative",
+      "input": {
+        "schema_version": "1.0.0",
+        "benchmark_id": "F13_heavy_0001003",
+        "model": "ZeeTypeII_Module0_v1_restricted_CP",
+        "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+        "units": {
+          "masses": "GeV",
+          "angles": "rad",
+          "mass_squared": "GeV^2",
+          "quartics": "1"
+        },
+        "physical": {
+          "mh1": 125.0,
+          "mh2": 708.4391474697823,
+          "ma": 799.6582703582463,
+          "mH1": 580.5072872442024,
+          "mH2": 881.4621521185705,
+          "alpha": 1.387281047407182,
+          "beta": 1.38571012121753,
+          "gamma": 1.0818302495167744,
+          "m12sq": 88673.31562419274,
+          "lc": 0.8829525698053143,
+          "k1": 0.2203186499766886,
+          "k2": 0.7418435617343322,
+          "k12": 0.014161126516173144,
+          "v": 246.21965
+        },
+        "electroweak": {
+          "mW": 80.379,
+          "mZ": 91.1876,
+          "SM_reference_mh": 125.0,
+          "scheme": "on_shell_MW_MZ"
+        },
+        "ew_fit": "Gfitter_2026_U_floating",
+        "search": {
+          "starts": 64,
+          "seeds": [
+            123,
+            104852
+          ]
+        }
+      },
+      "source": "/home/amine/zee/work/zee_paper1_F16_exact_SARAH_three_heavy_20261021T143647Z/F16_three_exact_F13_Zee_input_reconstruction.json",
+      "source_sha256": "8d2ff3cac333774c08358af856f3f29f07ac626ef1a3a81df65e839297c2e5e0",
+      "source_record_sha256": "c7f642764549bdb00c41d95f27d16ad63e290294a31d6e45846124eb74a12b82",
+      "staged_SARAH_parameter_max_scaled_difference": 1.255136438964776e-16,
+      "staged_scalar_record": {
+        "2026_Eq4_LO_linearized_BRx1e4": 3.9475701938160976,
+        "2026_Eq4_LO_linearized_NP_shift_x1e4": 0.4075701938160975,
+        "2026_Eq4_same_tanbeta_TypeII670_NP_shift_x1e4": 0.5042796632676727,
+        "BR_H1_tb_nonleptonic_included_upper_proxy": 0.9999188446017215,
+        "BR_H2_H1Z_nonleptonic_included_upper_proxy": 0.4350808737554588,
+        "S": -0.0027683359214517897,
+        "SM_2026_reference_1e4": 3.54,
+        "T": 0.03164630789566731,
+        "U": 2.2424826916839782e-05,
+        "Zee_to_same_tanbeta_TypeII670_2026Eq4_LO_NP_ratio_NOT_CL": 0.8082225469397095,
+        "abs_z_illustrative_NOT_CL": 1.9387871343713747,
+        "alpha": 1.387281047407182,
+        "beta": 1.38571012121753,
+        "candidate_status": "SCALAR_EWPO_PLUS_2026_EQ4_SCREEN_ONLY_NOT_ALLOWED",
+        "chi2_Gfitter": 1.6295890434876594,
+        "chi2_PDG": 0.2023089901190529,
+        "delta_C7_LO": -0.037183849682500186,
+        "delta_C8_LO": -0.042192422693528187,
+        "diagnostic_below_1p96_NOT_allowed": true,
+        "experiment_2026_reference_1e4": 3.49,
+        "flavor_and_HiggsTools_applied": false,
+        "fully_allowed_Zee_model": null,
+        "gamma": 1.0818302495167744,
+        "id": "F13_heavy_0001003",
+        "iteration": 1003,
+        "k1": 0.2203186499766886,
+        "k12": 0.014161126516173144,
+        "k2": 0.7418435617343322,
+        "lambda1": 5.885534899246839,
+        "lambda2": 0.2597874524221832,
+        "lambda3": 6.3880393639449515,
+        "lambda4": -3.796139804832992,
+        "lambda5": -2.461766596083774,
+        "lc": 0.8829525698053143,
+        "m12sq": 88673.31562419274,
+        "mH1": 580.5072872442024,
+        "mH2": 881.4621521185705,
+        "ma": 799.6582703582463,
+        "max_unitarity": 21.568114106957037,
+        "mh2": 708.4391474697823,
+        "modern_2026_full_NNLO_excluded_or_allowed": null,
+        "no_BSM_covariance_and_quadratic_NP_terms": true,
+        "production_weighted_nonleptonic_cascade_upper_proxy": 0.3390611777747062,
+        "proposal_objective_NOT_physics_likelihood": 0.3390611777747062,
+        "seed_id": "P1_INSP_0408",
+        "signed_z_illustrative_NOT_CL": 1.9387871343713747,
+        "tanbeta": 5.34105102616313
+      },
+      "staged_SARAH_parameters": {
+        "K1": 0.2203186499766886,
+        "K12": 0.014161126516173144,
+        "K2": 0.7418435617343322,
+        "Lambda1": 5.885534899246839,
+        "Lambda2": 0.2597874524221832,
+        "Lambda3": 6.3880393639449515,
+        "Lambda4": -3.796139804832992,
+        "Lambda5": -2.461766596083774,
+        "LambdaC": 0.8829525698053143,
+        "M112": 463755.64525460283,
+        "M12Sq": 88673.31562419274,
+        "M222": 8860.632314855186,
+        "MCS2": 412267.1713261409,
+        "Mu4": 1047.940284887491,
+        "v1": 45.312114256027066,
+        "v2": 242.01431434477433
+      },
+      "input_sha256": "42b18df7604d17994a970c189dfc4779f93a371cacdec8e8df1a2b6f4dc9c349"
+    },
+    {
+      "role": "representative",
+      "input": {
+        "schema_version": "1.0.0",
+        "benchmark_id": "F13_heavy_0001330",
+        "model": "ZeeTypeII_Module0_v1_restricted_CP",
+        "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+        "units": {
+          "masses": "GeV",
+          "angles": "rad",
+          "mass_squared": "GeV^2",
+          "quartics": "1"
+        },
+        "physical": {
+          "mh1": 125.0,
+          "mh2": 707.0819378644715,
+          "ma": 792.2593499631515,
+          "mH1": 572.2316243593124,
+          "mH2": 873.2076828282773,
+          "alpha": 1.3870304796252606,
+          "beta": 1.3845755092663614,
+          "gamma": 1.0889500926314342,
+          "m12sq": 88336.32560991515,
+          "lc": 1.1465628128505794,
+          "k1": 0.36294235759470134,
+          "k2": 0.5346711278360509,
+          "k12": -0.01744840047090771,
+          "v": 246.21965
+        },
+        "electroweak": {
+          "mW": 80.379,
+          "mZ": 91.1876,
+          "SM_reference_mh": 125.0,
+          "scheme": "on_shell_MW_MZ"
+        },
+        "ew_fit": "Gfitter_2026_U_floating",
+        "search": {
+          "starts": 64,
+          "seeds": [
+            123,
+            104852
+          ]
+        }
+      },
+      "source": "/home/amine/zee/work/zee_paper1_F16_exact_SARAH_three_heavy_20261021T143647Z/F16_three_exact_F13_Zee_input_reconstruction.json",
+      "source_sha256": "8d2ff3cac333774c08358af856f3f29f07ac626ef1a3a81df65e839297c2e5e0",
+      "source_record_sha256": "fb22aaa6485bef30a982781933e838ccd086f448915bb83c25f7c147de5ce6a0",
+      "staged_SARAH_parameter_max_scaled_difference": 2.5423869190718873e-16,
+      "staged_scalar_record": {
+        "2026_Eq4_LO_linearized_BRx1e4": 3.951914031866352,
+        "2026_Eq4_LO_linearized_NP_shift_x1e4": 0.41191403186635217,
+        "2026_Eq4_same_tanbeta_TypeII670_NP_shift_x1e4": 0.5043006953524459,
+        "BR_H1_tb_nonleptonic_included_upper_proxy": 0.9998081809322374,
+        "BR_H2_H1Z_nonleptonic_included_upper_proxy": 0.4524625151014256,
+        "S": -0.002657069062678898,
+        "SM_2026_reference_1e4": 3.54,
+        "T": 0.03193162756827455,
+        "U": 2.545904695364506e-05,
+        "Zee_to_same_tanbeta_TypeII670_2026Eq4_LO_NP_ratio_NOT_CL": 0.8168024269299757,
+        "abs_z_illustrative_NOT_CL": 1.9571925668917698,
+        "alpha": 1.3870304796252606,
+        "beta": 1.3845755092663614,
+        "candidate_status": "SCALAR_EWPO_PLUS_2026_EQ4_SCREEN_ONLY_NOT_ALLOWED",
+        "chi2_Gfitter": 1.6547791281258002,
+        "chi2_PDG": 0.20419540046122894,
+        "delta_C7_LO": -0.03758954598918159,
+        "delta_C8_LO": -0.0426050905085263,
+        "diagnostic_below_1p96_NOT_allowed": true,
+        "experiment_2026_reference_1e4": 3.49,
+        "flavor_and_HiggsTools_applied": false,
+        "fully_allowed_Zee_model": null,
+        "gamma": 1.0889500926314342,
+        "id": "F13_heavy_0001330",
+        "iteration": 1330,
+        "k1": 0.36294235759470134,
+        "k12": -0.01744840047090771,
+        "k2": 0.5346711278360509,
+        "lambda1": 7.181790574386713,
+        "lambda2": 0.25885511457216837,
+        "lambda3": 6.175291926060284,
+        "lambda4": -3.7104653303399915,
+        "lambda5": -2.3450195614870437,
+        "lc": 1.1465628128505794,
+        "m12sq": 88336.32560991515,
+        "mH1": 572.2316243593124,
+        "mH2": 873.2076828282773,
+        "ma": 792.2593499631515,
+        "max_unitarity": 24.696991802662474,
+        "mh2": 707.0819378644715,
+        "modern_2026_full_NNLO_excluded_or_allowed": null,
+        "no_BSM_covariance_and_quadratic_NP_terms": true,
+        "production_weighted_nonleptonic_cascade_upper_proxy": 0.35522605695568565,
+        "proposal_objective_NOT_physics_likelihood": 0.35522605695568565,
+        "seed_id": "P1_INSP_0408",
+        "signed_z_illustrative_NOT_CL": 1.9571925668917698,
+        "tanbeta": 5.307751319043352
+      },
+      "staged_SARAH_parameters": {
+        "K1": 0.36294235759470134,
+        "K12": -0.01744840047090771,
+        "K2": 0.5346711278360509,
+        "Lambda1": 7.181790574386713,
+        "Lambda2": 0.25885511457216837,
+        "Lambda3": 6.175291926060284,
+        "Lambda4": -3.7104653303399915,
+        "Lambda5": -2.3450195614870437,
+        "LambdaC": 1.1465628128505794,
+        "M112": 457897.73756951554,
+        "M12Sq": 88336.32560991515,
+        "M222": 8940.940597173369,
+        "MCS2": 404655.3359936944,
+        "Mu4": 1026.1193425709669,
+        "v1": 45.586677364378296,
+        "v2": 241.9627469115826
+      },
+      "input_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d"
+    },
+    {
+      "role": "control",
+      "input": {
+        "schema_version": "1.0.0",
+        "benchmark_id": "aligned_decoupling_1500",
+        "model": "ZeeTypeII_Module0_v1_restricted_CP",
+        "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+        "units": {
+          "masses": "GeV",
+          "angles": "rad",
+          "mass_squared": "GeV^2",
+          "quartics": "1"
+        },
+        "physical": {
+          "alpha": 0.7,
+          "beta": 0.7,
+          "gamma": 0.0,
+          "k1": 0.2,
+          "k12": 0.02,
+          "k2": 0.25,
+          "lc": 0.3,
+          "m12sq": 1108630.9462370179,
+          "mH1": 1500.0,
+          "mH2": 2000.0,
+          "ma": 1500.0,
+          "mh1": 125.0,
+          "mh2": 1500.0,
+          "v": 246.21965
+        },
+        "electroweak": {
+          "mW": 80.379,
+          "mZ": 91.1876,
+          "SM_reference_mh": 125.0,
+          "scheme": "on_shell_MW_MZ"
+        },
+        "ew_fit": "Gfitter_2026_U_floating",
+        "search": {
+          "starts": 64,
+          "seeds": [
+            123,
+            104852
+          ]
+        }
+      },
+      "source": "validation/module1/results.json",
+      "source_sha256": "e129290ac6cd0990b48b8004ebfe508dd0256177d23abd5a9a7924e3249b598c",
+      "input_sha256": "8ec7ad0635c98d554fc659e5033f16be47a5680d0e13dca1a8f9af5c120e9b23"
+    },
+    {
+      "role": "control",
+      "input": {
+        "schema_version": "1.0.0",
+        "benchmark_id": "physical_deeper_singlet",
+        "model": "ZeeTypeII_Module0_v1_restricted_CP",
+        "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+        "units": {
+          "masses": "GeV",
+          "angles": "rad",
+          "mass_squared": "GeV^2",
+          "quartics": "1"
+        },
+        "physical": {
+          "alpha": 0.7,
+          "beta": 0.7,
+          "gamma": 1.5707963267948966,
+          "k1": 2.0,
+          "k12": 0.0,
+          "k2": 2.0,
+          "lc": 0.1,
+          "m12sq": 78835.97839907682,
+          "mH1": 120.0,
+          "mH2": 400.0,
+          "ma": 400.0,
+          "mh1": 125.0,
+          "mh2": 400.0,
+          "v": 246.21965
+        },
+        "electroweak": {
+          "mW": 80.379,
+          "mZ": 91.1876,
+          "SM_reference_mh": 125.0,
+          "scheme": "on_shell_MW_MZ"
+        },
+        "ew_fit": "Gfitter_2026_U_floating",
+        "search": {
+          "starts": 64,
+          "seeds": [
+            123,
+            104852
+          ]
+        }
+      },
+      "source": "validation/module1/results.json",
+      "source_sha256": "e129290ac6cd0990b48b8004ebfe508dd0256177d23abd5a9a7924e3249b598c",
+      "input_sha256": "4242602b9b4c74f59496a791d30db49de12c2da20399299ce5e05dabf5c4c200"
+    }
+  ]
+}
