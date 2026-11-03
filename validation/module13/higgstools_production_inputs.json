@@ -1,0 +1,498 @@
+{
+  "records": [
+    {
+      "banner_sha256": "876db783fc05215c005881b865394caf61c0e62bf5c9718a42395138396594ab",
+      "benchmark": {
+        "D12_yukawa_sha256": {
+          "D": "399854794d73c2c1b8eb92ef2f259b0acb8f3b8765003595266902ecf3070844",
+          "F": "cca43f73fe99cac2237847ee58317d2215efa9ecdfe0ba5456a1b99d12975e44",
+          "Ye": "b589de28e3a68adf02d9186286dcc613b65bb222a132dec359d85d2ebd756e25",
+          "Ye2": "36782190a7c411548223ab7bdbe1ab1ffb0fb3aba266de33898f5a612de54967"
+        },
+        "H1_doublet_fraction": 0.06327109898118452,
+        "H2_doublet_fraction": 0.9367289010188155,
+        "Q_Yukawa_GeV": 298.7266553444879,
+        "Yukawa_masses_GeV": [
+          0.0013099731804428378,
+          0.7098896986974015,
+          156.01711551720686,
+          0.0028504046055932123,
+          0.056704857579354326,
+          2.8366333066865974
+        ],
+        "max_native_residual": 2.7755575615628914e-17,
+        "native_card_sha256": "cff72ab66d4dc4606f827500c81c4b66b5af37b0eb6ccb6d0dddd7d7a1440963",
+        "native_quark_comparisons": 72,
+        "ordering": "NO",
+        "physical": {
+          "alpha": 0.7919087742464253,
+          "beta": 0.840042107971211,
+          "gamma": 1.3165278528084012,
+          "k1": 1.082,
+          "k12": -0.001266,
+          "k2": 0.00398,
+          "lc": 4.473,
+          "m12sq": 37805.29796645005,
+          "mH1": 298.7266553444879,
+          "mH2": 532.9329127809378,
+          "ma": 493.16131740168134,
+          "mh1": 125.0,
+          "mh2": 492.4307830996228,
+          "v": 246.21965
+        },
+        "role": "low_joint",
+        "scalar_closure": {
+          "assessment": "PASS",
+          "full_hessian_eigenvalues_GeV2": [
+            1.4440419656907615e-11,
+            4.19083113092996e-11,
+            6.268357943784196e-11,
+            15624.999999999973,
+            89237.61461330442,
+            89237.61461330447,
+            242488.07614410797,
+            243208.08498136204,
+            284017.48952517455,
+            284017.4895251746
+          ],
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10,
+          "mixing_rows": {
+            "ZA": [
+              [
+                0.6674314698385262,
+                0.7446712248161496
+              ],
+              [
+                -0.7446712248161496,
+                0.6674314698385262
+              ]
+            ],
+            "ZH": [
+              [
+                0.7024881302419834,
+                0.711695459356825
+              ],
+              [
+                -0.711695459356825,
+                0.7024881302419834
+              ]
+            ],
+            "ZP": [
+              [
+                0.6674314698385262,
+                0.7446712248161496,
+                0.0
+              ],
+              [
+                -0.1873127161195272,
+                0.16788402354336734,
+                0.9678475608373539
+              ],
+              [
+                0.7207282285640751,
+                -0.6459719201093075,
+                0.2515374703323235
+              ]
+            ]
+          },
+          "order": "tree",
+          "spectrum_max_relative_residual": 6.268357943784196e-11,
+          "status": "RECONSTRUCTION_VALIDATED",
+          "tadpole_max_over_v3": 2.846655279186307e-16
+        },
+        "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+        "tanbeta": 1.115726870050509
+      },
+      "energy_TeV": 13.0,
+      "integration_error_pb": 0.0001732,
+      "log_sha256": "7fea43de324f867606331d85e8fa3ade54ca34f41c72a3ded3374954d9df2f8a",
+      "muF_GeV": 298.7266553444879,
+      "muR_GeV": 298.7266553444879,
+      "name": "D7",
+      "param_card_sha256": "1064828856890436369bf74a0be76b2ae73352a7b69d88e187b2c96a8e264742",
+      "proc_card_sha256": "e3652549bd5097d4d93fdc5f1b818432c6063d3a2fad845fbd177658533cf66c",
+      "receipt": "validation/module13/local/receipts/D7_H1_13_r1_f1/receipt.json",
+      "receipt_sha256": "4286901b6b62602434071d08ddb05a3becb39e17499accc031ab0b924e72b729",
+      "results_sha256": "dd54d888124d45899b7dbd5dbda771721e68d3630d3c88ad504c0693f18355f9",
+      "run_card_sha256": "43325ab542e4dee93f1cc16ac34627cb7e194b3032626d4f035082adc7d22d5b",
+      "scale_factors": [
+        1.0,
+        1.0
+      ],
+      "sigma_LO_pb": 0.10688,
+      "state": 1
+    },
+    {
+      "banner_sha256": "d8bd08dcc0a672f3adddd339409991d19232f320d56d785bc13eb8bbf569d2f4",
+      "benchmark": {
+        "D12_yukawa_sha256": {
+          "D": "399854794d73c2c1b8eb92ef2f259b0acb8f3b8765003595266902ecf3070844",
+          "F": "cca43f73fe99cac2237847ee58317d2215efa9ecdfe0ba5456a1b99d12975e44",
+          "Ye": "b589de28e3a68adf02d9186286dcc613b65bb222a132dec359d85d2ebd756e25",
+          "Ye2": "36782190a7c411548223ab7bdbe1ab1ffb0fb3aba266de33898f5a612de54967"
+        },
+        "H1_doublet_fraction": 0.06327109898118452,
+        "H2_doublet_fraction": 0.9367289010188155,
+        "Q_Yukawa_GeV": 532.9329127809378,
+        "Yukawa_masses_GeV": [
+          0.0012634142844314058,
+          0.6846588915673915,
+          150.4719755358573,
+          0.002749095896679448,
+          0.054689460923303915,
+          2.735814055483348
+        ],
+        "max_native_residual": 1.1102230246251565e-16,
+        "native_card_sha256": "5c7f1382e3badc197dd6175a1bf1b0e7ca091666cf5e250bdfee6f062ad5a6fa",
+        "native_quark_comparisons": 72,
+        "ordering": "NO",
+        "physical": {
+          "alpha": 0.7919087742464253,
+          "beta": 0.840042107971211,
+          "gamma": 1.3165278528084012,
+          "k1": 1.082,
+          "k12": -0.001266,
+          "k2": 0.00398,
+          "lc": 4.473,
+          "m12sq": 37805.29796645005,
+          "mH1": 298.7266553444879,
+          "mH2": 532.9329127809378,
+          "ma": 493.16131740168134,
+          "mh1": 125.0,
+          "mh2": 492.4307830996228,
+          "v": 246.21965
+        },
+        "role": "low_joint",
+        "scalar_closure": {
+          "assessment": "PASS",
+          "full_hessian_eigenvalues_GeV2": [
+            1.4440419656907615e-11,
+            4.19083113092996e-11,
+            6.268357943784196e-11,
+            15624.999999999973,
+            89237.61461330442,
+            89237.61461330447,
+            242488.07614410797,
+            243208.08498136204,
+            284017.48952517455,
+            284017.4895251746
+          ],
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10,
+          "mixing_rows": {
+            "ZA": [
+              [
+                0.6674314698385262,
+                0.7446712248161496
+              ],
+              [
+                -0.7446712248161496,
+                0.6674314698385262
+              ]
+            ],
+            "ZH": [
+              [
+                0.7024881302419834,
+                0.711695459356825
+              ],
+              [
+                -0.711695459356825,
+                0.7024881302419834
+              ]
+            ],
+            "ZP": [
+              [
+                0.6674314698385262,
+                0.7446712248161496,
+                0.0
+              ],
+              [
+                -0.1873127161195272,
+                0.16788402354336734,
+                0.9678475608373539
+              ],
+              [
+                0.7207282285640751,
+                -0.6459719201093075,
+                0.2515374703323235
+              ]
+            ]
+          },
+          "order": "tree",
+          "spectrum_max_relative_residual": 6.268357943784196e-11,
+          "status": "RECONSTRUCTION_VALIDATED",
+          "tadpole_max_over_v3": 2.846655279186307e-16
+        },
+        "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+        "tanbeta": 1.115726870050509
+      },
+      "energy_TeV": 13.0,
+      "integration_error_pb": 0.00054262,
+      "log_sha256": "2dd9cb9fa104fe9103cbb48f8c29f9aa138de19d385441a2528248f833f928a1",
+      "muF_GeV": 532.9329127809378,
+      "muR_GeV": 532.9329127809378,
+      "name": "D7",
+      "param_card_sha256": "5a02c3fc7ae2ab6fb47f6098720c1e78907479f907af92035922539456b6cf49",
+      "proc_card_sha256": "9c3581e5bfad95dd5088c27c983a5a907e2e29916e9d9b7601f59925956776ea",
+      "receipt": "validation/module13/local/receipts/D7_H2_13_r1_f1/receipt.json",
+      "receipt_sha256": "fc33894b096179acbf38f5845cd4ade587ed47ba757b60eac8ea24c6a3a5faf4",
+      "results_sha256": "add3ffd5b41112233b88740bfeadc650c6aa173b42978fdeccc8d1d8e237a273",
+      "run_card_sha256": "5ddd618e9ffe0edf45688fef8b595736d4c76ff5a94910b3be7477275099ab74",
+      "scale_factors": [
+        1.0,
+        1.0
+      ],
+      "sigma_LO_pb": 0.2558,
+      "state": 2
+    },
+    {
+      "banner_sha256": "6c7ccb0bbe82b8d5a0aaf69b0767ef361a04cb1f65e63469db266a73df7184bd",
+      "benchmark": {
+        "D12_yukawa_sha256": {
+          "D": "eaa0e8dadaf35acfa9bc4381f229070217fdeee0a0f6ae4261a0d1813e93dd47",
+          "F": "1d9b8ff9a6896b0966689cb5542bc7d7c1cb3f0e27668a8dc9837e2122223dd4",
+          "Ye": "8db3a9f690ba80b6ecdb866bfdd1dd3e0a03ef9b4ea745576acfa9a507ce41ef",
+          "Ye2": "0679a131d7092a5090313ffec6d892430cf85df385509c9a12da77f0240f745d"
+        },
+        "H1_doublet_fraction": 0.21475437787365856,
+        "H2_doublet_fraction": 0.7852456221263414,
+        "Q_Yukawa_GeV": 572.2316243593124,
+        "Yukawa_masses_GeV": [
+          0.0012580009802135035,
+          0.6817253590664397,
+          149.82725385597624,
+          0.0027373169476867906,
+          0.054455135023130825,
+          2.7240920147019194
+        ],
+        "max_native_residual": 1.3877787807814457e-17,
+        "native_card_sha256": "7599119626958f26a9a367ce1a49be687b352205e59a0f8262bb970ae66268b5",
+        "native_quark_comparisons": 72,
+        "ordering": "NO",
+        "physical": {
+          "alpha": 1.3870304796252606,
+          "beta": 1.3845755092663614,
+          "gamma": 1.0889500926314342,
+          "k1": 0.36294235759470134,
+          "k12": -0.01744840047090771,
+          "k2": 0.5346711278360509,
+          "lc": 1.1465628128505794,
+          "m12sq": 88336.32560991515,
+          "mH1": 572.2316243593124,
+          "mH2": 873.2076828282773,
+          "ma": 792.2593499631515,
+          "mh1": 125.0,
+          "mh2": 707.0819378644715,
+          "v": 246.21965
+        },
+        "role": "low_joint",
+        "scalar_closure": {
+          "assessment": "PASS",
+          "full_hessian_eigenvalues_GeV2": [
+            -5.77799493660314e-12,
+            1.1570016709473236e-11,
+            4.1528794320938775e-11,
+            15624.999999999922,
+            327449.03191689687,
+            327449.031916897,
+            499964.8668541763,
+            627674.8776040357,
+            762491.6573503291,
+            762491.6573503297
+          ],
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10,
+          "mixing_rows": {
+            "ZA": [
+              [
+                0.18514638195764754,
+                0.982710953051808
+              ],
+              [
+                -0.982710953051808,
+                0.18514638195764754
+              ]
+            ],
+            "ZH": [
+              [
+                0.1827333001926899,
+                0.9831625201362633
+              ],
+              [
+                -0.9831625201362633,
+                0.1827333001926899
+              ]
+            ],
+            "ZP": [
+              [
+                0.18514638195764754,
+                0.982710953051808,
+                0.0
+              ],
+              [
+                -0.45540396716292864,
+                0.08579979350747143,
+                0.8861408590773486
+              ],
+              [
+                0.8708203281620491,
+                -0.16406577396301272,
+                0.46341598793487754
+              ]
+            ]
+          },
+          "order": "tree",
+          "spectrum_max_relative_residual": 4.1528794320938775e-11,
+          "status": "RECONSTRUCTION_VALIDATED",
+          "tadpole_max_over_v3": 2.8856505569833796e-16
+        },
+        "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+        "tanbeta": 5.307751319043352
+      },
+      "energy_TeV": 13.0,
+      "integration_error_pb": 5.0545e-06,
+      "log_sha256": "e5883353049d9a9323bcfff3b5e0b9578345bc060cd657a34a5ce54d6da28d42",
+      "muF_GeV": 572.2316243593124,
+      "muR_GeV": 572.2316243593124,
+      "name": "F13",
+      "param_card_sha256": "d8adde9268a0ad65d11bb70f6cde862202b06968a30b32cc69a3cbf152e18b08",
+      "proc_card_sha256": "e3652549bd5097d4d93fdc5f1b818432c6063d3a2fad845fbd177658533cf66c",
+      "receipt": "validation/module13/local/receipts/F13_H1_13_r1_f1/receipt.json",
+      "receipt_sha256": "d42e741bd5effa929ecc91edb65c1267d921809091b1a7ef37ac36681a52da88",
+      "results_sha256": "a0e8c82b8f954800f94a7fa22a744cc0013e7679435319d14f6800855de6422c",
+      "run_card_sha256": "c6a525ba086fd8668b9a4fd005c7101770c3b06924defe75059a6ded668e78ea",
+      "scale_factors": [
+        1.0,
+        1.0
+      ],
+      "sigma_LO_pb": 0.0025042,
+      "state": 1
+    },
+    {
+      "banner_sha256": "e7de00a7bba420c4309ef1fc4e5bceb01d12af792d9f41e4be8ab2deef795a0e",
+      "benchmark": {
+        "D12_yukawa_sha256": {
+          "D": "eaa0e8dadaf35acfa9bc4381f229070217fdeee0a0f6ae4261a0d1813e93dd47",
+          "F": "1d9b8ff9a6896b0966689cb5542bc7d7c1cb3f0e27668a8dc9837e2122223dd4",
+          "Ye": "8db3a9f690ba80b6ecdb866bfdd1dd3e0a03ef9b4ea745576acfa9a507ce41ef",
+          "Ye2": "0679a131d7092a5090313ffec6d892430cf85df385509c9a12da77f0240f745d"
+        },
+        "H1_doublet_fraction": 0.21475437787365856,
+        "H2_doublet_fraction": 0.7852456221263414,
+        "Q_Yukawa_GeV": 873.2076828282773,
+        "Yukawa_masses_GeV": [
+          0.0012271104750860738,
+          0.6649854351466931,
+          146.1482109726541,
+          0.002670101496715068,
+          0.053117976583586995,
+          2.6572013050194365
+        ],
+        "max_native_residual": 5.551115123125783e-17,
+        "native_card_sha256": "b2d2ba53aa43a9f33668524442354c0fffa24ec55526bc69ed07acbb114d6680",
+        "native_quark_comparisons": 72,
+        "ordering": "NO",
+        "physical": {
+          "alpha": 1.3870304796252606,
+          "beta": 1.3845755092663614,
+          "gamma": 1.0889500926314342,
+          "k1": 0.36294235759470134,
+          "k12": -0.01744840047090771,
+          "k2": 0.5346711278360509,
+          "lc": 1.1465628128505794,
+          "m12sq": 88336.32560991515,
+          "mH1": 572.2316243593124,
+          "mH2": 873.2076828282773,
+          "ma": 792.2593499631515,
+          "mh1": 125.0,
+          "mh2": 707.0819378644715,
+          "v": 246.21965
+        },
+        "role": "low_joint",
+        "scalar_closure": {
+          "assessment": "PASS",
+          "full_hessian_eigenvalues_GeV2": [
+            -5.77799493660314e-12,
+            1.1570016709473236e-11,
+            4.1528794320938775e-11,
+            15624.999999999922,
+            327449.03191689687,
+            327449.031916897,
+            499964.8668541763,
+            627674.8776040357,
+            762491.6573503291,
+            762491.6573503297
+          ],
+          "mixing_max_residual_GeV2": 1.1641532182693481e-10,
+          "mixing_rows": {
+            "ZA": [
+              [
+                0.18514638195764754,
+                0.982710953051808
+              ],
+              [
+                -0.982710953051808,
+                0.18514638195764754
+              ]
+            ],
+            "ZH": [
+              [
+                0.1827333001926899,
+                0.9831625201362633
+              ],
+              [
+                -0.9831625201362633,
+                0.1827333001926899
+              ]
+            ],
+            "ZP": [
+              [
+                0.18514638195764754,
+                0.982710953051808,
+                0.0
+              ],
+              [
+                -0.45540396716292864,
+                0.08579979350747143,
+                0.8861408590773486
+              ],
+              [
+                0.8708203281620491,
+                -0.16406577396301272,
+                0.46341598793487754
+              ]
+            ]
+          },
+          "order": "tree",
+          "spectrum_max_relative_residual": 4.1528794320938775e-11,
+          "status": "RECONSTRUCTION_VALIDATED",
+          "tadpole_max_over_v3": 2.8856505569833796e-16
+        },
+        "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+        "tanbeta": 5.307751319043352
+      },
+      "energy_TeV": 13.0,
+      "integration_error_pb": 2.8097e-06,
+      "log_sha256": "f62d74d38a7f332e943ed559713e74c41b5491fb82dbab8e9675873f29523221",
+      "muF_GeV": 873.2076828282773,
+      "muR_GeV": 873.2076828282773,
+      "name": "F13",
+      "param_card_sha256": "37faaf4c7ff90a45b608b35967a639cac5a7000a0413c302cfc0b556ff48fb51",
+      "proc_card_sha256": "9c3581e5bfad95dd5088c27c983a5a907e2e29916e9d9b7601f59925956776ea",
+      "receipt": "validation/module13/local/receipts/F13_H2_13_r1_f1/receipt.json",
+      "receipt_sha256": "36a5da6af4f427e6ed21d2ce3e36de9e986ca19a017a2bbf41bf38dd9c3a6b05",
+      "results_sha256": "a8847a4fc4db9867cb0a2d9e0a4c156b7516549b84c152aceb258b08c601bf79",
+      "run_card_sha256": "6ea353d09dce1e6e92ad200194ee56ae615d7b36f81af728b4dbe9801781c0be",
+      "scale_factors": [
+        1.0,
+        1.0
+      ],
+      "sigma_LO_pb": 0.0015023,
+      "state": 2
+    }
+  ],
+  "scheme": "LO 5FS, charge-inclusive tbH+ plus tbH-, NNPDF30_lo_as_0130 member 0 (LHAPDF ID 263000); fixed muR=muF=mHcharged; integration error is not theory uncertainty",
+  "scope": "Existing results reused read-only; no production execution in the HiggsTools-only workflow",
+  "source_sha256": {
+    "validation/module13/local/runtime.json": "7bfc9bac4a7691b0530fe786469301aaf192eb93e643dc8d7d62dbdde76827b4",
+    "validation/module13/local/validated_rates.json": "f12ddeb0b1800dd289241c45d0f66a9e3301747f521a3ad2420ab42986da02e8"
+  }
+}

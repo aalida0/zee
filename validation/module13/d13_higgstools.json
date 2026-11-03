@@ -1,0 +1,2963 @@
+{
+  "benchmarks": {
+    "D7": {
+      "HiggsSignals": {
+        "chi2": 162.08679785763096,
+        "chi2_SM": 153.85938918358593,
+        "delta_chi2": 8.227408674045023,
+        "inputs": {
+          "kappa_V": 0.9988418147268642,
+          "kappa_d": 1.0525247339804618,
+          "kappa_leptons": [
+            {
+              "imag": -0.007931736832869183,
+              "real": 0.89094202762388
+            },
+            {
+              "imag": 0.008047079375606845,
+              "real": 1.1067139304649796
+            },
+            {
+              "imag": -0.00011532820724749062,
+              "real": 0.9988693576683771
+            }
+          ],
+          "kappa_u": 0.9557176853886548,
+          "total_width_GeV": 0.00429645281833676
+        },
+        "interpretation": "No excluded/not-excluded classification from an uncalibrated delta chi2",
+        "measurements": [
+          {
+            "chi2": 21.610334480263603,
+            "chi2_SM": 17.569544693053956,
+            "id": 210306956,
+            "n_observables": 17,
+            "reference": "2103.06956"
+          },
+          {
+            "chi2": 0.04442780811346498,
+            "chi2_SM": 0.10941176594317796,
+            "id": 200707830,
+            "n_observables": 1,
+            "reference": "2007.07830"
+          },
+          {
+            "chi2": 1.055859357658171,
+            "chi2_SM": 2.3685384977152752,
+            "id": 211004836,
+            "n_observables": 3,
+            "reference": "2110.04836"
+          },
+          {
+            "chi2": 7.1464954294671115,
+            "chi2_SM": 6.410863068342787,
+            "id": 200701984,
+            "n_observables": 5,
+            "reference": "2007.01984"
+          },
+          {
+            "chi2": 23.03026194805648,
+            "chi2_SM": 20.57718825512882,
+            "id": 160602266,
+            "n_observables": 20,
+            "reference": "1606.02266"
+          },
+          {
+            "chi2": 18.319493428913706,
+            "chi2_SM": 17.605256826200314,
+            "id": 220700348,
+            "n_observables": 28,
+            "reference": "2207.00348"
+          },
+          {
+            "chi2": 3.1498330298311936,
+            "chi2_SM": 3.126464240353018,
+            "id": 191201662,
+            "n_observables": 2,
+            "reference": "1912.01662"
+          },
+          {
+            "chi2": 0.04036463486252111,
+            "chi2_SM": 0.003468997122301241,
+            "id": 201108280,
+            "n_observables": 1,
+            "reference": "2011.08280"
+          },
+          {
+            "chi2": 4.144610365918857,
+            "chi2_SM": 3.673083431332408,
+            "id": 180305485,
+            "n_observables": 6,
+            "reference": "1803.05485"
+          },
+          {
+            "chi2": 2.8651034224538234,
+            "chi2_SM": 3.239657055001474,
+            "id": 211106712,
+            "n_observables": 1,
+            "reference": "2111.06712"
+          },
+          {
+            "chi2": 38.780821077157384,
+            "chi2_SM": 39.61789687270777,
+            "id": 220412957,
+            "n_observables": 16,
+            "reference": "2204.12957"
+          },
+          {
+            "chi2": 0.39913126223800943,
+            "chi2_SM": 0.40996191978700125,
+            "id": 2021021,
+            "n_observables": 1,
+            "reference": "ATLAS-CONF-2021-021"
+          },
+          {
+            "chi2": 0.5170445015334125,
+            "chi2_SM": 0.15615991588493686,
+            "id": 181108856,
+            "n_observables": 2,
+            "reference": "1811.08856"
+          },
+          {
+            "chi2": 3.6600645792863276,
+            "chi2_SM": 3.418667940457591,
+            "id": 190310052,
+            "n_observables": 2,
+            "reference": "1903.10052"
+          },
+          {
+            "chi2": 0.4641844813469387,
+            "chi2_SM": 0.4149774745337939,
+            "id": 200702873,
+            "n_observables": 5,
+            "reference": "2007.02873"
+          },
+          {
+            "chi2": 2.2060035832278984,
+            "chi2_SM": 2.2404013341472893,
+            "id": 180808242,
+            "n_observables": 5,
+            "reference": "1808.08242"
+          },
+          {
+            "chi2": 8.2651252552341,
+            "chi2_SM": 7.199306024314139,
+            "id": 200403447,
+            "n_observables": 12,
+            "reference": "2004.03447"
+          },
+          {
+            "chi2": 1.5189205679607922,
+            "chi2_SM": 2.4116711599888054,
+            "id": 2019045,
+            "n_observables": 6,
+            "reference": "ATLAS-CONF-2019-045"
+          },
+          {
+            "chi2": 3.279359604038227,
+            "chi2_SM": 3.6335016156139592,
+            "id": 200904363,
+            "n_observables": 4,
+            "reference": "2009.04363"
+          },
+          {
+            "chi2": 17.376994664872417,
+            "chi2_SM": 16.196057059760378,
+            "id": 210304956,
+            "n_observables": 19,
+            "reference": "2103.04956"
+          },
+          {
+            "chi2": 2.1626297577854237,
+            "chi2_SM": 2.1626297577854237,
+            "id": 1812251,
+            "n_observables": 1,
+            "reference": ""
+          },
+          {
+            "chi2": 2.0497346174111106,
+            "chi2_SM": 1.3146812784113215,
+            "id": 180809054,
+            "n_observables": 2,
+            "reference": "1808.09054"
+          }
+        ],
+        "missing": [
+          "charged scalar contributions to h->gamma gamma and Z gamma",
+          "validated complete h125 loop BRs; fit parameter count/acceptance prescription"
+        ],
+        "observable_count": 159,
+        "status": "UNEVALUATED_FULL_MODEL; APPROXIMATE_FIT_EXECUTED"
+      },
+      "benchmark_id": "d7_NO_neutral_near_heavy_07",
+      "charged_HB": {
+        "applied": [
+          {
+            "analysis": "LHC13 [Hpmtb>tb] from 2102.10076 (ATLAS 139fb-1, M=(200, 2000))",
+            "expected_ratio": 0.8659681369523101,
+            "id": 210210076,
+            "observed_ratio": 1.0723832487416896,
+            "particles": [
+              "H2"
+            ],
+            "reference": "2102.10076",
+            "status": "EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [Hpmtb>tb] from 2001.07763 (CMS 35.9fb-1, M=(200, 3000))",
+            "expected_ratio": 0.6776046845284106,
+            "id": 2001077631,
+            "observed_ratio": 0.9244381348838803,
+            "particles": [
+              "H2"
+            ],
+            "reference": "2001.07763",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [Hpmtb>tb] from 1908.09206 (CMS 35.9fb-1, M=(200, 3000))",
+            "expected_ratio": 0.6580809466263858,
+            "id": 190809206,
+            "observed_ratio": 0.9327266816101072,
+            "particles": [
+              "H2"
+            ],
+            "reference": "1908.09206",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [Hpmtb>tb] from 2102.10076 (ATLAS 139fb-1, M=(200, 2000))",
+            "expected_ratio": 0.09701003135277488,
+            "id": 210210076,
+            "observed_ratio": 0.1542705995278202,
+            "particles": [
+              "H1"
+            ],
+            "reference": "2102.10076",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [Hpmtb>tb] from 2001.07763 (CMS 35.9fb-1, M=(200, 3000))",
+            "expected_ratio": 0.08529754807870539,
+            "id": 2001077631,
+            "observed_ratio": 0.09871578826254562,
+            "particles": [
+              "H1"
+            ],
+            "reference": "2001.07763",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [Hpmtb>tb] from 1908.09206 (CMS 35.9fb-1, M=(200, 3000))",
+            "expected_ratio": 0.08146679997715335,
+            "id": 190809206,
+            "observed_ratio": 0.09194860687948464,
+            "particles": [
+              "H1"
+            ],
+            "reference": "1908.09206",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [Hpmtb>taunu] from 1807.07915 (ATLAS 36.1fb-1, M=(90, 2000))",
+            "expected_ratio": 3.002177018844495e-07,
+            "id": 1807079152,
+            "observed_ratio": 2.573167813544508e-07,
+            "particles": [
+              "H1"
+            ],
+            "reference": "1807.07915",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [Hpmtb>taunu] from 1903.04560 (CMS 35.9fb-1, M=(160, 3000))",
+            "expected_ratio": 1.5167841364459348e-07,
+            "id": 1903045601,
+            "observed_ratio": 1.6138469019989975e-07,
+            "particles": [
+              "H1"
+            ],
+            "reference": "1903.04560",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [Hpmtb>taunu] from 1807.07915 (ATLAS 36.1fb-1, M=(90, 2000))",
+            "expected_ratio": 3.256243542191254e-08,
+            "id": 1807079152,
+            "observed_ratio": 3.794735010968036e-08,
+            "particles": [
+              "H2"
+            ],
+            "reference": "1807.07915",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [Hpmtb>taunu] from 1903.04560 (CMS 35.9fb-1, M=(160, 3000))",
+            "expected_ratio": 2.4145586327873646e-08,
+            "id": 1903045601,
+            "observed_ratio": 1.5495968899379605e-08,
+            "particles": [
+              "H2"
+            ],
+            "reference": "1903.04560",
+            "status": "NOT_EXCLUDED"
+          }
+        ],
+        "scope": "Only explicitly populated production/decay channels; missing channels are UNEVALUATED",
+        "selected": {
+          "H1": {
+            "analysis": "LHC13 [Hpmtb>tb] from 2102.10076 (ATLAS 139fb-1, M=(200, 2000))",
+            "expected_ratio": 0.09701003135277488,
+            "id": 210210076,
+            "observed_ratio": 0.1542705995278202,
+            "particles": [
+              "H1"
+            ],
+            "reference": "2102.10076",
+            "status": "NOT_EXCLUDED"
+          },
+          "H2": {
+            "analysis": "LHC13 [Hpmtb>tb] from 2102.10076 (ATLAS 139fb-1, M=(200, 2000))",
+            "expected_ratio": 0.8659681369523101,
+            "id": 210210076,
+            "observed_ratio": 1.0723832487416896,
+            "particles": [
+              "H2"
+            ],
+            "reference": "2102.10076",
+            "status": "EXCLUDED"
+          }
+        },
+        "status": "EXCLUDED"
+      },
+      "charged_analysis_coverage": [
+        {
+          "analysis": "LEP (X1->[cs])(X2->[cs]) from 1301.6065 (LEPComb 2.6fb-1, M1=M2=(43, 95))",
+          "id": 130160651,
+          "reason": "Both charged masses exceed top-decay/LEP mass coverage",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LEP (X1->[taunu])(X2->[taunu]) from 1301.6065 (LEPComb 2.6fb-1, M1=M2=(43, 95))",
+          "id": 130160652,
+          "reason": "Both charged masses exceed top-decay/LEP mass coverage",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC13 [brtHpb>taunu] from 1903.04560 (CMS 35.9fb-1, M=(80, 160))",
+          "id": 1903045602,
+          "reason": "Both charged masses exceed top-decay/LEP mass coverage",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC13 [brtHpb>taunu] from 1807.07915 (ATLAS 36.1fb-1, M=(90, 160))",
+          "id": 1807079151,
+          "reason": "Both charged masses exceed top-decay/LEP mass coverage",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC8 [brtHpb>taunu] from 1508.07774 (CMS 19.7fb-1, M=(80, 160))",
+          "id": 1508077741,
+          "reason": "Both charged masses exceed top-decay/LEP mass coverage",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC13 [Hpmtb>taunu] from 1903.04560 (CMS 35.9fb-1, M=(160, 3000))",
+          "id": 1903045601,
+          "reason": "Explicit 13 TeV tb-associated input",
+          "results": [
+            {
+              "analysis": "LHC13 [Hpmtb>taunu] from 1903.04560 (CMS 35.9fb-1, M=(160, 3000))",
+              "expected_ratio": 1.5167841364459348e-07,
+              "id": 1903045601,
+              "observed_ratio": 1.6138469019989975e-07,
+              "particles": [
+                "H1"
+              ],
+              "reference": "1903.04560",
+              "status": "NOT_EXCLUDED"
+            },
+            {
+              "analysis": "LHC13 [Hpmtb>taunu] from 1903.04560 (CMS 35.9fb-1, M=(160, 3000))",
+              "expected_ratio": 2.4145586327873646e-08,
+              "id": 1903045601,
+              "observed_ratio": 1.5495968899379605e-08,
+              "particles": [
+                "H2"
+              ],
+              "reference": "1903.04560",
+              "status": "NOT_EXCLUDED"
+            }
+          ],
+          "status": "EVALUATED"
+        },
+        {
+          "analysis": "LHC13 [Hpmtb>taunu] from 1807.07915 (ATLAS 36.1fb-1, M=(90, 2000))",
+          "id": 1807079152,
+          "reason": "Explicit 13 TeV tb-associated input",
+          "results": [
+            {
+              "analysis": "LHC13 [Hpmtb>taunu] from 1807.07915 (ATLAS 36.1fb-1, M=(90, 2000))",
+              "expected_ratio": 3.002177018844495e-07,
+              "id": 1807079152,
+              "observed_ratio": 2.573167813544508e-07,
+              "particles": [
+                "H1"
+              ],
+              "reference": "1807.07915",
+              "status": "NOT_EXCLUDED"
+            },
+            {
+              "analysis": "LHC13 [Hpmtb>taunu] from 1807.07915 (ATLAS 36.1fb-1, M=(90, 2000))",
+              "expected_ratio": 3.256243542191254e-08,
+              "id": 1807079152,
+              "observed_ratio": 3.794735010968036e-08,
+              "particles": [
+                "H2"
+              ],
+              "reference": "1807.07915",
+              "status": "NOT_EXCLUDED"
+            }
+          ],
+          "status": "EVALUATED"
+        },
+        {
+          "analysis": "LHC8 [brtHpb>taunu] from 1412.6663 (ATLAS 19.5fb-1, M=(80, 160))",
+          "id": 141266631,
+          "reason": "Both charged masses exceed top-decay/LEP mass coverage",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC8 [Hpmtb>taunu] from 1508.07774 (CMS 19.7fb-1, M=(180, 600))",
+          "id": 1508077742,
+          "reason": "Missing production input for this energy/topology; no physical zero assumed",
+          "results": [],
+          "status": "UNEVALUATED"
+        },
+        {
+          "analysis": "LHC8 [Hpmtb>taunu] from 1412.6663 (ATLAS 19.5fb-1, M=(180, 1000))",
+          "id": 141266632,
+          "reason": "Missing production input for this energy/topology; no physical zero assumed",
+          "results": [],
+          "status": "UNEVALUATED"
+        },
+        {
+          "analysis": "LHC8 [brtHpb>cb] from 1808.06575 (CMS 19.7fb-1, M=(90, 150))",
+          "id": 180806575,
+          "reason": "Both charged masses exceed top-decay/LEP mass coverage",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC13 [Hpmtb>tb] from 1908.09206 (CMS 35.9fb-1, M=(200, 3000))",
+          "id": 190809206,
+          "reason": "Explicit 13 TeV tb-associated input",
+          "results": [
+            {
+              "analysis": "LHC13 [Hpmtb>tb] from 1908.09206 (CMS 35.9fb-1, M=(200, 3000))",
+              "expected_ratio": 0.6580809466263858,
+              "id": 190809206,
+              "observed_ratio": 0.9327266816101072,
+              "particles": [
+                "H2"
+              ],
+              "reference": "1908.09206",
+              "status": "NOT_EXCLUDED"
+            },
+            {
+              "analysis": "LHC13 [Hpmtb>tb] from 1908.09206 (CMS 35.9fb-1, M=(200, 3000))",
+              "expected_ratio": 0.08146679997715335,
+              "id": 190809206,
+              "observed_ratio": 0.09194860687948464,
+              "particles": [
+                "H1"
+              ],
+              "reference": "1908.09206",
+              "status": "NOT_EXCLUDED"
+            }
+          ],
+          "status": "EVALUATED"
+        },
+        {
+          "analysis": "LHC13 [Hpmtb>tb] from 2102.10076 (ATLAS 139fb-1, M=(200, 2000))",
+          "id": 210210076,
+          "reason": "Explicit 13 TeV tb-associated input",
+          "results": [
+            {
+              "analysis": "LHC13 [Hpmtb>tb] from 2102.10076 (ATLAS 139fb-1, M=(200, 2000))",
+              "expected_ratio": 0.8659681369523101,
+              "id": 210210076,
+              "observed_ratio": 1.0723832487416896,
+              "particles": [
+                "H2"
+              ],
+              "reference": "2102.10076",
+              "status": "EXCLUDED"
+            },
+            {
+              "analysis": "LHC13 [Hpmtb>tb] from 2102.10076 (ATLAS 139fb-1, M=(200, 2000))",
+              "expected_ratio": 0.09701003135277488,
+              "id": 210210076,
+              "observed_ratio": 0.1542705995278202,
+              "particles": [
+                "H1"
+              ],
+              "reference": "2102.10076",
+              "status": "NOT_EXCLUDED"
+            }
+          ],
+          "status": "EVALUATED"
+        },
+        {
+          "analysis": "LHC8 [qqHpm>tb] from 1512.03704 (ATLAS 20.3fb-1, M=(1500, 3000))",
+          "id": 1512037042,
+          "reason": "Both charged masses outside the published grid; no extrapolation",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC13 [Hpmtb>tb] from 2001.07763 (CMS 35.9fb-1, M=(200, 3000))",
+          "id": 2001077631,
+          "reason": "Explicit 13 TeV tb-associated input",
+          "results": [
+            {
+              "analysis": "LHC13 [Hpmtb>tb] from 2001.07763 (CMS 35.9fb-1, M=(200, 3000))",
+              "expected_ratio": 0.6776046845284106,
+              "id": 2001077631,
+              "observed_ratio": 0.9244381348838803,
+              "particles": [
+                "H2"
+              ],
+              "reference": "2001.07763",
+              "status": "NOT_EXCLUDED"
+            },
+            {
+              "analysis": "LHC13 [Hpmtb>tb] from 2001.07763 (CMS 35.9fb-1, M=(200, 3000))",
+              "expected_ratio": 0.08529754807870539,
+              "id": 2001077631,
+              "observed_ratio": 0.09871578826254562,
+              "particles": [
+                "H1"
+              ],
+              "reference": "2001.07763",
+              "status": "NOT_EXCLUDED"
+            }
+          ],
+          "status": "EVALUATED"
+        },
+        {
+          "analysis": "LHC13 [qqHpm>tb] from 2001.07763 (CMS 35.9fb-1, M=(800, 3000))",
+          "id": 2001077632,
+          "reason": "Both charged masses outside the published grid; no extrapolation",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC8 [qqHpm>tb] from 1512.03704 (ATLAS 20.3fb-1, M=(400, 2000))",
+          "id": 1512037041,
+          "reason": "Missing production input for this energy/topology; no physical zero assumed",
+          "results": [],
+          "status": "UNEVALUATED"
+        },
+        {
+          "analysis": "LHC8 [Hpmtb>tb] from 1512.03704 (ATLAS 20.3fb-1, M=(200, 600))",
+          "id": 1512037043,
+          "reason": "Missing production input for this energy/topology; no physical zero assumed",
+          "results": [],
+          "status": "UNEVALUATED"
+        },
+        {
+          "analysis": "LHC13 [vbfHpm>WZ] from 2104.04762 (CMS 137fb-1, M=(200, 3000))",
+          "id": 210404762,
+          "reason": "Validated Zee tree H+-WZ vertex vanishes; no VBF-WZ limit transfer",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC8 [vbfHpm>WZ] from 1503.04233 (ATLAS 20.3fb-1, M=(200, 1000))",
+          "id": 150304233,
+          "reason": "Validated Zee tree H+-WZ vertex vanishes; no VBF-WZ limit transfer",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC13 [vbfHpm>WZ] from 1806.01532 (ATLAS 36.1fb-1, M=(200, 900))",
+          "id": 180601532,
+          "reason": "Validated Zee tree H+-WZ vertex vanishes; no VBF-WZ limit transfer",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC13 [vbfHpm>WZ] from 2207.03925 (ATLAS 139fb-1, M=(200, 1000))",
+          "id": 220703925,
+          "reason": "Validated Zee tree H+-WZ vertex vanishes; no VBF-WZ limit transfer",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC13 [brtHpb>cs] from 2005.08900 (CMS 35.9fb-1, M=(80, 160))",
+          "id": 200508900,
+          "reason": "Both charged masses exceed top-decay/LEP mass coverage",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC8 [brtHpb>cs] from 1510.04252 (CMS 19.7fb-1, M=(90, 160))",
+          "id": 151004252,
+          "reason": "Both charged masses exceed top-decay/LEP mass coverage",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        }
+      ],
+      "charged_inputs": [
+        {
+          "Hpmtb_LHC13_pb": 0.10688,
+          "branching_fractions": {
+            "W h": 0.0014659948506002413,
+            "c anti-b": 2.0950389246886357e-06,
+            "c anti-d": 2.354556209241232e-06,
+            "c anti-s": 4.456035048603877e-05,
+            "e nu_all": 5.445353657668479e-08,
+            "mu nu_all": 2.9239160782296444e-06,
+            "t anti-b": 0.9967182995547796,
+            "t anti-d": 7.36705590243075e-05,
+            "t anti-s": 0.0016897881877894487,
+            "tau nu_all": 2.1793180164041487e-07,
+            "u anti-b": 1.6029196618877357e-08,
+            "u anti-d": 1.2549102306535423e-09,
+            "u anti-s": 2.331666314049557e-08
+          },
+          "mass_GeV": 298.7266553444879,
+          "particle": "H1",
+          "total_width_GeV": 0.32355811346314894
+        },
+        {
+          "Hpmtb_LHC13_pb": 0.2558,
+          "branching_fractions": {
+            "H1 Z": 0.0454769996617624,
+            "H1 h": 0.05481592378516367,
+            "W h": 0.005226380046028605,
+            "c anti-b": 1.0397814257568693e-06,
+            "c anti-d": 1.168128897485051e-06,
+            "c anti-s": 2.210703595128197e-05,
+            "e nu_all": 1.6111203221636153e-10,
+            "mu nu_all": 1.4614742523887298e-06,
+            "t anti-b": 0.8928781755276888,
+            "t anti-d": 6.586934968026321e-05,
+            "t anti-s": 0.0015108522666807363,
+            "tau nu_all": 2.6364424621907087e-09,
+            "u anti-b": 7.954908469868788e-09,
+            "u anti-d": 6.225633454290213e-10,
+            "u anti-s": 1.15674423558069e-08
+          },
+          "mass_GeV": 532.9329127809378,
+          "particle": "H2",
+          "total_width_GeV": 16.023422056201035
+        }
+      ],
+      "global_zee_acceptance": null,
+      "h125_HB_approximation": {
+        "applied": [
+          {
+            "analysis": "LHC8 [vbfH,HW,Htt,H,HZ]>[bb,tautau,WW,ZZ,gamgam] from CMS-PAS-HIG-12-045 (CMS 17.3fb-1, M=(110, 600))",
+            "expected_ratio": 3.7955710568050165,
+            "id": 12045,
+            "observed_ratio": 0.739358084409179,
+            "particles": [
+              "h"
+            ],
+            "reference": "CMS-PAS-HIG-12-045",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH,HW,Htt,H,HZ]>[ZZ] from 1312.5353 (CMS 24.8fb-1, M=(110, 1000))",
+            "expected_ratio": 3.2136654987514914,
+            "id": 13125353,
+            "observed_ratio": 0.5501051074011364,
+            "particles": [
+              "h"
+            ],
+            "reference": "1312.5353",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [ggH,vbfH,HW,HZ]>[WW] from 1312.1129 (CMS 24.3fb-1, M=(110, 600))",
+            "expected_ratio": 2.168116349534383,
+            "id": 13121129,
+            "observed_ratio": 0.7242048387448874,
+            "particles": [
+              "h"
+            ],
+            "reference": "1312.1129",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [H>WW] from CMS-PAS-HIG-13-003 (CMS 24.4fb-1, M=(110, 600))",
+            "expected_ratio": 2.1356079349144066,
+            "id": 13003,
+            "observed_ratio": 0.7540725489453659,
+            "particles": [
+              "h"
+            ],
+            "reference": "CMS-PAS-HIG-13-003",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH,HW,Htt,H,HZ]>[ZZ] from ATLAS-CONF-2013-013 (ATLAS 25.3fb-1, M=(110, 180))",
+            "expected_ratio": 2.04232947584207,
+            "id": 20130131,
+            "observed_ratio": 0.3800508763740895,
+            "particles": [
+              "h"
+            ],
+            "reference": "ATLAS-CONF-2013-013",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH,HW,Htt,H,HZ]>[bb,tautau,WW,ZZ,gamgam] from 1207.7214 (ATLAS 10.6fb-1, M=(110, 600))",
+            "expected_ratio": 2.004625456583033,
+            "id": 12077214,
+            "observed_ratio": 0.7421591582941326,
+            "particles": [
+              "h"
+            ],
+            "reference": "1207.7214",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH,HW,Htt,H,HZ]>[gamgam] from CMS-PAS-HIG-13-001 (CMS 24.7fb-1, M=(110, 150))",
+            "expected_ratio": 1.881253694428896,
+            "id": 13001,
+            "observed_ratio": 0.709569539261612,
+            "particles": [
+              "h"
+            ],
+            "reference": "CMS-PAS-HIG-13-001",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH,HW,H,HZ]>[WW] from 1412.2641 (ATLAS 25fb-1, M=(110, 200))",
+            "expected_ratio": 1.6069016677489092,
+            "id": 14122641,
+            "observed_ratio": 0.558922319217012,
+            "particles": [
+              "h"
+            ],
+            "reference": "1412.2641",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [HW,HZ]>[bb] from 1409.6212 (ATLAS 25fb-1, M=(110, 140))",
+            "expected_ratio": 1.3923456841228516,
+            "id": 14096212,
+            "observed_ratio": 0.8713686566199303,
+            "particles": [
+              "h"
+            ],
+            "reference": "1409.6212",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [HW,HZ]>[bb] from 1310.3687 (CMS 24fb-1, M=(110, 135))",
+            "expected_ratio": 1.1079403191382766,
+            "id": 13103687,
+            "observed_ratio": 0.5563090821903147,
+            "particles": [
+              "h"
+            ],
+            "reference": "1310.3687",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH>WW] from CMS-PAS-HIG-13-022 (CMS 24.4fb-1, M=(110, 600))",
+            "expected_ratio": 0.8503466153732431,
+            "id": 13022,
+            "observed_ratio": 1.0553544223772202,
+            "particles": [
+              "h"
+            ],
+            "reference": "CMS-PAS-HIG-13-022",
+            "status": "EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 (X1->[bb])(X2->[bb, tautau, gamgam, ZZ]) from 2207.00043 (CMS 138fb-1, M1=M2=(125, 125))",
+            "expected_ratio": 0.7287791836789382,
+            "id": 220700043,
+            "observed_ratio": 0.5190175229852612,
+            "particles": [
+              "h",
+              "+",
+              "h"
+            ],
+            "reference": "2207.00043",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 (X1->[gamgam])(X2->[bb]) from 2507.03495 (ATLAS 308fb-1, M1=M2=(125, 125))",
+            "expected_ratio": 0.5540053743549409,
+            "id": 250703495,
+            "observed_ratio": 0.5394262855561268,
+            "particles": [
+              "h",
+              "+",
+              "h"
+            ],
+            "reference": "2507.03495",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [vbfH,HW,Htt,H,HZ]>[mumu] from 1807.06325 (CMS 60.7fb-1, M=(120, 130))",
+            "expected_ratio": 0.4970058193162411,
+            "id": 180706325,
+            "observed_ratio": 0.36639336850617094,
+            "particles": [
+              "h"
+            ],
+            "reference": "1807.06325",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "2d likelihood {LHC8 [ggH>tautau], LHC8 [bbH>tautau]} from CMS-PAS-HIG-14-029 (CMS 24.6fb-1, M=(90, 1000))",
+            "expected_ratio": 0.4201205633519684,
+            "id": 14029,
+            "observed_ratio": 0.4940965821892424,
+            "particles": [
+              "h"
+            ],
+            "reference": "CMS-PAS-HIG-14-029",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH>bb] from 1506.01010 (CMS 19.8fb-1, M=(115, 135))",
+            "expected_ratio": 0.407692444537921,
+            "id": 150601010,
+            "observed_ratio": 0.1902073249381259,
+            "particles": [
+              "h"
+            ],
+            "reference": "1506.01010",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "2d likelihood {LHC13 [ggH>tautau], LHC13 [bbH>tautau]} from 1803.06553 (CMS 35.9fb-1, M=(90, 3200))",
+            "expected_ratio": 0.37786662230364265,
+            "id": 180306553,
+            "observed_ratio": 0.33664956723607703,
+            "particles": [
+              "h"
+            ],
+            "reference": "1803.06553",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [HW]>[tautau,WW] from CMS-PAS-HIG-13-009 (CMS 24.4fb-1, M=(110, 200))",
+            "expected_ratio": 0.3111576857552048,
+            "id": 13009,
+            "observed_ratio": 0.2920582473020013,
+            "particles": [
+              "h"
+            ],
+            "reference": "CMS-PAS-HIG-13-009",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [HW,HZ]>[tautau] from CMS-PAS-HIG-12-051 (CMS 17fb-1, M=(110, 145))",
+            "expected_ratio": 0.25622406106656054,
+            "id": 12051,
+            "observed_ratio": 0.2025703046893748,
+            "particles": [
+              "h"
+            ],
+            "reference": "CMS-PAS-HIG-12-051",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [ggH>tautau] from 1409.6064 (ATLAS 20.3fb-1, M=(90, 1000))",
+            "expected_ratio": 0.2441373946180466,
+            "id": 140960641,
+            "observed_ratio": 0.25770058320793804,
+            "particles": [
+              "h"
+            ],
+            "reference": "1409.6064",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH,HW,H,HZ]>[mumu] from 1410.6679 (CMS 24.7fb-1, M=(120, 150))",
+            "expected_ratio": 0.16460419109189786,
+            "id": 141066791,
+            "observed_ratio": 0.14542267288877697,
+            "particles": [
+              "h"
+            ],
+            "reference": "1410.6679",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH,HW,H,HZ]>[mumu] from 1406.7663 (ATLAS 24.8fb-1, M=(120, 150))",
+            "expected_ratio": 0.1494214167656351,
+            "id": 14067663,
+            "observed_ratio": 0.14884117965732946,
+            "particles": [
+              "h"
+            ],
+            "reference": "1406.7663",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [ggH>bb] from 1810.11822 (CMS 35.9fb-1, M=(50, 350))",
+            "expected_ratio": 0.1314062704348782,
+            "id": 1810118221,
+            "observed_ratio": 0.12120665975470728,
+            "particles": [
+              "h"
+            ],
+            "reference": "1810.11822",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [ggH>mumu] from 1508.01437 (CMS 19.3fb-1, M=(115, 500))",
+            "expected_ratio": 0.060833977952955,
+            "id": 1508014372,
+            "observed_ratio": 0.05063158042030155,
+            "particles": [
+              "h"
+            ],
+            "reference": "1508.01437",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [HW,Htt,H,HZ]>[inv] from 2301.10731 (ATLAS 164fb-1, M=(125, 125))",
+            "expected_ratio": 0.011824000767633734,
+            "id": 230110731,
+            "observed_ratio": 0.008508860365493436,
+            "particles": [
+              "h"
+            ],
+            "reference": "2301.10731",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 (X1->[gamgam])(X2->[WW]) from 1807.08567 (ATLAS 36.1fb-1, M1=M2=(125, 125))",
+            "expected_ratio": 0.010982208997993402,
+            "id": 1807085671,
+            "observed_ratio": 0.007760761025248671,
+            "particles": [
+              "h",
+              "+",
+              "h"
+            ],
+            "reference": "1807.08567",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 (X1->[bb])(X2->[WW]) from 1708.04188 (CMS 35.9fb-1, M1=M2=(125, 125))",
+            "expected_ratio": 0.00942718448965253,
+            "id": 1708041881,
+            "observed_ratio": 0.010605582550859112,
+            "particles": [
+              "h",
+              "+",
+              "h"
+            ],
+            "reference": "1708.04188",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 (X1->[bb])(X2->[WW]) from 1811.04671 (ATLAS 36.1fb-1, M1=M2=(125, 125))",
+            "expected_ratio": 0.006474516987185433,
+            "id": 1811046711,
+            "observed_ratio": 0.006474516987185433,
+            "particles": [
+              "h",
+              "+",
+              "h"
+            ],
+            "reference": "1811.04671",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [vbfH,HW,H,HZ]>[inv] from 1809.05937 (CMS 62.8fb-1, M=(125, 125))",
+            "expected_ratio": 0.006107172651616866,
+            "id": 1809059371,
+            "observed_ratio": 0.004821452093381736,
+            "particles": [
+              "h"
+            ],
+            "reference": "1809.05937",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [HZ>cc] from 1802.04329 (ATLAS 36.1fb-1, M=(125, 125))",
+            "expected_ratio": 0.005891344995063369,
+            "id": 180204329,
+            "observed_ratio": 0.008509720548424866,
+            "particles": [
+              "h"
+            ],
+            "reference": "1802.04329",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [bbH>tautau] from 1409.6064 (ATLAS 20.3fb-1, M=(90, 1000))",
+            "expected_ratio": 0.005555534055412826,
+            "id": 140960642,
+            "observed_ratio": 0.005333312693196314,
+            "particles": [
+              "h"
+            ],
+            "reference": "1409.6064",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LEP [eeHZ]>[uu,dd,cc,ss,bb,gg] from unpublished (LEPComb 2.6525999999999996fb-1, M=(20, 128.6))",
+            "expected_ratio": 0.0045554790278735015,
+            "id": 510022,
+            "observed_ratio": 0.004127863021098171,
+            "particles": [
+              "h"
+            ],
+            "reference": "unpublished",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [vbfH,H]>[inv] from 1809.05937 (CMS 35.9fb-1, M=(110, 1000))",
+            "expected_ratio": 0.0037305936405302212,
+            "id": 1809059372,
+            "observed_ratio": 0.0028091544983513623,
+            "particles": [
+              "h"
+            ],
+            "reference": "1809.05937",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [vbfH>inv] from 1809.06682 (ATLAS 36.1fb-1, M=(75, 3000))",
+            "expected_ratio": 0.0030512758604938402,
+            "id": 180906682,
+            "observed_ratio": 0.002331098949321381,
+            "particles": [
+              "h"
+            ],
+            "reference": "1809.06682",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH,HZ]>[inv] from 1404.1344 (CMS 24.6fb-1, M=(115, 145))",
+            "expected_ratio": 0.002256622902717669,
+            "id": 140413443,
+            "observed_ratio": 0.0017119208227513354,
+            "particles": [
+              "h"
+            ],
+            "reference": "1404.1344",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [qqHZ>inv] from 1708.09624 (ATLAS 36.1fb-1, M=(110, 400))",
+            "expected_ratio": 0.0020839631609425383,
+            "id": 170809624,
+            "observed_ratio": 0.0012074645232648224,
+            "particles": [
+              "h"
+            ],
+            "reference": "1708.09624",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH>inv] from 1404.1344 (CMS 19.5fb-1, M=(115, 300))",
+            "expected_ratio": 0.0020252049495501916,
+            "id": 140413441,
+            "observed_ratio": 0.0015266929619686058,
+            "particles": [
+              "h"
+            ],
+            "reference": "1404.1344",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [HZ>inv] from 1402.3244 (ATLAS 24.8fb-1, M=(110, 400))",
+            "expected_ratio": 0.0016810110965905754,
+            "id": 14023244,
+            "observed_ratio": 0.0013930454665194393,
+            "particles": [
+              "h"
+            ],
+            "reference": "1402.3244",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [HZ>inv] from 1404.1344 (CMS 24.4fb-1, M=(115, 145))",
+            "expected_ratio": 0.0011988973017417355,
+            "id": 140413442,
+            "observed_ratio": 0.001228499704253877,
+            "particles": [
+              "h"
+            ],
+            "reference": "1404.1344",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [bbH>mumu] from 1508.01437 (CMS 19.3fb-1, M=(115, 500))",
+            "expected_ratio": 0.0011608375549320797,
+            "id": 1508014371,
+            "observed_ratio": 0.0011236282783394804,
+            "particles": [
+              "h"
+            ],
+            "reference": "1508.01437",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [HW,HZ]>[inv] from 1504.04324 (ATLAS 20.3fb-1, M=(115, 300))",
+            "expected_ratio": 0.0009742187396087547,
+            "id": 150404324,
+            "observed_ratio": 0.0009916155028160537,
+            "particles": [
+              "h"
+            ],
+            "reference": "1504.04324",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [bbH>bb] from 1506.08329 (CMS 19.7fb-1, M=(100, 900))",
+            "expected_ratio": 0.0007412138134293263,
+            "id": 150608329,
+            "observed_ratio": 0.0007128201549034815,
+            "particles": [
+              "h"
+            ],
+            "reference": "1506.08329",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 (X1->[WW])(X2->[WW]) from 1811.11028 (ATLAS 36.1fb-1, M1=M2=(125, 125))",
+            "expected_ratio": 0.0007037943192217204,
+            "id": 1811110283,
+            "observed_ratio": 0.000504607247743875,
+            "particles": [
+              "h",
+              "+",
+              "h"
+            ],
+            "reference": "1811.11028",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [HW,H,HZ]>[inv] from 1502.01518 (ATLAS 20.3fb-1, M=(115, 300))",
+            "expected_ratio": 0.0004766210230531573,
+            "id": 150201518,
+            "observed_ratio": 0.0005725447509632266,
+            "particles": [
+              "h"
+            ],
+            "reference": "1502.01518",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [ggH,vbfH]>[mutau] from 2105.03007 (CMS 137fb-1, M=(125, 125))",
+            "expected_ratio": 0.0004066442655523408,
+            "id": 2105030071,
+            "observed_ratio": 0.0004066442655523408,
+            "particles": [
+              "h"
+            ],
+            "reference": "2105.03007",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [ggH,vbfH,HW,HZ]>[mutau] from 1907.06131 (ATLAS 36.1fb-1, M=(125, 125))",
+            "expected_ratio": 0.00016548278211535043,
+            "id": 1907061312,
+            "observed_ratio": 0.00021867367636671306,
+            "particles": [
+              "h"
+            ],
+            "reference": "1907.06131",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [ggH,vbfH,HW,HZ]>[mutau] from 1502.07400 (CMS 19.7fb-1, M=(125, 125))",
+            "expected_ratio": 8.161634223923569e-05,
+            "id": 150207400,
+            "observed_ratio": 4.05379183307462e-05,
+            "particles": [
+              "h"
+            ],
+            "reference": "1502.07400",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [ggH,vbfH,HW,HZ]>[mutau] from 1604.07730 (ATLAS 20.3fb-1, M=(125, 125))",
+            "expected_ratio": 6.060619473210571e-05,
+            "id": 1604077302,
+            "observed_ratio": 4.2805773901697034e-05,
+            "particles": [
+              "h"
+            ],
+            "reference": "1604.07730",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [ggH,vbfH]>[etau] from 2105.03007 (CMS 137fb-1, M=(125, 125))",
+            "expected_ratio": 9.47787177263538e-07,
+            "id": 2105030072,
+            "observed_ratio": 6.892997652825731e-07,
+            "particles": [
+              "h"
+            ],
+            "reference": "2105.03007",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [ggH,vbfH,HW,HZ]>[etau] from 1907.06131 (ATLAS 36.1fb-1, M=(125, 125))",
+            "expected_ratio": 4.4771384105052635e-07,
+            "id": 1907061311,
+            "observed_ratio": 3.2387809778123177e-07,
+            "particles": [
+              "h"
+            ],
+            "reference": "1907.06131",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [ggH,vbfH,HW,HZ]>[etau] from 1607.03561 (CMS 19.7fb-1, M=(125, 125))",
+            "expected_ratio": 2.205536249109302e-07,
+            "id": 1607035611,
+            "observed_ratio": 2.029093349180558e-07,
+            "particles": [
+              "h"
+            ],
+            "reference": "1607.03561",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [ggH,vbfH,HW,HZ]>[etau] from 1604.07730 (ATLAS 20.3fb-1, M=(125, 125))",
+            "expected_ratio": 1.2577024891615027e-07,
+            "id": 1604077301,
+            "observed_ratio": 1.4632884729667484e-07,
+            "particles": [
+              "h"
+            ],
+            "reference": "1604.07730",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH,HW,Htt,H,HZ]>[gamgam] from 1407.6583 (ATLAS 20.3fb-1, M=(65, 600))",
+            "expected_ratio": 3.307044783282012e-08,
+            "id": 14076583,
+            "observed_ratio": 1.5124141513226068,
+            "particles": [
+              "h"
+            ],
+            "reference": "1407.6583",
+            "status": "EXCLUDED"
+          }
+        ],
+        "scope": "Only explicitly populated production/decay channels; missing channels are UNEVALUATED",
+        "selected": {
+          "h": {
+            "analysis": "LHC8 [vbfH,HW,Htt,H,HZ]>[bb,tautau,WW,ZZ,gamgam] from CMS-PAS-HIG-12-045 (CMS 17.3fb-1, M=(110, 600))",
+            "expected_ratio": 3.7955710568050165,
+            "id": 12045,
+            "observed_ratio": 0.739358084409179,
+            "particles": [
+              "h"
+            ],
+            "reference": "CMS-PAS-HIG-12-045",
+            "status": "NOT_EXCLUDED"
+          }
+        },
+        "status": "NOT_EXCLUDED"
+      },
+      "heavy_neutral": {
+        "missing": [
+          "complete H/A widths and BRs including hh, charged-scalar W and other scalar modes",
+          "H/A ggH, bbH and other relevant production or validated effective-coupling input"
+        ],
+        "status": "UNEVALUATED"
+      },
+      "missing_production": [
+        "Hpmtb at 8 TeV for older charged limits",
+        "charged pair and associated charged-neutral production at the energies required by each limit",
+        "other nonvanishing charged production modes required by specific dataset channels",
+        "complete heavy-neutral production; h125 uses the built-in effective-coupling approximation"
+      ],
+      "physical": {
+        "alpha": 0.7919087742464253,
+        "beta": 0.840042107971211,
+        "gamma": 1.3165278528084012,
+        "k1": 1.082,
+        "k12": -0.001266,
+        "k2": 0.00398,
+        "lc": 4.473,
+        "m12sq": 37805.29796645005,
+        "mH1": 298.7266553444879,
+        "mH2": 532.9329127809378,
+        "ma": 493.16131740168134,
+        "mh1": 125.0,
+        "mh2": 492.4307830996228,
+        "v": 246.21965
+      },
+      "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+      "witness_id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "yukawa_sha256": {
+        "D": "399854794d73c2c1b8eb92ef2f259b0acb8f3b8765003595266902ecf3070844",
+        "F": "cca43f73fe99cac2237847ee58317d2215efa9ecdfe0ba5456a1b99d12975e44",
+        "Ye": "b589de28e3a68adf02d9186286dcc613b65bb222a132dec359d85d2ebd756e25",
+        "Ye2": "36782190a7c411548223ab7bdbe1ab1ffb0fb3aba266de33898f5a612de54967"
+      }
+    },
+    "F13": {
+      "HiggsSignals": {
+        "chi2": 153.87692039618022,
+        "chi2_SM": 153.85938918358593,
+        "delta_chi2": 0.017531212594292356,
+        "inputs": {
+          "kappa_V": 0.9999969865617819,
+          "kappa_d": 0.9869666274898656,
+          "kappa_leptons": [
+            {
+              "imag": 3.286180100182326e-05,
+              "real": 1.0004440220047588
+            },
+            {
+              "imag": -3.333957143714472e-05,
+              "real": 0.999550065394339
+            },
+            {
+              "imag": 4.777492030785291e-07,
+              "real": 0.999996872464644
+            }
+          ],
+          "kappa_u": 1.0004595116021175,
+          "total_width_GeV": 0.004021519964443974
+        },
+        "interpretation": "No excluded/not-excluded classification from an uncalibrated delta chi2",
+        "measurements": [
+          {
+            "chi2": 17.134801734469242,
+            "chi2_SM": 17.569544693053956,
+            "id": 210306956,
+            "n_observables": 17,
+            "reference": "2103.06956"
+          },
+          {
+            "chi2": 0.09308399669832293,
+            "chi2_SM": 0.10941176594317796,
+            "id": 200707830,
+            "n_observables": 1,
+            "reference": "2007.07830"
+          },
+          {
+            "chi2": 2.667949945728137,
+            "chi2_SM": 2.3685384977152752,
+            "id": 211004836,
+            "n_observables": 3,
+            "reference": "2110.04836"
+          },
+          {
+            "chi2": 6.493470637784684,
+            "chi2_SM": 6.410863068342787,
+            "id": 200701984,
+            "n_observables": 5,
+            "reference": "2007.01984"
+          },
+          {
+            "chi2": 20.32587418324907,
+            "chi2_SM": 20.57718825512882,
+            "id": 160602266,
+            "n_observables": 20,
+            "reference": "1606.02266"
+          },
+          {
+            "chi2": 17.709442417781837,
+            "chi2_SM": 17.605256826200314,
+            "id": 220700348,
+            "n_observables": 28,
+            "reference": "2207.00348"
+          },
+          {
+            "chi2": 3.1236117686962923,
+            "chi2_SM": 3.126464240353018,
+            "id": 191201662,
+            "n_observables": 2,
+            "reference": "1912.01662"
+          },
+          {
+            "chi2": 0.0007564986729031112,
+            "chi2_SM": 0.003468997122301241,
+            "id": 201108280,
+            "n_observables": 1,
+            "reference": "2011.08280"
+          },
+          {
+            "chi2": 3.632375873705612,
+            "chi2_SM": 3.673083431332408,
+            "id": 180305485,
+            "n_observables": 6,
+            "reference": "1803.05485"
+          },
+          {
+            "chi2": 3.13826852152902,
+            "chi2_SM": 3.239657055001474,
+            "id": 211106712,
+            "n_observables": 1,
+            "reference": "2111.06712"
+          },
+          {
+            "chi2": 39.814085752950675,
+            "chi2_SM": 39.61789687270777,
+            "id": 220412957,
+            "n_observables": 16,
+            "reference": "2204.12957"
+          },
+          {
+            "chi2": 0.4112851425281817,
+            "chi2_SM": 0.40996191978700125,
+            "id": 2021021,
+            "n_observables": 1,
+            "reference": "ATLAS-CONF-2021-021"
+          },
+          {
+            "chi2": 0.11938330009787977,
+            "chi2_SM": 0.15615991588493686,
+            "id": 181108856,
+            "n_observables": 2,
+            "reference": "1811.08856"
+          },
+          {
+            "chi2": 3.350424046707985,
+            "chi2_SM": 3.418667940457591,
+            "id": 190310052,
+            "n_observables": 2,
+            "reference": "1903.10052"
+          },
+          {
+            "chi2": 0.4240330939785143,
+            "chi2_SM": 0.4149774745337939,
+            "id": 200702873,
+            "n_observables": 5,
+            "reference": "2007.02873"
+          },
+          {
+            "chi2": 2.2522581338548324,
+            "chi2_SM": 2.2404013341472893,
+            "id": 180808242,
+            "n_observables": 5,
+            "reference": "1808.08242"
+          },
+          {
+            "chi2": 7.238614225985698,
+            "chi2_SM": 7.199306024314139,
+            "id": 200403447,
+            "n_observables": 12,
+            "reference": "2004.03447"
+          },
+          {
+            "chi2": 2.546225313347767,
+            "chi2_SM": 2.4116711599888054,
+            "id": 2019045,
+            "n_observables": 6,
+            "reference": "ATLAS-CONF-2019-045"
+          },
+          {
+            "chi2": 3.6080442554909578,
+            "chi2_SM": 3.6335016156139592,
+            "id": 200904363,
+            "n_observables": 4,
+            "reference": "2009.04363"
+          },
+          {
+            "chi2": 16.285728466099606,
+            "chi2_SM": 16.196057059760378,
+            "id": 210304956,
+            "n_observables": 19,
+            "reference": "2103.04956"
+          },
+          {
+            "chi2": 2.1626297577854237,
+            "chi2_SM": 2.1626297577854237,
+            "id": 1812251,
+            "n_observables": 1,
+            "reference": ""
+          },
+          {
+            "chi2": 1.3445733290376116,
+            "chi2_SM": 1.3146812784113215,
+            "id": 180809054,
+            "n_observables": 2,
+            "reference": "1808.09054"
+          }
+        ],
+        "missing": [
+          "charged scalar contributions to h->gamma gamma and Z gamma",
+          "validated complete h125 loop BRs; fit parameter count/acceptance prescription"
+        ],
+        "observable_count": 159,
+        "status": "UNEVALUATED_FULL_MODEL; APPROXIMATE_FIT_EXECUTED"
+      },
+      "benchmark_id": "F13_heavy_0001330",
+      "charged_HB": {
+        "applied": [
+          {
+            "analysis": "LHC13 [Hpmtb>tb] from 2102.10076 (ATLAS 139fb-1, M=(200, 2000))",
+            "expected_ratio": 0.011755168382741536,
+            "id": 210210076,
+            "observed_ratio": 0.015125640055141842,
+            "particles": [
+              "H1"
+            ],
+            "reference": "2102.10076",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [Hpmtb>tb] from 2001.07763 (CMS 35.9fb-1, M=(200, 3000))",
+            "expected_ratio": 0.00838966182757704,
+            "id": 2001077631,
+            "observed_ratio": 0.01202385091989464,
+            "particles": [
+              "H1"
+            ],
+            "reference": "2001.07763",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [Hpmtb>tb] from 1908.09206 (CMS 35.9fb-1, M=(200, 3000))",
+            "expected_ratio": 0.00811706520974351,
+            "id": 190809206,
+            "observed_ratio": 0.012309139489288303,
+            "particles": [
+              "H1"
+            ],
+            "reference": "1908.09206",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [Hpmtb>tb] from 2102.10076 (ATLAS 139fb-1, M=(200, 2000))",
+            "expected_ratio": 0.0015871027220174397,
+            "id": 210210076,
+            "observed_ratio": 0.0017314422429274901,
+            "particles": [
+              "H2"
+            ],
+            "reference": "2102.10076",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [Hpmtb>tb] from 1908.09206 (CMS 35.9fb-1, M=(200, 3000))",
+            "expected_ratio": 0.0011841754250696774,
+            "id": 190809206,
+            "observed_ratio": 0.0012054816223109291,
+            "particles": [
+              "H2"
+            ],
+            "reference": "1908.09206",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [Hpmtb>tb] from 2001.07763 (CMS 35.9fb-1, M=(200, 3000))",
+            "expected_ratio": 0.0011841754250696774,
+            "id": 2001077631,
+            "observed_ratio": 0.0011090360468256222,
+            "particles": [
+              "H2"
+            ],
+            "reference": "2001.07763",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [Hpmtb>taunu] from 1807.07915 (ATLAS 36.1fb-1, M=(90, 2000))",
+            "expected_ratio": 7.721704686639226e-06,
+            "id": 1807079152,
+            "observed_ratio": 1.0180922341588668e-05,
+            "particles": [
+              "H1"
+            ],
+            "reference": "1807.07915",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [Hpmtb>taunu] from 1903.04560 (CMS 35.9fb-1, M=(160, 3000))",
+            "expected_ratio": 5.7246386399349426e-06,
+            "id": 1903045601,
+            "observed_ratio": 3.639034642304533e-06,
+            "particles": [
+              "H1"
+            ],
+            "reference": "1903.04560",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [Hpmtb>taunu] from 1903.04560 (CMS 35.9fb-1, M=(160, 3000))",
+            "expected_ratio": 9.93863646647345e-08,
+            "id": 1903045601,
+            "observed_ratio": 5.8033810883552e-08,
+            "particles": [
+              "H2"
+            ],
+            "reference": "1903.04560",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [Hpmtb>taunu] from 1807.07915 (ATLAS 36.1fb-1, M=(90, 2000))",
+            "expected_ratio": 9.394874208927113e-08,
+            "id": 1807079152,
+            "observed_ratio": 1.3472195640396574e-07,
+            "particles": [
+              "H2"
+            ],
+            "reference": "1807.07915",
+            "status": "NOT_EXCLUDED"
+          }
+        ],
+        "scope": "Only explicitly populated production/decay channels; missing channels are UNEVALUATED",
+        "selected": {
+          "H1": {
+            "analysis": "LHC13 [Hpmtb>tb] from 2102.10076 (ATLAS 139fb-1, M=(200, 2000))",
+            "expected_ratio": 0.011755168382741536,
+            "id": 210210076,
+            "observed_ratio": 0.015125640055141842,
+            "particles": [
+              "H1"
+            ],
+            "reference": "2102.10076",
+            "status": "NOT_EXCLUDED"
+          },
+          "H2": {
+            "analysis": "LHC13 [Hpmtb>tb] from 2102.10076 (ATLAS 139fb-1, M=(200, 2000))",
+            "expected_ratio": 0.0015871027220174397,
+            "id": 210210076,
+            "observed_ratio": 0.0017314422429274901,
+            "particles": [
+              "H2"
+            ],
+            "reference": "2102.10076",
+            "status": "NOT_EXCLUDED"
+          }
+        },
+        "status": "NOT_EXCLUDED"
+      },
+      "charged_analysis_coverage": [
+        {
+          "analysis": "LEP (X1->[cs])(X2->[cs]) from 1301.6065 (LEPComb 2.6fb-1, M1=M2=(43, 95))",
+          "id": 130160651,
+          "reason": "Both charged masses exceed top-decay/LEP mass coverage",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LEP (X1->[taunu])(X2->[taunu]) from 1301.6065 (LEPComb 2.6fb-1, M1=M2=(43, 95))",
+          "id": 130160652,
+          "reason": "Both charged masses exceed top-decay/LEP mass coverage",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC13 [brtHpb>taunu] from 1903.04560 (CMS 35.9fb-1, M=(80, 160))",
+          "id": 1903045602,
+          "reason": "Both charged masses exceed top-decay/LEP mass coverage",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC13 [brtHpb>taunu] from 1807.07915 (ATLAS 36.1fb-1, M=(90, 160))",
+          "id": 1807079151,
+          "reason": "Both charged masses exceed top-decay/LEP mass coverage",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC8 [brtHpb>taunu] from 1508.07774 (CMS 19.7fb-1, M=(80, 160))",
+          "id": 1508077741,
+          "reason": "Both charged masses exceed top-decay/LEP mass coverage",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC13 [Hpmtb>taunu] from 1903.04560 (CMS 35.9fb-1, M=(160, 3000))",
+          "id": 1903045601,
+          "reason": "Explicit 13 TeV tb-associated input",
+          "results": [
+            {
+              "analysis": "LHC13 [Hpmtb>taunu] from 1903.04560 (CMS 35.9fb-1, M=(160, 3000))",
+              "expected_ratio": 5.7246386399349426e-06,
+              "id": 1903045601,
+              "observed_ratio": 3.639034642304533e-06,
+              "particles": [
+                "H1"
+              ],
+              "reference": "1903.04560",
+              "status": "NOT_EXCLUDED"
+            },
+            {
+              "analysis": "LHC13 [Hpmtb>taunu] from 1903.04560 (CMS 35.9fb-1, M=(160, 3000))",
+              "expected_ratio": 9.93863646647345e-08,
+              "id": 1903045601,
+              "observed_ratio": 5.8033810883552e-08,
+              "particles": [
+                "H2"
+              ],
+              "reference": "1903.04560",
+              "status": "NOT_EXCLUDED"
+            }
+          ],
+          "status": "EVALUATED"
+        },
+        {
+          "analysis": "LHC13 [Hpmtb>taunu] from 1807.07915 (ATLAS 36.1fb-1, M=(90, 2000))",
+          "id": 1807079152,
+          "reason": "Explicit 13 TeV tb-associated input",
+          "results": [
+            {
+              "analysis": "LHC13 [Hpmtb>taunu] from 1807.07915 (ATLAS 36.1fb-1, M=(90, 2000))",
+              "expected_ratio": 7.721704686639226e-06,
+              "id": 1807079152,
+              "observed_ratio": 1.0180922341588668e-05,
+              "particles": [
+                "H1"
+              ],
+              "reference": "1807.07915",
+              "status": "NOT_EXCLUDED"
+            },
+            {
+              "analysis": "LHC13 [Hpmtb>taunu] from 1807.07915 (ATLAS 36.1fb-1, M=(90, 2000))",
+              "expected_ratio": 9.394874208927113e-08,
+              "id": 1807079152,
+              "observed_ratio": 1.3472195640396574e-07,
+              "particles": [
+                "H2"
+              ],
+              "reference": "1807.07915",
+              "status": "NOT_EXCLUDED"
+            }
+          ],
+          "status": "EVALUATED"
+        },
+        {
+          "analysis": "LHC8 [brtHpb>taunu] from 1412.6663 (ATLAS 19.5fb-1, M=(80, 160))",
+          "id": 141266631,
+          "reason": "Both charged masses exceed top-decay/LEP mass coverage",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC8 [Hpmtb>taunu] from 1508.07774 (CMS 19.7fb-1, M=(180, 600))",
+          "id": 1508077742,
+          "reason": "Missing production input for this energy/topology; no physical zero assumed",
+          "results": [],
+          "status": "UNEVALUATED"
+        },
+        {
+          "analysis": "LHC8 [Hpmtb>taunu] from 1412.6663 (ATLAS 19.5fb-1, M=(180, 1000))",
+          "id": 141266632,
+          "reason": "Missing production input for this energy/topology; no physical zero assumed",
+          "results": [],
+          "status": "UNEVALUATED"
+        },
+        {
+          "analysis": "LHC8 [brtHpb>cb] from 1808.06575 (CMS 19.7fb-1, M=(90, 150))",
+          "id": 180806575,
+          "reason": "Both charged masses exceed top-decay/LEP mass coverage",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC13 [Hpmtb>tb] from 1908.09206 (CMS 35.9fb-1, M=(200, 3000))",
+          "id": 190809206,
+          "reason": "Explicit 13 TeV tb-associated input",
+          "results": [
+            {
+              "analysis": "LHC13 [Hpmtb>tb] from 1908.09206 (CMS 35.9fb-1, M=(200, 3000))",
+              "expected_ratio": 0.00811706520974351,
+              "id": 190809206,
+              "observed_ratio": 0.012309139489288303,
+              "particles": [
+                "H1"
+              ],
+              "reference": "1908.09206",
+              "status": "NOT_EXCLUDED"
+            },
+            {
+              "analysis": "LHC13 [Hpmtb>tb] from 1908.09206 (CMS 35.9fb-1, M=(200, 3000))",
+              "expected_ratio": 0.0011841754250696774,
+              "id": 190809206,
+              "observed_ratio": 0.0012054816223109291,
+              "particles": [
+                "H2"
+              ],
+              "reference": "1908.09206",
+              "status": "NOT_EXCLUDED"
+            }
+          ],
+          "status": "EVALUATED"
+        },
+        {
+          "analysis": "LHC13 [Hpmtb>tb] from 2102.10076 (ATLAS 139fb-1, M=(200, 2000))",
+          "id": 210210076,
+          "reason": "Explicit 13 TeV tb-associated input",
+          "results": [
+            {
+              "analysis": "LHC13 [Hpmtb>tb] from 2102.10076 (ATLAS 139fb-1, M=(200, 2000))",
+              "expected_ratio": 0.011755168382741536,
+              "id": 210210076,
+              "observed_ratio": 0.015125640055141842,
+              "particles": [
+                "H1"
+              ],
+              "reference": "2102.10076",
+              "status": "NOT_EXCLUDED"
+            },
+            {
+              "analysis": "LHC13 [Hpmtb>tb] from 2102.10076 (ATLAS 139fb-1, M=(200, 2000))",
+              "expected_ratio": 0.0015871027220174397,
+              "id": 210210076,
+              "observed_ratio": 0.0017314422429274901,
+              "particles": [
+                "H2"
+              ],
+              "reference": "2102.10076",
+              "status": "NOT_EXCLUDED"
+            }
+          ],
+          "status": "EVALUATED"
+        },
+        {
+          "analysis": "LHC8 [qqHpm>tb] from 1512.03704 (ATLAS 20.3fb-1, M=(1500, 3000))",
+          "id": 1512037042,
+          "reason": "Both charged masses outside the published grid; no extrapolation",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC13 [Hpmtb>tb] from 2001.07763 (CMS 35.9fb-1, M=(200, 3000))",
+          "id": 2001077631,
+          "reason": "Explicit 13 TeV tb-associated input",
+          "results": [
+            {
+              "analysis": "LHC13 [Hpmtb>tb] from 2001.07763 (CMS 35.9fb-1, M=(200, 3000))",
+              "expected_ratio": 0.00838966182757704,
+              "id": 2001077631,
+              "observed_ratio": 0.01202385091989464,
+              "particles": [
+                "H1"
+              ],
+              "reference": "2001.07763",
+              "status": "NOT_EXCLUDED"
+            },
+            {
+              "analysis": "LHC13 [Hpmtb>tb] from 2001.07763 (CMS 35.9fb-1, M=(200, 3000))",
+              "expected_ratio": 0.0011841754250696774,
+              "id": 2001077631,
+              "observed_ratio": 0.0011090360468256222,
+              "particles": [
+                "H2"
+              ],
+              "reference": "2001.07763",
+              "status": "NOT_EXCLUDED"
+            }
+          ],
+          "status": "EVALUATED"
+        },
+        {
+          "analysis": "LHC13 [qqHpm>tb] from 2001.07763 (CMS 35.9fb-1, M=(800, 3000))",
+          "id": 2001077632,
+          "reason": "Missing production input for this energy/topology; no physical zero assumed",
+          "results": [],
+          "status": "UNEVALUATED"
+        },
+        {
+          "analysis": "LHC8 [qqHpm>tb] from 1512.03704 (ATLAS 20.3fb-1, M=(400, 2000))",
+          "id": 1512037041,
+          "reason": "Missing production input for this energy/topology; no physical zero assumed",
+          "results": [],
+          "status": "UNEVALUATED"
+        },
+        {
+          "analysis": "LHC8 [Hpmtb>tb] from 1512.03704 (ATLAS 20.3fb-1, M=(200, 600))",
+          "id": 1512037043,
+          "reason": "Missing production input for this energy/topology; no physical zero assumed",
+          "results": [],
+          "status": "UNEVALUATED"
+        },
+        {
+          "analysis": "LHC13 [vbfHpm>WZ] from 2104.04762 (CMS 137fb-1, M=(200, 3000))",
+          "id": 210404762,
+          "reason": "Validated Zee tree H+-WZ vertex vanishes; no VBF-WZ limit transfer",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC8 [vbfHpm>WZ] from 1503.04233 (ATLAS 20.3fb-1, M=(200, 1000))",
+          "id": 150304233,
+          "reason": "Validated Zee tree H+-WZ vertex vanishes; no VBF-WZ limit transfer",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC13 [vbfHpm>WZ] from 1806.01532 (ATLAS 36.1fb-1, M=(200, 900))",
+          "id": 180601532,
+          "reason": "Validated Zee tree H+-WZ vertex vanishes; no VBF-WZ limit transfer",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC13 [vbfHpm>WZ] from 2207.03925 (ATLAS 139fb-1, M=(200, 1000))",
+          "id": 220703925,
+          "reason": "Validated Zee tree H+-WZ vertex vanishes; no VBF-WZ limit transfer",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC13 [brtHpb>cs] from 2005.08900 (CMS 35.9fb-1, M=(80, 160))",
+          "id": 200508900,
+          "reason": "Both charged masses exceed top-decay/LEP mass coverage",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "analysis": "LHC8 [brtHpb>cs] from 1510.04252 (CMS 19.7fb-1, M=(90, 160))",
+          "id": 151004252,
+          "reason": "Both charged masses exceed top-decay/LEP mass coverage",
+          "results": [],
+          "status": "NOT_APPLICABLE"
+        }
+      ],
+      "charged_inputs": [
+        {
+          "Hpmtb_LHC13_pb": 0.0025042,
+          "branching_fractions": {
+            "W h": 0.000319985528437241,
+            "c anti-b": 0.0004414172594418973,
+            "c anti-d": 1.0201279522278541e-06,
+            "c anti-s": 0.00011446571352302592,
+            "e nu_all": 1.4104000277862645e-05,
+            "mu nu_all": 4.8031588837027215e-05,
+            "t anti-b": 0.9975944311845291,
+            "t anti-d": 5.8572996825810536e-05,
+            "t anti-s": 0.0013436324704781085,
+            "tau nu_all": 5.5477039653376825e-05,
+            "u anti-b": 3.513235010630483e-06,
+            "u anti-d": 2.4203087968820386e-07,
+            "u anti-s": 5.10682415407097e-06
+          },
+          "mass_GeV": 572.2316243593124,
+          "particle": "H1",
+          "total_width_GeV": 0.20039903603528153
+        },
+        {
+          "Hpmtb_LHC13_pb": 0.0015023,
+          "branching_fractions": {
+            "H1 Z": 0.4850204470126032,
+            "H1 h": 0.031489972155643885,
+            "W A": 0.00012919424895154274,
+            "W H": 0.38514759410511695,
+            "W h": 7.790477099080941e-05,
+            "c anti-b": 3.869028849249685e-05,
+            "c anti-d": 8.940721397577452e-08,
+            "c anti-s": 1.0032137569998751e-05,
+            "e nu_all": 9.716879671059118e-08,
+            "mu nu_all": 3.470686356033395e-07,
+            "t anti-b": 0.09794718141481293,
+            "t anti-d": 5.734930231743811e-06,
+            "t anti-s": 0.00013155633681647793,
+            "tau nu_all": 3.8223260828645017e-07,
+            "u anti-b": 3.079337162506967e-07,
+            "u anti-d": 2.121222568003765e-08,
+            "u anti-s": 4.475755733973198e-07
+          },
+          "mass_GeV": 873.2076828282773,
+          "particle": "H2",
+          "total_width_GeV": 12.13933026267094
+        }
+      ],
+      "global_zee_acceptance": null,
+      "h125_HB_approximation": {
+        "applied": [
+          {
+            "analysis": "LHC8 [vbfH,HW,Htt,H,HZ]>[bb,tautau,WW,ZZ,gamgam] from CMS-PAS-HIG-12-045 (CMS 17.3fb-1, M=(110, 600))",
+            "expected_ratio": 4.0510889122494,
+            "id": 12045,
+            "observed_ratio": 0.7891316729697175,
+            "particles": [
+              "h"
+            ],
+            "reference": "CMS-PAS-HIG-12-045",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH,HW,Htt,H,HZ]>[ZZ] from 1312.5353 (CMS 24.8fb-1, M=(110, 1000))",
+            "expected_ratio": 3.742349326093443,
+            "id": 13125353,
+            "observed_ratio": 0.6406035347372037,
+            "particles": [
+              "h"
+            ],
+            "reference": "1312.5353",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [ggH,vbfH,HW,HZ]>[WW] from 1312.1129 (CMS 24.3fb-1, M=(110, 600))",
+            "expected_ratio": 2.5295667740400676,
+            "id": 13121129,
+            "observed_ratio": 0.8449382792955413,
+            "particles": [
+              "h"
+            ],
+            "reference": "1312.1129",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [H>WW] from CMS-PAS-HIG-13-003 (CMS 24.4fb-1, M=(110, 600))",
+            "expected_ratio": 2.513751650831096,
+            "id": 13003,
+            "observed_ratio": 0.8875932158557924,
+            "particles": [
+              "h"
+            ],
+            "reference": "CMS-PAS-HIG-13-003",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH,HW,Htt,H,HZ]>[ZZ] from ATLAS-CONF-2013-013 (ATLAS 25.3fb-1, M=(110, 180))",
+            "expected_ratio": 2.378315459573403,
+            "id": 20130131,
+            "observed_ratio": 0.44257348552061593,
+            "particles": [
+              "h"
+            ],
+            "reference": "ATLAS-CONF-2013-013",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH,HW,Htt,H,HZ]>[bb,tautau,WW,ZZ,gamgam] from 1207.7214 (ATLAS 10.6fb-1, M=(110, 600))",
+            "expected_ratio": 2.1395768486053135,
+            "id": 12077214,
+            "observed_ratio": 0.7921213151573883,
+            "particles": [
+              "h"
+            ],
+            "reference": "1207.7214",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH,HW,Htt,H,HZ]>[gamgam] from CMS-PAS-HIG-13-001 (CMS 24.7fb-1, M=(110, 150))",
+            "expected_ratio": 2.1376916441685245,
+            "id": 13001,
+            "observed_ratio": 0.8062925694328189,
+            "particles": [
+              "h"
+            ],
+            "reference": "CMS-PAS-HIG-13-001",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH,HW,H,HZ]>[WW] from 1412.2641 (ATLAS 25fb-1, M=(110, 200))",
+            "expected_ratio": 1.8711770798724765,
+            "id": 14122641,
+            "observed_ratio": 0.6508442016947745,
+            "particles": [
+              "h"
+            ],
+            "reference": "1412.2641",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [HW,HZ]>[bb] from 1409.6212 (ATLAS 25fb-1, M=(110, 140))",
+            "expected_ratio": 1.3100619308898402,
+            "id": 14096212,
+            "observed_ratio": 0.8198731951595357,
+            "particles": [
+              "h"
+            ],
+            "reference": "1409.6212",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [HW,HZ]>[bb] from 1310.3687 (CMS 24fb-1, M=(110, 135))",
+            "expected_ratio": 1.042464131107924,
+            "id": 13103687,
+            "observed_ratio": 0.5234327643604733,
+            "particles": [
+              "h"
+            ],
+            "reference": "1310.3687",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH>WW] from CMS-PAS-HIG-13-022 (CMS 24.4fb-1, M=(110, 600))",
+            "expected_ratio": 0.9126908788225823,
+            "id": 13022,
+            "observed_ratio": 1.132729098716975,
+            "particles": [
+              "h"
+            ],
+            "reference": "CMS-PAS-HIG-13-022",
+            "status": "EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 (X1->[bb])(X2->[bb, tautau, gamgam, ZZ]) from 2207.00043 (CMS 138fb-1, M1=M2=(125, 125))",
+            "expected_ratio": 0.7863302409886779,
+            "id": 220700043,
+            "observed_ratio": 0.5600038846693279,
+            "particles": [
+              "h",
+              "+",
+              "h"
+            ],
+            "reference": "2207.00043",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 (X1->[bb])(X2->[bb, tautau, gamgam]) from 2406.09971 (ATLAS 139fb-1, M1=M2=(125, 125))",
+            "expected_ratio": 0.6897521422233092,
+            "id": 240609971,
+            "observed_ratio": 0.5646138598204453,
+            "particles": [
+              "h",
+              "+",
+              "h"
+            ],
+            "reference": "2406.09971",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 (X1->[gamgam])(X2->[bb]) from 2507.03495 (ATLAS 308fb-1, M1=M2=(125, 125))",
+            "expected_ratio": 0.6451209421136421,
+            "id": 250703495,
+            "observed_ratio": 0.628144075215915,
+            "particles": [
+              "h",
+              "+",
+              "h"
+            ],
+            "reference": "2507.03495",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "2d likelihood {LHC8 [ggH>tautau], LHC8 [bbH>tautau]} from CMS-PAS-HIG-14-029 (CMS 24.6fb-1, M=(90, 1000))",
+            "expected_ratio": 0.4946831045090915,
+            "id": 14029,
+            "observed_ratio": 0.5816561138848091,
+            "particles": [
+              "h"
+            ],
+            "reference": "CMS-PAS-HIG-14-029",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [vbfH,HW,Htt,H,HZ]>[mumu] from 1807.06325 (CMS 60.7fb-1, M=(120, 130))",
+            "expected_ratio": 0.4708064720640606,
+            "id": 180706325,
+            "observed_ratio": 0.3470791739448365,
+            "particles": [
+              "h"
+            ],
+            "reference": "1807.06325",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "2d likelihood {LHC13 [ggH>tautau], LHC13 [bbH>tautau]} from 1803.06553 (CMS 35.9fb-1, M=(90, 3200))",
+            "expected_ratio": 0.4445078168803037,
+            "id": 180306553,
+            "observed_ratio": 0.3969308741781174,
+            "particles": [
+              "h"
+            ],
+            "reference": "1803.06553",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH>bb] from 1506.01010 (CMS 19.8fb-1, M=(115, 135))",
+            "expected_ratio": 0.3838811160119773,
+            "id": 150601010,
+            "observed_ratio": 0.17909824219003642,
+            "particles": [
+              "h"
+            ],
+            "reference": "1506.01010",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [HW]>[tautau,WW] from CMS-PAS-HIG-13-009 (CMS 24.4fb-1, M=(110, 200))",
+            "expected_ratio": 0.3341251083916701,
+            "id": 13009,
+            "observed_ratio": 0.313615886747641,
+            "particles": [
+              "h"
+            ],
+            "reference": "CMS-PAS-HIG-13-009",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [ggH>tautau] from 1409.6064 (ATLAS 20.3fb-1, M=(90, 1000))",
+            "expected_ratio": 0.28801086069606624,
+            "id": 140960641,
+            "observed_ratio": 0.30401146406806995,
+            "particles": [
+              "h"
+            ],
+            "reference": "1409.6064",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [HW,HZ]>[tautau] from CMS-PAS-HIG-12-051 (CMS 17fb-1, M=(110, 145))",
+            "expected_ratio": 0.27479210155347317,
+            "id": 12051,
+            "observed_ratio": 0.21725016575808778,
+            "particles": [
+              "h"
+            ],
+            "reference": "CMS-PAS-HIG-12-051",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH,HW,H,HZ]>[mumu] from 1410.6679 (CMS 24.7fb-1, M=(120, 150))",
+            "expected_ratio": 0.1559832320358295,
+            "id": 141066791,
+            "observed_ratio": 0.13780632423761632,
+            "particles": [
+              "h"
+            ],
+            "reference": "1410.6679",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH,HW,H,HZ]>[mumu] from 1406.7663 (ATLAS 24.8fb-1, M=(120, 150))",
+            "expected_ratio": 0.1415956384091345,
+            "id": 14067663,
+            "observed_ratio": 0.14104579056564848,
+            "particles": [
+              "h"
+            ],
+            "reference": "1406.7663",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [ggH>bb] from 1810.11822 (CMS 35.9fb-1, M=(50, 350))",
+            "expected_ratio": 0.13593474071321238,
+            "id": 1810118221,
+            "observed_ratio": 0.12538363513357528,
+            "particles": [
+              "h"
+            ],
+            "reference": "1810.11822",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [ggH>mumu] from 1508.01437 (CMS 19.3fb-1, M=(115, 500))",
+            "expected_ratio": 0.058405839361431955,
+            "id": 1508014372,
+            "observed_ratio": 0.04861066220148293,
+            "particles": [
+              "h"
+            ],
+            "reference": "1508.01437",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 (X1->[gamgam])(X2->[WW]) from 1807.08567 (ATLAS 36.1fb-1, M1=M2=(125, 125))",
+            "expected_ratio": 0.014577414542421615,
+            "id": 1807085671,
+            "observed_ratio": 0.010301372943311274,
+            "particles": [
+              "h",
+              "+",
+              "h"
+            ],
+            "reference": "1807.08567",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [HW,Htt,H,HZ]>[inv] from 2301.10731 (ATLAS 164fb-1, M=(125, 125))",
+            "expected_ratio": 0.013848802376607143,
+            "id": 230110731,
+            "observed_ratio": 0.009965960588773365,
+            "particles": [
+              "h"
+            ],
+            "reference": "2301.10731",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 (X1->[bb])(X2->[WW]) from 1708.04188 (CMS 35.9fb-1, M1=M2=(125, 125))",
+            "expected_ratio": 0.01125006750803453,
+            "id": 1708041881,
+            "observed_ratio": 0.012656325946538866,
+            "particles": [
+              "h",
+              "+",
+              "h"
+            ],
+            "reference": "1708.04188",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 (X1->[bb])(X2->[WW]) from 1811.04671 (ATLAS 36.1fb-1, M1=M2=(125, 125))",
+            "expected_ratio": 0.007726458866663929,
+            "id": 1811046711,
+            "observed_ratio": 0.007726458866663929,
+            "particles": [
+              "h",
+              "+",
+              "h"
+            ],
+            "reference": "1811.04671",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [vbfH,HW,H,HZ]>[inv] from 1809.05937 (CMS 62.8fb-1, M=(125, 125))",
+            "expected_ratio": 0.007108496521574445,
+            "id": 1809059371,
+            "observed_ratio": 0.005611970938085088,
+            "particles": [
+              "h"
+            ],
+            "reference": "1809.05937",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [HZ>cc] from 1802.04329 (ATLAS 36.1fb-1, M=(125, 125))",
+            "expected_ratio": 0.0068815465621166905,
+            "id": 180204329,
+            "observed_ratio": 0.00994001170083522,
+            "particles": [
+              "h"
+            ],
+            "reference": "1802.04329",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [bbH>tautau] from 1409.6064 (ATLAS 20.3fb-1, M=(90, 1000))",
+            "expected_ratio": 0.0052307726465652855,
+            "id": 140960642,
+            "observed_ratio": 0.0050215417407026754,
+            "particles": [
+              "h"
+            ],
+            "reference": "1409.6064",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LEP [eeHZ]>[uu,dd,cc,ss,bb,gg] from unpublished (LEPComb 2.6525999999999996fb-1, M=(20, 128.6))",
+            "expected_ratio": 0.004434770412937374,
+            "id": 510022,
+            "observed_ratio": 0.004018485143409771,
+            "particles": [
+              "h"
+            ],
+            "reference": "unpublished",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [vbfH,H]>[inv] from 1809.05937 (CMS 35.9fb-1, M=(110, 1000))",
+            "expected_ratio": 0.004358433483165608,
+            "id": 1809059372,
+            "observed_ratio": 0.003281920842833936,
+            "particles": [
+              "h"
+            ],
+            "reference": "1809.05937",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [vbfH>inv] from 1809.06682 (ATLAS 36.1fb-1, M=(75, 3000))",
+            "expected_ratio": 0.0032749841021262726,
+            "id": 180906682,
+            "observed_ratio": 0.002502006487959823,
+            "particles": [
+              "h"
+            ],
+            "reference": "1809.06682",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH,HZ]>[inv] from 1404.1344 (CMS 24.6fb-1, M=(115, 145))",
+            "expected_ratio": 0.0024206821855030903,
+            "id": 140413443,
+            "observed_ratio": 0.0018363795890023445,
+            "particles": [
+              "h"
+            ],
+            "reference": "1404.1344",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [qqHZ>inv] from 1708.09624 (ATLAS 36.1fb-1, M=(110, 400))",
+            "expected_ratio": 0.002237878365445369,
+            "id": 170809624,
+            "observed_ratio": 0.0012966441942452646,
+            "particles": [
+              "h"
+            ],
+            "reference": "1708.09624",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH>inv] from 1404.1344 (CMS 19.5fb-1, M=(115, 300))",
+            "expected_ratio": 0.00217368547341074,
+            "id": 140413441,
+            "observed_ratio": 0.0016386244338019427,
+            "particles": [
+              "h"
+            ],
+            "reference": "1404.1344",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [HZ>inv] from 1402.3244 (ATLAS 24.8fb-1, M=(110, 400))",
+            "expected_ratio": 0.001799251912709813,
+            "id": 14023244,
+            "observed_ratio": 0.0014910310379332968,
+            "particles": [
+              "h"
+            ],
+            "reference": "1402.3244",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [HZ>inv] from 1404.1344 (CMS 24.4fb-1, M=(115, 145))",
+            "expected_ratio": 0.001283226664997344,
+            "id": 140413442,
+            "observed_ratio": 0.001314911274009624,
+            "particles": [
+              "h"
+            ],
+            "reference": "1404.1344",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [HW,HZ]>[inv] from 1504.04324 (ATLAS 20.3fb-1, M=(115, 300))",
+            "expected_ratio": 0.0010448762797318708,
+            "id": 150404324,
+            "observed_ratio": 0.0010635347847270825,
+            "particles": [
+              "h"
+            ],
+            "reference": "1504.04324",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 (X1->[WW])(X2->[WW]) from 1811.11028 (ATLAS 36.1fb-1, M1=M2=(125, 125))",
+            "expected_ratio": 0.0009573759567267141,
+            "id": 1811110283,
+            "observed_ratio": 0.0006864204972757572,
+            "particles": [
+              "h",
+              "+",
+              "h"
+            ],
+            "reference": "1811.11028",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [bbH>mumu] from 1508.01437 (CMS 19.3fb-1, M=(115, 500))",
+            "expected_ratio": 0.000889502091838944,
+            "id": 1508014371,
+            "observed_ratio": 0.0008609901530027927,
+            "particles": [
+              "h"
+            ],
+            "reference": "1508.01437",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [bbH>bb] from 1506.08329 (CMS 19.7fb-1, M=(100, 900))",
+            "expected_ratio": 0.0006122713707619592,
+            "id": 150608329,
+            "observed_ratio": 0.0005888171070777279,
+            "particles": [
+              "h"
+            ],
+            "reference": "1506.08329",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [HW,H,HZ]>[inv] from 1502.01518 (ATLAS 20.3fb-1, M=(115, 300))",
+            "expected_ratio": 0.0005583413946831529,
+            "id": 150201518,
+            "observed_ratio": 0.0006707119898395106,
+            "particles": [
+              "h"
+            ],
+            "reference": "1502.01518",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [vbfH,HW,Htt,H,HZ]>[gamgam] from 1407.6583 (ATLAS 20.3fb-1, M=(65, 600))",
+            "expected_ratio": 3.757835543950481e-08,
+            "id": 14076583,
+            "observed_ratio": 1.7185747479879634,
+            "particles": [
+              "h"
+            ],
+            "reference": "1407.6583",
+            "status": "EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [ggH,vbfH]>[mutau] from 2105.03007 (CMS 137fb-1, M=(125, 125))",
+            "expected_ratio": 8.153673400253911e-09,
+            "id": 2105030071,
+            "observed_ratio": 8.153673400253911e-09,
+            "particles": [
+              "h"
+            ],
+            "reference": "2105.03007",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC13 [ggH,vbfH,HW,HZ]>[mutau] from 1907.06131 (ATLAS 36.1fb-1, M=(125, 125))",
+            "expected_ratio": 3.305348272850846e-09,
+            "id": 1907061312,
+            "observed_ratio": 4.36778164626719e-09,
+            "particles": [
+              "h"
+            ],
+            "reference": "1907.06131",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [ggH,vbfH,HW,HZ]>[mutau] from 1502.07400 (CMS 19.7fb-1, M=(125, 125))",
+            "expected_ratio": 1.6307216511184518e-09,
+            "id": 150207400,
+            "observed_ratio": 8.099610849926085e-10,
+            "particles": [
+              "h"
+            ],
+            "reference": "1502.07400",
+            "status": "NOT_EXCLUDED"
+          },
+          {
+            "analysis": "LHC8 [ggH,vbfH,HW,HZ]>[mutau] from 1604.07730 (ATLAS 20.3fb-1, M=(125, 125))",
+            "expected_ratio": 1.2109319191473651e-09,
+            "id": 1604077302,
+            "observed_ratio": 8.552735932439432e-10,
+            "particles": [
+              "h"
+            ],
+            "reference": "1604.07730",
+            "status": "NOT_EXCLUDED"
+          }
+        ],
+        "scope": "Only explicitly populated production/decay channels; missing channels are UNEVALUATED",
+        "selected": {
+          "h": {
+            "analysis": "LHC8 [vbfH,HW,Htt,H,HZ]>[bb,tautau,WW,ZZ,gamgam] from CMS-PAS-HIG-12-045 (CMS 17.3fb-1, M=(110, 600))",
+            "expected_ratio": 4.0510889122494,
+            "id": 12045,
+            "observed_ratio": 0.7891316729697175,
+            "particles": [
+              "h"
+            ],
+            "reference": "CMS-PAS-HIG-12-045",
+            "status": "NOT_EXCLUDED"
+          }
+        },
+        "status": "NOT_EXCLUDED"
+      },
+      "heavy_neutral": {
+        "missing": [
+          "complete H/A widths and BRs including hh, charged-scalar W and other scalar modes",
+          "H/A ggH, bbH and other relevant production or validated effective-coupling input"
+        ],
+        "status": "UNEVALUATED"
+      },
+      "missing_production": [
+        "Hpmtb at 8 TeV for older charged limits",
+        "charged pair and associated charged-neutral production at the energies required by each limit",
+        "other nonvanishing charged production modes required by specific dataset channels",
+        "complete heavy-neutral production; h125 uses the built-in effective-coupling approximation"
+      ],
+      "physical": {
+        "alpha": 1.3870304796252606,
+        "beta": 1.3845755092663614,
+        "gamma": 1.0889500926314342,
+        "k1": 0.36294235759470134,
+        "k12": -0.01744840047090771,
+        "k2": 0.5346711278360509,
+        "lc": 1.1465628128505794,
+        "m12sq": 88336.32560991515,
+        "mH1": 572.2316243593124,
+        "mH2": 873.2076828282773,
+        "ma": 792.2593499631515,
+        "mh1": 125.0,
+        "mh2": 707.0819378644715,
+        "v": 246.21965
+      },
+      "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+      "witness_id": "F13_heavy_0001330/NO/texture_0.001",
+      "yukawa_sha256": {
+        "D": "eaa0e8dadaf35acfa9bc4381f229070217fdeee0a0f6ae4261a0d1813e93dd47",
+        "F": "1d9b8ff9a6896b0966689cb5542bc7d7c1cb3f0e27668a8dc9837e2122223dd4",
+        "Ye": "8db3a9f690ba80b6ecdb866bfdd1dd3e0a03ef9b4ea745576acfa9a507ce41ef",
+        "Ye2": "0679a131d7092a5090313ffec6d892430cf85df385509c9a12da77f0240f745d"
+      }
+    }
+  },
+  "datasets": {
+    "HB": {
+      "commit_date": "2025-09-11",
+      "files": {
+        "WH/Wmumu/brtHpb_LHC13_CMS_36.json": "6638fb572ccc9e6c1b42f1a683621b32f444a3c39a2b53553dc1e3239ccebfc1",
+        "doubleCharge/H/WZ/nonres_LHC13_ATLAS_139.json": "afe7d4f14ef6573550d4d601ebceee9ac88ad291518b93ca07c03eaa4b89ecb2",
+        "doubleCharge/HH/WWWW/nonres_LHC13_ATLAS_139.json": "a3fc681e3cf9f8f4f4fccacedfca3f215f5e11d306d018e6a5bceed129751345",
+        "doubleCharge/HH/WWWW/nonres_LHC13_ATLAS_36.json": "3c632af741515133d88cd22591bf8e1808b1de1da9bb8b5889e10220ab8591cb",
+        "doubleCharge/HH/ee/nonres_LHC13_ATLAS_36.json": "ce3fc7d20da4cc2870c9c68fe4e63e257772e8892d4545766fb63bdee608f9c9",
+        "doubleCharge/HH/ee/nonres_LHC8_ATLAS_20.json": "99082698e083b3b42e16e66801a23cd869ea7cdc886bca6c8ecd9397ca391cb5",
+        "doubleCharge/HH/emu/nonres_LHC13_ATLAS_36.json": "04e8fe99df8d53a44422c483b30a48b3a8098ea457d2db310401fcfb525d767d",
+        "doubleCharge/HH/emu/nonres_LHC8_ATLAS_20.json": "8cc54a0ff4fbbf06f68c483a90fd91a35a2ad65d1c756a347d9c2adf1530dbfb",
+        "doubleCharge/HH/etau/nonres_LHC8_ATLAS_20.json": "7a06200427f233a2e444eebfdc767da64564fe5857517f990c4539a507bb69f1",
+        "doubleCharge/HH/mumu/nonres_LHC13_ATLAS_36.json": "723c19d3ed8f8a49d8f43e4d62cc2516d78153a9204a5d406cc8daf00afdd3cb",
+        "doubleCharge/HH/mumu/nonres_LHC8_ATLAS_20.json": "2ac4aa20c77e9f04873f304c9b3c7bbb59df243ad1b0395c26afdf63c82e5cec",
+        "doubleCharge/HH/mutau/nonres_LHC8_ATLAS_20.json": "4311c3b11eb795aa23fb94102f7ae1b7c8f437e554b36f87e3dfa46aa0d53dff",
+        "neutral/FCNC/brtHc_bb_LHC13_CMS_36.json": "8f49f384e6f5fc65309f01947b1726b826506c626ec724bddf6b8710d02eff9a",
+        "neutral/FCNC/brtHc_bb_LHC8_ATLAS_20.json": "efdb254ae0603cbd999edb150f9ce75e140f79cc2e417018b926dc14a9673489",
+        "neutral/FCNC/brtHc_comb_LHC8_ATLAS_20.json": "01a398372e4c1f409f5cfc61ddf308ca0225cdb8b9c922723b5e27d1b254ebc6",
+        "neutral/FCNC/brtHc_comb_LHC8_CMS_20.json": "ac3ec98042939466c6e40c1de495ed6597b12f1a449370d769394de122ce72f6",
+        "neutral/FCNC/brtHc_lepcomb_LHC13_ATLAS_36.json": "84efa252f58f84a574b957b3483b23400aa50674c1c0bd362d55a39b4e7adfd4",
+        "neutral/FCNC/brtHq_bb_LHC13_ATLAS_36.json": "095797164fef366be2ba8650cc3850d060ee1a9de979eb01a83b04a96117a298",
+        "neutral/FCNC/brtHq_gamgam_LHC13_ATLAS_36.json": "114fdd56fc4ab836194915d347ee1c4d6b2584ee513a50ae1af6b6ad6110918e",
+        "neutral/FCNC/brtHq_gamgam_LHC8_ATLAS_25.json": "dc43baee0be064d14783dd9c84275105a5006060077df4bd8c8a4eefa0fd2f31",
+        "neutral/FCNC/brtHu_bb_LHC13_CMS_36.json": "2c5cc06819ef6ddd8cec59f7e11b97f445809a92bc9ca9ccb6c0cc419430f736",
+        "neutral/FCNC/brtHu_bb_LHC8_ATLAS_20.json": "c614366bb8924585c4337372c5a6a2817dfb90df068964bd7f3dc8c6b0331e59",
+        "neutral/FCNC/brtHu_comb_LHC8_ATLAS_20.json": "b1dc67decc29d2d47378fbed38ae7df0a4494ff91e6857f6a04100a558fae012",
+        "neutral/FCNC/brtHu_comb_LHC8_CMS_20.json": "75508c0eb3635f73f2d468434794bf2c528dee5a3b09a68b7675475ff7da48af",
+        "neutral/FCNC/brtHu_lepcomb_LHC13_ATLAS_36.json": "b5a193989feb39e1f5cd8ad9d0360a4a9c01b2e5fb0fe3c4027751763ef2fd7d",
+        "neutral/FCNC/comb_LHC13_ATLAS_36.json": "1e2b20a8783e1fa3c44e5c47f6fdc83e52f56ed223dfb01dc675b25169b40718",
+        "neutral/HH/WWWW/ggH_H_LHC13_ATLAS_36.json": "88d810c5ca85f2bb3cfc87b9deb7c9528471af5fccd4d414d65633249f69e225",
+        "neutral/HH/WWWW/ggH_LHC13_ATLAS_36.json": "d6cc340a4db16f0f0e2ed2c4fa831bf6793d4c9d2fb77dc89385f3d5ca745e24",
+        "neutral/HH/WWWW/nonres_LHC13_ATLAS_36.json": "83a723bc2864002e6922de56dd1413fa30bc027097c1991a367152d44bd5c8f4",
+        "neutral/HH/bbVV/H_LHC13_CMS_138.json": "7168848c880a2cf2ba9fc022dc5d2a7c774442e3b02717da12f2fdbc1c340466",
+        "neutral/HH/bbVV/H_bbWW_LHC13_ATLAS_36.json": "38de6d9c607c8c019fbb9b15b6fb374508bd5102386724f70a7a0ed1a77c82b9",
+        "neutral/HH/bbVV/H_bbWW_LHC13_CMS_36.json": "b75899b6527c2f565e5004259a0051418157311af0072a5f1dff9ef235d3b9c5",
+        "neutral/HH/bbVV/H_bbWW_highM_LHC13_CMS_36.json": "d5df9b98d848467c3fb551afdc0a7370d01af2e8a1a250ec8b4ffc6383ba9824",
+        "neutral/HH/bbVV/H_bbZZ_LHC13_CMS_36.json": "7adc85f9e75173941c4756c449bb4bdc33ac26ca63337c32136ccb2f120c7de6",
+        "neutral/HH/bbVV/nonres_LHC13_ATLAS_36.json": "4ccb7bdc652c3aed48f91a88adebdbb121d0fb9f4ac0a5ec439ce23bcd19ab86",
+        "neutral/HH/bbVV/nonres_LHC13_CMS_36.json": "1403ec66b3b878395817d8c5d908e7e9809f74c1a2fa87fe08fcc3c3d615117c",
+        "neutral/HH/bbbb/HV_LHC13_ATLAS_36.json": "1aa2ed9320f7defc8be7f9188c058fe4a3585931b4c1e5dd1dcc106f61a3afd7",
+        "neutral/HH/bbbb/HV_LHC13_CMS_138.json": "5539ffba318df3e95a8bf41102ac5d17dc9c3e98909a66db1fc5c7f6f7958b0a",
+        "neutral/HH/bbbb/HW_LHC13_ATLAS_36.json": "d7d499a69cc0e67d7fe3c1bee6322dbf67ba4739fd5f0fb40256fc63219c30c9",
+        "neutral/HH/bbbb/HZ_LHC13_ATLAS_36.json": "3154dc3edc77bb995fc3f0d660052241c35e73b0397fafd72a96efaff0a412e4",
+        "neutral/HH/bbbb/H_LHC13_ATLAS_139.json": "cb5cb9c5a2189ed15a0413e9bb94b2088adb99c1d88044a7b3302245aff16ea6",
+        "neutral/HH/bbbb/H_LHC13_ATLAS_36.json": "846833aeed42f78d864c551814102160db3617acdb220149aa287f1801196877",
+        "neutral/HH/bbbb/H_LHC13_CMS_36.json": "fd9313ae97ad01d26265a7313ecb3b01501b24caada1a05f9cc2e7462abd094a",
+        "neutral/HH/bbbb/H_LHC8_CMS_18.json": "690a2be3551174493097386ddac77890f58e17c8c3e9efeb3a18ed7475394a7e",
+        "neutral/HH/bbbb/H_highM_LHC13_CMS_138.json": "a64fcd91946cee88ebe91224bbbfa1d5e436af1ae8351522ae6df9a030a3388c",
+        "neutral/HH/bbbb/H_highM_LHC13_CMS_36.json": "02bb7de88eac6457dcfad0f6801bea5b9256564e702cc6fbf6b0a7d38bae336d",
+        "neutral/HH/bbbb/comb_LHC8_ATLAS_20.json": "ab0c5fe13f4a2966e12bc7e9dc60a670b9035e27c5f132a2670c45847a1bc164",
+        "neutral/HH/bbbb/eeHZ_LEP_LEPComb_3.json": "e0c5a63e140a7c5517c735f163806cf3a1b8cdda64dfbfac3539a428ef043e7c",
+        "neutral/HH/bbbb/nonres_LEP_LEPComb_3.json": "4721b0d5c0c878a7750d7637b99a1ec97063d88b46e507db8ad7bdb504f80974",
+        "neutral/HH/bbbb/vbfH_LHC13_ATLAS_126.json": "6c7ab7f6e5084371ea4953e86263e32aa404d42e6bcb519d0f04ba5dc345e903",
+        "neutral/HH/bbtautau/H_LHC13_ATLAS_139.json": "eca380188f6625add3c08521062b24974ed722742638d8b92532af0cc09af601",
+        "neutral/HH/bbtautau/H_LHC13_ATLAS_36.json": "25437c7650f1ee489417f64c1ca2a6914204a5848d11594fb1a956066bc6052d",
+        "neutral/HH/bbtautau/H_LHC13_CMS_36.json": "ce2be36d65d0d770f07f95df90344b95a9b00734fa88fea9bc5e6801fcdbfc25",
+        "neutral/HH/bbtautau/H_LHC8_ATLAS_20.json": "c601dafaf83b333d1810e112d72e115ec7f4793b0fae2284d01ddec448ec46e9",
+        "neutral/HH/bbtautau/H_LHC8_CMS_20.json": "3b26092229ae5979ee4a6432b88d4cf4c54944567a59e97282002750b45df889",
+        "neutral/HH/bbtautau/H_boosted_LHC13_ATLAS_139.json": "d4f980ce36ef99242aedc94ee53a9454a757f05ce8bb2e29b9177d10d26cb7a2",
+        "neutral/HH/bbtautau/comb_LHC13_CMS_36.json": "8a24d94a595e12ce90ec80c1c13f771859bccdd50419a880ceae7e360440c174",
+        "neutral/HH/bbtautau/ggH_LHC13_CMS_137.json": "ce2cbd8bb5876c43c5018c3f58343008439b58a47b30a54c04285241fa4e605e",
+        "neutral/HH/bbtautau/ggH_highM_LHC13_CMS_36.json": "b375b93694cbaf902a73e9b7e240b9008ff2ef9fe083b8bc386efbd1d46c24bb",
+        "neutral/HH/bbtautau/nonres_LEP_LEPComb_3.json": "6886a2b3689130997f60a91fa5bd6dee96447493df7fd2e863c2c7487bf4a645",
+        "neutral/HH/combinations/H_LHC13_ATLAS_139.json": "08ec8b698d48130010808f78da3c63bb1d8ecf3ecbb955d9bc35c173176062fb",
+        "neutral/HH/combinations/H_LHC13_ATLAS_36.json": "335134db66f2997e1a5e99a5aa829a1b73cb1f12d8e5f4ed910a59256ad90953",
+        "neutral/HH/combinations/H_LHC13_CMS_138.json": "104155f424bd83bfe5e257a2f6335d8ad8e49f02e81b9ff4af777d1e759b52ed",
+        "neutral/HH/combinations/H_LHC13_CMS_36.json": "fc1e9c18546460aa4b6e7b571081b635e5b0696fbbd438c4b2da22f9645394b6",
+        "neutral/HH/combinations/H_LHC8_ATLAS_20.json": "9472d540e8db8b8b18fa87559832ca6eb9848ed24cdd9b944c2e63009e5e95f6",
+        "neutral/HH/combinations/nonres_LHC13_ATLAS_139.json": "71bc31e9ce7bd903258f8768047619611649f86c5f053d51433fded1d16c7671",
+        "neutral/HH/combinations/nonres_LHC13_CMS_138.json": "0abcf61f376254ccd21fd5aa5bfa8def70c17ba618721725b282d2d893413401",
+        "neutral/HH/combinations/res_LHC13_CMS_138.json": "fe7fd0da8701713eb74fa3e50461f4bae4000b562b0ad1fc12ba242ae5287efe",
+        "neutral/HH/gamgamWW/H_LHC8_ATLAS_20.json": "b724720dd352a6410d6f0870d8c3575be343c18caf869e6e3d7a3cd62a780abd",
+        "neutral/HH/gamgamWW/ggH_LHC13_ATLAS_36.json": "f7135a4a4ce8f46ebc6f1a4f030ce5f2a86bbace791577502b27969ccfc8a889",
+        "neutral/HH/gamgamWW/nonres_LHC13_ATLAS_36.json": "ae87400f5e05370c9f4d3b108a3d525167562d71ec22c444f187962c3d6f6028",
+        "neutral/HH/gamgambb/H_LHC13_ATLAS_139.json": "f33bb536488242c0f5b8ed56a105a4037126ff57d5564c41273a77cbda0ce495",
+        "neutral/HH/gamgambb/H_LHC13_ATLAS_36.json": "d8d78c5b174e1eba950037cae378e395cedd429dbce0e1a615a1a9243cfa72fa",
+        "neutral/HH/gamgambb/H_LHC13_CMS_36.json": "f119c5678fe759c4525fdd23151808f2334d7efb59629f2633df7913a538ad6b",
+        "neutral/HH/gamgambb/H_LHC8_ATLAS_20.json": "c48756d1b4a84ce28b7839c7db629b515b6cc05ca53eeae351fef30e0fe87437",
+        "neutral/HH/gamgambb/H_LHC8_CMS_20.json": "5aca8b66cfa8fe79ea2e1d643392a948ad5e9dd96b4af1efdcbd2d5074f86c87",
+        "neutral/HH/gamgambb/nonres_LHC13_ATLAS_308.json": "4aca65002f5a150353fbe9d6fa5b6d1f890943263afdaa2c9f42dbcdc4f68c81",
+        "neutral/HH/gamgamgamgam/H_LHC13_CMS_132.json": "b6883e69b83abd4a687aa3b24b0d34612ac419d4c24ea57b8a2c44b90c62d370",
+        "neutral/HH/gamgamgamgam/H_lowMass_LHC13_CMS_136.json": "0cc857d4a5f2d56d20a0cf1affa88c9ce655b0c5cadbfc7ad4575cfd88c04de6",
+        "neutral/HH/gamgamgamgam/ggH_LHC13_ATLAS_37.json": "53952dca846671aabc336660ab91c08ee4453ac0e2107e4963a0095319794b2a",
+        "neutral/HH/gamgamgamgam/ggH_LHC8_ATLAS_20.json": "2293ce8a365bc68c175d033c35f9f7a10625f07a6c399cc8b57f011deb5eb5a9",
+        "neutral/HH/gamgamjj/comb_LHC13_ATLAS_37.json": "c7ecacc42daf0f237d7886fac2dc4a122d4d73e9ea82fb29213bf2e128644284",
+        "neutral/HH/mumubb/H_LHC8_CMS_20.json": "e6c9f9d94f4fc67154e8f5441c6fd62403a67d1b5e97fced9079f3af6c4a8e6b",
+        "neutral/HH/mumubb/comb_LHC13_ATLAS_139.json": "8abbbf412f93d6e726fd345aa83a3354581189ab6acf69d364e5a82b75f8d80e",
+        "neutral/HH/mumubb/comb_LHC13_CMS_36.json": "80fa39a446ca5982f40339463d4ec62aa263a6097332128e74718309b67bc4ea",
+        "neutral/HH/mumubb/comb_aa_LHC13_ATLAS_139.json": "d87f130bf6e2653c670f3c85b94230de97e2f4ab50df2da2d26f1c64bb3b31d2",
+        "neutral/HH/mumumumu/H_LHC8_CMS_21.json": "fc49cecee141eb85fc2ca21012fde9b7ed833779408ad789e50a707cd7bd0ed8",
+        "neutral/HH/mumumumu/ggH_LHC13_ATLAS_139.json": "fc4bd904f69c6e720df3c88cb402e08129bd17d3d6c68c0d95c5f6bcced5a7a8",
+        "neutral/HH/mumutautau/comb_LHC13_CMS_36.json": "a4a16e4aff541f335e7b3d6811985bb8bb5db49a437da9d3f9e633e5b7312a58",
+        "neutral/HH/mumutautau/comb_LHC8_CMS_20.json": "4c4127094d58bbea98f27017df6fa87b9fd132e6805e21a7510b471a1aeec621",
+        "neutral/HH/mumutautau/comb_light_125_LHC13_CMS_36.json": "961917c585a57beba6b42508dc992307a2b003eafee9472c7de5d84ae20e09ce",
+        "neutral/HH/mumutautau/comb_light_300_LHC13_CMS_36.json": "f80980c7ac1a026e484c734e7dad04a529a59bbc0ab876a636e67c07cee1c042",
+        "neutral/HH/mumutautau/ggH_LHC8_ATLAS_20.json": "82a27e0475648de92820f33d972a397bc4bd4fee23d0f6f25faf16c8509c11bb",
+        "neutral/HH/mumutautau/ggh125_LHC8_ATLAS_20.json": "b67db6a613360b5af09e369fed8161df60f54f12bea52def6800526818aac301",
+        "neutral/HH/tautautautau/comb_LHC13_CMS_36.json": "a44e157597e2f9a6e7267b21cb1e2c498a66d7b629019022e7199dd785ff2b94",
+        "neutral/HH/tautautautau/comb_LHC8_CMS_20.json": "7a4471b1fcfca4042f286dcf9c7d1f88a6327c85aef9949b5dde76005a17e78d",
+        "neutral/HH/tautautautau/eeHZ_LEP_LEPComb_3.json": "af2e66225855e87d1a61b8f07e23ac45a0704e95a2490deead78ed0828fbde88",
+        "neutral/HH/tautautautau/ggH_LHC8_CMS_20.json": "79d9dde0be97693d01fece96eb5ff6d58f1e58ed811b3397986b084ad59158f3",
+        "neutral/HH/tautautautau/nonres_LEP_LEPComb_3.json": "910aa07203f190434b3a789f8f999408fc60e96ddb6dd1955ca3ef9546458ac8",
+        "neutral/LFV/H_emu_LHC13_ATLAS_36.json": "2643a78eca746b7c9af56471dca4c1160ac1697b70c20a87309e3b84f749c399",
+        "neutral/LFV/H_emu_LHC8_ATLAS_20.json": "17741ba6df3f70aaa5ccc4f45abaeef504559e761b406917aadf351c53b1ab9f",
+        "neutral/LFV/H_etau_LHC13_ATLAS_36.json": "fcc1ff12381b237278106d45bd130db4cca714c1868ad0cd24c24527db8fe3cc",
+        "neutral/LFV/H_etau_LHC8_ATLAS_20.json": "6b2d2eb08972e723ecddf551e5f6f6f7768d36bbb690d211c3c3a6ea29d9e6f3",
+        "neutral/LFV/H_mutau_LHC13_ATLAS_36.json": "671798271b542cf1958348ab3e4ca7c7a92655e5bc688ebad01d90f1542e2dcc",
+        "neutral/LFV/H_mutau_LHC8_ATLAS_20.json": "ed62b8ee0702d2bf4fde7758bf58b9daa303c583715f135ba73a8d88f8c0cec5",
+        "neutral/LFV/emu_incl_LHC13_CMS_36.json": "4524a912449bd21938fbc509a36d2c85cd641c9b80882698ea214c011a6f3898",
+        "neutral/LFV/ggH_emu_LHC13_ATLAS_36.json": "b63a415469ef71f1f54fbc14aacc95b9e738d4e19454a459d4f7a3eb1bf94b7b",
+        "neutral/LFV/ggH_etau_LHC13_CMS_36.json": "d73f379819a9e8f0d56a878306f4433337eadcc6f6f9c7ca4bc68a09e3393acb",
+        "neutral/LFV/ggH_mutau_LHC13_CMS_36.json": "dd10be04beb3e18437add651c2a34423ee5105802f488af6d72455f3efe0d0d4",
+        "neutral/LFV/h125_emu_LHC13_ATLAS_139.json": "91432e8fcd9fc8543a2154200f615eaf17c72ac19f68de7cd1b93df6467d656e",
+        "neutral/LFV/h125_emu_LHC8_CMS_20.json": "63f49a87a881958c248c8b7e9c44033be8ad5fecff792d980015d1e9145c55a0",
+        "neutral/LFV/h125_etau_LHC13_ATLAS_36.json": "2ceacabf45b9179fd3a25bc2c3c0a9d3b85a1b5a033e438920e4a1ce744dfd6c",
+        "neutral/LFV/h125_etau_LHC13_CMS_137.json": "391e73cb773c8cd2325a78f7d6c24060536bbacc16712b8125632a98f3a7c754",
+        "neutral/LFV/h125_etau_LHC8_ATLAS_20.json": "ccb7c7cfcac211c0c98cf3f39c3bcb1690a97dd5c2866485f637cbe6002416be",
+        "neutral/LFV/h125_etau_LHC8_CMS_20.json": "b57fb381e2a933b975aee6bdad3864ccccfdf0a1118ef666665c601c40b264ab",
+        "neutral/LFV/h125_mutau_LHC13_ATLAS_36.json": "173aadd3730b397cd7ff225eeb190f0bb43c3e8375ba82bd81890f3b0c095938",
+        "neutral/LFV/h125_mutau_LHC13_CMS_137.json": "d215716d83f392470265d377ccb696b04d785a28c0107ef13bcdd273c0236b28",
+        "neutral/LFV/h125_mutau_LHC8_ATLAS_20.json": "fdd5683ef606cfe92a6d272c6a270425cf5e715da9a793e26c62bb43a83ac5d5",
+        "neutral/LFV/h125_mutau_LHC8_CMS_20.json": "e01b9958308c0efff317eb617f01e4bf987c27092e02ad7bb14f2cef6245a671",
+        "neutral/WW/HW_LHC8_CMS_24.json": "b9552a2d50b850c0184369538fff026eb60a914e3b91edc5ee0cb0aa19931d25",
+        "neutral/WW/H_LHC8_ATLAS_20.json": "4d3d2a1954de28040cda83aa58c9407cc6e4ed86ab60d17c9703f1b12690f122",
+        "neutral/WW/H_LHC8_CMS_24.json": "63e05ef5683da15f2180c657d0a2bf16d3c2a4ac6cf407f20880517ec77d5c4d",
+        "neutral/WW/comb_LHC13_CMS_36.json": "4e44f8f5b073d50581829091f6db64739a96e14c608f09e8691106ffac687022",
+        "neutral/WW/comb_LHC8_ATLAS_25.json": "70f74aafc8d64519876fe22f79eb08a1b3f42b89219f457db5adb72976e893e5",
+        "neutral/WW/comb_LHC8_CMS_24.json": "15ba9c51524f62ad30fd353242ddc35e720b26eae4451070e6967e2500725b14",
+        "neutral/WW/ggH_LHC13_ATLAS_36.json": "4424dc7152b90496f87b717233d10525a54f5ec5284a6e182626a564ff5e94c7",
+        "neutral/WW/ggH_highM_LHC13_CMS_137.json": "b10602a684b90ac7211f298387df565d33783f43bf9bc0d812e99a6f45a10efe",
+        "neutral/WW/ggH_qqlnu_LHC13_ATLAS_36.json": "715ca09caace27b854a7132fe3e41f22d458167a63e91af4be9b17d251157801",
+        "neutral/WW/partComb_LHC8_CMS_24.json": "1fdecf5f49b0f3e17192064df96beb710bb1aaa004cb046c938215f68402c693",
+        "neutral/WW/vbfH_LHC13_ATLAS_36.json": "a9d482327956b452afd618616fe3b98d5b78c85771e62b3526662d22463689aa",
+        "neutral/WW/vbfH_LHC13_CMS_36.json": "fec1f16acca24e8cd5c6d717c7fcb120b08febc4297b1c64feefd2b8a51dc4bc",
+        "neutral/WW/vbfH_LHC8_ATLAS_20.json": "10cb5e942603293b3d3163147062028525288027b5479a10f13fc0ab57890cdc",
+        "neutral/WW/vbfH_LHC8_CMS_24.json": "d55402deefb5483d57f2a7d4bc95e7d84280d080621b3ede86c36e7e7228f7b6",
+        "neutral/WW/vbfH_highM_LHC13_CMS_137.json": "37a6e6622f34506f102bac81d1f69c3fa38bad3a52b0fe78b5c6a04c98bf34a3",
+        "neutral/WW/vbfH_qqlnu_LHC13_ATLAS_36.json": "52770cb4653432d8747d1d336c8481d3adbb4e603f8428362694debb456e4763",
+        "neutral/ZH/Zbb/H_LHC13_CMS_36.json": "124046b5c153fcaf8edcd22878f97a2431d57488ae6c53c7e3c321fb3ef4e1ba",
+        "neutral/ZH/Zbb/H_LHC8_ATLAS_20.json": "25f0319ecc85828ab6904b8f012a6ad53a406948d63d35da6da98f52cd48b104",
+        "neutral/ZH/Zbb/H_LHC8_CMS_20.json": "910c807eb800a34a5e38a4861f1763a22d4a755a8cf9cf5e1412d48dff1519cb",
+        "neutral/ZH/Zbb/H_h125_LHC8_CMS_20.json": "5e551dd918aea2d7e933b18e0b4936b8ebb0f78e51647c164de1d4a38b7a4a9a",
+        "neutral/ZH/Zbb/H_highM_LHC13_CMS_36.json": "c36aec96a142b1d32a6d5897a92ff8dda1006a6c3f3ba14f60e40ee17528aa97",
+        "neutral/ZH/Zbb/bbH_H125_LHC13_ATLAS_139.json": "8771102b3e1c94a80aed5c235e93a59248c99dcfb2a392a9f103172dd5111ad2",
+        "neutral/ZH/Zbb/bbH_LHC13_ATLAS_139.json": "4faf9425c52b14e8be1d92f22c083dbc8604a15e235e111e5fd0f2509f84d1b8",
+        "neutral/ZH/Zbb/bbH_LHC13_ATLAS_140_vv.json": "02a25bf92162cbbafa0a345b059a948e1cb11dcbe8441e72cd1e0fac57317451",
+        "neutral/ZH/Zbb/bbH_LHC13_CMS_36.json": "5f16652c200548c4e664b261204edce0c8d566412384a211b48648eb131dd056",
+        "neutral/ZH/Zbb/ggH_H125_LHC13_ATLAS_139.json": "45c38a3039b767f6ab059700ffc4435f012776bb5e3ab2ed8e8a592ff6c02e88",
+        "neutral/ZH/Zbb/ggH_LHC13_ATLAS_139.json": "b0a0ee4cb892ae78a05da9abb36403613656333e0b89b392cdf15d53077e1afa",
+        "neutral/ZH/Zbb/ggH_LHC13_ATLAS_140_vv.json": "8469b058bc952e16c29e2e78b3270942974ce734384a8d495b0b700978394fb5",
+        "neutral/ZH/Zbb/ggH_LHC13_CMS_36.json": "0e3efdc3904a43921b58b7061a0c53f0788e90a70271852cd96e6a5db43b1132",
+        "neutral/ZH/Zgamgam/H_LHC13_CMS_138.json": "f841fc95b1d5226b7b5c806c90bbdcbb03c229dffe861a772e02c158d057cba9",
+        "neutral/ZH/Zjj/ggH_gg_LHC13_ATLAS_139.json": "fac0578e3b77711ff81a58e4c2e042b315a218c95a55602d227554c895af2309",
+        "neutral/ZH/Zjj/ggH_ss_LHC13_ATLAS_139.json": "4f023d4dc9f7fa2608ec7ff5315269b6b9ac0291ba163d2b580f7c64c5f2991a",
+        "neutral/ZH/Zmumu/ggH_LHC13_ATLAS_139.json": "45a80205ccc8116b92df17ba66dc921141ad0e775b6ecea23a80a2feadae54f4",
+        "neutral/ZH/Ztautau/H_LHC13_CMS_36.json": "fd4cfd26481d0572e1837c43002414c18a1d8b5172aa24c36524cb0abc263ad8",
+        "neutral/ZH/Ztautau/H_LHC8_ATLAS_20.json": "bbd6646e6bb112d95072d78b54e833bb339a918b0b4a3142a0a6cf44a5642dfa",
+        "neutral/ZH/Ztautau/H_LHC8_CMS_20.json": "0edbfd8262b663424055758482ff4a38709d59ee26c1971ca07aece70a0466b0",
+        "neutral/ZH/Ztautau/H_h125_LHC8_CMS_20.json": "ffd38a0e97857c799ae9ff0fd000ead3689b4e7e74df057047d00e0179292825",
+        "neutral/ZH/Ztt/ggH_LHC13_ATLAS_140.json": "663da34817cfe848b42dd6fe3789d64cb168977c9e47c5ac31f1f4bfe3fffe72",
+        "neutral/ZH/Ztt/ggH_LHC13_CMS_138.json": "ccb9b82096feed025f5c65ea56a6adce4aaf975e2c1838dd12fc47ff0958bf92",
+        "neutral/ZZ/H_LHC8_ATLAS_20.json": "6c3e0e4e0130ef88a6266f25fb3bdee810804a313d01da5ba9c1f06a1eb515dd",
+        "neutral/ZZ/comb_LHC13_CMS_36.json": "99b0e58165856d6bb3400158bea3b1aba1016efc0defd8c24dd59cf9ddf9a509",
+        "neutral/ZZ/comb_LHC8_ATLAS_25.json": "192cb468c0d72eaae7a1ca75a635186a7888ab380b1d5ff4fc440587775d8626",
+        "neutral/ZZ/comb_LHC8_CMS_25.json": "2dfddffcc03c41b61be90d537903dcf2f837fb9bede48a5f683251c25dd4c3bc",
+        "neutral/ZZ/ggH_LHC13_ATLAS_139.json": "a1cd84707e933044151a0b4e4763440d3cbf00429b7f11f5bf1eb63fe9d2d379",
+        "neutral/ZZ/ggH_LHC13_ATLAS_36.json": "f73ccf542dba3823432a4b9b8e1291ceb118a09dc3390ee8da6bc13796aee8e2",
+        "neutral/ZZ/ggH_highM_LHC13_CMS_137.json": "86cf06b281bbb94f7e24a56a49021e803bf54c504d227f0c44c3412e32a563f4",
+        "neutral/ZZ/ggH_lowM_LHC13_ATLAS_139.json": "1f4f0c9c211481e02dcc3b94bb4f7b8eccbc36bc07c331a2722ceab1e04ad638",
+        "neutral/ZZ/vbfH_LHC13_ATLAS_139.json": "03f72052d89687b67290110f050b256c15775666e9277cf8e10e19df51e61460",
+        "neutral/ZZ/vbfH_LHC13_ATLAS_36.json": "365114ab7119bc1ca5766c1be5c132661bc4faad20909d01d0dc43b53a7fde97",
+        "neutral/ZZ/vbfH_LHC13_CMS_36.json": "46bb3eb0278e8eec471ed27b3500f31466dd863e351ca88758b44414360ae6e3",
+        "neutral/ZZ/vbfH_LHC8_ATLAS_20.json": "a05e4b9e476f52b11f176ce8476375db800185a8dd3ec1c68300a73d250e960e",
+        "neutral/ZZ/vbfH_highM_LHC13_CMS_137.json": "73f6fe9aee56a52b42a38d9bf4f1b8f83247001f78f5a0085546e46b131e6332",
+        "neutral/Zgam/H_LHC13_CMS_36.json": "51014b17a695876816d3a3c25129a52d7088e37738ef5f64c48cab9eff9bdf37",
+        "neutral/Zgam/H_LHC8_CMS_20.json": "a83b7b5210c1e1107e5077f86032747dbf71b42e240539eccc4c9d7f1bea0d51",
+        "neutral/Zgam/comb_LHC13_ATLAS_36.json": "b496ee187381796689de67574768019e0a59602a1a839dd3f4c6f3d5718f168d",
+        "neutral/Zgam/comb_LHC8_ATLAS_25.json": "3b4fbbcfb9d7db9fb117a3362794451821da740da97c9c495b43d5f736aaf04d",
+        "neutral/Zgam/comb_LHC8_CMS_25.json": "fa2b1d9141eaf7f4a3b4f1d2d889e829ecc7174aa8eeb261a4c7170592727acd",
+        "neutral/Zgam/ggH_LHC13_ATLAS_140.json": "70a58244bf64577e23f90de816de969b2451e50d0320f349998b1ded47dfa66c",
+        "neutral/Zgam/ggH_LHC13_ATLAS_36.json": "9ca4ca7d07041070f0402a6eb8ed5e451b79d46335fd1b59f312753985d77eea",
+        "neutral/Zgam/ggH_highM_LHC13_ATLAS_36.json": "6525e01c7b47214d63d007e3ea4f9531e2bbf7f9183ab455436b774aabf2bb22",
+        "neutral/anything/eeHZ_LEP_OPAL_1.json": "ce1e2e15ce7abccd3dee93df04ef982b9639101815473154e511a63999dd5fa5",
+        "neutral/bb/HV_LHC8_ATLAS_25.json": "8ed87d317884618bd7795265ab4f1b3b2e164a8e31209efb3d07d55c1c087c8a",
+        "neutral/bb/HV_LHC8_CMS_24.json": "ee8984e65b5a7d7c9299233d5a334dc809f1d3ea90528493ce96d2e8139bda99",
+        "neutral/bb/Hgam_LHC13_ATLAS_80.json": "91ddb62e514a5f5165c076363d887d23e8fa36bf668caa0262d32390c54f0481",
+        "neutral/bb/bbH_LHC13_ATLAS_28.json": "425a532e222505c87543f22f6e27df38856d3d1470924faf2ec7955307b6fb01",
+        "neutral/bb/bbH_LHC13_CMS_36.json": "6c78e2d3552869bd9a858e09a4a5e97dafe57184b7a365ed5426ea820c1ffe71",
+        "neutral/bb/bbH_LHC8_CMS_20.json": "fd6fb94eead70453867adfbae909368b64f4f2b430ca2cfd2b0574da2a9fd3e0",
+        "neutral/bb/eeAbb_LEP_DELPHI_1.json": "9ea0f12d53b52d109369212adbb8f061cd258a0557e650e6b7a5477e41d18e59",
+        "neutral/bb/eeHZ_LEP_LEPComb_2.json": "be34ce05fe32c87833c5c39db6883fe0bc7132d1f367089159b69dfc85209def",
+        "neutral/bb/eeHbb_LEP_DELPHI_1.json": "211e98697cec17ec49992898eacfc60c3b4cf92f21deb2b9af6232d0890d8650",
+        "neutral/bb/ggA_LHC13_CMS_36.json": "b2be4dea96512145550b6137739592d5bb709dfcae8fc2967a27facaa4c48e32",
+        "neutral/bb/ggH_LHC13_CMS_36.json": "afc46be57615d0b5d4c7bf56f169378a5169b8cbdbf3ac2f708ad12367427b48",
+        "neutral/bb/vbfH_LHC8_CMS_20.json": "e9d882bb4a448c98bc77a2c2dc2fdd2e66a9f739e081db93b4e79308bf35a2a1",
+        "neutral/cc/HZ_LHC13_ATLAS_36.json": "ac0fd08f7971a52a8e831d0f83ac1b3fd986b2e1896215d5bfd31f56b0cce064",
+        "neutral/combinations/VVcomb_H_LHC13_ATLAS_139.json": "a6e497375333bf532858307b5f24c137578423a440bc1858109516ff16f13dd7",
+        "neutral/combinations/VVcomb_H_LHC13_ATLAS_36.json": "e44280a1d06eac80780fd2ee943ecd9818f288e600c3c324902c0716a6369d0c",
+        "neutral/combinations/VVcomb_LHC8_CMS_25.json": "a7707a55acec7fbe4cce2a588ba7bf035742370abfc0cda2e1c806f873cf389d",
+        "neutral/combinations/VVcomb_vbfH_LHC13_ATLAS_139.json": "5202b99e0e0bef1e913c2850564ad684d52a4ea96a801b7ac015228f6cb24608",
+        "neutral/combinations/VVcomb_vbfH_LHC13_ATLAS_36.json": "9f736cafb80d9dd73e70c063970060a1dc41f1d4428a27f272f739add327f357",
+        "neutral/combinations/comb_LHC8_ATLAS_11.json": "b63213ddba2d5e6962ef4867d114f4fa7419cb8c15c0dd4a94d8e2a0cbe35c75",
+        "neutral/combinations/comb_LHC8_CMS_17.json": "07310c8d8b2e5933da116c9ab992127e44fc19aee9efd5dc89daadfc869758e3",
+        "neutral/ee/WHhighMass_LHC13_CMS_138.json": "293b9bf04ac5dbcc31d74774876ac148101c86fe0fc3bdf6af6636a6625672ac",
+        "neutral/ee/WHlowMass_LHC13_CMS_138.json": "71b56b4a90a7b9b8512cb39c47be355ab98ea7eb1cecc84b8f396b16291cbf08",
+        "neutral/ee/ZHhighMass_LHC13_CMS_138.json": "2548db4125b79e9b9adacb80795ae17d83238fa8492bf5545adfc06c227c8882",
+        "neutral/ee/ZHlowMass_LHC13_CMS_138.json": "cb82c7e149ed4b071c3e069cd34f8078980f058f419f61ded6b00811a0904e5d",
+        "neutral/ee/comb_LHC8_CMS_20.json": "791253aa7222b9cdaa470b57854bf2fa89f4df8f8b836058257c4a15605034af",
+        "neutral/ee/ggH_LHC13_ATLAS_139.json": "362892073c34c963acb3d84d9385c222999044305c995a278fc4b8b4d2ad4ad5",
+        "neutral/ee/h125_LHC13_ATLAS_139.json": "146ede61ed7673b0eda3ac19d92c63d3d74e9c48774d0f14c22f814d9fd53b56",
+        "neutral/ee/ttAhighMass_LHC13_CMS_138.json": "2927e31d2e5fa6551c910e0fc9b7f31a95084dbeef359fde1dd60dd99bdd5fdd",
+        "neutral/ee/ttAlowMass_LHC13_CMS_138.json": "381d71ec3012667c3e1a7e595cd71adf16be0787b2d03dcd0ea0d908750720c0",
+        "neutral/ee/ttHhighMass_LHC13_CMS_138.json": "0c65abafefae15df7820e41391a1627d84b86d85ed964dcae91af07a0ef46414",
+        "neutral/ee/ttHlowMass_LHC13_CMS_138.json": "2daaacc729fe334a00f1840f49f7ea86371eb63a38e2c6f5f787192b2a93d340",
+        "neutral/gamgam/H_LHC8_CMS_20.json": "de21b306b84a3c7aa4c7a3be670ab8dd260416f550470af8bb9f2dd1b9c341c5",
+        "neutral/gamgam/comb_LHC13_ATLAS_139.json": "d436674bb96d7908adf356aca4f021354a931ba1c4cac25a9df7ef28df5246f7",
+        "neutral/gamgam/comb_LHC13_CMS_132.json": "e1ae8595a5b4615a161bf335ba7fb67c3bbe2cdf68d462f0942d374a076dad71",
+        "neutral/gamgam/comb_LHC13_CMS_138.json": "cad044caae4b729f939dd3921a705761bef600a23011ccd690899a2845e61268",
+        "neutral/gamgam/comb_LHC8_ATLAS_20.json": "a02e0979d0990e8998d639db59aab625251c2ce47798c27c7dc5dfceca04b8f5",
+        "neutral/gamgam/comb_LHC8_CMS_25.json": "32959bf1479e90c9f184b9960e095d8c302f5624fc77804553bf57510ddd112f",
+        "neutral/gamgam/comb_lowMass_LHC8_CMS_20.json": "0b8c518299d522c9a6584231e2c64950ae8f51c76f956d9b863d913d2c7460d6",
+        "neutral/gamgam/comb_medMass_LHC13_ATLAS_139.json": "fa0106c2abfffb54347dba79dbefe5d8aeb37f2bcb8e902fca7a5b708426c305",
+        "neutral/gamgam/eeHZ_LEP_LEPComb_0.json": "8e01d5c5e5873d6f5668526f1c25e8124ece6c9c716daee2a2b7371d64091611",
+        "neutral/inv/HV_LHC8_ATLAS_20.json": "7b9946ee67be2b9e8c8cda30277180dd71c539e565a23354edec355226022785",
+        "neutral/inv/HZ_LHC8_ATLAS_25.json": "b8ca42c9d0b8c8150ff59230a65116741edb17defd46158864bc33b9b8a45c48",
+        "neutral/inv/HZ_LHC8_CMS_24.json": "d836ddbee19ec2ecc36d6c2f63acd4c0428359124d9caf46e270c2cf8b335e34",
+        "neutral/inv/comb_LHC13_ATLAS_164.json": "5705dca85af9253bb5adf4d4f0420b5a6d7739d383e2c6b426ced259a83fa46e",
+        "neutral/inv/comb_LHC13_CMS_36.json": "aa19fa1ab1601b64e36c1db53258f28af88b940a21c25abf61a256bd8369171e",
+        "neutral/inv/comb_LHC13_CMS_63.json": "0c22e8520916432fe5ae05e8b734badb46b79b3a841aa75c15c26c80c2a9c666",
+        "neutral/inv/comb_LHC8_ATLAS_20.json": "9abcf561a4c4f5d2e925e40b362566e0f78454a0cf7129d716f71e2b62abbcfc",
+        "neutral/inv/comb_LHC8_CMS_25.json": "5b0b29c856bfcca6555683db43102d62995036f765078255bb307f8f1248e3b0",
+        "neutral/inv/eeHZ_LEP_DELPHI_1.json": "b6f1273113e3cdc86ab5b7f54768a0ef6c370e81149ab0f63f3aeb384d581e00",
+        "neutral/inv/eeHZ_LEP_L3_1.json": "7a743b36a85e87b1f3966370b3d84c937e145c4189bee4eb33a474b081985ac1",
+        "neutral/inv/eeHZ_LEP_LEPComb_1.json": "9727621f3fc18fd686754c8978505fbd526d9ee0222a1385b5857441c6570a25",
+        "neutral/inv/eeHZ_LEP_OPAL_1.json": "e2603abc9eb173c5bd17c04ca461df338a217cc5a21f66f494c4d06a98c41a10",
+        "neutral/inv/qqHZ_LHC13_ATLAS_36.json": "55418e6ea6282b2201822c8c39435b5933515c3bad9ea405583adf360c5bc40e",
+        "neutral/inv/vbfH_LHC13_ATLAS_36.json": "9797ce699eb0492650d01f33deeb9ff6aaec6dd91ff3d5e8b0119ed79d2b8a47",
+        "neutral/inv/vbfH_LHC8_CMS_20.json": "ec818e645494c4f664a17f24f0dc3742d1d0b70439593cae3caa66e7750a1ad7",
+        "neutral/jj/Hgam_LHC13_ATLAS_80.json": "dac94294946009f177f68e9f3285fb100ef74bbead398b33595a5c99d43038bc",
+        "neutral/jj/eeHZ_LEP_LEPComb_2.json": "c89c823c5b7dbcd7a64c4412a781bf9662542ec1fb13a44d6e7708ec3429bf2a",
+        "neutral/jj/eeHZ_LEP_LEPComb_3.json": "bc756bd08601a353e8811422be3051c4865e70a908a3d59050e4f2494a286032",
+        "neutral/mumu/WHhighMass_LHC13_CMS_138.json": "a1e9bfc2fe0bc6b73b47b2971a4f4de25ad16d0e1e5a2a7809ab07264fd84aca",
+        "neutral/mumu/WHlowMass_LHC13_CMS_138.json": "658acd3d2008f8e097dfa80a215fb9a6fe7c379343a6d09d7245214c1c011d14",
+        "neutral/mumu/ZHhighMass_LHC13_CMS_138.json": "2fbe00827961cfc064771adf8df31efc80d4dbc8e4cea74bef11b34f46e18f35",
+        "neutral/mumu/ZHlowMass_LHC13_CMS_138.json": "92613a74a459119b01d87f63fd957ce74f362805314ba4c2624fdec44d83c8af",
+        "neutral/mumu/bbH_LHC13_ATLAS_36.json": "8d0cbe820f842e3dcd06d5d5626f12888f6260735efbb86fcedbd457702c2378",
+        "neutral/mumu/bbH_LHC13_CMS_36.json": "d81e96098ed74348408655626c78fbeb3ff2e5514a30999eb090b91514260d44",
+        "neutral/mumu/bbH_LHC8_CMS_19.json": "707210576a00016f83b193405e2d636a0ee8d6c8d9e50cb82753af83bd968924",
+        "neutral/mumu/bbH_LHC8_CMS_20.json": "b3762241e0b261217229408463ee70723a93f15ef55cd0585ec317be9a997833",
+        "neutral/mumu/comb_LHC13_CMS_61.json": "ce215cff1f76f3a2d37d6e2bb24f61a1ebd862ad1a5a533ebc65ae7896c85dc4",
+        "neutral/mumu/comb_LHC8_ATLAS_25.json": "6f4770f6a82df7cc55dd7eb4fcc5bc324194d335591e987e9364f14aa80bae41",
+        "neutral/mumu/comb_LHC8_CMS_25.json": "66136dda57b65da9b44fa02bb771649ef2fecb204b8eae8eb3eb86d9285fe5db",
+        "neutral/mumu/ggH_LHC13_ATLAS_139.json": "8a1e05db4aa4e4c03e5f9bc0e3b9ea27af6b545527981941d5c1266e6bae7cdd",
+        "neutral/mumu/ggH_LHC13_ATLAS_36.json": "96884fc64fdc940376a773a99ff9fc847728d356fe460a1023daab6d22c39c13",
+        "neutral/mumu/ggH_LHC13_CMS_36.json": "5ff8f754930ded7b6c3ac56a4e7618b85ee51307460bb603051cac4165cd13d3",
+        "neutral/mumu/ggH_LHC8_CMS_19.json": "aa75963eac350663681aa3eaa72807d4f8d2ac5cfcbc56edd800e97528b3d44b",
+        "neutral/mumu/ttAhighMass_LHC13_CMS_138.json": "974351bb04311452671c7fd2ee14a6ecd094207c6696df45f5cffa49254fa6c6",
+        "neutral/mumu/ttAlowMass_LHC13_ATLAS_139.json": "9f75cfa425b70b40c9ace26af3074c33f7ae7005a5259aceed0977cc24e6c128",
+        "neutral/mumu/ttAlowMass_LHC13_CMS_138.json": "ad7c615eec2345c9d0a55b5fce8ea3ae87023ea9d0d943ce1d8aeded1fcad947",
+        "neutral/mumu/ttHhighMass_LHC13_CMS_138.json": "90ca257351a95113abdc40447ebeaa28e6d67b109d8e839ef0738d7e62650736",
+        "neutral/mumu/ttHlowMass_LHC13_CMS_138.json": "0469080330364ab5d093b72c053983ff08868c8f1e76957f13e6b152e6b70565",
+        "neutral/tautau/HV_LHC8_CMS_17.json": "0e388d4fabd44d9e1b87393accb103933e7aa9c1d071145093eeb01be550070e",
+        "neutral/tautau/LLH_LHC13_ATLAS_139.json": "626edb4f21ab3c3a77febf71b3780ce070961b29c9221289c47853916262a591",
+        "neutral/tautau/LLH_LHC13_CMS_139_above160GeV.json": "08fd49364aea9507b8984c00567d7761abfa27865b194aa1f20bd646289ba8c8",
+        "neutral/tautau/LLH_LHC13_CMS_139_below100GeV.json": "7775cd494cacf4cf24c998e4bd5004557db9beb84f77281fd14efdc5f52e8bb3",
+        "neutral/tautau/LLH_LHC13_CMS_36.json": "52e6f9156e2f76c97259a413ad13123a4ccc0685150e032d88a8de6725d06de9",
+        "neutral/tautau/LLH_LHC8_CMS_20.json": "cccf3ce866900a917ef3a7458c530905ca03803a00b817f2d6794e8b0c308c96",
+        "neutral/tautau/WHhighMass_LHC13_CMS_138.json": "e821274db2c7c21432b11d2c819539b3dc88b025f53ed83ab45f478564b3974c",
+        "neutral/tautau/WHlowMass_LHC13_CMS_138.json": "204cb6003258ffef7b03e4aeda39a6b33d3ad25ba45937e9d5271e183725e187",
+        "neutral/tautau/ZHhighMass_LHC13_CMS_138.json": "d8734047b453032a865cce865826a0dc45a09287121332c6f3dea0af1d118ae6",
+        "neutral/tautau/ZHlowMass_LHC13_CMS_138.json": "22f6e2f7a5d72ca518a13f5f8dbded66eed401eae07feca5a17cf9574496f17a",
+        "neutral/tautau/bbH_LHC13_CMS_36.json": "6ba8b161b7589a420d76e1bdb58ac7d2f1931924d0e085d81da926eaaf2543fb",
+        "neutral/tautau/bbH_LHC8_ATLAS_20.json": "ac32f413266dcce8b1e09dc7cd94636c8ef42012593de56ef1e1fd539c937db8",
+        "neutral/tautau/bbH_LHC8_CMS_20.json": "b40449ae19d7eaebd0ceb19a33c1b45a2930f3dfabfe384dcff4f04541e79593",
+        "neutral/tautau/eeAbb_LEP_DELPHI_1.json": "861d304c0fbdfb1e787e72875d0812fb2b4a2cbadb5d989063140db4f2fc90b8",
+        "neutral/tautau/eeAbb_LEP_OPAL_0.json": "343e8482fa91bf622b9f605e7ede527510fd1262cadb2d43947b759f942e7399",
+        "neutral/tautau/eeAtautau_LEP_DELPHI_1.json": "0bd1aa356a374ec13e4ac60bdec392dc717380649fefddaea2280976f0f0f81f",
+        "neutral/tautau/eeHZ_LEP_LEPComb_2.json": "087825f12a820233f80f7fa682b2ce744cb0f93119d74d561e0862c538e7e88d",
+        "neutral/tautau/eeHbb_LEP_DELPHI_1.json": "79c538e3b7bd004faeeda8aac9db5d82f208799f717b76eefad5c7edd2b91e1e",
+        "neutral/tautau/eeHbb_LEP_OPAL_0.json": "15c812ad664a8877435520e08e201d76d233c0df8e8a01dab6e97894451f9a62",
+        "neutral/tautau/eeHtautau_LEP_DELPHI_1.json": "081c117b869061d838cc43ea3a4e96acc2d4fa4d30a88ebe74a553b44d71efdb",
+        "neutral/tautau/ggH_LHC8_ATLAS_20.json": "24e15f87fe4c5bce6d49a48f8c8a7721d4a293d696d9adbf7ac96618fa03c1df",
+        "neutral/tautau/ttAhighMass_LHC13_CMS_138.json": "752dc6a1b53a47f802368f991916648b36fa28ab9be707e89af30c17c4595448",
+        "neutral/tautau/ttAlowMass_LHC13_CMS_138.json": "e090d5bb3e804f3c3ae3e369c4f38d23ca0f2810c5628033b8316cf118a8c163",
+        "neutral/tautau/ttHhighMass_LHC13_CMS_138.json": "bd9215c32580a77d0efdb7616a8b5e500fa6a931f1a2911c6d1430c6972b6cd9",
+        "neutral/tautau/ttHlowMass_LHC13_CMS_138.json": "ce806adb1dd08d6687c5ce7ddaaf8975783f459d30b52e6135bb11db32ba3627",
+        "neutral/tt/ggA_coup_LHC13_CMS_36.json": "622514a647b09049157b9d28fb668c93052d67eee035fb273b76e1e8dcff18d5",
+        "neutral/tt/ggH_coup_LHC13_CMS_36.json": "7a183441c7eeb7c2f0e06b6d522ea06ffe3e0753576f9eccb3ebb2947ca3ee60",
+        "neutral/tttt/comb_LHC13_CMS_137.json": "147c56b4d0f0d3a9db1c1340892d2a642e289fca05d2c1d8641a736529df5be7",
+        "singleCharge/HH/cscs/nonres_LEP_LEPComb_3.json": "3b3c58b91745f7bfe42f01e6b23d4a19b5a8417ae077b3374bda0f4392a8248d",
+        "singleCharge/HH/taunutaunu/nonres_LEP_LEPComb_3.json": "f8ea3cec7faa1c9eefd0869759d9df5bfb69498f87b49be7e3dd72db78dade35",
+        "singleCharge/WZ/vbfHpm_LHC13_ATLAS_139.json": "bc0a33e06f0bf4baa1245a7e5bc5f7c7b384a1c7d1b03343dd9fbb3479773e53",
+        "singleCharge/WZ/vbfHpm_LHC13_ATLAS_36.json": "a3c5e393ad653c9b68cb1dac41b22a1383c57d83f268ef7a33488842659f434c",
+        "singleCharge/WZ/vbfHpm_LHC13_CMS_137.json": "ff6e8d641941df536e5b003cdf788dbdb77b912082606b27f693a13ca265e2a6",
+        "singleCharge/WZ/vbfHpm_LHC8_ATLAS_20.json": "e506741a58465395e5835f341ccdf0466f4cc62feaf39cb062e3d3c13eb44841",
+        "singleCharge/cb/brtHpb_LHC8_CMS_20.json": "073880b2fe0bf70e77ce51da8c51e59fad83c2d7088955d17ed3c86192fe0b9f",
+        "singleCharge/cs/brtHpb_LHC13_CMS_36.json": "e71e11a1b27c17f7ad43e22118678b0d9b1c8340b71e00ef8b86c51b8897b25e",
+        "singleCharge/cs/brtHpb_LHC8_CMS_20.json": "cdab4e67821b273d1981fc440c1a6bcbc7fc5bd4c0d2be2cd34c8a0be08c44e4",
+        "singleCharge/taunu/Hpmtb_LHC13_ATLAS_36.json": "bfbfa79853f5e2bc0eea85338f5c62dbe5e5f9ad672b9335807dff5dbcb0bf30",
+        "singleCharge/taunu/Hpmtb_LHC13_CMS_36.json": "ef8941b843177726e8bbb66d7e067a6400ef2ea6f2aff0ee4ccb34cbdba17f78",
+        "singleCharge/taunu/Hpmtb_LHC8_ATLAS_20.json": "dddf88e91f94ade8ddac7178cbee9ca6c6601df1854365d3c287d99902a3f135",
+        "singleCharge/taunu/Hpmtb_LHC8_CMS_20.json": "add4198b819245e68ff6cf29904f74c91240b521f26288560bd5cfd1194b7109",
+        "singleCharge/taunu/brtHpb_LHC13_ATLAS_36.json": "416f7d335c68d685c3163c61e95b84d42a10b23986f80c42beb5298e6558eba7",
+        "singleCharge/taunu/brtHpb_LHC13_CMS_36.json": "60f7ce1de7a973de5f4f54a44d3986629ddd1c4976dd8b79f3a71b63c0a5fa6d",
+        "singleCharge/taunu/brtHpb_LHC8_ATLAS_20.json": "59bf9a8cc567be1fa454388b4c5092948cdfabead36d7e3b69e9a03873267742",
+        "singleCharge/taunu/brtHpb_LHC8_CMS_20.json": "fbc1716b310d7449929159c916a29b9d171175ce46dcfe85d78820117d5f545d",
+        "singleCharge/tb/Hpmtb_LHC13_ATLAS_139.json": "6b43c7d3c3fa82703db0575b067a3a9f28db80cf9cc13b86bb491e3f9718533c",
+        "singleCharge/tb/Hpmtb_LHC13_CMS_36.json": "cd11d49f59e19dd26196f4e9b00ec9fba8ca90047e1b4cc1b5f0733d6efa41b0",
+        "singleCharge/tb/Hpmtb_LHC8_ATLAS_20.json": "d3dc6a09ac68182714fa72202a3e04ab52cc46644160bedb17fe88c2e70a7e0b",
+        "singleCharge/tb/Hpmtb_lep_LHC13_CMS_36.json": "763148c64f5dbd577bf7bcdc520c48e6b56b59efb237a6982911daa103955495",
+        "singleCharge/tb/qqHpm_LHC13_CMS_36.json": "d733bde62f8c2c61291a58fa49f5c181c13d11fd5e79c185ad93bb848dd4d9e0",
+        "singleCharge/tb/qqHpm_had_LHC8_ATLAS_20.json": "45615c8ded18da5750e5b7a857c405adbff13a47d40a4fa851d23698b2f4c6c1",
+        "singleCharge/tb/qqHpm_lep_LHC8_ATLAS_20.json": "862ed6ecd90393df3054e5a1b5e098d8da434d3748125a747b15c09c6978634e"
+      },
+      "git_head": "3539f9adf3724f8752701208bf059d1658824cd2",
+      "path": "/home/amine/Tools/hbdataset"
+    },
+    "HS": {
+      "commit_date": "2023-05-22",
+      "files": {
+        "h125/WW_H_LHC13_ATLAS_36.json": "cece38d312b1776c51824780bbb4b090d0b9f74fcd4201a00b4278f2e35ef254",
+        "h125/WW_H_LHC13_CMS_137.json": "79ab80a017500734cee084f97369ba8bc2d53341422bcebe8afacd5eb4146e79",
+        "h125/WW_VH_LHC13_ATLAS_36.json": "99cd5597856b3baf64e03b251ad32a430f5455b59c970f96c36e91c61f44550d",
+        "h125/ZZ_4l_STXS_LHC13_ATLAS_139.json": "e040f3c06b43356d3c2699811a214729fc379b2e2f5b97ca1d41ac0ae8e3c6ae",
+        "h125/ZZ_4l_STXS_LHC13_CMS_137.json": "889cf198bd00f3783ad117d2a71d8072d2dbf84457733086023b65b077c4aca6",
+        "h125/bb_Htt_LHC13_ATLAS_139.json": "bee4e15c07914496a5c0d47519f0b0c5c9838dfc1d41c5f122219f46e31a5b1b",
+        "h125/bb_LHC13_CMS_102.json": "44adcf3ea60b835afe21a5b94a40f90da270c7b18bdcadae3df5962145a82443",
+        "h125/bb_VH_LHC13_ATLAS_139.json": "8aff6829eb09279961bc02a3376c8a8c4ae31178038c54d1d1472fce9dfa7b1d",
+        "h125/bb_vbfH_LHC13_ATLAS_126.json": "af81a27cac94386196338afdf91dd0defdbc494e9b29c8523d5116817018ad60",
+        "h125/cc_LHC13_ATLAS_139.json": "22460560fae1893a96418f6cb54cc77ef78305e0c59d06a7cb26d6192f0cee00",
+        "h125/cc_LHC13_CMS_36.json": "36c8359d5cac8a511c946d3520a1e64ade8b83672ce1f3d695fa6696bb6c1456",
+        "h125/gamgam_STXS_LHC13_ATLAS_139.json": "25a888f2489e86683ab70832ac0771b6833ad1b9004189bb856aed91632e3619",
+        "h125/gamgam_STXS_LHC13_CMS_137.json": "aef9fda8160a21a3bb6c55414b3ca32b3afdc0c214a6e848ddb3036cc2d04064",
+        "h125/mass_LHC13_LHCComb_36.json": "52c7c5afdd7de2de894915f4bce966ddb9d609a53bbc2499641c754a56a3b085",
+        "h125/mumu_LHC13_ATLAS_139.json": "7f6e435fae3b9621b38e75261d01d545a8c44833f92eea2052084768c6c429e0",
+        "h125/mumu_LHC13_CMS_137.json": "f591d8f7917406375e36de91df37898040d180bb8e965c68c61aae8f274e7698",
+        "h125/run1_rates_LHC8_LHCComb_25.json": "cda38ede3b609461728ce6dadd56f2f9219af5598d5ccfff3bd962a9088a8319",
+        "h125/tautau_CMS_STXS_139ifb_LHC13_CMS_138.json": "ccc08458c32124d38db44a0305c41e77b52573a0245b85a3b1453312e4b8eefc",
+        "h125/tautau_CP_LHC13_CMS_137.json": "b884f6705ee43f78ef24e9dd023cf2766692c6c6be8acd3e245c650a0ee1c861",
+        "h125/tautau_H_LHC13_ATLAS_36.json": "01957916b7b1112dcd84c42181db8d06c1480c9570e91b758a9a7414ea8e139d",
+        "h125/ttH_lep_LHC13_ATLAS_80.json": "6ff4e2e4673ab8925cde4db02c46cffe412602746ed594bb0bbd1b2bc31effbb",
+        "h125/ttH_lep_LHC13_CMS_36.json": "a68834d953d47b80d7900d9a004ed03f0c40a4b4283e32693813dd72056c2e48"
+      },
+      "git_head": "3c6c2538d9ba0549ea0559cf9b38c18eb80c3af1",
+      "path": "/home/amine/Tools/hsdataset"
+    }
+  },
+  "global_zee_acceptance": null,
+  "library_sha256": "677fd0fc6f1b392d57b22ce408a8c2642d7bf87b6c4939db39782feb6077c2af",
+  "scope": "HiggsTools only; two D10 scalars, D12 NO low_joint Yukawa witnesses",
+  "source_sha256": {
+    "module1/d10_benchmarks.json": "d354481895850cdaa6846a0728e1114a5ada6a7c1210260f350b79c1aba65015",
+    "module13/higgstools.py": "f79a0263878d3597aae07ac8a583dbcb8634d64e8f9aded1e0d57ddbffb2b081",
+    "module2/interface.py": "b98eea5a98c171565bc7bf632288039d8e5e2fb762fb0aa474fc8becec8cc1d2",
+    "module3/core.py": "5390e63af12a27c8e53823cc3625cd54851b10f5205d5ed2aab2ddd6767fd494",
+    "validation/module12/d12_benchmarks.json": "f31ef3ccb64c3e4ff53131d35d52c21536b951a01e2c3924af766b7b2adf1cd8",
+    "validation/module13/higgstools_production_inputs.json": "514215b7a67195c963afb73912202265bd930941cd1c41e5486157df7a1981ca"
+  },
+  "version": "1.1.3"
+}
