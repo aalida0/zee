@@ -8,7 +8,7 @@ from pathlib import Path
 
 from module14.scan import digest, file_sha, scalar_status, encode
 
-STATUSES = ('PASS', 'FAIL', 'UNKNOWN', 'NOT_EVALUATED', 'ERROR')
+STATUSES = ('PASS', 'FAIL', 'UNKNOWN', 'NOT_EVALUATED', 'ERROR', 'DIAGNOSTIC_ONLY')
 GATES = ('reconstruction', 'bfb', 'unitarity', 'ewpo', 'vacuum')
 
 
@@ -21,6 +21,8 @@ def collect(manifest, config, triples, families=2, limit=math.sqrt(4*math.pi), s
     config_hash = digest(config)
     stats = {'scalar': cut(), 'gates': {g: cut() for g in GATES},
              'neutrino': {o: cut() for o in ('NO', 'IO')}}
+    stats['bsgamma'] = cut()
+    stats['family_stages'] = {stage: {o: cut() for o in ('NO', 'IO')} for stage in ('lfv', 'widths', 'higgstools')}
     resources = {'elapsed_seconds_sum': 0., 'cpu_seconds_sum': 0., 'peak_rss_kib_max': 0}
     with tempfile.TemporaryDirectory(prefix='d14-collect-') as tmp:
         db = sqlite3.connect(str(Path(tmp) / 'index.sqlite'))
@@ -41,7 +43,7 @@ def collect(manifest, config, triples, families=2, limit=math.sqrt(4*math.pi), s
         lfv_settings = None
         for shard_index, (shard, output, receipt) in enumerate(triples):
             rec = json.loads(Path(receipt).read_text())
-            stage_settings = (rec.get('lfv_enabled', False), rec.get('lfv_tree_enabled', False))
+            stage_settings = tuple(rec.get(k) for k in ('lfv_enabled', 'lfv_tree_enabled', 'bsgamma_enabled', 'higgs_enabled', 'd9b_probe_sha256', 'higgs_datasets_sha256', 'production_dir', 'worker_sha256'))
             if lfv_settings is None:
                 lfv_settings = stage_settings
             elif lfv_settings != stage_settings:
@@ -91,6 +93,30 @@ def collect(manifest, config, triples, families=2, limit=math.sqrt(4*math.pi), s
                     if result['scalar_status'] != status:
                         raise ValueError('Inconsistent scalar status')
                     stats['scalar'][status] += 1
+                    flavor = result.get('bsgamma', 'NOT_EVALUATED')
+                    fs = flavor.get('status') if isinstance(flavor, dict) else flavor
+                    if fs not in STATUSES:
+                        raise ValueError('Invalid flavor status')
+                    stats['bsgamma'][fs] += 1
+                    for stage in ('lfv', 'widths', 'higgstools'):
+                        data = result.get(stage, 'NOT_EVALUATED')
+                        if data == 'NOT_EVALUATED':
+                            for ordering in ('NO', 'IO'):
+                                stats['family_stages'][stage][ordering]['NOT_EVALUATED'] += families
+                        elif isinstance(data, list):
+                            seen_stage = set()
+                            for entry in data:
+                                key = (entry['ordering'], entry['family'])
+                                st = entry['status']
+                                if st == 'PARTIAL': st = 'DIAGNOSTIC_ONLY'
+                                if key in seen_stage or key[0] not in ('NO', 'IO') or type(key[1]) is not int or not 0 <= key[1] < families or st not in STATUSES:
+                                    raise ValueError('Invalid family stage identity or status')
+                                seen_stage.add(key)
+                                stats['family_stages'][stage][key[0]][st] += 1
+                            if len(seen_stage) != 2*families:
+                                raise ValueError('Missing family stage result')
+                        else:
+                            raise ValueError('Invalid family stage')
                     ns = result['neutrino']
                     eligible = all(gates[k]['assessment'] == 'PASS' for k in GATES[:-1]) and gates['vacuum']['assessment'] in ('PASS', 'UNKNOWN')
                     if ns == 'NOT_EVALUATED' and not eligible:

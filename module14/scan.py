@@ -149,7 +149,7 @@ def scalar_gates(row):
 
 def runtime_info():
     versions = {}
-    for name in ('numpy', 'scipy', 'mpmath', 'jsonschema', 'sympy'):
+    for name in ('numpy', 'scipy', 'mpmath', 'jsonschema', 'sympy', 'HiggsTools'):
         try:
             versions[name] = importlib.metadata.version(name)
         except importlib.metadata.PackageNotFoundError:
@@ -197,7 +197,9 @@ def cached_scalar_gates(row, cache_dir, version):
     return gates
 
 
-def run(shard, output, receipt, config, families=2, limit=math.sqrt(4*math.pi), resume=False, cache_dir=None, lfv=False, lfv_tree=False):
+def run(shard, output, receipt, config, families=2, limit=math.sqrt(4*math.pi), resume=False, cache_dir=None, lfv=False, lfv_tree=False, bsgamma=False, d9b_probe=None, higgs=False, hb_data=None, hs_data=None, production_dir=None):
+    if resume and production_dir:
+        raise ValueError('Resume with mutable production directory is unsupported; use fresh outputs')
     if lfv_tree and not lfv:
         raise ValueError('Three-body calculation requires LFV')
     if families < 1 or not math.isfinite(limit) or limit <= 0:
@@ -206,11 +208,14 @@ def run(shard, output, receipt, config, families=2, limit=math.sqrt(4*math.pi), 
         raise ValueError('Shard, output and receipt must be distinct')
     source = file_sha(shard)
     settings = {'shard_sha256': source, 'config_sha256': digest(config),
-                'families': families, 'perturbativity_limit': limit, 'lfv_enabled': lfv, 'lfv_tree_enabled': lfv_tree,
+                'families': families, 'perturbativity_limit': limit, 'lfv_enabled': lfv, 'lfv_tree_enabled': lfv_tree, 'bsgamma_enabled': bsgamma, 'd9b_probe_sha256': file_sha(d9b_probe) if d9b_probe and Path(d9b_probe).is_file() else None, 'higgs_enabled': higgs, 'hb_data': hb_data, 'hs_data': hs_data, 'production_dir': production_dir,
                 'worker_sha256': file_sha(__file__),
                 'source_commit': os.environ.get('ZEE_D14_SOURCE_COMMIT', 'LOCAL_UNSPECIFIED'),
                 'source_bundle_sha256': os.environ.get('ZEE_D14_BUNDLE_SHA256', 'LOCAL_UNSPECIFIED'),
                 'runtime': runtime_info()}
+    if higgs and hb_data and hs_data and Path(hb_data).is_dir() and Path(hs_data).is_dir():
+        from module13.higgstools import dataset
+        settings['higgs_datasets_sha256'] = digest({'HB': dataset(Path(hb_data)), 'HS': dataset(Path(hs_data))})
     if Path(output).exists() or Path(receipt).exists():
         if resume and Path(output).is_file() and Path(receipt).is_file():
             saved = json.loads(Path(receipt).read_text())
@@ -223,6 +228,8 @@ def run(shard, output, receipt, config, families=2, limit=math.sqrt(4*math.pi), 
     count = 0
     counts = {}
     lfv_seconds = 0.0
+    bsgamma_seconds = 0.0
+    higgs_seconds = 0.0
     tmp = temporary(output)
     with open(shard) as inp, open(tmp, 'w') as out:
         for line in inp:
@@ -238,11 +245,38 @@ def run(shard, output, receipt, config, families=2, limit=math.sqrt(4*math.pi), 
                 counts[key] = counts.get(key, 0) + 1
             status = scalar_status(gates)
             eligible = all(gates[k]['assessment'] == 'PASS' for k in ('reconstruction', 'bfb', 'unitarity', 'ewpo')) and gates['vacuum']['assessment'] in ('PASS', 'UNKNOWN')
+            flavor = {'status': 'NOT_EVALUATED', 'reason': 'B to Xs gamma disabled' if not bsgamma else 'Scalar screening did not pass'}
+            if bsgamma and eligible:
+                stage_start = time.monotonic()
+                try:
+                    from module14.external import bsgamma as run_bsgamma
+                    flavor = run_bsgamma(row['scalar'], d9b_probe, cache_dir)
+                except Exception as exc:
+                    flavor = {'status': 'ERROR', 'error_type': type(exc).__name__, 'reason': str(exc)}
+                bsgamma_seconds += time.monotonic() - stage_start
             neutrinos = [evaluate_family(row, config['seed'], ordering, family, limit)
                          for ordering in ('NO', 'IO') for family in range(families)] if eligible else []
             for n in neutrinos:
                 key = 'neutrino:' + n['ordering'] + ':' + n['status']
                 counts[key] = counts.get(key, 0) + 1
+            lfv_results = 'NOT_EVALUATED'
+            if lfv and neutrinos:
+                lfv_results = []
+                for family in neutrinos:
+                    item = {'ordering': family['ordering'], 'family': family['family'],
+                            'module2_input_sha256': family['input_sha256']}
+                    if family['status'] != 'PASS' or family['closure_status'] != 'PASS':
+                        item.update(status='NOT_EVALUATED', reason='Neutrino family did not pass closure and perturbativity')
+                    else:
+                        t = time.monotonic()
+                        try:
+                            from module14.lfv import evaluate_family as evaluate_lfv
+                            item.update(evaluate_lfv(family, lfv_tree))
+                        except Exception as exc:
+                            item.update(status='ERROR', error_type=type(exc).__name__, reason=str(exc))
+                        finally:
+                            lfv_seconds += time.monotonic() - t
+                    lfv_results.append(item)
             widths = 'NOT_EVALUATED'
             if neutrinos:
                 widths = []
@@ -268,29 +302,42 @@ def run(shard, output, receipt, config, families=2, limit=math.sqrt(4*math.pi), 
                         except Exception as exc:
                             item.update(status='ERROR', error_type=type(exc).__name__, reason=str(exc))
                     widths.append(item)
-            lfv_results = 'NOT_EVALUATED'
-            if lfv and neutrinos:
-                lfv_results = []
+            collider = 'NOT_EVALUATED'
+            if higgs and neutrinos:
+                stage_start = time.monotonic()
+                collider = []
                 for family in neutrinos:
-                    item = {'ordering': family['ordering'], 'family': family['family'],
-                            'module2_input_sha256': family['input_sha256']}
-                    if family['status'] != 'PASS' or family['closure_status'] != 'PASS':
-                        item.update(status='NOT_EVALUATED', reason='Neutrino family did not pass closure and perturbativity')
+                    item = {'ordering': family['ordering'], 'family': family['family'], 'module2_input_sha256': family['input_sha256']}
+                    if family['status'] != 'PASS':
+                        item.update(status='NOT_EVALUATED', reason='Neutrino family did not pass perturbativity and closure')
                     else:
-                        t = time.monotonic()
                         try:
-                            from module14.lfv import evaluate_family as evaluate_lfv
-                            item.update(evaluate_lfv(family, lfv_tree))
+                            from module14.external import higgstools
+                            production = None
+                            if production_dir:
+                                prod_file = Path(production_dir)/(family['input_sha256']+'.json')
+                                if prod_file.exists():
+                                    production = json.loads(prod_file.read_text())
+                            decay = next((w for w in widths if w['ordering'] == family['ordering'] and w['family'] == family['family']), None) if isinstance(widths, list) else None
+                            item.update(higgstools(row['scalar'], family, hb_data, hs_data, decay, production))
                         except Exception as exc:
                             item.update(status='ERROR', error_type=type(exc).__name__, reason=str(exc))
-                        finally:
-                            lfv_seconds += time.monotonic() - t
-                    lfv_results.append(item)
+                    collider.append(item)
+                higgs_seconds += time.monotonic() - stage_start
+            key = 'bsgamma:' + flavor['status']
+            counts[key] = counts.get(key, 0) + 1
+            for stage, data in (('lfv', lfv_results), ('widths', widths), ('higgstools', collider)):
+                for ordering in ('NO', 'IO'):
+                    statuses = [item['status'] for item in data if item['ordering'] == ordering] if isinstance(data, list) else ['NOT_EVALUATED'] * families
+                    for st in statuses:
+                        if st == 'PARTIAL': st = 'DIAGNOSTIC_ONLY'
+                        key = stage + ':' + ordering + ':' + st
+                        counts[key] = counts.get(key, 0) + 1
             result = {'id': row['id'], 'config_sha256': row['config_sha256'], 'scalar_sha256': row['scalar_sha256'], 'scalar_status': status, 'gates': gates,
-                      'neutrino': neutrinos if eligible else 'NOT_EVALUATED', 'lfv': lfv_results, 'bsgamma': 'NOT_EVALUATED', 'widths': widths, 'production': 'NOT_EVALUATED', 'higgstools': 'NOT_EVALUATED'}
+                      'neutrino': neutrinos if eligible else 'NOT_EVALUATED', 'lfv': lfv_results, 'bsgamma': flavor, 'widths': widths, 'production': 'NOT_EVALUATED', 'higgstools': collider}
             out.write(encode(result) + '\n')
     report = dict(settings, schema='d14-worker-receipt-1', output_sha256=file_sha(tmp),
-                  input_count=count, output_count=count, counts=counts, lfv_elapsed_seconds=lfv_seconds,
+                  input_count=count, output_count=count, counts=counts, lfv_elapsed_seconds=lfv_seconds, bsgamma_elapsed_seconds=bsgamma_seconds, higgs_elapsed_seconds=higgs_seconds,
                   elapsed_seconds=time.monotonic()-start, cpu_seconds=time.process_time()-cpu_start,
                   peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
     receipt_tmp = temporary(receipt)
@@ -304,9 +351,9 @@ def main():
     p = argparse.ArgumentParser()
     sub = p.add_subparsers(dest='action', required=True)
     g = sub.add_parser('generate'); g.add_argument('--config', required=True); g.add_argument('--output', required=True)
-    w = sub.add_parser('worker'); w.add_argument('--shard', required=True); w.add_argument('--output', required=True); w.add_argument('--receipt', required=True); w.add_argument('--config', required=True); w.add_argument('--families', type=int, default=2); w.add_argument('--perturbativity-limit', type=float, default=math.sqrt(4*math.pi)); w.add_argument('--resume', action='store_true'); w.add_argument('--cache-dir'); w.add_argument('--lfv', action='store_true'); w.add_argument('--lfv-tree', action='store_true')
+    w = sub.add_parser('worker'); w.add_argument('--shard', required=True); w.add_argument('--output', required=True); w.add_argument('--receipt', required=True); w.add_argument('--config', required=True); w.add_argument('--families', type=int, default=2); w.add_argument('--perturbativity-limit', type=float, default=math.sqrt(4*math.pi)); w.add_argument('--resume', action='store_true'); w.add_argument('--cache-dir'); w.add_argument('--lfv', action='store_true'); w.add_argument('--lfv-tree', action='store_true'); w.add_argument('--bsgamma', action='store_true'); w.add_argument('--d9b-probe'); w.add_argument('--higgs', action='store_true'); w.add_argument('--hb-data'); w.add_argument('--hs-data'); w.add_argument('--production-dir')
     a = p.parse_args()
     if a.action == 'generate': generate(json.loads(Path(a.config).read_text()), a.output)
-    else: run(a.shard, a.output, a.receipt, json.loads(Path(a.config).read_text()), a.families, a.perturbativity_limit, a.resume, a.cache_dir, a.lfv, a.lfv_tree)
+    else: run(a.shard, a.output, a.receipt, json.loads(Path(a.config).read_text()), a.families, a.perturbativity_limit, a.resume, a.cache_dir, a.lfv, a.lfv_tree, a.bsgamma, a.d9b_probe, a.higgs, a.hb_data, a.hs_data, a.production_dir)
 
 if __name__ == '__main__': main()

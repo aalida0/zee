@@ -2,7 +2,7 @@
 # Run inside a fresh HTCondor scratch directory.
 if [[ $# -ne 1 || ! "$1" =~ ^shard_[0-9]+\.jsonl$ ]]; then echo 'Invalid shard name' >&2; exit 64; fi
 shard="$1"
-for file in "$shard" scan_bundle.tar.gz bundle.sha256 source_commit.txt config.json; do
+for file in "$shard" scan_bundle.tar.gz bundle.sha256 source_commit.txt config.json job_settings.json; do
     if [[ ! -s "$file" ]]; then echo "Missing $file" >&2; exit 66; fi
 done
 if [[ -e source || -e results.jsonl || -e receipt.json ]]; then echo 'Sandbox already used' >&2; exit 66; fi
@@ -28,4 +28,4 @@ mkdir source || exit 66
 tar -xzf scan_bundle.tar.gz -C source || exit 65
 cmp "$0" source/module14/condor/worker.sh || exit 65
 export PYTHONPATH="$PWD/source"
-python3 -m module14.scan worker --shard "$PWD/$shard" --output "$PWD/results.jsonl" --receipt "$PWD/receipt.json" --config "$PWD/config.json"
+python3 -m module14.condor.job "$PWD/$shard"

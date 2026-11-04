@@ -13,6 +13,7 @@ def main():
     p.add_argument('--config', required=True, type=Path)
     p.add_argument('--shard', required=True, action='append', type=Path)
     p.add_argument('--output', required=True, type=Path)
+    p.add_argument('--job-settings', type=Path)
     a = p.parse_args()
     commit = subprocess.check_output(['git', 'rev-parse', '--verify', a.commit + '^{commit}'], text=True).strip()
     if len({x.name for x in a.shard}) != len(a.shard):
@@ -41,6 +42,10 @@ def main():
     (a.output/'bundle.sha256').write_text(h.hexdigest() + '  scan_bundle.tar.gz\n')
     (a.output/'source_commit.txt').write_text(commit+'\n')
     shutil.copyfile(a.config, a.output/'config.json')
+    if a.job_settings:
+        shutil.copyfile(a.job_settings, a.output/'job_settings.json')
+    else:
+        (a.output/'job_settings.json').write_text('{}\n')
     for shard in a.shard:
         shutil.copyfile(shard, a.output/'shards'/shard.name)
     (a.output/'shards.txt').write_text(''.join(x.name+'\n' for x in a.shard))
