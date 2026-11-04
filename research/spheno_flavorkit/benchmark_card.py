@@ -15,8 +15,9 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('template', type=Path)
     parser.add_argument('output', type=Path)
+    parser.add_argument('--group', type=int, default=0, help='D12 group index')
     args = parser.parse_args()
-    group = json.loads((ROOT / 'validation/module12/d12_benchmarks.json').read_text())['groups'][0]
+    group = json.loads((ROOT / 'validation/module12/d12_benchmarks.json').read_text())['groups'][args.group]
     witness = group['witnesses']['central']
     record = witness['module2_input']['scalar']['record']
     physical = record['physical']
