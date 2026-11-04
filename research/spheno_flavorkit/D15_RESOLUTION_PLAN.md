@@ -1,5 +1,29 @@
 # D15 dipole resolution — executable continuation plan
 
+## Updated checkpoint: commit adc078a (2026-11-04)
+
+**Do not redo completed checks.** The following are now established for their specified tested scope: genuine small-positive-mass bug isolated to generated FlavorKit `C1g` and `C0C1C2`; after scoped experimental correction, neutral component candidate residuals <=6.9e-11 for the four D12 witnesses with matched generated inputs; generated complex vertices read back, charged-lepton rephase and conjugation checked at a witness; independent H1/H2 charged eigenstate row flips checked at four witnesses; SPheno BR reconstructed to printed precision. The proof of the complex operator mapping, neutral vs charged complete topology closure, multi-point stress/physical null tests and full scheme uncertainty are *still open*. The corrected backend is an experimental generated copy; **do not call it a validated FlavorKit backend**.
+
+### Next Codex execution order — solve, not report
+
+**A. Prove projector-to-operator mapping independently, before further broad numerical scans.**
+
+- Make a new isolated `research/spheno_flavorkit/operator_amplitude_test.py` using explicit gamma matrices, on-shell Dirac spinors, generic independent nonzero complex left/right coefficients and a physical non-collinear photon polarization. Compare the D12 (F_{\mu\nu}) operator matrix element to the **exact projected PreSARAH operator**, first for a declared Fourier convention (A_\mu\propto e^{-iqx}), and independently for the outgoing-created-photon (A_\mu\propto e^{+iqx}). Include momentum conservation, spinor ordering, `sigma=i[gamma,gamma]/2`, `P_L/P_R`, crossing/Hermitian conjugation. Do NOT choose the mapping by fitting any D12 or SPheno numbers. A direct (F\leftrightarrow A,q) algebra is necessary but not sufficient: compare to actual FormCalc/PreSARAH `Op[6/7]` chain, including sign and spinor order. An analytically derived same-label, swapped-label, and/or complex-conjugated mapping must be tested with *both* nonzero chiral coefficients to distinguish alternatives.
+- The official PreSARAH 1.0.3 archive is a **recovered source**, not proven identical to the code used to emit the December 2015 installed `Gamma2l.m`. Identify whether source differences affect the projection and compare against the *actual generated Fortran* and installed SARAH wrappers. Exact upstream version identification is useful but not a prerequisite if the resulting projector and crossing can be independently fixed from available compiled/generated expressions. If no exact source is available, explicitly bound what it prevents proving rather than claiming a blanket blocker.
+- Produce `OPERATOR_MATRIX_ELEMENT.md` with complete sign, complex conjugation, field order, chirality, and (m_i/m_j) factor (if any) justified by equations and source anchors. Run the independent spinor test against both derived forward and reversed amplitudes. Include all test code and failing derivations in ignored local output; commit only verified derivation and focused tests.
+
+**B. Stress-test the new small-positive-ratio fix independently.**
+
+- In disposable generated code, compare unpatched, patched and high-precision reference `C1g` and `C0C1C2` for positive ratios spanning below, around, and above `r=1e-10`, plus exact `r=0`, the relevant charged-lepton/scalar masses and mass-degeneracy limits. Verify branch continuity and relative/absolute accuracy of both functions. Check for catastrophic cancellation of the original analytic expressions near other thresholds. A function with logarithmic divergence as (r\to0^+) cannot be treated as having a continuous zero-mass value; record the physical vs regulator interpretations separately. Do not blanket-remove every epsilon guard.
+- Preserve the original generator library unmodified; document patch SHA256 and generated executable SHA256. Only propose a reusable local override if the high-precision stress tests pass. No changes to frozen Modules 0–14.
+
+**C. Complete the remaining amplitude tests.**
+
+- Obtain complex diagram-class contributions for each of charged H1/H2 and neutral h/H/A, L and R, before summation; compare them with the independent D12 one-loop components after *source-derived* conversion. Use actual generated vertices and propagator masses; reconstruct the coherent sum. Reconcile external masses/scheme through controlled one-at-a-time variations.
+- Run independent new physical points beyond the four original D12 witnesses, forward vs reverse field-order amplitude (not unphysical reverse-decay BR), zero-F, zero-D, zero-neutral LFV and applicable decoupling/charged-mixing limits; state which *specific contribution* vanishes in each limit. Test independent complex rephasings and charge-conjugation transformations. Do not derive universal tolerances from the four old points.
+- Conclude `PASS` only when A/B/C all pass their scoped criteria. If a specific step is genuinely blocked, report the exact source file/line, failing minimal reproducible test, why available tools cannot resolve it, and the next concrete remedy. Continue debugging failures rather than producing another general partial status report.
+
+
 **Branch:** `research/zee-spheno-dipole-conventions`. **Baseline evidence:** commit `23fa5df7126e532dbb68b2fcd433517f6c92183b`.
 
 This task is **not complete** when four BRs agree, an exploratory log is produced, or a Markdown summary says `NOT_EVALUATED`. Keep investigating and testing in the same working session until every gate below either passes or is demonstrably blocked by an irreducible external dependency. If a gate fails, investigate the cause, make the smallest justified experimental change, rerun, and document both the failed and successful experiments. Never manufacture PASS; record the exact blocker and needed remedy if further work is genuinely impossible.
