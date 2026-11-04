@@ -1,0 +1,267 @@
+{
+  "status": "INCOMPLETE",
+  "candidate_mapping": "K2L/R = -conj(C_L/R), not analytically certified",
+  "provenance": {
+    "presarah_archive": {
+      "path": "/home/amine/zee-spheno-flavorkit-pilot/research/spheno_flavorkit/local/PreSARAH-1.0.3.download",
+      "sha256": "999142f4d4283bb70b225809e44440fd1ee29e289f1d956c051536e0bf1279bf"
+    },
+    "presarah_photon_input": {
+      "path": "/home/amine/zee-spheno-flavorkit-pilot/research/spheno_flavorkit/local/PreSARAH-1.0.3/Input/PhotonLLp.m",
+      "sha256": "bf195cfdb2925da01c658936ec1ce20f8115b5b9adf0595ea48999ee3eef3bbe"
+    },
+    "presarah_package": {
+      "path": "/home/amine/zee-spheno-flavorkit-pilot/research/spheno_flavorkit/local/PreSARAH-1.0.3/PreSARAH_package.m",
+      "sha256": "70280b530a39f6a23f4e9e78133187516ce4f3b4da78a97a563bee27e367d1bd"
+    },
+    "patched_executable": {
+      "path": "/home/amine/zee-spheno-flavorkit-pilot/research/spheno_flavorkit/local/SPheno-4.0.5/bin/SPhenoZeeTypeII",
+      "sha256": "655a918461dddd4521e54388b379645d8db74f76861fbed81714a379b5307150"
+    },
+    "sarah_gamma2l": {
+      "path": "/home/amine/.Mathematica/Applications/SARAH-4.15.4/FlavorKit/LFV/Operators/Gamma2l.m",
+      "sha256": "e03d364327be703c57d9b27c75a0a85dab2fcdb324d5014a59b648700da083a4"
+    },
+    "sarah_photon_wrapper": {
+      "path": "/home/amine/.Mathematica/Applications/SARAH-4.15.4/FlavorKit/LFV/Operators/Photon_wrapper.m",
+      "sha256": "09a3c93de8fa2c8952f370f7fa2fbc36e5583af6fc021e2d6249509c6d5f94bb"
+    }
+  },
+  "presarah_version_caveat": "1.0.3 source recovered from official archive; not established as exact source version used for the December 2015 Gamma2l.m generation",
+  "records": [
+    {
+      "group": 0,
+      "vertex_rule_max_abs": 0.0,
+      "frozen_vertex_max_abs": 2.4809449901229538e-11,
+      "scalar_row_signs": [
+        -1,
+        -1
+      ],
+      "F_input_max_abs": 0.0,
+      "Ye_input_max_abs": 3.442275278838988e-11,
+      "Ye2_input_max_abs": 0.0,
+      "neutral_same_input_residual_before": {
+        "Ah2": [
+          9.486862804853324e-06,
+          2.992828078961806e-05
+        ],
+        "hh1": [
+          4.7267525144447506e-05,
+          4.236471990348333e-05
+        ],
+        "hh2": [
+          2.0417056967283183e-05,
+          8.953689816565697e-05
+        ]
+      },
+      "neutral_same_input_residual_after": {
+        "Ah2": [
+          8.748474653471822e-13,
+          1.4938842135081234e-16
+        ],
+        "hh1": [
+          6.773042252216919e-11,
+          2.1505308285365337e-16
+        ],
+        "hh2": [
+          1.8873537095128987e-12,
+          1.4860975427365349e-15
+        ]
+      },
+      "coherent_D12_candidate_residual_after": {
+        "L": 8.02073089314068e-09,
+        "R": 2.0318538665519213e-08
+      },
+      "card_sha256": "9f482fff50757228a2919ea1565f48d034349cb34efb99746bc9dce2dd6499c5",
+      "patched_log_sha256": "df92d3437395037d7ddf8a72005e74205d5ff0782197ca76275f2d33ab387b0b",
+      "unpatched_log_sha256": "a0d24aabb19fac5acaefe1b14b17540e03d2ba1fb756955af499f00a0dba39ea"
+    },
+    {
+      "group": 1,
+      "vertex_rule_max_abs": 0.0,
+      "frozen_vertex_max_abs": 2.4809449938498988e-11,
+      "scalar_row_signs": [
+        -1,
+        -1
+      ],
+      "F_input_max_abs": 0.0,
+      "Ye_input_max_abs": 3.442275278838988e-11,
+      "Ye2_input_max_abs": 0.0,
+      "neutral_same_input_residual_before": {
+        "Ah2": [
+          6.812826006826497e-05,
+          6.72761440225896e-05
+        ],
+        "hh1": [
+          4.1780802365926457e-05,
+          4.227586824793929e-05
+        ],
+        "hh2": [
+          0.00016003438064561738,
+          0.00016601601344795884
+        ]
+      },
+      "neutral_same_input_residual_after": {
+        "Ah2": [
+          2.0935883425931235e-12,
+          5.152573831811641e-16
+        ],
+        "hh1": [
+          1.9952973381657836e-11,
+          3.3897696693296697e-16
+        ],
+        "hh2": [
+          4.930742431914927e-12,
+          9.73598385455312e-16
+        ]
+      },
+      "coherent_D12_candidate_residual_after": {
+        "L": 3.487913927777343e-08,
+        "R": 2.1517062753514266e-08
+      },
+      "card_sha256": "4242010cfcc484152b4a26174cdb9751f3dc0adadaa8f0df4f9cd3130fc35d49",
+      "patched_log_sha256": "374df9c570fe1dbce19af64ba63dbdb5b90708f0b6d56c31f8b67a98de91e918",
+      "unpatched_log_sha256": "ba59658b27c851d026ce5f52a8a95a510854a18aa63ee5bd5fe1f1d0a1a7f9c5"
+    },
+    {
+      "group": 2,
+      "vertex_rule_max_abs": 0.0,
+      "frozen_vertex_max_abs": 1.0806015973794259e-10,
+      "scalar_row_signs": [
+        -1,
+        1
+      ],
+      "F_input_max_abs": 0.0,
+      "Ye_input_max_abs": 1.2409007491259033e-10,
+      "Ye2_input_max_abs": 0.0,
+      "neutral_same_input_residual_before": {
+        "Ah2": [
+          8.969562918224204e-06,
+          2.8725293536252332e-05
+        ],
+        "hh1": [
+          4.751015170248052e-05,
+          4.2548887064175187e-05
+        ],
+        "hh2": [
+          8.315531808769445e-06,
+          2.5720718522946e-05
+        ]
+      },
+      "neutral_same_input_residual_after": {
+        "Ah2": [
+          3.204212693254069e-13,
+          2.3429128902390387e-16
+        ],
+        "hh1": [
+          6.807899884802155e-11,
+          3.2473629160708933e-16
+        ],
+        "hh2": [
+          3.728324308832587e-13,
+          1.9826907821608029e-16
+        ]
+      },
+      "coherent_D12_candidate_residual_after": {
+        "L": 1.3767088467375173e-08,
+        "R": 1.9662602761915554e-07
+      },
+      "card_sha256": "bac3c31269e85de2b3d29683c70c826361de655cfe178d3e299e80a8a4fb1eda",
+      "patched_log_sha256": "32d30520aedc9f087fe7a432582facfd9f5d61a7fa98565d9582e330f13f7404",
+      "unpatched_log_sha256": "f2f6a8e511effeddc30cf8b5d225320e5160399d0103c23f7b72121681561f9b"
+    },
+    {
+      "group": 3,
+      "vertex_rule_max_abs": 5.652212188905927e-26,
+      "frozen_vertex_max_abs": 1.0806015984975094e-10,
+      "scalar_row_signs": [
+        -1,
+        1
+      ],
+      "F_input_max_abs": 0.0,
+      "Ye_input_max_abs": 1.240900750481156e-10,
+      "Ye2_input_max_abs": 0.0,
+      "neutral_same_input_residual_before": {
+        "Ah2": [
+          6.80052848381641e-05,
+          6.390525385476465e-05
+        ],
+        "hh1": [
+          4.2044475677053335e-05,
+          4.2552591082494496e-05
+        ],
+        "hh2": [
+          6.444501402253961e-05,
+          5.958407364072723e-05
+        ]
+      },
+      "neutral_same_input_residual_after": {
+        "Ah2": [
+          8.096125580811738e-13,
+          1.0451707280553857e-16
+        ],
+        "hh1": [
+          2.007817562186413e-11,
+          3.9229962317332616e-16
+        ],
+        "hh2": [
+          9.64214343557367e-13,
+          5.320413325700685e-16
+        ]
+      },
+      "coherent_D12_candidate_residual_after": {
+        "L": 9.655229063281445e-08,
+        "R": 1.4793735668620127e-07
+      },
+      "card_sha256": "b6682f2d790ea945daa89383ad57347e9f8884bf7e34f2f483391c750b578ba6",
+      "patched_log_sha256": "ec30f133f5a6e1c2de2bd38cca7e63b9eb33542882120a180844fd69a64d88b8",
+      "unpatched_log_sha256": "9842f9ca8844e5afac1233bc5bc0a1ef7f014db013fbca50d2687078259697f4"
+    }
+  ],
+  "transformations": {
+    "conjugation_relative_residual": [
+      0.0,
+      0.0
+    ],
+    "coefficients": {
+      "original": [
+        [
+          -6.130367054044345e-18,
+          7.248314176693978e-18
+        ],
+        [
+          -4.259201716792619e-15,
+          5.010205289421807e-15
+        ]
+      ],
+      "conjugated": [
+        [
+          -6.130367054044345e-18,
+          -7.248314176693978e-18
+        ],
+        [
+          -4.259201716792619e-15,
+          -5.010205289421807e-15
+        ]
+      ],
+      "zero_F": [
+        [
+          2.1874094142906813e-18,
+          -3.3917731906253754e-18
+        ],
+        [
+          -2.539349355956365e-15,
+          2.8101726908238303e-15
+        ]
+      ]
+    },
+    "conjugation_pass": true,
+    "F_vertex_max": {
+      "original": 0.000967847560837354,
+      "conjugated": 0.000967847560837354,
+      "zero_F": 0.0
+    },
+    "zero_F_vertex_pass": true,
+    "zero_F_interpretation": "diagnostic only: neutral LFV and D terms remain"
+  }
+}

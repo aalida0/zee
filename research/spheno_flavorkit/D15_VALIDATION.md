@@ -74,3 +74,64 @@ charged and neutral contributions independently, quantify each input-scheme
 change, and run phase, sign, null and rephasing tests. Then define a tolerance
 from those measured mismatches and truncations and compare each coefficient
 and rate. Treat all those gates as NOT_EVALUATED until demonstrated.
+
+## Continuation: numerical root cause and component readback
+
+The ignored generated backend was instrumented to export both complex charged
+vertex orientations, actual rotation/Yukawa arrays, scalar-by-scalar raw
+`OA2lS` increments, and neutral vertices and masses. The reproducible helpers
+are `instrument_components.py`, `check_components.py`, and
+`test_backend_transformations.py`; compact hashes and results are in
+[d15_component_evidence.json](d15_component_evidence.json). The generated
+vertex values agree with the generated analytic rotation expressions to
+at most 5.7e-26 absolute over all 27 index triples and four witnesses. Against
+the frozen expressions with one measured sign per scalar row, the maximum
+absolute discrepancy is 1.1e-10, coincident with the generated Ye matching
+difference up to 1.3e-10; F and Ye2 agree at the printed precision. These are
+observations, not a general vertex-validation tolerance or a proof of an
+operator convention. Both charged scalar row signs were measured and applied
+to both ends; raw arrays and logs are in ignored `local/`.
+
+A controlled same-input comparison of the neutral `h,H,A` contributions
+initially differed from the candidate mapped Module3 amplitudes by up to
+1.66e-4. The discrepancy was traced to the generated loop functions `C1g`
+and `C0C1C2`: for equal internal lepton masses much smaller than the scalar
+mass, the `r < 1e-10` branch substitutes `large=0` for logarithmically
+singular expressions even when `r` is nonzero. The electron-to-125-GeV
+squared-mass ratio is approximately 1.67e-11. The minimal experimental patch
+`patch_small_ratio.py` changes only these two positive-ratio branches to use
+the existing analytic expression, retaining the original zero-ratio branch.
+With actual generated neutral vertices and masses in Module3, the candidate
+complex residuals after the patch are at most 6.9e-11 (L) and 1.6e-15 (R)
+over those contributions and four witnesses. This establishes the specific
+source of the prior discrepancy; it does not prove the global operator map.
+The patched coherent candidate residual against the original D12 snapshots is
+at most 2.2e-7 in this sample, with different input schemes still present.
+The patch is confined to ignored generated code and is not integrated into
+Modules 0–14 or D14.
+
+At the first witness, conjugating the input F and Ye2 phases conjugates both
+complex generated coefficients exactly to printed precision. Setting F=0
+makes both F-dependent charged-vertex orientations zero while the D and
+neutral terms remain. These two checks are narrow; charged-lepton rephasing,
+scalar row flips, reverse ordering, other nulls, independent new fixtures,
+matched BR reconstruction and a derivation from an explicit spinor matrix
+element remain open. **Overall operator mapping and backend validation remain
+NOT_EVALUATED.** Do not infer the required completion from the good residuals.
+
+To reproduce after the reduced build and the existing K2 instrumentation:
+
+```sh
+python3 research/spheno_flavorkit/instrument_components.py research/spheno_flavorkit/local/SPheno-4.0.5/ZeeTypeII
+python3 research/spheno_flavorkit/patch_small_ratio.py research/spheno_flavorkit/local/SPheno-4.0.5/ZeeTypeII/Observables/FlavorKit_LFV_ZeeTypeII.f90
+(cd research/spheno_flavorkit/local/SPheno-4.0.5 && make Model=ZeeTypeII F90=gfortran)
+python3 research/spheno_flavorkit/compare_dipoles.py
+python3 research/spheno_flavorkit/check_components.py
+python3 research/spheno_flavorkit/test_backend_transformations.py
+python3 research/spheno_flavorkit/tests/test_small_ratio.py
+```
+
+The first two commands require a fresh unmodified generated copy (and refuse
+reapplication); run the comparison before patching as well to retain the
+failure trace. The installed `pytest` is an incompatible 2.6.0 on Python
+3.10; the focused regression file can be run directly as shown.

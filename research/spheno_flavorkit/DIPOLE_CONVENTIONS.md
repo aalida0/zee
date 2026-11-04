@@ -72,3 +72,26 @@ comparison of all generated vertex values with the actual ZEL/ZER rotations;
 that numerical gate remains NOT_EVALUATED. See
 [Module 0](../../validation/module0/CONVENTIONS.md) and
 [Module 4](../../module4/CONVENTIONS.md) for frozen vertex conventions.
+
+## Recovered PreSARAH photon projector (continuation)
+
+The official `PreSARAH-1.0.3.tar.gz` archive was recovered from
+`https://sarah.hepforge.org/downloads/PreSARAH-1.0.3.tar.gz`; its SHA-256 is
+`999142f4d4283bb70b225809e44440fd1ee29e289f1d956c051536e0bf1279bf`.
+It was extracted only under ignored `local/`. Its
+`PreSARAH-1.0.3/Input/PhotonLLp.m:1-20` explicitly sets external fields
+`{bar[ChargedLepton],ChargedLepton,Photon}`, combinations `(2,1),(3,1),(3,2)`,
+`FermionOrderExternal={1,2}`, `NeglectMasses={3}` and projectors
+`OA2lSL=Op[6] Pair[ec[3],k[1]]`, `OA2lSR=Op[7] Pair[ec[3],k[1]]`.
+The archive's `PreSARAH_package.m:91-95,151-160,248-249,258,726-749`
+uses the 2-in/1-out FeynArts process `{F[3,{1}],-F[2,{1}]}->V[3]`,
+chains `Spinor[k[1],MassEx1,-1]` and `Spinor[k[2],MassEx2,1]`,
+`PS\`sign=-Signature[{1,2}]`, and extracts coefficients of the chain times
+`Pair[ec[3],k[1]]` from the FormCalc amplitude divided by `I`. The installed
+SARAH `Gamma2l.m:70-72` and generated LowEnergy call identify the first
+and second array indices, respectively, with the first and second external
+fields. The observable uses `(2,1)` for mu-to-e. This is a concrete projector
+trace, but the archive predates the December 2015 generation timestamp in
+installed `Gamma2l.m`; exact generator-version identity has not been proven.
+The spinor crossing and Fourier conventions have not yet been independently
+closed, so the numerical candidate remains **unproved**, including its sign.
