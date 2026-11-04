@@ -21,18 +21,12 @@ def test_positive_ratio_logarithm_is_not_its_zero_mass_placeholder():
 
 def test_patch_is_scoped_and_rejects_second_application(tmp_path):
     source = tmp_path / 'lfv.f90'
-    def function(name):
-        return (f'Real(dp) Function {name}(a,b,c)\n'
-                '   Else \n     r=m1/m2 \n'
-                ' Elseif (Abs(r).lt.eps) Then \n'
-                'Else if (Abs(m2in-m3in)/Abs(m2in+m3in).lt.eps) Then\n'
-                ' Elseif (Abs(r).lt.eps) Then \n'
-                f'End Function {name}\n')
-    source.write_text(function('C1g')+function('C0C1C2'))
+    original = Path.home()/'.Mathematica/Applications/SARAH-4.15.4/Package/SPheno/IncludeSPheno/IncludeLowEnergy.f90'
+    source.write_bytes(original.read_bytes())
     subprocess.run([sys.executable, str(SCRIPT), str(source)], check=True)
     text = source.read_text()
-    assert text.count('Elseif (r.eq.0._dp) Then') == 2
-    assert text.count('Elseif (Abs(r).lt.eps) Then') == 2
+    assert text.count('Elseif (r.eq.0._dp) Then') >= 8
+    assert text.count('D15 stable series') == 8
     first = source.read_bytes()
     result = subprocess.run([sys.executable, str(SCRIPT), str(source)], capture_output=True)
     assert result.returncode != 0

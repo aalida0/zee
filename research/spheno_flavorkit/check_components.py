@@ -14,7 +14,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
-from module3.core import neutral_dipole
+from module3.core import neutral_dipole, dipole_ledger
 COMPLEX = re.compile(r'\(\s*([^,]+),\s*([^\)]+)\)')
 
 def pairs(line):
@@ -99,14 +99,43 @@ def main():
             if key in neutral:
                 mass = masses[{'hh1':6,'hh2':7,'Ah2':9}[key]]
                 matched = neutral_dipole(neutral[key], mass, 1, 0, masses[:3])
+            elif key.startswith('Hm'):
+                r=int(key[2:])-1
+                left=np.array([[vertices[k,a,r][0] for a in range(3)] for k in range(3)])
+                right=np.array([[vertices[k,a,r][1] for a in range(3)] for k in range(3)])
+                lam=(left.conj().T@left)[0,1]
+                rho=(right.conj().T@right)[0,1]
+                ratio=masses[0]/masses[1]
+                mass=masses[3+r]
+                matched=-np.array([rho+ratio*lam,lam+ratio*rho])/(192*math.pi**2*mass**2)
+
             components[key] = {'same_input_candidate_relative_residual': [float(abs(k+c.conjugate())/abs(c)) if c else None for k,c in zip(sph,matched)] if matched is not None else None, 'K2': [pack(x) for x in sph], 'D12_C': [pack(x) for x in reference],
                                'candidate_relative_residual': [float(abs(k+c.conjugate())/abs(c)) if c else None for k,c in zip(sph,reference)]}
+        # Controlled input replacements; these are deterministic scheme shifts,
+        # not a statistical/theory uncertainty estimate.
+        shifted=dict(physical)
+        for name,value in zip(['mH1','mH2','mh1','mh2','ma'],[masses[4],masses[5],masses[6],masses[7],masses[9]]):
+            shifted[name]=value
+        def total(pp,mm):
+            ledger=dipole_ledger(f0,d,pp,mm,1,0)
+            return sum((np.array([item['C_L'],item['C_R']]) for item in ledger.values()),np.zeros(2,complex))
+        baseline=total(physical,data['SM_decay_card']['lepton_masses'])
+        masses_only=total(physical,masses[:3])
+        scalar_only=total(shifted,data['SM_decay_card']['lepton_masses'])
+        matched=np.sum([np.array([complex(*z) for z in c['K2']]) for c in components.values()],axis=0)
+        coherent_d12=np.sum([np.array([complex(*z) for z in c['D12_C']]) for c in components.values()],axis=0)
+        scheme={'baseline_C':[pack(z) for z in baseline],
+                'lepton_mass_only_shift':[pack(z) for z in masses_only-baseline],
+                'scalar_mass_only_shift':[pack(z) for z in scalar_only-baseline],
+                'all_generated_inputs_shift':[pack(z) for z in -matched.conjugate()-baseline],
+                'relative_coherent_to_original':[float(abs(k+c.conjugate())/abs(c)) for k,c in zip(matched,coherent_d12)],
+                'interpretation':'controlled input shifts only; remaining vertex shift includes matched Ye/rotations; no universal uncertainty inferred'}
         records.append({'group':n, 'vertex_rule_max_abs':float(max(deviations)),
                         'frozen_vertex_max_abs':float(max(ideal_deviations)), 'scalar_row_signs':row_signs,
                         'input_max_abs_difference_F':float(np.max(abs(f-f0))),
                         'input_max_abs_difference_Ye':float(np.max(abs(y-(np.array(w['yukawas']['Ye']['real'])+1j*np.array(w['yukawas']['Ye']['imag']))))),
                         'input_max_abs_difference_Ye2':float(np.max(abs(y2-(np.array(w['yukawas']['Ye2']['real'])+1j*np.array(w['yukawas']['Ye2']['imag']))))),
-                        'sm_readback':sm, 'masses_readback':masses, 'components':components})
+                        'scheme_decomposition':scheme,'sm_readback':sm, 'masses_readback':masses, 'components':components})
     args.output.write_text(json.dumps({'status':'DIAGNOSTIC_ONLY', 'records':records}, indent=2)+'\n')
     print(json.dumps(records, indent=2))
 

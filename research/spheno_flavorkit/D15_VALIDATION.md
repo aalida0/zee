@@ -1,3 +1,10 @@
+> Continuation (2026-11-04): the official projector has now been regenerated
+> through FeynArts/FormCalc and compared symbolically; an actual-source tensor
+> toy and a signed generated scalar/pseudoscalar magnetic-moment anchor run.
+> See [PROJECTOR_REPRODUCTION.md](PROJECTOR_REPRODUCTION.md). The historical
+> missing-toolchain statements below are superseded. The complete ordered
+> off-diagonal crossing bridge is still not certified.
+
 # D15 diagnostic: four committed D12 inputs
 
 **Final validation status: NOT_EVALUATED.** Four reduced SPheno executions
@@ -187,3 +194,55 @@ The current experimental patch SHA256 is
 the local generated executable SHA256 is
 `59b7145cdd9c309af4ee34e81bcabc218c6abc6ccae3d1564f1fa99970ac372c`.
 No universal amplitude tolerance is justified by these local measurements.
+
+## Reproduced projector, expanded loop patch and new independent inputs
+
+The official PreSARAH 1.0.3 / FeynArts 3.9 / FormCalc 7.5 path now executes
+successfully in disposable copies on Wolfram 15. All 44 coefficient expressions
+and 15 integral assignments match installed Gamma2l symbolically, including
+the actual emitted Fortran expressions. The default momentum basis previously
+made SFF/FSS dipole extraction zero; DeclareProcess MomElim->2 fixes it.
+The archive chronology is therefore not an incompatibility argument.
+
+The actual-source coefficient extractor is exercised on a tensor vertex with
+two independent complex coefficients. Its raw output is {cr,cl}; the later
+HC/phase-anchored substitution producing -conj(C) is explicitly distinguished
+from this independently executed result. A generated diagonal scalar and
+pseudoscalar g-2 test independently fixes the real physical sign, but does
+not by itself prove the complete off-diagonal field-order bridge.
+
+The expanded experimental loop patch passes 492 positive cases and seven
+zero/unsupported regressions, including the second C1g branch and 0.999
+cancellation region. All original zero/sentinel behaviors remain. See
+[LOOP_FUNCTION_AUDIT.md](LOOP_FUNCTION_AUDIT.md).
+
+The actual generated API also runs 102 cases across six independent new
+vertex-level inputs, separating all five scalars and coherent sums. The
+largest matched candidate residual is 3.17e-12 relative to the larger
+chirality; 36 independently asserted transformation relations have maximum
+relative residual 7.24e-16. Exact charged and neutral-LFV nulls are zero.
+These are new general complex Yukawa/mass inputs, not certified vacua or
+new complete SPheno spectrum-card validations. Numerical agreement does not
+replace the remaining crossing proof.
+
+Actual charged readback at all four original points now closes separately
+for both H1/H2 to 2.7e-15; neutral readback closes to 6.9e-11. Controlled
+lepton/scalar mass replacements and the total generated-input shift are
+recorded separately, with coherent full-input shifts up to 2.0e-7 relative
+to D12 snapshots. These shifts are not a universal uncertainty envelope.
+Full backend validation remains NOT_EVALUATED.
+
+Reproduce the added focused checks (no full suite):
+
+```sh
+python3 research/spheno_flavorkit/reproduce_projector.py
+python3 research/spheno_flavorkit/tests/test_small_ratio.py
+python3 research/spheno_flavorkit/tests/test_loop_precision.py
+python3 research/spheno_flavorkit/test_signed_scalar_anchor.py
+python3 research/spheno_flavorkit/test_direct_amplitudes.py
+python3 research/spheno_flavorkit/check_components.py
+python3 research/spheno_flavorkit/check_rate.py
+```
+
+Compact provenance is in d15_continuation_evidence.json; detailed source,
+FORM output, executables, inputs and failed/successful logs remain ignored.

@@ -1,5 +1,27 @@
 # D15 dipole resolution — executable continuation plan
 
+## New executable checkpoint (2026-11-04)
+
+Completed this continuation: authoritative PreSARAH regeneration with a
+compatible recovered FeynArts/FormCalc toolchain; 44 symbolic coefficient
+and 15 integral-assignment matches to installed Gamma2l; actual-source
+analytic tensor extraction; independent generated scalar/pseudoscalar g-2
+sign anchor; full eight-ratio-branch experimental C1g/C0C1C2 patch with
+stable degeneracy series; 492 positive precision cases; 102 new direct
+complex amplitude cases; charged readback closure and controlled scheme
+shifts. See PROJECTOR_REPRODUCTION.md and d15_continuation_evidence.json.
+
+**Remaining precise proof obligation:** the raw tensor toy produces {cr,cl}.
+Its HC/negative-phase substitution is currently a documented source/anchor
+bridge, not an independently executed external-state/Wick-contraction test
+of the D12 effective vertex. Do not count the last substitution assertion
+as that proof. Resolve this ordering bridge explicitly; then certify the
+complex map and promote the already measured amplitude diagnostics within
+their scoped approximations. No current missing external dependency prevents
+that calculation. Full spectrum-card scheme uncertainty and independent new
+physical-card tests also remain distinct from the new vertex-level tests.
+Do not repeat archive recovery or the successful precision/component checks.
+
 ## Checkpoint d06afa1: concrete next experiment (2026-11-04)
 
 The existing explicit-spinor test verifies on-shell tensor/Gordon reduction, Ward, two Fourier signs, HC L/R exchange, and a **recovered** crossed chain; it does **not** establish the overall phase in the installed SPheno coefficient. FormCalc manual assigns DiracChain `6=P_R, 7=P_L`. Do not repeat the same identity tests and call the mapping validated.

@@ -1,0 +1,636 @@
+{
+  "checkpoint_source_commit": "7bd0c8a5d8bef74c5fa5d096aecafe98db7922e5",
+  "overall_backend_status": "NOT_VALIDATED",
+  "projector_reproduction": "PASS",
+  "raw_tensor_extraction": "PASS",
+  "independent_diagonal_signed_anchor": "PASS",
+  "off_diagonal_external_state_bridge": "NOT_EVALUATED; the anchored substitution does not execute an independent Wick-crossing proof",
+  "projector": {
+    "all_equal": true,
+    "integral_assignments_equal": true,
+    "integral_assignment_count": 15,
+    "installed_sha256": "e03d364327be703c57d9b27c75a0a85dab2fcdb324d5014a59b648700da083a4",
+    "regenerated_sha256": "f6b10311bb33d7f5e2603960c4fc264b5e8fc20dbcdc48943215b81cf7cb3657",
+    "sympy": "1.14.0"
+  },
+  "symbolic_coefficient_count": 44,
+  "loop_precision": {
+    "status": "PASS (supported equal-adjacent-mass branches only)",
+    "positive_cases": 492,
+    "zero_and_unsupported_cases": 7,
+    "max_relative_error": {
+      "C1g": 5.000142804240153e-12,
+      "C0C1C2": 2.5001425973842253e-12
+    },
+    "original_max_relative_error": {
+      "C1g": 1.0,
+      "C0C1C2": 1.0
+    },
+    "C1g_1_1e-11_1e-11_reference": "11.914218011834677802450394069433976474766354198158214251579689410586067337621745",
+    "candidate_functions_sha256": "f70f81a2fe42d2d7c750f96d7c4929672ad15849396371ec77ec5004a53b3e3e",
+    "patch_sha256": "13e1d5987835fb1091dbd555a30aa5ed4b043d574c62165d07e0dd9d5f80df52",
+    "mpmath": "1.3.0"
+  },
+  "signed_anchor": {
+    "scope": "diagonal sign anchor only",
+    "records": [
+      {
+        "kind": "scalar",
+        "mass": 100.0,
+        "K_L": -2.2947430437094726e-09,
+        "K_R": -2.2947430437094726e-09,
+        "a_from_negative_K_sum": 5.123524638360777e-11,
+        "independent_parameter_integral": 5.1235297118677355e-11,
+        "zero_external_mass_integral": 5.1235246383607753e-11,
+        "relative_residual_zero_external": 4.610585464827437e-16,
+        "external_mass_expansion_effect": 9.902376428119129e-07
+      },
+      {
+        "kind": "scalar",
+        "mass": 1000.0,
+        "K_L": -3.137536240638736e-11,
+        "K_R": -3.137536240638736e-11,
+        "a_from_negative_K_sum": 7.005248050202883e-13,
+        "independent_parameter_integral": 7.00524812194449e-13,
+        "zero_external_mass_integral": 7.005248050202882e-13,
+        "relative_residual_zero_external": 1.0706728415687696e-16,
+        "external_mass_expansion_effect": 1.0241123250527894e-08
+      },
+      {
+        "kind": "scalar",
+        "mass": 10000.0,
+        "K_L": -3.9803347556058274e-13,
+        "K_R": -3.9803347556058274e-13,
+        "a_from_negative_K_sum": 8.886983335748197e-15,
+        "independent_parameter_integral": 8.88698333667568e-15,
+        "zero_external_mass_integral": 8.886983335748194e-15,
+        "relative_residual_zero_external": 3.553436710264314e-16,
+        "external_mass_expansion_effect": 1.0436451326432275e-10
+      },
+      {
+        "kind": "pseudoscalar",
+        "mass": 100.0,
+        "K_L": 2.1727403028665197e-09,
+        "K_R": 2.1727403028665197e-09,
+        "a_from_negative_K_sum": -4.851126362497193e-11,
+        "independent_parameter_integral": -4.8511312079463665e-11,
+        "zero_external_mass_integral": -4.851126362497192e-11,
+        "relative_residual_zero_external": 3.4573589266810717e-16,
+        "external_mass_expansion_effect": 9.988297175903813e-07
+      },
+      {
+        "kind": "pseudoscalar",
+        "mass": 1000.0,
+        "K_L": 3.015528715997811e-11,
+        "K_R": 3.015528715997811e-11,
+        "a_from_negative_K_sum": -6.732839093445487e-13,
+        "independent_parameter_integral": -6.732839162906297e-13,
+        "zero_external_mass_integral": -6.732839093445488e-13,
+        "relative_residual_zero_external": 9.704299777725183e-17,
+        "external_mass_expansion_effect": 1.0316719072341114e-08
+      },
+      {
+        "kind": "pseudoscalar",
+        "mass": 10000.0,
+        "K_L": 3.858327164497969e-13,
+        "K_R": 3.858327164497969e-13,
+        "a_from_negative_K_sum": -8.614574230588578e-15,
+        "independent_parameter_integral": -8.614574231493254e-15,
+        "zero_external_mass_integral": -8.614574230588576e-15,
+        "relative_residual_zero_external": 1.6332010774964787e-16,
+        "external_mass_expansion_effect": 1.0501710736071362e-10
+      }
+    ],
+    "driver_sha256": "d1721a92261a60f46e550856538036440338a3e3920585b7e15390a78b4e4b87",
+    "executable_sha256": "4975b5f7c0e5a5fe4864da0b65a3f0e62ec2f868a29188bea66ce1389186e864"
+  },
+  "new_amplitude_diagnostics": {
+    "scope": "new vertex-level inputs; scalar one-loop subset only",
+    "seed": 151103,
+    "transformations": [
+      {
+        "point": 0,
+        "test": "coherent_sum",
+        "relative_residual": 7.73373211582611e-17
+      },
+      {
+        "point": 0,
+        "test": "conjugate",
+        "relative_residual": 0.0
+      },
+      {
+        "point": 0,
+        "test": "rephase",
+        "relative_residual": 1.6391695285813853e-16
+      },
+      {
+        "point": 0,
+        "test": "reverse",
+        "relative_residual": 1.0622664956300379e-16
+      },
+      {
+        "point": 0,
+        "test": "decouple",
+        "relative_residual": 4.865793244640953e-16
+      },
+      {
+        "point": 0,
+        "test": "degenerate_gamma",
+        "relative_residual": 1.891714105372565e-16
+      },
+      {
+        "point": 1,
+        "test": "coherent_sum",
+        "relative_residual": 1.4916920361940788e-16
+      },
+      {
+        "point": 1,
+        "test": "conjugate",
+        "relative_residual": 0.0
+      },
+      {
+        "point": 1,
+        "test": "rephase",
+        "relative_residual": 1.5376009565302178e-16
+      },
+      {
+        "point": 1,
+        "test": "reverse",
+        "relative_residual": 2.0648581470876438e-16
+      },
+      {
+        "point": 1,
+        "test": "decouple",
+        "relative_residual": 1.8285505917605698e-16
+      },
+      {
+        "point": 1,
+        "test": "degenerate_gamma",
+        "relative_residual": 2.0894404431502015e-16
+      },
+      {
+        "point": 2,
+        "test": "coherent_sum",
+        "relative_residual": 2.1152299065955168e-16
+      },
+      {
+        "point": 2,
+        "test": "conjugate",
+        "relative_residual": 0.0
+      },
+      {
+        "point": 2,
+        "test": "rephase",
+        "relative_residual": 1.6829796420057022e-16
+      },
+      {
+        "point": 2,
+        "test": "reverse",
+        "relative_residual": 3.9283021186626157e-16
+      },
+      {
+        "point": 2,
+        "test": "decouple",
+        "relative_residual": 2.0119502200892238e-16
+      },
+      {
+        "point": 2,
+        "test": "degenerate_gamma",
+        "relative_residual": 3.702381025031337e-16
+      },
+      {
+        "point": 3,
+        "test": "coherent_sum",
+        "relative_residual": 4.320742705341954e-16
+      },
+      {
+        "point": 3,
+        "test": "conjugate",
+        "relative_residual": 0.0
+      },
+      {
+        "point": 3,
+        "test": "rephase",
+        "relative_residual": 7.231994579469481e-16
+      },
+      {
+        "point": 3,
+        "test": "reverse",
+        "relative_residual": 1.668468039959461e-16
+      },
+      {
+        "point": 3,
+        "test": "decouple",
+        "relative_residual": 1.656758537123369e-16
+      },
+      {
+        "point": 3,
+        "test": "degenerate_gamma",
+        "relative_residual": 8.129154377741063e-17
+      },
+      {
+        "point": 4,
+        "test": "coherent_sum",
+        "relative_residual": 1.824189299562649e-16
+      },
+      {
+        "point": 4,
+        "test": "conjugate",
+        "relative_residual": 0.0
+      },
+      {
+        "point": 4,
+        "test": "rephase",
+        "relative_residual": 3.2886040278629356e-16
+      },
+      {
+        "point": 4,
+        "test": "reverse",
+        "relative_residual": 4.656079776748796e-16
+      },
+      {
+        "point": 4,
+        "test": "decouple",
+        "relative_residual": 2.9854625835792146e-16
+      },
+      {
+        "point": 4,
+        "test": "degenerate_gamma",
+        "relative_residual": 5.517485398596695e-16
+      },
+      {
+        "point": 5,
+        "test": "coherent_sum",
+        "relative_residual": 2.030673796975528e-16
+      },
+      {
+        "point": 5,
+        "test": "conjugate",
+        "relative_residual": 0.0
+      },
+      {
+        "point": 5,
+        "test": "rephase",
+        "relative_residual": 3.5515454434372367e-16
+      },
+      {
+        "point": 5,
+        "test": "reverse",
+        "relative_residual": 1.8373554643364893e-16
+      },
+      {
+        "point": 5,
+        "test": "decouple",
+        "relative_residual": 1.8972139099380852e-16
+      },
+      {
+        "point": 5,
+        "test": "degenerate_gamma",
+        "relative_residual": 7.427945447398555e-17
+      }
+    ],
+    "numerical_criterion": "abs(K+conj(C)) <= 1e-10 abs(C) + 1e-24 GeV^-2 per chirality; no input-scheme uncertainty included",
+    "max_relative_to_largest_chirality": 3.1610955380119115e-12,
+    "inputs_sha256": "80ca0f0cc02ba40aaa686bc8bf40c20d66b303467b5b38df6c0b3f93bcd99b92",
+    "executable_sha256": "a6db023406d326eb1443798a1a36ded15ccfc5bd1b36cfe915124d46b7b8677b"
+  },
+  "amplitude_case_count": 102,
+  "original_points": [
+    {
+      "group": 0,
+      "matched_residuals": {
+        "Ah2": [
+          8.748474653471822e-13,
+          1.4938842135081234e-16
+        ],
+        "hh1": [
+          6.773042252216919e-11,
+          2.1505308285365337e-16
+        ],
+        "hh2": [
+          1.8873537095128987e-12,
+          1.4860975427365349e-15
+        ],
+        "Hm2": [
+          4.198185216244748e-16,
+          2.600398070563769e-16
+        ],
+        "Hm3": [
+          9.287807745321254e-16,
+          2.091888003608461e-15
+        ]
+      },
+      "scheme_shifts": {
+        "baseline_C": [
+          [
+            6.1303670235451184e-18,
+            7.248314106927416e-18
+          ],
+          [
+            4.25920180658542e-15,
+            5.010205388365255e-15
+          ]
+        ],
+        "lepton_mass_only_shift": [
+          [
+            5.394287569278841e-26,
+            9.240317282925664e-26
+          ],
+          [
+            -8.09486407228657e-23,
+            -8.881316585163942e-23
+          ]
+        ],
+        "scalar_mass_only_shift": [
+          [
+            -7.703719777548943e-34,
+            -1.5407439555097887e-33
+          ],
+          [
+            -3.1554436208840472e-30,
+            -3.1554436208840472e-30
+          ]
+        ],
+        "all_generated_inputs_shift": [
+          [
+            3.106872669170172e-26,
+            7.033605549723027e-26
+          ],
+          [
+            -9.066754354812517e-23,
+            -9.952661165252089e-23
+          ]
+        ],
+        "relative_coherent_to_original": [
+          8.099787015670273e-09,
+          2.0473641021730498e-08
+        ],
+        "interpretation": "controlled input shifts only; remaining vertex shift includes matched Ye/rotations; no universal uncertainty inferred"
+      }
+    },
+    {
+      "group": 1,
+      "matched_residuals": {
+        "Ah2": [
+          2.0935883425931235e-12,
+          5.152573831811641e-16
+        ],
+        "hh1": [
+          1.9952973381657836e-11,
+          3.3897696693296697e-16
+        ],
+        "hh2": [
+          4.930742431914927e-12,
+          9.73598385455312e-16
+        ],
+        "Hm2": [
+          3.3482828827002165e-16,
+          5.049200932848271e-16
+        ],
+        "Hm3": [
+          2.6199433190694493e-15,
+          8.642907523036624e-16
+        ]
+      },
+      "scheme_shifts": {
+        "baseline_C": [
+          [
+            -1.0161191793657926e-17,
+            1.8513001209585827e-17
+          ],
+          [
+            -4.886666315338567e-16,
+            9.471182343719766e-15
+          ]
+        ],
+        "lepton_mass_only_shift": [
+          [
+            6.4686882809465835e-25,
+            4.483474314788901e-26
+          ],
+          [
+            8.636096924522411e-23,
+            -1.6182185845458322e-22
+          ]
+        ],
+        "scalar_mass_only_shift": [
+          [
+            1.8488927466117464e-32,
+            0.0
+          ],
+          [
+            1.4791141972893971e-30,
+            -6.310887241768095e-30
+          ]
+        ],
+        "all_generated_inputs_shift": [
+          [
+            7.411054708235321e-25,
+            -6.849888781211995e-27
+          ],
+          [
+            9.664053829418279e-23,
+            -1.8136250790131582e-22
+          ]
+        ],
+        "relative_coherent_to_original": [
+          3.509460623801609e-08,
+          2.166896007303375e-08
+        ],
+        "interpretation": "controlled input shifts only; remaining vertex shift includes matched Ye/rotations; no universal uncertainty inferred"
+      }
+    },
+    {
+      "group": 2,
+      "matched_residuals": {
+        "Ah2": [
+          3.204212693254069e-13,
+          2.3429128902390387e-16
+        ],
+        "hh1": [
+          6.807899884802155e-11,
+          3.2473629160708933e-16
+        ],
+        "hh2": [
+          3.728324308832587e-13,
+          1.9826907821608029e-16
+        ],
+        "Hm2": [
+          1.8002313630287288e-16,
+          1.578491717585289e-16
+        ],
+        "Hm3": [
+          4.79303549921867e-16,
+          3.028647222228937e-16
+        ]
+      },
+      "scheme_shifts": {
+        "baseline_C": [
+          [
+            2.0804852186117616e-18,
+            2.829699970833484e-18
+          ],
+          [
+            3.2105019249204545e-16,
+            4.553910167435448e-16
+          ]
+        ],
+        "lepton_mass_only_shift": [
+          [
+            -8.51548345648262e-27,
+            -6.3081054285564215e-27
+          ],
+          [
+            3.0241483728322303e-24,
+            4.362034084158881e-24
+          ]
+        ],
+        "scalar_mass_only_shift": [
+          [
+            0.0,
+            3.851859888774472e-34
+          ],
+          [
+            -9.860761315262648e-32,
+            -9.860761315262648e-32
+          ]
+        ],
+        "all_generated_inputs_shift": [
+          [
+            1.2545120545819633e-26,
+            4.7038753494714453e-26
+          ],
+          [
+            -7.436450118473327e-23,
+            -8.094588365400195e-23
+          ]
+        ],
+        "relative_coherent_to_original": [
+          1.3861042831458644e-08,
+          1.9727693251125772e-07
+        ],
+        "interpretation": "controlled input shifts only; remaining vertex shift includes matched Ye/rotations; no universal uncertainty inferred"
+      }
+    },
+    {
+      "group": 3,
+      "matched_residuals": {
+        "Ah2": [
+          8.096125580811738e-13,
+          1.0451707280553857e-16
+        ],
+        "hh1": [
+          2.007817562186413e-11,
+          3.9229962317332616e-16
+        ],
+        "hh2": [
+          9.64214343557367e-13,
+          5.320413325700685e-16
+        ],
+        "Hm2": [
+          1.6354041274780026e-16,
+          2.5692769924256e-16
+        ],
+        "Hm3": [
+          5.454389364796699e-16,
+          6.19045202413795e-16
+        ]
+      },
+      "scheme_shifts": {
+        "baseline_C": [
+          [
+            3.3891406037769807e-18,
+            5.405366555780476e-18
+          ],
+          [
+            6.644447092274064e-16,
+            9.142942752757283e-16
+          ]
+        ],
+        "lepton_mass_only_shift": [
+          [
+            -3.1042184680766144e-26,
+            -1.3534146046462732e-26
+          ],
+          [
+            -1.2664427206605357e-24,
+            8.390048881044307e-24
+          ]
+        ],
+        "scalar_mass_only_shift": [
+          [
+            7.703719777548943e-34,
+            0.0
+          ],
+          [
+            9.860761315262648e-32,
+            -1.9721522630525295e-31
+          ]
+        ],
+        "all_generated_inputs_shift": [
+          [
+            6.17160397278257e-25,
+            -2.56217230302083e-26
+          ],
+          [
+            8.058481028337633e-23,
+            -1.4720591716392773e-22
+          ]
+        ],
+        "relative_coherent_to_original": [
+          9.681709515884325e-08,
+          1.48482842713062e-07
+        ],
+        "interpretation": "controlled input shifts only; remaining vertex shift includes matched Ye/rotations; no universal uncertainty inferred"
+      }
+    }
+  ],
+  "code_sha256": {
+    "reproduce_projector.py": "8f91ac0d366eca644b2f5aa9bf868464e3d677deab615792ff311f5a91022c1e",
+    "compare_projector_sources.py": "0bc62003f1abf4ce2f3859e551bc94163e9b2934b6ea9216c0e03c2fc1cb45c3",
+    "projector_toy.m": "bc85d9bad473f0f6b3db20e4b56cde61ac8f5026b9d40bd68a50c788d8f0684c",
+    "patch_small_ratio.py": "13e1d5987835fb1091dbd555a30aa5ed4b043d574c62165d07e0dd9d5f80df52",
+    "test_signed_scalar_anchor.py": "adc30151b21fe655b80640cee18ea9c4fcefa15f982d16660e6c413e6a7fadc5",
+    "test_direct_amplitudes.py": "afe10feaef72d6240455c8445ad0a705485877f011dad967308d62cbc87889b8",
+    "check_components.py": "511dbdfa44e4e0070b1f2b4bc9bf46ccbee004c549740ef679fdb2cbdfed96c3",
+    "tests/test_small_ratio.py": "62c7a83662c998c68a31430099582a1e311e0574811af54e4a4a56e578617748",
+    "tests/test_loop_precision.py": "1fcf116bbcb618a58b3ce311b41f2179b22c7c2886d7bf9ca8eab0ea3fcdf1ff"
+  },
+  "local_artifact_sha256": {
+    "local/d15-reproduction-final.log": "29c259fb952e7dffbf027a7d0f044d8f68b9d2071d1df95bd97377b1752c41ee",
+    "local/d15_projector_ffiscm27/build.log": "dca3592082c0b4b5bb60cc5922edbb5377163e803e35337e172a72261ef06e60",
+    "local/d15_projector_ffiscm27/regenerate.log": "0fd217385f5dccca3b88c597a2d8898cf6f6c5b358035d9ba8236d0ca5d22d9c",
+    "local/d15_projector_ffiscm27/toy.log": "d397d4161e83f8be8ba12a858251b863d72be057bce6d8b96d73a8216d055f89",
+    "local/d15-extended-loop-build.log": "0e284fb314e77064898926b4b4929121e0754e68195e9a92e7b2db2677e8d84a",
+    "local/d15_direct_amplitudes/inputs.txt": "80ca0f0cc02ba40aaa686bc8bf40c20d66b303467b5b38df6c0b3f93bcd99b92",
+    "local/d15_direct_amplitudes/run.log": "3e885b091e499d1da9f89e9394cbbf93604ec74fe686e88bc939e90a99347962",
+    "local/d15_signed_anchor/run.log": "e60a308b7a4c4c24d327dd015927a40d6a92ef653d87299d5a7fa3f384283b6e",
+    "local/d15-extended-allcomponents.log": "dfe3bc28030adca06d0817b3ada369bd71898b474525b23dc70067c3d84bc9d6",
+    "local/d15-extended-rate.log": "9f2e6d639865303e4d4b1ad5088566337992418990ee9ceb5ce5b5db1d6a88fd",
+    "local/d15-loop-final.log": "b189b485e24f61893e4c2e0f1123938461d83f0d47be740c2d6c60a0fd3adc8c"
+  },
+  "archive_sha256": {
+    "PreSARAH-1.0.3.download": "999142f4d4283bb70b225809e44440fd1ee29e289f1d956c051536e0bf1279bf",
+    "FeynArts-3.9.tar.gz": "1add14aea4f3ee09b29e88438ad105ccd7df48969514c6b902f6c57bee303963",
+    "FormCalc-7.5.tar.gz": "59e56b0cf32e906578b419bca740a4ee31eda36af4074e9dacee22db0b324a0c"
+  },
+  "generated_backend_sha256": "1fb4c9f3d1ea75a61f08a0f7c428bc7914336ce72f8bc86ac6bad1320f6c5c78",
+  "generated_loop_source_sha256": "d642cb7808a5f2aab8e81123f8bcbbfbda5f1f8148d8cf316fb90b8cd8599154",
+  "environment": {
+    "python": "3.10.12",
+    "gfortran": "GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+    "wolfram": "15.0.1 Linux x86-64",
+    "sympy": "1.14.0",
+    "mpmath": "1.3.0"
+  },
+  "remaining": [
+    "Explicit external-state/Wick-order bridge for ordered D12 effective vertex",
+    "Independent new full spectrum cards beyond vertex-level inputs",
+    "General input-scheme uncertainty envelope; deterministic shifts are not a universal tolerance"
+  ],
+  "limitations": [
+    "Scalar one-loop subset only; massless neutrinos",
+    "Zero/unsupported loop arguments retain legacy sentinels",
+    "No frozen modules or model modified"
+  ]
+}

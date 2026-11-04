@@ -1,3 +1,10 @@
+> Continuation (2026-11-04): the official projector has now been regenerated
+> through FeynArts/FormCalc and compared symbolically; an actual-source tensor
+> toy and a signed generated scalar/pseudoscalar magnetic-moment anchor run.
+> See [PROJECTOR_REPRODUCTION.md](PROJECTOR_REPRODUCTION.md). The historical
+> missing-toolchain statements below are superseded. The complete ordered
+> off-diagonal crossing bridge is still not certified.
+
 # Explicit dipole matrix-element check — partial
 
 The overall operator map is **not established**. This note records identities
