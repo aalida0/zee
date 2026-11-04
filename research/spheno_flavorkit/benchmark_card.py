@@ -1,4 +1,4 @@
-"""Create an exploratory D12 card; it is not a scheme-matched validation."""
+"""Export a reproducible research scalar-loop card; record matching explicitly."""
 import argparse
 import json
 import math
@@ -16,8 +16,10 @@ def main():
     parser.add_argument('template', type=Path)
     parser.add_argument('output', type=Path)
     parser.add_argument('--group', type=int, default=0, help='D12 group index')
+    parser.add_argument('--dataset',type=Path,default=ROOT/'validation/module12/d12_benchmarks.json')
+    parser.add_argument('--match-leptons',action='store_true')
     args = parser.parse_args()
-    group = json.loads((ROOT / 'validation/module12/d12_benchmarks.json').read_text())['groups'][args.group]
+    group = json.loads(args.dataset.read_text())['groups'][args.group]
     witness = group['witnesses']['central']
     record = witness['module2_input']['scalar']['record']
     physical = record['physical']
@@ -27,6 +29,8 @@ def main():
               ('M12Sq', 'MCS2', 'Mu4')]
     sm = {2: 1/(math.sqrt(2)*physical['v']**2), 4: record['electroweak']['mZ'],
           7: witness['module2_input']['lepton_masses_GeV'][2]}
+    if args.match_leptons:
+        sm.update({11:witness['module2_input']['lepton_masses_GeV'][0],13:witness['module2_input']['lepton_masses_GeV'][1]})
     block = ''
     lines = []
     for line in args.template.read_text().splitlines():
@@ -56,9 +60,11 @@ def main():
             for i in range(3):
                 for j in range(3):
                     lines.append(f' {i+1} {j+1} {matrix[i][j]:.16e} # matrix entry')
+    if args.match_leptons:
+        lines.extend(['Block SMINPUTS # explicit lepton pole inputs',*[f' {k} {value:.16e} # explicit matched input' for k,value in sm.items()]])
     lines.append('Block SPHENOINPUT # matrix terminator')
     args.output.write_text('\n'.join(lines)+'\n')
-    print('Exploratory D12 candidate:', witness['id'])
+    print('Research scalar-loop card:', witness['id'])
     print('Not scheme matched: SM electron/muon inputs, Yukawa matching, running and phases require audit.')
 
 

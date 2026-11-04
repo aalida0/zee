@@ -1,4 +1,4 @@
-"""Reproduce exploratory D12 comparisons; no operator map is certified."""
+"""Reproduce scalar-one-loop comparisons using the source-derived D15 map."""
 import argparse
 import hashlib
 import json
@@ -20,17 +20,21 @@ def main():
     p.add_argument('--output', type=Path, default=LOCAL / 'd15_comparison.json')
     p.add_argument('--executable', type=Path, default=LOCAL / 'SPheno-4.0.5/bin/SPhenoZeeTypeII')
     p.add_argument('--template', type=Path, default=LOCAL / 'output/ZeeTypeII/EWSB/SPheno/Input_Files/LesHouches.in.ZeeTypeII')
+    p.add_argument('--dataset',type=Path,default=DATA)
+    p.add_argument('--workdir',type=Path,default=LOCAL/'d15_runs')
+    p.add_argument('--match-leptons',action='store_true')
     a = p.parse_args()
     exe, template = a.executable.resolve(), a.template.resolve()
-    work = LOCAL / 'd15_runs'
+    work = a.workdir.resolve()
     work.mkdir(parents=True, exist_ok=True)
     records = []
-    for index, group in enumerate(json.loads(DATA.read_text())['groups']):
+    for index, group in enumerate(json.loads(a.dataset.read_text())['groups']):
         witness = group['witnesses']['central']
         card, spectrum, log = (work / f'group{index}.{suffix}' for suffix in ('in', 'spc', 'log'))
-        subprocess.run([sys.executable, str(CARD), str(template), str(card), '--group', str(index)], check=True, capture_output=True, text=True, cwd=ROOT)
-        run = subprocess.run([str(exe), str(card), str(spectrum)], cwd=work, capture_output=True, text=True, check=True)
+        subprocess.run([sys.executable, str(CARD), str(template), str(card), '--group', str(index),'--dataset',str(a.dataset.resolve())]+(['--match-leptons'] if a.match_leptons else []), check=True, capture_output=True, text=True, cwd=ROOT)
+        run = subprocess.run([str(exe), card.name, spectrum.name], cwd=work, capture_output=True, text=True)
         log.write_text(run.stdout + run.stderr)
+        run.check_returncode()
         vals = {}
         for ch in 'LR':
             matches = re.findall(r'PILOT_K2' + ch + r'_21\s*\(\s*([^,]+),\s*([^\)]+)\)', run.stdout)
@@ -51,7 +55,7 @@ def main():
                         'candidate_relative_residual': abs(k + c.conjugate()) / abs(c) if c else None}
         br = float(match.group(1))
         records.append({'group': index, 'id': witness['id'], 'ordering': group['ordering'], 'card_sha256': sha(card), 'log_sha256': sha(log), 'spectrum_sha256': sha(spectrum), 'coefficients_GeV_minus2': rows, 'spheno_BR': br, 'module3_scalar_BR': rad['grouped_BR']['scalar_one_loop'], 'rate_ratio': br / rad['grouped_BR']['scalar_one_loop']})
-    output = {'status': 'NOT_EVALUATED', 'interpretation': 'Exploratory unmatched input diagnostic; candidate conversion is not derived.', 'd12_sha256': sha(DATA), 'executable_sha256': sha(exe), 'template_sha256': sha(template), 'records': records}
+    output = {'status': 'NOT_EVALUATED', 'interpretation': 'Source-derived K=-conj(C); unmatched-card input shifts are diagnostic, not numerical error.', 'd12_sha256': sha(a.dataset), 'executable_sha256': sha(exe), 'template_sha256': sha(template), 'records': records}
     a.output.parent.mkdir(parents=True, exist_ok=True)
     a.output.write_text(json.dumps(output, indent=2) + '\n')
     print(json.dumps(output, indent=2))

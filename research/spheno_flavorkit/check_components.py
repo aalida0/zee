@@ -1,7 +1,7 @@
 """Check numerical vertex readback and inspect individual raw scalar loops.
 
-The K2-to-C relation in the output remains an unproved *candidate*. Component
-residuals quantify a comparison, not a validation threshold or scheme error.
+The K2-to-C relation is derived in CROSSING_BRIDGE.md. Historical JSON keys
+retain candidate naming for compatibility; residuals do not estimate scheme errors.
 """
 import argparse
 import json
@@ -27,8 +27,9 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--logs', type=Path, default=ROOT/'research/spheno_flavorkit/local/d15_runs')
     p.add_argument('--output', type=Path, default=ROOT/'research/spheno_flavorkit/local/d15_components.json')
+    p.add_argument('--dataset',type=Path,default=ROOT/'validation/module12/d12_benchmarks.json')
     args = p.parse_args()
-    data = json.loads((ROOT/'validation/module12/d12_benchmarks.json').read_text())
+    data = json.loads(args.dataset.read_text())
     records = []
     for n, group in enumerate(data['groups']):
         lines = (args.logs/f'group{n}.log').read_text().splitlines()
@@ -136,7 +137,7 @@ def main():
                         'input_max_abs_difference_Ye':float(np.max(abs(y-(np.array(w['yukawas']['Ye']['real'])+1j*np.array(w['yukawas']['Ye']['imag']))))),
                         'input_max_abs_difference_Ye2':float(np.max(abs(y2-(np.array(w['yukawas']['Ye2']['real'])+1j*np.array(w['yukawas']['Ye2']['imag']))))),
                         'scheme_decomposition':scheme,'sm_readback':sm, 'masses_readback':masses, 'components':components})
-    args.output.write_text(json.dumps({'status':'DIAGNOSTIC_ONLY', 'records':records}, indent=2)+'\n')
+    args.output.write_text(json.dumps({'status':'MATCHED_INPUT_SCALAR_COMPONENTS','operator_map':'K=-conj(C), source-derived CROSSING_BRIDGE.md', 'records':records}, indent=2)+'\n')
     print(json.dumps(records, indent=2))
 
 if __name__ == '__main__':

@@ -1,3 +1,24 @@
+**Current status: ONE_LOOP_COMPLEX_DIPOLE_PASS**, scoped to the experimentally
+patched scalar one-loop subset, massless neutrinos and the external-momentum
+expansion described in [CROSSING_BRIDGE.md](CROSSING_BRIDGE.md). The ordered
+operator map is now derived and independently tested: `K2L=-conj(C_L)`,
+`K2R=-conj(C_R)` for matched mass normalization. The reversed ordered
+amplitude has the explicit initial/daughter mass factor.
+
+The proof uses differentiated HC vertices in a disposable FeynArts model,
+actual source phase normalization, and independent Fock/Dirac-spinor tests
+with a signed QED reference. No post-projection candidate substitution is
+used. Two new full physical-input cards and controlled pole-input variants
+close separately by scalar and coherently; one new card passes all cheap
+scalar gates, while the other's tree-unitarity failure is recorded.
+This does not certify complete Zee LFV or other FlavorKit observables.
+See [crossing_bridge_evidence.json](crossing_bridge_evidence.json).
+
+The checkpoint material below is historical. Its statements that the
+projector/crossing proof is missing are superseded by CROSSING_BRIDGE.md.
+
+---
+
 # Official projector reproduction and independent signed tests
 
 The original external dependency obstacle has been recovered. Official

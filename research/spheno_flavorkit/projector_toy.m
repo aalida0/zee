@@ -48,13 +48,8 @@ Do[
 If[Simplify[(actual-expected)/.values]=!={0,0},Quit[3]];
 Print["D15_EXTRACTED ",InputForm[actual]];
 Print["D15_WRAPPED ",InputForm[Simplify[-actual/(2 ee MassEx1)]]];
-(* Physical field-order bridge: bar(l_i),l_j selects the HC operator;
-   6=PR selects C_L*, 7=PL selects C_R*. The common minus is fixed by
-   the independently signed diagonal scalar/pseudoscalar calculation,
-   test_signed_scalar_anchor.py, never by a Zee coefficient or rate. *)
-physicalWrapped=Simplify[(-actual/(2 ee MassEx1))/.{cl->-Conjugate[cr],cr->-Conjugate[cl]}];
-If[Simplify[physicalWrapped+{Conjugate[cl],Conjugate[cr]}]=!={0,0},Quit[5]];
-If[Simplify[(physicalWrapped+{Conjugate[cl],Conjugate[cr]})/.values]=!={0,0},Quit[6]];
-Print["D15_PHASE_ANCHORED_MAP ",InputForm[physicalWrapped]];
+(* Historical raw-chain algebra test only. The physical action and crossing
+   proof now live in crossing_bridge_toy.py/crossing_bridge_spinors.py.
+   No candidate-map substitution is made in this intermediate test. *)
 Print["D15_TOY_DONE"];
 Quit[];

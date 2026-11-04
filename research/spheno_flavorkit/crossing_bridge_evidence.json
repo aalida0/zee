@@ -1,0 +1,446 @@
+{
+  "status": "ONE_LOOP_COMPLEX_DIPOLE_PASS",
+  "scope": "Experimentally patched scalar one-loop subset; massless internal neutrinos; zero external momenta in loop denominators with external chirality flips retained; D12 pole scheme explicitly matched",
+  "not_claimed": [
+    "Complete Zee LFV",
+    "All FlavorKit observables",
+    "D14 integration",
+    "Global scalar or neutrino acceptance of new cards"
+  ],
+  "starting_commit": "d9640a42068f9148f226f7da01c2a64789e5578d",
+  "operator_relation": "K2L(i,j)=-conj(C_L(i->j)); K2R(i,j)=-conj(C_R(i->j))",
+  "reverse_ordered_relation": "K(j,i)=-(m_i/m_j) [C_R,C_L]",
+  "mass_normalization": "If operator and wrapper masses differ, multiply forward by m_operator/m_norm. Reverse uses m_i_operator/m_j_norm.",
+  "post_projection_candidate_substitution": false,
+  "spinor_tests": {
+    "status": "PASS",
+    "spinor_comparisons": 16,
+    "fock_operator_comparisons": 12,
+    "maximum_spinor_absolute_residual": 2.1556631856153973e-15,
+    "maximum_fock_absolute_residual": 8.881784197001252e-16,
+    "maximum_QED_absolute_residual": 1.7554167342883506e-16,
+    "maximum_Ward_absolute_residual": 2.6668472207145996e-15,
+    "maximum_rephase_absolute_residual": 1.1102230246251565e-15,
+    "FormCalc_chain_input_sha256": "1e6b0b88b8119f64eb3a1a827c440cbaeecdfea18b8a84c849441e01a886642b",
+    "phase_reference": "same-state QED-normalized vector; crossed physical M has common minus relative to HC, tensor included",
+    "Fourier_signs": [
+      1,
+      -1
+    ],
+    "masses": [
+      3.0,
+      0.7
+    ],
+    "coefficients": [
+      [
+        0.37,
+        0.83
+      ],
+      [
+        -0.29,
+        0.41
+      ]
+    ]
+  },
+  "source_proof": {
+    "status": "PASS",
+    "relation": "K2L(i,j)=-conj(C_L(i->j)); K2R(i,j)=-conj(C_R(i->j))",
+    "reverse": "K(j,i)=-(m_i/m_j) [C_R,C_L]",
+    "source_phase": "actual physical classes amplitude / I^3; triangle G degree checked for all six saved source diagrams",
+    "QED_reference": "true diagonal QED vertex plus same-state normalized vector spurion",
+    "post_projection_candidate_substitution": false,
+    "artifacts_sha256": {
+      "run.log": "50e9c12f6144d4049c4017dca8904cb8089f0db8a1f1441116e1db4fc008218f",
+      "spinor-evidence.json": "a67c9f06915d581041072c5c4e8884e666ed0ec1e69ff004c92a28eddd56bfd0",
+      "run.m": "7c4dc2f18e90ae2258b5592631da6a781e59be9662565e79726beae1dac2b2d4",
+      "chains-2.m": "328404f34bd1c859d1622b41e906f9ca9cb84c9f4da001faa98b70f98e28f072",
+      "chains-numeric.json": "1e6b0b88b8119f64eb3a1a827c440cbaeecdfea18b8a84c849441e01a886642b",
+      "chains-1.m": "b9e80db43db88cdbe8070ffeddd782fba084d4221db262b104015a262e2bc906",
+      "feynamp-1.m": "e200807c736fb33296a4cef29b6d4bf6131982c8d095954de6aabf907d545002",
+      "final-driver.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "DipoleLorentz.gen": "ef897c02191ef3572a5e4f681c9cd0367d9dfdfc71a4e1c41eea723fc6702d10",
+      "feynamp-2.m": "61f16ea919439e8bcf125d88e096b11255132028e9ac9fdac59d8c21a53c6499",
+      "result.m": "f2be313df353d6833bd19cd410b989319557036519f310995aa385959e67e773",
+      "QED.m": "c75d65f7b7808e0610c3b85aabc056770ff57e6e3f8bdbe3860dd152af0a80cb",
+      "driver.log": "1c13e78dff8f19fedcb6188d56a23708616059177098f95f3a4246c40d2e741b",
+      "Dipole.mod": "78ea4bc88661e9ebddad76b79fac4656494fe56dc6ab90de58b4938f42a89198"
+    },
+    "source_sha256": {
+      "PreSARAH-1.0.3/PreSARAH_package.m": "661db4e195f85a67d14dacbb831d62a8aca83bb87717649560192889a465bc9c",
+      "FeynArts-3.9/FeynArts/Analytic.m": "983d20e1b1f54338a5640a245cda5d77de3c657cfb2294fea74d03f2cd9043f3",
+      "FormCalc-7.5/FormCalc75.m": "422c96860b40d3d22b8ae28e96b9fd6d7aa288de500dbae7c7ec9f284d1ce37d"
+    }
+  },
+  "direct_amplitude_cases": 102,
+  "direct_max_relative_to_larger_chirality": 3.1610955380119115e-12,
+  "transformation_relations": 36,
+  "transformation_max_relative": 7.231994579469481e-16,
+  "new_physical_cards": 2,
+  "new_card_full_runs": 4,
+  "original_card_runs": 4,
+  "new_card_scalar_gate_assessments": [
+    {
+      "reconstruction": "PASS",
+      "bfb": "PASS",
+      "unitarity": "PASS",
+      "ewpo": "PASS"
+    },
+    {
+      "reconstruction": "PASS",
+      "bfb": "PASS",
+      "unitarity": "FAIL",
+      "ewpo": "PASS"
+    }
+  ],
+  "controlled_pole_input_shifts": [
+    {
+      "card": 0,
+      "pole_input_only_relative_shift": [
+        1.2427869152981272e-08,
+        2.1556758668207022e-08
+      ]
+    },
+    {
+      "card": 1,
+      "pole_input_only_relative_shift": [
+        3.0335846374525324e-08,
+        1.39002447929024e-07
+      ]
+    }
+  ],
+  "card_coefficient_checks": [
+    {
+      "run": "crossing_original_cards",
+      "group": 0,
+      "five_scalar_to_full_K_absolute_remainder": [
+        8.053894322046487e-28,
+        1.0513105121407346e-24
+      ],
+      "matched_scalar_component_residuals": {
+        "Ah2": [
+          8.748474653471822e-13,
+          1.4938842135081234e-16
+        ],
+        "hh1": [
+          6.773042252216919e-11,
+          2.1505308285365337e-16
+        ],
+        "hh2": [
+          1.8873537095128987e-12,
+          1.4860975427365349e-15
+        ],
+        "Hm2": [
+          4.198185216244748e-16,
+          2.600398070563769e-16
+        ],
+        "Hm3": [
+          9.287807745321254e-16,
+          2.091888003608461e-15
+        ]
+      },
+      "unmatched_or_matched_full_C_relative_residual": {
+        "L": 8.02073089314068e-09,
+        "R": 2.0318538665519213e-08
+      }
+    },
+    {
+      "run": "crossing_original_cards",
+      "group": 1,
+      "five_scalar_to_full_K_absolute_remainder": [
+        4.5914563380269565e-27,
+        1.4579149409939907e-24
+      ],
+      "matched_scalar_component_residuals": {
+        "Ah2": [
+          2.0935883425931235e-12,
+          5.152573831811641e-16
+        ],
+        "hh1": [
+          1.9952973381657836e-11,
+          3.3897696693296697e-16
+        ],
+        "hh2": [
+          4.930742431914927e-12,
+          9.73598385455312e-16
+        ],
+        "Hm2": [
+          3.3482828827002165e-16,
+          5.049200932848271e-16
+        ],
+        "Hm3": [
+          2.6199433190694493e-15,
+          8.642907523036624e-16
+        ]
+      },
+      "unmatched_or_matched_full_C_relative_residual": {
+        "L": 3.487913927777343e-08,
+        "R": 2.1517062753514266e-08
+      }
+    },
+    {
+      "run": "crossing_original_cards",
+      "group": 2,
+      "five_scalar_to_full_K_absolute_remainder": [
+        3.5594035749927686e-28,
+        3.6448433615447085e-25
+      ],
+      "matched_scalar_component_residuals": {
+        "Ah2": [
+          3.204212693254069e-13,
+          2.3429128902390387e-16
+        ],
+        "hh1": [
+          6.807899884802155e-11,
+          3.2473629160708933e-16
+        ],
+        "hh2": [
+          3.728324308832587e-13,
+          1.9826907821608029e-16
+        ],
+        "Hm2": [
+          1.8002313630287288e-16,
+          1.578491717585289e-16
+        ],
+        "Hm3": [
+          4.79303549921867e-16,
+          3.028647222228937e-16
+        ]
+      },
+      "unmatched_or_matched_full_C_relative_residual": {
+        "L": 1.3767088467375173e-08,
+        "R": 1.9662602761915554e-07
+      }
+    },
+    {
+      "run": "crossing_original_cards",
+      "group": 3,
+      "five_scalar_to_full_K_absolute_remainder": [
+        1.7498795074137182e-27,
+        6.22825147028523e-25
+      ],
+      "matched_scalar_component_residuals": {
+        "Ah2": [
+          8.096125580811738e-13,
+          1.0451707280553857e-16
+        ],
+        "hh1": [
+          2.007817562186413e-11,
+          3.9229962317332616e-16
+        ],
+        "hh2": [
+          9.64214343557367e-13,
+          5.320413325700685e-16
+        ],
+        "Hm2": [
+          1.6354041274780026e-16,
+          2.5692769924256e-16
+        ],
+        "Hm3": [
+          5.454389364796699e-16,
+          6.19045202413795e-16
+        ]
+      },
+      "unmatched_or_matched_full_C_relative_residual": {
+        "L": 9.655229063281445e-08,
+        "R": 1.4793735668620127e-07
+      }
+    },
+    {
+      "run": "crossing_physical_cards/default",
+      "group": 0,
+      "five_scalar_to_full_K_absolute_remainder": [
+        1.4864319630401655e-27,
+        1.0513308596842305e-24
+      ],
+      "matched_scalar_component_residuals": {
+        "Ah2": [
+          2.2893332264506164e-12,
+          2.295697413729286e-16
+        ],
+        "hh1": [
+          6.560894807020535e-11,
+          1.168916053807366e-16
+        ],
+        "hh2": [
+          2.4722737621508652e-12,
+          2.7578637216893894e-16
+        ],
+        "Hm2": [
+          1.605518799934381e-16,
+          2.2230046966216405e-16
+        ],
+        "Hm3": [
+          2.985960428669416e-15,
+          2.4295435873776447e-15
+        ]
+      },
+      "unmatched_or_matched_full_C_relative_residual": {
+        "L": 1.2250698627661123e-08,
+        "R": 2.135029865540753e-08
+      }
+    },
+    {
+      "run": "crossing_physical_cards/default",
+      "group": 1,
+      "five_scalar_to_full_K_absolute_remainder": [
+        8.149292637174185e-28,
+        6.555611115791477e-25
+      ],
+      "matched_scalar_component_residuals": {
+        "Ah2": [
+          1.107771402187595e-12,
+          2.1203857930464576e-16
+        ],
+        "hh1": [
+          6.715653335738628e-11,
+          8.645452841458456e-16
+        ],
+        "hh2": [
+          1.6002404233150736e-12,
+          1.5759766411866324e-16
+        ],
+        "Hm2": [
+          1.2292128407413592e-15,
+          8.045513942002251e-16
+        ],
+        "Hm3": [
+          1.1524755215137317e-15,
+          5.845660542815275e-16
+        ]
+      },
+      "unmatched_or_matched_full_C_relative_residual": {
+        "L": 2.3279390992527494e-08,
+        "R": 1.3801348319329444e-07
+      }
+    },
+    {
+      "run": "crossing_physical_cards/matched_leptons",
+      "group": 0,
+      "five_scalar_to_full_K_absolute_remainder": [
+        1.4864328485173691e-27,
+        1.051330203317763e-24
+      ],
+      "matched_scalar_component_residuals": {
+        "Ah2": [
+          2.2894423885391644e-12,
+          4.591394560122263e-17
+        ],
+        "hh1": [
+          6.560887882666097e-11,
+          5.960325568848293e-16
+        ],
+        "hh2": [
+          2.472451714954386e-12,
+          2.4575653370310415e-16
+        ],
+        "Hm2": [
+          3.5900491717328277e-16,
+          4.970789615947302e-16
+        ],
+        "Hm3": [
+          3.423491812668928e-15,
+          8.204466948754376e-15
+        ]
+      },
+      "unmatched_or_matched_full_C_relative_residual": {
+        "L": 1.9108384652740853e-10,
+        "R": 2.066986491799439e-10
+      }
+    },
+    {
+      "run": "crossing_physical_cards/matched_leptons",
+      "group": 1,
+      "five_scalar_to_full_K_absolute_remainder": [
+        1.7671388010807809e-26,
+        6.553641593990865e-25
+      ],
+      "matched_scalar_component_residuals": {
+        "Ah2": [
+          1.1080229031582525e-12,
+          2.1719004256342124e-16
+        ],
+        "hh1": [
+          6.714860220347096e-11,
+          5.24498706491792e-16
+        ],
+        "hh2": [
+          1.6001851608518872e-12,
+          3.188640336421632e-16
+        ],
+        "Hm2": [
+          1.1502671899138063e-15,
+          1.0286356759760575e-15
+        ],
+        "Hm3": [
+          7.667822144648831e-16,
+          1.133307707374697e-15
+        ]
+      },
+      "unmatched_or_matched_full_C_relative_residual": {
+        "L": 7.3791982796143445e-09,
+        "R": 9.90061806047687e-10
+      }
+    }
+  ],
+  "native_rate_max_print_rounding_residual": 2.5817794568894215e-09,
+  "criterion": "per chirality |delta| <= 1e-10 |C| + 1e-24 GeV^-2; exact applicable nulls zero; native BR print rounding <=5e-9",
+  "native_K_non_scalar_group_remainder": "Measured and retained below mixed tolerance; not silently set to zero or used to change the scalar-only Wilsons",
+  "code_sha256": {
+    "crossing_bridge_toy.py": "c333b8ef1418e9424c1c98d302e31aed772d6c43713ae899fcdc483e9ed85ee9",
+    "crossing_bridge_spinors.py": "47605752741e71516032d336cfe2a010c1d24efe50a00440d28556012d8d38a8",
+    "physical_card_closure.py": "01f80a3f771de0dd3540d4abbda6515e0e34e2be037e72825822a6417b6894f5",
+    "verify_crossing_closure.py": "c3d89891676e3dac0eb014e75a70abffd00310e11e270fedfe7a998aae739474",
+    "benchmark_card.py": "37180d36c070594d6875837736f8b7efafcc904c465f4d29a007a8198875fbbe",
+    "compare_dipoles.py": "635c12944959fd4aaff6968b360942560ce3b5ca012687b7d1802de29dd3a581",
+    "check_components.py": "65df02b9d26d61185d243673b859ee7dcc78b7a3b3ba3b62b9bb2902fac9b6a2",
+    "test_direct_amplitudes.py": "672bba7a5f4d42c296017c48da98cf6cef76a41ec458929fc852dcbd6bd5c1eb",
+    "patch_small_ratio.py": "13e1d5987835fb1091dbd555a30aa5ed4b043d574c62165d07e0dd9d5f80df52"
+  },
+  "frozen_reference_sha256": {
+    "module3/core.py": "5390e63af12a27c8e53823cc3625cd54851b10f5205d5ed2aab2ddd6767fd494",
+    "module3/CONVENTIONS.md": "1e7908cd9901aa3930738dbe9162ee31a0777cde3739cd55611e3c20a38dffe5",
+    "validation/module12/d12_benchmarks.json": "f31ef3ccb64c3e4ff53131d35d52c21536b951a01e2c3924af766b7b2adf1cd8"
+  },
+  "installed_wrapper_sha256": "09a3c93de8fa2c8952f370f7fa2fbc36e5583af6fc021e2d6249509c6d5f94bb",
+  "generated_executable_sha256": "1fb4c9f3d1ea75a61f08a0f7c428bc7914336ce72f8bc86ac6bad1320f6c5c78",
+  "local_artifact_sha256": {
+    "local/crossing_original_cards/group1.spc": "fed41985d1bb1e5acc57e1c29d659902387cdf1bf6ae92e74595a93e00092dd8",
+    "local/crossing_original_cards/group3.log": "13c8d38bd08536a3d4dc4feb606bf3914315bc5ef3497bf97b62456bacaa3f20",
+    "local/crossing_original_cards/group3.in": "b6682f2d790ea945daa89383ad57347e9f8884bf7e34f2f483391c750b578ba6",
+    "local/crossing_original_cards/group1.in": "4242010cfcc484152b4a26174cdb9751f3dc0adadaa8f0df4f9cd3130fc35d49",
+    "local/crossing_original_cards/group1.log": "925130fe7542cb950e8f71360e62ad2796f13d1a0c73d7f2445ac07ea4bc4bea",
+    "local/crossing_original_cards/group0.in": "9f482fff50757228a2919ea1565f48d034349cb34efb99746bc9dce2dd6499c5",
+    "local/crossing_original_cards/group0.log": "ab35c0c3f2cc1b153c2b3fd4ff19642883ed1eb14528919f6b1ee89a396667a2",
+    "local/crossing_original_cards/group2.in": "bac3c31269e85de2b3d29683c70c826361de655cfe178d3e299e80a8a4fb1eda",
+    "local/crossing_original_cards/group2.spc": "3ffba33efa310f038d88caddad0414131fb5f16fb963b93cf6bc695dbf26588c",
+    "local/crossing_original_cards/group2.log": "da481936a26594e898c986b71684a047228c2df28fa5ff556339f46356c95bdb",
+    "local/crossing_original_cards/group0.spc": "e923f2df557b9fe75fb1f89fd22394acc8126c9a60dce0fec27f66757ff2d3db",
+    "local/crossing_original_cards/group3.spc": "99bdb7c5aaca2dd38843e736fbfa086cc18d07fe3ed4d628dad9fb82e2e80c9b",
+    "local/crossing_physical_cards/default/group1.spc": "9ede030cd3f98d0e14bf384622a4f0ef287ed1d31b346bbb21cd823cf7496955",
+    "local/crossing_physical_cards/default/group1.in": "b7b29666d1a993cecc135ca4cc6ded064157b96617aa2de32a72274fb72c02f4",
+    "local/crossing_physical_cards/default/group1.log": "353f39e9a42cfdaf28601ca3abd1a419e0905cb96f03d6d596532a853d486776",
+    "local/crossing_physical_cards/default/group0.in": "b3058c773593e4f03d544679b69dcec8d162ada591d07bbaa8e3912be2627c92",
+    "local/crossing_physical_cards/default/group0.log": "d6262f554c241741a96a401d46fcac76ade8a5064cf3dbebeca38f3a81d34a54",
+    "local/crossing_physical_cards/default/group0.spc": "57f886603369b4c798af4d9380cf56baec7d93279deab99fd45a11cf7cb7fd77",
+    "local/crossing_physical_cards/matched_leptons/group1.spc": "5ce9f2803c93889b3f5aa2050cac3935912f76f3886fa92f5748b6e9862e79f5",
+    "local/crossing_physical_cards/matched_leptons/group1.in": "883814ba926c35e6895a6ae905211560892a755fb9c98d4b1d95715c67d11bd5",
+    "local/crossing_physical_cards/matched_leptons/group1.log": "aea933083187f2e40cc02b6cd0857ed1c032aa3051a3d6207a25ce2b99768c4b",
+    "local/crossing_physical_cards/matched_leptons/group0.in": "2011f5a6719591f03397e3efec6b1f1a4bc446c440b7ce0780a15133fad4ba1c",
+    "local/crossing_physical_cards/matched_leptons/group0.sp": "3b5506078666f16d255a55a44b921ae8825e5672f1dbbdb41a1c6e23d351f104",
+    "local/crossing_physical_cards/matched_leptons/group0.log": "305cb8b30164e64a20dd229d7bbaefcf7580e2d325bcf89591769898490e7b93",
+    "local/crossing_physical_cards/matched_leptons/group0.spc": "e55356f37fe0320e4bcbaac5c1cf7dc46e217e318d2b7160a5aea0792764038d",
+    "local/crossing_bridge/projector-evidence.json": "137d3c6e1698f22a20495c152f3b05b9d75dd8f722eba382d09ce02c8742417a",
+    "local/crossing_bridge/spinor-evidence.json": "a7279b1d3c29058afa0cf3806e9c7c028f2c426c6d793fe7e9979d972eb48922",
+    "local/crossing_bridge/run.log": "50e9c12f6144d4049c4017dca8904cb8089f0db8a1f1441116e1db4fc008218f",
+    "local/crossing_bridge/Dipole.mod": "78ea4bc88661e9ebddad76b79fac4656494fe56dc6ab90de58b4938f42a89198",
+    "local/crossing_bridge/DipoleLorentz.gen": "ef897c02191ef3572a5e4f681c9cd0367d9dfdfc71a4e1c41eea723fc6702d10",
+    "local/crossing_bridge/chains-1.m": "b9e80db43db88cdbe8070ffeddd782fba084d4221db262b104015a262e2bc906",
+    "local/crossing_bridge/chains-2.m": "328404f34bd1c859d1622b41e906f9ca9cb84c9f4da001faa98b70f98e28f072",
+    "local/crossing_bridge/QED.m": "c75d65f7b7808e0610c3b85aabc056770ff57e6e3f8bdbe3860dd152af0a80cb",
+    "local/crossing_bridge/result.m": "f2be313df353d6833bd19cd410b989319557036519f310995aa385959e67e773",
+    "local/crossing_bridge/chains-numeric.json": "1e6b0b88b8119f64eb3a1a827c440cbaeecdfea18b8a84c849441e01a886642b",
+    "local/crossing_physical_cards/new-inputs.json": "9f4472495a80ea96730c707deba4ad8c61e5c77cbf064731f022d276d39f07d4",
+    "local/crossing_physical_cards/evidence.json": "f84dc204d5dcdb3e03fa43ff2c616b56740b360d14d90426fd7f27bccbc4dffe",
+    "local/d15-direct-amplitudes.json": "8e0ad69f11e99504f34128cabc9bb3a4848de43b2e3e0fbaf42685a244c2462b"
+  }
+}

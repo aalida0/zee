@@ -91,6 +91,8 @@ def inputs(n,p,F,D,selected,i=1,j=0):
 
 
 def main():
+    proof=ROOT/'local/crossing_bridge/projector-evidence.json'
+    assert json.loads(proof.read_text())['status']=='PASS'
     out=ROOT/'local/d15_direct_amplitudes';out.mkdir(exist_ok=True)
     src=out/'direct.f90';src.write_text(driver());exe=out/'direct'
     subprocess.run(['gfortran','-ffree-line-length-none','-I'+str(B/'include'),'-I'+str(B/'ZeeTypeII'),str(src),'-L'+str(B/'lib'),'-Wl,--start-group','-lSPhenoZeeTypeII','-lSPheno','-Wl,--end-group','-o',str(exe)],check=True)
@@ -147,7 +149,7 @@ def main():
             assert relative<1e-10,(n,name,relative)
             transformations.append({'point':n,'test':name,'relative_residual':relative})
         assert np.max(abs(get('zeroCharged')))==0 and np.max(abs(get('zeroNeutralLFV')))==0
-    evidence={'scope':'new vertex-level inputs; scalar one-loop subset only','seed':151103,'records':records,'transformations':transformations,
+    evidence={'scope':'new vertex-level inputs; scalar one-loop subset only','operator_map_evidence_sha256':hashlib.sha256(proof.read_bytes()).hexdigest(),'seed':151103,'records':records,'transformations':transformations,
               'numerical_criterion':'abs(K+conj(C)) <= 1e-10 abs(C) + 1e-24 GeV^-2 per chirality; no input-scheme uncertainty included',
               'max_relative_to_largest_chirality':max(r['relative_to_largest_chirality'] for r in records),
               'inputs_sha256':hashlib.sha256(data.encode()).hexdigest(),

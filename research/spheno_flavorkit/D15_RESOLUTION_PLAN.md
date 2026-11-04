@@ -1,5 +1,21 @@
 # D15 dipole resolution — executable continuation plan
 
+## Resolved crossing checkpoint (2026-11-04)
+
+The off-diagonal action/crossing bridge is now executed and proven; see
+CROSSING_BRIDGE.md and crossing_bridge_evidence.json. Both original ordered
+vertices are differentiated before projection, distinct masses are retained,
+source vertex-i factors are counted, and the independent Fock/spinor/QED
+comparison passes. The derived forward map is same-label `K=-conj(C)`;
+reverse normalization is explicit. The earlier post-projection substitution
+has been removed from projector_toy.m.
+
+The original quartet, 102 direct amplitude cases, two new full spectrum cards
+and pole-matched variants have passed the scoped amplitude/rate checks.
+ONE_LOOP_COMPLEX_DIPOLE_PASS is limited to the patched scalar one-loop subset;
+no complete Zee LFV or D14 acceptance/integration is asserted. All earlier
+missing-proof statements below are historical, not outstanding work items.
+
 ## New executable checkpoint (2026-11-04)
 
 Completed this continuation: authoritative PreSARAH regeneration with a
