@@ -1,0 +1,86 @@
+{
+  "D12_reference": "validation/module12/d12_benchmarks.json groups[0].witnesses.central exact total and cascade match",
+  "collector_status": "COMPLETE",
+  "receipt_sha256": "9f0b81ef1da9165993cea94be0079ff17401fb6ac20f790f8c5608cca6144ae6",
+  "result_sha256": "ce567a7cff26864fad4cb8a0e54a13de1e571f18f09c978cc5defc5772507325",
+  "results": [
+    {
+      "families": [
+        {
+          "H1_total_GeV": 10.294599462457473,
+          "H2_total_GeV": 1.6165803758675499,
+          "cascade_product": 0.07689341060970115,
+          "family": 0,
+          "ordering": "NO",
+          "status": "PASS"
+        },
+        {
+          "H1_total_GeV": 10.296888814577732,
+          "H2_total_GeV": 1.6165870380637766,
+          "cascade_product": 0.0768759977441903,
+          "family": 1,
+          "ordering": "NO",
+          "status": "PASS"
+        },
+        {
+          "H1_total_GeV": 10.294214791345585,
+          "H2_total_GeV": 1.616715617115916,
+          "cascade_product": 0.07688985142324228,
+          "family": 0,
+          "ordering": "IO",
+          "status": "PASS"
+        },
+        {
+          "H1_total_GeV": 10.294732490477383,
+          "H2_total_GeV": 1.6166566939001026,
+          "cascade_product": 0.07688878711182151,
+          "family": 1,
+          "ordering": "IO",
+          "status": "PASS"
+        }
+      ],
+      "id": 50,
+      "scalar_status": "UNKNOWN"
+    },
+    {
+      "families": [
+        {
+          "H1_total_GeV": 9.719742680515452,
+          "H2_total_GeV": 0.0084146350665227,
+          "cascade_product": 0.03646712634334991,
+          "family": 0,
+          "ordering": "NO",
+          "status": "PASS"
+        },
+        {
+          "H1_total_GeV": 9.718550553985779,
+          "H2_total_GeV": 0.0065275737052551755,
+          "cascade_product": 0.04701520268644536,
+          "family": 1,
+          "ordering": "NO",
+          "status": "PASS"
+        },
+        {
+          "H1_total_GeV": 10.021158604625844,
+          "H2_total_GeV": 0.006179962140629546,
+          "cascade_product": 0.048160151546449266,
+          "family": 0,
+          "ordering": "IO",
+          "status": "PASS"
+        },
+        {
+          "H1_total_GeV": 9.72308557349043,
+          "H2_total_GeV": 0.0060457646500233575,
+          "cascade_product": 0.05073833951493646,
+          "family": 1,
+          "ordering": "IO",
+          "status": "PASS"
+        }
+      ],
+      "id": 91,
+      "scalar_status": "PASS"
+    }
+  ],
+  "scalar_and_neutrino_unchanged": true,
+  "source_shard_sha256": "f06c1edcf5ca4ecbbe7ba7a58327aeea682b14a0c68130448355c11c9271d35e"
+}

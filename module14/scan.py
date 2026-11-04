@@ -240,8 +240,33 @@ def run(shard, output, receipt, config, families=2, limit=math.sqrt(4*math.pi), 
             for n in neutrinos:
                 key = 'neutrino:' + n['ordering'] + ':' + n['status']
                 counts[key] = counts.get(key, 0) + 1
+            widths = 'NOT_EVALUATED'
+            if neutrinos:
+                widths = []
+                decay_calculator = None
+                decay_error = None
+                for family in neutrinos:
+                    item = {'ordering': family['ordering'], 'family': family['family'],
+                            'module2_input_sha256': family['input_sha256']}
+                    if family['closure_status'] != 'PASS':
+                        item.update(status='NOT_EVALUATED', reason='Neutrino inverse reconstruction did not succeed')
+                    else:
+                        try:
+                            if decay_error is not None:
+                                raise RuntimeError(decay_error)
+                            if decay_calculator is None:
+                                from module14.decays import DecayCalculation
+                                try:
+                                    decay_calculator = DecayCalculation(row['scalar'], family)
+                                except Exception as exc:
+                                    decay_error = str(exc)
+                                    raise
+                            item.update(decay_calculator.evaluate(family))
+                        except Exception as exc:
+                            item.update(status='ERROR', error_type=type(exc).__name__, reason=str(exc))
+                    widths.append(item)
             result = {'id': row['id'], 'config_sha256': row['config_sha256'], 'scalar_sha256': row['scalar_sha256'], 'scalar_status': status, 'gates': gates,
-                      'neutrino': neutrinos if eligible else 'NOT_EVALUATED', 'lfv': 'NOT_EVALUATED', 'bsgamma': 'NOT_EVALUATED', 'widths': 'NOT_EVALUATED', 'production': 'NOT_EVALUATED', 'higgstools': 'NOT_EVALUATED'}
+                      'neutrino': neutrinos if eligible else 'NOT_EVALUATED', 'lfv': 'NOT_EVALUATED', 'bsgamma': 'NOT_EVALUATED', 'widths': widths, 'production': 'NOT_EVALUATED', 'higgstools': 'NOT_EVALUATED'}
             out.write(encode(result) + '\n')
     report = dict(settings, schema='d14-worker-receipt-1', output_sha256=file_sha(tmp),
                   input_count=count, output_count=count, counts=counts,
