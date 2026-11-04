@@ -1,0 +1,101 @@
+{
+  "classification": "DIAGNOSTIC_ONLY; incomplete LFV amplitudes",
+  "collector_status": "COMPLETE",
+  "existing_results_unchanged": true,
+  "lfv_elapsed_seconds": 3.3363207450165646,
+  "receipt_sha256": "d21cdd17f121698472c89a04a613949a143c6bfc067008973be4425061e6e37e",
+  "reference": "D12 groups[0].witnesses.central exact three radiative and mu3e rates",
+  "result_sha256": "6a4a251ddf0c8bf1ff24be2979a825e60ba021b7e4a7fc977ef1018dabe7a02a",
+  "rows": [
+    {
+      "family": 0,
+      "id": 50,
+      "mu_to_3e_tree": 1.9036658496861286e-09,
+      "ordering": "NO",
+      "radiative": {
+        "mu_to_e_gamma": 3.6587151175933287e-06,
+        "tau_to_e_gamma": 1.0650565452557879e-09,
+        "tau_to_mu_gamma": 1.1296314371731951e-10
+      }
+    },
+    {
+      "family": 1,
+      "id": 50,
+      "mu_to_3e_tree": 2.701251534487335e-09,
+      "ordering": "NO",
+      "radiative": {
+        "mu_to_e_gamma": 4.075639378581857e-06,
+        "tau_to_e_gamma": 1.776792728907574e-10,
+        "tau_to_mu_gamma": 5.6670495144450555e-09
+      }
+    },
+    {
+      "family": 0,
+      "id": 50,
+      "mu_to_3e_tree": 1.4029624853767747e-09,
+      "ordering": "IO",
+      "radiative": {
+        "mu_to_e_gamma": 3.914755954335211e-06,
+        "tau_to_e_gamma": 9.835840865864314e-10,
+        "tau_to_mu_gamma": 4.5857313325830324e-11
+      }
+    },
+    {
+      "family": 1,
+      "id": 50,
+      "mu_to_3e_tree": 1.0114192274495405e-09,
+      "ordering": "IO",
+      "radiative": {
+        "mu_to_e_gamma": 6.029734589014558e-06,
+        "tau_to_e_gamma": 1.513215203885372e-09,
+        "tau_to_mu_gamma": 1.480665833627686e-12
+      }
+    },
+    {
+      "family": 0,
+      "id": 91,
+      "mu_to_3e_tree": 4.261132531593054e-11,
+      "ordering": "NO",
+      "radiative": {
+        "mu_to_e_gamma": 1.9537487500393583e-06,
+        "tau_to_e_gamma": 1.359269141630181e-09,
+        "tau_to_mu_gamma": 5.486727787676673e-12
+      }
+    },
+    {
+      "family": 1,
+      "id": 91,
+      "mu_to_3e_tree": 6.298315207970296e-12,
+      "ordering": "NO",
+      "radiative": {
+        "mu_to_e_gamma": 3.6622700813659566e-06,
+        "tau_to_e_gamma": 7.069008084287636e-10,
+        "tau_to_mu_gamma": 6.532999736381672e-11
+      }
+    },
+    {
+      "family": 0,
+      "id": 91,
+      "mu_to_3e_tree": 8.938720548817774e-10,
+      "ordering": "IO",
+      "radiative": {
+        "mu_to_e_gamma": 0.00023746521046163165,
+        "tau_to_e_gamma": 1.4528071898374716e-09,
+        "tau_to_mu_gamma": 4.4347966608441854e-07
+      }
+    },
+    {
+      "family": 1,
+      "id": 91,
+      "mu_to_3e_tree": 2.702703774342492e-10,
+      "ordering": "IO",
+      "radiative": {
+        "mu_to_e_gamma": 1.9297142041579025e-05,
+        "tau_to_e_gamma": 5.1653677937649556e-11,
+        "tau_to_mu_gamma": 1.554926473560619e-10
+      }
+    }
+  ],
+  "shard_sha256": "f06c1edcf5ca4ecbbe7ba7a58327aeea682b14a0c68130448355c11c9271d35e",
+  "worker_elapsed_seconds": 3.6792848670011153
+}

@@ -197,14 +197,16 @@ def cached_scalar_gates(row, cache_dir, version):
     return gates
 
 
-def run(shard, output, receipt, config, families=2, limit=math.sqrt(4*math.pi), resume=False, cache_dir=None):
+def run(shard, output, receipt, config, families=2, limit=math.sqrt(4*math.pi), resume=False, cache_dir=None, lfv=False, lfv_tree=False):
+    if lfv_tree and not lfv:
+        raise ValueError('Three-body calculation requires LFV')
     if families < 1 or not math.isfinite(limit) or limit <= 0:
         raise ValueError("Invalid neutrino family settings")
     if len({Path(p).resolve() for p in (shard, output, receipt)}) != 3:
         raise ValueError('Shard, output and receipt must be distinct')
     source = file_sha(shard)
     settings = {'shard_sha256': source, 'config_sha256': digest(config),
-                'families': families, 'perturbativity_limit': limit,
+                'families': families, 'perturbativity_limit': limit, 'lfv_enabled': lfv, 'lfv_tree_enabled': lfv_tree,
                 'worker_sha256': file_sha(__file__),
                 'source_commit': os.environ.get('ZEE_D14_SOURCE_COMMIT', 'LOCAL_UNSPECIFIED'),
                 'source_bundle_sha256': os.environ.get('ZEE_D14_BUNDLE_SHA256', 'LOCAL_UNSPECIFIED'),
@@ -220,6 +222,7 @@ def run(shard, output, receipt, config, families=2, limit=math.sqrt(4*math.pi), 
     cpu_start = time.process_time()
     count = 0
     counts = {}
+    lfv_seconds = 0.0
     tmp = temporary(output)
     with open(shard) as inp, open(tmp, 'w') as out:
         for line in inp:
@@ -265,11 +268,29 @@ def run(shard, output, receipt, config, families=2, limit=math.sqrt(4*math.pi), 
                         except Exception as exc:
                             item.update(status='ERROR', error_type=type(exc).__name__, reason=str(exc))
                     widths.append(item)
+            lfv_results = 'NOT_EVALUATED'
+            if lfv and neutrinos:
+                lfv_results = []
+                for family in neutrinos:
+                    item = {'ordering': family['ordering'], 'family': family['family'],
+                            'module2_input_sha256': family['input_sha256']}
+                    if family['status'] != 'PASS' or family['closure_status'] != 'PASS':
+                        item.update(status='NOT_EVALUATED', reason='Neutrino family did not pass closure and perturbativity')
+                    else:
+                        t = time.monotonic()
+                        try:
+                            from module14.lfv import evaluate_family as evaluate_lfv
+                            item.update(evaluate_lfv(family, lfv_tree))
+                        except Exception as exc:
+                            item.update(status='ERROR', error_type=type(exc).__name__, reason=str(exc))
+                        finally:
+                            lfv_seconds += time.monotonic() - t
+                    lfv_results.append(item)
             result = {'id': row['id'], 'config_sha256': row['config_sha256'], 'scalar_sha256': row['scalar_sha256'], 'scalar_status': status, 'gates': gates,
-                      'neutrino': neutrinos if eligible else 'NOT_EVALUATED', 'lfv': 'NOT_EVALUATED', 'bsgamma': 'NOT_EVALUATED', 'widths': widths, 'production': 'NOT_EVALUATED', 'higgstools': 'NOT_EVALUATED'}
+                      'neutrino': neutrinos if eligible else 'NOT_EVALUATED', 'lfv': lfv_results, 'bsgamma': 'NOT_EVALUATED', 'widths': widths, 'production': 'NOT_EVALUATED', 'higgstools': 'NOT_EVALUATED'}
             out.write(encode(result) + '\n')
     report = dict(settings, schema='d14-worker-receipt-1', output_sha256=file_sha(tmp),
-                  input_count=count, output_count=count, counts=counts,
+                  input_count=count, output_count=count, counts=counts, lfv_elapsed_seconds=lfv_seconds,
                   elapsed_seconds=time.monotonic()-start, cpu_seconds=time.process_time()-cpu_start,
                   peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
     receipt_tmp = temporary(receipt)
@@ -283,9 +304,9 @@ def main():
     p = argparse.ArgumentParser()
     sub = p.add_subparsers(dest='action', required=True)
     g = sub.add_parser('generate'); g.add_argument('--config', required=True); g.add_argument('--output', required=True)
-    w = sub.add_parser('worker'); w.add_argument('--shard', required=True); w.add_argument('--output', required=True); w.add_argument('--receipt', required=True); w.add_argument('--config', required=True); w.add_argument('--families', type=int, default=2); w.add_argument('--perturbativity-limit', type=float, default=math.sqrt(4*math.pi)); w.add_argument('--resume', action='store_true'); w.add_argument('--cache-dir')
+    w = sub.add_parser('worker'); w.add_argument('--shard', required=True); w.add_argument('--output', required=True); w.add_argument('--receipt', required=True); w.add_argument('--config', required=True); w.add_argument('--families', type=int, default=2); w.add_argument('--perturbativity-limit', type=float, default=math.sqrt(4*math.pi)); w.add_argument('--resume', action='store_true'); w.add_argument('--cache-dir'); w.add_argument('--lfv', action='store_true'); w.add_argument('--lfv-tree', action='store_true')
     a = p.parse_args()
     if a.action == 'generate': generate(json.loads(Path(a.config).read_text()), a.output)
-    else: run(a.shard, a.output, a.receipt, json.loads(Path(a.config).read_text()), a.families, a.perturbativity_limit, a.resume, a.cache_dir)
+    else: run(a.shard, a.output, a.receipt, json.loads(Path(a.config).read_text()), a.families, a.perturbativity_limit, a.resume, a.cache_dir, a.lfv, a.lfv_tree)
 
 if __name__ == '__main__': main()

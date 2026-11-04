@@ -38,8 +38,14 @@ def collect(manifest, config, triples, families=2, limit=math.sqrt(4*math.pi), s
                 total += 1
         db.commit()
         provenance = None
+        lfv_settings = None
         for shard_index, (shard, output, receipt) in enumerate(triples):
             rec = json.loads(Path(receipt).read_text())
+            stage_settings = (rec.get('lfv_enabled', False), rec.get('lfv_tree_enabled', False))
+            if lfv_settings is None:
+                lfv_settings = stage_settings
+            elif lfv_settings != stage_settings:
+                raise ValueError('Shard LFV settings mismatch')
             identity = (rec.get('source_commit'), rec.get('source_bundle_sha256'))
             if provenance is None:
                 provenance = identity
