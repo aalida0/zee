@@ -1,0 +1,432 @@
+{
+  "acceptance_reached": false,
+  "acceptance_target": "WGAMMA_GAUGE_MATCHING_PASS",
+  "angular_projection_abs_residual": 2.2113472136733112e-18,
+  "coherent_inclusion": false,
+  "diagnostic_points": [
+    {
+      "conditional_A_only_C_L": {
+        "imag": -1.7269299842166407e-10,
+        "real": 4.976613026160707e-10
+      },
+      "conditional_A_only_C_R": {
+        "imag": -3.3711150674132957e-10,
+        "real": -8.495597078562644e-11
+      },
+      "conditional_A_radial_relative_residual": 2.1945322964894665e-16,
+      "input_sha256": "42e7cd4d3611e6cfba11ca235413950fd727fdba16fc952e597812dde412d711",
+      "mass_replacement_falsifier": {
+        "complete_projected_Rxi": {
+          "C_L": null,
+          "C_R": null,
+          "status": "NOT_EVALUATED"
+        },
+        "max_relative_xi_variation": 0.04432081267832874,
+        "points": [
+          {
+            "goldstone_subset": [
+              {
+                "imag": -3.159630320498425e-11,
+                "real": 9.105324219602067e-11
+              },
+              {
+                "imag": -6.167868690820026e-11,
+                "real": -1.5543737363701348e-11
+              }
+            ],
+            "incomplete_prescription": [
+              {
+                "imag": -1.7727923670433036e-10,
+                "real": 5.108777812152001e-10
+              },
+              {
+                "imag": -3.460642362200856e-10,
+                "real": -8.721216141940516e-11
+              }
+            ],
+            "missing_compensator_relative_to_xi1": [
+              {
+                "imag": 4.586238282666311e-12,
+                "real": -1.3216478599129402e-11
+              },
+              {
+                "imag": 8.95272947875607e-12,
+                "real": 2.2561906337787203e-12
+              }
+            ],
+            "xi": 0.5
+          },
+          {
+            "goldstone_subset": [
+              {
+                "imag": -2.701006492231794e-11,
+                "real": 7.783676359689127e-11
+              },
+              {
+                "imag": -5.2725957429444186e-11,
+                "real": -1.3287546729922628e-11
+              }
+            ],
+            "incomplete_prescription": [
+              {
+                "imag": -1.7269299842166407e-10,
+                "real": 4.976613026160707e-10
+              },
+              {
+                "imag": -3.3711150674132957e-10,
+                "real": -8.495597078562644e-11
+              }
+            ],
+            "missing_compensator_relative_to_xi1": [
+              {
+                "imag": -0.0,
+                "real": -0.0
+              },
+              {
+                "imag": -0.0,
+                "real": -0.0
+              }
+            ],
+            "xi": 1.0
+          },
+          {
+            "goldstone_subset": [
+              {
+                "imag": -1.9356170888412448e-11,
+                "real": 5.578001022639134e-11
+              },
+              {
+                "imag": -3.7784901487452575e-11,
+                "real": -9.522229062827313e-12
+              }
+            ],
+            "incomplete_prescription": [
+              {
+                "imag": -1.6503910438775857e-10,
+                "real": 4.756045492455707e-10
+              },
+              {
+                "imag": -3.2217045079933794e-10,
+                "real": -8.119065311853112e-11
+              }
+            ],
+            "missing_compensator_relative_to_xi1": [
+              {
+                "imag": -7.653894033905493e-12,
+                "real": 2.2056753370499927e-11
+              },
+              {
+                "imag": -1.494105594199161e-11,
+                "real": -3.7653176670953145e-12
+              }
+            ],
+            "xi": 3.0
+          }
+        ],
+        "required_identity": "Delta_xi(C_W + C_mixed + C_ghost + C_pinch) = -Delta_xi C_G",
+        "scope": "Falsifier of Goldstone-only mass replacement, NOT full Rxi amplitude",
+        "status": "FAIL"
+      },
+      "result_sha256": "3e81f9c1cf362a0b77b16f8639269270f4b48ac4f17f5ef41c441e129228bf78"
+    },
+    {
+      "conditional_A_only_C_L": {
+        "imag": 1.1527469518197792e-08,
+        "real": 1.1979935613644941e-08
+      },
+      "conditional_A_only_C_R": {
+        "imag": 4.6746595469434e-08,
+        "real": -4.608937770700205e-08
+      },
+      "conditional_A_radial_relative_residual": 5.702340467079566e-16,
+      "input_sha256": "39bbbcdd81cd4202d1fda9e44531333706f60b343682e682cdba3e78c2be9d17",
+      "mass_replacement_falsifier": {
+        "complete_projected_Rxi": {
+          "C_L": null,
+          "C_R": null,
+          "status": "NOT_EVALUATED"
+        },
+        "max_relative_xi_variation": 0.042133346997914795,
+        "points": [
+          {
+            "goldstone_subset": [
+              {
+                "imag": 1.8699950384326075e-09,
+                "real": 1.9433944390737837e-09
+              },
+              {
+                "imag": 7.583268943236764e-09,
+                "real": -7.476654568505398e-09
+              }
+            ],
+            "incomplete_prescription": [
+              {
+                "imag": 1.1829210443307253e-08,
+                "real": 1.2293520208174248e-08
+              },
+              {
+                "imag": 4.7970225767514375e-08,
+                "real": -4.7295804793629855e-08
+              }
+            ],
+            "missing_compensator_relative_to_xi1": [
+              {
+                "imag": -3.0174092510946135e-10,
+                "real": -3.135845945293075e-10
+              },
+              {
+                "imag": -1.223630298080373e-09,
+                "real": 1.2064270866278047e-09
+              }
+            ],
+            "xi": 0.5
+          },
+          {
+            "goldstone_subset": [
+              {
+                "imag": 1.5682541133231461e-09,
+                "real": 1.6298098445444762e-09
+              },
+              {
+                "imag": 6.359638645156391e-09,
+                "real": -6.270227481877593e-09
+              }
+            ],
+            "incomplete_prescription": [
+              {
+                "imag": 1.1527469518197792e-08,
+                "real": 1.1979935613644941e-08
+              },
+              {
+                "imag": 4.6746595469434e-08,
+                "real": -4.608937770700205e-08
+              }
+            ],
+            "missing_compensator_relative_to_xi1": [
+              {
+                "imag": -0.0,
+                "real": -0.0
+              },
+              {
+                "imag": -0.0,
+                "real": -0.0
+              }
+            ],
+            "xi": 1.0
+          },
+          {
+            "goldstone_subset": [
+              {
+                "imag": 1.0825632401050331e-09,
+                "real": 1.1250550603220968e-09
+              },
+              {
+                "imag": 4.3900481172715795e-09,
+                "real": -4.32832773803052e-09
+              }
+            ],
+            "incomplete_prescription": [
+              {
+                "imag": 1.1041778644979679e-08,
+                "real": 1.1475180829422561e-08
+              },
+              {
+                "imag": 4.477700494154919e-08,
+                "real": -4.414747796315498e-08
+              }
+            ],
+            "missing_compensator_relative_to_xi1": [
+              {
+                "imag": 4.85690873218113e-10,
+                "real": 5.047547842223793e-10
+              },
+              {
+                "imag": 1.9695905278848116e-09,
+                "real": -1.9418997438470737e-09
+              }
+            ],
+            "xi": 3.0
+          }
+        ],
+        "required_identity": "Delta_xi(C_W + C_mixed + C_ghost + C_pinch) = -Delta_xi C_G",
+        "scope": "Falsifier of Goldstone-only mass replacement, NOT full Rxi amplitude",
+        "status": "FAIL"
+      },
+      "result_sha256": "68728ff4d3174bb9c0cdd72964cb323f266f934608dd8e6f82a3a7425385fec0"
+    }
+  ],
+  "environment": {
+    "numpy": "2.2.6",
+    "python": "3.10.12",
+    "scipy": "1.15.3",
+    "sympy": "1.14.0"
+  },
+  "frozen_tree_listing_sha256": "b9572a3c8f0f5e5d445697943df08e616017bb07b5b27d77eeaae946b39cc7ff",
+  "full_projected_Rxi": {
+    "coefficients": [
+      null,
+      null,
+      null
+    ],
+    "status": "NOT_EVALUATED",
+    "xis_requested": [
+      0.5,
+      1.0,
+      3.0
+    ]
+  },
+  "logs": {
+    "research/wgamma_d16/local/count-inner.log": "8b842ed90d8ba29811082f892502c0be59a616a10efdbb8948272f032f8fd459",
+    "research/wgamma_d16/local/fa-inner-amplitudes.m": "9d0c89c302ee2a594d351ff6eedc0b839b05397cce40db1fff33702c0956f889",
+    "research/wgamma_d16/local/fa-inner.m": "9ae8f6cc40186e39d5885b40af0ac925c1223fac1a344415abbd5bedd5c2c3ae",
+    "research/wgamma_d16/local/native.log": "dbb61305d9c738210d5813c97499334474da7e2e586bfecf7e22a4ff9bb88782",
+    "research/wgamma_d16/local/tests.log": "6d90adea67b064710bc9d1dbf39e51477f98bf020810ef90bc97df48eb3a2abb",
+    "research/wgamma_d16/local/vertex-checks.log": "396add148d890b22059ceb8f4000c41759f96fc7abffada728e62d2c8149d938",
+    "research/wgamma_d16/local/vertex_checks.json": "307082bb67457b6d726b802b9cdfe18a0c750b4a158feca60b0289dc2ad51c8c",
+    "research/wgamma_d16/local/vertices_raw.m": "8833f030c3984d8be177693bcf025177d616b4f604442f0ce5864d9cdfc135ab"
+  },
+  "minimal_missing_identity": "Delta_xi(C_W+C_mixed+C_ghost+C_pinch)=-Delta_xi C_G",
+  "native": {
+    "check_count": 444,
+    "max_abs_residual": 1.1368683772161603e-13,
+    "points": 2,
+    "status": "PASS",
+    "xis": [
+      0.5,
+      1.0,
+      3.0
+    ]
+  },
+  "physical_W_C_L": null,
+  "physical_W_C_R": null,
+  "physical_status": "UNKNOWN",
+  "reference_checks": [
+    {
+      "Abe_A": -0.2522892851366263,
+      "CHK": -0.18446540355076446,
+      "CHK_minus_Abe": 0.0678238815858616,
+      "CHK_minus_Ilisie": 0.0029857806130486886,
+      "Ilisie": -0.18745118416381334,
+      "Ilisie_minus_Abe": 0.06483810097281287,
+      "erratum_B8_photon_over_2e": -0.252289285136626,
+      "f": 0.11172938632452871,
+      "g": 0.1459813791625221,
+      "h": -0.05554953704803997,
+      "independent_A_radial": -0.25228928513664056,
+      "z": 0.013
+    },
+    {
+      "Abe_A": 5.788407631919362,
+      "CHK": 6.0381912224711405,
+      "CHK_minus_Abe": 0.24978359055177923,
+      "CHK_minus_Ilisie": 0.0629348061070486,
+      "Ilisie": 5.975256416364092,
+      "Ilisie_minus_Abe": 0.18684878444473063,
+      "erratum_B8_photon_over_2e": 5.788407631919362,
+      "f": 0.6088547986136541,
+      "g": 0.8509992697722376,
+      "h": -0.5179544823698653,
+      "independent_A_radial": 5.788407631919351,
+      "z": 0.413
+    },
+    {
+      "Abe_A": 11.159311522106774,
+      "CHK": 11.487821690295519,
+      "CHK_minus_Abe": 0.3285101681887468,
+      "CHK_minus_Ilisie": 0.10012122913782928,
+      "Ilisie": 11.387700461157692,
+      "Ilisie_minus_Abe": 0.2283889390509175,
+      "erratum_B8_photon_over_2e": 11.159311522106773,
+      "f": 1.1074671356669845,
+      "g": 1.585071057150171,
+      "h": -1.1470574995651752,
+      "independent_A_radial": 11.159311522106814,
+      "z": 2.7
+    }
+  ],
+  "source_bundle_sha256": "8ea119b5aa170a4edaa2e8ae853bbdb040546b390b9f8c24df592e94c1c19c4a",
+  "source_parent_commit": "d0f7fb4514ffbe4da61b8bb52a23e78cf26540c9",
+  "source_sha256": {
+    "research/wgamma_d16/.gitignore": "7fe900632e902dce612cbd13a9bc389da711fdf2f341d9edc6fff158b76e8486",
+    "research/wgamma_d16/D16_TASK.md": "2960c191f39e9b5d1c8da7484f2085fd92e2804c075ba554a7ba218cdc7c00df",
+    "research/wgamma_d16/DERIVATION.md": "defd5916d7ca8878918cefc3260cc33815886711151009433df3bce92759b129",
+    "research/wgamma_d16/DIAGRAM_INVENTORY.md": "9164c88adb8967886fd862fb86fc305b778b659abe2da07866416e2a9fdd77e9",
+    "research/wgamma_d16/STATUS.md": "d94a9ee5ae6ef0cb7371c21dda2f37348706649ef73be2c87eb8afefeafb9878",
+    "research/wgamma_d16/algebra.py": "4f88dfbf6020ab645bbe2274293f80c0f85f9f723200a36d56b56d818eac486a",
+    "research/wgamma_d16/count_inner.m": "967201627fca1bfdf48e8184978af94d5e8e1749b2a689af8aae37dda6802d3f",
+    "research/wgamma_d16/extract_vertices.m": "63555418c8f94ace07be7acbcc286e433e5e42629d6c28efd161b2e1a1185025",
+    "research/wgamma_d16/inventory.py": "5516f4db92b2c8548d458e692c6c2998eea14c3028e1d027f0bd79001759295e",
+    "research/wgamma_d16/matching.py": "b37ace7feba32d21eaf92803b0d2793ed24b1d64ad52fab0d8acadc8c5897ed4",
+    "research/wgamma_d16/native_vertices.json": "d701b7d8aaf32a59a3afd0afd7059e6b8b57f103eaf24ff0b250c9c6f1a15ca7",
+    "research/wgamma_d16/prepare_vertices.py": "052c16df318cb38f263c405e799ccf5db6e8716f8621df3b77fbc88eea282700",
+    "research/wgamma_d16/reproduce.py": "2778e83850482bfbe8694cde7381038d80327cd114253bf134b38ed44aa36f45",
+    "research/wgamma_d16/sources.json": "ed4cf0f63233406f469a6a0ea480576cfc260c21d680218fd8391f625b1b7951",
+    "research/wgamma_d16/symbolic_reductions.py": "97e82744924ad67cb6fb9d6feb9b1cf683a42c408580c21103165d3166a5c95b",
+    "research/wgamma_d16/test_d16.py": "715874f94dd4c18df62b670c06aa18c99c0028ecef32ba456f69670d3491a422",
+    "research/wgamma_d16/validate_vertices.m": "71f3a64f793363e39042cff658845d3066b305252daefeadd38fd6a1271f04ff"
+  },
+  "source_tensor_checks": [
+    {
+      "delta": 0.73,
+      "neutral_masses_GeV": [
+        125.0,
+        437.0
+      ],
+      "residuals": {
+        "B": 2.6386581290956005e-20,
+        "C_sum": 2.6821680460091233e-18,
+        "P_plus_pinch": 0.0,
+        "bare_real_photon_Ward": 0.00032193385880039874,
+        "full_minus_A": 2.6976854787512704e-18,
+        "omitted_H_C_remainder": 0.0066364004605053185,
+        "real_photon_Ward": 1.5274425618967696e-18,
+        "single_attachment_Ward": 0.10350266928909116,
+        "source_A_inner_Ward": 5.684341886080802e-14,
+        "virtual_photon_Ward": 4.85722573273506e-17
+      }
+    },
+    {
+      "delta": -0.29,
+      "neutral_masses_GeV": [
+        172.0,
+        653.0
+      ],
+      "residuals": {
+        "B": 1.2258346583707035e-20,
+        "C_sum": 9.69739903612216e-19,
+        "P_plus_pinch": 0.0,
+        "bare_real_photon_Ward": 9.551313773477024e-05,
+        "full_minus_A": 9.720174554861083e-19,
+        "omitted_H_C_remainder": 0.003659344074510173,
+        "real_photon_Ward": 1.4223055321670672e-18,
+        "single_attachment_Ward": 0.13309743146489134,
+        "source_A_inner_Ward": 5.684341886080802e-14,
+        "virtual_photon_Ward": 2.8609792490763984e-17
+      }
+    }
+  ],
+  "starting_D15_commit": "f6676356a95517f2820dea79298a938cc8786968",
+  "status": "BLOCKED_GAUGE_MATCHING",
+  "symbolic": {
+    "C_after_inverse_propagator_cancellation": [
+      "0",
+      "0"
+    ],
+    "charged_unweighted_sums": {
+      "doublet_norm": "1",
+      "singlet_norm": "1",
+      "unweighted_doublet_singlet": "0"
+    },
+    "limitation": "Unweighted charged sums do not justify cancellation of mass-dependent charged kernels",
+    "neutral_chiral_sums": [
+      "0",
+      "0"
+    ],
+    "status": "PASS"
+  },
+  "tests": {
+    "count": 10,
+    "scope": "Only research.wgamma_d16.test_d16; not full gauge amplitude",
+    "status": "PASS"
+  }
+}

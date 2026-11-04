@@ -1,0 +1,44 @@
+{
+  "Abe2016corrected": {
+    "equations": "3.8-3.16; A.25; corrected B.8",
+    "local_cache": "abe-v3.html",
+    "sha256": "d1c42aebc9895e390c3bd62598c725b2d50677b7e276c5d8aa7325fafd3e657d",
+    "url": "https://arxiv.org/html/1311.4704v3",
+    "version": "arXiv1311.4704v3, 21Apr2016"
+  },
+  "Abe2016erratum": {
+    "equations": "Erratum page2 Eq2, B.8; A.4,A.9,A.22,A.23,B.5-B.6",
+    "local_cache": "abe-erratum.pdf",
+    "sha256": "a859aa11edc28c88059b57a0a9847b75510138bad49e14f6d03a4197d8b1162c",
+    "url": "https://doi.org/10.1007/JHEP04(2016)161",
+    "version": "JHEP04(2016)161, 26Apr2016"
+  },
+  "CHK1993": {
+    "equations": "13,14,18; sets B versus C; figure2 caption",
+    "local_cache": "chk-v1.html",
+    "sha256": "bde38f4e7b118a752754e020c5b15629a1fd10c4d9ff74dc6a614c29e9f3c6f1",
+    "url": "https://arxiv.org/html/hep-ph/9302267v1",
+    "version": "hep-ph/9302267v1, 17Feb1993"
+  },
+  "Davidson2016": {
+    "equations": "2.2; 24; restricted flavor texture and decoupling expansion",
+    "local_cache": "davidson-v3.html",
+    "sha256": "267f1b9fcf714f20f9eb938bede8a2f312f45ca2643b5a3fcd704cad60717e69",
+    "url": "https://arxiv.org/html/1601.01949v3",
+    "version": "1601.01949v3, 26Apr2016"
+  },
+  "Ilisie2015": {
+    "equations": "4.1; 14,21,28; omitted gauge-dependent structures",
+    "local_cache": "ilisie-v3.html",
+    "sha256": "5619246e26d87edfb72540068c3a3dd290a6fadc8b8912188c3cfc3082d45ff7",
+    "url": "https://arxiv.org/html/1502.04199v3",
+    "version": "1502.04199v3, 18May2015"
+  },
+  "Zee2017": {
+    "equations": "3.3.2 radiative LFV coverage, not matching proof",
+    "local_cache": "zee-v2.html",
+    "sha256": "eb412b5d060a024188b0f51d03b658928819649734a0a123bf498021e0124653",
+    "url": "https://arxiv.org/html/1701.05345v2",
+    "version": "1701.05345v2, 09May2017"
+  }
+}
