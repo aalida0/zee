@@ -83,8 +83,55 @@ def digest(x):
     return hashlib.sha256(encode(x).encode()).hexdigest()
 
 
+def correlated_point(point, arm, rng):
+    """Draw a heavy-spectrum proposal; reject invalid inputs, never clamp them."""
+    ranges = arm['ranges']
+    x = point['physical']
+    for _ in range(10000):
+        x['mH2'] = rng.uniform(*ranges['mH2'])
+        x['mH1'] = x['mH2'] * rng.uniform(*ranges['mH1_fraction'])
+        x['beta'] = math.atan(math.exp(rng.uniform(*map(math.log, ranges['tanbeta']))))
+        x['alpha'] = x['beta'] + rng.uniform(*ranges['delta_alpha'])
+        for key in ('gamma', 'lc', 'k1', 'k2', 'k12'):
+            x[key] = rng.uniform(*ranges[key])
+        md2 = math.cos(x['gamma'])**2 * x['mH1']**2 + math.sin(x['gamma'])**2 * x['mH2']**2
+        md = math.sqrt(md2)
+        x['mh2'] = md + rng.uniform(*ranges['mh2_splitting'])
+        x['ma'] = md + rng.uniform(*ranges['ma_splitting'])
+        x['m12sq'] = md2 * math.sin(x['beta']) * math.cos(x['beta']) * rng.uniform(*ranges['m12sq_factor'])
+        if x['mH2'] <= x['mH1'] + point['electroweak']['mZ'] + 20:
+            continue
+        try:
+            validate_input(point)
+        except ValueError:
+            continue
+        return
+    raise ValueError('Correlated arm could not produce a valid input: ' + arm['name'])
+
+
 def generate(config, output):
     template = json.loads(Path(config['template']).read_text())
+    mode = config.get('sampling_mode', 'independent_uniform')
+    if mode not in ('independent_uniform', 'correlated_heavy_v1'):
+        raise ValueError('Unsupported sampling mode')
+    if mode == 'correlated_heavy_v1':
+        arms = config['arms']
+        if not arms or any(type(a.get('weight')) is not int or a['weight'] <= 0 for a in arms):
+            raise ValueError('Correlated arm weights must be positive integers')
+        keys = {'mH2', 'mH1_fraction', 'tanbeta', 'delta_alpha', 'gamma', 'lc',
+                'k1', 'k2', 'k12', 'mh2_splitting', 'ma_splitting', 'm12sq_factor'}
+        for arm in arms:
+            ranges = arm['ranges']
+            if ranges.keys() != keys:
+                raise ValueError('Invalid correlated arm ranges')
+            for bounds in ranges.values():
+                if (not isinstance(bounds, list) or len(bounds) != 2
+                        or any(isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v) for v in bounds)
+                        or bounds[0] > bounds[1]):
+                    raise ValueError('Invalid correlated range')
+            if ranges['tanbeta'][0] <= 0 or ranges['mH2'][0] <= 0 or ranges['mH1_fraction'][0] <= 0:
+                raise ValueError('Masses, mass fractions and tanbeta must be positive')
+        slots = [arm for arm in arms for _ in range(arm['weight'])]
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
     manifest = (output / 'manifest.jsonl').open('w')
@@ -94,11 +141,14 @@ def generate(config, output):
             if shard: shard.close()
             shard = (output / ('shard_%06d.jsonl' % (i // config['shard_size']))).open('w')
         rng = random.Random(int(digest([config['seed'], i]), 16))
-        arm = config['arms'][i % len(config['arms'])]
+        arm = slots[i % len(slots)] if mode == 'correlated_heavy_v1' else config['arms'][i % len(config['arms'])]
         point = copy.deepcopy(template)
         point['benchmark_id'] = 'd14_%08d' % i
-        for key, bounds in arm['ranges'].items():
-            point['physical'][key] = rng.uniform(*bounds)
+        if mode == 'correlated_heavy_v1':
+            correlated_point(point, arm, rng)
+        else:
+            for key, bounds in arm['ranges'].items():
+                point['physical'][key] = rng.uniform(*bounds)
         row = {'id': i, 'arm': arm['name'], 'config_sha256': digest(config),
                'scalar_sha256': digest(point), 'scalar': point}
         line = encode(row) + '\n'
