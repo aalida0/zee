@@ -1,5 +1,6 @@
 """Run two bounded complex and zero-F checks on the instrumented backend."""
 import argparse
+import cmath
 import json
 import re
 import subprocess
@@ -10,7 +11,21 @@ from check_components import pairs
 ROOT = Path(__file__).resolve().parents[2]
 LOCAL = ROOT/'research/spheno_flavorkit/local'
 
-def change(card, conjugate=False, zero_f=False):
+def change(card, conjugate=False, zero_f=False, rephase=False):
+    block = ''
+    matrices = {name: [[0j]*3 for _ in range(3)] for name in ('FZEE','YEE2')}
+    for line in card.splitlines():
+        header = re.match(r'\s*Block\s+(\S+)', line, re.I)
+        if header:
+            block = header.group(1).upper()
+        m = re.match(r'^\s*(\d+)\s+(\d+)\s+(\S+)', line)
+        for name in matrices:
+            if m and block in (name+'IN','IM'+name+'IN'):
+                i,j = int(m.group(1))-1,int(m.group(2))-1
+                value = float(m.group(3))
+                old = matrices[name][i][j]
+                matrices[name][i][j] = complex(old.real,value) if block.startswith('IM') else complex(value,old.imag)
+    phases = [cmath.exp(1j*x) for x in (0.31, -0.47, 0.82)]
     block = ''
     rows = []
     for line in card.splitlines():
@@ -18,12 +33,19 @@ def change(card, conjugate=False, zero_f=False):
         if match:
             block = match.group(1).upper()
         m = re.match(r'^(\s*\d+\s+\d+\s+)(\S+)(.*)$', line)
-        if m and (block in ('FZEEIN', 'IMFZEEIN', 'IMYEE2IN')):
+        if m and (block in ('FZEEIN', 'IMFZEEIN', 'YEE2IN', 'IMYEE2IN')):
             value = float(m.group(2))
             if zero_f and block in ('FZEEIN', 'IMFZEEIN'):
                 value = 0.
             if conjugate and block.startswith('IM'):
                 value = -value
+            if rephase:
+                indices = re.match(r'^\s*(\d+)\s+(\d+)', line)
+                i,j = int(indices.group(1))-1,int(indices.group(2))-1
+                key = 'FZEE' if 'FZEE' in block else 'YEE2'
+                z = matrices[key][i][j]
+                z *= phases[i]*phases[j] if key == 'FZEE' else phases[i].conjugate()*phases[j]
+                value = z.imag if block.startswith('IM') else z.real
             line = f'{m.group(1)}{value:.16e}{m.group(3)}'
         rows.append(line)
     return '\n'.join(rows)+'\n'
@@ -37,7 +59,7 @@ def main():
     a.outdir.mkdir(parents=True, exist_ok=True)
     result = {}
     f_vertex_max = {}
-    for name, options in [('original', {}), ('conjugated', {'conjugate':True}), ('zero_F', {'zero_f':True})]:
+    for name, options in [('original', {}), ('conjugated', {'conjugate':True}), ('zero_F', {'zero_f':True}), ('rephased', {'rephase':True})]:
         card, spectrum = a.outdir/f'{name}.in', a.outdir/f'{name}.spc'
         card.write_text(change(a.card.read_text(), **options))
         run = subprocess.run([str(a.executable.resolve()), str(card.resolve()), str(spectrum.resolve())], cwd=a.outdir, capture_output=True, text=True, check=True)
@@ -54,15 +76,17 @@ def main():
             raise ValueError('Missing charged vertices')
         f_vertex_max[name] = max(max(abs(row[0]), abs(row[3])) for row in vertices)
     residual = [abs(y-x.conjugate())/abs(x) for x,y in zip(result['original'],result['conjugated'])]
+    rephase_factor = cmath.exp(1j*(0.31 - (-0.47)))
+    rephase_residual = [abs(y-rephase_factor*x)/abs(x) for x,y in zip(result['original'],result['rephased'])]
     # F=0 suppresses the dominant charged F contraction but need not null
     # neutral LFV or the D contribution; no full-amplitude null is asserted.
-    payload = {'conjugation_relative_residual':residual, 'coefficients':{k:[[z.real,z.imag] for z in v] for k,v in result.items()},
-               'conjugation_pass':max(residual)<1e-10, 'F_vertex_max':f_vertex_max,
+    payload = {'conjugation_relative_residual':residual, 'rephase_relative_residual':rephase_residual, 'coefficients':{k:[[z.real,z.imag] for z in v] for k,v in result.items()},
+               'conjugation_pass':max(residual)<1e-10, 'rephase_pass':max(rephase_residual)<1e-10, 'F_vertex_max':f_vertex_max,
                'zero_F_vertex_pass': f_vertex_max['zero_F']==0 and f_vertex_max['original']>0,
                'zero_F_interpretation':'diagnostic only: neutral LFV and D terms remain'}
     (a.outdir/'results.json').write_text(json.dumps(payload,indent=2)+'\n')
     print(json.dumps(payload,indent=2))
-    if not payload['conjugation_pass'] or not payload['zero_F_vertex_pass']:
+    if not payload['conjugation_pass'] or not payload['zero_F_vertex_pass'] or not payload['rephase_pass']:
         raise SystemExit('Complex conjugation check failed')
 
 if __name__ == '__main__':

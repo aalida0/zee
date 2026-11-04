@@ -113,8 +113,7 @@ Modules 0–14 or D14.
 At the first witness, conjugating the input F and Ye2 phases conjugates both
 complex generated coefficients exactly to printed precision. Setting F=0
 makes both F-dependent charged-vertex orientations zero while the D and
-neutral terms remain. These two checks are narrow; charged-lepton rephasing,
-scalar row flips, reverse ordering, other nulls, independent new fixtures,
+neutral terms remain. These two checks are narrow; reverse ordering, other nulls, independent new fixtures,
 matched BR reconstruction and a derivation from an explicit spinor matrix
 element remain open. **Overall operator mapping and backend validation remain
 NOT_EVALUATED.** Do not infer the required completion from the good residuals.
@@ -135,3 +134,25 @@ The first two commands require a fresh unmodified generated copy (and refuse
 reapplication); run the comparison before patching as well to retain the
 failure trace. The installed `pytest` is an incompatible 2.6.0 on Python
 3.10; the focused regression file can be run directly as shown.
+
+A charged-lepton rephasing with phases `(0.31,-0.47,0.82)` was also
+tested at the first witness, transforming the complete complex `F` and
+`Ye2` matrices and comparing both generated coefficients to the predicted
+phase. The L/R relative residuals are 9.77e-11 and 4.56e-11. The first
+attempt failed with residuals 0.1891 and 0.1894 because the experimental
+test script mistakenly transformed only the imaginary Ye2 block; after
+fixing the test to transform both real and imaginary entries, the check
+above passed. This is a test implementation error, not an adjustment to
+physics inputs to force agreement. The 1e-10 assertion is a regression
+check at this point, not a universal physics uncertainty.
+
+Both charged eigenstate row signs were flipped in separate instrumented
+executables with all corresponding Gamma2l vertices transformed; both
+complex coefficients were unchanged to printed precision at all four
+witnesses. Reconstructing the SPheno rate from its complex coefficients and
+exported alpha, pole muon mass and `GammaMu` agrees with the printed rate to
+2.6e-9 relative, within its nine-significant-digit output rounding. The
+SPheno observable uses `width/(width+GammaMu)` and omits the nonzero
+daughter-mass phase-space factor. `check_rate.py` reproduces this check.
+The row-flip helper requires a disposable instrumented source and a rebuild;
+restore the generated source after each run.

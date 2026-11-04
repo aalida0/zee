@@ -15,7 +15,7 @@
       "sha256": "70280b530a39f6a23f4e9e78133187516ce4f3b4da78a97a563bee27e367d1bd"
     },
     "patched_executable": {
-      "path": "/home/amine/zee-spheno-flavorkit-pilot/research/spheno_flavorkit/local/SPheno-4.0.5/bin/SPhenoZeeTypeII",
+      "path": "/home/amine/zee-spheno-flavorkit-pilot/research/spheno_flavorkit/local/SPhenoZeeTypeII.before_row_flip",
       "sha256": "655a918461dddd4521e54388b379645d8db74f76861fbed81714a379b5307150"
     },
     "sarah_gamma2l": {
@@ -223,6 +223,10 @@
       0.0,
       0.0
     ],
+    "rephase_relative_residual": [
+      9.765357660922708e-11,
+      4.5594190296914455e-11
+    ],
     "coefficients": {
       "original": [
         [
@@ -253,15 +257,114 @@
           -2.539349355956365e-15,
           2.8101726908238303e-15
         ]
+      ],
+      "rephased": [
+        [
+          -9.455751115168886e-18,
+          8.4156369451521005e-19
+        ],
+        [
+          -6.551498427455154e-15,
+          5.664138590826615e-16
+        ]
       ]
     },
     "conjugation_pass": true,
+    "rephase_pass": true,
     "F_vertex_max": {
       "original": 0.000967847560837354,
       "conjugated": 0.000967847560837354,
-      "zero_F": 0.0
+      "zero_F": 0.0,
+      "rephased": 0.0009678475608373541
     },
     "zero_F_vertex_pass": true,
     "zero_F_interpretation": "diagnostic only: neutral LFV and D terms remain"
+  },
+  "initial_rephasing_test_error": {
+    "relative_residual": [
+      0.18909851970421324,
+      0.1894048540283097
+    ],
+    "cause": "Test incorrectly transformed only imaginary Ye2; corrected to transform the full complex matrix; not a backend discrepancy."
+  },
+  "BR_reconstruction": [
+    {
+      "group": 0,
+      "relative_rounding_residual": 1.2907160895636594e-09,
+      "alpha": 0.007297352569816315,
+      "GammaMu_GeV": 2.995983570363896e-19,
+      "BR": 3.4673825255245936e-18,
+      "daughter_phase_space_factor": 0.9999298313287406
+    },
+    {
+      "group": 1,
+      "relative_rounding_residual": 7.962808190598025e-11,
+      "alpha": 0.007297352569816315,
+      "GammaMu_GeV": 2.995983570363896e-19,
+      "BR": 7.21191477942573e-18,
+      "daughter_phase_space_factor": 0.9999298313287406
+    },
+    {
+      "group": 2,
+      "relative_rounding_residual": 1.7740668933896586e-09,
+      "alpha": 0.007297352569816315,
+      "GammaMu_GeV": 2.995983570363896e-19,
+      "BR": 2.4894310744164175e-20,
+      "daughter_phase_space_factor": 0.9999298313287406
+    },
+    {
+      "group": 3,
+      "relative_rounding_residual": 2.5817794568894215e-09,
+      "alpha": 0.007297352569816315,
+      "GammaMu_GeV": 2.995983570363896e-19,
+      "BR": 1.0243143073554463e-19,
+      "daughter_phase_space_factor": 0.9999298313287406
+    }
+  ],
+  "charged_scalar_row_flips": {
+    "2": {
+      "relative_residuals": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "executable_sha256": "99f308565ed80ab05f3d91638827271ab2335a67a014855ec67aa045b1f3bfc7",
+      "comparison_sha256": "47c1e2fb4afe0cf7c0d73e76dd560782f0b59537c868331d820bc3804f52b0c8"
+    },
+    "3": {
+      "relative_residuals": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "executable_sha256": "b8368d3ba54ff7a61018e8a85225027c7f7f3ed16c78f6fe4e6b6ce6b320f0c3",
+      "comparison_sha256": "58ef806468ed79a891157a5e9a67609c38208c095f026e85f840ad92f32a4bfa"
+    }
   }
 }

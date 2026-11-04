@@ -19,6 +19,7 @@ if s.count(marker) != 1:
     raise SystemExit('Unexpected LowEnergy marker')
 readback = '''
 Write(*,*) 'D15_SM', Alpha_MZ, mf_l, mf_l_mz, MVWm, MVZ, v, vd, vu, g1, g2
+Write(*,*) 'D15_BR_INPUT', Alpha, GammaMu
 Write(*,*) 'D15_MASSES', MFe, MHm, Mhh, MAh
 Write(*,*) 'D15_MIXING', ZH, ZA
 Do i1=1,3
