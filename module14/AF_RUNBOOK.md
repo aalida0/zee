@@ -58,11 +58,12 @@ find "$BATCH/results" -maxdepth 1 -name '*.jsonl' | wc -l
 find "$BATCH/receipts" -maxdepth 1 -name '*.json' | wc -l
 grep -nEi 'traceback|exception|error' "$BATCH"/logs/*.err || true
 
-# Match each original shard to exactly one result and receipt.
-bash -c '
+# `bash -s --` reads the heredoc as the script; `bash -` alone does NOT.
+bash -s -- "$FOLLOW" "$BATCH" <<'BASH'
 set -euo pipefail
 shopt -s nullglob
-FOLLOW="$1"; BATCH="$2"
+FOLLOW="$1"
+BATCH="$2"
 parts=()
 for shard in "$FOLLOW"/scan/shard_*.jsonl; do
     name="${shard##*/}"
@@ -75,9 +76,10 @@ python -m module14.collect \
   --manifest "$FOLLOW/scan/manifest.jsonl" \
   --config "$FOLLOW/config.json" "${parts[@]}" \
   --source-commit "$(cat "$BATCH/source_commit.txt")" \
-  --source-bundle-sha256 "$(awk "{print \$1}" "$BATCH/bundle.sha256")" \
+  --source-bundle-sha256 "$(cut -d' ' -f1 "$BATCH/bundle.sha256")" \
   --output "$FOLLOW/physics_225_report.json"
-' _ "$FOLLOW" "$BATCH"
+echo "HEAVY PHYSICS COLLECTION: PASS"
+BASH
 ```
 
 The collector checks manifest IDs, input/output hashes, source bundle, settings and per-family records. `COMPLETE` and `missing_points: 0` are required before physics interpretation. Each report is immutable: choose a new report path for a rerun.
