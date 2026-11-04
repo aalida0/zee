@@ -156,3 +156,34 @@ SPheno observable uses `width/(width+GammaMu)` and omits the nonzero
 daughter-mass phase-space factor. `check_rate.py` reproduces this check.
 The row-flip helper requires a disposable instrumented source and a rebuild;
 restore the generated source after each run.
+
+## Additional independent matrix-element and loop stress checks
+
+See [OPERATOR_MATRIX_ELEMENT.md](OPERATOR_MATRIX_ELEMENT.md) for the tested
+Dirac and crossed-chain identities and their limitation. These tests do not
+fix the generated overall crossing sign, so the operator gate remains open.
+The FormCalc 8 manual identifies 6 as PR and 7 as PL; do not infer the matrix
+projector from the generated SL/SR name.
+
+`python3 research/spheno_flavorkit/tests/test_loop_precision.py` compiles the
+actual two experimental functions and original variants, and compares against
+80-digit mpmath values. For the affected `m1=m2` branch the tested positive
+ratios from `1e-30` through `1e-8`, including both sides of `1e-10`, agree
+within 3e-16 relative; exact zero retains the original zero regulator
+placeholder despite the logarithmic positive-mass divergence. Close to the
+existing `r=0.999` Taylor switch, subtraction in the original closed form
+loses precision: at 0.999 the relative error is 4.32e-8, and at 0.9989 it
+is 2.95e-8. These are measured samples, not a bound for all masses.
+
+A distinct untouched branch has the same positive-ratio issue:
+`C1g(1,1e-11,1e-11)` returns zero versus `11.9142180118347` at 80 digits.
+It occurs in the `m2=m3`, `m1>m2` guard in generated
+`FlavorKit_LFV_ZeeTypeII.f90:38120-38123` (line numbers may change after
+instrumentation). A disposable one-guard correction returns the reference
+with relative error 1.0e-16 and retains the exact-zero placeholder. It has not
+been promoted to the experimental backend patch or tested over all regimes.
+The current experimental patch SHA256 is
+`ef6e6ecbbdfee9247a1c04a6ce41682527108c12a9aa30ff0255469364b54b41`;
+the local generated executable SHA256 is
+`59b7145cdd9c309af4ee34e81bcabc218c6abc6ccae3d1564f1fa99970ac372c`.
+No universal amplitude tolerance is justified by these local measurements.

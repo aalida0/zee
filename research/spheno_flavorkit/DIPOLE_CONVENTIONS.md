@@ -95,3 +95,13 @@ trace, but the archive predates the December 2015 generation timestamp in
 installed `Gamma2l.m`; exact generator-version identity has not been proven.
 The spinor crossing and Fourier conventions have not yet been independently
 closed, so the numerical candidate remains **unproved**, including its sign.
+
+## Explicit spinor identities
+
+The independent calculation in [OPERATOR_MATRIX_ELEMENT.md](OPERATOR_MATRIX_ELEMENT.md)
+verifies the Hermitian-conjugate chirality exchange, outgoing-photon sign,
+Gordon reduction and the recovered crossed projector's spinor ordering. The
+[FormCalc 8 manual](https://feynarts.de/formcalc/FC8Guide.pdf) specifies
+`6=PR`, `7=PL`, correcting any inference from the coefficient names. The
+installed generator's total crossing/sign convention remains unresolved; the
+numerical mapping remains a candidate.
