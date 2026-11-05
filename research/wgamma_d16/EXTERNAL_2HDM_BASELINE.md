@@ -1,5 +1,15 @@
 # D16 corrected external 2HDM baseline — 2026-11-05
 
+**Continuation:** the source-preserving HW normalization audit and generic
+complex closure now pass in the isolated research adapter. See
+[HW_NORMALIZATION_AUDIT.md](HW_NORMALIZATION_AUDIT.md) and
+[GENERIC_2HDM_CLOSURE.md](GENERIC_2HDM_CLOSURE.md). The original author source
+still has the recorded error and remains byte-identical. The report below
+and its evidence describe the earlier `0894175` milestone; its generic FAIL
+is retained as historical/source evidence, superseded for our corrected
+research aggregate by `hw_generic_evidence.json`. Full Zee matching remains
+unfinished.
+
 **Reference execution: PASS. Strict-limit full complex agreement: PASS on two
 restricted potentials, three channels each. Generic-potential validation: FAIL
 in the authors' `HW` term. Full Zee gauge completion: BLOCKED.**

@@ -6,6 +6,19 @@ W/Goldstone/ghost/mixed integrals. Physical `C_L,C_R` remain **null** and
 All changes remain under `research/wgamma_d16/`; Modules0–14, the Zee
 Lagrangian and validated D15 code are unchanged.
 
+The latest continuation resolves the HW source/paper normalization discrepancy
+in a source-preserving research adapter and validates generic complex strict
+2HDM coefficient closure at nonzero Z3,Z7, for both chiralities and all three
+channels. The original source retains an explicit expected-failure regression.
+See [HW_NORMALIZATION_AUDIT.md](HW_NORMALIZATION_AUDIT.md) and
+[GENERIC_2HDM_CLOSURE.md](GENERIC_2HDM_CLOSURE.md). The smallest nonzero
+Zee-specific class, the unmixed charged-singlet scalar–Z–photon set, is now
+separately calculated with triangles, contact and outer attachments accounted
+for. Its restricted result and prioritized mixed extensions are documented in
+[ZEE_EXTENSION_INVENTORY.md](ZEE_EXTENSION_INVENTORY.md). None supplies a full
+Zee W coefficient or changes the physical matching gates below. Later sections
+retain the chronological earlier partial milestones.
+
 | Milestone | State | New evidence |
 |---|---|---|
 | INNER_XI1 | PASS_INNER_SCOPE | All 26 native inner integrals, UV poles and finite five-tensor coefficients; independent A/P/B/C extraction agrees with Abe |

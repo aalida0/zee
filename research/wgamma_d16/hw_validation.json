@@ -1,0 +1,72 @@
+{
+  "D14_integration": false,
+  "branch": "research/zee-d16-wgamma-gauge-matching",
+  "code_sha256": {
+    "external_2hdm.py": "819f065b3ed7206ba0f1d313f38450ea1c651479ca553bc1b9be1e5d0c4c7bee",
+    "external_2hdm_hw_override.py": "19bef1d64460b6f54842610ce4f8282713132b08885778d79d4e8bab84582205",
+    "test_hw_normalization.py": "287ee7f7622ae06e9216d640d4fa4389a7c2f61341730a35f30248b9442edb4f",
+    "zee_singlet_hz.py": "579b7e999d833ffa9f5825ee1c7e3b0fc4e014f1426df068b37b41983acd0eae"
+  },
+  "commands": [
+    {
+      "command": "python -m research.wgamma_d16.external_2hdm_hw_override --output research/wgamma_d16/hw_generic_evidence.json",
+      "exit_code": 0
+    },
+    {
+      "command": "python -m unittest research.wgamma_d16.test_hw_normalization research.wgamma_d16.test_external_2hdm -v",
+      "exit_code": 0
+    }
+  ],
+  "detailed_output_sha256": "badd9d164a3bd318d7a5dc0ff6cbf90ac2eed6bbbecdab39367a42bd89ec9a79",
+  "evidence_sha256": "0c653088f60affedab75eb63cc13e8958c0f6b3c7617e8e6f44b996dfbe1e537",
+  "expected_failure": "Original author HW violates the diagonal EDM operator identity by inverse MW squared",
+  "expected_failures": 1,
+  "implementation_parent_commit": "5e6f9f9ca44e2b3622795a8f86ac23de256b723e",
+  "limitations": [
+    "Reference coefficient closure, shared full two-loop reductions; not an independent complete two-loop numerator calculation",
+    "New singlet HZ class restricted to gamma=0,F=0",
+    "Generic mixed Zee gauge completion remains unfinished"
+  ],
+  "logs": {
+    "hw-generic.log": {
+      "path": "local/hw-generic.log",
+      "sha256": "79682ac5eb5784b095b42b8f17a524711622f4edf0b1005ae180e13e590cead2",
+      "text": "2HDM_REFERENCE_HW_OPERATOR_EDM_NORMALIZATION_VALIDATED 39 complex channel comparisons\n"
+    },
+    "hw-repeat.log": {
+      "path": "local/hw-repeat.log",
+      "sha256": "79682ac5eb5784b095b42b8f17a524711622f4edf0b1005ae180e13e590cead2",
+      "text": "2HDM_REFERENCE_HW_OPERATOR_EDM_NORMALIZATION_VALIDATED 39 complex channel comparisons\n"
+    },
+    "hw-tests.log": {
+      "path": "local/hw-tests.log",
+      "sha256": "b57796ea3bd8ae4dc724b594827a70eed510b93fa94690359db702f3ae081467",
+      "text": "test_captured_edm_identity_and_integral_masters (research.wgamma_d16.test_hw_normalization.HWNormalization) ... ok\ntest_generic_complex_coherent_closure_and_falsifiers (research.wgamma_d16.test_hw_normalization.HWNormalization) ... ok\ntest_homogeneity_and_potential_sign_mass_weak_angle_phase_variations (research.wgamma_d16.test_hw_normalization.HWNormalization) ... ok\ntest_native_hessian_and_independent_signed_operator_conversion (research.wgamma_d16.test_hw_normalization.HWNormalization) ... ok\ntest_original_author_HW_diagonal_operator_normalization_EXPECTED_FAIL (research.wgamma_d16.test_hw_normalization.HWNormalization) ... expected failure\ntest_source_preserving_replacement_and_closed_zee_gate (research.wgamma_d16.test_hw_normalization.HWNormalization) ... ok\ntest_singlet_HZ_integral_charge_and_Ward_completed_partners (research.wgamma_d16.test_hw_normalization.RestrictedZeeClass) ... ok\ntest_singlet_HZ_three_complex_channels_limits_and_restrictions (research.wgamma_d16.test_hw_normalization.RestrictedZeeClass) ... ok\ntest_complex_rephasing_and_index_orientation (research.wgamma_d16.test_external_2hdm.ExternalComparison) ... ok\ntest_frozen_photon_quadratures_and_recorded_one_loop_difference (research.wgamma_d16.test_external_2hdm.ExternalComparison) ... ok\ntest_full_restricted_and_generic_failure_are_distinct (research.wgamma_d16.test_external_2hdm.ExternalComparison) ... ok\ntest_hw_dimensional_falsifier (research.wgamma_d16.test_external_2hdm.ExternalComparison) ... ok\ntest_physical_zee_w_gate_remains_closed (research.wgamma_d16.test_external_2hdm.ExternalComparison) ... ok\ntest_strict_limit_rejects_singlet_interactions (research.wgamma_d16.test_external_2hdm.ExternalComparison) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 25.942s\n\nOK (expected failures=1)\n"
+    }
+  },
+  "passed": 13,
+  "physical_Zee_W": {
+    "C_L": null,
+    "C_R": null,
+    "coherent_inclusion": false
+  },
+  "preservation": {
+    "author_pin": "b5035cd58d2a7e4a91e9790d045df062b97adffe",
+    "author_tracked_tree": "CLEAN_UNMODIFIED",
+    "frozen_files_byte_identical_to_0894175": {
+      "module1/potential.py": "510e04d7ed14f8be88332e6ed15f662bd87f5c6052109884e3547082c2872265",
+      "module1/scalar_constraints.py": "283902ff57de55e17e4d02900de07850265d306d1481e49db4dc96c08744cbac",
+      "module3/core.py": "5390e63af12a27c8e53823cc3625cd54851b10f5205d5ed2aab2ddd6767fd494",
+      "module4/charged_scalar.py": "514d265d88a7d7d3671266bdb087e45e04d9971f11d3c40d94e1acc840447471",
+      "module4/couplings.py": "12f57fed5a82c010e59f779b93824542ca0fbc0b8ae1a56484bed56517f5d924",
+      "research/spheno_flavorkit/d15_component_evidence.json": "47a612f4b9a51b04b4c8b712c11bdd9b8033ee39f0d041a9097f57f432623f8f",
+      "research/wgamma_d16/gauge_ledger.json": "a6aafe930d47d43a1b7444c31278027e3e690650e406d969688a5a66cdae17fe",
+      "research/wgamma_d16/matching.py": "d48af39ad2afd9bf9d1fc8788428b514bd8ed350403493cff1b89e1202438b46"
+    },
+    "historical_comparison_code_sha256": "819f065b3ed7206ba0f1d313f38450ea1c651479ca553bc1b9be1e5d0c4c7bee",
+    "historical_comparison_code_unchanged": true
+  },
+  "repeat_detailed_output_identical": true,
+  "starting_evidence_commit": "0894175b64395a5ef25d0cb236f38f81a14ace89",
+  "test_count": 14
+}
