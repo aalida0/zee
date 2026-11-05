@@ -37,14 +37,18 @@ def inner_diagrams():
                 symmetry_factor=1, closed_loop_sign=1,
                 xi_dependence='W longitudinal propagator and G mass xi*mW^2',
                 status='NOT_EVALUATED', missing='Signed mixed contact integral'))
+    for row in rows:
+        row['status'] = 'EVALUATED_INNER_ONLY'
+        row['integral_evidence'] = 'gauge_ledger.json; native_integrands.py; tensor_reduction.py'
+        row['missing'] = 'Full projected two-loop parent/ST/LSZ sum, not the regulated inner integral'
     return rows
 
 
 PARENTS = {
-    'P_WWW': 'Abe Fig3 first parent: sWW, photonWW, two W-lepton currents; both external orders',
-    'P_WG': 'Abe Fig3 mixed W/Goldstone parents: sWG, photonWG, W/G-lepton currents; both charges/orders',
-    'P_GG': 'Abe Fig3 scalar parent: sGG and photonGG with G-lepton currents; both orders',
-    'P_longitudinal_xi': 'Additional xi!=1 longitudinal W/Goldstone/ghost pinch pieces; no independent reduction yet',
+    'P_WWW': 'Fixed-r WWW subloop and neutrino pinch calculated, including finite Rxi witnesses; outer integral and opposite scalar placement missing',
+    'P_WG': 'All eight W/G fixed-r subloops calculated at xi=1 for one scalar placement; other placement and general-xi mixed outer matching missing',
+    'P_GG': 'GGG fixed-r parent subloop calculated at xi=1; complete outer/two-placement sum missing',
+    'P_longitudinal_xi': 'Inner longitudinal poles and finite tensors calculated; full open-Dirac BRST/ghost insertion functional and outer sum missing',
     'P_Zee_completion': 'Test physical H1/H2 derivative-current parents and charged Yukawa sum rules before omitting their pinch parts',
     'P_LSZ_audit': 'Establish which external self-energy, reducible photon attachments and counterterm pieces the on-shell Slavnov-Taylor reduction requires',
 }

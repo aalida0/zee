@@ -1,5 +1,11 @@
 # D16 signed reductions and unresolved gauge completion
 
+Historical starting evidence. The subsequent independent regulated inner
+calculation and actual parent subloops are documented in
+[D16_GAUGE_DERIVATION.md](D16_GAUGE_DERIVATION.md) and `gauge_ledger.json`.
+Statements below about unevaluated inner integrals describe the earlier
+milestone; complete physical gauge matching remains blocked.
+
 Status: **BLOCKED_GAUGE_MATCHING**. The new results below are exact outer-line
 B/C reductions and conditional source-tensor checks. The 26 inner graphs have
 not been independently integrated. No physical W Wilson coefficient is supplied.

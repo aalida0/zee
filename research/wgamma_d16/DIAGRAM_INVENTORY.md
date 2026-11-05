@@ -1,9 +1,10 @@
 # Diagram and native-vertex inventory
 
 **Complete inner 1PI skeleton inventory; incomplete general-xi physical parent
-completion. Gate A is BLOCKED_GAUGE_MATCHING.** No graph below has been
-independently loop-integrated in D16. The enumeration does not certify a
-complete physical LFV subset.
+completion. Gate A is BLOCKED_GAUGE_MATCHING.** This is the original inventory;
+the subsequent native regulated integration is in `native_integrands.py`,
+`tensor_reduction.py` and `gauge_ledger.json`. The enumeration does not certify
+a complete physical LFV subset.
 
 `inventory.inner_diagrams()` enumerates 26 labeled graphs per CP-even scalar.
 An independent run of the existing FeynArts3.9 SM topology model gives the
@@ -50,8 +51,9 @@ the W seagull. Linear gauge fixing has no two-photon ghost seagull. A
 renormalizable scalar kinetic term has no s-photon-WW or s-photon-GG vertex.
 The independent topology enumeration provides a check on these absences.
 
-All 26 entries have `status=NOT_EVALUATED`. A graph with a known nonzero
-vertex is never entered as numeric zero because its integral is missing.
+All 26 entries now have `status=EVALUATED_INNER_ONLY`; the full projected
+parent/ST/LSZ sum remains incomplete. A graph with a known nonzero vertex
+is never entered as numeric zero because its integral is missing.
 
 ## Actual signed native rules
 
@@ -137,7 +139,10 @@ The four illustrative parent drawings in Abe Fig3 involve sWW/photonWW,
 mixed sWG/photonWG and scalar sGG/photonGG vertices, with W/G charged lepton
 currents; each needs charge conjugates and outer orderings. Their **published
 xi=1 sum** is used only as a source-tensor check of the P cancellation.
-No individual signed parent integral is claimed as derived here.
+That describes the original source check. New signed fixed-r parent subloops
+and an independently derived neutrino pinch are now calculated in
+`parent_integrals.py`; their limited scope and missing outer integration are
+spelled out in `D16_GAUGE_DERIVATION.md`.
 
 The machine inventory keeps separate mandatory unresolved entries for:
 

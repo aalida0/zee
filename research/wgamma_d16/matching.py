@@ -158,7 +158,8 @@ def evaluate(inp):
                     separators=(',', ':'), allow_nan=False).encode()).hexdigest(),
                     frozen_D15_commit='f6676356a95517f2820dea79298a938cc8786968',
                     crossing='K2L/R=-conj(C_L/R), same parent mass; D15 CROSSING_BRIDGE.md',
-                    source='Abe1311.4704v3 Eq3.8-3.16 + 2016 erratum; no independent Rxi W tensor calculation'))
+                    source='Conditional source diagnostic: Abe1311.4704v3 Eq3.8-3.16 + 2016 erratum',
+                    independent_inner_evidence='gauge_ledger.json: regulated Rxi inner tensors and partial parent subloops; no physical outer matching'))
 
 
 def main():
