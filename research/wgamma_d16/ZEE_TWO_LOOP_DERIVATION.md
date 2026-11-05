@@ -1,3 +1,9 @@
+Continuation: the earlier WWW numerator/master obstruction described below
+is resolved for that ξW=1 parent, including both external momenta, exact
+IBP pole cancellation and an independently integrated Pauli form factor.
+See [W_OUTER_PARENT_DERIVATION.md](W_OUTER_PARENT_DERIVATION.md).
+The full W gauge completion, F†F and reducible sums remain uncalculated.
+
 # Zee radiative dipoles: calculated extensions and remaining reduction
 
 The full leading two-loop Zee calculation is **not complete**. New results

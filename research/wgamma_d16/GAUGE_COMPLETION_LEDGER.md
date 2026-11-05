@@ -18,7 +18,7 @@ full W/Goldstone/ghost/LSZ matching.
 | Charged basis / phases / reverse / null / decoupling | focused mixed-HZ tests | PASS for current subset |
 | Entire mixed potential Z sector | neutral two-point/reducible assignment and A-G-H sector incomplete | OPEN; no full mixed-class acceptance |
 | Neutral fermion Zγ | nine species; native current transfer, radial quadrature, signed complex comparison | common-class PASS |
-| Complete Zee kinetic W aggregate | native inner set and fixed-r parents already exist; new outer denominator reduction | BLOCKED d-dimensional projection/master/LSZ sum |
+| Complete Zee kinetic W aggregate | new d-dimensional WWW outer Pauli projection, TARCER IBP, exact pole cancellation and independent finite masters | topology-only; full charged/BRST/LSZ sum OPEN |
 | Zee potential HW | unequal-mass physical currents and Goldstone parents | NOT CALCULATED |
 | Charged-fermion W | general charged mixing, matched complete aggregate | NOT CALCULATED |
 | Quadratic FD, mν=0 | fermion-number spurion argument includes gauge/reducible insertions | ZERO in specified Yukawa truncation |
@@ -32,3 +32,5 @@ Unknown contributions remain null; no absent rate is interpreted as zero.
 The original `matching.py`, all old evidence, Modules0–14 and D15 are unchanged.
 Scalar constraint failures of amplitude fixtures remain separate from these
 amplitude validation states. These results imply no phenomenological exclusion.
+
+New integrated parent: [W_OUTER_PARENT_DERIVATION.md](W_OUTER_PARENT_DERIVATION.md), `w_outer_evidence.json`. This advances one ξW=1 topology and its Hermitian reverse; it does not change any full-amplitude gate.

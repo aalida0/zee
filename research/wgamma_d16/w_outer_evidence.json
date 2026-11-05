@@ -1,0 +1,338 @@
+{
+  "acceptance": false,
+  "code_sha256": {
+    "parent_integrals.py": "2b418f57ab8bebfe88ee0528a4964fa6851ff2c77cf6a4fb4087ebdfee7e257f",
+    "reproduce_w_outer.py": "6f14bbc97bda76873ee91216a2196158eeb36544d3a22bc794d9bcc6baee42b5",
+    "w_dimensional_projection.m": "83a2ee5d37ea4ca6f1331e139e00c920a21ac0719707b857b46e4fb192bfbf83",
+    "w_master_reduction.m": "fcc5f4b76d716b6d6271f0b99a2c7cfe3b551cb9ddff9a42af43e67d1e9b37cb",
+    "w_vacuum.py": "100301da1b8d4055a4cd426e010075131b72fc69cca65022adbf3ed3fb316103"
+  },
+  "coherent_inclusion": false,
+  "elapsed_seconds": 26.099679451001066,
+  "environment": {
+    "numpy": "2.2.6",
+    "python": "3.10.12",
+    "scipy": "1.15.3"
+  },
+  "exact_UV_poles": [
+    "0",
+    "0"
+  ],
+  "files": {
+    "local/w_outer_yy3ae_xp/w_dimensional_projection.log": "7fa810b3eb6c41394425f8eb603e662b59d20e64a5e6816dc2f6ee7908aab3c9",
+    "local/w_outer_yy3ae_xp/w_ibp_coefficients.json": "c355eb5d29e59362d4a0105b3b3a5dd62eebaaa4be531cca40c8c4c3ec668758",
+    "local/w_outer_yy3ae_xp/w_ibp_input.m": "fca58a8d4a3683e8bc499132f2349f9478eb8635df746e9072731a0d06635eaa",
+    "local/w_outer_yy3ae_xp/w_ibp_reduced.m": "335e0a8f02bb7445c7721b261924e89f027ea8158babf996ee240b3e94dabd3a",
+    "local/w_outer_yy3ae_xp/w_master_reduction.log": "4b4bf689105f265455165ebb8547aaf60e78d67c8fa673d92bb0e729684d9bf4",
+    "local/w_outer_yy3ae_xp/w_projection.json": "7a6073fa82f68739f6ff1eb8eb0409b86e83dcdf58fdc9f02b5d1f74e5cbf92d"
+  },
+  "finite_d4_residual": "0",
+  "full_BR": null,
+  "full_C_LR": null,
+  "ibp": {
+    "basis": [
+      "AhAw",
+      "AwAw",
+      "S_w00_E",
+      "S_wh0_E",
+      "S_wwh_E"
+    ],
+    "coefficients": [
+      "((-2 + D)*(-4*h^3 + 3*D*h^3 + 42*h^2*w - 39*D*h^2*w + 6*D^2*h^2*w - 124*h*w^2 + 128*D*h*w^2 - 28*D^2*h*w^2 + 16*D*w^3))/(2*(-1 + D)*D*h^2*(h - 4*w)^2*w^2)",
+      "-1/4*((-2 + D)*(-10*h^2 + 31*D*h^2 - 21*D^2*h^2 + 4*D^3*h^2 + 8*h*w - 110*D*h*w + 88*D^2*h*w - 18*D^3*h*w + 248*w^2 - 240*D*w^2 + 56*D^2*w^2))/((-3 + D)*(-1 + D)*D*h*(h - 4*w)^2*w^2)",
+      "((-2 + D)*(4*h - 5*D*h + D^2*h - D*w))/(2*(-1 + D)*D*h^2*w)",
+      "-1/2*((-2 + D)*(h - w)*(-4*h + 3*D*h + D*w))/((-1 + D)*D*h^2*w^2)",
+      "(8*h^3 - 10*D*h^3 + 3*D^2*h^3 - 96*h^2*w + 126*D*h^2*w - 45*D^2*h^2*w + 3*D^3*h^2*w + 348*h*w^2 - 450*D*h*w^2 + 164*D^2*h*w^2 - 14*D^3*h*w^2 - 248*w^3 + 240*D*w^3 - 56*D^2*w^3)/(2*(-1 + D)*D*h*(h - 4*w)^2*w^2)"
+    ]
+  },
+  "partial_fraction_terms": 49,
+  "projection": {
+    "FeynCalc": "10.2.1",
+    "Wolfram": "15.0.1 for Linux x86 (64-bit) (July 2, 2026)",
+    "dipole_numerator": "(-2*(2*mw^2*x*y - D*mw^2*x*y - 2*x^2*y + D*x^2*y - 4*mw^2*y*z + 6*D*mw^2*y*z - 2*D^2*mw^2*y*z + 2*x*y*z - 4*D*x*y*z + 2*D^2*x*y*z - 2*D*mw^2*z^2 + D^2*mw^2*z^2 + 2*D*x*z^2 - D^2*x*z^2))/((-1 + D)*D*(mw^2 - x)*y)",
+    "polynomial_basis": [
+      "ap=gamma_mu slash_p",
+      "bp=slash_p gamma_mu",
+      "cp=p_mu",
+      "aq=gamma_mu slash_q",
+      "bq=slash_q gamma_mu",
+      "cq=q_mu"
+    ],
+    "polynomials": [
+      "(24*ap*x*y - 8*bp*x*y - 12*ap*D*x*y + 4*bp*D*x*y - 8*cp*D*x*y - 8*ap*D^2*x*y + 4*cp*D^2*x*y + 4*ap*D^3*x*y + 8*bp*y*z - 8*cp*y*z + 6*ap*D*y*z - 2*bp*D*y*z - 4*cp*D*y*z - 7*ap*D^2*y*z - 9*bp*D^2*y*z + 16*cp*D^2*y*z + ap*D^3*y*z + 3*bp*D^3*y*z - 4*cp*D^3*y*z - 16*ap*z^2 + 8*ap*D*z^2 + 8*bp*D*z^2 - 4*bp*D^2*z^2 + 8*cp*D^2*z^2 - 4*cp*D^3*z^2)/((-1 + D)*D*(2 + D)*y)",
+      "-(((-8*aq*mw^2 + 4*bq*mw^2 + 4*cq*D*mw^2 + 2*aq*D^2*mw^2 - bq*D^2*mw^2 - cq*D^3*mw^2 + 8*aq*x + 4*bq*x - 8*aq*D*x - 4*bq*D*x + 4*cq*D*x - 2*aq*D^2*x + bq*D^2*x - 4*cq*D^2*x + cq*D^3*x)*z)/(D*(2 + D)*(mw^2 - x)))"
+    ],
+    "scope": "TOPOLOGY_ONLY; xiW=1; scalar before W currents; leading external degree; not a physical Wilson"
+  },
+  "source_commit": "e829da1d4bd6457cfd77dbba5c85c7022f0f4e4a",
+  "status": "REGULATED_WWW_PARENT_TOPOLOGY_ONLY",
+  "tool_sources": {
+    "AddOns/TARCER/TARCERSource.m": "1a47d7ad0f522f7df85122cdc4650bf7f5949e6669c1e1bd69e6dcc221d7ff2a",
+    "FeynCalc.m": "4238350af2ff91a6687ea937446b9e6077318914593afe963d4d10026dfc5165"
+  },
+  "validation": {
+    "log_sha256": "d36ef63b36647febec649e9b256680c66821f7c363e63b96affb554b43f59ba6",
+    "new_tests": 6,
+    "result": "PASS"
+  },
+  "witnesses": [
+    {
+      "direct": {
+        "error": 5.952970816419021e-11,
+        "value": -0.5444173911414191
+      },
+      "discrepancy": 1.3156142841808105e-13,
+      "h": 2.418437277615067,
+      "ibp": {
+        "error": [
+          0.0,
+          5.613652209762214e-13,
+          1.8867149880208865e-09
+        ],
+        "laurent": [
+          -1.457167719820518e-15,
+          -3.1086244689504383e-15,
+          -0.5444173911412875
+        ],
+        "masters": [
+          {
+            "coefficient_epsilon_series": [
+              -0.4170952671886144,
+              1.3100214776878643,
+              -0.4554451810413355
+            ],
+            "error": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "laurent": [
+              2.418437277615067,
+              2.7011004090501474,
+              7.905007524647525
+            ]
+          },
+          {
+            "coefficient_epsilon_series": [
+              0.29469104300099624,
+              -1.0599252110433985,
+              0.1911864576212015
+            ],
+            "error": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "laurent": [
+              1.0,
+              2.0,
+              4.644934066848227
+            ]
+          },
+          {
+            "coefficient_epsilon_series": [
+              -0.05699136888260365,
+              -0.1877479535511321,
+              0.11603728689657859
+            ],
+            "error": [
+              0.0,
+              4.966422054558226e-13,
+              1.3259180368259687e-09
+            ],
+            "laurent": [
+              -0.5,
+              -1.5,
+              -5.967401100275076
+            ]
+          },
+          {
+            "coefficient_epsilon_series": [
+              -0.471845246776063,
+              0.25503339008802106,
+              0.12114643947734732
+            ],
+            "error": [
+              0.0,
+              1.0022657463042462e-12,
+              3.0487840852143297e-09
+            ],
+            "laurent": [
+              -1.7092186388075334,
+              -2.991881770242614,
+              -10.867976388180328
+            ]
+          },
+          {
+            "coefficient_epsilon_series": [
+              0.05474997958744932,
+              1.1226925999572834,
+              -0.7989787243575295
+            ],
+            "error": [
+              0.0,
+              1.0985679610387413e-12,
+              6.776488665523116e-09
+            ],
+            "laurent": [
+              -2.2092186388075334,
+              -4.491881770242614,
+              -10.377794189235644
+            ]
+          }
+        ]
+      },
+      "ms": 125.0,
+      "topology": {
+        "coherent_inclusion": false,
+        "gauge_completion": "W/G, physical charged, pinch, BRST/ghost, counterterm and LSZ partners missing",
+        "normalized_vacuum_integral": -8.426491605237442e-05,
+        "physical_C_LR": null,
+        "quadrature_error": [
+          9.872727373189611e-19,
+          1.1289895681028464e-18
+        ],
+        "scope": "TOPOLOGY_ONLY; xiW=1; WWW, both scalar placements; leading external degree",
+        "topology_C_LR": [
+          [
+            -7.512508210606022e-09,
+            -5.008338807070682e-09
+          ],
+          [
+            2.504169403535341e-09,
+            -1.0016677614141363e-08
+          ]
+        ]
+      }
+    },
+    {
+      "direct": {
+        "error": 1.288444128764392e-10,
+        "value": -0.30638759373117647
+      },
+      "discrepancy": 2.2329099680362674e-10,
+      "h": 14.874356632243707,
+      "ibp": {
+        "error": [
+          0.0,
+          1.0228090874323073e-11,
+          4.200567085729318e-08
+        ],
+        "laurent": [
+          1.7763568394002505e-15,
+          -3.552713678800501e-15,
+          -0.30638759350788547
+        ],
+        "masters": [
+          {
+            "coefficient_epsilon_series": [
+              0.06853346933154268,
+              -0.055160806163363454,
+              -0.009008922426313078
+            ],
+            "error": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "laurent": [
+              14.874356632243707,
+              -10.406675520896481,
+              42.98214903963715
+            ]
+          },
+          {
+            "coefficient_epsilon_series": [
+              -0.120540411073059,
+              0.13492893659202088,
+              -0.03831916949725413
+            ],
+            "error": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "laurent": [
+              1.0,
+              2.0,
+              4.644934066848227
+            ]
+          },
+          {
+            "coefficient_epsilon_series": [
+              -0.0015066152711854313,
+              -0.033112694186399866,
+              0.017142253031994265
+            ],
+            "error": [
+              0.0,
+              4.966422054558226e-13,
+              1.3259180368259687e-09
+            ],
+            "laurent": [
+              -0.5,
+              -1.5,
+              -5.967401100275076
+            ]
+          },
+          {
+            "coefficient_epsilon_series": [
+              -0.6427501185442847,
+              0.3697117397558299,
+              0.1687436430500191
+            ],
+            "error": [
+              0.0,
+              7.633061826645852e-12,
+              2.8451686671781097e-08
+            ],
+            "laurent": [
+              -7.937178316121853,
+              16.343853837018333,
+              -72.17791536988861
+            ]
+          },
+          {
+            "coefficient_epsilon_series": [
+              0.7112835878758271,
+              -0.5336280575844347,
+              -0.1237928432478621
+            ],
+            "error": [
+              0.0,
+              7.481110660166805e-12,
+              3.333342428212797e-08
+            ],
+            "laurent": [
+              -8.437178316121853,
+              14.843853837018333,
+              -66.96732939374421
+            ]
+          }
+        ]
+      },
+      "ms": 310.0,
+      "topology": {
+        "coherent_inclusion": false,
+        "gauge_completion": "W/G, physical charged, pinch, BRST/ghost, counterterm and LSZ partners missing",
+        "normalized_vacuum_integral": -4.7422667397008475e-05,
+        "physical_C_LR": null,
+        "quadrature_error": [
+          8.078214675863911e-19,
+          1.1973311008838532e-18
+        ],
+        "scope": "TOPOLOGY_ONLY; xiW=1; WWW, both scalar placements; leading external degree",
+        "topology_C_LR": [
+          [
+            -1.6106264900608786e-09,
+            1.046907218539571e-09
+          ],
+          [
+            1.369032516551747e-09,
+            -2.4964710595943617e-09
+          ]
+        ]
+      }
+    }
+  ]
+}

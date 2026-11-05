@@ -28,7 +28,7 @@ ROOT=HERE.parents[1]
 
 MISSING={
     'kinetic_W_Goldstone_ghost_pinch_LSZ':
-        'd-dimensional outer dipole projection and full Zee physical-charged/BRST/LSZ sum; existing eight fixed-r parents are insufficient',
+        'full Zee physical-charged/W-G/BRST/LSZ sum; the new regulated xi=1 WWW outer topology is not a complete gauge class',
     'potential_charged_W':
         'unequal charged masses, physical W derivative currents, Goldstone mass-difference partners and matched full-set subtraction; diagonal f11 reuse not established',
     'charged_fermion_W':

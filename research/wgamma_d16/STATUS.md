@@ -1,3 +1,11 @@
+New continuation: the native WWW outer Pauli numerator is now reduced in
+d=4−2ε with FeynCalc/TARCER, and integrated independently through
+sector-subtracted sunset masters and a finite Euclidean representation.
+Both UV poles cancel exactly for this topology. See
+[W_OUTER_PARENT_DERIVATION.md](W_OUTER_PARENT_DERIVATION.md).
+This is TOPOLOGY_ONLY at ξW=1; full W/F†F/reducible C and BR remain null.
+The older remaining-outer-reduction statements below describe historic scope.
+
 # D16 status: BLOCKED_GAUGE_MATCHING
 
 **Master-task continuation:** new mixed physical-scalar Zγ radiative-current
