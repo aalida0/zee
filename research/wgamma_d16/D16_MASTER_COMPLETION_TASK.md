@@ -70,3 +70,48 @@ The corrected general-2HDM *complex* reference agreement has already been establ
 - Do not run a broad parameter scan or claim phenomenological exclusions until radiative amplitude scope is validated; external `mu->e gamma` limits and complete LFV global fit belong to later scan stages.
 
 **End state sought:** a source-pinned, analytically and numerically validated, gauge-invariant *Zee-specific leading two-loop radiative LFV* engine that reproduces corrected full general-2HDM in the strict singlet-free limit and shows the additional charged-singlet/mixed/F terms coherently without double counting.
+
+
+---
+
+## POST-`dade0f9` CONTINUATION — finish the original master task, do not reset
+
+**Latest scientific progress:** `dade0f960a01d81aa6f53ec3e06326a015f3fa0d`.
+
+Read `ZEE_TWO_LOOP_DERIVATION.md`, `MIXED_HZ_DERIVATION.md`, `GAUGE_COMPLETION_LEDGER.md`, `BENCHMARK_CLOSURE.md`, `zee_two_loop.py`, `w_outer_reduction.py`, and `f_current_probe.py` **before further work**.
+
+### Already established; preserve rather than redoing
+- Native unequal-mass physical charged-scalar Zγ radiative-current subset, associated off-shell Z/G0 identity, 64 native checks and complex L/R benchmarks. This is **not the full potential-mediated reducible Z sector**. The full mixing/LSZ assignment remains UNKNOWN.
+- Neutral-fermion Zγ nine-species leading-expansion class; independently evaluated radial functions and source-matched signs. Light-quark perturbative numerics are explicitly illustrative.
+- The quadratic `FD` zero claim is conditional on the *fermion-only* spurion U(1), massless internal neutrino limit, and quadratic Yukawa truncation. Keep those assumptions explicit; do not extend the zero to finite Majorana masses or higher Yukawa order.
+- A nonzero, UV-divergent gauge-dependent `F†F` neutrino self-energy subgraph with a finite nonlocal form factor; it is not a physical two-loop dipole.
+- Four actual NO/IO Module2 inverse witnesses, 70 nonduplicated *available* amplitude rows per channel, guarded partial rates; all full `C_L,C_R` and `full_BR` remain null.
+- The corrected 39-channel general-2HDM baseline, HW correction and previous D15 proofs remain frozen. Do not rerun full historical calculations in each new iteration.
+
+### PRIORITY A: actual complete `W` two-loop open-Dirac master reduction
+
+1. Start from `w_outer_reduction.reduce_denominators()` and the native `parent_integrals.exact_parent_integrand()` with **both independent external momenta** `p,q`. Implement the **full numerator Taylor expansion and dipole projection** in `d=4−2ε`; denominator reduction alone is not adequate. Contract on-shell spinors and project the two genuinely independent complex chiral coefficients, retaining external unequal-mass order and `σ^{μν}` normalization.
+2. Derive the complete set of two-loop vacuum/sunset integrals with numerator scalar products `l²,r²,l·r,l·p,l·q,r·p,r·q`. Use analytic IBP reduction (e.g. a locally available validated FORM/Mathematica reduction or Kira/LiteRed/FIRE if installed; search/validate tools **before** writing another homegrown entire solver). Treat repeated propagators, overlapping UV subdivergences and `O(ε)` terms consistently. Validate individual master integrals independently at nonexceptional Euclidean masses using numerical sector decomposition or Feynman parameters; include pole and finite parts, not just numbers.
+3. Produce at least one signed nonzero `C_L,C_R` for a **fully dimensionally regulated two-loop parent topology**, tagged `TOPOLOGY_ONLY`, as a mathematical milestone. Then calculate **all crossed scalar placements, charged H1/H2 W/G derivatives, W/G species, non-Barr–Zee pinch, BRST/ghost and LSZ/counterterm partners** required for the same renormalized physical amplitude. Do not stop after the first topology.
+4. Evaluate the **complete** two-loop W-class sum at `ξ=0.5,1,3` and two genuinely different complex LFV inputs. Verify independently computed UV, ST and ξ cancellations, signed electron/muon magnetic moment or published general-2HDM limits, and decoupled-singlet reduction. Do not infer missing diagrams from a compensator or fit a published kernel. Record numerical uncertainty of the cancellation and applicable truncation.
+5. Use the corrected gauge-invariant common-2HDM aggregate only as a **matched complete-class** reference; never rescale the entire bosonic result by charged mixing or append already frozen photon terms again.
+
+### PRIORITY B: `F†F` gauge/renormalization closure
+
+6. From the actual nonlocal W-neutrino self-energy form factor in `ZEE_TWO_LOOP_DERIVATION.md`, generate **the complete charged-scalar/neutrino emission and insertion diagrams**, both internal/external photon attachments, Goldstones, physical H1/H2 with F/mixing weights, counterterms and external wave-function/LSZ diagrams. Define a renormalization and neutrino-mass scheme, including which diagrams are two-loop 1PI versus reducible terms. Do not treat isolated self-energy `1/ε` as a physical Wilson coefficient.
+7. Reduce and integrate the complete two-loop F†F set in the **same** operator and expansion. Independently check `F→0`, nonzero antisymmetric F textures, charged mass degeneracies, mixing phases/signs, reverse ordering, lepton rephasing, UV/ξ cancellation and matching to the frozen one-loop F†F component without double counting.
+8. If any massless-Majorana-neutrino or chiral selection identity makes a specific family vanish, prove it diagrammatically and with spinor algebra, not merely from a single contracted numerator. Preserve all nonzero diagram classes.
+
+### PRIORITY C: complete the remaining mixed Z/potential/current scope
+
+9. Resolve the explicitly **unassigned neutral mixing/reducible sector** in `MIXED_HZ_DERIVATION.md`; integrate or prove zero for A–Z/G0 two-point and A–G±–H± source terms required by the complete class. Verify they do not overlap with W/Goldstone/LSZ sector. Test physical S-matrix gauge independence, not only radiative current-tensor transversality.
+10. Complete the mixed physical H1/H2 potential-W and charged-fermion-W gauge-invariant classes, with correct nondegenerate charged masses and off-diagonal neutral trilinears. Isolate new Zee terms via independently matched complete-class subtraction against the corrected 2HDM limit; use known validated master functions only where their extension is mathematically justified.
+
+### PRIORITY D: guarded full interface and finish
+
+11. After and only after every required class is computed or **proved absent** at the declared order, combine all coherent complex `C_L,C_R` with frozen one loop and validated photon/Z classes once; test `μ→eγ`, `τ→eγ`, `τ→μγ`, reverse order, rate normalizations, and physical benchmark errors. Compare full predictions only after all required terms exist. Full gauge passes must include both chiralities for independent NO/IO and spectrum witnesses.
+12. Preserve the current guarded `zee_two_loop.py` behavior while any class is missing: `full_two_loop_C_LR=null`, `full_C_LR=null`, `full_BR=null`, `acceptance=false`. The available 70-row *included-only* numbers are diagnostics, **not physical exclusion predictions**. Never promote a radiative-current subset to a complete electroweak amplitude without checking reducible diagrams.
+13. Update derivation/tests/evidence **after** each actual physics calculation. Keep a concise topology/IBP ledger listing explicit diagram/momentum/numerator, integral family, UV/finite, ξ, physical chiral coefficients, calculated/blocked and error, and source hash. Commit verified milestones but **continue automatically through all priorities**; do not stop after generating another summary or after a successful commit.
+14. Where a full analytic two-loop reduction truly cannot be obtained, give exact failed tool method, source-derived minimal integrand and a reproducible failing numerical/analytic test. Continue other independent gauge-complete classes that are tractable. Never declare `ZEE_TWO_LOOP_RADIATIVE_LFV_PASS` without full proof, but **do not downgrade the assignment to only a smaller status task**.
+
+**The next decisive result is not another 70-row ledger. It is an independently dimensionally regulated two-loop open-Dirac parent Wilson contribution, followed by its full W/charged/BRST/LSZ gauge completion, and the distinct nonzero F†F gauge sum.**
