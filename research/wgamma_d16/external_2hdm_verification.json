@@ -1,0 +1,35 @@
+{
+  "artifact_sha256": {
+    "external_2hdm.py": "819f065b3ed7206ba0f1d313f38450ea1c651479ca553bc1b9be1e5d0c4c7bee",
+    "external_2hdm_evidence.json": "20001608e590df912c3a25ced5635da57b5861469a535cb49387f30a4b87a7e5",
+    "external_2hdm_inventory.json": "c83893c18e2c7c6607a128199623f92ee2a042d22927f54a38f0f6db78977726",
+    "external_2hdm_native.py": "1ea8147e7eb34dcdb1af872a0b5c7a6fcc5b582b7b94aa95539bcfc55d720c6f",
+    "external_2hdm_native_evidence.json": "d05544381057b073620ef8be74a6e777c11cae3c743fc4a58b1e06cb52b5c185",
+    "external_2hdm_sources.json": "92c8588fdd04db7f923b9e3a57141831ef924309257bb3dd7bb141e1a04bdc38"
+  },
+  "diff_check": {
+    "command": "git diff --check",
+    "exit_code": 0
+  },
+  "full_restricted_comparisons": 6,
+  "max_relative_full_restricted_residual": 2.707734244942061e-13,
+  "native": {
+    "command": "python -m research.wgamma_d16.external_2hdm_native --evidence research/wgamma_d16/external_2hdm_evidence.json --output /tmp/native.json",
+    "count": 128,
+    "max_abs_residual": 1.029011757976426e-13,
+    "status": "PASS"
+  },
+  "original_frozen_hashes_rechecked": true,
+  "physical_Zee_W_available": false,
+  "require_full": {
+    "exit_code": 2,
+    "reason": "Generic HW source/paper normalization fails; artifact is written before failure"
+  },
+  "status": "PASS_SCOPED_TESTS_WITH_KNOWN_PHYSICS_FAILURE_RETAINED",
+  "tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest research.wgamma_d16.test_external_2hdm research.wgamma_d16.test_d16 -v",
+    "count": 16,
+    "elapsed_seconds": 8.085,
+    "exit_code": 0
+  }
+}

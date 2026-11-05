@@ -91,3 +91,17 @@ exact integrands, signs, pole table and source comparison are in
 [D16_GAUGE_DERIVATION.md](D16_GAUGE_DERIVATION.md). Historical `evidence.json`
 and `DERIVATION.md` preserve the earlier investigation; `gauge_ledger.json`
 is the new regulated-amplitude evidence.
+
+
+## Published 2HDM reuse priority (2026-11-05)
+
+The external reference now supersedes further independent outer integration
+as the next D16 priority. See [EXTERNAL_2HDM_BASELINE.md](EXTERNAL_2HDM_BASELINE.md).
+Corrected author-code reproduction passes. Two reconstructed Z3=Z7=0 potentials
+with independent complex LFV matrices agree in the full strict-2HDM sum for
+all three channels. Generic potentials retain a reproducible HW source/paper
+failure: the source contains an extra inverse MW squared. The other 12 terms
+agree. 128 archived-native coefficient substitutions pass. The new
+[Zee extension inventory](ZEE_EXTENSION_INVENTORY.md) preserves all previous
+inner/parent evidence and defines the missing mixed charged-sector completion.
+Physical Zee W coefficients remain null; coherent_inclusion remains false.

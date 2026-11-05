@@ -1,0 +1,59 @@
+{
+  "verified_UTC_date": "2026-11-05",
+  "repository": "https://gitlab.com/jbrod/general-2hdm-pheno",
+  "remote_HEAD": "b5035cd58d2a7e4a91e9790d045df062b97adffe",
+  "license": "Apache-2.0",
+  "correction_history": [
+    {
+      "SHA": "b5035cd58d2a7e4a91e9790d045df062b97adffe",
+      "date": "2026-04-30T21:05:38-04:00",
+      "subject": "Corrected further errors in l -> l' gamma Wilson coefficients",
+      "diff_sha256": "b9594a00dbf16b0035e7ad22eb4146a81508d5293a5986f0442aeb14cb354254"
+    },
+    {
+      "SHA": "fb554337c96ee3124e478ee517467e92c4d249e1",
+      "date": "2026-04-23T13:57:30-04:00",
+      "subject": "Corrected several errors in the l -> l' gamma neutral Higgs loops (thanks to Duncan Rocha for pointing this out!)",
+      "diff_sha256": "0c7a535906505439bddd84f57c1b1326637faecb5b8c49b8ad31cf425090a493"
+    },
+    {
+      "SHA": "a55ffd7cf8a2f090ee0bb7b1ffaf8a38d687f069",
+      "date": "2026-01-25T13:26:33-05:00",
+      "subject": "Corrected two errors in the Phi2 Davydychev-Tausk functions (thanks to Edward Wang for pointing this out!)",
+      "diff_sha256": "487a1463ca873b79bc73d7425acea56935972c93e7bf5d8d178622c428522622"
+    }
+  ],
+  "paper": {
+    "url": "https://arxiv.org/abs/2410.17313v4",
+    "pdf_url": "https://arxiv.org/pdf/2410.17313v4",
+    "pdf_sha256": "497275248e615e0729c69c49e7038bc1fe073868cc41caaec17da65a29232512",
+    "html_sha256": "8b0f9f6bb25a56315d94f1d0cf2ab7c42ef17fb2dfacbcff850e8b504a558c96"
+  },
+  "erratum": {
+    "DOI": "10.1007/JHEP07(2026)184",
+    "published": "2026-07-21",
+    "url": "https://link.springer.com/article/10.1007/JHEP07(2026)184",
+    "pdf_url": "https://link.springer.com/content/pdf/10.1007/JHEP07(2026)184.pdf",
+    "pdf_sha256": "0f09c8df6b9a6106322d4121c4bf00271a539e43d69d3550ad1caf6402723148",
+    "corrections": [
+      "Reverse overall signs: 4.27,4.29,4.31,5.4,5.5,5.14--5.19,5.22,5.23 (original journal numbering)",
+      "Correct missing bracket multiplying Phi in f8e, 4.26",
+      "Replace LFV neutral-fermion equations 5.7,5.8: prefactor and conjugations"
+    ]
+  },
+  "source_paper_discrepancy": {
+    "source_lines": [
+      1510,
+      1791
+    ],
+    "group": "HW",
+    "factor": "author_code = published / MW^2",
+    "paper": "v4 Eq65,66 (journal 5.18,5.19)",
+    "disposition": "Unmodified reference; store both outputs; no physical acceptance"
+  },
+  "network_diagnostics": [
+    "Initial sandbox curl failed DNS resolution (exit 6); authorized external download succeeded",
+    "Authorized git ls-remote origin HEAD agrees with pinned SHA",
+    "wolframscript sandbox probe exit 255 without output; authorized native check succeeds"
+  ]
+}

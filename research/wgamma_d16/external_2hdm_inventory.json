@@ -1,0 +1,287 @@
+{
+  "status": "INVENTORY_NOT_GAUGE_COMPLETION",
+  "inner": [
+    {
+      "id": "triangle_WWW_-1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "triangle_WWW_+1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "triangle_WWG_-1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "triangle_WWG_+1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "triangle_WGW_-1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "triangle_WGW_+1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "triangle_WGG_-1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "triangle_WGG_+1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "triangle_GWW_-1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "triangle_GWW_+1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "triangle_GWG_-1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "triangle_GWG_+1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "triangle_GGW_-1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "triangle_GGW_+1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "triangle_GGG_-1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "triangle_GGG_+1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "ghost_triangle_gWm_-1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "ghost_triangle_gWm_+1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "ghost_triangle_gWmC_-1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "ghost_triangle_gWmC_+1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "bubble_W",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "bubble_G",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "bubble_sqWG_-1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "bubble_sqWG_+1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "bubble_skWG_-1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    },
+    {
+      "id": "bubble_skWG_+1",
+      "classification": "2HDM_COMMON",
+      "scope": "Native inner tensor only; transfer with neutral VEV overlap and LFV vertex; not a physical Wilson coefficient",
+      "existing_evidence": "gauge_ledger.json; native_integrands.py; tensor_reduction.py"
+    }
+  ],
+  "parents": [
+    {
+      "id": "P_WWW",
+      "classification": "2HDM_COMMON",
+      "scope": "Fixed-r WWW subloop and neutrino pinch calculated, including finite Rxi witnesses; outer integral and opposite scalar placement missing",
+      "qualification": "No extra addition to author complete 2HDM classes; reuse as tensor/identity checks, then derive singlet-dependent remainder"
+    },
+    {
+      "id": "P_WG",
+      "classification": "2HDM_COMMON",
+      "scope": "All eight W/G fixed-r subloops calculated at xi=1 for one scalar placement; other placement and general-xi mixed outer matching missing",
+      "qualification": "No extra addition to author complete 2HDM classes; reuse as tensor/identity checks, then derive singlet-dependent remainder"
+    },
+    {
+      "id": "P_GG",
+      "classification": "2HDM_COMMON",
+      "scope": "GGG fixed-r parent subloop calculated at xi=1; complete outer/two-placement sum missing",
+      "qualification": "No extra addition to author complete 2HDM classes; reuse as tensor/identity checks, then derive singlet-dependent remainder"
+    },
+    {
+      "id": "P_longitudinal_xi",
+      "classification": "2HDM_COMMON",
+      "scope": "Inner longitudinal poles and finite tensors calculated; full open-Dirac BRST/ghost insertion functional and outer sum missing",
+      "qualification": "No extra addition to author complete 2HDM classes; reuse as tensor/identity checks, then derive singlet-dependent remainder"
+    },
+    {
+      "id": "P_Zee_completion",
+      "classification": "ZEE_EXTENSION_REQUIRED",
+      "scope": "Test physical H1/H2 derivative-current parents and charged Yukawa sum rules before omitting their pinch parts",
+      "qualification": "No extra addition to author complete 2HDM classes; reuse as tensor/identity checks, then derive singlet-dependent remainder"
+    },
+    {
+      "id": "P_LSZ_audit",
+      "classification": "2HDM_COMMON",
+      "scope": "Establish which external self-energy, reducible photon attachments and counterterm pieces the on-shell Slavnov-Taylor reduction requires",
+      "qualification": "No extra addition to author complete 2HDM classes; reuse as tensor/identity checks, then derive singlet-dependent remainder"
+    }
+  ],
+  "additional": [
+    {
+      "id": "neutral_fermion_photon",
+      "classification": "2HDM_COMMON",
+      "scope": "Native neutral fermion photon triangle kernels and external couplings unchanged; already Module4; never add twice"
+    },
+    {
+      "id": "neutral_fermion_Zphoton",
+      "classification": "2HDM_COMMON",
+      "scope": "Same neutral vertices and SM Z charges; new to frozen coherent ledger; restrict species/approximations to publication"
+    },
+    {
+      "id": "charged_scalar_photon_diagonal",
+      "classification": "2HDM_COMMON",
+      "scope": "Universal scalar-QED kernel unchanged for each physical eigenstate with actual diagonal G; already Module4"
+    },
+    {
+      "id": "charged_scalar_photon_single_offdiagonal_G",
+      "classification": "VANISHES_PROVED",
+      "scope": "Q=identity: one off-diagonal trilinear cannot close a two-photon scalar loop; not a statement about Z/W loops"
+    },
+    {
+      "id": "photon_W_physical_charged_scalar",
+      "classification": "VANISHES_PROVED",
+      "scope": "VEV dot each physical charged row is zero; only Goldstone has photon-W mass vertex"
+    },
+    {
+      "id": "A_pure_W_G_ghost_inner",
+      "classification": "VANISHES_PROVED",
+      "scope": "CP-conserving neutral sector: zero VEV overlap; does not kill A mixed H1/H2 graphs"
+    },
+    {
+      "id": "physical_Ha_W_neutral_derivative_parents",
+      "classification": "ZEE_EXTENSION_REQUIRED",
+      "scope": "Ha doublet weights d=(cos gamma,-sin gamma); multiple attachments and mass-dependent kernels, not whole-W rescaling"
+    },
+    {
+      "id": "charged_scalar_Z_currents_and_seagulls",
+      "classification": "ZEE_EXTENSION_REQUIRED",
+      "scope": "Z=e/(sw cw)*(d_a d_b/2-sw^2 delta_ab) for positive fields, with orientation/momentum signs fixed natively; off-diagonal currents and mixed masses"
+    },
+    {
+      "id": "neutral_Ha_Hb_trilinears",
+      "classification": "ZEE_EXTENSION_REQUIRED",
+      "scope": "Rotate both charged legs of d3V; keep real symmetric h/H and imaginary off-diagonal A, Mu4,K1,K2,K12; pair off-diagonal G with off-diagonal Z/W currents"
+    },
+    {
+      "id": "Goldstone_Ha_neutral_mass_difference_parents",
+      "classification": "ZEE_EXTENSION_REQUIRED",
+      "scope": "Native s-G-Ha mass-difference identities, both scalar placements; all physical charged masses in ST sum"
+    },
+    {
+      "id": "charged_fermion_WH_two_loop",
+      "classification": "ZEE_EXTENSION_REQUIRED",
+      "scope": "Published t/c/tau charged-doublet pieces transfer only at F=0,gamma=0; derive weights, neutrino flow and mixed F/D cases before general use"
+    },
+    {
+      "id": "antisymmetric_F_new_LFV_classes",
+      "classification": "ZEE_EXTENSION_REQUIRED",
+      "scope": "LL singlet Yukawa F and D mixed charged-neutrino/charged-lepton subgraphs, possible opposite chirality and Majorana contractions; do not presume zero at mnu=0 without chiral proof"
+    },
+    {
+      "id": "ghost_gauge_fixing_BRST_LSZ_completion",
+      "classification": "ZEE_EXTENSION_REQUIRED",
+      "scope": "Same gauge/Goldstone core; full mixed charged physical-parent ST/BRST identities and external reducible/counterterm sum missing; singlet has hypercharge but no SU2 VEV or direct charged-W ghost coupling"
+    },
+    {
+      "id": "pure_F_one_loop",
+      "classification": "OUT_OF_SCOPE",
+      "scope": "Already frozen Module3; disappears in strict F=0 limit; do not add through new 2HDM adapter"
+    },
+    {
+      "id": "cubic_quartic_yukawa_two_loop_and_QED",
+      "classification": "OUT_OF_SCOPE",
+      "scope": "Publication keeps leading terms through quadratic Yukawas, not all corrections; no all-orders Zee prediction"
+    },
+    {
+      "id": "neutrino_fit_global_acceptance",
+      "classification": "OUT_OF_SCOPE",
+      "scope": "F=0 strict amplitude fixtures have no Zee neutrino fit or phenomenological acceptance claim"
+    }
+  ],
+  "subtraction_status": "PROPOSED_ONLY_NO_PHYSICAL_ZEE_DELTA",
+  "physical_W": {
+    "C_L": null,
+    "C_R": null,
+    "coherent_inclusion": false
+  }
+}
