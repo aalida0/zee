@@ -1,0 +1,56 @@
+{
+  "acceptance": false,
+  "algebra_tools": {
+    "FeynCalc": "10.2.1",
+    "TARCER": "2.0",
+    "all_m_sources_manifest_sha256": "ffa47425772d66a7318d22fd9b041a3da62172f5a3714d9fa110c34055eba062",
+    "archive_sha256": "3594d33b58a339eddec1fd5ebcb1c0ca31e484c59adc0a9bad1e84507462996f",
+    "source_file_count": 1374
+  },
+  "base_commit": "dade0f9",
+  "current_code_sha256": {
+    "f_neutrino_rxi.py": "4ddcd5999e52d26c780e059e6b060b39aca100044d68d285d017679f0f906d67",
+    "gww_dimensional_projection.m": "d9e48d1a6c8ae4e81595632bf74ee90832f96edf45c09529c5ee928a593b6fde",
+    "neutral_mixing_support.py": "d63f779487ac71a3088e591b78d5632a73d84e261a0649dd40f362b82777b9b6",
+    "reproduce_gww_outer.py": "d7f220fafac533a4f155f224bcc3b55484de3aa1e392bb4bcffd078bda9faa91",
+    "reproduce_w_outer.py": "6f14bbc97bda76873ee91216a2196158eeb36544d3a22bc794d9bcc6baee42b5",
+    "test_remaining_subgraphs.py": "ab462f5e3cd0ea3441199f8c11030a6b2c35402efd355da8af01b4f7c9cac97c",
+    "test_w_outer_projection.py": "810360281bea9d8a29c9da7b4c66695c0934defc8d8b3689c171c471e423f3be",
+    "w_dimensional_projection.m": "83a2ee5d37ea4ca6f1331e139e00c920a21ac0719707b857b46e4fb192bfbf83",
+    "w_master_reduction.m": "4aa315ba57a8c1ac1e733d36fb81cd8eba738374bf145e29626e13cdad7c99ad",
+    "w_vacuum.py": "9a7a5277fd33c99de08f108722d2e14541b2d54cb469aec9e8938979187666dd"
+  },
+  "evidence_sha256": {
+    "gww_outer_evidence.json": "cde8363bfd0fb33830bb917dde53cadfa0ee10d4fba7cfdd9a7d55c41f903108",
+    "remaining_subgraph_evidence.json": "feefde64a9a08af074ed8f32a7cfb4804b526ed1dbdce489e12dfee0250442cb",
+    "w_outer_evidence.json": "10d92bce078689c4f9fda1a1c52c9544bbc7cfe62c0b710b0196b7ca7ef619c1"
+  },
+  "focused_tests": {
+    "count": 18,
+    "log_sha256": "414d4956c86f6f5cc2afdee105e9ed5499de2d09a100397a1cef504ff5f6a721",
+    "result": "PASS"
+  },
+  "frozen_paths_changed": [],
+  "full_BR": null,
+  "full_C_LR": null,
+  "new_GWW_master_poles": [
+    "0",
+    "1/4"
+  ],
+  "new_WWW_master_poles": [
+    "0",
+    "0"
+  ],
+  "notes": [
+    "WWW and GWW are topology-only, not coherent rows",
+    "Finite GWW mass differences are integral checks, not matched physical-class subtractions",
+    "No old 39-channel/common-2HDM or historical inner calculation restarted"
+  ],
+  "remaining": [
+    "Complete W/G/physical-charged/pinch/BRST/ghost/counterterm/LSZ sum and general-xi Wilson tests",
+    "Full F-dagger-F gauge-renormalized dipoles, including internal/external emission",
+    "Mixed potential-W and charged-fermion-W classes; remaining neutral reducible sector"
+  ],
+  "source_commit_before_final_milestone": "3e9a6f2b8a83aa08fce884e369fbfa4cf2d8dd9a",
+  "status": "VALIDATED_TOPOLOGIES_AND_SUBGRAPHS_ONLY"
+}

@@ -149,3 +149,9 @@ and LSZ must be calculated in one scheme. Their projected numerators are
 not inferred from this ξ=1 result. ξ=.5,1,3 cannot be called a physical
 gauge test until that sum exists. F†F and mixed potential-W/fermion-W
 classes remain independent missing amplitudes. All full C and BR stay null.
+
+Subsequent continuation: GWW has now been reduced, with a **nonzero**
+subdivergent pole rather than a presumed finite result. See
+[REMAINING_SUBGRAPH_DERIVATION.md](REMAINING_SUBGRAPH_DERIVATION.md).
+The later spinor test also independently checks the chiral Gordon
+projection while separating vector/longitudinal structures.

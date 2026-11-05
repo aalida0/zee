@@ -26,10 +26,11 @@ def dipole_numerator():
         2*d*w*z*z+d*d*w*z*z+2*d*x*z*z-d*d*x*z*z)/((d-1)*d*(w-x)*y)
 
 
-def ibp_input(path):
+def ibp_input(path,numerator=None):
     """Only partial fractions; all IBP recurrence solving is done by TARCER."""
     den=X*Y*(X-W)**2*(Y-H)*(V-W)
-    original=s.cancel(dipole_numerator().subs(Z,(X+Y-V)/2)/den)
+    numerator=dipole_numerator() if numerator is None else numerator
+    original=s.cancel(numerator.subs(Z,(X+Y-V)/2)/den)
     terms=[original]
     for var in (V,X,Y):
         terms=[u for t in terms for u in s.Add.make_args(s.apart(t,var))]
@@ -171,3 +172,23 @@ def topology_pair(mw,ms,v,kappa,mi,left,right):
         normalized_vacuum_integral=value/mw**2,
         physical_C_LR=None,coherent_inclusion=False,
         gauge_completion='W/G, physical charged, pinch, BRST/ghost, counterterm and LSZ partners missing')
+
+
+def gww_numerator():
+    return 2*X*(Y+Z)/(D*(W-X))
+
+
+def gww_mass_difference(h,reference=2.,tol=2e-10):
+    """Finite mass difference of UV-divergent GWW parents, xi=1.
+
+    Its mass-independent 1/(4 eps) subdivergence cancels in the difference.
+    This is a mathematical check, not a Zee-minus-2HDM class subtraction.
+    """
+    if not np.isfinite([h,reference]).all() or min(h,reference)<=0:
+        raise ValueError('Positive mass ratios required')
+    def fn(u,v):
+        x=u/(1-u);y=v/(1-v)
+        T=x+y+1+np.sqrt((x-y)**2+2*(x+y)+1)
+        return (x*y*(T+x)*(reference-h)/
+                (T*T*(x+1)**3*(y+h)*(y+reference)*(1-u)**2*(1-v)**2))
+    return _quad2(fn,tol)

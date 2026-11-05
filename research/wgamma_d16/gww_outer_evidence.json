@@ -1,0 +1,380 @@
+{
+  "code_sha256": {
+    "gww_dimensional_projection.m": "d9e48d1a6c8ae4e81595632bf74ee90832f96edf45c09529c5ee928a593b6fde",
+    "reproduce_gww_outer.py": "d7f220fafac533a4f155f224bcc3b55484de3aa1e392bb4bcffd078bda9faa91",
+    "w_master_reduction.m": "4aa315ba57a8c1ac1e733d36fb81cd8eba738374bf145e29626e13cdad7c99ad",
+    "w_vacuum.py": "9a7a5277fd33c99de08f108722d2e14541b2d54cb469aec9e8938979187666dd"
+  },
+  "coherent_inclusion": false,
+  "exact_UV_poles": [
+    "0",
+    "1/4"
+  ],
+  "files": {
+    "local/gww_outer_6zko21we/gww_dimensional_projection.log": "6bef9d1aac33c8a7b94b365859961610f6680773bdf6f4cd7d1604e832a7164a",
+    "local/gww_outer_6zko21we/gww_projection.json": "a6892de632e06823254a94dda44154c1f1fbbcca1020ecd98b2c4a698a87c885",
+    "local/gww_outer_6zko21we/w_ibp_coefficients.json": "d7f7cc51fab3d7e98ee222ca2d2c09e7a5b19ae3a7de7f701b921d930b4d8b83",
+    "local/gww_outer_6zko21we/w_ibp_input.m": "40e6372a52293e0326449c1ddaa447a7c7ecab35b78aa636d687a63a8732f00d",
+    "local/gww_outer_6zko21we/w_ibp_reduced.m": "960d9df06a7bda9ace12e4103d1fe45e75f7701672d02b4fa661b9ce10d58b09",
+    "local/gww_outer_6zko21we/w_master_reduction.log": "4b4bf689105f265455165ebb8547aaf60e78d67c8fa673d92bb0e729684d9bf4"
+  },
+  "full_BR": null,
+  "full_C_LR": null,
+  "ibp": {
+    "basis": [
+      "AhAw",
+      "AwAw",
+      "S_w00_E",
+      "S_wh0_E",
+      "S_wwh_E"
+    ],
+    "coefficients": [
+      "-1/4*((-2 + D)*(-4*h^2 + D*h^2 + 34*h*w - 8*D*h*w - 12*w^2 + 4*D*w^2))/(D*h*(h - 4*w)^2*w^2)",
+      "((-2 + D)*(-10*h^2 + 3*D*h^2 + 72*h*w - 18*D*h*w - 8*w^2))/(8*D*h*(h - 4*w)^2*w^2)",
+      "0",
+      "0",
+      "((-3 + D)*(-14*h + 3*D*h - 4*w))/(2*D*h*(h - 4*w)^2)"
+    ]
+  },
+  "native_normalization": "native numerator = +MW\u00b2 gamma_mu slash(p-l) slash(l+r) PL; half the WWW prefactor",
+  "projection": {
+    "FeynCalc": "10.2.1",
+    "Wolfram": "15.0.1 for Linux x86 (64-bit) (July 2, 2026)",
+    "dipole_numerator": "(2*x*(y + z))/(D*(mw^2 - x))",
+    "polynomial_basis": [
+      "ap=gamma_mu slash_p",
+      "bp=slash_p gamma_mu",
+      "cp=p_mu",
+      "aq=gamma_mu slash_q",
+      "bq=slash_q gamma_mu",
+      "cq=q_mu"
+    ],
+    "polynomials": [
+      "-((ap*(-2 + D)*(x + y + 2*z))/D)",
+      "(-2*aq*x*(y + z))/(D*(mw^2 - x))"
+    ],
+    "scope": "TOPOLOGY_ONLY; xiW=1; GWW, scalar before W currents; leading external degree; not a physical Wilson"
+  },
+  "reference": {
+    "error": [
+      0.0,
+      1.2096463867609033e-13,
+      6.345352502120123e-10
+    ],
+    "laurent": [
+      0.0,
+      0.25,
+      0.003660600481381726
+    ],
+    "masters": [
+      {
+        "coefficient_epsilon_series": [
+          -0.125,
+          -0.1875,
+          0.15625
+        ],
+        "error": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "laurent": [
+          2.0,
+          2.613705638880109,
+          6.997732425374873
+        ]
+      },
+      {
+        "coefficient_epsilon_series": [
+          0.0,
+          0.375,
+          -0.1875
+        ],
+        "error": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "laurent": [
+          1.0,
+          2.0,
+          4.644934066848227
+        ]
+      },
+      {
+        "coefficient_epsilon_series": [
+          0.0,
+          -0.0,
+          0.0
+        ],
+        "error": [
+          0.0,
+          4.966422054558226e-13,
+          1.3259180368259687e-09
+        ],
+        "laurent": [
+          -0.5,
+          -1.5,
+          -5.967401100275076
+        ]
+      },
+      {
+        "coefficient_epsilon_series": [
+          0.0,
+          -0.0,
+          0.0
+        ],
+        "error": [
+          0.0,
+          8.35845828090879e-13,
+          2.67203711770785e-09
+        ],
+        "laurent": [
+          -1.5,
+          -3.113705638880109,
+          -10.111438064255019
+        ]
+      },
+      {
+        "coefficient_epsilon_series": [
+          -0.125,
+          -0.0,
+          0.375
+        ],
+        "error": [
+          0.0,
+          9.677171094087226e-13,
+          5.076282001696098e-09
+        ],
+        "laurent": [
+          -2.0,
+          -4.613705638880109,
+          -9.94757568754609
+        ]
+      }
+    ]
+  },
+  "reference_h": 2.0,
+  "source_commit": "3e9a6f2b8a83aa08fce884e369fbfa4cf2d8dd9a",
+  "status": "REGULATED_GWW_PARENT_TOPOLOGY_ONLY",
+  "tool_sources": {
+    "AddOns/TARCER/TARCERSource.m": "1a47d7ad0f522f7df85122cdc4650bf7f5949e6669c1e1bd69e6dcc221d7ff2a",
+    "FeynCalc.m": "4238350af2ff91a6687ea937446b9e6077318914593afe963d4d10026dfc5165"
+  },
+  "witnesses": [
+    {
+      "discrepancy": 1.2420620087993939e-14,
+      "finite_mass_difference": {
+        "error": 1.3661423783775816e-11,
+        "value": -0.025290452609618028
+      },
+      "ibp": {
+        "error": [
+          0.0,
+          2.0059863036001666e-13,
+          1.237416070503909e-09
+        ],
+        "laurent": [
+          0.0,
+          0.24999999999999978,
+          -0.02162985212822388
+        ],
+        "masters": [
+          {
+            "coefficient_epsilon_series": [
+              -0.18260010984695238,
+              -0.30124964821220657,
+              0.24192487902957951
+            ],
+            "error": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "laurent": [
+              2.418437277615067,
+              2.7011004090501474,
+              7.905007524647525
+            ]
+          },
+          {
+            "coefficient_epsilon_series": [
+              0.03820334642828546,
+              0.5178447933402069,
+              -0.2780240698842462
+            ],
+            "error": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "laurent": [
+              1.0,
+              2.0,
+              4.644934066848227
+            ]
+          },
+          {
+            "coefficient_epsilon_series": [
+              0.0,
+              -0.0,
+              0.0
+            ],
+            "error": [
+              0.0,
+              4.966422054558226e-13,
+              1.3259180368259687e-09
+            ],
+            "laurent": [
+              -0.5,
+              -1.5,
+              -5.967401100275076
+            ]
+          },
+          {
+            "coefficient_epsilon_series": [
+              0.0,
+              -0.0,
+              0.0
+            ],
+            "error": [
+              0.0,
+              1.0022657463042462e-12,
+              3.0487840852143297e-09
+            ],
+            "laurent": [
+              -1.7092186388075334,
+              -2.991881770242614,
+              -10.867976388180328
+            ]
+          },
+          {
+            "coefficient_epsilon_series": [
+              -0.18260010984695238,
+              -0.025939044074587192,
+              0.586708895652738
+            ],
+            "error": [
+              0.0,
+              1.0985679610387413e-12,
+              6.776488665523116e-09
+            ],
+            "laurent": [
+              -2.2092186388075334,
+              -4.491881770242614,
+              -10.377794189235644
+            ]
+          }
+        ]
+      },
+      "ms": 125.0
+    },
+    {
+      "discrepancy": 7.503997423441433e-13,
+      "finite_mass_difference": {
+        "error": 7.39296165875034e-11,
+        "value": -0.34515854353951747
+      },
+      "ibp": {
+        "error": [
+          0.0,
+          1.794270749174289e-14,
+          7.996747104885232e-11
+        ],
+        "laurent": [
+          -3.469446951953614e-18,
+          0.25000000000000006,
+          -0.34149794305888614
+        ],
+        "masters": [
+          {
+            "coefficient_epsilon_series": [
+              -0.0023984015618534944,
+              0.0163010553931265,
+              -0.006951326915636502
+            ],
+            "error": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "laurent": [
+              14.874356632243707,
+              -10.406675520896481,
+              42.98214903963715
+            ]
+          },
+          {
+            "coefficient_epsilon_series": [
+              0.015438938527316102,
+              -0.035861860841320405,
+              0.010211461157002158
+            ],
+            "error": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "laurent": [
+              1.0,
+              2.0,
+              4.644934066848227
+            ]
+          },
+          {
+            "coefficient_epsilon_series": [
+              0.0,
+              -0.0,
+              0.0
+            ],
+            "error": [
+              0.0,
+              4.966422054558226e-13,
+              1.3259180368259687e-09
+            ],
+            "laurent": [
+              -0.5,
+              -1.5,
+              -5.967401100275076
+            ]
+          },
+          {
+            "coefficient_epsilon_series": [
+              0.0,
+              -0.0,
+              0.0
+            ],
+            "error": [
+              0.0,
+              7.633061826645852e-12,
+              2.8451686671781097e-08
+            ],
+            "laurent": [
+              -7.937178316121853,
+              16.343853837018333,
+              -72.17791536988861
+            ]
+          },
+          {
+            "coefficient_epsilon_series": [
+              -0.0023984015618534944,
+              -0.0027448048296813653,
+              0.01131241193008253
+            ],
+            "error": [
+              0.0,
+              7.481110660166805e-12,
+              3.333342428212797e-08
+            ],
+            "laurent": [
+              -8.437178316121853,
+              14.843853837018333,
+              -66.96732939374421
+            ]
+          }
+        ]
+      },
+      "ms": 310.0
+    }
+  ]
+}

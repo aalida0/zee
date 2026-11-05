@@ -96,3 +96,16 @@ The exact W master reduction and F² UV obstruction are explained in
 `ZEE_TWO_LOOP_DERIVATION.md`; the minimum next calculation is its complete
 d-dimensional numerator/crossed/charged/BRST/LSZ reduction. No D14 overlay
 is produced before the required full acceptance.
+
+## New regulated-parent checks
+
+`w_outer_evidence.json` and `gww_outer_evidence.json` record independent
+IBP/sector and radial evaluations at Ms=125,310 GeV, MW=80.379 GeV.
+These are formal complex Pauli probes, not new neutrino-fit benchmarks:
+the exact YL,YR,κ inputs are stored. WWW is finite; GWW has a mass-independent
+1/(4ε) subdivergence. No physical rate is assembled from either topology.
+The 18 focused continuation tests include an unequal-mass on-shell spinor
+fit separating both independent complex Pauli coefficients from vector and
+longitudinal structures at nonexceptional virtual photon momentum, native
+WWW/GWW signs, exact poles, and existing guarded NO/IO rates. They do not
+supply the missing full ξ cancellation.

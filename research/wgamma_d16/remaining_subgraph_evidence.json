@@ -1,0 +1,69 @@
+{
+  "acceptance": false,
+  "charged_scalar_neutral_mixing": {
+    "A_matrix": "Matrix([[0, -I*cg*delta*v/2 - I*mu*sg, -I*cg*mu + I*delta*sg*v/2], [I*cg*delta*v/2 + I*mu*sg, 0, 0], [I*cg*mu - I*delta*sg*v/2, 0, 0]])",
+    "G0_matrix": "Matrix([[0, 0, 0], [0, 0, I*cg**2*mu + I*mu*sg**2], [0, -I*cg**2*mu - I*mu*sg**2, 0]])",
+    "Z_matrix": "Matrix([[-sw/cw + 1/(2*cw*sw), 0, 0], [0, -cg**2*sw/cw + cg**2/(2*cw*sw) - sg**2*sw/cw, -cg*sg/(2*cw*sw)], [0, -cg*sg/(2*cw*sw), -cg**2*sw/cw - sg**2*sw/cw + sg**2/(2*cw*sw)]])",
+    "full_reducible_C_LR": null,
+    "missing": "A-G+-H+- with W, fermion A-Z/G0, other reducible mixing and LSZ are not proved zero",
+    "photon_attachments": "Q=I and diagonal propagators preserve the disjoint support; internal/external attachments of these zero two-point loops also vanish",
+    "residuals": {
+      "A_G0_two_point": "0",
+      "A_Z_two_point": "0"
+    },
+    "status": "PROVED_ZERO_CHARGED_SCALAR_LOOP_SUBSET"
+  },
+  "full_BR": null,
+  "full_C_LR": null,
+  "log_sha256": "b65ff50cce5daabbf753e9742f9ce51da1999f5141240f5dbe1ace9436d0178b",
+  "neutrino_Rxi": {
+    "0.5": {
+      "finite": 0.6790860053115686,
+      "longitudinal_finite": -0.09350271692821258,
+      "physical_C_LR": null,
+      "pole": -0.5,
+      "quadrature_error": 2.993941255183394e-15,
+      "rational_epsilon_times_UV": 1.0,
+      "renormalization": "MSbar pole subtraction of this two-point function only; not a full F or EW scheme",
+      "scope": "NEUTRINO_TWO_POINT_SUBGRAPH_ONLY; mnu=ml_internal=0"
+    },
+    "1.0": {
+      "finite": 0.7725887222397811,
+      "longitudinal_finite": 0.0,
+      "physical_C_LR": null,
+      "pole": -1.0,
+      "quadrature_error": 2.524772366288217e-16,
+      "rational_epsilon_times_UV": 1.0,
+      "renormalization": "MSbar pole subtraction of this two-point function only; not a full F or EW scheme",
+      "scope": "NEUTRINO_TWO_POINT_SUBGRAPH_ONLY; mnu=ml_internal=0"
+    },
+    "3.0": {
+      "finite": 2.532893951072522,
+      "longitudinal_finite": 1.760305228832741,
+      "physical_C_LR": null,
+      "pole": -3.0,
+      "quadrature_error": 5.40911194284936e-15,
+      "rational_epsilon_times_UV": 1.0,
+      "renormalization": "MSbar pole subtraction of this two-point function only; not a full F or EW scheme",
+      "scope": "NEUTRINO_TWO_POINT_SUBGRAPH_ONLY; mnu=ml_internal=0"
+    },
+    "7.0": {
+      "finite": 9.253625043019465,
+      "longitudinal_finite": 8.481036320779683,
+      "physical_C_LR": null,
+      "pole": -7.0,
+      "quadrature_error": 9.796679080947968e-15,
+      "rational_epsilon_times_UV": 1.0,
+      "renormalization": "MSbar pole subtraction of this two-point function only; not a full F or EW scheme",
+      "scope": "NEUTRINO_TWO_POINT_SUBGRAPH_ONLY; mnu=ml_internal=0"
+    }
+  },
+  "source_sha256": {
+    "f_neutrino_rxi.py": "4ddcd5999e52d26c780e059e6b060b39aca100044d68d285d017679f0f906d67",
+    "mixed_hz_sources.json": "198a3fa6591c231c9a672401766eb38eaa18f4d08171d05a58f71bc3141ab3a5",
+    "neutral_mixing_support.py": "d63f779487ac71a3088e591b78d5632a73d84e261a0649dd40f362b82777b9b6",
+    "parent_integrals.py": "2b418f57ab8bebfe88ee0528a4964fa6851ff2c77cf6a4fb4087ebdfee7e257f",
+    "test_remaining_subgraphs.py": "ab462f5e3cd0ea3441199f8c11030a6b2c35402efd355da8af01b4f7c9cac97c"
+  },
+  "status": "SUBGRAPH_SCOPE_ONLY"
+}

@@ -1,3 +1,10 @@
+The following GWW parent is also reduced: it has a nonzero 1/(4ε)
+subdivergence, independently checked finite mass differences, and requires
+actual renormalization/LSZ partners. General-Rξ neutrino insertion and
+charged-scalar-only neutral-mixing support identities are in
+[REMAINING_SUBGRAPH_DERIVATION.md](REMAINING_SUBGRAPH_DERIVATION.md).
+Eighteen focused continuation/guard tests pass. Full amplitudes remain null.
+
 New continuation: the native WWW outer Pauli numerator is now reduced in
 d=4−2ε with FeynCalc/TARCER, and integrated independently through
 sector-subtracted sunset masters and a finite Euclidean representation.

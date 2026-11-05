@@ -22,7 +22,7 @@ full W/Goldstone/ghost/LSZ matching.
 | Zee potential HW | unequal-mass physical currents and Goldstone parents | NOT CALCULATED |
 | Charged-fermion W | general charged mixing, matched complete aggregate | NOT CALCULATED |
 | Quadratic FD, mν=0 | fermion-number spurion argument includes gauge/reducible insertions | ZERO in specified Yukawa truncation |
-| Quadratic F†F | nonzero native W-neutrino self-energy pole and finite parameter integral | full gauge/counterterm sum MISSING |
+| Quadratic F†F | native W-neutrino subgraph now calculated at general ξ; pole −ξ and finite nonlocal part | full dipole gauge/counterterm sum MISSING |
 | Full Zee UV/ST/Ward / ξ, both L,R | required classes missing | NOT EVALUATED |
 | Full Zee amplitudes / full BR | null in CLI | UNAVAILABLE |
 | Opt-in D14 overlay | master task requires scoped completion first | not produced |
@@ -34,3 +34,10 @@ Scalar constraint failures of amplitude fixtures remain separate from these
 amplitude validation states. These results imply no phenomenological exclusion.
 
 New integrated parent: [W_OUTER_PARENT_DERIVATION.md](W_OUTER_PARENT_DERIVATION.md), `w_outer_evidence.json`. This advances one ξW=1 topology and its Hermitian reverse; it does not change any full-amplitude gate.
+
+Further calculated pieces: `gww_outer_evidence.json` retains the next native
+parent's **nonzero 1/(4ε) subdivergence**, with independent finite
+mass-difference checks. `remaining_subgraph_evidence.json` records the
+general-Rξ neutrino two-point function and proved charged-scalar-only A-Z/G0
+mixing zeros. Full reducible and F†F gates remain open. See
+[REMAINING_SUBGRAPH_DERIVATION.md](REMAINING_SUBGRAPH_DERIVATION.md).

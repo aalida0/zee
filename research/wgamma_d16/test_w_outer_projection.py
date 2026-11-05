@@ -8,7 +8,7 @@ import sympy as s
 from sympy.parsing.mathematica import parse_mathematica
 from .parent_integrals import numerator,native_parent_numerator
 from .w_vacuum import (dipole_numerator,direct,sunset,topology_pair,
-                       pole_identity,master_combination,X,Y,Z,W,D)
+                       pole_identity,master_combination,gww_mass_difference,gww_numerator,X,Y,Z,W,D)
 
 HERE=Path(__file__).resolve().parent
 
@@ -76,6 +76,61 @@ class RegulatedParent(unittest.TestCase):
         np.testing.assert_allclose(rephased['topology_C_LR'],phase*c,rtol=2e-14)
         self.assertIsNone(result['physical_C_LR'])
         self.assertFalse(result['coherent_inclusion'])
+
+    def test_unequal_mass_spinor_Pauli_projection_both_complex_chiralities(self):
+        from .algebra import GAMMA,PL,PR,ID,slash,spinor,bar
+        poly=[parse_mathematica(x) for x in self.evidence['projection']['polynomials']]
+        symbols=s.symbols('ap bp cp aq bq cq')
+        expr=s.expand(sum(poly)).subs({s.Symbol('mw')**2:W})
+        subs={X:1.7,Y:2.1,Z:.31,W:.8,D:4}
+        values=[complex(expr.coeff(x).subs(subs)) for x in symbols]
+        ap,bp,cp,aq,bq,cq=values
+        mi,mj=3.,.7
+        pi=np.array([mi,0.,0.,0.]);pv=np.array([.2,-.8,1.2])
+        pj=np.r_[np.sqrt(mj*mj+np.dot(pv,pv)),pv];q=pi-pj
+        left,right=.03+.02j,-.01+.04j
+        def vertex(p,k,mu):
+            g=GAMMA[mu]
+            return (ap*g@slash(p)+bp*slash(p)@g+cp*p[mu]*ID+
+                    aq*g@slash(k)+bq*slash(k)@g+cq*k[mu]*ID)@PR
+        rows=[];target=[]
+        for mu in range(4):
+            pauli=(slash(q)@GAMMA[mu]-GAMMA[mu]@slash(q))/2
+            basis=[pauli@PL,pauli@PR,GAMMA[mu]@PL,GAMMA[mu]@PR,q[mu]*PL,q[mu]*PR]
+            rev=vertex(pj,-q,mu)
+            actual=right*vertex(pi,q,mu)+left*GAMMA[0]@rev.conjugate().T@GAMMA[0]
+            for si in range(2):
+                for sj in range(2):
+                    ui=spinor(pi,mi,si);uj=bar(spinor(pj,mj,sj))
+                    rows.append([uj@b@ui for b in basis]);target.append(uj@actual@ui)
+        fit,_,rank,_=np.linalg.lstsq(rows,target,rcond=None)
+        self.assertEqual(rank,6)
+        expected=cp/2+bp+bq-aq
+        np.testing.assert_allclose(fit[:2],expected*np.array([left,right]),rtol=2e-13,atol=1e-14)
+        np.testing.assert_allclose(np.asarray(rows)@fit,target,atol=1e-13)
+
+    def test_GWW_native_source_and_open_Dirac_projection(self):
+        from .algebra import GAMMA,slash,PL
+        l=np.array([.2,.6,-.5,.4]);p=np.array([1.,0,0,0]);q=np.array([.5,0,0,.5])
+        r=np.array([.1,-.4,.3,.2]);w=80.379**2
+        actual=native_parent_numerator(l[None],p,q,r,w,310.**2,1.,('G','W','W'))[0]
+        expected=w*np.array([g@slash(p-l)@slash(l+r)@PL for g in GAMMA])
+        np.testing.assert_allclose(actual,expected,rtol=1e-14,atol=1e-10)
+        evidence=json.loads((HERE/'gww_outer_evidence.json').read_text())
+        expr=parse_mathematica(evidence['projection']['dipole_numerator']).subs(s.Symbol('mw')**2,W)
+        self.assertEqual(s.cancel(expr-gww_numerator()),0)
+
+    def test_GWW_IBP_poles_and_independent_integrals(self):
+        evidence=json.loads((HERE/'gww_outer_evidence.json').read_text())
+        path=Path(self.temp.name)/'gww.json';path.write_text(json.dumps(evidence['ibp']))
+        self.assertEqual(pole_identity(path),(0,s.Rational(1,4)))
+        reference=master_combination(2.,path)
+        for record in evidence['witnesses']:
+            h=(record['ms']/80.379)**2
+            value,error=gww_mass_difference(h)
+            self.assertLess(value,0.)
+            reduced=master_combination(h,path)
+            self.assertLess(abs(value-reduced['laurent'][2]+reference['laurent'][2]),max(2e-9,8*(error+reduced['error'][2]+reference['error'][2])))
 
 
 if __name__=='__main__':
