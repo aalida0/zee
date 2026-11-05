@@ -1,0 +1,2008 @@
+{
+  "W_outer_attempt": {
+    "details_sha256": "32fcbf93fcead7b460646d090ed1fb14deb63931b15f4bcfe30d4439bc604237",
+    "missing": "Full d-dimensional open-Dirac numerator/IBP plus crossed, physical-H, BRST and LSZ sum. Vacuum families have overlapping UV subtractions; fixed-r eps^0 is insufficient.",
+    "status": "BLOCKED_OUTER_W_DIPLOLE_REDUCTION",
+    "symbolic_residual": "0"
+  },
+  "acceptance": false,
+  "acceptance_matrix": {
+    "D14_overlay": "NOT_PERMITTED_BEFORE_COMPLETION",
+    "F_dagger_F": "NONZERO_SUBGRAPH_FULL_SUM_MISSING",
+    "W_complete": "MISSING",
+    "all_required_complex_Wilsons": "UNAVAILABLE",
+    "mixed_HZ_full_reducible_assignment": "OPEN",
+    "mixed_HZ_on_shell_current_xi": "SCOPED_PASS",
+    "neutral_fermion_Z": "COMMON_CLASS_PASS",
+    "new_native_vertices": "64_CHECKS_PASS",
+    "off_shell_Z_G0_current_identity": "PASS",
+    "quadratic_FD_massless": "ODD_F_SPURION_ZERO",
+    "scalar_current_EM_Ward": "PASS"
+  },
+  "author_files_sha256": {
+    "LICENSE.txt": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0",
+    "adm.py": "2730ded681459b6c77d81ef2bde5d973dd030059a78a0325f7fb1f8cab442564",
+    "example.py": "669d70f831ff9535d7bfc2930e7983a5dc0565957daf5069076bc896dce0fb0f",
+    "rge.py": "fc09384bddba9e283980cd95d0c104b45c6942ea4ff17b8e8da09182cefaff42",
+    "thdm.py": "9b4af7aa4bf7bf533a7b82c8c2603d118346424e3b7b5f9f06ab8cb41bc4e193"
+  },
+  "author_pin": "b5035cd58d2a7e4a91e9790d045df062b97adffe",
+  "code_sha256": {
+    "algebra.py": "4f88dfbf6020ab645bbe2274293f80c0f85f9f723200a36d56b56d818eac486a",
+    "check_st_sources.py": "7155fd9257b7a7770bbf82ea9a4343af2ae69242f7fb11530cdc737094b7eae2",
+    "external_2hdm.py": "819f065b3ed7206ba0f1d313f38450ea1c651479ca553bc1b9be1e5d0c4c7bee",
+    "external_2hdm_hw_override.py": "19bef1d64460b6f54842610ce4f8282713132b08885778d79d4e8bab84582205",
+    "external_2hdm_native.py": "1ea8147e7eb34dcdb1af872a0b5c7a6fcc5b582b7b94aa95539bcfc55d720c6f",
+    "f_current_probe.py": "97f09b9b22ae769979676a4cf726870b2a70525702bf091a3880e59ef156c8c1",
+    "inventory.py": "8fca9aba889f10370150330f6be734b9927cc79e34727df00debc7322205aa71",
+    "longitudinal_identities.py": "47b43fc571241b5028c2bed94c3b4c0d3b98ac384dc8b6c52db0183798c4022e",
+    "matching.py": "d48af39ad2afd9bf9d1fc8788428b514bd8ed350403493cff1b89e1202438b46",
+    "mixed_hz_sources.py": "0afc7a9c1a0f607d9bc1e7ca7c0376c662ad45871d1279f091b94eba67bbdfef",
+    "native_integrands.py": "ba7531044ca90d760049d60aeefc81222cd429d8d2bb55d4b149001275974c3d",
+    "neutral_fermion_z.py": "1adf57ea2946fdfcee76e4c11332fac889777d7a24994bdf8e8fee9237927da0",
+    "parent_integrals.py": "2b418f57ab8bebfe88ee0528a4964fa6851ff2c77cf6a4fb4087ebdfee7e257f",
+    "prepare_vertices.py": "052c16df318cb38f263c405e799ccf5db6e8716f8621df3b77fbc88eea282700",
+    "regulated_pilot.py": "e4176906664f09e1202ea8064240ecf5c45f16bf8de5ac6883ce66c8b142567b",
+    "reproduce.py": "2778e83850482bfbe8694cde7381038d80327cd114253bf134b38ed44aa36f45",
+    "reproduce_two_loop.py": "692473516a58dd9e27e05c545c84ff4c3c68333b9591903e5f56034714ade839",
+    "symbolic_reductions.py": "97e82744924ad67cb6fb9d6feb9b1cf683a42c408580c21103165d3166a5c95b",
+    "tensor_reduction.py": "f1df92ccded11eff4499ba4b181f44dbb522306c2d981f76a40807da2f7b2983",
+    "test_d16.py": "715874f94dd4c18df62b670c06aa18c99c0028ecef32ba456f69670d3491a422",
+    "test_external_2hdm.py": "a04a2f9789af34028651457968257811853a10e15be7d8e4f478c746cf38ca64",
+    "test_hw_normalization.py": "287ee7f7622ae06e9216d640d4fa4389a7c2f61341730a35f30248b9442edb4f",
+    "test_regulated.py": "37295f45fe35fdafb1fe4d999df52a8292ead476fa4963935673512bd9993318",
+    "test_zee_mixed_hz.py": "07c7623193e326b05372c320255de1750a8acc5b61cfc9fb9ff8b6f507c5602b",
+    "test_zee_two_loop.py": "bbaf99a87c32c41c5b4279050bf80219286630a0d1a76baa8db64734c0abcaf0",
+    "w_outer_reduction.py": "5255d74b1df54070ff385c1e7edf1000bf1bdfac38d4d2d0dffe76bc299e7177",
+    "zee_mixed_hz.py": "8cfdaedd14368429d8f9e22f1ae565bdd25cdfb283ddcda13bb8e4e27223a62c",
+    "zee_singlet_hz.py": "579b7e999d833ffa9f5825ee1c7e3b0fc4e014f1426df068b37b41983acd0eae",
+    "zee_two_loop.py": "b94c7c0920a16073d68ab048513ea5b22d6389c9e4f8f423237ad0490d59bacc"
+  },
+  "command_logs_sha256": {
+    "research/wgamma_d16/local/mixed_hz_extract.log": "7b6d568a7fd4e4b583698f7d2dbe89719968ed7804d90e1c6fa89a3de95a50a3",
+    "research/wgamma_d16/local/mixed_hz_source_check.log": "8d973ff2612a94a0d8149e5b1543aad791ab92ea30cd31b59179261e99afc801",
+    "research/wgamma_d16/local/new_two_loop_tests.log": "4a4282d1b27b149acaff1ad37ba36d0d66b61945793f8056686ee6e1de0ece87"
+  },
+  "elapsed_seconds": 2.6690594050014624,
+  "environment": {
+    "numpy": "2.2.6",
+    "python": "3.10.12",
+    "scipy": "1.15.3",
+    "sympy": "1.14.0"
+  },
+  "focused_tests": 14,
+  "inverse_witnesses": [
+    {
+      "F_current_probe": {
+        "F_dagger_F": [
+          [
+            [
+              3.608579047784349e-07,
+              0.0
+            ],
+            [
+              -8.744158958555114e-08,
+              -5.251529182290541e-07
+            ],
+            [
+              -1e-06,
+              4.0000000000000014e-07
+            ]
+          ],
+          [
+            [
+              -8.744158958555114e-08,
+              5.251529182290541e-07
+            ],
+            [
+              4.29e-06,
+              0.0
+            ],
+            [
+              3.065489442651764e-08,
+              1.4003238851581863e-07
+            ]
+          ],
+          [
+            [
+              -1e-06,
+              -4.0000000000000014e-07
+            ],
+            [
+              3.065489442651764e-08,
+              -1.4003238851581863e-07
+            ],
+            [
+              4.070857904778434e-06,
+              0.0
+            ]
+          ]
+        ],
+        "full_F_dependent_C_LR": null,
+        "opposite_projector_massless_chain_norm": 1.2489995996796797,
+        "quadratic_FD": "VANISHES_BY_FERMION_LEPTON_NUMBER_AT_mnu_0",
+        "same_projector_massless_chain_norm": 0.0,
+        "selection_rule": "One F or F* changes fermion lepton number by two; D and all bosonic/gauge vertices do not. No L-conserving dipole with exactly one F at quadratic Yukawa order.",
+        "subloop": {
+          "finite": 0.7725887222397811,
+          "physical_C_LR": null,
+          "pole": -1.0,
+          "quadrature_error": 2.524772366288217e-16,
+          "rational_epsilon_times_UV": 1.0,
+          "scope": "regulated neutrino W self-energy subloop; xi=1; m_internal_lepton=0"
+        },
+        "surviving_FF_status": "REQUIRES_COMPLETE_GAUGE_AND_COUNTERTERM_SUM"
+      },
+      "channels": {
+        "mu_to_e_gamma": {
+          "class_totals": {
+            "fermion_photon": [
+              [
+                -1.4271724910306153e-14,
+                -2.6822422619292135e-14
+              ],
+              [
+                7.186046817557896e-13,
+                1.0540765330699404e-12
+              ]
+            ],
+            "frozen_one_loop": [
+              [
+                2.630082484911828e-18,
+                1.3312951785432418e-17
+              ],
+              [
+                3.9247956398816687e-16,
+                2.495576568765072e-15
+              ]
+            ],
+            "neutral_fermion_Z_photon": [
+              [
+                -3.1219985275882344e-16,
+                -5.867514472598182e-16
+              ],
+              [
+                1.5719770008784072e-14,
+                2.305835616331934e-14
+              ]
+            ],
+            "physical_scalar_Z_photon_current": [
+              [
+                4.147436538372142e-18,
+                7.794732569405914e-18
+              ],
+              [
+                -2.0883016691522281e-16,
+                -3.0632003000463684e-16
+              ]
+            ],
+            "physical_scalar_photon": [
+              [
+                9.817182822427061e-16,
+                1.8450508881280994e-15
+              ],
+              [
+                -4.943111024067336e-14,
+                -7.250743221515763e-14
+              ]
+            ]
+          },
+          "full_BR": null,
+          "full_C_LR": null,
+          "included_only_BR": 1.18971894798975e-13,
+          "included_only_C_LR": [
+            [
+              -1.3595428961798987e-14,
+              -2.554301549406902e-14
+            ],
+            [
+              6.850769909209733e-13,
+              1.0068167135568626e-12
+            ]
+          ],
+          "included_only_quadrature_error": [
+            1.4958816875421928e-24,
+            5.0982116694312034e-24
+          ],
+          "included_only_two_loop_C_LR": [
+            [
+              -1.3598059044283899e-14,
+              -2.555632844585445e-14
+            ],
+            [
+              6.846845113569851e-13,
+              1.0043211369880975e-12
+            ]
+          ],
+          "one_two_loop_interference_norm2": 5.549417962568999e-27
+        },
+        "tau_to_e_gamma": {
+          "class_totals": {
+            "fermion_photon": [
+              [
+                2.0621899313379054e-15,
+                1.9960985770798595e-15
+              ],
+              [
+                -8.697090057744606e-16,
+                -2.151595138818578e-15
+              ]
+            ],
+            "frozen_one_loop": [
+              [
+                -1.2068541093777401e-17,
+                -1.3592305160964513e-17
+              ],
+              [
+                4.841382263719563e-15,
+                -1.9199645160603167e-15
+              ]
+            ],
+            "neutral_fermion_Z_photon": [
+              [
+                4.511125064828464e-17,
+                4.36654702032857e-17
+              ],
+              [
+                -1.902523753438941e-17,
+                -4.706702472925541e-17
+              ]
+            ],
+            "physical_scalar_Z_photon_current": [
+              [
+                -5.99282948664809e-19,
+                -5.800763908553726e-19
+              ],
+              [
+                2.5274183443251954e-19,
+                6.252645376862856e-19
+              ]
+            ],
+            "physical_scalar_photon": [
+              [
+                -1.4185317159101776e-16,
+                -1.3730688649032376e-16
+              ],
+              [
+                5.98252142629168e-17,
+                1.4800313933810975e-16
+              ]
+            ]
+          },
+          "full_BR": null,
+          "full_C_LR": null,
+          "included_only_BR": 5.592445494535999e-19,
+          "included_only_C_LR": [
+            [
+              1.95278018635273e-15,
+              1.8882847792410013e-15
+            ],
+            [
+              4.012725976508062e-15,
+              -3.969998275732355e-15
+            ]
+          ],
+          "included_only_quadrature_error": [
+            1.1469562903631775e-26,
+            9.880629618763435e-27
+          ],
+          "included_only_two_loop_C_LR": [
+            [
+              1.9648487274465075e-15,
+              1.901877084401966e-15
+            ],
+            [
+              -8.286562872115008e-16,
+              -2.0500337596720386e-15
+            ]
+          ],
+          "one_two_loop_interference_norm2": -2.5082705529901544e-31
+        },
+        "tau_to_mu_gamma": {
+          "class_totals": {
+            "fermion_photon": [
+              [
+                7.20003156532645e-14,
+                6.904708769571732e-14
+              ],
+              [
+                -5.902254740893227e-15,
+                5.082476118257105e-15
+              ]
+            ],
+            "frozen_one_loop": [
+              [
+                -4.816508019145406e-16,
+                -4.940460433851427e-16
+              ],
+              [
+                -1.1075202371797533e-16,
+                -7.1180512877584e-16
+              ]
+            ],
+            "neutral_fermion_Z_photon": [
+              [
+                1.5750364382922091e-15,
+                1.510433193714391e-15
+              ],
+              [
+                -1.2911424275007553e-16,
+                1.1118123645496254e-16
+              ]
+            ],
+            "physical_scalar_Z_photon_current": [
+              [
+                -2.0923660226335888e-17,
+                -2.0065434575981678e-17
+              ],
+              [
+                1.715225425021072e-18,
+                -1.4769933778321351e-18
+              ]
+            ],
+            "physical_scalar_photon": [
+              [
+                -4.952731545276602e-15,
+                -4.749585384160642e-15
+              ],
+              [
+                4.0600215152939155e-16,
+                -3.4961147406449104e-16
+              ]
+            ]
+          },
+          "full_BR": null,
+          "full_C_LR": null,
+          "included_only_BR": 1.2625072603672625e-16,
+          "included_only_C_LR": [
+            [
+              6.812004608413923e-14,
+              6.529382402730995e-14
+            ],
+            [
+              -5.734403630406866e-15,
+              4.1307637584939046e-15
+            ]
+          ],
+          "included_only_quadrature_error": [
+            3.986636473817036e-25,
+            1.3263137417279512e-25
+          ],
+          "included_only_two_loop_C_LR": [
+            [
+              6.860169688605377e-14,
+              6.578787007069508e-14
+            ],
+            [
+              -5.62365160668889e-15,
+              4.842568887269745e-15
+            ]
+          ],
+          "one_two_loop_interference_norm2": -1.3673686760662415e-28
+        }
+      },
+      "detailed_input_file_sha256": "4b9b7db60a70fc0c3f8aafb3dc8df17e095f244d539c22fe10130c74f57d76cd",
+      "details": "research/wgamma_d16/local/zee_NO_0.json",
+      "details_sha256": "c3798b905469d48e93d3ab9ffd653529d1e8e5aec6a7b58b44c58e9a54329e04",
+      "input_sha256": "ccacdacfbe8cf785ab07f2427cdc2fa5d23252073a4cf343809773bfe9140375",
+      "neutrino_gates": {
+        "data_comparison": "NOT_EVALUATED",
+        "forward": "PASS",
+        "global_vacuum": "NOT_EVALUATED",
+        "inverse": "PASS",
+        "lfv": "NOT_EVALUATED",
+        "observables": "PASS",
+        "rg_closure": "NOT_EVALUATED"
+      },
+      "ordering": "NO",
+      "scalar_gates": {
+        "BFB_sufficient": "PASS",
+        "EWPO": "PASS",
+        "tree_unitarity": "PASS",
+        "vacuum": "NOT_EVALUATED"
+      },
+      "spectrum": 0
+    },
+    {
+      "F_current_probe": {
+        "F_dagger_F": [
+          [
+            [
+              3.96662028291643e-06,
+              0.0
+            ],
+            [
+              -1.2835753490446193e-06,
+              -3.613712143349371e-06
+            ],
+            [
+              -1e-06,
+              4e-07
+            ]
+          ],
+          [
+            [
+              -1.2835753490446193e-06,
+              3.613712143349371e-06
+            ],
+            [
+              4.29e-06,
+              0.0
+            ],
+            [
+              4.047737707378225e-08,
+              1.0317855707418047e-06
+            ]
+          ],
+          [
+            [
+              -1e-06,
+              -4e-07
+            ],
+            [
+              4.047737707378225e-08,
+              -1.0317855707418047e-06
+            ],
+            [
+              7.67662028291643e-06,
+              0.0
+            ]
+          ]
+        ],
+        "full_F_dependent_C_LR": null,
+        "opposite_projector_massless_chain_norm": 1.2489995996796797,
+        "quadratic_FD": "VANISHES_BY_FERMION_LEPTON_NUMBER_AT_mnu_0",
+        "same_projector_massless_chain_norm": 0.0,
+        "selection_rule": "One F or F* changes fermion lepton number by two; D and all bosonic/gauge vertices do not. No L-conserving dipole with exactly one F at quadratic Yukawa order.",
+        "subloop": {
+          "finite": 0.7725887222397811,
+          "physical_C_LR": null,
+          "pole": -1.0,
+          "quadrature_error": 2.524772366288217e-16,
+          "rational_epsilon_times_UV": 1.0,
+          "scope": "regulated neutrino W self-energy subloop; xi=1; m_internal_lepton=0"
+        },
+        "surviving_FF_status": "REQUIRES_COMPLETE_GAUGE_AND_COUNTERTERM_SUM"
+      },
+      "channels": {
+        "mu_to_e_gamma": {
+          "class_totals": {
+            "fermion_photon": [
+              [
+                1.2005790349346979e-14,
+                3.7531956774378915e-14
+              ],
+              [
+                -1.7989912401095784e-12,
+                1.6966658846507434e-12
+              ]
+            ],
+            "frozen_one_loop": [
+              [
+                2.969189791843313e-17,
+                8.29769129730023e-17
+              ],
+              [
+                6.28147957259682e-15,
+                1.740348610267791e-14
+              ]
+            ],
+            "neutral_fermion_Z_photon": [
+              [
+                2.626316856223549e-16,
+                8.210268767968706e-16
+              ],
+              [
+                -3.935367442403391e-14,
+                3.7115255232178886e-14
+              ]
+            ],
+            "physical_scalar_Z_photon_current": [
+              [
+                -3.48894548016202e-18,
+                -1.0906977697200122e-17
+              ],
+              [
+                5.227961049730354e-16,
+                -4.930596917837435e-16
+              ]
+            ],
+            "physical_scalar_photon": [
+              [
+                -8.258502648403343e-16,
+                -2.5817343581482522e-15
+              ],
+              [
+                1.2374836586137377e-13,
+                -1.1670961307850199e-13
+              ]
+            ]
+          },
+          "full_BR": null,
+          "full_C_LR": null,
+          "included_only_BR": 4.480238989077391e-13,
+          "included_only_C_LR": [
+            [
+              1.1468774722567272e-14,
+              3.584331922830334e-14
+            ],
+            [
+              -1.7077922729946689e-12,
+              1.6339819532153146e-12
+            ]
+          ],
+          "included_only_quadrature_error": [
+            2.8432617582891465e-24,
+            9.88239172989589e-24
+          ],
+          "included_only_two_loop_C_LR": [
+            [
+              1.1439082824648839e-14,
+              3.576034231533034e-14
+            ],
+            [
+              -1.7140737525672656e-12,
+              1.6165784671126367e-12
+            ]
+          ],
+          "one_two_loop_interference_norm2": 3.474097710899834e-26
+        },
+        "tau_to_e_gamma": {
+          "class_totals": {
+            "fermion_photon": [
+              [
+                7.248429927448765e-16,
+                3.721444416535331e-15
+              ],
+              [
+                -9.087412483298973e-15,
+                8.935536735546702e-15
+              ]
+            ],
+            "frozen_one_loop": [
+              [
+                -3.346380595616193e-18,
+                -2.484865765472492e-17
+              ],
+              [
+                4.895001463901229e-15,
+                -1.9933821869771963e-15
+              ]
+            ],
+            "neutral_fermion_Z_photon": [
+              [
+                1.5856247885697258e-17,
+                8.140811723980611e-17
+              ],
+              [
+                -1.987908924523779e-16,
+                1.9546849588205111e-16
+              ]
+            ],
+            "physical_scalar_Z_photon_current": [
+              [
+                -2.1064322488785936e-19,
+                -1.0814707106712556e-18
+              ],
+              [
+                2.6408488109490236e-18,
+                -2.5967122079883994e-18
+              ]
+            ],
+            "physical_scalar_photon": [
+              [
+                -4.986026982926152e-17,
+                -2.5598934632347575e-16
+              ],
+              [
+                6.251016825359655e-16,
+                -6.146543352066826e-16
+              ]
+            ]
+          },
+          "full_BR": null,
+          "full_C_LR": null,
+          "included_only_BR": 9.911479102542772e-19,
+          "included_only_C_LR": [
+            [
+              6.872819469808082e-16,
+              3.5209330590862644e-15
+            ],
+            [
+              -3.7634593805032064e-15,
+              6.5203719970368865e-15
+            ]
+          ],
+          "included_only_quadrature_error": [
+            2.503322413139213e-26,
+            5.09317420402973e-26
+          ],
+          "included_only_two_loop_C_LR": [
+            [
+              6.906283275764244e-16,
+              3.5457817167409895e-15
+            ],
+            [
+              -8.658460844404435e-15,
+              8.513754184014083e-15
+            ]
+          ],
+          "one_two_loop_interference_norm2": -1.188895269288786e-28
+        },
+        "tau_to_mu_gamma": {
+          "class_totals": {
+            "fermion_photon": [
+              [
+                -7.987105806507647e-14,
+                1.0103074338455162e-13
+              ],
+              [
+                2.5290191954144154e-15,
+                4.4840287161090815e-15
+              ]
+            ],
+            "frozen_one_loop": [
+              [
+                5.130486205129227e-16,
+                -9.601450205683687e-16
+              ],
+              [
+                -2.1159109118288249e-16,
+                -5.020945676260217e-15
+              ]
+            ],
+            "neutral_fermion_Z_photon": [
+              [
+                -1.7472117827579772e-15,
+                2.210089083617414e-15
+              ],
+              [
+                5.5323316673687226e-17,
+                9.808997029475028e-17
+              ]
+            ],
+            "physical_scalar_Z_photon_current": [
+              [
+                2.3210932981352306e-17,
+                -2.9360052908942314e-17
+              ],
+              [
+                -7.3494570231877625e-19,
+                -1.3030817328577007e-18
+              ]
+            ],
+            "physical_scalar_photon": [
+              [
+                5.49414006576878e-15,
+                -6.949666484742618e-15
+              ],
+              [
+                -1.7396520133500062e-16,
+                -3.084457468046071e-16
+              ]
+            ]
+          },
+          "full_BR": null,
+          "full_C_LR": null,
+          "included_only_BR": 2.0870756708639785e-16,
+          "included_only_C_LR": [
+            [
+              -7.55878702285714e-14,
+              9.530166090994911e-14
+            ],
+            [
+              2.1980512738679006e-15,
+              -7.485758183938498e-16
+            ]
+          ],
+          "included_only_quadrature_error": [
+            5.146842720127134e-25,
+            1.5703475593758659e-25
+          ],
+          "included_only_two_loop_C_LR": [
+            [
+              -7.610091884908432e-14,
+              9.626180593051747e-14
+            ],
+            [
+              2.409642365050783e-15,
+              4.272369857866367e-15
+            ]
+          ],
+          "one_two_loop_interference_norm2": -3.068599217860276e-28
+        }
+      },
+      "detailed_input_file_sha256": "a6fbc08d66075a7fe24483436060e8f9438080f09ea3168a55585c3b6760f15c",
+      "details": "research/wgamma_d16/local/zee_IO_0.json",
+      "details_sha256": "af44a3345df6f203a0896c9e8a5a7118f610e43e260255ca79463b1c0c5ca247",
+      "input_sha256": "2b14469c098d1d60b5206429293a3158550ed556322e632a09ec3348b044406a",
+      "neutrino_gates": {
+        "data_comparison": "NOT_EVALUATED",
+        "forward": "PASS",
+        "global_vacuum": "NOT_EVALUATED",
+        "inverse": "PASS",
+        "lfv": "NOT_EVALUATED",
+        "observables": "PASS",
+        "rg_closure": "NOT_EVALUATED"
+      },
+      "ordering": "IO",
+      "scalar_gates": {
+        "BFB_sufficient": "PASS",
+        "EWPO": "PASS",
+        "tree_unitarity": "PASS",
+        "vacuum": "NOT_EVALUATED"
+      },
+      "spectrum": 0
+    },
+    {
+      "F_current_probe": {
+        "F_dagger_F": [
+          [
+            [
+              9.031341077118302e-07,
+              0.0
+            ],
+            [
+              1.3190433915620476e-06,
+              8.441924910965575e-07
+            ],
+            [
+              -1e-06,
+              4e-07
+            ]
+          ],
+          [
+            [
+              1.3190433915620476e-06,
+              -8.441924910965575e-07
+            ],
+            [
+              4.29e-06,
+              0.0
+            ],
+            [
+              2.453415987808562e-07,
+              -3.4295246193034416e-07
+            ]
+          ],
+          [
+            [
+              -1e-06,
+              -4e-07
+            ],
+            [
+              2.453415987808562e-07,
+              3.4295246193034416e-07
+            ],
+            [
+              4.61313410771183e-06,
+              0.0
+            ]
+          ]
+        ],
+        "full_F_dependent_C_LR": null,
+        "opposite_projector_massless_chain_norm": 1.2489995996796797,
+        "quadratic_FD": "VANISHES_BY_FERMION_LEPTON_NUMBER_AT_mnu_0",
+        "same_projector_massless_chain_norm": 0.0,
+        "selection_rule": "One F or F* changes fermion lepton number by two; D and all bosonic/gauge vertices do not. No L-conserving dipole with exactly one F at quadratic Yukawa order.",
+        "subloop": {
+          "finite": 0.7725887222397811,
+          "physical_C_LR": null,
+          "pole": -1.0,
+          "quadrature_error": 2.524772366288217e-16,
+          "rational_epsilon_times_UV": 1.0,
+          "scope": "regulated neutrino W self-energy subloop; xi=1; m_internal_lepton=0"
+        },
+        "surviving_FF_status": "REQUIRES_COMPLETE_GAUGE_AND_COUNTERTERM_SUM"
+      },
+      "channels": {
+        "mu_to_e_gamma": {
+          "class_totals": {
+            "fermion_photon": [
+              [
+                8.319838290976155e-14,
+                -1.1597477847093382e-13
+              ],
+              [
+                -2.1807181588528627e-12,
+                1.204666766354213e-12
+              ]
+            ],
+            "frozen_one_loop": [
+              [
+                3.146809187370368e-17,
+                -6.899296537245451e-17
+              ],
+              [
+                -3.71921061491387e-15,
+                -1.0123879957419943e-15
+              ]
+            ],
+            "neutral_fermion_Z_photon": [
+              [
+                1.882877292038291e-15,
+                -2.6246457838554986e-15
+              ],
+              [
+                -4.9352219338494336e-14,
+                2.726302607013704e-14
+              ]
+            ],
+            "physical_scalar_Z_photon_current": [
+              [
+                -1.0244375189053036e-16,
+                1.4280195715567478e-16
+              ],
+              [
+                2.6851598615744008e-15,
+                -1.4833290987522926e-15
+              ]
+            ],
+            "physical_scalar_photon": [
+              [
+                -4.008795821668576e-15,
+                5.5880800791393195e-15
+              ],
+              [
+                1.0507480871155648e-13,
+                -5.804515535112173e-14
+              ]
+            ]
+          },
+          "full_BR": null,
+          "full_C_LR": null,
+          "included_only_BR": 4.739696770603137e-13,
+          "included_only_C_LR": [
+            [
+              8.100148872011445e-14,
+              -1.129375351838668e-13
+            ],
+            [
+              -2.12602962023314e-12,
+              1.1713889199787339e-12
+            ]
+          ],
+          "included_only_quadrature_error": [
+            2.294741374699647e-24,
+            2.075592954965199e-23
+          ],
+          "included_only_two_loop_C_LR": [
+            [
+              8.097002062824074e-14,
+              -1.1286854221849434e-13
+            ],
+            [
+              -2.1223104096182262e-12,
+              1.172401307974476e-12
+            ]
+          ],
+          "one_two_loop_interference_norm2": 1.3433459001363604e-26
+        },
+        "tau_to_e_gamma": {
+          "class_totals": {
+            "fermion_photon": [
+              [
+                -3.889917469723129e-15,
+                4.869377698783196e-15
+              ],
+              [
+                7.417068643476968e-15,
+                -4.119324672305442e-15
+              ]
+            ],
+            "frozen_one_loop": [
+              [
+                -3.1917227158053736e-16,
+                4.0004880486097656e-16
+              ],
+              [
+                2.5585439829814253e-15,
+                -1.1183763942329798e-15
+              ]
+            ],
+            "neutral_fermion_Z_photon": [
+              [
+                -8.803340922950003e-17,
+                1.1019975061730639e-16
+              ],
+              [
+                1.6785699567575936e-16,
+                -9.322516324690493e-17
+              ]
+            ],
+            "physical_scalar_Z_photon_current": [
+              [
+                4.789729406883393e-18,
+                -5.9957576618763155e-18
+              ],
+              [
+                -9.132778086102983e-18,
+                5.0722028078046045e-18
+              ]
+            ],
+            "physical_scalar_photon": [
+              [
+                1.8743014462956378e-16,
+                -2.3462405289832926e-16
+              ],
+              [
+                -3.5738092324965174e-16,
+                1.9848380254864807e-16
+              ]
+            ]
+          },
+          "full_BR": null,
+          "full_C_LR": null,
+          "included_only_BR": 2.3534265761167515e-18,
+          "included_only_C_LR": [
+            [
+              -4.1049032764967195e-15,
+              5.1390064437012735e-15
+            ],
+            [
+              9.776955920798398e-15,
+              -5.1273702244288745e-15
+            ]
+          ],
+          "included_only_quadrature_error": [
+            5.298337737569762e-26,
+            7.068399885798465e-26
+          ],
+          "included_only_two_loop_C_LR": [
+            [
+              -3.785731004916182e-15,
+              4.738957638840297e-15
+            ],
+            [
+              7.218411937816973e-15,
+              -4.0089938301958945e-15
+            ]
+          ],
+          "one_two_loop_interference_norm2": 5.211260639727295e-29
+        },
+        "tau_to_mu_gamma": {
+          "class_totals": {
+            "fermion_photon": [
+              [
+                1.7534038558005254e-13,
+                1.681416811563612e-13
+              ],
+              [
+                -1.437235402638957e-14,
+                1.2376665218836276e-14
+              ]
+            ],
+            "frozen_one_loop": [
+              [
+                1.4474164241621963e-14,
+                1.3952885184520398e-14
+              ],
+              [
+                -1.6260690891093662e-15,
+                1.731722535455019e-15
+              ]
+            ],
+            "neutral_fermion_Z_photon": [
+              [
+                3.968159385789622e-15,
+                3.805244094586073e-15
+              ],
+              [
+                -3.2526329424392636e-16,
+                2.8009849677254115e-16
+              ]
+            ],
+            "physical_scalar_Z_photon_current": [
+              [
+                -2.1589996269221737e-16,
+                -2.0703605262823662e-16
+              ],
+              [
+                1.7696953739544924e-17,
+                -1.5239623442407934e-17
+              ]
+            ],
+            "physical_scalar_photon": [
+              [
+                -8.448527629716445e-15,
+                -8.101667963095658e-15
+              ],
+              [
+                6.925114796962802e-16,
+                -5.963520239380719e-16
+              ]
+            ]
+          },
+          "full_BR": null,
+          "full_C_LR": null,
+          "included_only_BR": 9.340373688326892e-16,
+          "included_only_C_LR": [
+            [
+              1.8511828161505548e-13,
+              1.7759110641974377e-13
+            ],
+            [
+              -1.561347797630704e-14,
+              1.3776894603683358e-14
+            ]
+          ],
+          "included_only_quadrature_error": [
+            2.0239247434364424e-24,
+            2.634509136701571e-25
+          ],
+          "included_only_two_loop_C_LR": [
+            [
+              1.7064411737343353e-13,
+              1.6363822123522336e-13
+            ],
+            [
+              -1.3987408887197674e-14,
+              1.204517206822834e-14
+            ]
+          ],
+          "one_two_loop_interference_norm2": 9.593519367132205e-27
+        }
+      },
+      "detailed_input_file_sha256": "03b517527bf7c53e553726a7030d9eb369376de4fa0d251c81e4edd047480595",
+      "details": "research/wgamma_d16/local/zee_NO_1.json",
+      "details_sha256": "27490a0b36d37d19447205192f2c365eebe621af3940732733709bce25cbd897",
+      "input_sha256": "9f75fbc52919955d66f2f4373657de2fe76d8b4fb0ab9b92128255f0e13183d0",
+      "neutrino_gates": {
+        "data_comparison": "NOT_EVALUATED",
+        "forward": "PASS",
+        "global_vacuum": "NOT_EVALUATED",
+        "inverse": "PASS",
+        "lfv": "NOT_EVALUATED",
+        "observables": "PASS",
+        "rg_closure": "NOT_EVALUATED"
+      },
+      "ordering": "NO",
+      "scalar_gates": {
+        "BFB_sufficient": "UNKNOWN",
+        "EWPO": "FAIL",
+        "tree_unitarity": "PASS",
+        "vacuum": "NOT_EVALUATED"
+      },
+      "spectrum": 1
+    },
+    {
+      "F_current_probe": {
+        "F_dagger_F": [
+          [
+            [
+              4.0410304727906675e-06,
+              0.0
+            ],
+            [
+              2.815640931953046e-07,
+              1.4779959013327899e-06
+            ],
+            [
+              -1.414843889333388e-07,
+              5.659375557333552e-08
+            ]
+          ],
+          [
+            [
+              2.815640931953046e-07,
+              -1.4779959013327899e-06
+            ],
+            [
+              6.069680285240234e-07,
+              0.0
+            ],
+            [
+              -7.740856683445283e-08,
+              -3.97655384652728e-07
+            ]
+          ],
+          [
+            [
+              -1.414843889333388e-07,
+              -5.659375557333552e-08
+            ],
+            [
+              -7.740856683445283e-08,
+              3.97655384652728e-07
+            ],
+            [
+              4.565937555733354e-06,
+              0.0
+            ]
+          ]
+        ],
+        "full_F_dependent_C_LR": null,
+        "opposite_projector_massless_chain_norm": 1.2489995996796797,
+        "quadratic_FD": "VANISHES_BY_FERMION_LEPTON_NUMBER_AT_mnu_0",
+        "same_projector_massless_chain_norm": 0.0,
+        "selection_rule": "One F or F* changes fermion lepton number by two; D and all bosonic/gauge vertices do not. No L-conserving dipole with exactly one F at quadratic Yukawa order.",
+        "subloop": {
+          "finite": 0.7725887222397811,
+          "physical_C_LR": null,
+          "pole": -1.0,
+          "quadrature_error": 2.524772366288217e-16,
+          "rational_epsilon_times_UV": 1.0,
+          "scope": "regulated neutrino W self-energy subloop; xi=1; m_internal_lepton=0"
+        },
+        "surviving_FF_status": "REQUIRES_COMPLETE_GAUGE_AND_COUNTERTERM_SUM"
+      },
+      "channels": {
+        "mu_to_e_gamma": {
+          "class_totals": {
+            "fermion_photon": [
+              [
+                2.533172314857955e-13,
+                2.1954360269688203e-13
+              ],
+              [
+                3.5687965407742235e-12,
+                -5.5608583468285605e-12
+              ]
+            ],
+            "frozen_one_loop": [
+              [
+                1.3412711177518802e-16,
+                1.0169087272535823e-16
+              ],
+              [
+                1.3531294499427792e-15,
+                -5.835900452804609e-15
+              ]
+            ],
+            "neutral_fermion_Z_photon": [
+              [
+                5.732869180962528e-15,
+                4.968529562883037e-15
+              ],
+              [
+                8.076610865254159e-14,
+                -1.2584877032095607e-13
+              ]
+            ],
+            "physical_scalar_Z_photon_current": [
+              [
+                -3.119144511260528e-16,
+                -2.7032818954802345e-16
+              ],
+              [
+                -4.3943295744752235e-15,
+                6.847190893340466e-15
+              ]
+            ],
+            "physical_scalar_photon": [
+              [
+                -1.2205735589695361e-14,
+                -1.0578395429106895e-14
+              ],
+              [
+                -1.7195748605551911e-13,
+                2.6794206319895333e-13
+              ]
+            ]
+          },
+          "full_BR": null,
+          "full_C_LR": null,
+          "included_only_BR": 3.3298865923113636e-12,
+          "included_only_C_LR": [
+            [
+              2.4666657773771175e-13,
+              2.137650995138355e-13
+            ],
+            [
+              3.474563963246714e-12,
+              -5.417753763510028e-12
+            ]
+          ],
+          "included_only_quadrature_error": [
+            5.745525188574225e-24,
+            5.504901552817844e-23
+          ],
+          "included_only_two_loop_C_LR": [
+            [
+              2.465324506259366e-13,
+              2.1366340864111015e-13
+            ],
+            [
+              3.473210833796771e-12,
+              -5.411917863057223e-12
+            ]
+          ],
+          "one_two_loop_interference_norm2": 7.267582415336646e-26
+        },
+        "tau_to_e_gamma": {
+          "class_totals": {
+            "fermion_photon": [
+              [
+                -6.059102180997661e-15,
+                5.938477354748754e-15
+              ],
+              [
+                2.4645687941418357e-14,
+                -1.963487693142493e-14
+              ]
+            ],
+            "frozen_one_loop": [
+              [
+                -4.981236050695934e-16,
+                4.881374520677986e-16
+              ],
+              [
+                2.30281527994985e-15,
+                -1.721558388215515e-15
+              ]
+            ],
+            "neutral_fermion_Z_photon": [
+              [
+                -1.3712460384093481e-16,
+                1.3439478571593986e-16
+              ],
+              [
+                5.577611190512558e-16,
+                -4.443603136892795e-16
+              ]
+            ],
+            "physical_scalar_Z_photon_current": [
+              [
+                7.460687408796438e-18,
+                -7.312163342436006e-18
+              ],
+              [
+                -3.034671605436358e-17,
+                2.4176794661169e-17
+              ]
+            ],
+            "physical_scalar_photon": [
+              [
+                2.919492107543863e-16,
+                -2.8613721494541636e-16
+              ],
+              [
+                -1.1875178942107916e-15,
+                9.460785224129658e-16
+              ]
+            ]
+          },
+          "full_BR": null,
+          "full_C_LR": null,
+          "included_only_BR": 1.7175147885940086e-17,
+          "included_only_C_LR": [
+            [
+              -6.3949404917450065e-15,
+              6.26756021424464e-15
+            ],
+            [
+              2.6288399730154308e-14,
+              -2.083054031625559e-14
+            ]
+          ],
+          "included_only_quadrature_error": [
+            8.152254283710534e-26,
+            2.625255289479139e-25
+          ],
+          "included_only_two_loop_C_LR": [
+            [
+              -5.896816886675413e-15,
+              5.779422762176841e-15
+            ],
+            [
+              2.398558445020446e-14,
+              -1.9108981928040077e-14
+            ]
+          ],
+          "one_two_loop_interference_norm2": 1.8778018977302417e-28
+        },
+        "tau_to_mu_gamma": {
+          "class_totals": {
+            "fermion_photon": [
+              [
+                -5.172897411813618e-13,
+                6.540050663749273e-13
+              ],
+              [
+                1.6373693393167633e-14,
+                2.902945205266145e-14
+              ]
+            ],
+            "frozen_one_loop": [
+              [
+                -4.2783779322973504e-14,
+                5.416628258064905e-14
+              ],
+              [
+                1.376326170352985e-15,
+                3.3312891229231137e-15
+              ]
+            ],
+            "neutral_fermion_Z_photon": [
+              [
+                -1.1706874047085269e-14,
+                1.4800909516510456e-14
+              ],
+              [
+                3.7055585673215904e-16,
+                6.569708588187223e-16
+              ]
+            ],
+            "physical_scalar_Z_photon_current": [
+              [
+                6.369486230446641e-16,
+                -8.052891875780381e-16
+              ],
+              [
+                -2.01612352539667e-17,
+                -3.5744528241022945e-17
+              ]
+            ],
+            "physical_scalar_photon": [
+              [
+                2.4924867857314705e-14,
+                -3.151231647438452e-14
+              ],
+              [
+                -7.889429482448494e-16,
+                -1.3987433378391604e-15
+              ]
+            ]
+          },
+          "full_BR": null,
+          "full_C_LR": null,
+          "included_only_BR": 1.095131294654038e-14,
+          "included_only_C_LR": [
+            [
+              -5.462185780710613e-13,
+              6.906546528101242e-13
+            ],
+            [
+              1.731147123675396e-14,
+              3.1583224168323104e-14
+            ]
+          ],
+          "included_only_quadrature_error": [
+            6.947044003878943e-24,
+            6.545266146059362e-25
+          ],
+          "included_only_two_loop_C_LR": [
+            [
+              -5.034347987480877e-13,
+              6.364883702294751e-13
+            ],
+            [
+              1.5935145066400978e-14,
+              2.825193504539999e-14
+            ]
+          ],
+          "one_two_loop_interference_norm2": 1.1226219915078363e-25
+        }
+      },
+      "detailed_input_file_sha256": "a01278375bfb8e133ee41e288e6cf883b05ea9870f222b00bc9fd232be823ee3",
+      "details": "research/wgamma_d16/local/zee_IO_1.json",
+      "details_sha256": "8281e30d545366325bdb566181537568b42911efbb45d56efed0f44ca214390a",
+      "input_sha256": "246b49d9e672b77dc4a3b90feed4bf7b1b0f9e4cb8d988defc27cb7de1d36081",
+      "neutrino_gates": {
+        "data_comparison": "NOT_EVALUATED",
+        "forward": "PASS",
+        "global_vacuum": "NOT_EVALUATED",
+        "inverse": "PASS",
+        "lfv": "NOT_EVALUATED",
+        "observables": "PASS",
+        "rg_closure": "NOT_EVALUATED"
+      },
+      "ordering": "IO",
+      "scalar_gates": {
+        "BFB_sufficient": "UNKNOWN",
+        "EWPO": "FAIL",
+        "tree_unitarity": "PASS",
+        "vacuum": "NOT_EVALUATED"
+      },
+      "spectrum": 1
+    }
+  ],
+  "master_checks": [
+    {
+      "adaptive": [
+        -0.10656143511486668,
+        4.604008215232078e-11
+      ],
+      "bounded480": -0.10656143507377752,
+      "ratios": [
+        2.0,
+        7.0,
+        0.4
+      ]
+    },
+    {
+      "adaptive": [
+        -0.19821126382856272,
+        1.2316646146234929e-10
+      ],
+      "bounded480": -0.19821126386196994,
+      "ratios": [
+        0.1,
+        3.0,
+        1.0
+      ]
+    },
+    {
+      "adaptive": [
+        -0.2646322917815243,
+        4.903117243915692e-11
+      ],
+      "bounded480": -0.26463229178392844,
+      "ratios": [
+        0.9,
+        0.9,
+        0.53
+      ]
+    }
+  ],
+  "mixed_fixtures": [
+    {
+      "D": [
+        [
+          [
+            -0.0023933991381205563,
+            -0.004551875407433654
+          ],
+          [
+            -0.0009413455789418647,
+            -0.0004937641161060221
+          ],
+          [
+            0.006197324984870281,
+            -0.003318526750924094
+          ]
+        ],
+        [
+          [
+            -0.0011970153785632763,
+            -4.146434922970532e-05
+          ],
+          [
+            -0.0013373937660994763,
+            -0.002787250122578689
+          ],
+          [
+            -0.001256506966051111,
+            6.03196957720152e-05
+          ]
+        ],
+        [
+          [
+            -0.00047098297556060495,
+            0.0006114952346674707
+          ],
+          [
+            -0.0005150652875380307,
+            -0.0027568111927223477
+          ],
+          [
+            0.005006474883193036,
+            -0.00016054949707817624
+          ]
+        ]
+      ],
+      "channels": {
+        "1_0": {
+          "C_LR": [
+            [
+              5.05879639573746e-13,
+              2.6534911160993505e-13
+            ],
+            [
+              6.432767326028077e-13,
+              -2.228296442105953e-14
+            ]
+          ],
+          "G0_identity_abs_residual": 7.643500265030891e-15,
+          "offdiagonal_C_LR": [
+            [
+              4.508180005604049e-14,
+              2.3646762310352333e-14
+            ],
+            [
+              5.732603325237264e-14,
+              -1.985761173413721e-15
+            ]
+          ],
+          "quadrature_error": [
+            9.929779580859402e-22,
+            1.118853192321766e-21
+          ]
+        },
+        "2_0": {
+          "C_LR": [
+            [
+              -1.9803228272096055e-13,
+              1.0604178889447514e-13
+            ],
+            [
+              1.5050014966244213e-14,
+              1.9540010809474e-14
+            ]
+          ],
+          "G0_identity_abs_residual": 7.643500265030891e-15,
+          "offdiagonal_C_LR": [
+            [
+              -1.764777839604312e-14,
+              9.449984444034329e-15
+            ],
+            [
+              1.341192079049335e-15,
+              1.7413210406092326e-15
+            ]
+          ],
+          "quadrature_error": [
+            3.904770975478599e-22,
+            4.287253004352334e-23
+          ]
+        },
+        "2_1": {
+          "C_LR": [
+            [
+              4.015102376418272e-14,
+              -1.9274843704224547e-15
+            ],
+            [
+              1.6458642219102385e-14,
+              -8.80924616440665e-14
+            ]
+          ],
+          "G0_identity_abs_residual": 7.643500265030891e-15,
+          "offdiagonal_C_LR": [
+            [
+              3.578085148687525e-15,
+              -1.7176904979165705e-16
+            ],
+            [
+              1.4667228322149473e-15,
+              -7.85041822522942e-15
+            ]
+          ],
+          "quadrature_error": [
+            6.987331326656929e-23,
+            1.5577732239816786e-22
+          ]
+        }
+      },
+      "closure": {
+        "assessment": "PASS",
+        "full_hessian_eigenvalues_GeV2": [
+          -1.7511442294728118e-11,
+          1.4782958189379277e-11,
+          2.7286668957367234e-11,
+          15624.999999999935,
+          44139.17089985749,
+          44139.17089985754,
+          96099.99999999996,
+          105624.99999999994,
+          291599.9999999999,
+          291600.0
+        ],
+        "mixing_max_residual_GeV2": 1.1641532182693481e-10,
+        "mixing_rows": {
+          "ZA": [
+            [
+              0.7316888688738209,
+              0.6816387600233341
+            ],
+            [
+              -0.6816387600233341,
+              0.7316888688738209
+            ]
+          ],
+          "ZH": [
+            [
+              0.8020957578842927,
+              0.5971954413623921
+            ],
+            [
+              -0.5971954413623921,
+              0.8020957578842927
+            ]
+          ],
+          "ZP": [
+            [
+              0.7316888688738209,
+              0.6816387600233341,
+              0.0
+            ],
+            [
+              -0.6426181212169549,
+              0.6898030948459529,
+              0.3334870921408144
+            ],
+            [
+              0.2273177279706521,
+              -0.24400879323253216,
+              0.9427546655283462
+            ]
+          ]
+        },
+        "order": "tree",
+        "spectrum_max_relative_residual": 2.7286668957367234e-11,
+        "status": "RECONSTRUCTION_VALIDATED",
+        "tadpole_max_over_v3": 9.358866671297448e-17
+      },
+      "input_sha256": "cd958f0199d4d908a4f2f6e3cfc266e965b1b7b69296ebfcfe48942923f3a37c",
+      "physical": {
+        "alpha": 0.64,
+        "beta": 0.75,
+        "gamma": 0.34,
+        "k1": 0.3,
+        "k12": -0.04,
+        "k2": 0.18,
+        "lc": 0.4,
+        "m12sq": 14368.736703420444,
+        "mH1": 210.09324334651404,
+        "mH2": 540.0,
+        "ma": 325.0,
+        "mh1": 125.0,
+        "mh2": 310.0,
+        "v": 246.21965
+      },
+      "scalar_checks": {
+        "BFB_sufficient": "PASS",
+        "EWPO": "NOT_EVALUATED",
+        "unitarity": "PASS",
+        "vacuum": "NOT_EVALUATED"
+      },
+      "source_potential": {
+        "K1": 0.3,
+        "K12": -0.04,
+        "K2": 0.18,
+        "Lambda1": 0.9532812397130013,
+        "Lambda2": 1.8452026899460825,
+        "Lambda3": 0.6139603020252533,
+        "Lambda4": -0.14657103254904724,
+        "Lambda5": -1.2670759272714451,
+        "LambdaC": 0.4,
+        "M112": 9178.632047724059,
+        "M12Sq": 14368.736703420444,
+        "M222": 2413.4792424045936,
+        "MCS2": 255465.98991212566,
+        "Mu4": 446.86513431671045
+      },
+      "tensor_checks": {
+        "EM_residual": 5.885295216806759e-16,
+        "ST_residual": 2.4689785147967784e-15,
+        "Z_longitudinal_norm": 0.005185593386341017,
+        "projected_G0_norm": 2.77555777332112e-16,
+        "xi_complex_current_exchange": {
+          "0.5": [
+            [
+              0.008484131698614705,
+              0.0030642753272735307
+            ],
+            [
+              0.007892435511947024,
+              0.0028733493111398893
+            ]
+          ],
+          "1.0": [
+            [
+              0.008484131698614672,
+              0.0030642753272735034
+            ],
+            [
+              0.007892435511946991,
+              0.0028733493111399167
+            ]
+          ],
+          "3.0": [
+            [
+              0.008484131698614599,
+              0.0030642753272734384
+            ],
+            [
+              0.007892435511946919,
+              0.0028733493111399817
+            ]
+          ],
+          "7.0": [
+            [
+              0.008484131698614542,
+              0.0030642753272733876
+            ],
+            [
+              0.007892435511946861,
+              0.0028733493111400307
+            ]
+          ]
+        },
+        "xi_scope": "Real-photon current tensor contraction, not independently complete W or full dipole quadrature"
+      }
+    },
+    {
+      "D": [
+        [
+          [
+            0.003285211116012917,
+            -0.0005779570834343315
+          ],
+          [
+            0.0034012405862644205,
+            -0.002568206311006241
+          ],
+          [
+            -0.0033570035790466243,
+            0.0023779458790841486
+          ]
+        ],
+        [
+          [
+            -0.0031963491539502625,
+            0.0008083994704941313
+          ],
+          [
+            -0.0012061627154351313,
+            -0.0009715097338464402
+          ],
+          [
+            -0.0017277377156278946,
+            0.004610707946173634
+          ]
+        ],
+        [
+          [
+            0.003427971979289104,
+            -0.0030310641599988566
+          ],
+          [
+            0.0033078462792337907,
+            0.004245501169561601
+          ],
+          [
+            0.0018950796545994012,
+            -0.0014809906205284912
+          ]
+        ]
+      ],
+      "channels": {
+        "1_0": {
+          "C_LR": [
+            [
+              1.715719009188888e-12,
+              -1.2955038832321282e-12
+            ],
+            [
+              -1.6123637432718037e-12,
+              -4.0778836526478666e-13
+            ]
+          ],
+          "G0_identity_abs_residual": 5.684341886080802e-14,
+          "offdiagonal_C_LR": [
+            [
+              -7.032165590957105e-14,
+              5.3098425685235754e-14
+            ],
+            [
+              6.6085464897326e-14,
+              1.6713898343781548e-14
+            ]
+          ],
+          "quadrature_error": [
+            4.187858230552825e-21,
+            3.239684340751018e-21
+          ]
+        },
+        "2_0": {
+          "C_LR": [
+            [
+              -1.0069182770099539e-13,
+              7.132542790050674e-14
+            ],
+            [
+              1.0282049326871587e-13,
+              9.091541994600545e-14
+            ]
+          ],
+          "G0_identity_abs_residual": 5.684341886080802e-14,
+          "offdiagonal_C_LR": [
+            [
+              4.127025475950578e-15,
+              -2.9233937326331476e-15
+            ],
+            [
+              -4.21427244751064e-15,
+              -3.726322809315722e-15
+            ]
+          ],
+          "quadrature_error": [
+            2.4036496826865053e-22,
+            2.673557496511361e-22
+          ]
+        },
+        "2_1": {
+          "C_LR": [
+            [
+              -5.182272353249078e-14,
+              1.3829613200101917e-13
+            ],
+            [
+              9.921737637961615e-14,
+              -1.273419173390562e-13
+            ]
+          ],
+          "G0_identity_abs_residual": 5.684341886080802e-14,
+          "offdiagonal_C_LR": [
+            [
+              2.1240422895771714e-15,
+              -5.668301718471889e-15
+            ],
+            [
+              -4.066592585761594e-15,
+              5.219324636506522e-15
+            ]
+          ],
+          "quadrature_error": [
+            2.876854412155606e-22,
+            3.1445869090460193e-22
+          ]
+        }
+      },
+      "closure": {
+        "assessment": "PASS",
+        "full_hessian_eigenvalues_GeV2": [
+          -2.6062707588087204e-11,
+          -2.420516187068303e-12,
+          1.4122492529071587e-11,
+          15624.999999999989,
+          108243.5073320007,
+          108243.50733200074,
+          122500.00000000003,
+          129599.99999999994,
+          448900.00000000006,
+          448900.0000000001
+        ],
+        "mixing_max_residual_GeV2": 5.820766091346741e-11,
+        "mixing_rows": {
+          "ZA": [
+            [
+              0.6058201566434628,
+              0.795601620036366
+            ],
+            [
+              -0.795601620036366,
+              0.6058201566434628
+            ]
+          ],
+          "ZH": [
+            [
+              0.47132836417373997,
+              0.8819578068849475
+            ],
+            [
+              -0.8819578068849475,
+              0.47132836417373997
+            ]
+          ],
+          "ZP": [
+            [
+              0.6058201566434628,
+              0.795601620036366,
+              0.0
+            ],
+            [
+              -0.7667776864926031,
+              0.5838718354047944,
+              -0.26673143668883115
+            ],
+            [
+              -0.21221196314426147,
+              0.16159128075656357,
+              0.9637708963658905
+            ]
+          ]
+        },
+        "order": "tree",
+        "spectrum_max_relative_residual": 2.6062707588087204e-11,
+        "status": "RECONSTRUCTION_VALIDATED",
+        "tadpole_max_over_v3": 1.8717733342594896e-16
+      },
+      "input_sha256": "77eb3f0f36fb2d2a56d71b899b9a37511b6771f6875d709e9614a0eae795697c",
+      "physical": {
+        "alpha": 1.08,
+        "beta": 0.92,
+        "gamma": -0.27,
+        "k1": 0.3,
+        "k12": -0.04,
+        "k2": 0.18,
+        "lc": 0.4,
+        "m12sq": 50252.986456274564,
+        "mH1": 329.00381051288866,
+        "mH2": 670.0,
+        "ma": 350.0,
+        "mh1": 125.0,
+        "mh2": 360.0,
+        "v": 246.21965
+      },
+      "scalar_checks": {
+        "BFB_sufficient": "PASS",
+        "EWPO": "NOT_EVALUATED",
+        "unitarity": "PASS",
+        "vacuum": "NOT_EVALUATED"
+      },
+      "source_potential": {
+        "K1": 0.3,
+        "K12": -0.04,
+        "K2": 0.18,
+        "Lambda1": 1.7206620981650667,
+        "Lambda2": 0.06980957977557914,
+        "Lambda3": 1.029310262978804,
+        "Lambda4": -0.6300847196148442,
+        "Lambda5": -0.3008514456398332,
+        "LambdaC": 0.4,
+        "M112": 44965.42943502639,
+        "M12Sq": 50252.986456274564,
+        "M222": 35831.869777124135,
+        "MCS2": 416703.77770787827,
+        "Mu4": -502.9872431962721
+      },
+      "tensor_checks": {
+        "EM_residual": 4.767922296991767e-16,
+        "ST_residual": 3.904358530679428e-15,
+        "Z_longitudinal_norm": 0.0022331109540254567,
+        "projected_G0_norm": 5.421010862427522e-19,
+        "xi_complex_current_exchange": {
+          "0.5": [
+            [
+              0.005427765164629956,
+              0.0019812556812206176
+            ],
+            [
+              0.005049175032906692,
+              0.0018576721905061164
+            ]
+          ],
+          "1.0": [
+            [
+              0.005427765164629981,
+              0.001981255681220638
+            ],
+            [
+              0.005049175032906715,
+              0.0018576721905060952
+            ]
+          ],
+          "3.0": [
+            [
+              0.005427765164630036,
+              0.0019812556812206844
+            ],
+            [
+              0.005049175032906769,
+              0.0018576721905060464
+            ]
+          ],
+          "7.0": [
+            [
+              0.00542776516463008,
+              0.0019812556812207225
+            ],
+            [
+              0.0050491750329068105,
+              0.001857672190506006
+            ]
+          ]
+        },
+        "xi_scope": "Real-photon current tensor contraction, not independently complete W or full dipole quadrature"
+      }
+    }
+  ],
+  "new_native_source_sha256": "198a3fa6591c231c9a672401766eb38eaa18f4d08171d05a58f71bc3141ab3a5",
+  "peak_RSS_KiB": 130044,
+  "previous_reference_evidence_sha256": "0c653088f60affedab75eb63cc13e8958c0f6b3c7617e8e6f44b996dfbe1e537",
+  "protected_sources_sha256": {
+    "module1/potential.py": "510e04d7ed14f8be88332e6ed15f662bd87f5c6052109884e3547082c2872265",
+    "module1/scalar_constraints.py": "283902ff57de55e17e4d02900de07850265d306d1481e49db4dc96c08744cbac",
+    "module3/core.py": "5390e63af12a27c8e53823cc3625cd54851b10f5205d5ed2aab2ddd6767fd494",
+    "module4/charged_scalar.py": "514d265d88a7d7d3671266bdb087e45e04d9971f11d3c40d94e1acc840447471",
+    "module4/couplings.py": "12f57fed5a82c010e59f779b93824542ca0fbc0b8ae1a56484bed56517f5d924",
+    "research/spheno_flavorkit/d15_component_evidence.json": "47a612f4b9a51b04b4c8b712c11bdd9b8033ee39f0d041a9097f57f432623f8f",
+    "research/wgamma_d16/gauge_ledger.json": "a6aafe930d47d43a1b7444c31278027e3e690650e406d969688a5a66cdae17fe",
+    "research/wgamma_d16/matching.py": "d48af39ad2afd9bf9d1fc8788428b514bd8ed350403493cff1b89e1202438b46"
+  },
+  "scope": "New physical scalar Z radiative-current and common neutral fermion Z classes; no full Zee/W/F\u00b2 two-loop amplitude",
+  "source_commit": "6951caf279f6b40950f257a2e213fd0870ca9609",
+  "status": "BLOCKED_ZEE_TWO_LOOP_COMPLETION"
+}

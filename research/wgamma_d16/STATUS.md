@@ -1,5 +1,15 @@
 # D16 status: BLOCKED_GAUGE_MATCHING
 
+**Master-task continuation:** new mixed physical-scalar Zγ radiative-current
+integrals, 64 native checks, a common nine-species neutral-fermion Zγ class,
+quadratic-FD selection rule and nonzero F†F gauge subgraph are now calculated.
+Four real NO/IO inverse witnesses run through the guarded 70-row/channel
+research CLI. The W/reducible/F†F complete sums remain missing; full Wilsons
+and full rates stay null. See [ZEE_TWO_LOOP_DERIVATION.md](ZEE_TWO_LOOP_DERIVATION.md),
+[GAUGE_COMPLETION_LEDGER.md](GAUGE_COMPLETION_LEDGER.md), and
+[BENCHMARK_CLOSURE.md](BENCHMARK_CLOSURE.md). Sections below retain historical
+milestones; no full Zee acceptance is implied.
+
 The continuation now computes actual signed, dimensionally regulated inner
 W/Goldstone/ghost/mixed integrals. Physical `C_L,C_R` remain **null** and
 `coherent_inclusion=false`. Complete two-loop gauge matching is unfinished.
