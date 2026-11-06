@@ -184,3 +184,25 @@ certificates, incomplete LFV/HiggsTools coverage, absent production, and
 uncomputed higher-order/off-shell decay effects. They do not prevent a
 reproducible conditional scan workflow. This readiness label implies no
 publication-level or global Zee acceptance.
+
+## D14C targeted follow-up — 2026-11-06
+
+**TARGETED_PRODUCTION_EVIDENCE_AVAILABLE**. The historical readiness evidence
+above remains unchanged in scope. A separate, completed finite follow-up in
+[CANDIDATE_FOLLOWUP.md](conditional_scan/CANDIDATE_FOLLOWUP.md) re-exports the
+16 vacuum-PASS/nominal-compatible and six sub-TeV vacuum-UNKNOWN/nominal-compatible
+points from the verified 225-point dataset, verifying all 900 family bindings.
+It executes exactly three actual 13-TeV MG5 LO 5FS gb-associated production
+integrations (15591, 2264, 15673), validates the frozen runtime/UFO/PDF and
+independent amplitudes, and binds the real rates to 12 family-specific cards.
+Their conditional sigma×complete-tree-two-body-BR proxies are approximately
+0.0038694, 0.0018438 and 0.0011764 pb. Integration errors are recorded separately;
+scale sensitivity is NOT_EVALUATED and PDF/higher-order uncertainty UNKNOWN.
+
+Bounded D10 searches at 3582, 6850 and 13512 use 199 starts each and find no
+verified deeper stationary minimum; sufficient certificates still fail, so all
+three remain UNKNOWN. The other three lighter points receive triage only.
+Original gates, datasets and production-missing statuses are not overwritten.
+Physical B→Xsγ stays UNKNOWN, LFV/HiggsTools coverage stays incomplete, and
+global acceptance remains null. The separate next-20k proposal is documented
+but not generated or submitted. No large scan or HTCondor job was launched.

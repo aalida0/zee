@@ -1,0 +1,172 @@
+{
+  "version": "d14c-next20k-proposal-only-1",
+  "sampling_mode": "correlated_heavy_v1",
+  "template": "module1/example.json",
+  "seed": 20261107,
+  "count": 20000,
+  "shard_size": 250,
+  "arms": [
+    {
+      "name": "sub_TeV",
+      "weight": 3,
+      "ranges": {
+        "mH2": [
+          500,
+          1000
+        ],
+        "mH1_fraction": [
+          0.3,
+          0.75
+        ],
+        "tanbeta": [
+          1,
+          15
+        ],
+        "delta_alpha": [
+          -0.05,
+          0.05
+        ],
+        "gamma": [
+          0.15,
+          1.4
+        ],
+        "lc": [
+          0.1,
+          5
+        ],
+        "k1": [
+          -3,
+          3
+        ],
+        "k2": [
+          -3,
+          3
+        ],
+        "k12": [
+          -3,
+          3
+        ],
+        "mh2_splitting": [
+          -100,
+          100
+        ],
+        "ma_splitting": [
+          -100,
+          100
+        ],
+        "m12sq_factor": [
+          0.7,
+          1.3
+        ]
+      }
+    },
+    {
+      "name": "production_window_1000_1350",
+      "weight": 5,
+      "ranges": {
+        "mH2": [
+          1000,
+          1350
+        ],
+        "mH1_fraction": [
+          0.35,
+          0.75
+        ],
+        "tanbeta": [
+          1,
+          15
+        ],
+        "delta_alpha": [
+          -0.05,
+          0.05
+        ],
+        "gamma": [
+          0.15,
+          1.4
+        ],
+        "lc": [
+          0.1,
+          5
+        ],
+        "k1": [
+          -3,
+          3
+        ],
+        "k2": [
+          -3,
+          3
+        ],
+        "k12": [
+          -3,
+          3
+        ],
+        "mh2_splitting": [
+          -100,
+          100
+        ],
+        "ma_splitting": [
+          -100,
+          100
+        ],
+        "m12sq_factor": [
+          0.7,
+          1.3
+        ]
+      }
+    },
+    {
+      "name": "broad_control",
+      "weight": 2,
+      "ranges": {
+        "mH2": [
+          500,
+          2200
+        ],
+        "mH1_fraction": [
+          0.2,
+          0.8
+        ],
+        "tanbeta": [
+          1,
+          15
+        ],
+        "delta_alpha": [
+          -0.4,
+          0.4
+        ],
+        "gamma": [
+          -1.5,
+          1.5
+        ],
+        "lc": [
+          0.1,
+          5
+        ],
+        "k1": [
+          -3,
+          3
+        ],
+        "k2": [
+          -3,
+          3
+        ],
+        "k12": [
+          -3,
+          3
+        ],
+        "mh2_splitting": [
+          -400,
+          400
+        ],
+        "ma_splitting": [
+          -400,
+          400
+        ],
+        "m12sq_factor": [
+          -1,
+          3
+        ]
+      }
+    }
+  ]
+}
