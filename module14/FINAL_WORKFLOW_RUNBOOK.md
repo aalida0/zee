@@ -157,8 +157,21 @@ python3 -m module14.final_plot --export-dir NEW_EXPORT_DIR --output NEW_PLOT.svg
 Final export uses config family settings and the original manifest. Supply all
 --part triples. It reruns only deterministic saved-data verification and
 conditional flavor postprocessing. It does not rerun workers or production.
-It currently holds joined data in memory; allocate postprocessing RAM for the
-saved family count, separately from per-worker resource requests.
+The final CLI uses SQLite for manifest lookup, joined rows, export sorting,
+duplicate detection and ranks. Set TMPDIR and SQLITE_TMPDIR to provisioned scratch. Allow disk for several
+complete row stores plus the final tables; memory is bounded by a row and small SQLite
+caches. The 6,000-row synthetic replay peaked at 93,872 KiB (256 MiB limit).
+`join(..., streaming=True)` returns a DiskRows iterable that callers must
+close; the default legacy join and plotting can still consume proportional
+RAM. Scientific labels and output schemas are unchanged.
+
+Export publishes by a same-filesystem atomic rename under an exclusive
+sibling `.export-lock`; exceptions/KeyboardInterrupt clean temporary output.
+After SIGKILL or machine failure, verify the owner has stopped before removing
+the stale lock and its hidden scratch directory and retrying to a fresh target.
+An existing published export is never overwritten. See
+PHYSICS_ADAPTER_READINESS.md for native build validation and unresolved physics;
+none of those research backends has become an operative worker constraint.
 
 Optional production enrichment adds `--production-dir EXISTING_RATE_CARDS
 --production-contract EXPECTED_PRODUCTION_CONTRACT.json` to export. See

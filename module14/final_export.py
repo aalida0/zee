@@ -3,6 +3,12 @@ import argparse
 from collections import Counter
 import csv
 import json
+import os
+import sqlite3
+import tempfile
+from contextlib import ExitStack
+
+from module14.disk_rows import DiskRows, streaming_digest
 from pathlib import Path
 
 from module14.scan import digest, encode, file_sha
@@ -20,7 +26,7 @@ def status(value):
     return value.get('status', 'NOT_EVALUATED') if isinstance(value, dict) else value
 
 
-def export(dataset, output, production_dir=None, contracts=None):
+def _export(dataset, output, production_dir=None, contracts=None):
     if dataset.get('status') != 'CONDITIONAL_DATASET' or dataset['collection']['status'] != 'COMPLETE' or dataset['collection']['missing_points']:
         raise ValueError('Verified complete saved dataset required')
     if production_dir is not None and not contracts:
@@ -29,18 +35,27 @@ def export(dataset, output, production_dir=None, contracts=None):
         for energy, contract in contracts.items():
             if energy not in ('13', '14') or contract.get('energy_TeV') != int(energy):
                 raise ValueError('Production contract channel/energy mismatch')
-    rows = []; seen = set(); groups = {}
+    rows = DiskRows()
+    rows.db.execute('CREATE UNIQUE INDEX unique_family ON rows(id, IFNULL(ordering, ""), IFNULL(family,-1))')
+    rows.db.execute('CREATE TABLE scalars(id INTEGER PRIMARY KEY)')
+    rows.db.execute('CREATE TABLE ranks(energy TEXT, contract TEXT, rate REAL, id INTEGER, ordering TEXT, family INTEGER, seq INTEGER)')
     by_arm = {}
-    original = sorted(dataset['rows'], key=lambda r: (r['id'],
-                      r['neutrino'].get('ordering', '') if isinstance(r['neutrino'], dict) else '',
-                      r['neutrino'].get('family', -1) if isinstance(r['neutrino'], dict) else -1))
-    scalar_seen = set()
-    for original_row in original:
+    original = dataset['rows']
+    # Spool even a legacy iterable: ordering and duplicate detection stay on disk.
+    source = DiskRows()
+    try:
+        for row in original:
+            source.append(row)
+        return _write(dataset, output, production_dir, contracts, rows, source, by_arm)
+    finally:
+        rows.close()
+        source.close()
+
+
+def _write(dataset, output, production_dir, contracts, rows, source, by_arm):
+    for original_row in source.sorted():
         r = original_row
         n = r['neutrino'] if isinstance(r['neutrino'], dict) else None
-        identity = (r['id'], n['ordering'] if n else None, n['family'] if n else None)
-        if identity in seen: raise ValueError('Duplicate export point/family')
-        seen.add(identity)
         if r.get('globally_allowed') is not None or r['bsg_physical_classification'] != 'UNKNOWN':
             raise ValueError('Unsupported physical acceptance claim in conditional dataset')
         if r['scalar_sha256'] != digest(r['input_card']): raise ValueError('Export scalar binding mismatch')
@@ -63,8 +78,8 @@ def export(dataset, output, production_dir=None, contracts=None):
                                'matching_card_sha256': dataset['matching_card_sha256']},
                 'omissions': LIMITATIONS, 'rank_reason': {}}
         stage_counter = by_arm.setdefault(r['arm'], {'points': 0, 'families': 0, 'statuses': {}})
-        if r['id'] not in scalar_seen:
-            scalar_seen.add(r['id']); stage_counter['points'] += 1
+        if rows.db.execute('INSERT OR IGNORE INTO scalars VALUES(?)',(r['id'],)).rowcount:
+            stage_counter['points'] += 1
             for name, gate in r['gates'].items():
                 stage_counter['statuses'].setdefault(name, Counter())[gate['assessment']] += 1
             stage_counter['statuses'].setdefault('conditional_bsgamma', Counter())[data['conditional_bsgamma']] += 1
@@ -93,27 +108,63 @@ def export(dataset, output, production_dir=None, contracts=None):
                     rate = prod['sigma_pb']*decays['BR_H2_H1Z']*decays['BR_H1_tb']
                     data[f'cascade_tb_{energy}_pb'] = rate
                     data['rank_reason'][energy] = 'Descending exact sigma*BR(H2->H1Z)*BR(H1->tb) within the declared production contract; conditional diagnostic only'
-                    groups.setdefault((energy, digest(contract)), []).append(data)
-        encode(data); rows.append(data)
-    for (energy, _), group in groups.items():
-        for rank, row in enumerate(sorted(group, key=lambda r: (-r[f'cascade_tb_{energy}_pb'], r['id'], r['ordering'], r['family'])), 1):
-            row[f'rank_{energy}'] = rank
-    output = Path(output); output.mkdir(parents=True, exist_ok=False)
-    (output/'families.jsonl').write_text(''.join(encode(r)+'\n' for r in rows))
+                    rows.db.execute('INSERT INTO ranks VALUES(?,?,?,?,?,?,?)', (energy,digest(contract),rate,r['id'],n['ordering'],n['family'],len(rows)))
+        try:
+            rows.append(data)
+        except sqlite3.IntegrityError as exc:
+            raise ValueError('Duplicate export point/family') from exc
+    for energy, seq, rank in rows.db.execute(
+            'SELECT energy, seq, ROW_NUMBER() OVER (PARTITION BY energy, contract ORDER BY rate DESC, id, ordering, family) FROM ranks'):
+        row = rows[seq]
+        row[f'rank_{energy}'] = rank
+        rows.db.execute('UPDATE rows SET data=? WHERE seq=?',(encode(row),seq))
+    output = Path(output)
+    with (output/'families.jsonl').open('w') as f:
+        for row in rows:
+            f.write(encode(row)+'\n')
     with (output/'families.csv').open('w', newline='') as f:
         w = csv.DictWriter(f, fieldnames=COLUMNS, extrasaction='ignore', lineterminator='\n')
         w.writeheader(); w.writerows(rows)
     (output/'cutflows.json').write_text(encode(by_arm)+'\n')
     (output/'collection.json').write_text(encode(dataset['collection'])+'\n')
-    benchmarks = [{k: r[k] for k in COLUMNS} | {'rank_reason': r['rank_reason']} for r in rows
-                  if any(r[f'rank_{e}'] is not None for e in ('13', '14'))]
-    (output/'benchmarks.json').write_text(encode(benchmarks)+'\n')
-    audit = {'schema': 'd14-final-export-1', 'status': 'COMPLETE', 'rows': len(rows), 'points': len(scalar_seen),
+    with (output/'benchmarks.json').open('w') as f:
+        f.write('[')
+        first = True
+        for row in rows:
+            if any(row[f'rank_{e}'] is not None for e in ('13', '14')):
+                if not first:
+                    f.write(',')
+                f.write(encode({k: row[k] for k in COLUMNS} | {'rank_reason': row['rank_reason']}))
+                first = False
+        f.write(']\n')
+    audit = {'schema': 'd14-final-export-1', 'status': 'COMPLETE', 'rows': len(rows), 'points': rows.db.execute('SELECT COUNT(*) FROM scalars').fetchone()[0],
              'global_acceptance': None, 'limitations': LIMITATIONS,
-             'input_sha256': digest(dataset), 'contracts_sha256': digest(contracts),
+             'input_sha256': streaming_digest(dataset), 'contracts_sha256': digest(contracts),
              'files_sha256': {p.name: file_sha(p) for p in sorted(output.iterdir())}}
     (output/'audit.json').write_text(encode(audit)+'\n')
     return audit
+
+
+def export(dataset, output, production_dir=None, contracts=None):
+    """Validate/spool first; publish a complete directory with one atomic rename.
+
+    A sibling exclusive lock prevents concurrent exporters to the same target.
+    Exceptions/interruption remove scratch; no partial output is published.
+    """
+    output = Path(output)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    lock = output.with_name(output.name+'.export-lock')
+    with ExitStack() as stack:
+        stack.enter_context(lock.open('x'))
+        stack.callback(lock.unlink)
+        if output.exists():
+            raise FileExistsError(output)
+        tmp = stack.enter_context(tempfile.TemporaryDirectory(prefix='.'+output.name+'-', dir=output.parent))
+        audit = _export(dataset, tmp, production_dir, contracts)
+        if output.exists():
+            raise FileExistsError(output)
+        os.rename(tmp, output)
+        return audit
 
 
 def main():
@@ -127,8 +178,11 @@ def main():
     parts = sorted(a.part, key=lambda t: file_sha(t[0]))
     result = join(a.manifest, config, parts, load(a.matching_card), a.source_commit,
                   a.source_bundle_sha256, config.get('families', a.families),
-                  preflight_report=load(a.preflight_report) if a.preflight_report else None)
-    audit = export(result, a.output, a.production_dir, load(a.production_contract) if a.production_contract else None)
+                  preflight_report=load(a.preflight_report) if a.preflight_report else None, streaming=True)
+    try:
+        audit = export(result, a.output, a.production_dir, load(a.production_contract) if a.production_contract else None)
+    finally:
+        result['rows'].close()
     print(encode(audit))
 
 

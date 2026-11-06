@@ -81,6 +81,9 @@ scratch directory. The caption discloses conditional physics; no experimental
 sensitivity is inferred. JSON/table exports are deterministic for the same
 saved input and source, irrespective of shard argument order. Resource totals
 and receipt hashes remain original provenance and may differ for genuinely
-different executions or partitioning. Postprocessing currently materializes
-the joined rows in memory: provision RAM according to saved family count;
-it does not have the worker's fixed 2 GB memory envelope.
+different executions or partitioning. Final CLI postprocessing uses disk-backed join, sorting and ranking with
+row-by-row hashing/writing. Schema versions and rank semantics are unchanged;
+original 900-row output/audit bytes match. Provision SQLite scratch disk and
+complete-output space. Measured 6,000 mock rows peak at 93,872 KiB under a
+256 MiB test limit. Legacy join and plotting have separate memory requirements.
+Publication is atomic; see FINAL_WORKFLOW_RUNBOOK.md for stale-lock recovery.

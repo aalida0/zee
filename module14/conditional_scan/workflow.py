@@ -13,6 +13,7 @@ from module7.cascade_z import cascade_width
 from module7.d4_decay_table import complete_total
 from module7.d4_inputs import SM
 from module14.collect import collect
+from module14.disk_rows import DiskRows
 from module14.scan import digest, file_sha
 from .flavor import evaluate, finite_real, source_hashes
 
@@ -108,21 +109,34 @@ def cascade(scalar, family, widths):
 
 
 def join(manifest, config, triples, card, source_commit, source_bundle_sha256,
-         families=2, production_dir=None, preflight_report=None):
+         families=2, production_dir=None, preflight_report=None, streaming=False):
+    if streaming and production_dir is not None:
+        raise ValueError('Streaming join requires final exporter production contracts')
     if not source_commit or not source_bundle_sha256:
         raise ValueError('Explicit worker source identity required')
     triples = sorted(triples, key=lambda t: file_sha(t[0]))
+    pinned_inputs = {str(p): file_sha(p) for t in triples for p in t}
+    pinned_manifest = file_sha(manifest)
     audit = collect(manifest, config, triples, families=families,
                     limit=config.get('perturbativity_limit', math.sqrt(4*math.pi)),
                     source_commit=source_commit, source_bundle_sha256=source_bundle_sha256,
                     preflight_report=preflight_report)
     if audit['status'] != 'COMPLETE' or audit['missing_points']:
         raise ValueError('Complete collection required before interpretation')
-    inputs = {row['id']: row for row in lines(manifest)}
-    rows, by_arm = [], {}
+    inputs = DiskRows() if streaming else {}
+    for row in lines(manifest):
+        if streaming:
+            inputs.append(row)
+        else:
+            inputs[row['id']] = row
+    rows, by_arm = (DiskRows() if streaming else []), {}
     for _, output, _ in triples:
         for out in lines(output):
-            row = inputs[out['id']]
+            if streaming:
+                record = inputs.db.execute('SELECT data FROM rows WHERE id=?', (out['id'],)).fetchone()
+                row = json.loads(record[0])
+            else:
+                row = inputs[out['id']]
             scalar = row['scalar']
             flavor = evaluate(scalar, card)
             p = scalar['physical']
@@ -173,16 +187,23 @@ def join(manifest, config, triples, card, source_commit, source_bundle_sha256,
                         entry['comparison_group'] = {k: prod[k] for k in
                             ('energy_TeV', 'process', 'charge_definition', 'order', 'pdf', 'scale_scheme')}
                 rows.append(entry)
+    if streaming:
+        inputs.close()
+        # The final exporter computes its own exact tb-product ranks. Join's
+        # legacy production API remains available through the legacy path.
     groups = {}
-    for row in rows:
+    for row in (() if streaming else rows):
         if row['yield_proxy_pb'] is not None:
             groups.setdefault(digest(row['comparison_group']), []).append(row)
     for group in groups.values():
         for rank, row in enumerate(sorted(group, key=lambda r: -r['yield_proxy_pb']), 1): row['rank'] = rank
+    if file_sha(manifest) != pinned_manifest or any(file_sha(p) != sha for p, sha in pinned_inputs.items()):
+        if streaming: rows.close()
+        raise ValueError('Saved inputs changed during interpretation')
     return {'status': 'CONDITIONAL_DATASET', 'collection': audit, 'by_arm': by_arm,
             'proposal_interpretation': 'Arm-dependent proposal counts, not model-volume fractions',
             'source_sha256': source_hashes(), 'matching_card_sha256': digest(card),
-            'input_files_sha256': {str(p): file_sha(p) for t in triples for p in t},
+            'input_files_sha256': pinned_inputs,
             'globally_allowed': None, 'rows': rows,
             'ranking_scope': 'Within documented energy/process/charge/order/PDF/scale group; no flavor hard cut; missing production/complete BR remains unranked.'}
 

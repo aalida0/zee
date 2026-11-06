@@ -6,11 +6,17 @@
 
 **Release status: WORKFLOW_CODE_READY_PHYSICS_CONDITIONAL**
 
+Current adapter evidence: [PHYSICS_ADAPTER_READINESS.md](PHYSICS_ADAPTER_READINESS.md).
+`SPHENO_FULL_BUILD_VALIDATED` (build/runtime only), `LFV_SCOPED_ONLY`,
+`VACUUM_SCOPED_UNKNOWN`, `HIGGS_PARTIAL`, `EXPORT_STREAMING_VALIDATED`.
+No new operative exclusion or globally allowed point is claimed.
+
 This freezes the implemented conditional workflow, not a globally validated
 Zee model calculation. No final-scan size, seed, shard size or arm weights
 have been selected. The template deliberately remains invalid until the
-user supplies those decisions. No new physics proposals, Condor submissions,
-MG5 runs, vacuum searches or flavor-backend builds were performed.
+user supplies those decisions. No new physics proposals, Condor submissions, MG5 runs or vacuum searches
+were performed. The subsequent bounded adapter work built the corrected
+full-loop backend on four original D12 cards; see PHYSICS_ADAPTER_READINESS.md.
 
 | Required code gate | Measured result |
 |---|---|
@@ -22,7 +28,7 @@ MG5 runs, vacuum searches or flavor-backend builds were performed.
 | End-to-end fixture replay | PASS; original 100-point input/output/receipt replay, saved repartition, mocked final worker -> collection -> Eq.(4) sidecar -> export; no generator/kernel invocation |
 | Reproducible export | PASS; reversed shard arguments yield byte-identical JSONL/CSV/audit and SVG; missing production stays null; two-energy mock contracts and exact tb cascade product checked |
 | Historical 225-point evidence | PASS; exact dataset SHA256, 900 family records, 16 saved 13 TeV rates, three saved 14 TeV rates and 76 production-family bindings checked |
-| Focused suite | **66 tests, 0 failures, 5 optional historical-artifact skips**; `python3 scripts/zee_d14_workflow_tests.py` |
+| Focused suite | **74 tests, 0 failures, 5 optional historical-artifact skips**; `python3 scripts/zee_d14_workflow_tests.py` |
 | Scope and formatting | `git diff --check` and compile checks PASS; Modules0–13, historical datasets/reports/maps/receipts and independent flavor branch unchanged |
 
 The full 225-point saved dataset hash is
@@ -48,8 +54,8 @@ Reproducible evidence:
 remain unvalidated; no 2HDM charged-Higgs result was substituted for two Zee
 mixed states and Fzee. No complete gauge-reduced Zee vacuum potential adapter
 has been validated for Vevacious++/HomotopyContinuation; numerical
-non-discovery cannot certify global stability. The SPheno Zee one-loop decay
-build remains incomplete. Existing HiggsTools h125 treatment stays approximate;
+non-discovery cannot certify global stability. The SPheno Zee full-loop build now compiles and runs on four saved cards,
+but its observables remain unvalidated for integration. Existing HiggsTools h125 treatment stays approximate;
 missing charged loops, neutral/charged production and channels remain
 DIAGNOSTIC_ONLY/NOT_EVALUATED. See EXTERNAL_CAPABILITY_MATRIX.md for actual
 source coverage, measured comparisons, failed build evidence and omissions.
@@ -76,8 +82,10 @@ Remaining external requirements before the separately authorized final scan:
    enabled. The public research tools are optional and are not operative gates.
 3. Successful actual-site preflight, writable/free-space/atomic-link checks,
    scheduler resource review and explicit conditional-physics acknowledgment.
-4. Enough postprocessing RAM for the saved family count: collection is
-   disk-backed, while join/export currently materializes rows in memory.
+4. Enough postprocessing scratch disk for SQLite stores and complete output.
+   The final CLI now uses disk-backed join/export; measured peak RSS stays
+   below 92 MiB for 6,000 synthetic family repetitions. Legacy join/plotting
+   have separate memory requirements.
 5. A separate user decision to execute the final large scan. This freeze and
    its commit/push do **not** supply that authorization.
 

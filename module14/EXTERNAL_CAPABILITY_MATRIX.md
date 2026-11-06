@@ -1,7 +1,12 @@
 # Public capability source audit (2026-11-06)
 
-Outcome: **REFERENCE_ONLY / ZEE_ADAPTER_UNVALIDATED** for the new public
-backends. No new amplitude or vacuum search has been implemented. Existing
+Current follow-up: [PHYSICS_ADAPTER_READINESS.md](PHYSICS_ADAPTER_READINESS.md)
+records the executed corrected full-loop build, four-card numerical comparisons,
+12 complex LFV subset comparisons, two-potential contract checks and streaming
+export validation. Build status is **SPHENO_FULL_BUILD_VALIDATED** (build/runtime
+only); all new observable adapters remain nonoperative.
+
+Outcome: **REFERENCE_ONLY / ZEE_ADAPTER_UNVALIDATED** for new physics constraints. No new amplitude or vacuum search has been implemented. Existing
 D13 HiggsTools diagnostics remain operative with their original limitations.
 All inspected source-file hashes are in `public_source_lock.json`; third-party
 source and binaries have not been vendored. Probe results never assert a
@@ -13,7 +18,7 @@ physical PASS. No tool here supplies a calibrated 2026 Zee B-rate uncertainty.
 | SARAH **4.15.4**, archive SHA `4ab8f01ebe866cce954bc292118b5976913a2800efc6eeb2ad2e926a98fc42eb`; SPheno **4.0.5**, archive SHA `3f84a6c3e47f40e0dd1bcccb88eb08a1d0a65aa3d8e42504befdfc3d47ec9529` | Installed Gamma2l.m, Lto3Lp.f90, MuEconversion.f90; actual generated Zee LowEnergy/FlavorKit_LFV/RunSM Fortran, original model and SPheno.m. Source availability does not establish redistribution licensing: no code copied. | Generic one-loop operator framework; existing research scalar dipole subset has scoped comparisons. Additional LFV observables, neutrino/scheme completeness and a production adapter remain UNVALIDATED. |
 | [Vevacious++ 657cf31c2489892d1862cd7ba21511e6f2ba863f](https://github.com/jwittbrodt/VevaciousPlusPlus_Development/tree/657cf31c2489892d1862cd7ba21511e6f2ba863f), GPL-3.0-or-later | README.txt, THDM.vin, PHCRunner.cpp, PolynomialSystemSolver.cpp; model-specific potential and LHA blocks | Included THDM potential has only phi1/phi2 field variables. It omits Zee charged-singlet/charged/CP directions. No usable Zee potential or benchmark comparison established. Numerical non-discovery remains UNKNOWN. |
 | [HomotopyContinuation.jl 0cbf1e27d062d7eb01d962c3b948c39444c9a62c](https://github.com/JuliaHomotopyContinuation/HomotopyContinuation.jl/tree/0cbf1e27d062d7eb01d962c3b948c39444c9a62c), Project.toml **2.22.4**, MIT | src/certification.jl: square-system checks, solution intervals and Krawczyk certification | A root certificate is not an exhaustion proof. No Julia executable/full gauge-reduced Zee polynomial adapter is available here; no vacuum search executed. |
-| SARAH/SPheno one-loop decays | Installed SPhenoLoopDecays.m and saved full-build/reduced-build evidence | Existing Zee full build failed on undeclared ZRUNoMatrix/ZRUNoMatrixc in neutrino final states. Reduced build disables loop decays. No validated Zee one-loop width or h125 gamma-gamma correction to integrate. |
+| SARAH/SPheno one-loop decays | Installed SPhenoLoopDecays.m and saved full-build/reduced-build evidence | Original failure reproduced; absent Majorana-neutrino MatterSector rotation and mismatched NoMatrix guard localized. Explicit UV rotation plus full regeneration compiles/runs all four D12 cards. Full-loop spectrum/widths fail numerical scheme/perturbative validation; no operative one-loop correction integrated. |
 | HiggsTools **1.1.3**, GPL-3.0 | Actual installed Higgs.tools.Input.py (SHA in lock), local source, module13/higgstools.py and module14/external.py | Explicit widths/BR/cross-section input is supported. Existing approximate h125 use retained. Missing charged loops/neutral widths/production stay DIAGNOSTIC_ONLY or NOT_EVALUATED. Supplied charged production now requires an artifact-bound contract. |
 
 ## Corrected LFV control and model gap
@@ -42,9 +47,10 @@ All three rate identities close exactly at recorded precision. Setting only
 lepton off-diagonal rho entries to zero gives exactly three zero rates,
 as required by flavor conservation at this upstream spectrum. These checks
 supply a reproducible control, **not an independent nonzero published
-benchmark comparison**. A full Zee decoupling/convention map has not been
-established. Neutral fermion-loop terms are candidates for later matched
-reuse; none was spliced into Module4. Missing singlet-F amplitudes, mixed
+benchmark comparison**. The follow-up establishes the neutral-fermion/photon convention map and
+compares all four D12 cards in all three channels (max 3.70e-11 relative
+complex residual). This subset already exists in Module4 and is not added
+again. A full Zee decoupling/gauge map remains unvalidated. Missing singlet-F amplitudes, mixed
 charged states and their potential/gauge contributions remain UNKNOWN.
 
 Reproduce only against already pinned local source:
@@ -65,8 +71,9 @@ experimental generated Zee Fortran and saved comparisons. The inspected
 checkout commit, generated/source hashes and **only the four original D12
 card comparisons** are recorded in `public_spheno_evidence.json`. All nine
 recorded helper-source hashes and three frozen-reference hashes matched;
-the frozen reference hashes also match this checkout. No native executable
-was built or run during this task, and no additional benchmark was created.
+the frozen reference hashes also match this checkout. This paragraph describes the earlier read-only source audit. The later
+bounded task rebuilt and ran only the same four original cards, as recorded
+in physics_adapters/spheno_build_evidence.json; no new benchmark was created.
 
 That research evidence derives `K2L=-conj(C_L), K2R=-conj(C_R)` with matched
 mass normalization for a patched scalar one-loop subset. For the four
@@ -91,9 +98,10 @@ include automatic dependency downloads. No build/install was attempted.
 A Zee adapter would need a checked full real-field potential, gradients,
 charged/CP directions, gauge reduction, energy normalization and a verified
 deeper-stationary witness protocol at existing D10 PASS/UNKNOWN points.
-Those model gates are absent. Executing its two-field THDM example would
-not test Zee applicability and would violate the active no-vacuum-search
-scope. Both proposed Zee benchmark comparisons remain NOT_EVALUATED.
+The subsequent full-field contract check now passes on one saved PASS and
+one UNKNOWN potential. Actual SARAH Zee export still has only phi1/phi2
+minimization fields; a complete Zee LHA/gauge-reduced map remains absent.
+No external minimizer was executed.
 
 HomotopyContinuation's [certification contract](https://www.juliahomotopycontinuation.org/HomotopyContinuation.jl/stable/certification/)
 applies to supplied solutions of square polynomial systems. Singular roots,

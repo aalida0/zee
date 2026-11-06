@@ -65,6 +65,7 @@ def source_hashes():
              *ROOT.glob('module14/conditional_scan/*config.json'),
              ROOT/'module14/conditional_scan/matching_card.json',
              ROOT/'module14/scan.py', ROOT/'module14/collect.py', ROOT/'module14/decays.py',
+             ROOT/'module14/disk_rows.py',
              ROOT/'module1/scalar_constraints.py', ROOT/'module1/d10_certificate.py',
              *ROOT.glob('module7/*.py'), ROOT/'module5/bsgamma_lo.py',
              ROOT/'module5/hyperiso_patch_contract.py', ROOT/'module5/bsgamma_2026_linear_diagnostic.py',
