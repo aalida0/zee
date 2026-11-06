@@ -1,0 +1,14 @@
+{
+  "artifacts": {
+    "cascade_rates_13TeV.png": "ec220f1e482c3eb2f55022cc5ad95f11d1943909f1af0754abdc07bdbad3223a",
+    "cascade_rates_13TeV.svg": "6eacf0cf699160e4eeeedb98699750bf823508616f6c5c2f4eec055d702bec97",
+    "conditional_vacuum_scatter.png": "91eea92205664807f64d3993eff41b53b9f964800770423f3cdc64df8347f3f9",
+    "conditional_vacuum_scatter.svg": "e4e95debea1d7df770b4c37bef8f36bc382c633e866595589e4eb9e60d685751",
+    "production_13_vs_14TeV.png": "9e2d8438ca74597204a8511bd9e36b08bff90f85662e31a945b9808d86cc5bd9",
+    "production_13_vs_14TeV.svg": "3cf490f09824ae42da5dd1617e062ba0532fcd5243aea9dca73fc726f495b342",
+    "production_mass_13TeV.png": "71954b5d885efdf807074959d9ff191fecc6989f39c2ecb2e8f8c8770a9c64a7",
+    "production_mass_13TeV.svg": "dfe8f7ee69127bb5a413013dff011e913ca0252155cd4420e0cca3ad5134c87a"
+  },
+  "input_sha256": "95510ec92f95d4598d85e64a1163da949dc0ce529b63ef5e536f0a6a4f2f7aab",
+  "plotting_source_sha256": "15eff568f919fdcd143633bb4d13f2ee39cdfbc8a76f56345013e8d9a7630f94"
+}
