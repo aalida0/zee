@@ -1,5 +1,13 @@
 # Codex instructions — Zee B→Xsγ independent rate validation
 
+> **Current Codex task (2026-11-06):** Read and execute
+> `research/bsgamma_rate_validation/FINAL_VALIDATION_TASK.md` first.
+> Start from the already working EOS evolution at commit `3207b6d`;
+> do not reopen solved RG/matching work. The new task prioritizes an
+> independently matched physical-rate benchmark, a justified uncertainty
+> domain and then (only if validated) a research-only scan filter.
+> All existing conservative physics-status safeguards below remain in force.
+
 This file is scoped to branch `research/zee-bsgamma-rate-validation`.
 It replaces the D14-only instructions in this branch; the source branch
 `feature/zee-d14-integrated-scan` and its files must remain untouched.
