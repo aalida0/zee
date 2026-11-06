@@ -2,39 +2,34 @@
 
 **Branch:** `feature/zee-d14-conditional-cascade-scan`.
 
-## CURRENT USER-APPROVED TASK — FINAL PHYSICS-ADAPTER INTEGRATION
+## CURRENT TASK — FINAL SCIENTIFIC FREEZE; NO SCANS
 
-Read **`module14/FINAL_PHYSICS_ADAPTER_TASK.md`** first. It supersedes
-the earlier `WORKFLOW_COMPLETION_TASK.md`, whose engineering code gate
-is COMPLETE at commit `bff3e52`. The user approved **bounded
-physics-adapter work with public code** before the one final scan.
+Read **`module14/FINAL_PHYSICS_FREEZE_TASK.md`** first. The
+public-tool physics-adapter work is COMPLETE at commit `5865e8d`
+within its scoped evidence. The pipeline is technically ready,
+including the source-locked streaming exporter, but full-loop
+SPheno 4.0.5 results are **NOT operative** (unphysical 5.5 eV
+neutrino masses, 300+ GeV h125 and 10^6 GeV total widths on saved
+cards).
 
-Priorities in order:
-1. Fix the actual SARAH 4.15.4 / SPheno 4.0.5 Zee full-loop-decay
-   build issue with `ZRUNoMatrix/ZRUNoMatrixc` (model-correct fix,
-   not dummy declarations); validate on original saved D12 cards.
-2. Investigate the corrected 2026 general-2HDM two-loop LFV source
-   as an independently verified **subset** only; gauge and
-   charged-singlet completeness decide whether any rate is usable.
-3. Audit SARAH→Vevacious++ or certified polynomial backends for the
-   **full Zee scalar potential**, testing only saved D10 PASS/UNKNOWN
-   points; missed numerical minima remain UNKNOWN.
-4. Enhance HiggsTools only with real validated h125/charged-loop
-   sources and complete same-point hashes, not a generic 2HDM guess.
-5. Eliminate final exporter's all-rows-in-RAM scaling without
-   changing physics, using frozen original data and synthetic rows.
+Current **bounded** tasks:
+- Forensically inspect saved full-loop SPheno source/SLHA output,
+  identify exact anomalous width channel(s), mass/mixing and
+  radiative-neutrino order/scheme mismatch.
+- At most one demonstrated model-correct fix, at most two native
+  reruns of **existing** cards, or stop and retain full-loop
+  `UNAVAILABLE`. No parameter tuning.
+- Freeze exact verified hard cuts vs partial/conditional
+  diagnostics; ensure no config can promote an unvalidated
+  SPheno, B→Xsγ, LFV, Higgs or vacuum result to a hard veto.
+- Verify old 225-point export and all focused tests remain
+  intact; publish `FINAL_PHYSICS_FREEZE.md`.
 
-**Absolutely no new parameter-space points, small/big scans, Condor
-submissions, or MG5 production.** Existing previously saved benchmark
-cards may be evaluated by pinned external packages as *validation
-comparisons only*. Use limited attempts, source hashes and strict
-failure/UNKNOWN propagation. If public software cannot supply full
-Zee coverage, document the actual blocker and move on; do not invent
-physics or spend unbounded effort.
-
-No final scan will run without the user's separate explicit approval.
-All new work is on this branch, with original Modules0–13 and
-historical production/results held read-only. Use English exclusively.
+**No new parameter points, exploratory scans, 20k/100k tests,
+Condor submissions, MG5, global vacuum solver construction,
+two-loop matching, or new author outreach.** The user will
+authorize one separate final big scan after the freeze, not now.
+All answers, logs, docs and commit messages should be English.
 
 ## PREVIOUS TASK — WORKFLOW CODE COMPLETED (ARCHIVED)
 
