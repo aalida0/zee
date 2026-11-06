@@ -1,105 +1,63 @@
-# Codex AGENTS — final Zee workflow code completion
+# Codex AGENTS — Zee Type-II full physical-constraint research
 
-**Branch:** `feature/zee-d14-conditional-cascade-scan`.
+**Research branch:** `research/zee-full-constraints`.
+**Frozen working parent:** `feature/zee-d14-conditional-cascade-scan`
+at `133a34061723b6bb45b19e8ebe29852ac8b5a9c2`.
 
-## CURRENT TASK — FINAL SCIENTIFIC FREEZE; NO SCANS
+## User's new objective
 
-Read **`module14/FINAL_PHYSICS_FREEZE_TASK.md`** first. The
-public-tool physics-adapter work is COMPLETE at commit `5865e8d`
-within its scoped evidence. The pipeline is technically ready,
-including the source-locked streaming exporter, but full-loop
-SPheno 4.0.5 results are **NOT operative** (unphysical 5.5 eV
-neutrino masses, 300+ GeV h125 and 10^6 GeV total widths on saved
-cards).
+The user explicitly requires actual, publication-grade **LFV, B→Xsγ
+and Higgs exclusions** before the one final large parameter scan. The
+previous `FINAL_PHYSICS_SCOPE_FROZEN_CONDITIONAL` is a stable, read-only
+fallback, not the desired final physics standard.
 
-Current **bounded** tasks:
-- Forensically inspect saved full-loop SPheno source/SLHA output,
-  identify exact anomalous width channel(s), mass/mixing and
-  radiative-neutrino order/scheme mismatch.
-- At most one demonstrated model-correct fix, at most two native
-  reruns of **existing** cards, or stop and retain full-loop
-  `UNAVAILABLE`. No parameter tuning.
-- Freeze exact verified hard cuts vs partial/conditional
-  diagnostics; ensure no config can promote an unvalidated
-  SPheno, B→Xsγ, LFV, Higgs or vacuum result to a hard veto.
-- Verify old 225-point export and all focused tests remain
-  intact; publish `FINAL_PHYSICS_FREEZE.md`.
+**First task: read and execute**
+`research/full_constraints/PLAN.md` and
+`research/full_constraints/BSGAMMA_FIRST_TASK.md`.
+Prioritize B→Xsγ backend **feasibility and actual nonlinear/rate
+uncertainty coverage**; this is the critical path. A reported source-
+backed `B_FULL_RATE_BLOCKED` is legitimate, but inventing a 2026 NP
+theory sigma, shifting old SM intercepts, or fabricating a Zee 95% CL
+exclusion is not. Do not move to broad LFV/Higgs implementations
+until the B feasibility gate is documented. Later tasks:
+`research/full_constraints/LFV_TASK.md`,
+`research/full_constraints/HIGGS_TASK.md`.
 
-**No new parameter points, exploratory scans, 20k/100k tests,
-Condor submissions, MG5, global vacuum solver construction,
-two-loop matching, or new author outreach.** The user will
-authorize one separate final big scan after the freeze, not now.
-All answers, logs, docs and commit messages should be English.
+## Mandatory physics safeguards
 
-## PREVIOUS TASK — WORKFLOW CODE COMPLETED (ARCHIVED)
+- "Complete" means all materially relevant contributions at the
+  **explicitly declared perturbative order** with justified numerical
+  and theoretical uncertainties, correct interference and physical
+  confidence interpretation. Not literally all perturbative orders.
+- Two mixed Zee charged states are NOT separately subject to the
+  single Type-II 670 GeV bound. Use coherent Wilson coefficients.
+- The corrected general 2HDM two-loop LFV backend is NOT complete Zee;
+  the neutral fermion/photon subset is already in Module4 and must
+  not be double-counted.
+- SARAH/SPheno **full-loop observables are unavailable** (unphysical
+  ~10^6 GeV WW loop widths and eV neutrino input-scheme mismatches).
+  Compiling the backend did not validate its physics.
+- HiggsTools requires source-bound rates for every applicable
+  channel and collision energy; missing predictions are NOT zeros.
+- A validated single failing observable can yield PHYSICAL_FAIL.
+  `global_acceptance=PASS` requires all mandatory observables
+  independently covered. Any uncomputed mandatory observable -> UNKNOWN.
+- Original Modules0–13, D14 scanners/reports, 20k/225 collections,
+  16-point MG5 map, all frozen source/receipts and separate B research
+  branch are **read-only**. Work in `research/full_constraints/` and
+  isolated optional adapters, retaining complete provenance and tests.
+- No new parameter-space proposals (even a pilot), no exploratory
+  scans, no Condor submission, no production campaign, no unauthorized
+  merge into the frozen final-scan branch. Existing saved cards and
+  analytic model-limit controls may be evaluated for validation only.
+- Timebox/source-gate every area. A blocked full-physics result must
+  remain UNKNOWN, not become a soft/conditional claim mislabeled 95% CL.
+- Use English for all Codex sessions, notes, code review and commits.
 
+## Current deliverable
 
-Read **`module14/WORKFLOW_COMPLETION_TASK.md`** first and execute it.
-This supersedes **all previous paper/scan/production task plans**.
-The existing 20k/225 collected scan, 16-point real 13 TeV map, and
-three 14 TeV checks are completed historical evidence, NOT work to rerun.
-
-**Prohibition:** do not launch or prepare an actual new proposal scan,
-including "small pilot", "another 20k", "100k", or "final big scan" itself.
-Do not generate any new physics points as a workflow test.
-Tests are unit tests, mock fixtures and replay of existing immutable
-records only. Do not submit HTCondor, execute MG5, redo physics
-calculations or ask authors for information.
-
-**Only after all workflow code is finished, tested and frozen** will the
-user authorize one final big scan in a separate step. Do not silently
-choose the count/seed/arms for them.
-
-## Public-code reuse BEFORE new physics work
-
-Read `module14/PUBLIC_CODE_REUSE_AUDIT.md` when auditing external
-capabilities. Source-qualified priority: corrected 2026
-general-2HDM two-loop radiative-LFV Python code, SARAH/FlavorKit/SPheno,
-Vevacious++ and HomotopyContinuation.jl, existing HiggsTools.
-**None is proven automatically complete in Zee Type-II.** Adapt only
-independently verified diagram/operator subsets and preserve
-`UNKNOWN` for uncovered contributions. Do not rebuild completed
-matching/RG or claim new theory uncertainties from legacy-code
-differences. Do not download, execute, or vendor unpinned third-party
-binaries as part of a broad scan. First build a bounded compatibility
-audit and use frozen points/fixtures, not new proposals.
-
-## Physics integrity
-
-- The published Misiak 2026 Eq.(4) flavor result is an **approximate,
-  conditional LO-NP diagnostic**, not a validated Zee B→Xsγ 95% CL
-  exclusion. Do not transfer the 2HDM-II one-Higgs 670 GeV bound to
-  individual mixed states.
-- Vacuum sufficient certificate misses remain UNKNOWN, partial LFV
-  remains PARTIAL/DIAGNOSTIC_ONLY; incomplete HiggsTools channels
-  remain NOT_EVALUATED/DIAGNOSTIC_ONLY. No claim of globally allowed
-  Zee points.
-- Source-validated production is an **optional per-point input/sidecar**;
-  absence means null, not 0. Decay BRs use full original on-shell
-  tree two-body inventory. Energy/PDF/scale/process mismatches fail closed.
-- Preserve Modules0–13, historical scans/probes/receipts,
-  original results and the independent flavor branch. New workflow
-  code may change Module14 and its conditional/Condor components
-  only with explicit backward-compatibility tests.
-- Use English exclusively for Codex session titles, progress, logs,
-  documentation and Git commit messages unless otherwise requested.
-
-## Required completion outcome
-
-Deliver `module14/{WORKFLOW_GAP_AUDIT.md,FINAL_WORKFLOW_RUNBOOK.md,
-FINAL_WORKFLOW_READINESS.md,final_config_template.json}`, the
-necessary **implemented and tested** orchestration components,
-and source-locked deterministic replay/robustness tests.
-Do not mark `CODE_READY` if the end-to-end fixture replay, failure
-handling, reproducible export and preflight aren't working.
-Scientific limitations must be separately and explicitly recorded.
-
-Commit and push only code/documentation that passes tests.
-**Do not run the user's final large scan.**
-
-## Historical documents
-
-The old `module14/PAPER_CONDITIONAL_ANALYSIS_TASK.md`,
-`NEXT_PRODUCTION_MAP_TASK.md`, `NEXT_PRODUCTION_VACUUM_TASK.md` and
-`CONDITIONAL_SCAN_TASK.md` are retained for provenance only and are
-NOT active instructions.
+A source-verified B→Xsγ feasibility and full-rate path
+(`FEASIBILITY_GATE.md`, `BSGAMMA_COVERAGE.md`), with executable
+bounded controls only if scientifically supported. Commit and push
+to this research branch. Retain unvalidated results explicitly
+research-only and the original conditional pipeline unchanged.
