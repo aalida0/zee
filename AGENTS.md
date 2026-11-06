@@ -2,49 +2,32 @@
 
 **Branch:** `feature/zee-d14-conditional-cascade-scan`.
 
-## Current task (after 111b544 model-matched production result)
+## Current task (after complete D14D production map)
 
-**Read and execute `module14/NEXT_PRODUCTION_MAP_TASK.md` first.**
+**Read `module14/PAPER_CONDITIONAL_ANALYSIS_TASK.md` first and execute
+its bounded paper-oriented tasks.** D14D's 16-point 13 TeV and three-point
+14 TeV real production calculations are complete at `26bdcf3`;
+do NOT repeat them.
 
-The real 13 TeV production pilot for three conditional benchmark points
-and the bounded sub-TeV vacuum searches are COMPLETE at commit
-`111b544`. Do NOT repeat these tasks. The current bounded goal is
-the **actual 13 TeV production map for the remaining 13 of 16 vacuum-PASS
-and nominal-flavor-compatible scalar points**, plus an independent
-**14 TeV production check for three existing benchmarks**. Preserve
-original 13 TeV receipts; no mass/energy rescaling is an acceptable
-substitute for actual generator runs.
+Priorities: build exact per-family signal-chain branching-rate tables;
+run actual 14 TeV production for #8850 only if pinned assets exist;
+perform a controlled optional scale-sensitivity check; prepare
+source-qualified paper figures/limitations and a **manual, staged**
+high-statistics conditional scan package. Do not auto-submit HTCondor.
 
-Make a clearly documented data/plot bundle, not a new big scan or
-an experimental sensitivity claim. Missing scale/PDF uncertainties,
-physical B→Xsγ classification, partial LFV and HiggsTools coverage must
-remain explicit. Do not change Modules 0–13 or original Module14
-worker, underlying data, or acceptance logic.
+The modern physical B→Xsγ theory uncertainty remains unresolved, even
+though the published 2026 LO-NP equation is reproducible. The authors
+have already been contacted without a response. Partial LFV, HiggsTools
+coverage, other vacuum UNKNOWN cases, and production/decay theory errors
+remain explicit. No global-allowed claim or ungrounded HL-LHC limit.
 
-The B→Xsγ authors were already emailed; no reply is available and
-no further author outreach is needed. All Codex output, task titles,
-documentation and commits should be in **English**.
+Use English for all Codex communication and documentation.
 
-## Prior task archive (completed)
+## Prior research tasks (completed)
 
-The original `module14/NEXT_PRODUCTION_VACUUM_TASK.md` and
-`module14/CONDITIONAL_SCAN_TASK.md` are retained for provenance,
-not active instructions.
-
-## Historical conditional-scan task (completed)
-
-
-
-Read `module14/CONDITIONAL_SCAN_TASK.md` fully and execute its phases
-in order. This supersedes the historic D14A development task from the
-base branch, which was completed in the original D14 pilot. Read existing
-`module14/D14A_INTEGRATED_SCAN_AUDIT.md` and `AF_RUNBOOK.md` before
-touching production workflows.
-
-The user has already contacted the 2026 B→Xsγ authors and received
-**no reply**; do not instruct the user to send the same request again,
-repeat the same uncertainty literature search, or restart a flavor
-backend calculation.
+Earlier `module14/NEXT_PRODUCTION_MAP_TASK.md`,
+`module14/NEXT_PRODUCTION_VACUUM_TASK.md` and
+`module14/CONDITIONAL_SCAN_TASK.md` are archival, not active.
 
 ## Mandatory scientific safeguards
 
