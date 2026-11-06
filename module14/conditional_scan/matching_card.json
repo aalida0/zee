@@ -1,0 +1,6 @@
+{
+  "mt_MSbar_GeV": 163.96892236746697,
+  "matching_scale_GeV": 160.0,
+  "quark_scheme": "MSbar_top_at_matching_scale_real_top_only_ms0",
+  "provenance": "Frozen C1/C2 HyperIso 1.0.3 reference LHA 984391031656a5f4f86ee71f5b60e7d0cb2b1b80edabd9ff6ba912da3ba39374; module5/BSGAMMA_2026_ACCURACY.md. Explicit reference input, no running or recalibration to 2026 SM."
+}

@@ -1,0 +1,2112 @@
+{
+  "globally_allowed": null,
+  "runs": {
+    "followup": {
+      "by_arm": {
+        "broad_control": {
+          "proposals": 4,
+          "stages": {
+            "bfb": {
+              "FAIL": 4
+            },
+            "conditional_bsgamma": {
+              "APPROX_COMPATIBLE": 2,
+              "APPROX_DISFAVORED": 2
+            },
+            "ewpo": {
+              "FAIL": 3,
+              "PASS": 1
+            },
+            "neutrino_IO": {
+              "NOT_EVALUATED": 8
+            },
+            "neutrino_NO": {
+              "NOT_EVALUATED": 8
+            },
+            "reconstruction": {
+              "PASS": 4
+            },
+            "unitarity": {
+              "FAIL": 3,
+              "PASS": 1
+            },
+            "vacuum": {
+              "NOT_EVALUATED": 4
+            }
+          }
+        },
+        "higher_mass": {
+          "proposals": 6,
+          "stages": {
+            "bfb": {
+              "FAIL": 6
+            },
+            "conditional_bsgamma": {
+              "APPROX_COMPATIBLE": 4,
+              "APPROX_DISFAVORED": 2
+            },
+            "ewpo": {
+              "FAIL": 2,
+              "PASS": 4
+            },
+            "neutrino_IO": {
+              "NOT_EVALUATED": 12
+            },
+            "neutrino_NO": {
+              "NOT_EVALUATED": 12
+            },
+            "reconstruction": {
+              "PASS": 6
+            },
+            "unitarity": {
+              "FAIL": 3,
+              "PASS": 3
+            },
+            "vacuum": {
+              "NOT_EVALUATED": 6
+            }
+          }
+        },
+        "sub_TeV": {
+          "proposals": 6,
+          "stages": {
+            "bfb": {
+              "FAIL": 6
+            },
+            "conditional_bsgamma": {
+              "APPROX_BOUNDARY": 1,
+              "APPROX_COMPATIBLE": 1,
+              "APPROX_DISFAVORED": 4
+            },
+            "ewpo": {
+              "FAIL": 2,
+              "PASS": 4
+            },
+            "neutrino_IO": {
+              "NOT_EVALUATED": 12
+            },
+            "neutrino_NO": {
+              "NOT_EVALUATED": 12
+            },
+            "reconstruction": {
+              "PASS": 6
+            },
+            "unitarity": {
+              "FAIL": 4,
+              "PASS": 2
+            },
+            "vacuum": {
+              "NOT_EVALUATED": 6
+            }
+          }
+        }
+      },
+      "collection": {
+        "config_sha256": "b41afd13af2029586e5194ce0cfb0a879792e48d1af588f053758e230bd550b5",
+        "cutflow": {
+          "bsgamma": {
+            "DIAGNOSTIC_ONLY": 0,
+            "ERROR": 0,
+            "FAIL": 0,
+            "NOT_EVALUATED": 16,
+            "PASS": 0,
+            "UNKNOWN": 0
+          },
+          "family_stages": {
+            "higgstools": {
+              "IO": {
+                "DIAGNOSTIC_ONLY": 0,
+                "ERROR": 0,
+                "FAIL": 0,
+                "NOT_EVALUATED": 32,
+                "PASS": 0,
+                "UNKNOWN": 0
+              },
+              "NO": {
+                "DIAGNOSTIC_ONLY": 0,
+                "ERROR": 0,
+                "FAIL": 0,
+                "NOT_EVALUATED": 32,
+                "PASS": 0,
+                "UNKNOWN": 0
+              }
+            },
+            "lfv": {
+              "IO": {
+                "DIAGNOSTIC_ONLY": 0,
+                "ERROR": 0,
+                "FAIL": 0,
+                "NOT_EVALUATED": 32,
+                "PASS": 0,
+                "UNKNOWN": 0
+              },
+              "NO": {
+                "DIAGNOSTIC_ONLY": 0,
+                "ERROR": 0,
+                "FAIL": 0,
+                "NOT_EVALUATED": 32,
+                "PASS": 0,
+                "UNKNOWN": 0
+              }
+            },
+            "widths": {
+              "IO": {
+                "DIAGNOSTIC_ONLY": 0,
+                "ERROR": 0,
+                "FAIL": 0,
+                "NOT_EVALUATED": 32,
+                "PASS": 0,
+                "UNKNOWN": 0
+              },
+              "NO": {
+                "DIAGNOSTIC_ONLY": 0,
+                "ERROR": 0,
+                "FAIL": 0,
+                "NOT_EVALUATED": 32,
+                "PASS": 0,
+                "UNKNOWN": 0
+              }
+            }
+          },
+          "gates": {
+            "bfb": {
+              "DIAGNOSTIC_ONLY": 0,
+              "ERROR": 0,
+              "FAIL": 16,
+              "NOT_EVALUATED": 0,
+              "PASS": 0,
+              "UNKNOWN": 0
+            },
+            "ewpo": {
+              "DIAGNOSTIC_ONLY": 0,
+              "ERROR": 0,
+              "FAIL": 7,
+              "NOT_EVALUATED": 0,
+              "PASS": 9,
+              "UNKNOWN": 0
+            },
+            "reconstruction": {
+              "DIAGNOSTIC_ONLY": 0,
+              "ERROR": 0,
+              "FAIL": 0,
+              "NOT_EVALUATED": 0,
+              "PASS": 16,
+              "UNKNOWN": 0
+            },
+            "unitarity": {
+              "DIAGNOSTIC_ONLY": 0,
+              "ERROR": 0,
+              "FAIL": 10,
+              "NOT_EVALUATED": 0,
+              "PASS": 6,
+              "UNKNOWN": 0
+            },
+            "vacuum": {
+              "DIAGNOSTIC_ONLY": 0,
+              "ERROR": 0,
+              "FAIL": 0,
+              "NOT_EVALUATED": 16,
+              "PASS": 0,
+              "UNKNOWN": 0
+            }
+          },
+          "neutrino": {
+            "IO": {
+              "DIAGNOSTIC_ONLY": 0,
+              "ERROR": 0,
+              "FAIL": 0,
+              "NOT_EVALUATED": 32,
+              "PASS": 0,
+              "UNKNOWN": 0
+            },
+            "NO": {
+              "DIAGNOSTIC_ONLY": 0,
+              "ERROR": 0,
+              "FAIL": 0,
+              "NOT_EVALUATED": 32,
+              "PASS": 0,
+              "UNKNOWN": 0
+            }
+          },
+          "scalar": {
+            "DIAGNOSTIC_ONLY": 0,
+            "ERROR": 0,
+            "FAIL": 16,
+            "NOT_EVALUATED": 0,
+            "PASS": 0,
+            "UNKNOWN": 0
+          }
+        },
+        "evaluated_points": 16,
+        "families_per_ordering": 2,
+        "manifest_points": 16,
+        "manifest_sha256": "7986e4b59b54d432762132260ef34eaa05bca1700f9bd5db5f340458895b964d",
+        "missing_points": 0,
+        "resources": {
+          "cpu_seconds_sum": 14.217825451999998,
+          "elapsed_seconds_sum": 5.1086479930000905,
+          "peak_rss_kib_max": 100972
+        },
+        "source_provenance": [
+          "LOCAL_UNSPECIFIED",
+          "LOCAL_UNSPECIFIED"
+        ],
+        "status": "COMPLETE"
+      },
+      "config": {
+        "arms": [
+          {
+            "name": "sub_TeV",
+            "ranges": {
+              "delta_alpha": [
+                -0.05,
+                0.05
+              ],
+              "gamma": [
+                0.15,
+                1.4
+              ],
+              "k1": [
+                -3,
+                3
+              ],
+              "k12": [
+                -3,
+                3
+              ],
+              "k2": [
+                -3,
+                3
+              ],
+              "lc": [
+                0.1,
+                5
+              ],
+              "m12sq_factor": [
+                0.7,
+                1.3
+              ],
+              "mH1_fraction": [
+                0.3,
+                0.75
+              ],
+              "mH2": [
+                500,
+                1000
+              ],
+              "ma_splitting": [
+                -100,
+                100
+              ],
+              "mh2_splitting": [
+                -100,
+                100
+              ],
+              "tanbeta": [
+                1,
+                15
+              ]
+            },
+            "weight": 3
+          },
+          {
+            "name": "higher_mass",
+            "ranges": {
+              "delta_alpha": [
+                -0.05,
+                0.05
+              ],
+              "gamma": [
+                0.15,
+                1.4
+              ],
+              "k1": [
+                -3,
+                3
+              ],
+              "k12": [
+                -3,
+                3
+              ],
+              "k2": [
+                -3,
+                3
+              ],
+              "lc": [
+                0.1,
+                5
+              ],
+              "m12sq_factor": [
+                0.7,
+                1.3
+              ],
+              "mH1_fraction": [
+                0.35,
+                0.75
+              ],
+              "mH2": [
+                1000,
+                2000
+              ],
+              "ma_splitting": [
+                -100,
+                100
+              ],
+              "mh2_splitting": [
+                -100,
+                100
+              ],
+              "tanbeta": [
+                1,
+                15
+              ]
+            },
+            "weight": 3
+          },
+          {
+            "name": "broad_control",
+            "ranges": {
+              "delta_alpha": [
+                -0.4,
+                0.4
+              ],
+              "gamma": [
+                -1.5,
+                1.5
+              ],
+              "k1": [
+                -3,
+                3
+              ],
+              "k12": [
+                -3,
+                3
+              ],
+              "k2": [
+                -3,
+                3
+              ],
+              "lc": [
+                0.1,
+                5
+              ],
+              "m12sq_factor": [
+                -1,
+                3
+              ],
+              "mH1_fraction": [
+                0.2,
+                0.8
+              ],
+              "mH2": [
+                500,
+                2200
+              ],
+              "ma_splitting": [
+                -400,
+                400
+              ],
+              "mh2_splitting": [
+                -400,
+                400
+              ],
+              "tanbeta": [
+                1,
+                15
+              ]
+            },
+            "weight": 2
+          }
+        ],
+        "count": 16,
+        "sampling_mode": "correlated_heavy_v1",
+        "seed": 20261106,
+        "shard_size": 8,
+        "template": "module1/example.json",
+        "version": "d14-conditional-cascade-1"
+      },
+      "dataset_sha256": "ce28939e11991e394e79966eee3cdb857b2f3d2cecfc3315baba90d4a648f96b",
+      "examples": [],
+      "generation_repeated_bytes_equal": true,
+      "ranked_rows": 0,
+      "rows": 16,
+      "serial_split_sidecar_rows_equal": true,
+      "serial_split_worker_bytes_equal": true
+    },
+    "legacy_control": {
+      "by_arm": {
+        "moderate_uniform": {
+          "proposals": 50,
+          "stages": {
+            "bfb": {
+              "FAIL": 35,
+              "PASS": 15
+            },
+            "conditional_bsgamma": {
+              "APPROX_DISFAVORED": 50
+            },
+            "ewpo": {
+              "FAIL": 40,
+              "PASS": 10
+            },
+            "neutrino_IO": {
+              "NOT_EVALUATED": 98,
+              "PASS": 2
+            },
+            "neutrino_NO": {
+              "NOT_EVALUATED": 98,
+              "PASS": 2
+            },
+            "reconstruction": {
+              "PASS": 50
+            },
+            "unitarity": {
+              "FAIL": 6,
+              "PASS": 44
+            },
+            "vacuum": {
+              "NOT_EVALUATED": 49,
+              "PASS": 1
+            }
+          }
+        },
+        "wide_uniform": {
+          "proposals": 50,
+          "stages": {
+            "bfb": {
+              "FAIL": 28,
+              "PASS": 20,
+              "UNKNOWN": 2
+            },
+            "conditional_bsgamma": {
+              "APPROX_DISFAVORED": 50
+            },
+            "ewpo": {
+              "FAIL": 46,
+              "PASS": 4
+            },
+            "neutrino_IO": {
+              "NOT_EVALUATED": 98,
+              "PASS": 2
+            },
+            "neutrino_NO": {
+              "NOT_EVALUATED": 98,
+              "PASS": 2
+            },
+            "reconstruction": {
+              "PASS": 50
+            },
+            "unitarity": {
+              "FAIL": 43,
+              "PASS": 7
+            },
+            "vacuum": {
+              "NOT_EVALUATED": 49,
+              "UNKNOWN": 1
+            }
+          }
+        }
+      },
+      "collection": {
+        "config_sha256": "a17082d3e414c7f3f7dd79d5eef29608526cfbebc539c5d50766adc39d3b2546",
+        "cutflow": {
+          "bsgamma": {
+            "DIAGNOSTIC_ONLY": 0,
+            "ERROR": 0,
+            "FAIL": 0,
+            "NOT_EVALUATED": 100,
+            "PASS": 0,
+            "UNKNOWN": 0
+          },
+          "family_stages": {
+            "higgstools": {
+              "IO": {
+                "DIAGNOSTIC_ONLY": 0,
+                "ERROR": 0,
+                "FAIL": 0,
+                "NOT_EVALUATED": 200,
+                "PASS": 0,
+                "UNKNOWN": 0
+              },
+              "NO": {
+                "DIAGNOSTIC_ONLY": 0,
+                "ERROR": 0,
+                "FAIL": 0,
+                "NOT_EVALUATED": 200,
+                "PASS": 0,
+                "UNKNOWN": 0
+              }
+            },
+            "lfv": {
+              "IO": {
+                "DIAGNOSTIC_ONLY": 4,
+                "ERROR": 0,
+                "FAIL": 0,
+                "NOT_EVALUATED": 196,
+                "PASS": 0,
+                "UNKNOWN": 0
+              },
+              "NO": {
+                "DIAGNOSTIC_ONLY": 4,
+                "ERROR": 0,
+                "FAIL": 0,
+                "NOT_EVALUATED": 196,
+                "PASS": 0,
+                "UNKNOWN": 0
+              }
+            },
+            "widths": {
+              "IO": {
+                "DIAGNOSTIC_ONLY": 0,
+                "ERROR": 0,
+                "FAIL": 0,
+                "NOT_EVALUATED": 196,
+                "PASS": 4,
+                "UNKNOWN": 0
+              },
+              "NO": {
+                "DIAGNOSTIC_ONLY": 0,
+                "ERROR": 0,
+                "FAIL": 0,
+                "NOT_EVALUATED": 196,
+                "PASS": 4,
+                "UNKNOWN": 0
+              }
+            }
+          },
+          "gates": {
+            "bfb": {
+              "DIAGNOSTIC_ONLY": 0,
+              "ERROR": 0,
+              "FAIL": 63,
+              "NOT_EVALUATED": 0,
+              "PASS": 35,
+              "UNKNOWN": 2
+            },
+            "ewpo": {
+              "DIAGNOSTIC_ONLY": 0,
+              "ERROR": 0,
+              "FAIL": 86,
+              "NOT_EVALUATED": 0,
+              "PASS": 14,
+              "UNKNOWN": 0
+            },
+            "reconstruction": {
+              "DIAGNOSTIC_ONLY": 0,
+              "ERROR": 0,
+              "FAIL": 0,
+              "NOT_EVALUATED": 0,
+              "PASS": 100,
+              "UNKNOWN": 0
+            },
+            "unitarity": {
+              "DIAGNOSTIC_ONLY": 0,
+              "ERROR": 0,
+              "FAIL": 49,
+              "NOT_EVALUATED": 0,
+              "PASS": 51,
+              "UNKNOWN": 0
+            },
+            "vacuum": {
+              "DIAGNOSTIC_ONLY": 0,
+              "ERROR": 0,
+              "FAIL": 0,
+              "NOT_EVALUATED": 98,
+              "PASS": 1,
+              "UNKNOWN": 1
+            }
+          },
+          "neutrino": {
+            "IO": {
+              "DIAGNOSTIC_ONLY": 0,
+              "ERROR": 0,
+              "FAIL": 0,
+              "NOT_EVALUATED": 196,
+              "PASS": 4,
+              "UNKNOWN": 0
+            },
+            "NO": {
+              "DIAGNOSTIC_ONLY": 0,
+              "ERROR": 0,
+              "FAIL": 0,
+              "NOT_EVALUATED": 196,
+              "PASS": 4,
+              "UNKNOWN": 0
+            }
+          },
+          "scalar": {
+            "DIAGNOSTIC_ONLY": 0,
+            "ERROR": 0,
+            "FAIL": 98,
+            "NOT_EVALUATED": 0,
+            "PASS": 1,
+            "UNKNOWN": 1
+          }
+        },
+        "evaluated_points": 100,
+        "families_per_ordering": 2,
+        "manifest_points": 100,
+        "manifest_sha256": "13646a256e1f9a242290100e90a179c7c8734f439a5df732444b3a57bf09253c",
+        "missing_points": 0,
+        "resources": {
+          "cpu_seconds_sum": 59.94705507900001,
+          "elapsed_seconds_sum": 23.17029816899992,
+          "peak_rss_kib_max": 104812
+        },
+        "source_provenance": [
+          "LOCAL_UNSPECIFIED",
+          "LOCAL_UNSPECIFIED"
+        ],
+        "status": "COMPLETE"
+      },
+      "config": {
+        "arms": [
+          {
+            "name": "wide_uniform",
+            "ranges": {
+              "alpha": [
+                -1.5,
+                1.5
+              ],
+              "beta": [
+                0.5,
+                1.3
+              ],
+              "gamma": [
+                -1,
+                1
+              ],
+              "k1": [
+                -1,
+                1
+              ],
+              "k12": [
+                -1,
+                1
+              ],
+              "k2": [
+                -1,
+                1
+              ],
+              "lc": [
+                0.1,
+                2
+              ],
+              "m12sq": [
+                -100000,
+                200000
+              ],
+              "mH1": [
+                200,
+                600
+              ],
+              "mH2": [
+                650,
+                1000
+              ],
+              "ma": [
+                200,
+                1000
+              ],
+              "mh2": [
+                200,
+                1000
+              ]
+            }
+          },
+          {
+            "name": "moderate_uniform",
+            "ranges": {
+              "alpha": [
+                0.7,
+                1.2
+              ],
+              "beta": [
+                0.7,
+                1.2
+              ],
+              "gamma": [
+                -0.3,
+                0.3
+              ],
+              "k1": [
+                0,
+                1
+              ],
+              "k12": [
+                -0.2,
+                0.2
+              ],
+              "k2": [
+                0,
+                1
+              ],
+              "lc": [
+                0.5,
+                2
+              ],
+              "m12sq": [
+                30000,
+                120000
+              ],
+              "mH1": [
+                300,
+                450
+              ],
+              "mH2": [
+                460,
+                600
+              ],
+              "ma": [
+                400,
+                600
+              ],
+              "mh2": [
+                400,
+                600
+              ]
+            }
+          }
+        ],
+        "count": 100,
+        "seed": 20261103,
+        "shard_size": 25,
+        "template": "module1/example.json",
+        "version": "d14a-preliminary-1"
+      },
+      "dataset_sha256": "478a153bcff9ce093e051927e4f6660e27bace6a10da669a772b6938adb9fa17",
+      "examples": [
+        {
+          "arm": "wide_uniform",
+          "cascade": {
+            "BR_H2_H1Z": 0.15848531573182117,
+            "absolute_gauge_vertex_coefficient": 0.015293538772484043,
+            "br_status": "PASS",
+            "branching_fraction": null,
+            "global_zee_acceptance": null,
+            "input": {
+              "gamma_rad": -0.04134184691723841,
+              "mH1_GeV": 378.3314204449707,
+              "mH2_GeV": 936.0470789180172,
+              "mW_GeV": 80.379,
+              "mZ_GeV": 91.1876,
+              "v_GeV": 246.21965
+            },
+            "is_kinematically_open": true,
+            "kallen_sqrt_GeV2": 721442.3280816192,
+            "kinematic_threshold_GeV": 469.5190204449707,
+            "limitations": [
+              "Tree-level on-shell two-body Z channel only; no finite-Z-width or off-shell Z treatment.",
+              "Not a branching ratio until all relevant competing modes and full total width are computed.",
+              "No pp production rate, PDFs, higher-order corrections, fiducial efficiencies, or detector results.",
+              "The off-diagonal Z charged scalar coupling and this formula are already known in the 2021 literature."
+            ],
+            "normalized_offdiagonal_Z_coupling": 0.04129475678515994,
+            "partial_width_GeV": 0.2562042512752348,
+            "physical_collider_acceptance": null,
+            "production_cross_section_pb": null,
+            "schema_version": "1.0.0",
+            "scope": "D4 complete on-shell tree two-body only; off-shell/loop and decay uncertainties unknown",
+            "source": "Florentino-Romao-Silva EPJC81(2021)1148 Eq72, Eq73, AppB.1",
+            "status": "TREE_CASCADE_PARTIAL_WIDTH_ONLY",
+            "total_width_GeV": 1.6165803758675499
+          },
+          "flavor": {
+            "BR_linear_2026": 0.0004572328854906291,
+            "C1_scope": "Real top-only charged-scalar LO dipoles, ms=0; no full Zee matching claim",
+            "DeltaC7_LO": -0.09675898233281362,
+            "DeltaC8_LO": -0.09671755335835482,
+            "bsg_exclusion": null,
+            "bsg_nominal_classification": "APPROX_DISFAVORED",
+            "bsg_physical_classification": "UNKNOWN",
+            "conditional_pull": 4.585974539885765,
+            "contribution_splits": [
+              {
+                "XY_conjugate_coupling": 0.9982918252009102,
+                "YY_coupling_squared": 0.4529880514510301,
+                "delta_C7": -0.0967064320619507,
+                "delta_C7_XY": -0.09131223223407885,
+                "delta_C7_YY": -0.00539419982787185,
+                "delta_C8": -0.09665708717465304,
+                "delta_C8_XY": -0.09279582125604882,
+                "delta_C8_YY": -0.0038612659186042283,
+                "doublet_fraction": 0.9982918252009102,
+                "mass_GeV": 378.3314204449707,
+                "scalar": "H1_charged",
+                "x_mt2_over_mH2": 0.18783575416411735
+              },
+              {
+                "XY_conjugate_coupling": 0.0017081747990897581,
+                "YY_coupling_squared": 0.0007751067916655508,
+                "delta_C7": -5.255027086290723e-05,
+                "delta_C7_XY": -5.05276165456033e-05,
+                "delta_C7_YY": -2.022654317303926e-06,
+                "delta_C8": -6.046618370176906e-05,
+                "delta_C8_XY": -5.884405426950088e-05,
+                "delta_C8_YY": -1.6221294322681826e-06,
+                "doublet_fraction": 0.0017081747990897581,
+                "mass_GeV": 936.0470789180172,
+                "scalar": "H2_charged",
+                "x_mt2_over_mH2": 0.030685111109137516
+              }
+            ],
+            "globally_allowed": null,
+            "limitations": [
+              "Operator bridge passes only for the retained real top-only LO dipoles; frozen upstream contract metadata is historical.",
+              "The explicit MSbar top mass is an input; this diagnostic performs no running, conversion or calibration.",
+              "Quadratic new-physics Wilson terms, additional operators, NP NLO/NNLO and finite-ms effects are omitted.",
+              "SM 0.14e-4 error is NOT a derived Zee BSM theory uncertainty.",
+              "No covariance or justified scan-point exclusion/acceptance; not a physical BR prediction.",
+              "Do not impose the single-state Type-II 2HDM 670 GeV lower mass bound separately on Zee charged scalars."
+            ],
+            "linear_terms_times_1e4": {
+              "C7_linear_term_times_1e4": 0.8234189396522439,
+              "C8_linear_term_times_1e4": 0.20890991525404642,
+              "conditional_B_times_1e4": 4.57232885490629,
+              "delta_B_times_1e4": 1.0323288549062903
+            },
+            "matching_card": {
+              "matching_scale_GeV": 160.0,
+              "mt_MSbar_GeV": 163.96892236746697,
+              "provenance": "Frozen C1/C2 HyperIso 1.0.3 reference LHA 984391031656a5f4f86ee71f5b60e7d0cb2b1b80edabd9ff6ba912da3ba39374; module5/BSGAMMA_2026_ACCURACY.md. Explicit reference input, no running or recalibration to 2026 SM.",
+              "quark_scheme": "MSbar_top_at_matching_scale_real_top_only_ms0"
+            },
+            "matching_input": {
+              "beta_rad": 0.9779956942153409,
+              "gamma_rad": -0.04134184691723841,
+              "mH1_GeV": 378.3314204449707,
+              "mH2_GeV": 936.0470789180172,
+              "matching_scale_GeV": 160.0,
+              "mt_MSbar_GeV": 163.96892236746697
+            },
+            "matching_input_sha256": "0149ae6a353043078b8b2cc22ae58ed5d146045c80e5efd650786496219f0c4b",
+            "method_robustness": "NOT_EVALUATED",
+            "method_robustness_reason": "No new EOS/SuperIso/NLO variants executed; legacy method spread is not an NP sigma.",
+            "np_theory_sigma": null,
+            "reference_comparison": {
+              "absolute_pull_threshold": 1.959963984540054,
+              "assumptions": "Symmetric Gaussian quoted SM and experimental errors; rho=0; no NP error. Reference sensitivity only, not a Zee likelihood or validated 95% CL test.",
+              "boundary_half_width_in_pull": 0.01,
+              "sigma_SM_times_1e4": 0.14,
+              "sigma_experiment_times_1e4": 0.19
+            },
+            "scalar_sha256": "132efd48723fa9cc92fedacdcc3a600a34630b66d86a37e5d72b6906fb41a2da",
+            "status": "DIAGNOSTIC_ONLY"
+          },
+          "globally_allowed": null,
+          "id": 50,
+          "input_card": {
+            "benchmark_id": "d14_00000050",
+            "electroweak": {
+              "SM_reference_mh": 125.0,
+              "mW": 80.379,
+              "mZ": 91.1876,
+              "scheme": "on_shell_MW_MZ"
+            },
+            "ew_fit": "Gfitter_2026_U_floating",
+            "model": "ZeeTypeII_Module0_v1_restricted_CP",
+            "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+            "physical": {
+              "alpha": 0.17864404912601195,
+              "beta": 0.9779956942153409,
+              "gamma": -0.04134184691723841,
+              "k1": -0.4287343009361484,
+              "k12": 0.5797605711444624,
+              "k2": -0.08641568569053026,
+              "lc": 0.6260048456451635,
+              "m12sq": -46437.769125947045,
+              "mH1": 378.3314204449707,
+              "mH2": 936.0470789180172,
+              "ma": 343.1416574213112,
+              "mh1": 125.0,
+              "mh2": 398.6875774115955,
+              "v": 246.21965
+            },
+            "schema_version": "1.0.0",
+            "search": {
+              "seeds": [
+                123,
+                104852
+              ],
+              "starts": 64
+            },
+            "units": {
+              "angles": "rad",
+              "mass_squared": "GeV^2",
+              "masses": "GeV",
+              "quartics": "1"
+            }
+          }
+        },
+        {
+          "arm": "wide_uniform",
+          "cascade": {
+            "BR_H2_H1Z": 0.1584846625902039,
+            "absolute_gauge_vertex_coefficient": 0.015293538772484043,
+            "br_status": "PASS",
+            "branching_fraction": null,
+            "global_zee_acceptance": null,
+            "input": {
+              "gamma_rad": -0.04134184691723841,
+              "mH1_GeV": 378.3314204449707,
+              "mH2_GeV": 936.0470789180172,
+              "mW_GeV": 80.379,
+              "mZ_GeV": 91.1876,
+              "v_GeV": 246.21965
+            },
+            "is_kinematically_open": true,
+            "kallen_sqrt_GeV2": 721442.3280816192,
+            "kinematic_threshold_GeV": 469.5190204449707,
+            "limitations": [
+              "Tree-level on-shell two-body Z channel only; no finite-Z-width or off-shell Z treatment.",
+              "Not a branching ratio until all relevant competing modes and full total width are computed.",
+              "No pp production rate, PDFs, higher-order corrections, fiducial efficiencies, or detector results.",
+              "The off-diagonal Z charged scalar coupling and this formula are already known in the 2021 literature."
+            ],
+            "normalized_offdiagonal_Z_coupling": 0.04129475678515994,
+            "partial_width_GeV": 0.2562042512752348,
+            "physical_collider_acceptance": null,
+            "production_cross_section_pb": null,
+            "schema_version": "1.0.0",
+            "scope": "D4 complete on-shell tree two-body only; off-shell/loop and decay uncertainties unknown",
+            "source": "Florentino-Romao-Silva EPJC81(2021)1148 Eq72, Eq73, AppB.1",
+            "status": "TREE_CASCADE_PARTIAL_WIDTH_ONLY",
+            "total_width_GeV": 1.6165870380637766
+          },
+          "flavor": {
+            "BR_linear_2026": 0.0004572328854906291,
+            "C1_scope": "Real top-only charged-scalar LO dipoles, ms=0; no full Zee matching claim",
+            "DeltaC7_LO": -0.09675898233281362,
+            "DeltaC8_LO": -0.09671755335835482,
+            "bsg_exclusion": null,
+            "bsg_nominal_classification": "APPROX_DISFAVORED",
+            "bsg_physical_classification": "UNKNOWN",
+            "conditional_pull": 4.585974539885765,
+            "contribution_splits": [
+              {
+                "XY_conjugate_coupling": 0.9982918252009102,
+                "YY_coupling_squared": 0.4529880514510301,
+                "delta_C7": -0.0967064320619507,
+                "delta_C7_XY": -0.09131223223407885,
+                "delta_C7_YY": -0.00539419982787185,
+                "delta_C8": -0.09665708717465304,
+                "delta_C8_XY": -0.09279582125604882,
+                "delta_C8_YY": -0.0038612659186042283,
+                "doublet_fraction": 0.9982918252009102,
+                "mass_GeV": 378.3314204449707,
+                "scalar": "H1_charged",
+                "x_mt2_over_mH2": 0.18783575416411735
+              },
+              {
+                "XY_conjugate_coupling": 0.0017081747990897581,
+                "YY_coupling_squared": 0.0007751067916655508,
+                "delta_C7": -5.255027086290723e-05,
+                "delta_C7_XY": -5.05276165456033e-05,
+                "delta_C7_YY": -2.022654317303926e-06,
+                "delta_C8": -6.046618370176906e-05,
+                "delta_C8_XY": -5.884405426950088e-05,
+                "delta_C8_YY": -1.6221294322681826e-06,
+                "doublet_fraction": 0.0017081747990897581,
+                "mass_GeV": 936.0470789180172,
+                "scalar": "H2_charged",
+                "x_mt2_over_mH2": 0.030685111109137516
+              }
+            ],
+            "globally_allowed": null,
+            "limitations": [
+              "Operator bridge passes only for the retained real top-only LO dipoles; frozen upstream contract metadata is historical.",
+              "The explicit MSbar top mass is an input; this diagnostic performs no running, conversion or calibration.",
+              "Quadratic new-physics Wilson terms, additional operators, NP NLO/NNLO and finite-ms effects are omitted.",
+              "SM 0.14e-4 error is NOT a derived Zee BSM theory uncertainty.",
+              "No covariance or justified scan-point exclusion/acceptance; not a physical BR prediction.",
+              "Do not impose the single-state Type-II 2HDM 670 GeV lower mass bound separately on Zee charged scalars."
+            ],
+            "linear_terms_times_1e4": {
+              "C7_linear_term_times_1e4": 0.8234189396522439,
+              "C8_linear_term_times_1e4": 0.20890991525404642,
+              "conditional_B_times_1e4": 4.57232885490629,
+              "delta_B_times_1e4": 1.0323288549062903
+            },
+            "matching_card": {
+              "matching_scale_GeV": 160.0,
+              "mt_MSbar_GeV": 163.96892236746697,
+              "provenance": "Frozen C1/C2 HyperIso 1.0.3 reference LHA 984391031656a5f4f86ee71f5b60e7d0cb2b1b80edabd9ff6ba912da3ba39374; module5/BSGAMMA_2026_ACCURACY.md. Explicit reference input, no running or recalibration to 2026 SM.",
+              "quark_scheme": "MSbar_top_at_matching_scale_real_top_only_ms0"
+            },
+            "matching_input": {
+              "beta_rad": 0.9779956942153409,
+              "gamma_rad": -0.04134184691723841,
+              "mH1_GeV": 378.3314204449707,
+              "mH2_GeV": 936.0470789180172,
+              "matching_scale_GeV": 160.0,
+              "mt_MSbar_GeV": 163.96892236746697
+            },
+            "matching_input_sha256": "0149ae6a353043078b8b2cc22ae58ed5d146045c80e5efd650786496219f0c4b",
+            "method_robustness": "NOT_EVALUATED",
+            "method_robustness_reason": "No new EOS/SuperIso/NLO variants executed; legacy method spread is not an NP sigma.",
+            "np_theory_sigma": null,
+            "reference_comparison": {
+              "absolute_pull_threshold": 1.959963984540054,
+              "assumptions": "Symmetric Gaussian quoted SM and experimental errors; rho=0; no NP error. Reference sensitivity only, not a Zee likelihood or validated 95% CL test.",
+              "boundary_half_width_in_pull": 0.01,
+              "sigma_SM_times_1e4": 0.14,
+              "sigma_experiment_times_1e4": 0.19
+            },
+            "scalar_sha256": "132efd48723fa9cc92fedacdcc3a600a34630b66d86a37e5d72b6906fb41a2da",
+            "status": "DIAGNOSTIC_ONLY"
+          },
+          "globally_allowed": null,
+          "id": 50,
+          "input_card": {
+            "benchmark_id": "d14_00000050",
+            "electroweak": {
+              "SM_reference_mh": 125.0,
+              "mW": 80.379,
+              "mZ": 91.1876,
+              "scheme": "on_shell_MW_MZ"
+            },
+            "ew_fit": "Gfitter_2026_U_floating",
+            "model": "ZeeTypeII_Module0_v1_restricted_CP",
+            "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+            "physical": {
+              "alpha": 0.17864404912601195,
+              "beta": 0.9779956942153409,
+              "gamma": -0.04134184691723841,
+              "k1": -0.4287343009361484,
+              "k12": 0.5797605711444624,
+              "k2": -0.08641568569053026,
+              "lc": 0.6260048456451635,
+              "m12sq": -46437.769125947045,
+              "mH1": 378.3314204449707,
+              "mH2": 936.0470789180172,
+              "ma": 343.1416574213112,
+              "mh1": 125.0,
+              "mh2": 398.6875774115955,
+              "v": 246.21965
+            },
+            "schema_version": "1.0.0",
+            "search": {
+              "seeds": [
+                123,
+                104852
+              ],
+              "starts": 64
+            },
+            "units": {
+              "angles": "rad",
+              "mass_squared": "GeV^2",
+              "masses": "GeV",
+              "quartics": "1"
+            }
+          }
+        },
+        {
+          "arm": "wide_uniform",
+          "cascade": {
+            "BR_H2_H1Z": 0.15847205814234758,
+            "absolute_gauge_vertex_coefficient": 0.015293538772484043,
+            "br_status": "PASS",
+            "branching_fraction": null,
+            "global_zee_acceptance": null,
+            "input": {
+              "gamma_rad": -0.04134184691723841,
+              "mH1_GeV": 378.3314204449707,
+              "mH2_GeV": 936.0470789180172,
+              "mW_GeV": 80.379,
+              "mZ_GeV": 91.1876,
+              "v_GeV": 246.21965
+            },
+            "is_kinematically_open": true,
+            "kallen_sqrt_GeV2": 721442.3280816192,
+            "kinematic_threshold_GeV": 469.5190204449707,
+            "limitations": [
+              "Tree-level on-shell two-body Z channel only; no finite-Z-width or off-shell Z treatment.",
+              "Not a branching ratio until all relevant competing modes and full total width are computed.",
+              "No pp production rate, PDFs, higher-order corrections, fiducial efficiencies, or detector results.",
+              "The off-diagonal Z charged scalar coupling and this formula are already known in the 2021 literature."
+            ],
+            "normalized_offdiagonal_Z_coupling": 0.04129475678515994,
+            "partial_width_GeV": 0.2562042512752348,
+            "physical_collider_acceptance": null,
+            "production_cross_section_pb": null,
+            "schema_version": "1.0.0",
+            "scope": "D4 complete on-shell tree two-body only; off-shell/loop and decay uncertainties unknown",
+            "source": "Florentino-Romao-Silva EPJC81(2021)1148 Eq72, Eq73, AppB.1",
+            "status": "TREE_CASCADE_PARTIAL_WIDTH_ONLY",
+            "total_width_GeV": 1.616715617115916
+          },
+          "flavor": {
+            "BR_linear_2026": 0.0004572328854906291,
+            "C1_scope": "Real top-only charged-scalar LO dipoles, ms=0; no full Zee matching claim",
+            "DeltaC7_LO": -0.09675898233281362,
+            "DeltaC8_LO": -0.09671755335835482,
+            "bsg_exclusion": null,
+            "bsg_nominal_classification": "APPROX_DISFAVORED",
+            "bsg_physical_classification": "UNKNOWN",
+            "conditional_pull": 4.585974539885765,
+            "contribution_splits": [
+              {
+                "XY_conjugate_coupling": 0.9982918252009102,
+                "YY_coupling_squared": 0.4529880514510301,
+                "delta_C7": -0.0967064320619507,
+                "delta_C7_XY": -0.09131223223407885,
+                "delta_C7_YY": -0.00539419982787185,
+                "delta_C8": -0.09665708717465304,
+                "delta_C8_XY": -0.09279582125604882,
+                "delta_C8_YY": -0.0038612659186042283,
+                "doublet_fraction": 0.9982918252009102,
+                "mass_GeV": 378.3314204449707,
+                "scalar": "H1_charged",
+                "x_mt2_over_mH2": 0.18783575416411735
+              },
+              {
+                "XY_conjugate_coupling": 0.0017081747990897581,
+                "YY_coupling_squared": 0.0007751067916655508,
+                "delta_C7": -5.255027086290723e-05,
+                "delta_C7_XY": -5.05276165456033e-05,
+                "delta_C7_YY": -2.022654317303926e-06,
+                "delta_C8": -6.046618370176906e-05,
+                "delta_C8_XY": -5.884405426950088e-05,
+                "delta_C8_YY": -1.6221294322681826e-06,
+                "doublet_fraction": 0.0017081747990897581,
+                "mass_GeV": 936.0470789180172,
+                "scalar": "H2_charged",
+                "x_mt2_over_mH2": 0.030685111109137516
+              }
+            ],
+            "globally_allowed": null,
+            "limitations": [
+              "Operator bridge passes only for the retained real top-only LO dipoles; frozen upstream contract metadata is historical.",
+              "The explicit MSbar top mass is an input; this diagnostic performs no running, conversion or calibration.",
+              "Quadratic new-physics Wilson terms, additional operators, NP NLO/NNLO and finite-ms effects are omitted.",
+              "SM 0.14e-4 error is NOT a derived Zee BSM theory uncertainty.",
+              "No covariance or justified scan-point exclusion/acceptance; not a physical BR prediction.",
+              "Do not impose the single-state Type-II 2HDM 670 GeV lower mass bound separately on Zee charged scalars."
+            ],
+            "linear_terms_times_1e4": {
+              "C7_linear_term_times_1e4": 0.8234189396522439,
+              "C8_linear_term_times_1e4": 0.20890991525404642,
+              "conditional_B_times_1e4": 4.57232885490629,
+              "delta_B_times_1e4": 1.0323288549062903
+            },
+            "matching_card": {
+              "matching_scale_GeV": 160.0,
+              "mt_MSbar_GeV": 163.96892236746697,
+              "provenance": "Frozen C1/C2 HyperIso 1.0.3 reference LHA 984391031656a5f4f86ee71f5b60e7d0cb2b1b80edabd9ff6ba912da3ba39374; module5/BSGAMMA_2026_ACCURACY.md. Explicit reference input, no running or recalibration to 2026 SM.",
+              "quark_scheme": "MSbar_top_at_matching_scale_real_top_only_ms0"
+            },
+            "matching_input": {
+              "beta_rad": 0.9779956942153409,
+              "gamma_rad": -0.04134184691723841,
+              "mH1_GeV": 378.3314204449707,
+              "mH2_GeV": 936.0470789180172,
+              "matching_scale_GeV": 160.0,
+              "mt_MSbar_GeV": 163.96892236746697
+            },
+            "matching_input_sha256": "0149ae6a353043078b8b2cc22ae58ed5d146045c80e5efd650786496219f0c4b",
+            "method_robustness": "NOT_EVALUATED",
+            "method_robustness_reason": "No new EOS/SuperIso/NLO variants executed; legacy method spread is not an NP sigma.",
+            "np_theory_sigma": null,
+            "reference_comparison": {
+              "absolute_pull_threshold": 1.959963984540054,
+              "assumptions": "Symmetric Gaussian quoted SM and experimental errors; rho=0; no NP error. Reference sensitivity only, not a Zee likelihood or validated 95% CL test.",
+              "boundary_half_width_in_pull": 0.01,
+              "sigma_SM_times_1e4": 0.14,
+              "sigma_experiment_times_1e4": 0.19
+            },
+            "scalar_sha256": "132efd48723fa9cc92fedacdcc3a600a34630b66d86a37e5d72b6906fb41a2da",
+            "status": "DIAGNOSTIC_ONLY"
+          },
+          "globally_allowed": null,
+          "id": 50,
+          "input_card": {
+            "benchmark_id": "d14_00000050",
+            "electroweak": {
+              "SM_reference_mh": 125.0,
+              "mW": 80.379,
+              "mZ": 91.1876,
+              "scheme": "on_shell_MW_MZ"
+            },
+            "ew_fit": "Gfitter_2026_U_floating",
+            "model": "ZeeTypeII_Module0_v1_restricted_CP",
+            "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+            "physical": {
+              "alpha": 0.17864404912601195,
+              "beta": 0.9779956942153409,
+              "gamma": -0.04134184691723841,
+              "k1": -0.4287343009361484,
+              "k12": 0.5797605711444624,
+              "k2": -0.08641568569053026,
+              "lc": 0.6260048456451635,
+              "m12sq": -46437.769125947045,
+              "mH1": 378.3314204449707,
+              "mH2": 936.0470789180172,
+              "ma": 343.1416574213112,
+              "mh1": 125.0,
+              "mh2": 398.6875774115955,
+              "v": 246.21965
+            },
+            "schema_version": "1.0.0",
+            "search": {
+              "seeds": [
+                123,
+                104852
+              ],
+              "starts": 64
+            },
+            "units": {
+              "angles": "rad",
+              "mass_squared": "GeV^2",
+              "masses": "GeV",
+              "quartics": "1"
+            }
+          }
+        },
+        {
+          "arm": "wide_uniform",
+          "cascade": {
+            "BR_H2_H1Z": 0.15847783406454402,
+            "absolute_gauge_vertex_coefficient": 0.015293538772484043,
+            "br_status": "PASS",
+            "branching_fraction": null,
+            "global_zee_acceptance": null,
+            "input": {
+              "gamma_rad": -0.04134184691723841,
+              "mH1_GeV": 378.3314204449707,
+              "mH2_GeV": 936.0470789180172,
+              "mW_GeV": 80.379,
+              "mZ_GeV": 91.1876,
+              "v_GeV": 246.21965
+            },
+            "is_kinematically_open": true,
+            "kallen_sqrt_GeV2": 721442.3280816192,
+            "kinematic_threshold_GeV": 469.5190204449707,
+            "limitations": [
+              "Tree-level on-shell two-body Z channel only; no finite-Z-width or off-shell Z treatment.",
+              "Not a branching ratio until all relevant competing modes and full total width are computed.",
+              "No pp production rate, PDFs, higher-order corrections, fiducial efficiencies, or detector results.",
+              "The off-diagonal Z charged scalar coupling and this formula are already known in the 2021 literature."
+            ],
+            "normalized_offdiagonal_Z_coupling": 0.04129475678515994,
+            "partial_width_GeV": 0.2562042512752348,
+            "physical_collider_acceptance": null,
+            "production_cross_section_pb": null,
+            "schema_version": "1.0.0",
+            "scope": "D4 complete on-shell tree two-body only; off-shell/loop and decay uncertainties unknown",
+            "source": "Florentino-Romao-Silva EPJC81(2021)1148 Eq72, Eq73, AppB.1",
+            "status": "TREE_CASCADE_PARTIAL_WIDTH_ONLY",
+            "total_width_GeV": 1.6166566939001026
+          },
+          "flavor": {
+            "BR_linear_2026": 0.0004572328854906291,
+            "C1_scope": "Real top-only charged-scalar LO dipoles, ms=0; no full Zee matching claim",
+            "DeltaC7_LO": -0.09675898233281362,
+            "DeltaC8_LO": -0.09671755335835482,
+            "bsg_exclusion": null,
+            "bsg_nominal_classification": "APPROX_DISFAVORED",
+            "bsg_physical_classification": "UNKNOWN",
+            "conditional_pull": 4.585974539885765,
+            "contribution_splits": [
+              {
+                "XY_conjugate_coupling": 0.9982918252009102,
+                "YY_coupling_squared": 0.4529880514510301,
+                "delta_C7": -0.0967064320619507,
+                "delta_C7_XY": -0.09131223223407885,
+                "delta_C7_YY": -0.00539419982787185,
+                "delta_C8": -0.09665708717465304,
+                "delta_C8_XY": -0.09279582125604882,
+                "delta_C8_YY": -0.0038612659186042283,
+                "doublet_fraction": 0.9982918252009102,
+                "mass_GeV": 378.3314204449707,
+                "scalar": "H1_charged",
+                "x_mt2_over_mH2": 0.18783575416411735
+              },
+              {
+                "XY_conjugate_coupling": 0.0017081747990897581,
+                "YY_coupling_squared": 0.0007751067916655508,
+                "delta_C7": -5.255027086290723e-05,
+                "delta_C7_XY": -5.05276165456033e-05,
+                "delta_C7_YY": -2.022654317303926e-06,
+                "delta_C8": -6.046618370176906e-05,
+                "delta_C8_XY": -5.884405426950088e-05,
+                "delta_C8_YY": -1.6221294322681826e-06,
+                "doublet_fraction": 0.0017081747990897581,
+                "mass_GeV": 936.0470789180172,
+                "scalar": "H2_charged",
+                "x_mt2_over_mH2": 0.030685111109137516
+              }
+            ],
+            "globally_allowed": null,
+            "limitations": [
+              "Operator bridge passes only for the retained real top-only LO dipoles; frozen upstream contract metadata is historical.",
+              "The explicit MSbar top mass is an input; this diagnostic performs no running, conversion or calibration.",
+              "Quadratic new-physics Wilson terms, additional operators, NP NLO/NNLO and finite-ms effects are omitted.",
+              "SM 0.14e-4 error is NOT a derived Zee BSM theory uncertainty.",
+              "No covariance or justified scan-point exclusion/acceptance; not a physical BR prediction.",
+              "Do not impose the single-state Type-II 2HDM 670 GeV lower mass bound separately on Zee charged scalars."
+            ],
+            "linear_terms_times_1e4": {
+              "C7_linear_term_times_1e4": 0.8234189396522439,
+              "C8_linear_term_times_1e4": 0.20890991525404642,
+              "conditional_B_times_1e4": 4.57232885490629,
+              "delta_B_times_1e4": 1.0323288549062903
+            },
+            "matching_card": {
+              "matching_scale_GeV": 160.0,
+              "mt_MSbar_GeV": 163.96892236746697,
+              "provenance": "Frozen C1/C2 HyperIso 1.0.3 reference LHA 984391031656a5f4f86ee71f5b60e7d0cb2b1b80edabd9ff6ba912da3ba39374; module5/BSGAMMA_2026_ACCURACY.md. Explicit reference input, no running or recalibration to 2026 SM.",
+              "quark_scheme": "MSbar_top_at_matching_scale_real_top_only_ms0"
+            },
+            "matching_input": {
+              "beta_rad": 0.9779956942153409,
+              "gamma_rad": -0.04134184691723841,
+              "mH1_GeV": 378.3314204449707,
+              "mH2_GeV": 936.0470789180172,
+              "matching_scale_GeV": 160.0,
+              "mt_MSbar_GeV": 163.96892236746697
+            },
+            "matching_input_sha256": "0149ae6a353043078b8b2cc22ae58ed5d146045c80e5efd650786496219f0c4b",
+            "method_robustness": "NOT_EVALUATED",
+            "method_robustness_reason": "No new EOS/SuperIso/NLO variants executed; legacy method spread is not an NP sigma.",
+            "np_theory_sigma": null,
+            "reference_comparison": {
+              "absolute_pull_threshold": 1.959963984540054,
+              "assumptions": "Symmetric Gaussian quoted SM and experimental errors; rho=0; no NP error. Reference sensitivity only, not a Zee likelihood or validated 95% CL test.",
+              "boundary_half_width_in_pull": 0.01,
+              "sigma_SM_times_1e4": 0.14,
+              "sigma_experiment_times_1e4": 0.19
+            },
+            "scalar_sha256": "132efd48723fa9cc92fedacdcc3a600a34630b66d86a37e5d72b6906fb41a2da",
+            "status": "DIAGNOSTIC_ONLY"
+          },
+          "globally_allowed": null,
+          "id": 50,
+          "input_card": {
+            "benchmark_id": "d14_00000050",
+            "electroweak": {
+              "SM_reference_mh": 125.0,
+              "mW": 80.379,
+              "mZ": 91.1876,
+              "scheme": "on_shell_MW_MZ"
+            },
+            "ew_fit": "Gfitter_2026_U_floating",
+            "model": "ZeeTypeII_Module0_v1_restricted_CP",
+            "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+            "physical": {
+              "alpha": 0.17864404912601195,
+              "beta": 0.9779956942153409,
+              "gamma": -0.04134184691723841,
+              "k1": -0.4287343009361484,
+              "k12": 0.5797605711444624,
+              "k2": -0.08641568569053026,
+              "lc": 0.6260048456451635,
+              "m12sq": -46437.769125947045,
+              "mH1": 378.3314204449707,
+              "mH2": 936.0470789180172,
+              "ma": 343.1416574213112,
+              "mh1": 125.0,
+              "mh2": 398.6875774115955,
+              "v": 246.21965
+            },
+            "schema_version": "1.0.0",
+            "search": {
+              "seeds": [
+                123,
+                104852
+              ],
+              "starts": 64
+            },
+            "units": {
+              "angles": "rad",
+              "mass_squared": "GeV^2",
+              "masses": "GeV",
+              "quartics": "1"
+            }
+          }
+        },
+        {
+          "arm": "moderate_uniform",
+          "cascade": {
+            "BR_H2_H1Z": 0.04284732271708186,
+            "absolute_gauge_vertex_coefficient": 0.007048719612434971,
+            "br_status": "PASS",
+            "branching_fraction": null,
+            "global_zee_acceptance": null,
+            "input": {
+              "gamma_rad": -0.019037157104005165,
+              "mH1_GeV": 442.9804595332397,
+              "mH2_GeV": 565.2736810869235,
+              "mW_GeV": 80.379,
+              "mZ_GeV": 91.1876,
+              "v_GeV": 246.21965
+            },
+            "is_kinematically_open": true,
+            "kallen_sqrt_GeV2": 81824.88608938405,
+            "kinematic_threshold_GeV": 534.1680595332397,
+            "limitations": [
+              "Tree-level on-shell two-body Z channel only; no finite-Z-width or off-shell Z treatment.",
+              "Not a branching ratio until all relevant competing modes and full total width are computed.",
+              "No pp production rate, PDFs, higher-order corrections, fiducial efficiencies, or detector results.",
+              "The off-diagonal Z charged scalar coupling and this formula are already known in the 2021 literature."
+            ],
+            "normalized_offdiagonal_Z_coupling": 0.0190325578907864,
+            "partial_width_GeV": 0.00036054458424177174,
+            "physical_collider_acceptance": null,
+            "production_cross_section_pb": null,
+            "schema_version": "1.0.0",
+            "scope": "D4 complete on-shell tree two-body only; off-shell/loop and decay uncertainties unknown",
+            "source": "Florentino-Romao-Silva EPJC81(2021)1148 Eq72, Eq73, AppB.1",
+            "status": "TREE_CASCADE_PARTIAL_WIDTH_ONLY",
+            "total_width_GeV": 0.0084146350665227
+          },
+          "flavor": {
+            "BR_linear_2026": 0.00044198379900828517,
+            "C1_scope": "Real top-only charged-scalar LO dipoles, ms=0; no full Zee matching claim",
+            "DeltaC7_LO": -0.0820437857367385,
+            "DeltaC8_LO": -0.08409508030704016,
+            "bsg_exclusion": null,
+            "bsg_nominal_classification": "APPROX_DISFAVORED",
+            "bsg_physical_classification": "UNKNOWN",
+            "conditional_pull": 3.9398500089953816,
+            "contribution_splits": [
+              {
+                "XY_conjugate_coupling": 0.9996376304284273,
+                "YY_coupling_squared": 0.5697363714023336,
+                "delta_C7": -0.08202168468192107,
+                "delta_C7_XY": -0.0766976749605833,
+                "delta_C7_YY": -0.005324009721337768,
+                "delta_C8": -0.08407146850106008,
+                "delta_C8_XY": -0.08016041284270031,
+                "delta_C8_YY": -0.00391105565835976,
+                "doublet_fraction": 0.9996376304284273,
+                "mass_GeV": 442.9804595332397,
+                "scalar": "H1_charged",
+                "x_mt2_over_mH2": 0.1370105299556868
+              },
+              {
+                "XY_conjugate_coupling": 0.0003623695715725374,
+                "YY_coupling_squared": 0.00020652996498928575,
+                "delta_C7": -2.2101054817419834e-05,
+                "delta_C7_XY": -2.080093556900847e-05,
+                "delta_C7_YY": -1.3001192484113658e-06,
+                "delta_C8": -2.3611805980075833e-05,
+                "delta_C8_XY": -2.262291542729931e-05,
+                "delta_C8_YY": -9.888905527765213e-07,
+                "doublet_fraction": 0.0003623695715725374,
+                "mass_GeV": 565.2736810869235,
+                "scalar": "H2_charged",
+                "x_mt2_over_mH2": 0.08414059021836084
+              }
+            ],
+            "globally_allowed": null,
+            "limitations": [
+              "Operator bridge passes only for the retained real top-only LO dipoles; frozen upstream contract metadata is historical.",
+              "The explicit MSbar top mass is an input; this diagnostic performs no running, conversion or calibration.",
+              "Quadratic new-physics Wilson terms, additional operators, NP NLO/NNLO and finite-ms effects are omitted.",
+              "SM 0.14e-4 error is NOT a derived Zee BSM theory uncertainty.",
+              "No covariance or justified scan-point exclusion/acceptance; not a physical BR prediction.",
+              "Do not impose the single-state Type-II 2HDM 670 GeV lower mass bound separately on Zee charged scalars."
+            ],
+            "linear_terms_times_1e4": {
+              "C7_linear_term_times_1e4": 0.6981926166196446,
+              "C8_linear_term_times_1e4": 0.18164537346320675,
+              "conditional_B_times_1e4": 4.4198379900828515,
+              "delta_B_times_1e4": 0.8798379900828514
+            },
+            "matching_card": {
+              "matching_scale_GeV": 160.0,
+              "mt_MSbar_GeV": 163.96892236746697,
+              "provenance": "Frozen C1/C2 HyperIso 1.0.3 reference LHA 984391031656a5f4f86ee71f5b60e7d0cb2b1b80edabd9ff6ba912da3ba39374; module5/BSGAMMA_2026_ACCURACY.md. Explicit reference input, no running or recalibration to 2026 SM.",
+              "quark_scheme": "MSbar_top_at_matching_scale_real_top_only_ms0"
+            },
+            "matching_input": {
+              "beta_rad": 0.9241375226039902,
+              "gamma_rad": -0.019037157104005165,
+              "mH1_GeV": 442.9804595332397,
+              "mH2_GeV": 565.2736810869235,
+              "matching_scale_GeV": 160.0,
+              "mt_MSbar_GeV": 163.96892236746697
+            },
+            "matching_input_sha256": "ce43c5762364b54982f08be8ec017ce43653cd7e426fe65784503a8766ca4ee8",
+            "method_robustness": "NOT_EVALUATED",
+            "method_robustness_reason": "No new EOS/SuperIso/NLO variants executed; legacy method spread is not an NP sigma.",
+            "np_theory_sigma": null,
+            "reference_comparison": {
+              "absolute_pull_threshold": 1.959963984540054,
+              "assumptions": "Symmetric Gaussian quoted SM and experimental errors; rho=0; no NP error. Reference sensitivity only, not a Zee likelihood or validated 95% CL test.",
+              "boundary_half_width_in_pull": 0.01,
+              "sigma_SM_times_1e4": 0.14,
+              "sigma_experiment_times_1e4": 0.19
+            },
+            "scalar_sha256": "0ffe26c982ab8287f6e7a9717ec10cd881730f5dd3d32b2a26d54a70c4ed22df",
+            "status": "DIAGNOSTIC_ONLY"
+          },
+          "globally_allowed": null,
+          "id": 91,
+          "input_card": {
+            "benchmark_id": "d14_00000091",
+            "electroweak": {
+              "SM_reference_mh": 125.0,
+              "mW": 80.379,
+              "mZ": 91.1876,
+              "scheme": "on_shell_MW_MZ"
+            },
+            "ew_fit": "Gfitter_2026_U_floating",
+            "model": "ZeeTypeII_Module0_v1_restricted_CP",
+            "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+            "physical": {
+              "alpha": 1.1981608219178197,
+              "beta": 0.9241375226039902,
+              "gamma": -0.019037157104005165,
+              "k1": 0.0626743350868747,
+              "k12": -0.12042515427821338,
+              "k2": 0.2688666957474575,
+              "lc": 0.9923998081566117,
+              "m12sq": 42409.42156517045,
+              "mH1": 442.9804595332397,
+              "mH2": 565.2736810869235,
+              "ma": 464.05374373563745,
+              "mh1": 125.0,
+              "mh2": 490.82581175987104,
+              "v": 246.21965
+            },
+            "schema_version": "1.0.0",
+            "search": {
+              "seeds": [
+                123,
+                104852
+              ],
+              "starts": 64
+            },
+            "units": {
+              "angles": "rad",
+              "mass_squared": "GeV^2",
+              "masses": "GeV",
+              "quartics": "1"
+            }
+          }
+        },
+        {
+          "arm": "moderate_uniform",
+          "cascade": {
+            "BR_H2_H1Z": 0.05523408857896264,
+            "absolute_gauge_vertex_coefficient": 0.007048719612434971,
+            "br_status": "PASS",
+            "branching_fraction": null,
+            "global_zee_acceptance": null,
+            "input": {
+              "gamma_rad": -0.019037157104005165,
+              "mH1_GeV": 442.9804595332397,
+              "mH2_GeV": 565.2736810869235,
+              "mW_GeV": 80.379,
+              "mZ_GeV": 91.1876,
+              "v_GeV": 246.21965
+            },
+            "is_kinematically_open": true,
+            "kallen_sqrt_GeV2": 81824.88608938405,
+            "kinematic_threshold_GeV": 534.1680595332397,
+            "limitations": [
+              "Tree-level on-shell two-body Z channel only; no finite-Z-width or off-shell Z treatment.",
+              "Not a branching ratio until all relevant competing modes and full total width are computed.",
+              "No pp production rate, PDFs, higher-order corrections, fiducial efficiencies, or detector results.",
+              "The off-diagonal Z charged scalar coupling and this formula are already known in the 2021 literature."
+            ],
+            "normalized_offdiagonal_Z_coupling": 0.0190325578907864,
+            "partial_width_GeV": 0.00036054458424177174,
+            "physical_collider_acceptance": null,
+            "production_cross_section_pb": null,
+            "schema_version": "1.0.0",
+            "scope": "D4 complete on-shell tree two-body only; off-shell/loop and decay uncertainties unknown",
+            "source": "Florentino-Romao-Silva EPJC81(2021)1148 Eq72, Eq73, AppB.1",
+            "status": "TREE_CASCADE_PARTIAL_WIDTH_ONLY",
+            "total_width_GeV": 0.0065275737052551755
+          },
+          "flavor": {
+            "BR_linear_2026": 0.00044198379900828517,
+            "C1_scope": "Real top-only charged-scalar LO dipoles, ms=0; no full Zee matching claim",
+            "DeltaC7_LO": -0.0820437857367385,
+            "DeltaC8_LO": -0.08409508030704016,
+            "bsg_exclusion": null,
+            "bsg_nominal_classification": "APPROX_DISFAVORED",
+            "bsg_physical_classification": "UNKNOWN",
+            "conditional_pull": 3.9398500089953816,
+            "contribution_splits": [
+              {
+                "XY_conjugate_coupling": 0.9996376304284273,
+                "YY_coupling_squared": 0.5697363714023336,
+                "delta_C7": -0.08202168468192107,
+                "delta_C7_XY": -0.0766976749605833,
+                "delta_C7_YY": -0.005324009721337768,
+                "delta_C8": -0.08407146850106008,
+                "delta_C8_XY": -0.08016041284270031,
+                "delta_C8_YY": -0.00391105565835976,
+                "doublet_fraction": 0.9996376304284273,
+                "mass_GeV": 442.9804595332397,
+                "scalar": "H1_charged",
+                "x_mt2_over_mH2": 0.1370105299556868
+              },
+              {
+                "XY_conjugate_coupling": 0.0003623695715725374,
+                "YY_coupling_squared": 0.00020652996498928575,
+                "delta_C7": -2.2101054817419834e-05,
+                "delta_C7_XY": -2.080093556900847e-05,
+                "delta_C7_YY": -1.3001192484113658e-06,
+                "delta_C8": -2.3611805980075833e-05,
+                "delta_C8_XY": -2.262291542729931e-05,
+                "delta_C8_YY": -9.888905527765213e-07,
+                "doublet_fraction": 0.0003623695715725374,
+                "mass_GeV": 565.2736810869235,
+                "scalar": "H2_charged",
+                "x_mt2_over_mH2": 0.08414059021836084
+              }
+            ],
+            "globally_allowed": null,
+            "limitations": [
+              "Operator bridge passes only for the retained real top-only LO dipoles; frozen upstream contract metadata is historical.",
+              "The explicit MSbar top mass is an input; this diagnostic performs no running, conversion or calibration.",
+              "Quadratic new-physics Wilson terms, additional operators, NP NLO/NNLO and finite-ms effects are omitted.",
+              "SM 0.14e-4 error is NOT a derived Zee BSM theory uncertainty.",
+              "No covariance or justified scan-point exclusion/acceptance; not a physical BR prediction.",
+              "Do not impose the single-state Type-II 2HDM 670 GeV lower mass bound separately on Zee charged scalars."
+            ],
+            "linear_terms_times_1e4": {
+              "C7_linear_term_times_1e4": 0.6981926166196446,
+              "C8_linear_term_times_1e4": 0.18164537346320675,
+              "conditional_B_times_1e4": 4.4198379900828515,
+              "delta_B_times_1e4": 0.8798379900828514
+            },
+            "matching_card": {
+              "matching_scale_GeV": 160.0,
+              "mt_MSbar_GeV": 163.96892236746697,
+              "provenance": "Frozen C1/C2 HyperIso 1.0.3 reference LHA 984391031656a5f4f86ee71f5b60e7d0cb2b1b80edabd9ff6ba912da3ba39374; module5/BSGAMMA_2026_ACCURACY.md. Explicit reference input, no running or recalibration to 2026 SM.",
+              "quark_scheme": "MSbar_top_at_matching_scale_real_top_only_ms0"
+            },
+            "matching_input": {
+              "beta_rad": 0.9241375226039902,
+              "gamma_rad": -0.019037157104005165,
+              "mH1_GeV": 442.9804595332397,
+              "mH2_GeV": 565.2736810869235,
+              "matching_scale_GeV": 160.0,
+              "mt_MSbar_GeV": 163.96892236746697
+            },
+            "matching_input_sha256": "ce43c5762364b54982f08be8ec017ce43653cd7e426fe65784503a8766ca4ee8",
+            "method_robustness": "NOT_EVALUATED",
+            "method_robustness_reason": "No new EOS/SuperIso/NLO variants executed; legacy method spread is not an NP sigma.",
+            "np_theory_sigma": null,
+            "reference_comparison": {
+              "absolute_pull_threshold": 1.959963984540054,
+              "assumptions": "Symmetric Gaussian quoted SM and experimental errors; rho=0; no NP error. Reference sensitivity only, not a Zee likelihood or validated 95% CL test.",
+              "boundary_half_width_in_pull": 0.01,
+              "sigma_SM_times_1e4": 0.14,
+              "sigma_experiment_times_1e4": 0.19
+            },
+            "scalar_sha256": "0ffe26c982ab8287f6e7a9717ec10cd881730f5dd3d32b2a26d54a70c4ed22df",
+            "status": "DIAGNOSTIC_ONLY"
+          },
+          "globally_allowed": null,
+          "id": 91,
+          "input_card": {
+            "benchmark_id": "d14_00000091",
+            "electroweak": {
+              "SM_reference_mh": 125.0,
+              "mW": 80.379,
+              "mZ": 91.1876,
+              "scheme": "on_shell_MW_MZ"
+            },
+            "ew_fit": "Gfitter_2026_U_floating",
+            "model": "ZeeTypeII_Module0_v1_restricted_CP",
+            "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+            "physical": {
+              "alpha": 1.1981608219178197,
+              "beta": 0.9241375226039902,
+              "gamma": -0.019037157104005165,
+              "k1": 0.0626743350868747,
+              "k12": -0.12042515427821338,
+              "k2": 0.2688666957474575,
+              "lc": 0.9923998081566117,
+              "m12sq": 42409.42156517045,
+              "mH1": 442.9804595332397,
+              "mH2": 565.2736810869235,
+              "ma": 464.05374373563745,
+              "mh1": 125.0,
+              "mh2": 490.82581175987104,
+              "v": 246.21965
+            },
+            "schema_version": "1.0.0",
+            "search": {
+              "seeds": [
+                123,
+                104852
+              ],
+              "starts": 64
+            },
+            "units": {
+              "angles": "rad",
+              "mass_squared": "GeV^2",
+              "masses": "GeV",
+              "quartics": "1"
+            }
+          }
+        },
+        {
+          "arm": "moderate_uniform",
+          "cascade": {
+            "BR_H2_H1Z": 0.05834090501483937,
+            "absolute_gauge_vertex_coefficient": 0.007048719612434971,
+            "br_status": "PASS",
+            "branching_fraction": null,
+            "global_zee_acceptance": null,
+            "input": {
+              "gamma_rad": -0.019037157104005165,
+              "mH1_GeV": 442.9804595332397,
+              "mH2_GeV": 565.2736810869235,
+              "mW_GeV": 80.379,
+              "mZ_GeV": 91.1876,
+              "v_GeV": 246.21965
+            },
+            "is_kinematically_open": true,
+            "kallen_sqrt_GeV2": 81824.88608938405,
+            "kinematic_threshold_GeV": 534.1680595332397,
+            "limitations": [
+              "Tree-level on-shell two-body Z channel only; no finite-Z-width or off-shell Z treatment.",
+              "Not a branching ratio until all relevant competing modes and full total width are computed.",
+              "No pp production rate, PDFs, higher-order corrections, fiducial efficiencies, or detector results.",
+              "The off-diagonal Z charged scalar coupling and this formula are already known in the 2021 literature."
+            ],
+            "normalized_offdiagonal_Z_coupling": 0.0190325578907864,
+            "partial_width_GeV": 0.00036054458424177174,
+            "physical_collider_acceptance": null,
+            "production_cross_section_pb": null,
+            "schema_version": "1.0.0",
+            "scope": "D4 complete on-shell tree two-body only; off-shell/loop and decay uncertainties unknown",
+            "source": "Florentino-Romao-Silva EPJC81(2021)1148 Eq72, Eq73, AppB.1",
+            "status": "TREE_CASCADE_PARTIAL_WIDTH_ONLY",
+            "total_width_GeV": 0.006179962140629546
+          },
+          "flavor": {
+            "BR_linear_2026": 0.00044198379900828517,
+            "C1_scope": "Real top-only charged-scalar LO dipoles, ms=0; no full Zee matching claim",
+            "DeltaC7_LO": -0.0820437857367385,
+            "DeltaC8_LO": -0.08409508030704016,
+            "bsg_exclusion": null,
+            "bsg_nominal_classification": "APPROX_DISFAVORED",
+            "bsg_physical_classification": "UNKNOWN",
+            "conditional_pull": 3.9398500089953816,
+            "contribution_splits": [
+              {
+                "XY_conjugate_coupling": 0.9996376304284273,
+                "YY_coupling_squared": 0.5697363714023336,
+                "delta_C7": -0.08202168468192107,
+                "delta_C7_XY": -0.0766976749605833,
+                "delta_C7_YY": -0.005324009721337768,
+                "delta_C8": -0.08407146850106008,
+                "delta_C8_XY": -0.08016041284270031,
+                "delta_C8_YY": -0.00391105565835976,
+                "doublet_fraction": 0.9996376304284273,
+                "mass_GeV": 442.9804595332397,
+                "scalar": "H1_charged",
+                "x_mt2_over_mH2": 0.1370105299556868
+              },
+              {
+                "XY_conjugate_coupling": 0.0003623695715725374,
+                "YY_coupling_squared": 0.00020652996498928575,
+                "delta_C7": -2.2101054817419834e-05,
+                "delta_C7_XY": -2.080093556900847e-05,
+                "delta_C7_YY": -1.3001192484113658e-06,
+                "delta_C8": -2.3611805980075833e-05,
+                "delta_C8_XY": -2.262291542729931e-05,
+                "delta_C8_YY": -9.888905527765213e-07,
+                "doublet_fraction": 0.0003623695715725374,
+                "mass_GeV": 565.2736810869235,
+                "scalar": "H2_charged",
+                "x_mt2_over_mH2": 0.08414059021836084
+              }
+            ],
+            "globally_allowed": null,
+            "limitations": [
+              "Operator bridge passes only for the retained real top-only LO dipoles; frozen upstream contract metadata is historical.",
+              "The explicit MSbar top mass is an input; this diagnostic performs no running, conversion or calibration.",
+              "Quadratic new-physics Wilson terms, additional operators, NP NLO/NNLO and finite-ms effects are omitted.",
+              "SM 0.14e-4 error is NOT a derived Zee BSM theory uncertainty.",
+              "No covariance or justified scan-point exclusion/acceptance; not a physical BR prediction.",
+              "Do not impose the single-state Type-II 2HDM 670 GeV lower mass bound separately on Zee charged scalars."
+            ],
+            "linear_terms_times_1e4": {
+              "C7_linear_term_times_1e4": 0.6981926166196446,
+              "C8_linear_term_times_1e4": 0.18164537346320675,
+              "conditional_B_times_1e4": 4.4198379900828515,
+              "delta_B_times_1e4": 0.8798379900828514
+            },
+            "matching_card": {
+              "matching_scale_GeV": 160.0,
+              "mt_MSbar_GeV": 163.96892236746697,
+              "provenance": "Frozen C1/C2 HyperIso 1.0.3 reference LHA 984391031656a5f4f86ee71f5b60e7d0cb2b1b80edabd9ff6ba912da3ba39374; module5/BSGAMMA_2026_ACCURACY.md. Explicit reference input, no running or recalibration to 2026 SM.",
+              "quark_scheme": "MSbar_top_at_matching_scale_real_top_only_ms0"
+            },
+            "matching_input": {
+              "beta_rad": 0.9241375226039902,
+              "gamma_rad": -0.019037157104005165,
+              "mH1_GeV": 442.9804595332397,
+              "mH2_GeV": 565.2736810869235,
+              "matching_scale_GeV": 160.0,
+              "mt_MSbar_GeV": 163.96892236746697
+            },
+            "matching_input_sha256": "ce43c5762364b54982f08be8ec017ce43653cd7e426fe65784503a8766ca4ee8",
+            "method_robustness": "NOT_EVALUATED",
+            "method_robustness_reason": "No new EOS/SuperIso/NLO variants executed; legacy method spread is not an NP sigma.",
+            "np_theory_sigma": null,
+            "reference_comparison": {
+              "absolute_pull_threshold": 1.959963984540054,
+              "assumptions": "Symmetric Gaussian quoted SM and experimental errors; rho=0; no NP error. Reference sensitivity only, not a Zee likelihood or validated 95% CL test.",
+              "boundary_half_width_in_pull": 0.01,
+              "sigma_SM_times_1e4": 0.14,
+              "sigma_experiment_times_1e4": 0.19
+            },
+            "scalar_sha256": "0ffe26c982ab8287f6e7a9717ec10cd881730f5dd3d32b2a26d54a70c4ed22df",
+            "status": "DIAGNOSTIC_ONLY"
+          },
+          "globally_allowed": null,
+          "id": 91,
+          "input_card": {
+            "benchmark_id": "d14_00000091",
+            "electroweak": {
+              "SM_reference_mh": 125.0,
+              "mW": 80.379,
+              "mZ": 91.1876,
+              "scheme": "on_shell_MW_MZ"
+            },
+            "ew_fit": "Gfitter_2026_U_floating",
+            "model": "ZeeTypeII_Module0_v1_restricted_CP",
+            "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+            "physical": {
+              "alpha": 1.1981608219178197,
+              "beta": 0.9241375226039902,
+              "gamma": -0.019037157104005165,
+              "k1": 0.0626743350868747,
+              "k12": -0.12042515427821338,
+              "k2": 0.2688666957474575,
+              "lc": 0.9923998081566117,
+              "m12sq": 42409.42156517045,
+              "mH1": 442.9804595332397,
+              "mH2": 565.2736810869235,
+              "ma": 464.05374373563745,
+              "mh1": 125.0,
+              "mh2": 490.82581175987104,
+              "v": 246.21965
+            },
+            "schema_version": "1.0.0",
+            "search": {
+              "seeds": [
+                123,
+                104852
+              ],
+              "starts": 64
+            },
+            "units": {
+              "angles": "rad",
+              "mass_squared": "GeV^2",
+              "masses": "GeV",
+              "quartics": "1"
+            }
+          }
+        },
+        {
+          "arm": "moderate_uniform",
+          "cascade": {
+            "BR_H2_H1Z": 0.05963589473175718,
+            "absolute_gauge_vertex_coefficient": 0.007048719612434971,
+            "br_status": "PASS",
+            "branching_fraction": null,
+            "global_zee_acceptance": null,
+            "input": {
+              "gamma_rad": -0.019037157104005165,
+              "mH1_GeV": 442.9804595332397,
+              "mH2_GeV": 565.2736810869235,
+              "mW_GeV": 80.379,
+              "mZ_GeV": 91.1876,
+              "v_GeV": 246.21965
+            },
+            "is_kinematically_open": true,
+            "kallen_sqrt_GeV2": 81824.88608938405,
+            "kinematic_threshold_GeV": 534.1680595332397,
+            "limitations": [
+              "Tree-level on-shell two-body Z channel only; no finite-Z-width or off-shell Z treatment.",
+              "Not a branching ratio until all relevant competing modes and full total width are computed.",
+              "No pp production rate, PDFs, higher-order corrections, fiducial efficiencies, or detector results.",
+              "The off-diagonal Z charged scalar coupling and this formula are already known in the 2021 literature."
+            ],
+            "normalized_offdiagonal_Z_coupling": 0.0190325578907864,
+            "partial_width_GeV": 0.00036054458424177174,
+            "physical_collider_acceptance": null,
+            "production_cross_section_pb": null,
+            "schema_version": "1.0.0",
+            "scope": "D4 complete on-shell tree two-body only; off-shell/loop and decay uncertainties unknown",
+            "source": "Florentino-Romao-Silva EPJC81(2021)1148 Eq72, Eq73, AppB.1",
+            "status": "TREE_CASCADE_PARTIAL_WIDTH_ONLY",
+            "total_width_GeV": 0.0060457646500233575
+          },
+          "flavor": {
+            "BR_linear_2026": 0.00044198379900828517,
+            "C1_scope": "Real top-only charged-scalar LO dipoles, ms=0; no full Zee matching claim",
+            "DeltaC7_LO": -0.0820437857367385,
+            "DeltaC8_LO": -0.08409508030704016,
+            "bsg_exclusion": null,
+            "bsg_nominal_classification": "APPROX_DISFAVORED",
+            "bsg_physical_classification": "UNKNOWN",
+            "conditional_pull": 3.9398500089953816,
+            "contribution_splits": [
+              {
+                "XY_conjugate_coupling": 0.9996376304284273,
+                "YY_coupling_squared": 0.5697363714023336,
+                "delta_C7": -0.08202168468192107,
+                "delta_C7_XY": -0.0766976749605833,
+                "delta_C7_YY": -0.005324009721337768,
+                "delta_C8": -0.08407146850106008,
+                "delta_C8_XY": -0.08016041284270031,
+                "delta_C8_YY": -0.00391105565835976,
+                "doublet_fraction": 0.9996376304284273,
+                "mass_GeV": 442.9804595332397,
+                "scalar": "H1_charged",
+                "x_mt2_over_mH2": 0.1370105299556868
+              },
+              {
+                "XY_conjugate_coupling": 0.0003623695715725374,
+                "YY_coupling_squared": 0.00020652996498928575,
+                "delta_C7": -2.2101054817419834e-05,
+                "delta_C7_XY": -2.080093556900847e-05,
+                "delta_C7_YY": -1.3001192484113658e-06,
+                "delta_C8": -2.3611805980075833e-05,
+                "delta_C8_XY": -2.262291542729931e-05,
+                "delta_C8_YY": -9.888905527765213e-07,
+                "doublet_fraction": 0.0003623695715725374,
+                "mass_GeV": 565.2736810869235,
+                "scalar": "H2_charged",
+                "x_mt2_over_mH2": 0.08414059021836084
+              }
+            ],
+            "globally_allowed": null,
+            "limitations": [
+              "Operator bridge passes only for the retained real top-only LO dipoles; frozen upstream contract metadata is historical.",
+              "The explicit MSbar top mass is an input; this diagnostic performs no running, conversion or calibration.",
+              "Quadratic new-physics Wilson terms, additional operators, NP NLO/NNLO and finite-ms effects are omitted.",
+              "SM 0.14e-4 error is NOT a derived Zee BSM theory uncertainty.",
+              "No covariance or justified scan-point exclusion/acceptance; not a physical BR prediction.",
+              "Do not impose the single-state Type-II 2HDM 670 GeV lower mass bound separately on Zee charged scalars."
+            ],
+            "linear_terms_times_1e4": {
+              "C7_linear_term_times_1e4": 0.6981926166196446,
+              "C8_linear_term_times_1e4": 0.18164537346320675,
+              "conditional_B_times_1e4": 4.4198379900828515,
+              "delta_B_times_1e4": 0.8798379900828514
+            },
+            "matching_card": {
+              "matching_scale_GeV": 160.0,
+              "mt_MSbar_GeV": 163.96892236746697,
+              "provenance": "Frozen C1/C2 HyperIso 1.0.3 reference LHA 984391031656a5f4f86ee71f5b60e7d0cb2b1b80edabd9ff6ba912da3ba39374; module5/BSGAMMA_2026_ACCURACY.md. Explicit reference input, no running or recalibration to 2026 SM.",
+              "quark_scheme": "MSbar_top_at_matching_scale_real_top_only_ms0"
+            },
+            "matching_input": {
+              "beta_rad": 0.9241375226039902,
+              "gamma_rad": -0.019037157104005165,
+              "mH1_GeV": 442.9804595332397,
+              "mH2_GeV": 565.2736810869235,
+              "matching_scale_GeV": 160.0,
+              "mt_MSbar_GeV": 163.96892236746697
+            },
+            "matching_input_sha256": "ce43c5762364b54982f08be8ec017ce43653cd7e426fe65784503a8766ca4ee8",
+            "method_robustness": "NOT_EVALUATED",
+            "method_robustness_reason": "No new EOS/SuperIso/NLO variants executed; legacy method spread is not an NP sigma.",
+            "np_theory_sigma": null,
+            "reference_comparison": {
+              "absolute_pull_threshold": 1.959963984540054,
+              "assumptions": "Symmetric Gaussian quoted SM and experimental errors; rho=0; no NP error. Reference sensitivity only, not a Zee likelihood or validated 95% CL test.",
+              "boundary_half_width_in_pull": 0.01,
+              "sigma_SM_times_1e4": 0.14,
+              "sigma_experiment_times_1e4": 0.19
+            },
+            "scalar_sha256": "0ffe26c982ab8287f6e7a9717ec10cd881730f5dd3d32b2a26d54a70c4ed22df",
+            "status": "DIAGNOSTIC_ONLY"
+          },
+          "globally_allowed": null,
+          "id": 91,
+          "input_card": {
+            "benchmark_id": "d14_00000091",
+            "electroweak": {
+              "SM_reference_mh": 125.0,
+              "mW": 80.379,
+              "mZ": 91.1876,
+              "scheme": "on_shell_MW_MZ"
+            },
+            "ew_fit": "Gfitter_2026_U_floating",
+            "model": "ZeeTypeII_Module0_v1_restricted_CP",
+            "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+            "physical": {
+              "alpha": 1.1981608219178197,
+              "beta": 0.9241375226039902,
+              "gamma": -0.019037157104005165,
+              "k1": 0.0626743350868747,
+              "k12": -0.12042515427821338,
+              "k2": 0.2688666957474575,
+              "lc": 0.9923998081566117,
+              "m12sq": 42409.42156517045,
+              "mH1": 442.9804595332397,
+              "mH2": 565.2736810869235,
+              "ma": 464.05374373563745,
+              "mh1": 125.0,
+              "mh2": 490.82581175987104,
+              "v": 246.21965
+            },
+            "schema_version": "1.0.0",
+            "search": {
+              "seeds": [
+                123,
+                104852
+              ],
+              "starts": 64
+            },
+            "units": {
+              "angles": "rad",
+              "mass_squared": "GeV^2",
+              "masses": "GeV",
+              "quartics": "1"
+            }
+          }
+        }
+      ],
+      "generation_repeated_bytes_equal": true,
+      "ranked_rows": 0,
+      "rows": 106,
+      "serial_split_sidecar_rows_equal": true,
+      "serial_split_worker_bytes_equal": true
+    }
+  },
+  "source_commit": "5a9733f1ba137f1e105290d161e971a486ff9bbe",
+  "source_commit_note": "Parent commit plus exact sidecar source hashes; local worker receipts are LOCAL_UNSPECIFIED, not an AF source attestation.",
+  "source_sha256": {
+    "module1/d10_certificate.py": "03f575f23c54e29a91474e2372a4d21cca2b8c688545c7f4cd3850bc3a3ac8c3",
+    "module1/scalar_constraints.py": "283902ff57de55e17e4d02900de07850265d306d1481e49db4dc96c08744cbac",
+    "module14/collect.py": "75b75eb64f1d5b69994754c9cf6bb669556a1a97c7ab1ecb5996fdc6db660174",
+    "module14/conditional_scan/__init__.py": "3fc51d85484d98dcfe72538b3ba5142682d55589f648a7aecd54de91415838c5",
+    "module14/conditional_scan/audit_existing.py": "a1d78e93d7c70efb6298f531632f1a78e06e712a101c3ff2018f9b72fa575c2b",
+    "module14/conditional_scan/compact.py": "99d46715dd820b5d80c91f13e282a02a2e886bbd40e39e5876bff86bbeaa4ce4",
+    "module14/conditional_scan/flavor.py": "dfb7c39b94cca5c87299dd4be14ef5be683f02a4a0e9434c8281e0d4eb1709dd",
+    "module14/conditional_scan/followup_config.json": "bb812274270796a707d78cbe5eebf6f4e92fbe9ff09aa7c61934652ed547f813",
+    "module14/conditional_scan/matching_card.json": "d0901ef4feaccc2e00b28d230226f48aff9dd45c6d3100e9325fc97b4ef42a81",
+    "module14/conditional_scan/pilot.py": "7bb86fa37dd894d304f4c0e201168e65d1e0a60ac85076a4b8ebf6eb103988b9",
+    "module14/conditional_scan/pilot_config.json": "8078b93e545b79c43e8bb262350d8ce26df3d5f28c9a2ba1ab7e96837ccd0ac8",
+    "module14/conditional_scan/workflow.py": "2d1ba1ec57b8bb149b0d397d9f8f53d03c850f2ae4709d042cb3c634988b591d",
+    "module14/decays.py": "0473ad71b6e02e9a0376686e52d0f14175ffd4f417541821fe00f9c794882740",
+    "module14/scan.py": "411ee0e3e70f118084e1891c7b075f40ba48f8b16356bc8131c0b2c3c74dbff0",
+    "module5/BSGAMMA_2026_CONVENTION.md": "f4a79f4125e2785a36e2af982790c3c629b1ece6eac5d21acf7bd18c630ce2a4",
+    "module5/bsgamma_2026_linear_diagnostic.py": "7f1248cec5e2710ab242cb44a33409c2a1a50547a88947860c414242e763f7b1",
+    "module5/bsgamma_lo.py": "251cc9effc80010f65982cc980d0c170dc19785b2385d962afbed4549cfcd5e5",
+    "module5/hyperiso_patch_contract.py": "43b177cacdc1a9ba0f887809ea44591e83c40e70618c2a19b8fdfd36320ae1df",
+    "module7/cascade_z.py": "77b058dc3d346ea7c6ab3dacdb722ce79d1899842bce690fa9143b9f142f4ebf",
+    "module7/d3_cascade_compare.py": "1018a800074607726ae68714ee4b18a43aab86396d17c8862c79899f87011040",
+    "module7/d4_decay_table.py": "74bffc62c7ed0b3acd9bf8b1f529011f38772fb237cf31d0e3e45ba0782542ba",
+    "module7/d4_inputs.py": "c65e18276738e46ed4378d46c76992cd13995de6d3d810b2a51d9fdd841ef7cf",
+    "module7/d4_native.py": "1dfe147395e821917f7bf7d41e72e0590f7143eb4d037907d642a288c81221d1",
+    "module7/d4_tree_kernels.py": "d4964ca641d486abf60ceff1f9ff5a95560c20fb844c086d88c02f114d83d856",
+    "validation/module5/linear_2026.json": "ac1e36c7769016608becd60cd3d87b8d2392414575bc4af5fd7f8613efc7dd7e"
+  }
+}
