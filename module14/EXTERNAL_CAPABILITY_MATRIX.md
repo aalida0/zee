@@ -1,5 +1,14 @@
 # Public capability source audit (2026-11-06)
 
+Final freeze, 2026-11-07: [FINAL_PHYSICS_FREEZE.md](FINAL_PHYSICS_FREEZE.md).
+**SPHENO_FULL_LOOP_OPERATIVE=NO**. Saved-output triage identifies h1→W−W+
+as the million-GeV channel, confirms a scalar effective-SM mass overwrite
+and demonstrates a running/pole Yukawa scheme mismatch for radiative
+neutrinos. The width's amplitude-level cause and full scalar decomposition
+remain unresolved; no physical model correction or native rerun was justified.
+Exact four-card channel evidence is in
+`physics_adapters/spheno_forensic_evidence.json`. No capability was promoted.
+
 Current follow-up: [PHYSICS_ADAPTER_READINESS.md](PHYSICS_ADAPTER_READINESS.md)
 records the executed corrected full-loop build, four-card numerical comparisons,
 12 complex LFV subset comparisons, two-potential contract checks and streaming

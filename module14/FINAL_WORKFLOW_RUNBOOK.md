@@ -1,5 +1,14 @@
 # Final manual workflow runbook
 
+Final physics policy: [FINAL_PHYSICS_FREEZE.md](FINAL_PHYSICS_FREEZE.md).
+Full-loop SPheno is UNAVAILABLE for operative predictions. Stage flags
+`lfv`, `lfv_tree`, `bsgamma`, `higgs` and `conditional_flavor` enable diagnostics
+only. There is no supported full-loop or optional-observable hard-veto flag;
+strict validation rejects extra keys. Inspect preflight `physics_scope` and
+`physics_warnings`: only the documented scalar/neutrino filters operate,
+D10 misses remain UNKNOWN, and global acceptance remains null. Existing
+preflight reports must be regenerated against the final clean source commit.
+
 **No final scan is authorized by this document.** The user must separately
 approve final statistics, seed, shard size and sampling arms after reviewing
 FINAL_WORKFLOW_READINESS.md. The commands below are a manual protocol with

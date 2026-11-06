@@ -11,6 +11,23 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 class AdapterTests(unittest.TestCase):
+    def test_saved_forensic_replay_and_missing_artifact_gate(self):
+        from scripts.zee_d14_spheno_forensics import inspect
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaisesRegex(ValueError,'Missing/changed pinned artifact'):
+                inspect(Path(tmp))
+        local=ROOT/'validation/module14/local'
+        if not (local/'runtime/group0/full.spc').exists():
+            self.skipTest('Pinned optional native artifacts absent; missing gate checked')
+        report=inspect(local)
+        self.assertEqual(report,load(ROOT/'module14/physics_adapters/spheno_forensic_evidence.json'))
+        self.assertEqual(report['width_cause_status'],'FULL_LOOP_WIDTH_CAUSE_UNRESOLVED')
+        self.assertEqual(report['native_reruns'],0)
+        for p in report['points']:
+            self.assertLess(max(abs(v) for v in p['native_D_forward_to_full_relative_differences']),.02)
+            h=next(d for d in p['decays'] if d['pdg']==25)
+            self.assertEqual(max(h['channels'],key=lambda v:v['width_GeV'])['pdgs'],[-24,24])
+
     def test_lfv_reference_scope_and_original_bindings(self):
         e=load(ROOT/'module14/physics_adapters/lfv_reference_evidence.json')
         self.assertEqual(e['status'],'REFERENCE_ONLY');self.assertEqual(e['two_loop_full_Zee'],'UNKNOWN')

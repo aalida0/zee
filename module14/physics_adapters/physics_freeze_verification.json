@@ -1,0 +1,42 @@
+{
+  "SPHENO_FULL_LOOP_OPERATIVE": "NO",
+  "code_sha256": {
+    "module14/conditional_scan/workflow.py": "ab7e62fc4b380324a05d32253df7bbab0296e8dc4298be69971410b2c557fde5",
+    "module14/disk_rows.py": "8c63b7cd4d69fc7f4f82901f73fe2265d3fb5cec4b52fd7dde92661ca8f471f8",
+    "module14/final_config.py": "fb59415a5589b513bf7a60e99c1d79b975d2501801938c5f1a73d24380f6a25e",
+    "module14/final_export.py": "fb2e403e104e3ef424e12f5ca827849cc24c56c07c9a438c703ad28aa29d880f",
+    "module14/final_workflow.py": "fd78d10c0873582043fb5fe2bc03ad971d74221d52001f432d5d54f941f8dab5",
+    "scripts/zee_d14_spheno_forensics.py": "1920531da6883f3ce90477994a214a92ebe9a6318a6fde26bbb9fc463e25f21c",
+    "tests/test_module14_final_workflow.py": "579cd233a655d8496c29181a8d65df2f59404de02fd6ec040928cbbbbf731d78",
+    "tests/test_module14_physics_adapters.py": "39e2b7347f1009459113302329e641ae64c5ec48a6151db45cbfbefd1c634ef7"
+  },
+  "export_files_sha256": {
+    "benchmarks.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "collection.json": "7a06f6cf74642919ade2a60766343636ae28ce54c3bf92fcf5b74a3ea6fa1e6c",
+    "cutflows.json": "3d689e704a885db36c753995176805caedfe10c1ed1dd011b1e61e74d32107ee",
+    "families.csv": "c4a555b39f409f5c728017d8d79bfb28ee5013c95c208838999f34ef5257d780",
+    "families.jsonl": "c238a013b11b9d1a3fdf4626085871f32484faa7a4f8d522e2cf36181839d5f5"
+  },
+  "focused_tests": {
+    "failures": 0,
+    "log_sha256": "2c2de33315bdafe27e0edeb6f3596fc0845f833618851983050ea7f2eeaee80a",
+    "optional_skips": 5,
+    "run": 76
+  },
+  "forensic_evidence_sha256": "c094ee860b661f0d47a10d3d2f8bbe36f2896db43dc0556b35088768ae1b08d7",
+  "model_fixes": 0,
+  "native_reruns": 0,
+  "new_parameter_points": 0,
+  "saved_225_replay": {
+    "dataset_sha256": "2d97c2a58cb65f5ec7244282a04c5e19a0cae0897b8a0581b76503180acd4be9",
+    "family_records": 900,
+    "production_13TeV_rates": 16,
+    "production_14TeV_rates": 3,
+    "production_family_bindings": 76,
+    "scalar_points": 225,
+    "status": "PASS"
+  },
+  "saved_export_audit_identical": true,
+  "status": "FINAL_PHYSICS_SCOPE_FROZEN_CONDITIONAL",
+  "streaming_memory_evidence": "Existing pinned evidence unchanged; no new stress campaign"
+}

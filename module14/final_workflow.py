@@ -1,5 +1,6 @@
 """No-physics preflight and source-locked final workflow entry points."""
 import argparse
+import copy
 import importlib
 import importlib.metadata
 import json
@@ -11,7 +12,7 @@ import subprocess
 import tempfile
 
 from module14.scan import digest, encode, file_sha, publish, temporary
-from module14.final_config import ROOT, LIMITATIONS, validate, worker_settings
+from module14.final_config import ROOT, LIMITATIONS, PHYSICS_SCOPE, validate, worker_settings
 from module14.conditional_scan.workflow import load
 
 
@@ -113,6 +114,11 @@ def preflight(config, backend, output_dir, bundle=None):
               'atomic_link': 'PASS', 'resources': {k: config['runtime'][k] for k in
                   ('cpus', 'memory_mb', 'disk_mb', 'timeout_seconds')},
               'stages': {k: ('DIAGNOSTIC_ONLY' if v else 'NOT_EVALUATED') for k, v in config['stages'].items()},
+              'physics_scope': copy.deepcopy(PHYSICS_SCOPE),
+              'physics_warnings': [
+                  'Full-loop SPheno is UNAVAILABLE; no pole mass, loop width or derived veto is operative.',
+                  'Enabled optional stages compute diagnostics only; they cannot impose physical hard vetoes.',
+                  'LFV subset rates cannot exclude the complete model when missing amplitudes can interfere.'],
               'physics_status': 'PHYSICS_CONDITIONAL', 'limitations': LIMITATIONS,
               'global_acceptance': None}
     report['report_sha256'] = digest(report)
@@ -120,11 +126,13 @@ def preflight(config, backend, output_dir, bundle=None):
 
 
 def require_preflight(config, report, backend=None):
+    validate(config)
     payload = {k: v for k, v in report.items() if k != 'report_sha256'}
     if (report.get('schema') != 'd14-preflight-1' or report.get('status') != 'PASS'
         or report.get('report_sha256') != digest(payload) or report.get('config_sha256') != digest(config)
         or report.get('source_commit') != config['source_commit']
         or report.get('source_files_sha256') != source_files()
+        or report.get('physics_scope') != PHYSICS_SCOPE
         or (backend is not None and report.get('backend') != backend)):
         raise ValueError('Stale/modified/incompatible preflight report')
     check_runtime(config)

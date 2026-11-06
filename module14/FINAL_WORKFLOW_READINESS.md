@@ -1,10 +1,19 @@
-# Final workflow readiness — 2026-11-06
+# Final workflow readiness — 2026-11-07
 
 **Code gate: CODE_READY**
 
 **Physics gate: PHYSICS_CONDITIONAL**
 
 **Release status: WORKFLOW_CODE_READY_PHYSICS_CONDITIONAL**
+
+**FINAL_PHYSICS_SCOPE_FROZEN_CONDITIONAL — SPHENO_FULL_LOOP_OPERATIVE=NO.**
+See [FINAL_PHYSICS_FREEZE.md](FINAL_PHYSICS_FREEZE.md) for the bounded triage
+and exact filter/claims matrix. The enormous h1 width is h1→W−W+; its
+amplitude-level cause remains unresolved. Running Yukawa input replacement
+explains the eV neutrino enhancement within 1.53% using the existing forward
+formula; the scalar effective-SM overwrite is confirmed. No justified model
+fix or native rerun was made. Fixed physics scope/warnings are now bound into
+preflight; unsupported hard-veto overrides fail closed.
 
 Current adapter evidence: [PHYSICS_ADAPTER_READINESS.md](PHYSICS_ADAPTER_READINESS.md).
 `SPHENO_FULL_BUILD_VALIDATED` (build/runtime only), `LFV_SCOPED_ONLY`,
@@ -28,7 +37,7 @@ full-loop backend on four original D12 cards; see PHYSICS_ADAPTER_READINESS.md.
 | End-to-end fixture replay | PASS; original 100-point input/output/receipt replay, saved repartition, mocked final worker -> collection -> Eq.(4) sidecar -> export; no generator/kernel invocation |
 | Reproducible export | PASS; reversed shard arguments yield byte-identical JSONL/CSV/audit and SVG; missing production stays null; two-energy mock contracts and exact tb cascade product checked |
 | Historical 225-point evidence | PASS; exact dataset SHA256, 900 family records, 16 saved 13 TeV rates, three saved 14 TeV rates and 76 production-family bindings checked |
-| Focused suite | **74 tests, 0 failures, 5 optional historical-artifact skips**; `python3 scripts/zee_d14_workflow_tests.py` |
+| Focused suite | **76 tests, 0 failures, 5 optional historical-artifact skips**; `python3 scripts/zee_d14_workflow_tests.py`; includes forensic replay and forbidden-veto/preflight-scope tests |
 | Scope and formatting | `git diff --check` and compile checks PASS; Modules0–13, historical datasets/reports/maps/receipts and independent flavor branch unchanged |
 
 The full 225-point saved dataset hash is

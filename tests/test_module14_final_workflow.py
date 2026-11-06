@@ -10,7 +10,7 @@ from unittest.mock import patch
 
 from module14 import scan
 from module14.collect import collect
-from module14.final_config import validate, validate_manifest, worker_settings
+from module14.final_config import PHYSICS_SCOPE, validate, validate_manifest, worker_settings
 from module14.final_workflow import preflight, require_preflight, source_files
 from module14.final_export import export
 from module14.final_plot import plot
@@ -28,6 +28,23 @@ def mock_config():
 
 
 class ConfigTests(unittest.TestCase):
+    def test_frozen_physics_overrides_rejected_before_runtime(self):
+        for name in ('spheno', 'spheno_full_loop', 'higgs_hard_veto', 'lfv_hard_veto',
+                     'bsgamma_hard_veto', 'vacuum_unknown_is_fail'):
+            for location in ('stages', 'runtime', None):
+                c=mock_config(); target=c if location is None else c[location]
+                target[name]=True
+                with self.subTest(name=name, location=location), self.assertRaises(ValueError):
+                    validate(c)
+        c=mock_config()
+        with tempfile.TemporaryDirectory() as tmp, patch('module14.final_workflow.check_source',return_value=c['source_commit']):
+            r=preflight(c,'local',tmp)
+            self.assertEqual(r['physics_scope'],PHYSICS_SCOPE)
+            self.assertEqual(r['physics_scope']['spheno_full_loop'],'UNAVAILABLE')
+            r['physics_scope']['hard_filters'].append('spheno_full_loop')
+            r['report_sha256']=scan.digest({k:v for k,v in r.items() if k!='report_sha256'})
+            with self.assertRaises(ValueError):require_preflight(c,r)
+
     def test_template_deliberately_incomplete_and_strict_config(self):
         with self.assertRaises(ValueError): validate(load('module14/final_config_template.json'))
         c = mock_config(); self.assertEqual(validate(c), c)
@@ -176,6 +193,15 @@ class FinalMockWorkerTests(unittest.TestCase):
         export(dataset,self.root/'enriched',directory,contracts)
         rows=list(map(json.loads,(self.root/'enriched/families.jsonl').read_text().splitlines()));r=next(r for r in rows if r['module2_input_sha256']==n['input_sha256'])
         self.assertEqual(r['cascade_tb_13_pb'],r['BR_H2_H1Z']*r['BR_H1_tb']);self.assertEqual(r['rank_14'],1)
+        # Adverse optional diagnostics must not veto an otherwise rankable family.
+        row['lfv']={'status':'FAIL','comparison_status':'DIAGNOSTIC_ONLY'}
+        row['higgstools']={'status':'FAIL','comparison_status':'DIAGNOSTIC_ONLY'}
+        row['flavor']['bsg_nominal_classification']='FAIL'
+        export(dataset,self.root/'adverse-diagnostics',directory,contracts)
+        adverse=next(json.loads(line) for line in (self.root/'adverse-diagnostics/families.jsonl').read_text().splitlines()
+                     if json.loads(line)['module2_input_sha256']==n['input_sha256'])
+        for field in ('rank_13','rank_14','cascade_tb_13_pb','cascade_tb_14_pb','global_acceptance'):
+            self.assertEqual(adverse[field],r[field])
         path=directory/(n['input_sha256']+'.13TeV.json');original=load(path)
         for field,value in [('energy_TeV',14),('pdf','wrong'),('scale_scheme','wrong'),('process','wrong'),('order','NLO'),('charge_definition','plus'),('sigma_pb',0),('module2_input_sha256','0'*64)]:
             card=dict(original);card[field]=value;path.write_text(scan.encode(card))

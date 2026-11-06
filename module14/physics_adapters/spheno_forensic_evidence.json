@@ -1,0 +1,1984 @@
+{
+  "SPHENO_FULL_LOOP_OPERATIVE": "NO",
+  "artifact_hashes": {
+    "full-build.log": "15527285fb7983f324830f7d0ddc5d78cbb6611bbb10365cc0f47176f23fa70e",
+    "generation.log": "162c03745c8f2425c91efe2da4854f4997dbcc1fba4a4477c2c6e681aa0342d2",
+    "models/ZeeTypeII/SPheno.m": "cf22a17e4fb9e0d74b168cb0c6e9cf8879c7f0fa36bf676825c7b34b89b8ae38",
+    "models/ZeeTypeII/ZeeTypeII.m": "dd4f64f904e76fe6f65108fb776bdf3670ce6835512dd989d45f3f5cf4e6fcc1",
+    "models/ZeeTypeII/parameters.m": "c9a687dc1771b79c7a554180509516ba89285c5d293bc9318b53c2bac2634680",
+    "models/ZeeTypeII/particles.m": "9753f1f3907b9dc6238135107e8ac4c6cb2ba6e26971d70b81a014adb1636602",
+    "output/ZeeTypeII/EWSB/SPheno/AddLoopFunctions.f90": "904d1f9f1bf615e74250ec0efdd456f5b32f9d21423c801cdd2c5ebd59c3c3cb",
+    "output/ZeeTypeII/EWSB/SPheno/Boundaries_ZeeTypeII.f90": "401fcbe9f2ac091c06accb9ade4df3110a2c8056e465fab8bb98a55b20021877",
+    "output/ZeeTypeII/EWSB/SPheno/BranchingRatios_ZeeTypeII.f90": "38bb85c95ad6b603558e872aafac575316b761f8da8bcaad160c7dff2935b8fd",
+    "output/ZeeTypeII/EWSB/SPheno/CouplingsCT_ZeeTypeII.f90": "d91d02d5d896265f778a4fc4ba71a1d44b0a4be0a9c4947d15bb6cca34fe059a",
+    "output/ZeeTypeII/EWSB/SPheno/CouplingsForDecays_ZeeTypeII.f90": "fa2c6080dafd19d500590d23edb1f4f454d8a72695ddf284d9e3170444d15951",
+    "output/ZeeTypeII/EWSB/SPheno/Couplings_ZeeTypeII.f90": "a0de851498f3e68e7421538098b3979381a3ecf5245021fce9d1c2df46a42e8c",
+    "output/ZeeTypeII/EWSB/SPheno/HiggsCS_ZeeTypeII.f90": "9f5981e104316947ebe44d984be67725ad9485fb34ec7f9b8e940f832da869f9",
+    "output/ZeeTypeII/EWSB/SPheno/InputOutput_ZeeTypeII.f90": "26ee5186ec80d68e615c61e7bace2c3c93f44195f205a521c9f058869578d689",
+    "output/ZeeTypeII/EWSB/SPheno/Kinematics.f90": "fa93b442fb910bcc7e22bae1fc1d42dc4aa3f9a39d79d9ddf6193fe8f8daedd5",
+    "output/ZeeTypeII/EWSB/SPheno/LoopCouplings_ZeeTypeII.f90": "a94f3d33f1dfd9f7fc1c108c0fdf1ed028143132edb0384175a1dedb58aac52c",
+    "output/ZeeTypeII/EWSB/SPheno/LoopDecays/Bremsstrahlung.f90": "5fabf79b3b88555a9c2e2888c6f61cea848f9478e68fed006160e0716328c60e",
+    "output/ZeeTypeII/EWSB/SPheno/LoopDecays/DecayFFS.f90": "eaf9787f8c05a71e0dc2878d3deb06ef4bbbce903dd1e773e599714bec5754a2",
+    "output/ZeeTypeII/EWSB/SPheno/LoopDecays/DecayFFV.f90": "9a9ae2ed312accfd17c996ea2a5787d3f38aba30744df27c651402716afdb988",
+    "output/ZeeTypeII/EWSB/SPheno/LoopDecays/DecaySFF.f90": "12b1ba69146d7798fec844359e4e2f8a99a70cd495981f085b62e189dd69f88f",
+    "output/ZeeTypeII/EWSB/SPheno/LoopDecays/DecaySSS.f90": "c12cbcc342bbca6b796c1ff5bd55ba6665fa65e727c80751d93c18a3702241dd",
+    "output/ZeeTypeII/EWSB/SPheno/LoopDecays/DecaySSV.f90": "00dd656be904730e72635e22fd93b760cb8040f7ed5d3ae3e935ef7ff4b8b7c5",
+    "output/ZeeTypeII/EWSB/SPheno/LoopDecays/DecaySVV.f90": "4ee97eab420610f2c1b08cfd4224f2127ddfcfb78213ae389091ccd898ea1614",
+    "output/ZeeTypeII/EWSB/SPheno/LoopDecays/LoopDecayAh_ZeeTypeII.f90": "a65cac876d1a5e041d2716ea80b184782b7828687d4261fb0e9e23d21a18f902",
+    "output/ZeeTypeII/EWSB/SPheno/LoopDecays/LoopDecayFd_ZeeTypeII.f90": "3c3a94f2a0ff8a9d52b983eb895580319b55be846b1eca696f76348545f0f169",
+    "output/ZeeTypeII/EWSB/SPheno/LoopDecays/LoopDecayFe_ZeeTypeII.f90": "bed8b9227f274cd0107c5f04286cd1ece6ff7f00a3924e8b8fcf525ef6204540",
+    "output/ZeeTypeII/EWSB/SPheno/LoopDecays/LoopDecayFu_ZeeTypeII.f90": "a03c5ffd87ace8aebc63c60a76e5fd9db9d5a3bdfe1168c5aab765a12fca1e94",
+    "output/ZeeTypeII/EWSB/SPheno/LoopDecays/LoopDecayHm_ZeeTypeII.f90": "87c790807bcc364c38cf76203b18f918ac16f6452191ef68e309d2fb9d540daf",
+    "output/ZeeTypeII/EWSB/SPheno/LoopDecays/LoopDecayhh_ZeeTypeII.f90": "c99b633d1257ab759c7fe11a6264f8df315f572530ac2b0ee0766501c1d8ad26",
+    "output/ZeeTypeII/EWSB/SPheno/LoopDecays/Wrapper_LoopDecay_Ah_ZeeTypeII.f90": "6bba14ab540fae15be4f58786cde77a3fae1094fb929f0f00db6d4406126d8cc",
+    "output/ZeeTypeII/EWSB/SPheno/LoopDecays/Wrapper_LoopDecay_Fd_ZeeTypeII.f90": "2370761b9977e3fdef1f9ebc2e0822027ce0ba9bf06ad7114fd4c81c79278665",
+    "output/ZeeTypeII/EWSB/SPheno/LoopDecays/Wrapper_LoopDecay_Fe_ZeeTypeII.f90": "cdcbbb3e4a17f5680eab11a74ace2d1d63caed5f16fa70395294b93fb1308d12",
+    "output/ZeeTypeII/EWSB/SPheno/LoopDecays/Wrapper_LoopDecay_Fu_ZeeTypeII.f90": "743cb4e74c463501275214d2dfa1378aa42ceb8cd5e6df147dd8324b6ebc91f4",
+    "output/ZeeTypeII/EWSB/SPheno/LoopDecays/Wrapper_LoopDecay_Hm_ZeeTypeII.f90": "3fc8b1fcd44881a997b407d1cc674253092f87643ace893fd0f72193854cd0e2",
+    "output/ZeeTypeII/EWSB/SPheno/LoopDecays/Wrapper_LoopDecay_hh_ZeeTypeII.f90": "d3d1a959bf685f8c6de4d750494299627659ed1cbc5b4c2e7f07b6208922cea2",
+    "output/ZeeTypeII/EWSB/SPheno/LoopMasses_ZeeTypeII.f90": "1d3f253c12391fef1f8231a6c5c83bfc72f0294442d352151766523c01e9af59",
+    "output/ZeeTypeII/EWSB/SPheno/Model_Data_ZeeTypeII.f90": "e6f20b731ab0eb736d0ca33d7c6a3cab4caa0b9573301d64b0bf005bc8171689",
+    "output/ZeeTypeII/EWSB/SPheno/Observables/FlavorKit_LFV_ZeeTypeII.f90": "2d30006d8d4759b2b7bfe76e2e4795bd2cf2f19ef5cb5772390ed3155b1bc41d",
+    "output/ZeeTypeII/EWSB/SPheno/Observables/FlavorKit_Observables_ZeeTypeII.f90": "b179e6fea1fe3afe08e34e6d481380b7d4b669ffb904898ac6ee6f8555aa3784",
+    "output/ZeeTypeII/EWSB/SPheno/Observables/FlavorKit_QFV_ZeeTypeII.f90": "22995377074b4991105fd87a8077e2886d6b1ca8eaff6e5ec72287fa73132a44",
+    "output/ZeeTypeII/EWSB/SPheno/Observables/LowEnergy_ZeeTypeII.f90": "cf3552d25de21a6df0869d1fc013dded8efe26206195a08f84ab6ec251d63727",
+    "output/ZeeTypeII/EWSB/SPheno/OneLoopDecays_ZeeTypeII.f90": "3883d3aff86a763b3688ebe816c1333e487fd6707eb855dee3ee54410e56dc79",
+    "output/ZeeTypeII/EWSB/SPheno/RGEs_ZeeTypeII.f90": "2cc4196bc3534639b99f37d453c5ec04e7ec01deba61af37f9574c1a68713e59",
+    "output/ZeeTypeII/EWSB/SPheno/RunSM_ZeeTypeII.f90": "5692702467b8a2526aa62ca1d76bc94ee86236f5d194668fbcacae2f45f00315",
+    "output/ZeeTypeII/EWSB/SPheno/SM/2LPole_SM_HC.f90": "40092f8e899d273d1e5888ec229df0a05b1bc1ea8fed7bff530f50be0598aaea",
+    "output/ZeeTypeII/EWSB/SPheno/SM/Couplings_SM_HC.f90": "46243106e153d60101b2e2a44cf767a27a61c6407daad4321d9635e3d0c70f69",
+    "output/ZeeTypeII/EWSB/SPheno/SM/LoopMasses_SM_HC.f90": "758ee6f1768d4e262c1fe7d72fe952218e2441e68a325828e3d67625df9ce963",
+    "output/ZeeTypeII/EWSB/SPheno/SM/RGEs_SM_HC.f90": "1bb1870c0442356b2859d2b3b520f6f190f74eea55b91e4471e9e616c2a88447",
+    "output/ZeeTypeII/EWSB/SPheno/SM/TreeLevelMasses_SM_HC.f90": "74ae94c17c541bcfa4a16c7d2645a2de04f84aa7e75f70be494f7e80445644c2",
+    "output/ZeeTypeII/EWSB/SPheno/SPhenoZeeTypeII.f90": "c733b026eb80f66ad60d133a8a9b73e778b3681daa232f2a156cf49ff91e339a",
+    "output/ZeeTypeII/EWSB/SPheno/Settings.f90": "48c4937c54bee6e776bdbcde27823a336c677323d6ad4f7428634d0755d27234",
+    "output/ZeeTypeII/EWSB/SPheno/TadpoleEquations_ZeeTypeII.f90": "5a9097ad60fbe4a2a3338d97f9c75f1cd5bb9c979b460eb8a78a3e35fc4663ba",
+    "output/ZeeTypeII/EWSB/SPheno/TreeLevelMasses_ZeeTypeII.f90": "b6205971fd5f55916cb07dde4a867965028863ab33d715b1906cab013052af88",
+    "output/ZeeTypeII/EWSB/SPheno/TreeLevel_Decays_ZeeTypeII.f90": "575c7a1eb538e28943880f36f10bcea44a34c99c5513381ac9de907469720b9f",
+    "output/ZeeTypeII/EWSB/SPheno/TwoLoopMasses/2LPoleFunctions.f90": "4be1ce8c0dd0e21e971eabd31dae282568f40e5a5c6fe5560d4e49ce8637200c",
+    "output/ZeeTypeII/EWSB/SPheno/TwoLoopMasses/2LPole_ZeeTypeII.f90": "47070852663e985cea60db23bc13c4aeb10eea442f2956a2610a2d6221856349",
+    "output/ZeeTypeII/Vevacious/ScaleAndBlock.xml": "1ff72dd9fdb1c6d1971532abe40a5ea32e9c159a6bea109bd2017d639df470fe",
+    "output/ZeeTypeII/Vevacious/ZeeTypeII.vin": "6c76c03078c22e13ba782508a362eaf738743e03977b3545bd1200f0fe59fb86",
+    "runtime/group0/full.in": "3766b799d689467cf733e92c5a803ed6ad66ea0479bbf7ccf5f8c603fa896576",
+    "runtime/group0/full.log": "99f3956f1fae107e5ae36cb98cfeb16b0ae18ff901b5f4224724653058735d1e",
+    "runtime/group0/full.spc": "b1afed039c5157c47b15e46e9b2408923c00e653393dd6ed896c32044fb3cd0f",
+    "runtime/group0/original.in": "9f482fff50757228a2919ea1565f48d034349cb34efb99746bc9dce2dd6499c5",
+    "runtime/group0/tree.in": "1f011ef238ac255eb1a8ae9c42e608ce26eb3dd2a186e539bbf53ff826f2ad41",
+    "runtime/group0/tree.log": "2209b50d7d6e6ec5812e86bc53c609f65f09a35b25100f7716b5720be93a6ba7",
+    "runtime/group0/tree.spc": "baada16c828fff0bda13aa1f79e6df8f64909c1802b6abb13aa1c8ed156c8687",
+    "runtime/group1/full.in": "436d89d29f68e9c7b1a26b58227b1a6e92fb407f16cce598c17ffd3cb9da8bad",
+    "runtime/group1/full.log": "bae38e19f428714766c439c77380537c570a642e488b8048b553dda8ce84055d",
+    "runtime/group1/full.spc": "a81adb3bd458390ba07fa7b149c0c3041cc1a795f6a51e544a1d713a23c87007",
+    "runtime/group1/original.in": "4242010cfcc484152b4a26174cdb9751f3dc0adadaa8f0df4f9cd3130fc35d49",
+    "runtime/group1/tree.in": "24b0bac78af2c8f35ea1a76039515166152fad4ae198fa8d74018973063dd335",
+    "runtime/group1/tree.log": "2209b50d7d6e6ec5812e86bc53c609f65f09a35b25100f7716b5720be93a6ba7",
+    "runtime/group1/tree.spc": "7ffee619ebabbe9affb6c9653a287efc5c97c47e8bfc06f1dc30784f2f498824",
+    "runtime/group2/full.in": "aaa21d601c1c58f54060a764e018e7de80270480358f768be406fc1ccb1de002",
+    "runtime/group2/full.log": "738a2004964ba3073e81685605679d650762a09eb151051f7ac127166ec5a052",
+    "runtime/group2/full.spc": "7d1c844b54fcd2aa5cf39d25c150bd5851d21c651c4a2ddeffa285eb699b4a58",
+    "runtime/group2/original.in": "bac3c31269e85de2b3d29683c70c826361de655cfe178d3e299e80a8a4fb1eda",
+    "runtime/group2/tree.in": "4a735620b95f4a403e0d0b3113020f933b12b3173403b2581fc6ba44452fcda4",
+    "runtime/group2/tree.log": "2209b50d7d6e6ec5812e86bc53c609f65f09a35b25100f7716b5720be93a6ba7",
+    "runtime/group2/tree.spc": "b65f466e1ede49b65b8af18cddfc3b6f7280a8fe4604db29088633456ac053e5",
+    "runtime/group3/full.in": "d5efc93f376a2221b106066a68e5c5f74c86d3dfcb736035c6031cc48fc3ee3e",
+    "runtime/group3/full.log": "e620172018aab08ed3af8b3ceba700b5d5a11ae46bd984f373b83213c374a929",
+    "runtime/group3/full.spc": "7690c03e6d69741b21679a36c4c29ba3f6d899e32398d99c061a73bdc7619801",
+    "runtime/group3/original.in": "b6682f2d790ea945daa89383ad57347e9f8884bf7e34f2f483391c750b578ba6",
+    "runtime/group3/tree.in": "788ae8cb1bc1c00d15f550808975af007d6b248e5f9c966574dbc9834360c3ab",
+    "runtime/group3/tree.log": "2209b50d7d6e6ec5812e86bc53c609f65f09a35b25100f7716b5720be93a6ba7",
+    "runtime/group3/tree.spc": "375c19b9bffcf66dad1de40554a3384726f237bb7e21e9aea8209a4c369eef7f",
+    "validation/module12/d12_benchmarks.json": "f31ef3ccb64c3e4ff53131d35d52c21536b951a01e2c3924af766b7b2adf1cd8"
+  },
+  "forward_kernel_sha256": "c0f43ad019929afc80951b0813a9bf4a35a9c3059ae9d0ff220aa7046c45b5a6",
+  "limitations": [
+    "Printed positive BRs are thresholded; unprinted signed channel sum is unavailable.",
+    "Wave/vertex/counterterm/real and complex amplitude values were not saved.",
+    "Native D substitution is a scheme diagnostic, not a reconstructed native self-energy."
+  ],
+  "model_fixes": 0,
+  "native_reruns": 0,
+  "points": [
+    {
+      "decays": [
+        {
+          "channels": [
+            {
+              "br": 0.999613035,
+              "external_masses_GeV": [
+                0.0025,
+                0.0
+              ],
+              "pdgs": [
+                2,
+                21
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.99999612499225,
+              "width_GeV": 6.991168925040665e-10
+            },
+            {
+              "br": 0.00038696501,
+              "external_masses_GeV": [
+                0.0025,
+                0.0
+              ],
+              "pdgs": [
+                2,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.99999612499225,
+              "width_GeV": 2.706385029272903e-13
+            }
+          ],
+          "mass_GeV": 1.27,
+          "pdg": 4,
+          "printed_br_sum": 1.00000000001,
+          "total_GeV": 6.99387531e-10,
+          "unprinted_signed_remainder_GeV": -6.993875888675838e-21
+        },
+        {
+          "channels": [
+            {
+              "br": 0.999999995,
+              "external_masses_GeV": [
+                4.18,
+                80.3002956
+              ],
+              "pdgs": [
+                5,
+                24
+              ],
+              "tree_at_full_spectrum_GeV": 1.5321544208070734,
+              "two_body_sqrt_lambda_over_parent_squared": 0.7833715416904716,
+              "width_GeV": 70782.78684608608
+            }
+          ],
+          "mass_GeV": 172.89,
+          "pdg": 6,
+          "printed_br_sum": 0.999999995,
+          "total_GeV": 70782.7872,
+          "unprinted_signed_remainder_GeV": 0.00035391393384909834
+        },
+        {
+          "channels": [
+            {
+              "br": 1.0,
+              "external_masses_GeV": [
+                0.00051099893,
+                0.0
+              ],
+              "pdgs": [
+                11,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9999766098960422,
+              "width_GeV": 1.50518958e-21
+            }
+          ],
+          "mass_GeV": 0.105658372,
+          "pdg": 13,
+          "printed_br_sum": 1.0,
+          "total_GeV": 1.50518958e-21,
+          "unprinted_signed_remainder_GeV": 0.0
+        },
+        {
+          "channels": [
+            {
+              "br": 0.813517849,
+              "external_masses_GeV": [
+                0.00051099893,
+                0.0
+              ],
+              "pdgs": [
+                11,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9999999172946584,
+              "width_GeV": 3.933817038248985e-21
+            },
+            {
+              "br": 0.186482151,
+              "external_masses_GeV": [
+                0.105658372,
+                0.0
+              ],
+              "pdgs": [
+                13,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9964640883265794,
+              "width_GeV": 9.017462417510153e-22
+            }
+          ],
+          "mass_GeV": 1.77686,
+          "pdg": 15,
+          "printed_br_sum": 1.0,
+          "total_GeV": 4.83556328e-21,
+          "unprinted_signed_remainder_GeV": 0.0
+        },
+        {
+          "channels": [
+            {
+              "br": 0.904035009,
+              "external_masses_GeV": [
+                0.005,
+                0.0
+              ],
+              "pdgs": [
+                1,
+                21
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.997229916897507,
+              "width_GeV": 2.716709647955191e-19
+            },
+            {
+              "br": 0.0959649906,
+              "external_masses_GeV": [
+                0.005,
+                0.0
+              ],
+              "pdgs": [
+                1,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.997229916897507,
+              "width_GeV": 2.8838376084277193e-20
+            }
+          ],
+          "mass_GeV": 0.095,
+          "pdg": 3,
+          "printed_br_sum": 0.9999999996,
+          "total_GeV": 3.00509341e-19,
+          "unprinted_signed_remainder_GeV": 1.2020374634570174e-28
+        },
+        {
+          "channels": [
+            {
+              "br": 0.0531890161,
+              "external_masses_GeV": [
+                0.005,
+                0.0
+              ],
+              "pdgs": [
+                1,
+                21
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9999985691719512,
+              "width_GeV": 1.3960569138637553e-14
+            },
+            {
+              "br": 0.945713179,
+              "external_masses_GeV": [
+                0.095,
+                0.0
+              ],
+              "pdgs": [
+                3,
+                21
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9994834710743802,
+              "width_GeV": 2.4822219301684376e-13
+            },
+            {
+              "br": 0.00107679514,
+              "external_masses_GeV": [
+                0.095,
+                0.0
+              ],
+              "pdgs": [
+                3,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9994834710743802,
+              "width_GeV": 2.8262739381860654e-16
+            }
+          ],
+          "mass_GeV": 4.18,
+          "pdg": 5,
+          "printed_br_sum": 0.99997899024,
+          "total_GeV": 2.62470904e-13,
+          "unprinted_signed_remainder_GeV": 5.514450700014673e-18
+        },
+        {
+          "channels": [
+            {
+              "br": 0.999992328,
+              "external_masses_GeV": [
+                80.3002956,
+                80.3002956
+              ],
+              "pdgs": [
+                -24,
+                24
+              ],
+              "tree_at_full_spectrum_GeV": 6.501314170044849,
+              "two_body_sqrt_lambda_over_parent_squared": 0.846808873956229,
+              "width_GeV": 1127708.0881571707
+            }
+          ],
+          "mass_GeV": 301.939102,
+          "pdg": 25,
+          "printed_br_sum": 0.999992328,
+          "total_GeV": 1127716.74,
+          "unprinted_signed_remainder_GeV": 8.651842829233313
+        },
+        {
+          "channels": [
+            {
+              "br": 0.000202565223,
+              "external_masses_GeV": [
+                172.89,
+                172.89
+              ],
+              "pdgs": [
+                -6,
+                6
+              ],
+              "tree_at_full_spectrum_GeV": 11.799283112390137,
+              "two_body_sqrt_lambda_over_parent_squared": 0.6978857996384669,
+              "width_GeV": 9.322767164623293
+            },
+            {
+              "br": 0.432856492,
+              "external_masses_GeV": [
+                309.502482,
+                80.3002956
+              ],
+              "pdgs": [
+                37,
+                24
+              ],
+              "tree_at_full_spectrum_GeV": 0.42740873347771596,
+              "two_body_sqrt_lambda_over_parent_squared": 0.519285986334085,
+              "width_GeV": 19921.584913969287
+            },
+            {
+              "br": 0.432856492,
+              "external_masses_GeV": [
+                309.502482,
+                80.3002956
+              ],
+              "pdgs": [
+                -37,
+                -24
+              ],
+              "tree_at_full_spectrum_GeV": 0.42740873347771596,
+              "two_body_sqrt_lambda_over_parent_squared": 0.519285986334085,
+              "width_GeV": 19921.584913969287
+            },
+            {
+              "br": 0.134082479,
+              "external_masses_GeV": [
+                80.3002956,
+                80.3002956
+              ],
+              "pdgs": [
+                -24,
+                24
+              ],
+              "tree_at_full_spectrum_GeV": 0.05552277312987617,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9430504796042806,
+              "width_GeV": 6170.949356753564
+            }
+          ],
+          "mass_GeV": 482.791997,
+          "pdg": 35,
+          "printed_br_sum": 0.999998028223,
+          "total_GeV": 46023.5327,
+          "unprinted_signed_remainder_GeV": 0.09074814323704003
+        },
+        {
+          "channels": [
+            {
+              "br": 0.000411332414,
+              "external_masses_GeV": [
+                172.89,
+                172.89
+              ],
+              "pdgs": [
+                -6,
+                6
+              ],
+              "tree_at_full_spectrum_GeV": 20.59492620073682,
+              "two_body_sqrt_lambda_over_parent_squared": 0.6980565015677666,
+              "width_GeV": 16.473662409348726
+            },
+            {
+              "br": 0.499793933,
+              "external_masses_GeV": [
+                309.502482,
+                80.3002956
+              ],
+              "pdgs": [
+                37,
+                24
+              ],
+              "tree_at_full_spectrum_GeV": 0.4290442387903161,
+              "two_body_sqrt_lambda_over_parent_squared": 0.519546909524268,
+              "width_GeV": 20016.503067231304
+            },
+            {
+              "br": 0.499793933,
+              "external_masses_GeV": [
+                309.502482,
+                80.3002956
+              ],
+              "pdgs": [
+                -37,
+                -24
+              ],
+              "tree_at_full_spectrum_GeV": 0.4290442387903161,
+              "two_body_sqrt_lambda_over_parent_squared": 0.519546909524268,
+              "width_GeV": 20016.503067231304
+            }
+          ],
+          "mass_GeV": 482.904175,
+          "pdg": 36,
+          "printed_br_sum": 0.999999198414,
+          "total_GeV": 40049.5119,
+          "unprinted_signed_remainder_GeV": 0.0321031280467146
+        },
+        {
+          "channels": [
+            {
+              "br": 0.390860447,
+              "external_masses_GeV": [
+                172.89,
+                4.18
+              ],
+              "pdgs": [
+                -6,
+                5
+              ],
+              "tree_at_full_spectrum_GeV": 0.4818040342758845,
+              "two_body_sqrt_lambda_over_parent_squared": 0.6876112052502853,
+              "width_GeV": 0.5669357067454696
+            },
+            {
+              "br": 0.60910737,
+              "external_masses_GeV": [
+                80.3002956,
+                91.1876
+              ],
+              "pdgs": [
+                -24,
+                23
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.8319508816239392,
+              "width_GeV": 0.8834987524200019
+            }
+          ],
+          "mass_GeV": 309.502482,
+          "pdg": 37,
+          "printed_br_sum": 0.999967817,
+          "total_GeV": 1.45048114,
+          "unprinted_signed_remainder_GeV": 4.6680834528566965e-05
+        },
+        {
+          "channels": [
+            {
+              "br": 0.0180445775,
+              "external_masses_GeV": [
+                172.89,
+                4.18
+              ],
+              "pdgs": [
+                -6,
+                5
+              ],
+              "tree_at_full_spectrum_GeV": 16.207711254377134,
+              "two_body_sqrt_lambda_over_parent_squared": 0.8925969082784541,
+              "width_GeV": 16.311561642747648
+            },
+            {
+              "br": 0.980332874,
+              "external_masses_GeV": [
+                301.939102,
+                80.3002956
+              ],
+              "pdgs": [
+                25,
+                -24
+              ],
+              "tree_at_full_spectrum_GeV": 0.01802755436243509,
+              "two_body_sqrt_lambda_over_parent_squared": 0.625734171844449,
+              "width_GeV": 886.1809097310793
+            },
+            {
+              "br": 0.00120693353,
+              "external_masses_GeV": [
+                309.502482,
+                91.1876
+              ],
+              "pdgs": [
+                37,
+                23
+              ],
+              "tree_at_full_spectrum_GeV": 0.748170976288049,
+              "two_body_sqrt_lambda_over_parent_squared": 0.5924929222141248,
+              "width_GeV": 1.091018654955707
+            },
+            {
+              "br": 0.000411027821,
+              "external_masses_GeV": [
+                80.3002956,
+                91.1876
+              ],
+              "pdgs": [
+                -24,
+                23
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9455304250261747,
+              "width_GeV": 0.37155237572759714
+            }
+          ],
+          "mass_GeV": 527.738624,
+          "pdg": 9000037,
+          "printed_br_sum": 0.999995412851,
+          "total_GeV": 903.959189,
+          "unprinted_signed_remainder_GeV": 0.0041465954898435055
+        }
+      ],
+      "full_neutrino_masses_eV": [
+        0.0051466807499999994,
+        0.839486948,
+        0.869810382
+      ],
+      "full_scalar_masses_GeV": [
+        301.939102,
+        482.791997
+      ],
+      "full_vev_GeV": 242.813563,
+      "group": 0,
+      "hWW_coupling_from_saved_full_parameters_GeV": {
+        "imag": 0.0,
+        "real": -53.06921054763188,
+        "scope": "Polynomial tree coupling at printed full parameters; not saved loop amplitude"
+      },
+      "id": "d7_NO_neutral_near_heavy_07/NO/scale_0.001",
+      "native_D_forward_to_full_relative_differences": [
+        0.01524457333772089,
+        0.015239826780598653,
+        0.015239939730549823
+      ],
+      "native_D_in_original_forward_masses_eV": [
+        0.005225139702139211,
+        0.8522805836720935,
+        0.8830662397986865
+      ],
+      "native_D_minus_original_max_abs": 0.00024024780943604328,
+      "native_running_mass_combination_GeV": [
+        0.0004932986321935203,
+        0.10199850987279638,
+        1.7153088977610211
+      ],
+      "original_target_masses_eV": [
+        0.010000000000000007,
+        0.013240090634130867,
+        0.05109011646101426
+      ],
+      "printed_branching_fraction_threshold": 0.0001,
+      "scale_GeV": 160.0,
+      "tree_neutrino_rotation_max_abs": 0.0,
+      "tree_scalar_masses_GeV": [
+        125.0,
+        492.430783
+      ],
+      "tree_to_full_scalar_overlap_squared": [
+        [
+          0.9999349531039824,
+          6.504635559132001e-05
+        ],
+        [
+          6.504635559131877e-05,
+          0.9999349531039824
+        ]
+      ],
+      "tree_vev_GeV": 246.21965
+    },
+    {
+      "decays": [
+        {
+          "channels": [
+            {
+              "br": 0.999613035,
+              "external_masses_GeV": [
+                0.0025,
+                0.0
+              ],
+              "pdgs": [
+                2,
+                21
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.99999612499225,
+              "width_GeV": 6.991168915044535e-10
+            },
+            {
+              "br": 0.00038696501,
+              "external_masses_GeV": [
+                0.0025,
+                0.0
+              ],
+              "pdgs": [
+                2,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.99999612499225,
+              "width_GeV": 2.7063850254032527e-13
+            }
+          ],
+          "mass_GeV": 1.27,
+          "pdg": 4,
+          "printed_br_sum": 1.00000000001,
+          "total_GeV": 6.9938753e-10,
+          "unprinted_signed_remainder_GeV": -6.993875878675837e-21
+        },
+        {
+          "channels": [
+            {
+              "br": 0.999999995,
+              "external_masses_GeV": [
+                4.18,
+                80.3002956
+              ],
+              "pdgs": [
+                5,
+                24
+              ],
+              "tree_at_full_spectrum_GeV": 1.5321544208070734,
+              "two_body_sqrt_lambda_over_parent_squared": 0.7833715416904716,
+              "width_GeV": 70782.78704608607
+            }
+          ],
+          "mass_GeV": 172.89,
+          "pdg": 6,
+          "printed_br_sum": 0.999999995,
+          "total_GeV": 70782.7874,
+          "unprinted_signed_remainder_GeV": 0.00035391393484909833
+        },
+        {
+          "channels": [
+            {
+              "br": 1.0,
+              "external_masses_GeV": [
+                0.00051099893,
+                0.0
+              ],
+              "pdgs": [
+                11,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9999766098960422,
+              "width_GeV": 4.46089941e-21
+            }
+          ],
+          "mass_GeV": 0.105658372,
+          "pdg": 13,
+          "printed_br_sum": 1.0,
+          "total_GeV": 4.46089941e-21,
+          "unprinted_signed_remainder_GeV": 0.0
+        },
+        {
+          "channels": [
+            {
+              "br": 0.49327315,
+              "external_masses_GeV": [
+                0.00051099893,
+                0.0
+              ],
+              "pdgs": [
+                11,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9999999172946584,
+              "width_GeV": 3.7110270714695735e-21
+            },
+            {
+              "br": 0.50672685,
+              "external_masses_GeV": [
+                0.105658372,
+                0.0
+              ],
+              "pdgs": [
+                13,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9964640883265794,
+              "width_GeV": 3.8122428885304255e-21
+            }
+          ],
+          "mass_GeV": 1.77686,
+          "pdg": 15,
+          "printed_br_sum": 1.0,
+          "total_GeV": 7.52326996e-21,
+          "unprinted_signed_remainder_GeV": 0.0
+        },
+        {
+          "channels": [
+            {
+              "br": 0.904035007,
+              "external_masses_GeV": [
+                0.005,
+                0.0
+              ],
+              "pdgs": [
+                1,
+                21
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.997229916897507,
+              "width_GeV": 2.716709542501153e-19
+            },
+            {
+              "br": 0.0959649931,
+              "external_masses_GeV": [
+                0.005,
+                0.0
+              ],
+              "pdgs": [
+                1,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.997229916897507,
+              "width_GeV": 2.883837577993562e-20
+            }
+          ],
+          "mass_GeV": 0.095,
+          "pdg": 3,
+          "printed_br_sum": 1.0000000001,
+          "total_GeV": 3.0050933e-19,
+          "unprinted_signed_remainder_GeV": -3.0050935486425344e-29
+        },
+        {
+          "channels": [
+            {
+              "br": 0.0531890161,
+              "external_masses_GeV": [
+                0.005,
+                0.0
+              ],
+              "pdgs": [
+                1,
+                21
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9999985691719512,
+              "width_GeV": 1.3960569138637553e-14
+            },
+            {
+              "br": 0.945713179,
+              "external_masses_GeV": [
+                0.095,
+                0.0
+              ],
+              "pdgs": [
+                3,
+                21
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9994834710743802,
+              "width_GeV": 2.4822219301684376e-13
+            },
+            {
+              "br": 0.00107679514,
+              "external_masses_GeV": [
+                0.095,
+                0.0
+              ],
+              "pdgs": [
+                3,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9994834710743802,
+              "width_GeV": 2.8262739381860654e-16
+            }
+          ],
+          "mass_GeV": 4.18,
+          "pdg": 5,
+          "printed_br_sum": 0.99997899024,
+          "total_GeV": 2.62470904e-13,
+          "unprinted_signed_remainder_GeV": 5.514450700014673e-18
+        },
+        {
+          "channels": [
+            {
+              "br": 0.999992328,
+              "external_masses_GeV": [
+                80.3002956,
+                80.3002956
+              ],
+              "pdgs": [
+                -24,
+                24
+              ],
+              "tree_at_full_spectrum_GeV": 6.501314174475125,
+              "two_body_sqrt_lambda_over_parent_squared": 0.846808873956229,
+              "width_GeV": 1127709.698144819
+            }
+          ],
+          "mass_GeV": 301.939102,
+          "pdg": 25,
+          "printed_br_sum": 0.999992328,
+          "total_GeV": 1127718.35,
+          "unprinted_signed_remainder_GeV": 8.651855181153314
+        },
+        {
+          "channels": [
+            {
+              "br": 0.000202565121,
+              "external_masses_GeV": [
+                172.89,
+                172.89
+              ],
+              "pdgs": [
+                -6,
+                6
+              ],
+              "tree_at_full_spectrum_GeV": 11.799283048498,
+              "two_body_sqrt_lambda_over_parent_squared": 0.6978857996384669,
+              "width_GeV": 9.322767129220738
+            },
+            {
+              "br": 0.43285628,
+              "external_masses_GeV": [
+                309.502482,
+                80.3002956
+              ],
+              "pdgs": [
+                37,
+                24
+              ],
+              "tree_at_full_spectrum_GeV": 0.4274087360334015,
+              "two_body_sqrt_lambda_over_parent_squared": 0.519285986334085,
+              "width_GeV": 19921.585112674795
+            },
+            {
+              "br": 0.43285628,
+              "external_masses_GeV": [
+                309.502482,
+                80.3002956
+              ],
+              "pdgs": [
+                -37,
+                -24
+              ],
+              "tree_at_full_spectrum_GeV": 0.4274087360334015,
+              "two_body_sqrt_lambda_over_parent_squared": 0.519285986334085,
+              "width_GeV": 19921.585112674795
+            },
+            {
+              "br": 0.134082904,
+              "external_masses_GeV": [
+                80.3002956,
+                80.3002956
+              ],
+              "pdgs": [
+                -24,
+                24
+              ],
+              "tree_at_full_spectrum_GeV": 0.05552277312987617,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9430504796042806,
+              "width_GeV": 6170.972000661753
+            }
+          ],
+          "mass_GeV": 482.791997,
+          "pdg": 35,
+          "printed_br_sum": 0.999998029121,
+          "total_GeV": 46023.5557,
+          "unprinted_signed_remainder_GeV": 0.09070685943453861
+        },
+        {
+          "channels": [
+            {
+              "br": 0.000411332398,
+              "external_masses_GeV": [
+                172.89,
+                172.89
+              ],
+              "pdgs": [
+                -6,
+                6
+              ],
+              "tree_at_full_spectrum_GeV": 20.59492621023146,
+              "two_body_sqrt_lambda_over_parent_squared": 0.6980565015677666,
+              "width_GeV": 16.473662385555137
+            },
+            {
+              "br": 0.499793933,
+              "external_masses_GeV": [
+                309.502482,
+                80.3002956
+              ],
+              "pdgs": [
+                37,
+                24
+              ],
+              "tree_at_full_spectrum_GeV": 0.4290442429361274,
+              "two_body_sqrt_lambda_over_parent_squared": 0.519546909524268,
+              "width_GeV": 20016.503816922206
+            },
+            {
+              "br": 0.499793933,
+              "external_masses_GeV": [
+                309.502482,
+                80.3002956
+              ],
+              "pdgs": [
+                -37,
+                -24
+              ],
+              "tree_at_full_spectrum_GeV": 0.4290442429361274,
+              "two_body_sqrt_lambda_over_parent_squared": 0.519546909524268,
+              "width_GeV": 20016.503816922206
+            }
+          ],
+          "mass_GeV": 482.904175,
+          "pdg": 36,
+          "printed_br_sum": 0.9999991983980001,
+          "total_GeV": 40049.5134,
+          "unprinted_signed_remainder_GeV": 0.03210377003602535
+        },
+        {
+          "channels": [
+            {
+              "br": 0.390860581,
+              "external_masses_GeV": [
+                172.89,
+                4.18
+              ],
+              "pdgs": [
+                -6,
+                5
+              ],
+              "tree_at_full_spectrum_GeV": 0.4818040318791384,
+              "two_body_sqrt_lambda_over_parent_squared": 0.6876112052502853,
+              "width_GeV": 0.566935701771046
+            },
+            {
+              "br": 0.609107574,
+              "external_masses_GeV": [
+                80.3002956,
+                91.1876
+              ],
+              "pdgs": [
+                -24,
+                23
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.8319508816239392,
+              "width_GeV": 0.8834987376732917
+            }
+          ],
+          "mass_GeV": 309.502482,
+          "pdg": 37,
+          "printed_br_sum": 0.999968155,
+          "total_GeV": 1.45048063,
+          "unprinted_signed_remainder_GeV": 4.619055566231346e-05
+        },
+        {
+          "channels": [
+            {
+              "br": 0.0180445773,
+              "external_masses_GeV": [
+                172.89,
+                4.18
+              ],
+              "pdgs": [
+                -6,
+                5
+              ],
+              "tree_at_full_spectrum_GeV": 16.207711265018183,
+              "two_body_sqrt_lambda_over_parent_squared": 0.8925969082784541,
+              "width_GeV": 16.311561642401582
+            },
+            {
+              "br": 0.980332874,
+              "external_masses_GeV": [
+                301.939102,
+                80.3002956
+              ],
+              "pdgs": [
+                25,
+                -24
+              ],
+              "tree_at_full_spectrum_GeV": 0.018027554469566737,
+              "two_body_sqrt_lambda_over_parent_squared": 0.625734171844449,
+              "width_GeV": 886.180919534408
+            },
+            {
+              "br": 0.00120693353,
+              "external_masses_GeV": [
+                309.502482,
+                91.1876
+              ],
+              "pdgs": [
+                37,
+                23
+              ],
+              "tree_at_full_spectrum_GeV": 0.7481709820085403,
+              "two_body_sqrt_lambda_over_parent_squared": 0.5924929222141248,
+              "width_GeV": 1.0910186670250424
+            },
+            {
+              "br": 0.000411027863,
+              "external_masses_GeV": [
+                80.3002956,
+                91.1876
+              ],
+              "pdgs": [
+                -24,
+                23
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9455304250261747,
+              "width_GeV": 0.3715524178041617
+            }
+          ],
+          "mass_GeV": 527.738624,
+          "pdg": 9000037,
+          "printed_br_sum": 0.999995412693,
+          "total_GeV": 903.959199,
+          "unprinted_signed_remainder_GeV": 0.004146738361320399
+        }
+      ],
+      "full_neutrino_masses_eV": [
+        0.009137833809999999,
+        0.974030854,
+        1.02448283
+      ],
+      "full_scalar_masses_GeV": [
+        301.939102,
+        482.791997
+      ],
+      "full_vev_GeV": 242.813563,
+      "group": 1,
+      "hWW_coupling_from_saved_full_parameters_GeV": {
+        "imag": 0.0,
+        "real": -53.06921054763188,
+        "scope": "Polynomial tree coupling at printed full parameters; not saved loop amplitude"
+      },
+      "id": "d7_NO_neutral_near_heavy_07/IO/scale_0.001",
+      "native_D_forward_to_full_relative_differences": [
+        0.015244589961120658,
+        0.015239818733198573,
+        0.015239946465866572
+      ],
+      "native_D_in_original_forward_masses_eV": [
+        0.009277136339566314,
+        0.9888749076555026,
+        1.0400958934843993
+      ],
+      "native_D_minus_original_max_abs": 0.00024024781667302233,
+      "native_running_mass_combination_GeV": [
+        0.0004932986322143393,
+        0.10199850996780997,
+        1.7153088970585322
+      ],
+      "original_target_masses_eV": [
+        0.009999999999999978,
+        0.05009490992106886,
+        0.05084092839435565
+      ],
+      "printed_branching_fraction_threshold": 0.0001,
+      "scale_GeV": 160.0,
+      "tree_neutrino_rotation_max_abs": 0.0,
+      "tree_scalar_masses_GeV": [
+        125.0,
+        492.430783
+      ],
+      "tree_to_full_scalar_overlap_squared": [
+        [
+          0.9999349531039824,
+          6.504635559132001e-05
+        ],
+        [
+          6.504635559131877e-05,
+          0.9999349531039824
+        ]
+      ],
+      "tree_vev_GeV": 246.21965
+    },
+    {
+      "decays": [
+        {
+          "channels": [
+            {
+              "br": 0.999613041,
+              "external_masses_GeV": [
+                0.0025,
+                0.0
+              ],
+              "pdgs": [
+                2,
+                21
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.99999612499225,
+              "width_GeV": 6.972362437177022e-10
+            },
+            {
+              "br": 0.000386959012,
+              "external_masses_GeV": [
+                0.0025,
+                0.0
+              ],
+              "pdgs": [
+                2,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.99999612499225,
+              "width_GeV": 2.699062906679238e-13
+            }
+          ],
+          "mass_GeV": 1.27,
+          "pdg": 4,
+          "printed_br_sum": 1.000000000012,
+          "total_GeV": 6.9750615e-10,
+          "unprinted_signed_remainder_GeV": -8.37004351704751e-21
+        },
+        {
+          "channels": [
+            {
+              "br": 0.999999995,
+              "external_masses_GeV": [
+                4.18,
+                80.2963664
+              ],
+              "pdgs": [
+                5,
+                24
+              ],
+              "tree_at_full_spectrum_GeV": 1.5318240608090556,
+              "two_body_sqrt_lambda_over_parent_squared": 0.7833926924837653,
+              "width_GeV": 25382.180973089096
+            }
+          ],
+          "mass_GeV": 172.89,
+          "pdg": 6,
+          "printed_br_sum": 0.999999995,
+          "total_GeV": 25382.1811,
+          "unprinted_signed_remainder_GeV": 0.00012691090472870267
+        },
+        {
+          "channels": [
+            {
+              "br": 1.0,
+              "external_masses_GeV": [
+                0.00051099893,
+                0.0
+              ],
+              "pdgs": [
+                11,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9999766098960422,
+              "width_GeV": 1.04544788e-20
+            }
+          ],
+          "mass_GeV": 0.105658372,
+          "pdg": 13,
+          "printed_br_sum": 1.0,
+          "total_GeV": 1.04544788e-20,
+          "unprinted_signed_remainder_GeV": 0.0
+        },
+        {
+          "channels": [
+            {
+              "br": 0.818334289,
+              "external_masses_GeV": [
+                0.00051099893,
+                0.0
+              ],
+              "pdgs": [
+                11,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9999999172946584,
+              "width_GeV": 2.6552710106603592e-20
+            },
+            {
+              "br": 0.181665711,
+              "external_masses_GeV": [
+                0.105658372,
+                0.0
+              ],
+              "pdgs": [
+                13,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9964640883265794,
+              "width_GeV": 5.894555593396413e-21
+            }
+          ],
+          "mass_GeV": 1.77686,
+          "pdg": 15,
+          "printed_br_sum": 1.0,
+          "total_GeV": 3.24472657e-20,
+          "unprinted_signed_remainder_GeV": 0.0
+        },
+        {
+          "channels": [
+            {
+              "br": 0.904308959,
+              "external_masses_GeV": [
+                0.005,
+                0.0
+              ],
+              "pdgs": [
+                1,
+                21
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.997229916897507,
+              "width_GeV": 2.718982997926065e-19
+            },
+            {
+              "br": 0.0956910409,
+              "external_masses_GeV": [
+                0.005,
+                0.0
+              ],
+              "pdgs": [
+                1,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.997229916897507,
+              "width_GeV": 2.877139617732657e-20
+            }
+          ],
+          "mass_GeV": 0.095,
+          "pdg": 3,
+          "printed_br_sum": 0.9999999999,
+          "total_GeV": 3.00669696e-19,
+          "unprinted_signed_remainder_GeV": 3.006697208775222e-29
+        },
+        {
+          "channels": [
+            {
+              "br": 0.137302376,
+              "external_masses_GeV": [
+                0.005,
+                0.0
+              ],
+              "pdgs": [
+                1,
+                21
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9999985691719512,
+              "width_GeV": 1.7515143593012583e-14
+            },
+            {
+              "br": 0.862692011,
+              "external_masses_GeV": [
+                0.095,
+                0.0
+              ],
+              "pdgs": [
+                3,
+                21
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9994834710743802,
+              "width_GeV": 1.100503493778563e-13
+            }
+          ],
+          "mass_GeV": 4.18,
+          "pdg": 5,
+          "printed_br_sum": 0.9999943870000001,
+          "total_GeV": 1.27566209e-13,
+          "unprinted_signed_remainder_GeV": 7.160291311048032e-19
+        },
+        {
+          "channels": [
+            {
+              "br": 0.99998067,
+              "external_masses_GeV": [
+                80.2963664,
+                80.2963664
+              ],
+              "pdgs": [
+                -24,
+                24
+              ],
+              "tree_at_full_spectrum_GeV": 12.17072185794941,
+              "two_body_sqrt_lambda_over_parent_squared": 0.8937151046825724,
+              "width_GeV": 754279.4134970959
+            }
+          ],
+          "mass_GeV": 357.958593,
+          "pdg": 25,
+          "printed_br_sum": 0.99998067,
+          "total_GeV": 754293.994,
+          "unprinted_signed_remainder_GeV": 14.580502904007993
+        },
+        {
+          "channels": [
+            {
+              "br": 0.999976222,
+              "external_masses_GeV": [
+                80.2963664,
+                80.2963664
+              ],
+              "pdgs": [
+                -24,
+                24
+              ],
+              "tree_at_full_spectrum_GeV": 0.6667277290507218,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9686881786766305,
+              "width_GeV": 39852.840656621804
+            }
+          ],
+          "mass_GeV": 646.819727,
+          "pdg": 35,
+          "printed_br_sum": 0.999976222,
+          "total_GeV": 39853.7883,
+          "unprinted_signed_remainder_GeV": 0.9476433781963766
+        },
+        {
+          "channels": [
+            {
+              "br": 0.499981126,
+              "external_masses_GeV": [
+                582.941777,
+                80.2963664
+              ],
+              "pdgs": [
+                37,
+                24
+              ],
+              "tree_at_full_spectrum_GeV": 1.8247695937572108,
+              "two_body_sqrt_lambda_over_parent_squared": 0.3443332287337813,
+              "width_GeV": 29563.285052989166
+            },
+            {
+              "br": 0.499981126,
+              "external_masses_GeV": [
+                582.941777,
+                80.2963664
+              ],
+              "pdgs": [
+                -37,
+                -24
+              ],
+              "tree_at_full_spectrum_GeV": 1.8247695937572108,
+              "two_body_sqrt_lambda_over_parent_squared": 0.3443332287337813,
+              "width_GeV": 29563.285052989166
+            }
+          ],
+          "mass_GeV": 748.930495,
+          "pdg": 36,
+          "printed_br_sum": 0.999962252,
+          "total_GeV": 59128.8021,
+          "unprinted_signed_remainder_GeV": 2.231994021671043
+        },
+        {
+          "channels": [
+            {
+              "br": 0.000660392947,
+              "external_masses_GeV": [
+                172.89,
+                4.18
+              ],
+              "pdgs": [
+                -6,
+                5
+              ],
+              "tree_at_full_spectrum_GeV": 0.3371919465389574,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9119778213392136,
+              "width_GeV": 0.3281417156580241
+            },
+            {
+              "br": 0.999331596,
+              "external_masses_GeV": [
+                357.958593,
+                80.2963664
+              ],
+              "pdgs": [
+                25,
+                -24
+              ],
+              "tree_at_full_spectrum_GeV": 0.02959323494647873,
+              "two_body_sqrt_lambda_over_parent_squared": 0.5797881944225768,
+              "width_GeV": 496.55646068356845
+            }
+          ],
+          "mass_GeV": 582.941777,
+          "pdg": 37,
+          "printed_br_sum": 0.999991988947,
+          "total_GeV": 496.888583,
+          "unprinted_signed_remainder_GeV": 0.003980600773491869
+        },
+        {
+          "channels": [
+            {
+              "br": 0.0931102262,
+              "external_masses_GeV": [
+                748.930495,
+                80.2963664
+              ],
+              "pdgs": [
+                36,
+                -24
+              ],
+              "tree_at_full_spectrum_GeV": 1.2483893265786203,
+              "two_body_sqrt_lambda_over_parent_squared": 0.20028061896205537,
+              "width_GeV": 20800.273879202257
+            },
+            {
+              "br": 0.0510296292,
+              "external_masses_GeV": [
+                357.958593,
+                80.2963664
+              ],
+              "pdgs": [
+                25,
+                -24
+              ],
+              "tree_at_full_spectrum_GeV": 0.6338072910494899,
+              "two_body_sqrt_lambda_over_parent_squared": 0.8198209517470123,
+              "width_GeV": 11399.717374052912
+            },
+            {
+              "br": 0.855801968,
+              "external_masses_GeV": [
+                646.819727,
+                80.2963664
+              ],
+              "pdgs": [
+                35,
+                -24
+              ],
+              "tree_at_full_spectrum_GeV": 11.478995438490132,
+              "two_body_sqrt_lambda_over_parent_squared": 0.4206289061711506,
+              "width_GeV": 191181.09843836125
+            }
+          ],
+          "mass_GeV": 872.691439,
+          "pdg": 9000037,
+          "printed_br_sum": 0.9999418233999999,
+          "total_GeV": 223394.086,
+          "unprinted_signed_remainder_GeV": 12.996308383603354
+        }
+      ],
+      "full_neutrino_masses_eV": [
+        0.00232605332,
+        4.6534977,
+        4.68327114
+      ],
+      "full_scalar_masses_GeV": [
+        357.958593,
+        646.819727
+      ],
+      "full_vev_GeV": 242.842709,
+      "group": 2,
+      "hWW_coupling_from_saved_full_parameters_GeV": {
+        "imag": 0.0,
+        "real": -52.90339260278661,
+        "scope": "Polynomial tree coupling at printed full parameters; not saved loop amplitude"
+      },
+      "id": "F13_heavy_0001330/NO/scale_0.001",
+      "native_D_forward_to_full_relative_differences": [
+        0.011994254633777457,
+        0.011994028338093488,
+        0.011994028274949997
+      ],
+      "native_D_in_original_forward_masses_eV": [
+        0.0023539525958118234,
+        4.709311883285053,
+        4.739442426472418
+      ],
+      "native_D_minus_original_max_abs": 0.0010831785135104054,
+      "native_running_mass_combination_GeV": [
+        0.0004939135895781743,
+        0.10212566350204969,
+        1.7174472339255769
+      ],
+      "original_target_masses_eV": [
+        0.009999999999999972,
+        0.013240090634130869,
+        0.05109011646101426
+      ],
+      "printed_branching_fraction_threshold": 0.0001,
+      "scale_GeV": 160.0,
+      "tree_neutrino_rotation_max_abs": 0.0,
+      "tree_scalar_masses_GeV": [
+        125.0,
+        707.081938
+      ],
+      "tree_to_full_scalar_overlap_squared": [
+        [
+          0.9930134254728159,
+          0.006986574568613655
+        ],
+        [
+          0.006986574568613658,
+          0.9930134254728157
+        ]
+      ],
+      "tree_vev_GeV": 246.21965
+    },
+    {
+      "decays": [
+        {
+          "channels": [
+            {
+              "br": 0.999613041,
+              "external_masses_GeV": [
+                0.0025,
+                0.0
+              ],
+              "pdgs": [
+                2,
+                21
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.99999612499225,
+              "width_GeV": 6.972362437177022e-10
+            },
+            {
+              "br": 0.000386959012,
+              "external_masses_GeV": [
+                0.0025,
+                0.0
+              ],
+              "pdgs": [
+                2,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.99999612499225,
+              "width_GeV": 2.699062906679238e-13
+            }
+          ],
+          "mass_GeV": 1.27,
+          "pdg": 4,
+          "printed_br_sum": 1.000000000012,
+          "total_GeV": 6.9750615e-10,
+          "unprinted_signed_remainder_GeV": -8.37004351704751e-21
+        },
+        {
+          "channels": [
+            {
+              "br": 0.999999995,
+              "external_masses_GeV": [
+                4.18,
+                80.2963664
+              ],
+              "pdgs": [
+                5,
+                24
+              ],
+              "tree_at_full_spectrum_GeV": 1.5318240608090556,
+              "two_body_sqrt_lambda_over_parent_squared": 0.7833926924837653,
+              "width_GeV": 25382.181173089095
+            }
+          ],
+          "mass_GeV": 172.89,
+          "pdg": 6,
+          "printed_br_sum": 0.999999995,
+          "total_GeV": 25382.1813,
+          "unprinted_signed_remainder_GeV": 0.00012691090572870264
+        },
+        {
+          "channels": [
+            {
+              "br": 1.0,
+              "external_masses_GeV": [
+                0.00051099893,
+                0.0
+              ],
+              "pdgs": [
+                11,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9999766098960422,
+              "width_GeV": 3.12047197e-20
+            }
+          ],
+          "mass_GeV": 0.105658372,
+          "pdg": 13,
+          "printed_br_sum": 1.0,
+          "total_GeV": 3.12047197e-20,
+          "unprinted_signed_remainder_GeV": 0.0
+        },
+        {
+          "channels": [
+            {
+              "br": 0.433559516,
+              "external_masses_GeV": [
+                0.00051099893,
+                0.0
+              ],
+              "pdgs": [
+                11,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9999999172946584,
+              "width_GeV": 2.5338190935882e-20
+            },
+            {
+              "br": 0.566440484,
+              "external_masses_GeV": [
+                0.105658372,
+                0.0
+              ],
+              "pdgs": [
+                13,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9964640883265794,
+              "width_GeV": 3.3104052864118e-20
+            }
+          ],
+          "mass_GeV": 1.77686,
+          "pdg": 15,
+          "printed_br_sum": 1.0,
+          "total_GeV": 5.84422438e-20,
+          "unprinted_signed_remainder_GeV": 0.0
+        },
+        {
+          "channels": [
+            {
+              "br": 0.904308956,
+              "external_masses_GeV": [
+                0.005,
+                0.0
+              ],
+              "pdgs": [
+                1,
+                21
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.997229916897507,
+              "width_GeV": 2.71898286230272e-19
+            },
+            {
+              "br": 0.095691044,
+              "external_masses_GeV": [
+                0.005,
+                0.0
+              ],
+              "pdgs": [
+                1,
+                22
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.997229916897507,
+              "width_GeV": 2.877139576972801e-20
+            }
+          ],
+          "mass_GeV": 0.095,
+          "pdg": 3,
+          "printed_br_sum": 1.0,
+          "total_GeV": 3.00669682e-19,
+          "unprinted_signed_remainder_GeV": 0.0
+        },
+        {
+          "channels": [
+            {
+              "br": 0.137302376,
+              "external_masses_GeV": [
+                0.005,
+                0.0
+              ],
+              "pdgs": [
+                1,
+                21
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9999985691719512,
+              "width_GeV": 1.7515143593012583e-14
+            },
+            {
+              "br": 0.862692011,
+              "external_masses_GeV": [
+                0.095,
+                0.0
+              ],
+              "pdgs": [
+                3,
+                21
+              ],
+              "tree_at_full_spectrum_GeV": null,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9994834710743802,
+              "width_GeV": 1.100503493778563e-13
+            }
+          ],
+          "mass_GeV": 4.18,
+          "pdg": 5,
+          "printed_br_sum": 0.9999943870000001,
+          "total_GeV": 1.27566209e-13,
+          "unprinted_signed_remainder_GeV": 7.160291311048032e-19
+        },
+        {
+          "channels": [
+            {
+              "br": 0.99998067,
+              "external_masses_GeV": [
+                80.2963664,
+                80.2963664
+              ],
+              "pdgs": [
+                -24,
+                24
+              ],
+              "tree_at_full_spectrum_GeV": 12.170721876606745,
+              "two_body_sqrt_lambda_over_parent_squared": 0.8937151053117226,
+              "width_GeV": 754275.4875729856
+            }
+          ],
+          "mass_GeV": 357.958594,
+          "pdg": 25,
+          "printed_br_sum": 0.99998067,
+          "total_GeV": 754290.068,
+          "unprinted_signed_remainder_GeV": 14.580427014427993
+        },
+        {
+          "channels": [
+            {
+              "br": 0.999976222,
+              "external_masses_GeV": [
+                80.2963664,
+                80.2963664
+              ],
+              "pdgs": [
+                -24,
+                24
+              ],
+              "tree_at_full_spectrum_GeV": 0.6667277273813388,
+              "two_body_sqrt_lambda_over_parent_squared": 0.9686881786766305,
+              "width_GeV": 39852.831756833424
+            }
+          ],
+          "mass_GeV": 646.819727,
+          "pdg": 35,
+          "printed_br_sum": 0.999976222,
+          "total_GeV": 39853.7794,
+          "unprinted_signed_remainder_GeV": 0.9476431665721765
+        },
+        {
+          "channels": [
+            {
+              "br": 0.499981126,
+              "external_masses_GeV": [
+                582.941778,
+                80.2963664
+              ],
+              "pdgs": [
+                37,
+                24
+              ],
+              "tree_at_full_spectrum_GeV": 1.824769568448888,
+              "two_body_sqrt_lambda_over_parent_squared": 0.34433322628507884,
+              "width_GeV": 29563.284902994827
+            },
+            {
+              "br": 0.499981126,
+              "external_masses_GeV": [
+                582.941778,
+                80.2963664
+              ],
+              "pdgs": [
+                -37,
+                -24
+              ],
+              "tree_at_full_spectrum_GeV": 1.824769568448888,
+              "two_body_sqrt_lambda_over_parent_squared": 0.34433322628507884,
+              "width_GeV": 29563.284902994827
+            }
+          ],
+          "mass_GeV": 748.930495,
+          "pdg": 36,
+          "printed_br_sum": 0.999962252,
+          "total_GeV": 59128.8018,
+          "unprinted_signed_remainder_GeV": 2.2319940103466434
+        },
+        {
+          "channels": [
+            {
+              "br": 0.000660392941,
+              "external_masses_GeV": [
+                172.89,
+                4.18
+              ],
+              "pdgs": [
+                -6,
+                5
+              ],
+              "tree_at_full_spectrum_GeV": 0.3371919469252674,
+              "two_body_sqrt_lambda_over_parent_squared": 0.911977821641244,
+              "width_GeV": 0.3281417166390503
+            },
+            {
+              "br": 0.999331598,
+              "external_masses_GeV": [
+                357.958594,
+                80.2963664
+              ],
+              "pdgs": [
+                25,
+                -24
+              ],
+              "tree_at_full_spectrum_GeV": 0.029593235178895144,
+              "two_body_sqrt_lambda_over_parent_squared": 0.5797881936748492,
+              "width_GeV": 496.55646767333525
+            }
+          ],
+          "mass_GeV": 582.941778,
+          "pdg": 37,
+          "printed_br_sum": 0.999991990941,
+          "total_GeV": 496.888589,
+          "unprinted_signed_remainder_GeV": 0.00397961002572904
+        },
+        {
+          "channels": [
+            {
+              "br": 0.0931102288,
+              "external_masses_GeV": [
+                748.930495,
+                80.2963664
+              ],
+              "pdgs": [
+                36,
+                -24
+              ],
+              "tree_at_full_spectrum_GeV": 1.248389383201555,
+              "two_body_sqrt_lambda_over_parent_squared": 0.20028062142156822,
+              "width_GeV": 20800.274739357563
+            },
+            {
+              "br": 0.0510296283,
+              "external_masses_GeV": [
+                357.958594,
+                80.2963664
+              ],
+              "pdgs": [
+                25,
+                -24
+              ],
+              "tree_at_full_spectrum_GeV": 0.6338072938473801,
+              "two_body_sqrt_lambda_over_parent_squared": 0.8198209512062131,
+              "width_GeV": 11399.717326087119
+            },
+            {
+              "br": 0.855801966,
+              "external_masses_GeV": [
+                646.819727,
+                80.2963664
+              ],
+              "pdgs": [
+                35,
+                -24
+              ],
+              "tree_at_full_spectrum_GeV": 11.478995597231666,
+              "two_body_sqrt_lambda_over_parent_squared": 0.42062890761640037,
+              "width_GeV": 191181.100558979
+            }
+          ],
+          "mass_GeV": 872.69144,
+          "pdg": 9000037,
+          "printed_br_sum": 0.9999418231,
+          "total_GeV": 223394.089,
+          "unprinted_signed_remainder_GeV": 12.996375576340599
+        }
+      ],
+      "full_neutrino_masses_eV": [
+        0.006989177490000001,
+        5.48097179,
+        5.53531566
+      ],
+      "full_scalar_masses_GeV": [
+        357.958594,
+        646.819727
+      ],
+      "full_vev_GeV": 242.842709,
+      "group": 3,
+      "hWW_coupling_from_saved_full_parameters_GeV": {
+        "imag": 0.0,
+        "real": -52.90339260278661,
+        "scope": "Polynomial tree coupling at printed full parameters; not saved loop amplitude"
+      },
+      "id": "F13_heavy_0001330/IO/scale_0.001",
+      "native_D_forward_to_full_relative_differences": [
+        0.011994255712853619,
+        0.011994019393666067,
+        0.011994020301366204
+      ],
+      "native_D_in_original_forward_masses_eV": [
+        0.007073007472037582,
+        5.546710671945396,
+        5.60170634840051
+      ],
+      "native_D_minus_original_max_abs": 0.0010831785921073655,
+      "native_running_mass_combination_GeV": [
+        0.0004939135891781713,
+        0.10212566343638915,
+        1.7174472209815022
+      ],
+      "original_target_masses_eV": [
+        0.009999999999999967,
+        0.05009490992106889,
+        0.05084092839435566
+      ],
+      "printed_branching_fraction_threshold": 0.0001,
+      "scale_GeV": 160.0,
+      "tree_neutrino_rotation_max_abs": 0.0,
+      "tree_scalar_masses_GeV": [
+        125.0,
+        707.081938
+      ],
+      "tree_to_full_scalar_overlap_squared": [
+        [
+          0.9930134254728159,
+          0.006986574568613655
+        ],
+        [
+          0.006986574568613658,
+          0.9930134254728157
+        ]
+      ],
+      "tree_vev_GeV": 246.21965
+    }
+  ],
+  "reader_source_sha256": "1920531da6883f3ce90477994a214a92ebe9a6318a6fde26bbb9fc463e25f21c",
+  "source_locations": {
+    "Boundaries_ZeeTypeII.f90": "1606-1624: full loop masses followed by effective-SM light-Higgs overwrite",
+    "BranchingRatios_ZeeTypeII.f90": "136-139: total is signed sum of channel array",
+    "InputOutput_ZeeTypeII.f90": "5089-5300: positive BR threshold in DECAY1L output",
+    "LoopDecays/LoopDecayhh_ZeeTypeII.f90": "6531-6564: complex hWW coupling passed to real-photon routine",
+    "LoopDecays/Wrapper_LoopDecay_hh_ZeeTypeII.f90": "2567-2665: hWW tree/interference plus real radiation, multiplicity 2",
+    "LoopMasses_ZeeTypeII.f90": "132-174,212-305: EW/tadpoles; 586-614,854-1024: zero tree neutrino and one-loop self-energy; 1204-1386: scalar pole iteration",
+    "Model_Data_ZeeTypeII.f90": "2074-2106: running EW/Ye matching, Ye2 fixed input",
+    "Settings.f90": "29,37-62: interference-only default, OS external kinematics, MS scheme and IR settings"
+  },
+  "status": "DIAGNOSTIC_ONLY",
+  "verified_artifacts": 87,
+  "width_cause_status": "FULL_LOOP_WIDTH_CAUSE_UNRESOLVED"
+}

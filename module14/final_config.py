@@ -12,6 +12,17 @@ RANGES = {'mH2', 'mH1_fraction', 'tanbeta', 'delta_alpha', 'gamma', 'lc',
           'k1', 'k2', 'k12', 'mh2_splitting', 'ma_splitting', 'm12sq_factor'}
 PACKAGES = {'numpy': '2.2.6', 'scipy': '1.15.3', 'mpmath': '1.3.0', 'sympy': '1.14.0',
             'matplotlib': '3.10.9'}
+# Fixed policy, deliberately not a user-configurable stage/override.
+# Keep historical export LIMITATIONS bytes below unchanged.
+PHYSICS_SCOPE = {
+    'hard_filters': ['reconstruction', 'bfb', 'tree_unitarity', 'scalar_oblique_ewpo',
+                     'neutrino_reconstruction', 'yukawa_perturbativity'],
+    'vacuum': 'D10_SUFFICIENT_PASS; misses UNKNOWN and continue',
+    'diagnostics_only': ['conditional_flavor', 'bsgamma', 'lfv', 'lfv_tree', 'higgs'],
+    'spheno_full_loop': 'UNAVAILABLE',
+    'unsupported_hard_overrides': 'REJECTED_BY_STRICT_CONFIG_SCHEMA',
+    'global_acceptance': None,
+}
 LIMITATIONS = [
     'B->Xs gamma: Eq.(4) conditional LO-NP diagnostic; physical status UNKNOWN; NP theory sigma null.',
     'LFV: PARTIAL coherent implemented subset; additional Zee/two-loop amplitudes UNKNOWN.',
