@@ -2,7 +2,42 @@
 
 **Branch:** `feature/zee-d14-conditional-cascade-scan`.
 
-## USER PRIORITY — ONLY FINISH THE WORKFLOW CODE
+## CURRENT USER-APPROVED TASK — FINAL PHYSICS-ADAPTER INTEGRATION
+
+Read **`module14/FINAL_PHYSICS_ADAPTER_TASK.md`** first. It supersedes
+the earlier `WORKFLOW_COMPLETION_TASK.md`, whose engineering code gate
+is COMPLETE at commit `bff3e52`. The user approved **bounded
+physics-adapter work with public code** before the one final scan.
+
+Priorities in order:
+1. Fix the actual SARAH 4.15.4 / SPheno 4.0.5 Zee full-loop-decay
+   build issue with `ZRUNoMatrix/ZRUNoMatrixc` (model-correct fix,
+   not dummy declarations); validate on original saved D12 cards.
+2. Investigate the corrected 2026 general-2HDM two-loop LFV source
+   as an independently verified **subset** only; gauge and
+   charged-singlet completeness decide whether any rate is usable.
+3. Audit SARAH→Vevacious++ or certified polynomial backends for the
+   **full Zee scalar potential**, testing only saved D10 PASS/UNKNOWN
+   points; missed numerical minima remain UNKNOWN.
+4. Enhance HiggsTools only with real validated h125/charged-loop
+   sources and complete same-point hashes, not a generic 2HDM guess.
+5. Eliminate final exporter's all-rows-in-RAM scaling without
+   changing physics, using frozen original data and synthetic rows.
+
+**Absolutely no new parameter-space points, small/big scans, Condor
+submissions, or MG5 production.** Existing previously saved benchmark
+cards may be evaluated by pinned external packages as *validation
+comparisons only*. Use limited attempts, source hashes and strict
+failure/UNKNOWN propagation. If public software cannot supply full
+Zee coverage, document the actual blocker and move on; do not invent
+physics or spend unbounded effort.
+
+No final scan will run without the user's separate explicit approval.
+All new work is on this branch, with original Modules0–13 and
+historical production/results held read-only. Use English exclusively.
+
+## PREVIOUS TASK — WORKFLOW CODE COMPLETED (ARCHIVED)
+
 
 Read **`module14/WORKFLOW_COMPLETION_TASK.md`** first and execute it.
 This supersedes **all previous paper/scan/production task plans**.
