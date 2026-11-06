@@ -1,3 +1,9 @@
+> **Current task (2026-11-06):** `research/bsgamma_rate_validation/M2026_ROUTE_TASK.md` takes priority.
+> The previous independent-benchmark attempt finished `BSG_PHYSICAL_ACCURACY_BLOCKED`.
+> Use the published 2026 LO-NP equation with an explicit validity-domain gate;
+> without source-supported remainder bounds, retain DIAGNOSTIC_ONLY and draft
+> an author question. Do not repeat physical-rate backend reconstruction.
+
 # Codex instructions — Zee B→Xsγ independent rate validation
 
 > **Current Codex task (2026-11-06):** Read and execute
