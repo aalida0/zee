@@ -85,3 +85,15 @@ No framework rewrite was attempted.
 - [EOS v1.0.21 rate](https://github.com/eos/eos/blob/v1.0.21/eos/rare-b-decays/inclusive-b-to-s-gamma.cc), [regression card and references](https://github.com/eos/eos/blob/v1.0.21/eos/rare-b-decays/inclusive-b-to-s-gamma_TEST.cc), [WET implementation](https://github.com/eos/eos/blob/v1.0.21/eos/models/wet.cc).
 - [EOS v1.1 release](https://github.com/eos/eos/releases/tag/v1.1), [current documented observables](https://eoshep.org/doc/reference/observables.html).
 - [HEPfit pinned matching](https://github.com/silvest/HEPfit/blob/322bd73a2dadd94ce94a6d71cb79d616e569120a/FlavourWilsonCoefficient/src/FlavourWilsonCoefficientMatching.cpp), [rate](https://github.com/silvest/HEPfit/blob/322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/bsgamma.cpp), [installation](https://github.com/silvest/HEPfit/blob/322bd73a2dadd94ce94a6d71cb79d616e569120a/README.md).
+
+## Full-vector continuation
+
+The missing EOS→JMS translator can be bypassed with an analytic direct JMS
+input, but the installed forward EOS translator mishandles a complex CKM
+normalization. More usefully, the wheel exports EOS's existing higher-order
+`evolve` routine. A thin native wrapper now executes the full ordinary vector
+and retains induced Q3–Q6. Thus the earlier high-scale API obstacle is not a
+proof that EOS lacks evolution support. See [BRIDGE.md](BRIDGE.md) and the new
+numerical evidence. Physical benchmark/order/uncertainty validation remains
+blocked; the conclusion is RATE_BRIDGE_BLOCKED. The older pilot table above
+records the interfaces tested at that stage.

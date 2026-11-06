@@ -48,3 +48,9 @@ to their upstream source. Preserve upstream terms if distributing packages.
 The 64-draw seeded SM uncertainty call tests the public uncertainty interface.
 It is not a precision uncertainty estimate or a Zee covariance model. The
 committed central predictions and focused tests do not require network access.
+
+Full-vector continuation: [BRIDGE.md](BRIDGE.md) documents the analytic JMS
+map, native EOS evolution wrapper and exact additional build/run commands.
+New evidence is in bridge_results.json and bridge_sources.json; original
+pilot evidence is preserved. Conclusion: RATE_BRIDGE_BLOCKED for physical
+accuracy despite an executable native full-vector prototype.

@@ -1,0 +1,608 @@
+{
+  "CMM_physical_reference": {
+    "Eq48": {
+      "EOS_cut_supported": false,
+      "R_quark": 0.00312,
+      "delta": 0.99
+    },
+    "Eq49": {
+      "R_quark": 0.00286,
+      "delta": 0.0841,
+      "matched_prescription": false
+    },
+    "source": "https://arxiv.org/abs/hep-ph/9612313v3"
+  },
+  "EOS_upstream_CMM_labelled_ratio_diagnostics": [
+    0.002881598258855486,
+    0.003114573327417969
+  ],
+  "JMS_translation_probes": {
+    "1.27": {
+      "EOS_translation": {
+        "b->s::Im{c7}": [
+          0.0005617240622516191,
+          1.0521487460361314e-05
+        ],
+        "b->s::Re{c7}": [
+          -0.029989478512539632,
+          -0.0005617240622516191
+        ],
+        "b->s::c4": [
+          0.00999649283751321,
+          0.00018724135408387303
+        ],
+        "b->s::c8": [
+          -0.03998597135005285,
+          -0.0007489654163354922
+        ]
+      },
+      "JMS": {
+        "V8ddLR_2311": [
+          -1.3637302215409639e-08,
+          2.5543627893995654e-10
+        ],
+        "V8ddLR_2322": [
+          -1.3637302215409639e-08,
+          2.5543627893995654e-10
+        ],
+        "V8ddLR_2333": [
+          -1.3637302215409639e-08,
+          2.5543627893995654e-10
+        ],
+        "V8duLR_2311": [
+          -1.3637302215409639e-08,
+          2.5543627893995654e-10
+        ],
+        "V8duLR_2322": [
+          -1.3637302215409639e-08,
+          2.5543627893995654e-10
+        ],
+        "V8udLL_1123": [
+          -1.3637302215409639e-08,
+          2.5543627893995654e-10
+        ],
+        "V8udLL_2223": [
+          -1.3637302215409639e-08,
+          2.5543627893995654e-10
+        ],
+        "VddLL_1123": [
+          2.272883702568273e-09,
+          -4.257271315665942e-11
+        ],
+        "VddLL_1231": [
+          -6.8186511077048195e-09,
+          -1.2771813946997827e-10
+        ],
+        "VddLL_2223": [
+          -4.545767405136546e-09,
+          8.514542631331885e-11
+        ],
+        "VddLL_2333": [
+          -4.545767405136546e-09,
+          8.514542631331885e-11
+        ],
+        "dG_23": [
+          1.1039897769659504e-09,
+          -2.067850636156516e-11
+        ],
+        "dgamma_23": [
+          2.2155412681487862e-10,
+          -4.149864895817585e-12
+        ]
+      },
+      "kappa": [
+        -1.363730221540964e-06,
+        2.5543627893995654e-08
+      ]
+    },
+    "1e-08": {
+      "EOS_translation": {
+        "b->s::Im{c7}": [
+          5.805941439449047e-12,
+          1.1236318666103893e-21
+        ],
+        "b->s::Re{c7}": [
+          -0.029999999999999995,
+          -5.8059414394490466e-12
+        ],
+        "b->s::c4": [
+          0.010000000000000002,
+          1.935313813149683e-12
+        ],
+        "b->s::c8": [
+          -0.039999999999999994,
+          -7.741255252598728e-12
+        ]
+      },
+      "JMS": {
+        "V8ddLR_2311": [
+          -1.382563296961474e-08,
+          2.6756938461633075e-18
+        ],
+        "V8ddLR_2322": [
+          -1.382563296961474e-08,
+          2.6756938461633075e-18
+        ],
+        "V8ddLR_2333": [
+          -1.382563296961474e-08,
+          2.6756938461633075e-18
+        ],
+        "V8duLR_2311": [
+          -1.382563296961474e-08,
+          2.6756938461633075e-18
+        ],
+        "V8duLR_2322": [
+          -1.382563296961474e-08,
+          2.6756938461633075e-18
+        ],
+        "V8udLL_1123": [
+          -1.382563296961474e-08,
+          2.6756938461633075e-18
+        ],
+        "V8udLL_2223": [
+          -1.382563296961474e-08,
+          2.6756938461633075e-18
+        ],
+        "VddLL_1123": [
+          2.3042721616024565e-09,
+          -4.459489743605512e-19
+        ],
+        "VddLL_1231": [
+          -6.91281648480737e-09,
+          -1.3378469230816538e-18
+        ],
+        "VddLL_2223": [
+          -4.608544323204913e-09,
+          8.918979487211024e-19
+        ],
+        "VddLL_2333": [
+          -4.608544323204913e-09,
+          8.918979487211024e-19
+        ],
+        "dG_23": [
+          1.119235844263321e-09,
+          -2.1660725895750522e-19
+        ],
+        "dgamma_23": [
+          2.246137829800951e-10,
+          -4.346981568251832e-20
+        ]
+      },
+      "kappa": [
+        -1.382563296961474e-06,
+        2.6756938461633073e-16
+      ]
+    }
+  },
+  "SM_direct_rate": 0.0003365343336454469,
+  "SM_low_C1_to_C8": [
+    -0.2906362093854251,
+    1.0102962291782782,
+    -0.006162204565058795,
+    -0.08730382196352107,
+    0.0004285371162289085,
+    0.0011580715501401044,
+    -0.33726590082578356,
+    -0.18288945035417115
+  ],
+  "alpha_s_mu0": 0.10912535313790277,
+  "alpha_s_mu_b": 0.22632821715781407,
+  "coherent_minus_weighted_BR": -9.303430380594446e-08,
+  "conclusion": "RATE_BRIDGE_BLOCKED",
+  "evolution_accuracy": "Native EOS gamma0/gamma1/gamma2 with inverse-gs dipoles; retained NP ordinary NLO projection",
+  "exclusion_readiness_2026": "UNKNOWN",
+  "full_vector_physical_accuracy": "NOT_EVALUATED",
+  "global_zee_acceptance": null,
+  "identities": {
+    "equal_mass": 0.0,
+    "gamma_half_pi": 0.0,
+    "gamma_zero": 0.0,
+    "interchange": 0.0
+  },
+  "mt_MSbar_mu0_GeV": 164.1131249395078,
+  "mu0_GeV": 160,
+  "mu_b_GeV": 4.2,
+  "native_build": [
+    {
+      "command": [
+        "g++",
+        "-std=c++20",
+        "-O2",
+        "-I",
+        "/home/amine/zee-bsgamma-rate-validation/research/bsgamma_rate_validation/local/eos-1.0.21",
+        "-I",
+        "/home/amine/zee-bsgamma-rate-validation/research/bsgamma_rate_validation/local/build-config",
+        "-shared",
+        "-fPIC",
+        "/home/amine/zee-bsgamma-rate-validation/research/bsgamma_rate_validation/eos_evolve_probe.cc",
+        "-L",
+        "/home/amine/zee-bsgamma-rate-validation/research/bsgamma_rate_validation/local/venv/lib/python3.10/site-packages/_eos_libs",
+        "-Wl,-rpath,$ORIGIN/venv/lib/python3.10/site-packages/_eos_libs",
+        "-Wl,--no-as-needed",
+        "-l:libeos.so.0",
+        "-l:libeosmodels.so.0",
+        "-l:libeosutils.so.0",
+        "-l:libeosrarebdecays.so.0",
+        "-o",
+        "/home/amine/zee-bsgamma-rate-validation/research/bsgamma_rate_validation/local/eos_evolve_probe.so"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "command": [
+        "g++",
+        "-std=c++20",
+        "-O2",
+        "-I",
+        "/home/amine/zee-bsgamma-rate-validation/research/bsgamma_rate_validation/local/eos-1.0.21",
+        "-I",
+        "/home/amine/zee-bsgamma-rate-validation/research/bsgamma_rate_validation/local/build-config",
+        "/home/amine/zee-bsgamma-rate-validation/research/bsgamma_rate_validation/local/eos-1.0.21/eos/models/wilson-coefficients_TEST.cc",
+        "/home/amine/zee-bsgamma-rate-validation/research/bsgamma_rate_validation/local/eos-1.0.21/test/test.cc",
+        "-L",
+        "/home/amine/zee-bsgamma-rate-validation/research/bsgamma_rate_validation/local/venv/lib/python3.10/site-packages/_eos_libs",
+        "-Wl,-rpath,$ORIGIN/venv/lib/python3.10/site-packages/_eos_libs",
+        "-Wl,--no-as-needed",
+        "-l:libeos.so.0",
+        "-l:libeosmodels.so.0",
+        "-l:libeosutils.so.0",
+        "-l:libeosrarebdecays.so.0",
+        "-l:libgsl.so.25",
+        "-o",
+        "/home/amine/zee-bsgamma-rate-validation/research/bsgamma_rate_validation/local/eos_wilson_test"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "command": [
+        "local/eos_wilson_test"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "Running test case 'wilson_coefficients_test'\n"
+    }
+  ],
+  "observable_accuracy": "EOS NLO-labelled prescription retains additional higher-order terms; uniform NLO physical accuracy NOT_EVALUATED",
+  "omitted_effects_status": {
+    "NP_QED": "NOT_EVALUATED",
+    "enhanced_down_Yukawas": "NOT_EVALUATED",
+    "finite_ms_NP": "NOT_EVALUATED",
+    "light_quark_NP": "NOT_EVALUATED",
+    "primed_NP": "NOT_EVALUATED",
+    "theory_covariance": "NOT_EVALUATED",
+    "updated_2026_SM": "NOT_EVALUATED"
+  },
+  "physical_one_state_matched_reference": "NOT_EVALUATED: no matched independent reference established",
+  "publishability": "UNKNOWN",
+  "records": [
+    {
+      "BR_native_prescription": 0.00033653433364544676,
+      "C4_BR_difference": 0.0,
+      "C4_even_half_sum_minus_zero": 0.0,
+      "C4_odd_half_difference": 0.0,
+      "NLO_matching_increment": 0.0,
+      "NP_low_C1_to_C8": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "even_NP_rate_piece": 0.0,
+      "label": "zero_NP",
+      "raw_matching": {
+        "C4_NLO_raw": 0.0,
+        "C7_LO": 0.0,
+        "C7_NLO_raw": 0.0,
+        "C8_LO": 0.0,
+        "C8_NLO_raw": 0.0
+      },
+      "status": "DIAGNOSTIC_ONLY"
+    },
+    {
+      "BR_native_prescription": 0.0003934178688985958,
+      "C4_BR_difference": 6.404796889733239e-09,
+      "C4_even_half_sum_minus_zero": 3.277770849879902e-14,
+      "C4_odd_half_difference": 6.4047641120518455e-09,
+      "NLO_matching_increment": -1.1741199087649586e-05,
+      "NP_low_C1_to_C8": [
+        0.0,
+        0.0,
+        3.5755221222103207e-06,
+        2.5255140226932708e-05,
+        -3.309894232640919e-07,
+        -7.779996227964478e-07,
+        -0.03312587098467599,
+        -0.03531822606762335
+      ],
+      "even_NP_rate_piece": 2.2866148468312698e-06,
+      "label": "M550_tb5.3_flipFalse",
+      "raw_matching": {
+        "C4_NLO_raw": 0.00164600491148618,
+        "C7_LO": -0.059666889936054915,
+        "C7_NLO_raw": 1.176873858851504,
+        "C8_LO": -0.06453256516230475,
+        "C8_NLO_raw": 0.6218240511903541
+      },
+      "status": "DIAGNOSTIC_ONLY"
+    },
+    {
+      "BR_native_prescription": 0.00036484719823868985,
+      "C4_BR_difference": 3.4268696615731738e-09,
+      "C4_even_half_sum_minus_zero": 1.0092729603450312e-14,
+      "C4_odd_half_difference": 3.4268595688435703e-09,
+      "NLO_matching_increment": -7.477048954928581e-06,
+      "NP_low_C1_to_C8": [
+        0.0,
+        0.0,
+        1.9840736794650542e-06,
+        1.4014193531119988e-05,
+        -1.836675541175617e-07,
+        -4.3171557089120823e-07,
+        -0.016748737153351304,
+        -0.019247462235042465
+      ],
+      "even_NP_rate_piece": 5.90398299839907e-07,
+      "label": "M900_tb5.3_flipFalse",
+      "raw_matching": {
+        "C4_NLO_raw": 0.0009133756999749965,
+        "C7_LO": -0.03136894277354702,
+        "C7_NLO_raw": 0.7688772497712989,
+        "C8_LO": -0.03632199663701596,
+        "C8_NLO_raw": 0.4633413115818344
+      },
+      "status": "DIAGNOSTIC_ONLY"
+    },
+    {
+      "BR_native_prescription": 0.0003949058777841218,
+      "C4_BR_difference": 4.505974186402037e-08,
+      "C4_even_half_sum_minus_zero": 1.616443307331239e-12,
+      "C4_odd_half_difference": 4.505812542068594e-08,
+      "NLO_matching_increment": -1.1853876502566202e-05,
+      "NP_low_C1_to_C8": [
+        0.0,
+        0.0,
+        2.510910410322197e-05,
+        0.00017735422224363486,
+        -2.324373224872085e-06,
+        -5.463502351088055e-06,
+        -0.03395133464453511,
+        -0.03587535452166713
+      ],
+      "even_NP_rate_piece": 2.402476952223303e-06,
+      "label": "M550_tb2_flipFalse",
+      "raw_matching": {
+        "C4_NLO_raw": 0.011559069490911697,
+        "C7_LO": -0.06108147301761888,
+        "C7_NLO_raw": 1.1897331778884843,
+        "C8_LO": -0.06560453276526207,
+        "C8_NLO_raw": 0.6285239237076362
+      },
+      "status": "DIAGNOSTIC_ONLY"
+    },
+    {
+      "BR_native_prescription": 0.0003647468243050239,
+      "C4_BR_difference": 3.8499214016426975e-11,
+      "C4_even_half_sum_minus_zero": 1.1926223897340549e-18,
+      "C4_odd_half_difference": 3.8499212823804585e-11,
+      "NLO_matching_increment": -7.469601944756971e-06,
+      "NP_low_C1_to_C8": [
+        0.0,
+        0.0,
+        2.229305186246935e-08,
+        1.5746347851566418e-07,
+        -2.0636886380649235e-09,
+        -4.8507561545336156e-09,
+        -0.016691351017427004,
+        -0.019207930037498624
+      ],
+      "even_NP_rate_piece": 5.863272614284711e-07,
+      "label": "M900_tb50_flipFalse",
+      "raw_matching": {
+        "C4_NLO_raw": 1.026268936491906e-05,
+        "C7_LO": -0.03127016633310444,
+        "C7_NLO_raw": 0.7678731546950779,
+        "C8_LO": -0.03624304558425653,
+        "C8_NLO_raw": 0.4627348245150382
+      },
+      "status": "DIAGNOSTIC_ONLY"
+    },
+    {
+      "BR_native_prescription": 0.0003365371775327492,
+      "C4_BR_difference": 1.325494022267476e-12,
+      "C4_even_half_sum_minus_zero": 0.0,
+      "C4_odd_half_difference": 1.3254940493725303e-12,
+      "NLO_matching_increment": -9.775606757075634e-09,
+      "NP_low_C1_to_C8": [
+        0.0,
+        0.0,
+        7.97807724241198e-10,
+        5.635189843934161e-09,
+        -7.385380638030877e-11,
+        -1.735953763698274e-10,
+        -1.6106156946241907e-06,
+        -3.944688947753393e-06
+      ],
+      "even_NP_rate_piece": 6.459459703234138e-15,
+      "label": "M100000_tb5.3_flipFalse",
+      "raw_matching": {
+        "C4_NLO_raw": 3.672737540526895e-07,
+        "C7_LO": -1.0849712796976776e-05,
+        "C7_NLO_raw": 0.000982397267670439,
+        "C8_LO": -1.525864632851498e-05,
+        "C8_NLO_raw": 0.0009380872513793169
+      },
+      "status": "DIAGNOSTIC_ONLY"
+    },
+    {
+      "BR_native_prescription": 0.000284641859797342,
+      "C4_BR_difference": 5.479928461796669e-09,
+      "C4_even_half_sum_minus_zero": 3.2777545868473146e-14,
+      "C4_odd_half_difference": 5.479895684223695e-09,
+      "NLO_matching_increment": 9.754158536207167e-06,
+      "NP_low_C1_to_C8": [
+        0.0,
+        0.0,
+        3.5755221222103207e-06,
+        2.5255140226932708e-05,
+        -3.309894232640919e-07,
+        -7.779996227964478e-07,
+        0.032851744406059424,
+        0.03513321039172669
+      ],
+      "even_NP_rate_piece": 2.248773073735015e-06,
+      "label": "M550_tb5.3_flipTrue",
+      "raw_matching": {
+        "C4_NLO_raw": 0.00164600491148618,
+        "C7_LO": 0.05919712386496684,
+        "C7_NLO_raw": -1.172603433268447,
+        "C8_LO": 0.06417657758141398,
+        "C8_NLO_raw": -0.6195991039035855
+      },
+      "status": "DIAGNOSTIC_ONLY"
+    },
+    {
+      "BR_native_prescription": 0.0003708652222395247,
+      "C4_BR_difference": 4.046673726470183e-09,
+      "C4_even_half_sum_minus_zero": 1.3853176418499036e-14,
+      "C4_odd_half_difference": 4.04665987332087e-09,
+      "NLO_matching_increment": -8.362483604055495e-06,
+      "NP_low_C1_to_C8": [
+        0.0,
+        0.0,
+        2.3244729069880573e-06,
+        1.6418550134266556e-05,
+        -2.1517862862539645e-07,
+        -5.057832067668282e-07,
+        -0.020251686765471455,
+        -0.02268488153646734
+      ],
+      "even_NP_rate_piece": 8.601723577747423e-07,
+      "label": "two_state",
+      "raw_matching": {
+        "C4_NLO_raw": 0.0010700797508011728,
+        "C7_LO": -0.03742166750900128,
+        "C7_NLO_raw": 0.8561447520243619,
+        "C8_LO": -0.042356031718559665,
+        "C8_NLO_raw": 0.4972396149697904
+      },
+      "status": "DIAGNOSTIC_ONLY"
+    },
+    {
+      "BR_native_prescription": 0.0003934178688985958,
+      "C4_BR_difference": 6.404796889733239e-09,
+      "C4_even_half_sum_minus_zero": 3.277770849879902e-14,
+      "C4_odd_half_difference": 6.4047641120518455e-09,
+      "NLO_matching_increment": -1.1741199087649586e-05,
+      "NP_low_C1_to_C8": [
+        0.0,
+        0.0,
+        3.5755221222103207e-06,
+        2.5255140226932708e-05,
+        -3.309894232640919e-07,
+        -7.779996227964478e-07,
+        -0.03312587098467599,
+        -0.03531822606762335
+      ],
+      "even_NP_rate_piece": 2.2866148468312698e-06,
+      "label": "gamma_zero",
+      "raw_matching": {
+        "C4_NLO_raw": 0.00164600491148618,
+        "C7_LO": -0.059666889936054915,
+        "C7_NLO_raw": 1.176873858851504,
+        "C8_LO": -0.06453256516230475,
+        "C8_NLO_raw": 0.6218240511903541
+      },
+      "status": "DIAGNOSTIC_ONLY"
+    },
+    {
+      "BR_native_prescription": 0.00036484719823868985,
+      "C4_BR_difference": 3.4268696615731738e-09,
+      "C4_even_half_sum_minus_zero": 1.0092729603450312e-14,
+      "C4_odd_half_difference": 3.4268595688435703e-09,
+      "NLO_matching_increment": -7.477048954928581e-06,
+      "NP_low_C1_to_C8": [
+        0.0,
+        0.0,
+        1.9840736794650542e-06,
+        1.4014193531119988e-05,
+        -1.836675541175617e-07,
+        -4.3171557089120823e-07,
+        -0.016748737153351304,
+        -0.019247462235042465
+      ],
+      "even_NP_rate_piece": 5.90398299839907e-07,
+      "label": "gamma_half_pi",
+      "raw_matching": {
+        "C4_NLO_raw": 0.0009133756999749965,
+        "C7_LO": -0.03136894277354702,
+        "C7_NLO_raw": 0.7688772497712989,
+        "C8_LO": -0.03632199663701596,
+        "C8_NLO_raw": 0.4633413115818344
+      },
+      "status": "DIAGNOSTIC_ONLY"
+    },
+    {
+      "BR_native_prescription": 0.0003934178688985958,
+      "C4_BR_difference": 6.404796889733239e-09,
+      "C4_even_half_sum_minus_zero": 3.277770849879902e-14,
+      "C4_odd_half_difference": 6.4047641120518455e-09,
+      "NLO_matching_increment": -1.1741199087649586e-05,
+      "NP_low_C1_to_C8": [
+        0.0,
+        0.0,
+        3.5755221222103207e-06,
+        2.5255140226932708e-05,
+        -3.309894232640919e-07,
+        -7.779996227964478e-07,
+        -0.03312587098467599,
+        -0.03531822606762335
+      ],
+      "even_NP_rate_piece": 2.2866148468312698e-06,
+      "label": "equal_mass",
+      "raw_matching": {
+        "C4_NLO_raw": 0.00164600491148618,
+        "C7_LO": -0.059666889936054915,
+        "C7_NLO_raw": 1.176873858851504,
+        "C8_LO": -0.06453256516230475,
+        "C8_NLO_raw": 0.6218240511903541
+      },
+      "status": "DIAGNOSTIC_ONLY"
+    },
+    {
+      "BR_native_prescription": 0.0003708652222395247,
+      "C4_BR_difference": 4.046673726470183e-09,
+      "C4_even_half_sum_minus_zero": 1.3853176418499036e-14,
+      "C4_odd_half_difference": 4.04665987332087e-09,
+      "NLO_matching_increment": -8.362483604055495e-06,
+      "NP_low_C1_to_C8": [
+        0.0,
+        0.0,
+        2.324472906988057e-06,
+        1.6418550134266552e-05,
+        -2.151786286253964e-07,
+        -5.057832067668282e-07,
+        -0.020251686765471455,
+        -0.022684881536467333
+      ],
+      "even_NP_rate_piece": 8.601723577747423e-07,
+      "label": "interchange",
+      "raw_matching": {
+        "C4_NLO_raw": 0.0010700797508011726,
+        "C7_LO": -0.03742166750900127,
+        "C7_NLO_raw": 0.8561447520243619,
+        "C8_LO": -0.04235603171855966,
+        "C8_NLO_raw": 0.4972396149697904
+      },
+      "status": "DIAGNOSTIC_ONLY"
+    }
+  ],
+  "status": "DIAGNOSTIC_ONLY"
+}

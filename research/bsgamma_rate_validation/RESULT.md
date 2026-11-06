@@ -1,3 +1,80 @@
+# Full-vector continuation from 6b98f82
+
+**Conclusion: RATE_BRIDGE_BLOCKED.** The full vector now executes through an
+existing native EOS evolution routine, but physical accuracy has not passed a
+matched independent one-state benchmark. All new rates are DIAGNOSTIC_ONLY;
+publishability and 2026 exclusion readiness remain UNKNOWN.
+
+The direct JMS input was derived analytically from color/chirality identities,
+without guessing C4 or taking a numerical inverse. A CKM-phase defect in the
+installed JMS→EOS translator was isolated. wilson's LO ADM is insufficient for
+this task. A small wrapper instead calls EOS's **existing higher-order**
+`evolve` function; it retains induced Q3–Q6 and the complete ordinary NLO NP
+dipoles, with explicit raw-order bookkeeping. No ADM framework was written.
+See [BRIDGE.md](BRIDGE.md) for the operator map, order analysis and commands.
+
+New executable inputs: EOS 1.0.21, mu0=160 GeV, mu_b=4.2 GeV,
+mt_MSbar(mu0)=164.1131249395078 GeV, alpha_s(mu0)=0.10912535313790277.
+Matching and SM inputs come from the same native EOS model. Values below are
+EOS's NLO-labelled **rate prescription**, not a certified uniform NLO Zee BR.
+
+| Full-vector native prototype | BR | BR minus the result with C4 omitted |
+| --- | ---: | ---: |
+| Zero NP | 3.36534333645447e-4 | 0 |
+| M=550 GeV, tanβ=5.3 | 3.93417868898596e-4 | 6.40479689e-9 |
+| M=900 GeV, tanβ=5.3 | 3.64847198238690e-4 | 3.42686966e-9 |
+| M=550 GeV, tanβ=2 | 3.94905877784122e-4 | 4.50597419e-8 |
+| M=900 GeV, tanβ=50 | 3.64746824305024e-4 | 3.84992140e-11 |
+| M=100 TeV, tanβ=5.3 | 3.36537177532749e-4 | 1.32549402e-12 |
+| M=550 GeV, opposite-coupling sign diagnostic | 2.84641859797342e-4 | 5.47992846e-9 |
+| M1/M2=550/900 GeV, tanβ=5.3, γ=1.09 | 3.70865222239525e-4 | 4.04667373e-9 |
+
+At the two-state example the retained quadratic NP rate piece is
+8.60172358e-7, extracted by reversing **all NP coefficients** with SM inputs
+fixed. This differs from reversing the Yukawa cross-product alone. The
+NLO-matching increment at fixed native evolution/kernel is −8.36248360e-6;
+it is not a theory uncertainty. Signed C4 probes resolve interference separately
+in [bridge_results.json](bridge_results.json). None of these small C4 effects
+bounds other omitted operators or an untested parameter domain.
+
+Zero NP reproduces EOS's direct SM result within 2e-19. The coherent vector is
+injected once; gamma endpoints, equal masses and interchange have zero rate
+residuals in this run. Coherent minus weighted one-state BR is −9.30343038e-8.
+Decoupling and the opposite-coupling sign control pass. The source evolution
+regression and the independent analytic LO dipole solution pass. The native
+rate retains higher-order amplitude-square/bremsstrahlung terms: this prevents
+promoting RG success to full observable-order/physical-accuracy validation.
+
+**Independent physical-rate benchmark: NOT_EVALUATED.** Inspection of the
+actual CMM paper found that its 3.12e-3 R_quark reference uses delta=0.99;
+EOS's similarly labelled regression uses delta=1/3. At delta=z, the paper's
+2.86e-3 and the EOS regression's 2.88e-3 also do not specify identical rate
+prescriptions. These are not matched physical references. The three original
+EOS BR regressions remain software implementation checks. We have not fulfilled
+the requested independent one-state physical BR validation; no substitute
+SM-baseline comparison, calibration or physical-accuracy PASS is supplied.
+
+**Checks:** 16 Python tests pass (7 new, 9 preserved), plus the unchanged native
+EOS evolution test case. Source/library hashes and actual build/test evidence
+are in [bridge_sources.json](bridge_sources.json). Original pilot numerical
+files, matching code, Modules 0–14 and historical audits remain unchanged.
+
+**Smallest viable next step:** use the native EOS adapter, obtain one complete
+external NLO charged-Higgs benchmark card (ordinary matching/evolution scheme,
+cut, SM/hadronic inputs and observable truncation), and reproduce its physical
+rate. Establish whether EOS's retained higher-order terms are allowed in that
+prescription. Current-SM updates, matching/RG/kernel truncation, nonperturbative
+and cutoff errors, finite-ms/primed/light-quark and enhanced down-Yukawa effects
+still lack quantitative coverage and covariance. A small C4 contribution or
+NP curvature measurement supplies no reliable theoretical sigma. Do not
+integrate an exclusion filter or change D14 accepted-point logic.
+The 100-TeV row tests decoupling only; large fixed-matching-scale logarithms
+have not been controlled as a precision prediction.
+
+---
+
+## Preserved original pilot result (6b98f82)
+
 # Result — bounded independent rate pilot
 
 **Executable nonlinear restricted-sector prediction obtained. Full ordinary

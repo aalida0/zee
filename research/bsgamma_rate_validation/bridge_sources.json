@@ -1,0 +1,118 @@
+{
+  "CMM_paper": {
+    "sha256": "7b38a68229a93c84f14455941f85ca2770739749226f8c1bc79653dec6c24439",
+    "url": "https://arxiv.org/pdf/hep-ph/9612313v3"
+  },
+  "EOS_default_parameters_sha256": "34b6cd7643be0d4a1e830b4019ff8ceca2c86cd203aacb9aaf41b1903f5549ce",
+  "EOS_sources": {
+    "LICENSE": {
+      "sha256": "2a277d1bfb1002b6e85f2a8f9d958e1b3ca251bc7e37404b4cbb4b637e91e1e9",
+      "url": "https://github.com/eos/eos/blob/v1.0.21/LICENSE"
+    },
+    "eos/models/standard-model.cc": {
+      "sha256": "f5435cfd886e82f1dddb2be22caaa4148fc5cf4b04804d79b0e5fa90a67fa4d6",
+      "url": "https://github.com/eos/eos/blob/v1.0.21/eos/models/standard-model.cc"
+    },
+    "eos/models/wilson-coefficients.cc": {
+      "sha256": "4a79fe1d22f05847d090c8fd221381aa023bba5f6bcd29959605d2a0bc2114cc",
+      "url": "https://github.com/eos/eos/blob/v1.0.21/eos/models/wilson-coefficients.cc"
+    },
+    "eos/models/wilson-coefficients.hh": {
+      "sha256": "e1fffd044535df92a9246a57daf1ed5ee7782731a99e20f1854f230b8afc1698",
+      "url": "https://github.com/eos/eos/blob/v1.0.21/eos/models/wilson-coefficients.hh"
+    },
+    "eos/models/wilson-coefficients_TEST.cc": {
+      "sha256": "f1253f730e62836fc63339ffb025a4fa98071932fcebaaf68794cb2ccab31b49",
+      "url": "https://github.com/eos/eos/blob/v1.0.21/eos/models/wilson-coefficients_TEST.cc"
+    },
+    "eos/rare-b-decays/inclusive-b-to-s-gamma.cc": {
+      "sha256": "69a3bf948f9f78f8dae3b0492584aa360db1f3ff0135e22e006dcf781cf6973e",
+      "url": "https://github.com/eos/eos/blob/v1.0.21/eos/rare-b-decays/inclusive-b-to-s-gamma.cc"
+    },
+    "eos/rare-b-decays/inclusive-b-to-s-gamma_TEST.cc": {
+      "sha256": "4603d299302bdc2e10d445aba1767182a97e5a53ed6b640eb16ec54ffcaeacdb",
+      "url": "https://github.com/eos/eos/blob/v1.0.21/eos/rare-b-decays/inclusive-b-to-s-gamma_TEST.cc"
+    },
+    "test/test.cc": {
+      "sha256": "38cf6fa57f846da6362216cd26946c899a831541b672510ab9888387c398d364",
+      "url": "https://github.com/eos/eos/blob/v1.0.21/test/test.cc"
+    },
+    "test/test.hh": {
+      "sha256": "02ed1a4cbb06d93c958ff285e92a245ad081c7471897c287e7ffbe71a68e0fd0",
+      "url": "https://github.com/eos/eos/blob/v1.0.21/test/test.hh"
+    }
+  },
+  "all_changes_within_research": true,
+  "archive": {
+    "sha256": "4440b059c5069b0fe4b3057e80b98eab2c083a35da26392341635711b22482e1",
+    "url": "https://codeload.github.com/eos/eos/tar.gz/refs/tags/v1.0.21"
+  },
+  "base_commit": "6b98f821ecfea806bf98bdb1d69a052eb4ed6c16",
+  "checks": {
+    "bridge_diff_check": {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "bridge_tests": {
+      "command": [
+        "/home/amine/zee-bsgamma-rate-validation/research/bsgamma_rate_validation/local/venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "/home/amine/zee-bsgamma-rate-validation/research/bsgamma_rate_validation",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "errors": 0,
+      "exit_code": 0,
+      "failures": 0,
+      "log_sha256": "505810205e5d730b12412eb422e37a3bd6d61eca2ac6251f74a9ba7fe6ca5589",
+      "skips": 0,
+      "tests_run": 16
+    },
+    "native_evolution_test": {
+      "case": "wilson_coefficients_test (unchanged upstream)",
+      "command": [
+        "/home/amine/zee-bsgamma-rate-validation/research/bsgamma_rate_validation/local/eos_wilson_test"
+      ],
+      "exit_code": 0,
+      "log_sha256": "02dcc403ff945fe771659c6197c87abba79fe4c75854699a12b832273dbc5f00"
+    }
+  },
+  "compiler": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+  "conclusion": "RATE_BRIDGE_BLOCKED",
+  "installed_sha256": {
+    "_eos_libs/libeos.so.0": "fab0c488981b34bae6f20d3c4994dedcc15eb9bdce05dda5a855948d78bf611f",
+    "_eos_libs/libeosmodels.so.0": "b2a8b6565ae6ad208ca01c15ac40801a39bd7ebb6a03c9445172beaa5d4d3d5a",
+    "_eos_libs/libeosrarebdecays.so.0": "258d587e7b7238cf307896e091fdd0d96b94847784956d8c20589d0dedb7aea6",
+    "_eos_libs/libeosutils.so.0": "6068308de58e634ae9292dcfaa6e79543ba9f582d8ec5e483557ebb18431f5cd",
+    "_eos_libs/libgsl.so.25": "478e2960527b8f33caf7dcfce91ac624bba23aa9521cb9efb6b5d360a1efe806",
+    "wilson/run/wet/adm.py": "c6e615864727d5c74f29450594c98962dd33134eb158e437750868049d50da74",
+    "wilson/run/wet/classes.py": "1dcc98ee7fa4389977861b35cb389d8c47356cadcbfd322bd8f60f383d6c5ec1",
+    "wilson/run/wet/rge.py": "faf0e3c1a86788a0846f5bf382c30b137fbacc780705c594901eabc1b5ae19e4",
+    "wilson/translate/wet.py": "a960255ca60134970a55a303d5b94474c49008d4cc1a42d20d00cbdba49b38a9",
+    "wilson/wcxf/bases/wet.eos.basis.json": "e0c30102fe08b28d946a9833df6cbbb290740bfc7cf1909cfec054487af618c6",
+    "wilson/wcxf/bases/wet.jms.basis.json": "4b516b3531013bf49fcaf5008f1c864851ad810b0876b2a405f0aded6f6c5302"
+  },
+  "licenses": {
+    "EOS": "GPL-2.0",
+    "wilson": "MIT",
+    "wrapper": "GPL-2.0-only"
+  },
+  "local_code_sha256": {
+    "bridge.py": "5df0e4886b8a0f6f3fa7ae6c8041cff8b7780f1d76a968e00f93ca8da9e86a7c",
+    "build_eos_probe.py": "5458397e8066b2609f7c9a5f4b76c436e50a97d0f6adf5a26eff43188e0948d2",
+    "eos_evolve_probe.cc": "097711624a72f45308ea241627bcc51016e71b9d128b6193cd4474a83a451299",
+    "record_bridge_evidence.py": "6eb091e7c04c1d3dbe08acc45c0e8aec18e5d4d40c1d744a6978edca1fcbaa67",
+    "test_bridge.py": "e481cb54859303067250c8bc7767eb67b5b21eabe5d7872516ae6c255415bf6c"
+  },
+  "native_wrapper_sha256": "c07c24887b48808dc5dc8016f5698223e5ff45ee502a8f86911c72adc75d3fad",
+  "results_sha256": "21ab189e2a7eb785aa9bec596d48b7e4c415b8155ff1a6d06d26988557d8f2d5"
+}
