@@ -4,24 +4,41 @@
 **Frozen working parent:** `feature/zee-d14-conditional-cascade-scan`
 at `133a34061723b6bb45b19e8ebe29852ac8b5a9c2`.
 
-## User's new objective
+## Current milestone — LFV completion after source-backed B feasibility gate
 
-The user explicitly requires actual, publication-grade **LFV, B→Xsγ
-and Higgs exclusions** before the one final large parameter scan. The
-previous `FINAL_PHYSICS_SCOPE_FROZEN_CONDITIONAL` is a stable, read-only
-fallback, not the desired final physics standard.
+The user requires fully validated LFV, B→Xsγ and Higgs exclusions
+before the one final large scan.
 
-**First task: read and execute**
-`research/full_constraints/PLAN.md` and
-`research/full_constraints/BSGAMMA_FIRST_TASK.md`.
-Prioritize B→Xsγ backend **feasibility and actual nonlinear/rate
-uncertainty coverage**; this is the critical path. A reported source-
-backed `B_FULL_RATE_BLOCKED` is legitimate, but inventing a 2026 NP
-theory sigma, shifting old SM intercepts, or fabricating a Zee 95% CL
-exclusion is not. Do not move to broad LFV/Higgs implementations
-until the B feasibility gate is documented. Later tasks:
+**B source feasibility is complete at `64bdf27`:**
+`B_FULL_RATE_BLOCKED`. The nonlinear coherent two-state code is
+available, but neither independent matched finite-cut physical
+normalization nor a qualified model-specific NP uncertainty is
+established. Never mislabel a legacy kernel, 2026 LO linearization,
+or backend nuisance as a validated 95% CL Zee exclusion.
+
+**Current task: read and execute**
+`research/full_constraints/LFV_NEXT_STAGE.md`,
 `research/full_constraints/LFV_TASK.md`,
-`research/full_constraints/HIGGS_TASK.md`.
+`research/full_constraints/PLAN.md`, and
+`research/full_constraints/FEASIBILITY_GATE.md`.
+Focus on **source-level diagram and operator completeness** and an
+independently validated new LFV observable/gauge group, if feasible.
+Existing corrected general-2HDM neutral-fermion/photon contributions
+are ALREADY in Module4, so do not double count.
+
+After LFV reports a real validated scope or exact block, the
+independent Higgs coverage task is
+`research/full_constraints/HIGGS_TASK.md`. A final all-three-gates
+claim is prohibited while B is blocked.
+
+No new parameter-space points or scans of any size, no HTCondor
+submission, no model-wide MG5 production. Existing saved cards and
+analytic limiting cases are allowed for bounded independent
+validation. The original `feature/zee-d14-conditional-cascade-scan`
+remains frozen and untouched.
+
+Use English for every Codex title, log, note and commit. Commit and
+push only source-verified research changes to this branch.
 
 ## Mandatory physics safeguards
 
