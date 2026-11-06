@@ -20,6 +20,20 @@ calculations or ask authors for information.
 user authorize one final big scan in a separate step. Do not silently
 choose the count/seed/arms for them.
 
+## Public-code reuse BEFORE new physics work
+
+Read `module14/PUBLIC_CODE_REUSE_AUDIT.md` when auditing external
+capabilities. Source-qualified priority: corrected 2026
+general-2HDM two-loop radiative-LFV Python code, SARAH/FlavorKit/SPheno,
+Vevacious++ and HomotopyContinuation.jl, existing HiggsTools.
+**None is proven automatically complete in Zee Type-II.** Adapt only
+independently verified diagram/operator subsets and preserve
+`UNKNOWN` for uncovered contributions. Do not rebuild completed
+matching/RG or claim new theory uncertainties from legacy-code
+differences. Do not download, execute, or vendor unpinned third-party
+binaries as part of a broad scan. First build a bounded compatibility
+audit and use frozen points/fixtures, not new proposals.
+
 ## Physics integrity
 
 - The published Misiak 2026 Eq.(4) flavor result is an **approximate,
