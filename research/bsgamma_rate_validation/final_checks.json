@@ -1,0 +1,81 @@
+{
+  "checks": [
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "3207b6d",
+        "--",
+        "module0",
+        "module1",
+        "module2",
+        "module3",
+        "module4",
+        "module5",
+        "module6",
+        "module7",
+        "module8",
+        "module9",
+        "module10",
+        "module11",
+        "module12",
+        "module13",
+        "module14",
+        "scripts"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": ""
+    }
+  ],
+  "classification": "BSG_PHYSICAL_ACCURACY_BLOCKED",
+  "final_results_sha256": "08433e8b7171bf6059d26325d9ce0a26f50ce8cd096004bacfb848df4e94f299",
+  "new_test_groups": [
+    "source and executable integrity",
+    "actual identical-vector kernel dataflow",
+    "signed physical perturbation bookkeeping",
+    "NLO C4 square distinction",
+    "uncut card rejection",
+    "coherent mixing identities",
+    "statistical gate closed"
+  ],
+  "no_new_scale_or_statistical_validation": "Stage A hard gate unresolved; no uncertainty model or filter written",
+  "tests": {
+    "command": "research/bsgamma_rate_validation/local/venv/bin/python -m unittest discover -s research/bsgamma_rate_validation -p 'test_*.py' -v",
+    "count": 22,
+    "errors": 0,
+    "exit_code": 0,
+    "failures": 0,
+    "log_sha256": "a696d2bb1fa002ad117f29129e593ce24a7dcea62a67241450a721b399fa3e27",
+    "skips": 0,
+    "stdout": "test_C4_induced_operators_and_counting (test_bridge.BridgeTests) ... ok\ntest_EOS_translation_phase_defect_is_not_a_basis_inverse (test_bridge.BridgeTests) ... /home/amine/zee-bsgamma-rate-validation/research/bsgamma_rate_validation/local/venv/lib/python3.10/site-packages/wilson/wcxf/classes.py:357: DeprecationWarning: Conversion of an array with ndim > 0 to a scalar is deprecated, and will error in future. Ensure you extract a single element from your array before performing this operation. (Deprecated NumPy 1.25.)\n  return {'Re': float(v.real), 'Im': float(v.imag)}\nok\ntest_SM_and_two_state_live_rate_checks (test_bridge.BridgeTests) ... ok\ntest_direct_JMS_basis_and_chirality (test_bridge.BridgeTests) ... ok\ntest_native_LO_dipole_evolution_matches_analytic_solution (test_bridge.BridgeTests) ... ok\ntest_same_scale_matching_and_alpha_s_normalization (test_bridge.BridgeTests) ... ok\ntest_wilson_has_no_NLO_ADM_option (test_bridge.BridgeTests) ... ok\ntest_gate_remains_closed (test_final_validation.FinalValidationTests) ... ok\ntest_historical_uncut_card_is_actually_rejected (test_final_validation.FinalValidationTests) ... ok\ntest_minimal_cases_and_identities (test_final_validation.FinalValidationTests) ... ok\ntest_residuals_and_signed_NLO_counting (test_final_validation.FinalValidationTests) ... ok\ntest_second_kernel_receives_identical_ordinary_total_vector (test_final_validation.FinalValidationTests) ... ok\ntest_sources_builds_and_evidence_are_bound (test_final_validation.FinalValidationTests) ... ok\ntest_EOS_C4_is_a_total_low_scale_coefficient (test_pilot.PilotTests) ... ok\ntest_EOS_three_upstream_regressions (test_pilot.PilotTests) ... ok\ntest_decoupling_and_opposite_sign (test_pilot.PilotTests) ... ok\ntest_dipoles_have_measurable_quadratic_response (test_pilot.PilotTests) ... ok\ntest_flavio_cut_rejection (test_pilot.PilotTests) ... ok\ntest_flavio_upstream_published_SM_regression (test_pilot.PilotTests) ... ok\ntest_independent_matching_archived_D9B_point (test_pilot.PilotTests) ... ok\ntest_reject_unsupported_C4_and_invalid_inputs (test_pilot.PilotTests) ... ok\ntest_two_state_rate_identities (test_pilot.PilotTests) ... ok\n\n----------------------------------------------------------------------\nRan 22 tests in 1.173s\n\nOK\n"
+  },
+  "toolchain": {
+    "g++": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+    "gcc": "gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+    "make": "GNU Make 4.3",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35"
+  }
+}
