@@ -2,24 +2,34 @@
 
 **Branch:** `feature/zee-d14-conditional-cascade-scan`.
 
-## Current task (after verified 8eaaac6 scan collection)
+## Current task (after 111b544 model-matched production result)
 
-The D14 conditional workflow is **complete** at 8eaaac6. Do not repeat
-the 20k+225 receipt audit or build another general scan sidecar.
+**Read and execute `module14/NEXT_PRODUCTION_MAP_TASK.md` first.**
 
-**Read and execute `module14/NEXT_PRODUCTION_VACUUM_TASK.md` first.**
-It targets the 16 vacuum-certificate-PASS + nominal flavor-compatible
-points for model-matched LO production, and the six lighter points with
-vacuum UNKNOWN for bounded stability diagnostics. Only 1–3 real
-production probes are proposed; do not run large scans or HTCondor.
+The real 13 TeV production pilot for three conditional benchmark points
+and the bounded sub-TeV vacuum searches are COMPLETE at commit
+`111b544`. Do NOT repeat these tasks. The current bounded goal is
+the **actual 13 TeV production map for the remaining 13 of 16 vacuum-PASS
+and nominal-flavor-compatible scalar points**, plus an independent
+**14 TeV production check for three existing benchmarks**. Preserve
+original 13 TeV receipts; no mass/energy rescaling is an acceptable
+substitute for actual generator runs.
 
-The B→Xsγ authors have already been emailed without a reply. Physical
-flavor remains UNKNOWN. No definitive exclusion or global acceptance
-may be inferred. Missing production must not be replaced by an
-unvalidated 13/13.6/14-TeV rescaling.
+Make a clearly documented data/plot bundle, not a new big scan or
+an experimental sensitivity claim. Missing scale/PDF uncertainties,
+physical B→Xsγ classification, partial LFV and HiggsTools coverage must
+remain explicit. Do not change Modules 0–13 or original Module14
+worker, underlying data, or acceptance logic.
 
-Use English in all Codex responses, session titles, documentation,
-progress summaries and commits unless explicitly requested otherwise.
+The B→Xsγ authors were already emailed; no reply is available and
+no further author outreach is needed. All Codex output, task titles,
+documentation and commits should be in **English**.
+
+## Prior task archive (completed)
+
+The original `module14/NEXT_PRODUCTION_VACUUM_TASK.md` and
+`module14/CONDITIONAL_SCAN_TASK.md` are retained for provenance,
+not active instructions.
 
 ## Historical conditional-scan task (completed)
 
