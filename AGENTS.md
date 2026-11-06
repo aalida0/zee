@@ -1,18 +1,25 @@
-> **Current task (2026-11-06):** `research/bsgamma_rate_validation/M2026_ROUTE_TASK.md` takes priority.
-> The previous independent-benchmark attempt finished `BSG_PHYSICAL_ACCURACY_BLOCKED`.
-> Use the published 2026 LO-NP equation with an explicit validity-domain gate;
-> without source-supported remainder bounds, retain DIAGNOSTIC_ONLY and draft
-> an author question. Do not repeat physical-rate backend reconstruction.
+# Codex instructions — Zee B→Xsγ research branch
 
-# Codex instructions — Zee B→Xsγ independent rate validation
+## Current priority (2026-11-06)
 
-> **Current Codex task (2026-11-06):** Read and execute
-> `research/bsgamma_rate_validation/FINAL_VALIDATION_TASK.md` first.
-> Start from the already working EOS evolution at commit `3207b6d`;
-> do not reopen solved RG/matching work. The new task prioritizes an
-> independently matched physical-rate benchmark, a justified uncertainty
-> domain and then (only if validated) a research-only scan filter.
-> All existing conservative physics-status safeguards below remain in force.
+Read `research/bsgamma_rate_validation/OUTREACH_AND_TRIAGE_HANDOFF.md`.
+The 2026 linearized-rate validation task is **complete** at `4c79985` with
+`M2026_DIAGNOSTIC_ONLY_AUTHOR_INPUT_REQUIRED`. Its prior task files
+(`M2026_ROUTE_TASK.md`, `FINAL_VALIDATION_TASK.md`) are historical.
+**Do not restart them.**
+
+New research task: prepare author outreach and, if useful, a small read-only,
+cascade-aware D14 data-join specification. The email in
+`AUTHOR_EMAIL_READY.md` is **UNSENT**; do not send or contact anyone on
+the user's behalf. Do not run another unbounded B→Xsγ rate calculation,
+invent a theory error, promote any UNKNOWN point, or alter Modules 0–14.
+A real author response can be assessed in a separate bounded task.
+
+**Language:** use English exclusively in Codex responses, session titles,
+progress summaries, documentation and Git commits. No Russian language
+unless explicitly requested by the user.
+
+## Frozen background and original safeguards (read-only)
 
 This file is scoped to branch `research/zee-bsgamma-rate-validation`.
 It replaces the D14-only instructions in this branch; the source branch
