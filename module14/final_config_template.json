@@ -1,0 +1,93 @@
+{
+  "arms": [
+    {
+      "name": "USER_SELECT_ARM",
+      "ranges": {
+        "delta_alpha": [
+          -0.05,
+          0.05
+        ],
+        "gamma": [
+          0.15,
+          1.4
+        ],
+        "k1": [
+          -3,
+          3
+        ],
+        "k12": [
+          -3,
+          3
+        ],
+        "k2": [
+          -3,
+          3
+        ],
+        "lc": [
+          0.1,
+          5
+        ],
+        "m12sq_factor": [
+          0.7,
+          1.3
+        ],
+        "mH1_fraction": [
+          0.35,
+          0.75
+        ],
+        "mH2": [
+          700,
+          1100
+        ],
+        "ma_splitting": [
+          -100,
+          100
+        ],
+        "mh2_splitting": [
+          -100,
+          100
+        ],
+        "tanbeta": [
+          1,
+          15
+        ]
+      },
+      "weight": null
+    }
+  ],
+  "cascade_margin_GeV": 20,
+  "count": null,
+  "families": 2,
+  "perturbativity_limit": 3.5449077018110318,
+  "runtime": {
+    "binaries": {},
+    "cache_dir": null,
+    "cpus": 1,
+    "disk_mb": 2048,
+    "higgs_data": {},
+    "memory_mb": 2048,
+    "packages": {
+      "matplotlib": "3.10.9",
+      "mpmath": "1.3.0",
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "sympy": "1.14.0"
+    },
+    "python": "3.10.12",
+    "timeout_seconds": 3600
+  },
+  "sampling_mode": "correlated_heavy_v1",
+  "schema": "d14-final-config-1",
+  "seed": null,
+  "shard_size": null,
+  "source_commit": null,
+  "stages": {
+    "bsgamma": false,
+    "conditional_flavor": true,
+    "higgs": false,
+    "lfv": true,
+    "lfv_tree": false
+  },
+  "template": "module1/example.json",
+  "template_sha256": "116f6756fcdff11eb66311b6bd684bfaee5847bbd2288fb0b2dec6bca976ca10"
+}

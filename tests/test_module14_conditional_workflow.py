@@ -8,6 +8,7 @@ import unittest
 from module14 import scan
 from module14.conditional_scan.flavor import evaluate, classification, REFERENCE
 from module14.conditional_scan.workflow import cascade, join, load, production
+from module14.fixtures.replay import materialize, saved
 
 BASE = Path('module14/conditional_scan')
 
@@ -63,15 +64,7 @@ class JoinTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.tmp = tempfile.TemporaryDirectory(); cls.root = Path(cls.tmp.name)
-        cls.config = load('module14/pilot_config.json'); cls.config.update(count=100, shard_size=25)
-        scan.generate(cls.config, cls.root/'scan')
-        rows = [json.loads(s) for s in (cls.root/'scan/manifest.jsonl').read_text().splitlines()]
-        cls.manifest = cls.root/'selected.jsonl'
-        # Exact complete cards generated from the committed pilot; no reconstruction from IDs.
-        cls.manifest.write_text(''.join(scan.encode(r)+'\n' for r in rows if r['id'] in (50,91)))
-        cls.output, cls.receipt = cls.root/'result.jsonl', cls.root/'receipt.json'
-        scan.run(cls.manifest, cls.output, cls.receipt, cls.config, lfv=True)
-        cls.triples = [(cls.manifest, cls.output, cls.receipt)]
+        cls.config, cls.manifest, cls.triples = materialize(cls.root/'scan', {50,91})
         cls.args = (cls.manifest, cls.config, cls.triples, load(BASE/'matching_card.json'),
                     'LOCAL_UNSPECIFIED', 'LOCAL_UNSPECIFIED')
 
@@ -124,18 +117,13 @@ class JoinTests(unittest.TestCase):
         with self.assertRaises(ValueError): production(path, r['input_card'], r['neutrino'])
 
     def test_generation_shards_and_arms(self):
-        config = load(BASE/'pilot_config.json')
+        # Repartition original bytes; the generator and kernels are never run.
         with tempfile.TemporaryDirectory() as tmp:
-            a,b = Path(tmp)/'a',Path(tmp)/'b'
-            scan.generate(config,a); scan.generate(config,b)
-            self.assertEqual((a/'manifest.jsonl').read_bytes(), (b/'manifest.jsonl').read_bytes())
-            self.assertEqual(b''.join(p.read_bytes() for p in sorted(a.glob('shard*'))), (a/'manifest.jsonl').read_bytes())
-            counts={}
-            for line in (a/'manifest.jsonl').read_text().splitlines():
-                r=json.loads(line); p=r['scalar']['physical']; counts[r['arm']]=counts.get(r['arm'],0)+1
-                self.assertGreater(p['mH2'],p['mH1']+r['scalar']['electroweak']['mZ'])
-                self.assertNotEqual(p['gamma'],0)
-            self.assertEqual(counts,{'sub_TeV':6,'higher_mass':6,'broad_control':4})
+            _, a, ap = materialize(Path(tmp)/'a', shard_size=25)
+            _, b, bp = materialize(Path(tmp)/'b', shard_size=50)
+            self.assertEqual(a.read_bytes(), b.read_bytes())
+            self.assertEqual(b''.join(t[0].read_bytes() for t in ap), a.read_bytes())
+            self.assertEqual(b''.join(t[1].read_bytes() for t in ap), b''.join(t[1].read_bytes() for t in bp))
 
 
 if __name__ == '__main__': unittest.main()

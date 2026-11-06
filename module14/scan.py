@@ -54,7 +54,15 @@ def neutrino_input(row, seed, ordering, family):
 
 
 def evaluate_family(row, seed, ordering, family, limit):
-    seed_hash, spec, inp = neutrino_input(row, seed, ordering, family)
+    try:
+        seed_hash, spec, inp = neutrino_input(row, seed, ordering, family)
+    except Exception as exc:
+        return {'ordering': ordering, 'family': family,
+                'seed_sha256': digest(['d14-neutrino-v1', seed, row['id'], ordering, family]),
+                'scalar_sha256': row['scalar_sha256'], 'input': None, 'input_sha256': None,
+                'target_sha256': None, 'target_spec': None, 'perturbativity_limit': limit,
+                'status': 'ERROR', 'closure_status': 'ERROR', 'error_phase': 'input_construction',
+                'error_type': type(exc).__name__, 'error': str(exc)}
     result = {'ordering': ordering, 'family': family, 'seed_sha256': seed_hash,
               'target_spec': spec, 'input': inp, 'input_sha256': digest(inp),
               'target_sha256': digest(inp['target_eV']),
@@ -110,7 +118,12 @@ def correlated_point(point, arm, rng):
 
 
 def generate(config, output):
-    template = json.loads(Path(config['template']).read_text())
+    template_path = Path(config['template'])
+    if config.get('schema') == 'd14-final-config-1':
+        from module14.final_config import validate, ROOT
+        validate(config)
+        template_path = ROOT/template_path
+    template = json.loads(template_path.read_text())
     mode = config.get('sampling_mode', 'independent_uniform')
     if mode not in ('independent_uniform', 'correlated_heavy_v1'):
         raise ValueError('Unsupported sampling mode')
@@ -131,7 +144,9 @@ def generate(config, output):
                     raise ValueError('Invalid correlated range')
             if ranges['tanbeta'][0] <= 0 or ranges['mH2'][0] <= 0 or ranges['mH1_fraction'][0] <= 0:
                 raise ValueError('Masses, mass fractions and tanbeta must be positive')
-        slots = [arm for arm in arms for _ in range(arm['weight'])]
+        # Cumulative integer weights preserve the original slot schedule
+        # without allocating memory proportional to user-supplied weights.
+        total_weight = sum(a['weight'] for a in arms)
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
     manifest = (output / 'manifest.jsonl').open('w')
@@ -141,7 +156,13 @@ def generate(config, output):
             if shard: shard.close()
             shard = (output / ('shard_%06d.jsonl' % (i // config['shard_size']))).open('w')
         rng = random.Random(int(digest([config['seed'], i]), 16))
-        arm = slots[i % len(slots)] if mode == 'correlated_heavy_v1' else config['arms'][i % len(config['arms'])]
+        if mode == 'correlated_heavy_v1':
+            slot = i % total_weight
+            for arm in arms:
+                if slot < arm['weight']: break
+                slot -= arm['weight']
+        else:
+            arm = config['arms'][i % len(config['arms'])]
         point = copy.deepcopy(template)
         point['benchmark_id'] = 'd14_%08d' % i
         if mode == 'correlated_heavy_v1':
@@ -156,6 +177,13 @@ def generate(config, output):
         shard.write(line)
     if shard: shard.close()
     manifest.close()
+    if config.get('schema') == 'd14-final-config-1':
+        from module14.final_workflow import write_atomic
+        write_atomic(output/'generation_receipt.json', {
+            'schema': 'd14-generation-1', 'config_sha256': digest(config),
+            'source_commit': config['source_commit'], 'template_sha256': config['template_sha256'],
+            'manifest_sha256': file_sha(output/'manifest.jsonl'),
+            'shards_sha256': {p.name: file_sha(p) for p in sorted(output.glob('shard_*.jsonl'))}})
 
 
 def file_sha(path):
@@ -199,7 +227,7 @@ def scalar_gates(row):
 
 def runtime_info():
     versions = {}
-    for name in ('numpy', 'scipy', 'mpmath', 'jsonschema', 'sympy', 'HiggsTools'):
+    for name in ('numpy', 'scipy', 'mpmath', 'jsonschema', 'sympy', 'HiggsTools', 'matplotlib'):
         try:
             versions[name] = importlib.metadata.version(name)
         except importlib.metadata.PackageNotFoundError:
@@ -247,7 +275,25 @@ def cached_scalar_gates(row, cache_dir, version):
     return gates
 
 
-def run(shard, output, receipt, config, families=2, limit=math.sqrt(4*math.pi), resume=False, cache_dir=None, lfv=False, lfv_tree=False, bsgamma=False, d9b_probe=None, higgs=False, hb_data=None, hs_data=None, production_dir=None):
+def run(shard, output, receipt, config, families=2, limit=math.sqrt(4*math.pi), resume=False, cache_dir=None, lfv=False, lfv_tree=False, bsgamma=False, d9b_probe=None, higgs=False, hb_data=None, hs_data=None, production_dir=None, preflight_report=None):
+    final_lock = None
+    if config.get('schema') == 'd14-final-config-1':
+        from module14.final_config import validate, worker_settings, validate_manifest
+        from module14.final_workflow import require_preflight
+        from module14.conditional_scan.workflow import load
+        validate(config)
+        if not preflight_report: raise ValueError('Final worker requires a pinned preflight report')
+        report = load(preflight_report); require_preflight(config, report)
+        actual = dict(families=families, perturbativity_limit=limit, cache_dir=cache_dir,
+                      lfv=lfv, lfv_tree=lfv_tree, bsgamma=bsgamma, d9b_probe=d9b_probe,
+                      higgs=higgs, hb_data=hb_data, hs_data=hs_data)
+        if actual != worker_settings(config) or production_dir is not None:
+            raise ValueError('Worker settings do not match final config; production enrichment is postprocessing')
+        if os.environ.get('ZEE_D14_SOURCE_COMMIT') != config['source_commit']:
+            raise ValueError('Final worker source commit mismatch')
+        if len(validate_manifest(shard, config, require_full=False)) != config['shard_size']:
+            raise ValueError('Final worker requires one complete bounded shard')
+        final_lock = report['report_sha256']
     if resume and production_dir:
         raise ValueError('Resume with mutable production directory is unsupported; use fresh outputs')
     if lfv_tree and not lfv:
@@ -263,6 +309,11 @@ def run(shard, output, receipt, config, families=2, limit=math.sqrt(4*math.pi), 
                 'source_commit': os.environ.get('ZEE_D14_SOURCE_COMMIT', 'LOCAL_UNSPECIFIED'),
                 'source_bundle_sha256': os.environ.get('ZEE_D14_BUNDLE_SHA256', 'LOCAL_UNSPECIFIED'),
                 'runtime': runtime_info()}
+    if final_lock is not None:
+        settings['final_preflight_sha256'] = final_lock
+        settings['manifest_sha256'] = os.environ.get('ZEE_D14_MANIFEST_SHA256')
+        from module14.final_config import sha
+        sha(settings['manifest_sha256'], 'Original manifest SHA256')
     if higgs and hb_data and hs_data and Path(hb_data).is_dir() and Path(hs_data).is_dir():
         from module13.higgstools import dataset
         settings['higgs_datasets_sha256'] = digest({'HB': dataset(Path(hb_data)), 'HS': dataset(Path(hs_data))})
@@ -270,12 +321,18 @@ def run(shard, output, receipt, config, families=2, limit=math.sqrt(4*math.pi), 
         if resume and Path(output).is_file() and Path(receipt).is_file():
             saved = json.loads(Path(receipt).read_text())
             if all(saved.get(k) == v for k, v in settings.items()) and saved.get('output_sha256') == file_sha(output):
-                return saved
+                from module14.collect import collect
+                audit = collect(shard, config, [(shard, output, receipt)], families, limit,
+                                settings['source_commit'], settings['source_bundle_sha256'],
+                                report if final_lock else None, require_full_manifest=False)
+                if audit['status'] == 'COMPLETE' and not audit['computational_errors']:
+                    return saved
         raise FileExistsError('Output or receipt exists; use --resume for a matching completed pair, or new paths for an incomplete pair')
     scalar_version = scalar_source_version() if cache_dir else None
     start = time.monotonic()
     cpu_start = time.process_time()
     count = 0
+    point_ids = set()
     counts = {}
     lfv_seconds = 0.0
     bsgamma_seconds = 0.0
@@ -285,6 +342,9 @@ def run(shard, output, receipt, config, families=2, limit=math.sqrt(4*math.pi), 
         for line in inp:
             count += 1
             row = json.loads(line)
+            if type(row['id']) is not int or row['id'] in point_ids:
+                raise ValueError('Invalid or duplicate shard point ID')
+            point_ids.add(row['id'])
             if row['config_sha256'] != digest(config):
                 raise ValueError('config hash mismatch')
             if digest(row['scalar']) != row['scalar_sha256']:
@@ -402,8 +462,9 @@ def main():
     sub = p.add_subparsers(dest='action', required=True)
     g = sub.add_parser('generate'); g.add_argument('--config', required=True); g.add_argument('--output', required=True)
     w = sub.add_parser('worker'); w.add_argument('--shard', required=True); w.add_argument('--output', required=True); w.add_argument('--receipt', required=True); w.add_argument('--config', required=True); w.add_argument('--families', type=int, default=2); w.add_argument('--perturbativity-limit', type=float, default=math.sqrt(4*math.pi)); w.add_argument('--resume', action='store_true'); w.add_argument('--cache-dir'); w.add_argument('--lfv', action='store_true'); w.add_argument('--lfv-tree', action='store_true'); w.add_argument('--bsgamma', action='store_true'); w.add_argument('--d9b-probe'); w.add_argument('--higgs', action='store_true'); w.add_argument('--hb-data'); w.add_argument('--hs-data'); w.add_argument('--production-dir')
+    w.add_argument('--preflight-report')
     a = p.parse_args()
     if a.action == 'generate': generate(json.loads(Path(a.config).read_text()), a.output)
-    else: run(a.shard, a.output, a.receipt, json.loads(Path(a.config).read_text()), a.families, a.perturbativity_limit, a.resume, a.cache_dir, a.lfv, a.lfv_tree, a.bsgamma, a.d9b_probe, a.higgs, a.hb_data, a.hs_data, a.production_dir)
+    else: run(a.shard, a.output, a.receipt, json.loads(Path(a.config).read_text()), a.families, a.perturbativity_limit, a.resume, a.cache_dir, a.lfv, a.lfv_tree, a.bsgamma, a.d9b_probe, a.higgs, a.hb_data, a.hs_data, a.production_dir, a.preflight_report)
 
 if __name__ == '__main__': main()

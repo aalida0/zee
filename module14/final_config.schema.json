@@ -1,0 +1,323 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Template deliberately fails until user fills all decisions. Validator also enforces source hashes, finite ordered ranges, spectrum bounds, divisibility, stage dependencies and validated runtime pins.",
+  "properties": {
+    "arms": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "pattern": "^[A-Za-z0-9_]+$",
+            "type": "string"
+          },
+          "ranges": {
+            "additionalProperties": false,
+            "properties": {
+              "delta_alpha": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              },
+              "gamma": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              },
+              "k1": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              },
+              "k12": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              },
+              "k2": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              },
+              "lc": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              },
+              "m12sq_factor": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              },
+              "mH1_fraction": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              },
+              "mH2": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              },
+              "ma_splitting": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              },
+              "mh2_splitting": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              },
+              "tanbeta": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              }
+            },
+            "required": [
+              "mH2",
+              "mH1_fraction",
+              "tanbeta",
+              "delta_alpha",
+              "gamma",
+              "lc",
+              "k1",
+              "k2",
+              "k12",
+              "mh2_splitting",
+              "ma_splitting",
+              "m12sq_factor"
+            ],
+            "type": "object"
+          },
+          "weight": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "name",
+          "weight",
+          "ranges"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "cascade_margin_GeV": {
+      "const": 20
+    },
+    "count": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "families": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "perturbativity_limit": {
+      "exclusiveMinimum": 0,
+      "type": "number"
+    },
+    "runtime": {
+      "additionalProperties": false,
+      "properties": {
+        "binaries": {
+          "additionalProperties": {
+            "additionalProperties": false,
+            "properties": {
+              "path": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "sha256": {
+                "pattern": "^[0-9a-f]{64}$",
+                "type": "string"
+              }
+            },
+            "required": [
+              "path",
+              "sha256"
+            ],
+            "type": "object"
+          },
+          "type": "object"
+        },
+        "cache_dir": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cpus": {
+          "const": 1
+        },
+        "disk_mb": {
+          "minimum": 2048,
+          "type": "integer"
+        },
+        "higgs_data": {
+          "additionalProperties": {
+            "additionalProperties": false,
+            "properties": {
+              "path": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "sha256": {
+                "pattern": "^[0-9a-f]{64}$",
+                "type": "string"
+              }
+            },
+            "required": [
+              "path",
+              "sha256"
+            ],
+            "type": "object"
+          },
+          "type": "object"
+        },
+        "memory_mb": {
+          "minimum": 2048,
+          "type": "integer"
+        },
+        "packages": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "python": {
+          "pattern": "^3\\.10\\.\\d+$",
+          "type": "string"
+        },
+        "timeout_seconds": {
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "python",
+        "packages",
+        "binaries",
+        "higgs_data",
+        "cpus",
+        "memory_mb",
+        "disk_mb",
+        "timeout_seconds",
+        "cache_dir"
+      ],
+      "type": "object"
+    },
+    "sampling_mode": {
+      "const": "correlated_heavy_v1"
+    },
+    "schema": {
+      "const": "d14-final-config-1"
+    },
+    "seed": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "shard_size": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "source_commit": {
+      "pattern": "^[0-9a-f]{40}$",
+      "type": "string"
+    },
+    "stages": {
+      "additionalProperties": false,
+      "properties": {
+        "bsgamma": {
+          "type": "boolean"
+        },
+        "conditional_flavor": {
+          "type": "boolean"
+        },
+        "higgs": {
+          "type": "boolean"
+        },
+        "lfv": {
+          "type": "boolean"
+        },
+        "lfv_tree": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "lfv",
+        "lfv_tree",
+        "bsgamma",
+        "higgs",
+        "conditional_flavor"
+      ],
+      "type": "object"
+    },
+    "template": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "template_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "count",
+    "shard_size",
+    "families",
+    "schema",
+    "source_commit",
+    "template",
+    "template_sha256",
+    "seed",
+    "sampling_mode",
+    "cascade_margin_GeV",
+    "perturbativity_limit",
+    "arms",
+    "stages",
+    "runtime"
+  ],
+  "title": "D14 final config; additional semantic checks in module14.final_config.validate",
+  "type": "object"
+}

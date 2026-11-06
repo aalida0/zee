@@ -1,0 +1,210 @@
+{
+  "action": "Read-only inspection of preexisting research checkout; no build/run/new input",
+  "additional_observables": "UNVALIDATED",
+  "files_sha256": {
+    "CROSSING_BRIDGE.md": "bb6161a2ab6ad88adba9b891f7f1c844aa8e1691baee47b13a8c5d342bc2a3e1",
+    "REPORT.md": "a306c986d917556e1a025d7df9b780fc01705b4f8eca61104f2fde62245aa33f",
+    "crossing_bridge_evidence.json": "7591e3eb14f8fa988cbb5a8a51474ae355ffc5d52ab16a4cc4ae9e1eb9ad6d6d",
+    "generate_lfv_only.m": "d4fe448fff3e83a404f0f189af3ecc333fca497c1e0089eae80498e9d54ad551",
+    "local/SPheno-4.0.5/ZeeTypeII/Observables/FlavorKit_LFV_ZeeTypeII.f90": "d642cb7808a5f2aab8e81123f8bcbbfbda5f1f8148d8cf316fb90b8cd8599154",
+    "local/SPheno-4.0.5/ZeeTypeII/Observables/LowEnergy_ZeeTypeII.f90": "d98c959f329545d45dd50d6bda9bafa694486cd4ec67112c17a46d1b3e8ee8c0",
+    "local/SPheno-4.0.5/ZeeTypeII/RunSM_ZeeTypeII.f90": "aff23549b11acc0759251e7d1fa9d4cd3db9ffd575b876ede0ca1072c50d9e11",
+    "local/SPheno-4.0.5/src/StandardModel.f90": "00f4e8e208202d0ba7d41015b5da0ef2e43267e200bc152abe1a8ddb40ec4106",
+    "model/SPheno.m": "cf22a17e4fb9e0d74b168cb0c6e9cf8879c7f0fa36bf676825c7b34b89b8ae38"
+  },
+  "integration_status": "REFERENCE_ONLY; no new operative constraint",
+  "loop_decay_build": "Previously failed undeclared ZRUNoMatrix/ZRUNoMatrixc; reduced build disables loop decays",
+  "operator_relation": "K2L(i,j)=-conj(C_L(i->j)); K2R(i,j)=-conj(C_R(i->j))",
+  "original_d12_card_comparisons": [
+    {
+      "five_scalar_to_full_K_absolute_remainder": [
+        8.053894322046487e-28,
+        1.0513105121407346e-24
+      ],
+      "group": 0,
+      "matched_scalar_component_residuals": {
+        "Ah2": [
+          8.748474653471822e-13,
+          1.4938842135081234e-16
+        ],
+        "Hm2": [
+          4.198185216244748e-16,
+          2.600398070563769e-16
+        ],
+        "Hm3": [
+          9.287807745321254e-16,
+          2.091888003608461e-15
+        ],
+        "hh1": [
+          6.773042252216919e-11,
+          2.1505308285365337e-16
+        ],
+        "hh2": [
+          1.8873537095128987e-12,
+          1.4860975427365349e-15
+        ]
+      },
+      "run": "crossing_original_cards",
+      "unmatched_or_matched_full_C_relative_residual": {
+        "L": 8.02073089314068e-09,
+        "R": 2.0318538665519213e-08
+      }
+    },
+    {
+      "five_scalar_to_full_K_absolute_remainder": [
+        4.5914563380269565e-27,
+        1.4579149409939907e-24
+      ],
+      "group": 1,
+      "matched_scalar_component_residuals": {
+        "Ah2": [
+          2.0935883425931235e-12,
+          5.152573831811641e-16
+        ],
+        "Hm2": [
+          3.3482828827002165e-16,
+          5.049200932848271e-16
+        ],
+        "Hm3": [
+          2.6199433190694493e-15,
+          8.642907523036624e-16
+        ],
+        "hh1": [
+          1.9952973381657836e-11,
+          3.3897696693296697e-16
+        ],
+        "hh2": [
+          4.930742431914927e-12,
+          9.73598385455312e-16
+        ]
+      },
+      "run": "crossing_original_cards",
+      "unmatched_or_matched_full_C_relative_residual": {
+        "L": 3.487913927777343e-08,
+        "R": 2.1517062753514266e-08
+      }
+    },
+    {
+      "five_scalar_to_full_K_absolute_remainder": [
+        3.5594035749927686e-28,
+        3.6448433615447085e-25
+      ],
+      "group": 2,
+      "matched_scalar_component_residuals": {
+        "Ah2": [
+          3.204212693254069e-13,
+          2.3429128902390387e-16
+        ],
+        "Hm2": [
+          1.8002313630287288e-16,
+          1.578491717585289e-16
+        ],
+        "Hm3": [
+          4.79303549921867e-16,
+          3.028647222228937e-16
+        ],
+        "hh1": [
+          6.807899884802155e-11,
+          3.2473629160708933e-16
+        ],
+        "hh2": [
+          3.728324308832587e-13,
+          1.9826907821608029e-16
+        ]
+      },
+      "run": "crossing_original_cards",
+      "unmatched_or_matched_full_C_relative_residual": {
+        "L": 1.3767088467375173e-08,
+        "R": 1.9662602761915554e-07
+      }
+    },
+    {
+      "five_scalar_to_full_K_absolute_remainder": [
+        1.7498795074137182e-27,
+        6.22825147028523e-25
+      ],
+      "group": 3,
+      "matched_scalar_component_residuals": {
+        "Ah2": [
+          8.096125580811738e-13,
+          1.0451707280553857e-16
+        ],
+        "Hm2": [
+          1.6354041274780026e-16,
+          2.5692769924256e-16
+        ],
+        "Hm3": [
+          5.454389364796699e-16,
+          6.19045202413795e-16
+        ],
+        "hh1": [
+          2.007817562186413e-11,
+          3.9229962317332616e-16
+        ],
+        "hh2": [
+          9.64214343557367e-13,
+          5.320413325700685e-16
+        ]
+      },
+      "run": "crossing_original_cards",
+      "unmatched_or_matched_full_C_relative_residual": {
+        "L": 9.655229063281445e-08,
+        "R": 1.4793735668620127e-07
+      }
+    }
+  ],
+  "original_native_rates": [
+    {
+      "BR": 3.4673825255245936e-18,
+      "GammaMu_GeV": 2.995983570363896e-19,
+      "alpha": 0.007297352569816315,
+      "daughter_phase_space_factor": 0.9999298313287406,
+      "group": 0,
+      "relative_rounding_residual": 1.2907160895636594e-09
+    },
+    {
+      "BR": 7.21191477942573e-18,
+      "GammaMu_GeV": 2.995983570363896e-19,
+      "alpha": 0.007297352569816315,
+      "daughter_phase_space_factor": 0.9999298313287406,
+      "group": 1,
+      "relative_rounding_residual": 7.962808190598025e-11
+    },
+    {
+      "BR": 2.4894310744164175e-20,
+      "GammaMu_GeV": 2.995983570363896e-19,
+      "alpha": 0.007297352569816315,
+      "daughter_phase_space_factor": 0.9999298313287406,
+      "group": 2,
+      "relative_rounding_residual": 1.7740668933896586e-09
+    },
+    {
+      "BR": 1.0243143073554463e-19,
+      "GammaMu_GeV": 2.995983570363896e-19,
+      "alpha": 0.007297352569816315,
+      "daughter_phase_space_factor": 0.9999298313287406,
+      "group": 3,
+      "relative_rounding_residual": 2.5817794568894215e-09
+    }
+  ],
+  "recorded_hash_checks": {
+    "reference/module3/CONVENTIONS.md": true,
+    "reference/module3/core.py": true,
+    "reference/validation/module12/d12_benchmarks.json": true,
+    "research/benchmark_card.py": true,
+    "research/check_components.py": true,
+    "research/compare_dipoles.py": true,
+    "research/crossing_bridge_spinors.py": true,
+    "research/crossing_bridge_toy.py": true,
+    "research/patch_small_ratio.py": true,
+    "research/physical_card_closure.py": true,
+    "research/test_direct_amplitudes.py": true,
+    "research/verify_crossing_closure.py": true
+  },
+  "sarah_version": "4.15.4",
+  "schema": "d14-spheno-readonly-evidence-1",
+  "scoped_recorded_status": "ONE_LOOP_COMPLEX_DIPOLE_PASS",
+  "source_checkout_commit": "81cd376294e223c7311fba134f643db5c02bbad0",
+  "spheno_archive_sha256": "3f84a6c3e47f40e0dd1bcccb88eb08a1d0a65aa3d8e42504befdfc3d47ec9529",
+  "spheno_version": "4.0.5"
+}

@@ -29,7 +29,7 @@ def lines(path):
                              parse_constant=lambda x: (_ for _ in ()).throw(ValueError('Nonfinite JSON '+x)))
 
 
-def production(path, scalar, family):
+def production(path, scalar, family, expected_contract=None):
     """Explicit per-family H2 production contract; artifacts must be available."""
     if path is None or not Path(path).exists():
         return {'status': 'NOT_EVALUATED', 'reason': 'No documented same-point production supplied'}
@@ -41,8 +41,14 @@ def production(path, scalar, family):
     if any(row.get(k) != v for k, v in expected.items()):
         raise ValueError('Production point identity mismatch')
     for k in ('energy_TeV', 'sigma_pb'):
-        if finite_real(row[k], k) < 0 or (k == 'energy_TeV' and row[k] == 0):
+        if finite_real(row[k], k) <= 0:
             raise ValueError('Invalid production input')
+    if row['energy_TeV'] not in (13, 14):
+        raise ValueError('Unsupported production energy; no rescaling permitted')
+    if expected_contract is not None:
+        contract_keys = {'energy_TeV', 'process', 'charge_definition', 'order', 'pdf', 'scale_scheme'}
+        if set(expected_contract) != contract_keys or any(row.get(k) != v for k, v in expected_contract.items()):
+            raise ValueError('Production energy/process/charge/PDF/order/scale contract mismatch')
     if row['state'] != 'H2' or row['model'] != 'ZeeTypeII':
         raise ValueError('Wrong production state/model')
     for k in ('process', 'charge_definition', 'order', 'pdf', 'scale_scheme', 'documentation', 'uncertainty'):
@@ -90,16 +96,26 @@ def cascade(scalar, family, widths):
     br = partial/heavy['total']['total_width_GeV']
     if not math.isclose(br, heavy['br_H1_Z'], rel_tol=2e-13, abs_tol=1e-15):
         raise ValueError('Cascade BR mismatch')
-    result.update(BR_H2_H1Z=br, br_status='PASS', total_width_GeV=heavy['total']['total_width_GeV'])
+    light = widths['mothers']['H1']
+    tb = next(r['width_GeV'] for r in light['channels'] if r['channel'] == 't anti-b')/light['total']['total_width_GeV']
+    if not math.isclose(tb, light['br_tb'], rel_tol=2e-13, abs_tol=1e-15):
+        raise ValueError('H1 tb BR mismatch')
+    if not math.isclose(br*tb, widths['cascade_product'], rel_tol=2e-13, abs_tol=1e-15):
+        raise ValueError('Stored cascade product mismatch')
+    result.update(BR_H2_H1Z=br, BR_H1_tb=tb, cascade_product=br*tb,
+                  br_status='PASS', total_width_GeV=heavy['total']['total_width_GeV'])
     return result
 
 
 def join(manifest, config, triples, card, source_commit, source_bundle_sha256,
-         families=2, production_dir=None):
+         families=2, production_dir=None, preflight_report=None):
     if not source_commit or not source_bundle_sha256:
         raise ValueError('Explicit worker source identity required')
+    triples = sorted(triples, key=lambda t: file_sha(t[0]))
     audit = collect(manifest, config, triples, families=families,
-                    source_commit=source_commit, source_bundle_sha256=source_bundle_sha256)
+                    limit=config.get('perturbativity_limit', math.sqrt(4*math.pi)),
+                    source_commit=source_commit, source_bundle_sha256=source_bundle_sha256,
+                    preflight_report=preflight_report)
     if audit['status'] != 'COMPLETE' or audit['missing_points']:
         raise ValueError('Complete collection required before interpretation')
     inputs = {row['id']: row for row in lines(manifest)}
@@ -178,9 +194,11 @@ def main():
     parser.add_argument('--part', nargs=3, action='append', required=True)
     parser.add_argument('--families', type=int, default=2)
     parser.add_argument('--production-dir')
+    parser.add_argument('--preflight-report')
     a = parser.parse_args()
     result = join(a.manifest, load(a.config), a.part, load(a.matching_card),
-                  a.source_commit, a.source_bundle_sha256, a.families, a.production_dir)
+                  a.source_commit, a.source_bundle_sha256, a.families, a.production_dir,
+                  load(a.preflight_report) if a.preflight_report else None)
     with open(a.output, 'x') as f: json.dump(result, f, sort_keys=True, indent=2, allow_nan=False); f.write('\n')
 
 

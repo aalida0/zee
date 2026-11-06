@@ -102,6 +102,17 @@ def higgstools(scalar, family, hb_data, hs_data, widths=None, production=None):
                'analyses': [{'id': lim.id(), 'status': 'NOT_EVALUATED', 'reason': 'Missing matched production'}
                             for lim in bounds.limits() if '/singleCharge/' in lim.loadedFrom()]}
     if production is not None:
+        # The old shorthand was not a source-qualified production contract.
+        # Validate an actual H2 card before feeding a charged production mode.
+        from module14.conditional_scan.workflow import production as validate_production
+        if not isinstance(production, dict) or not production.get('validated_card_path'):
+            raise ValueError('Charged HiggsTools production requires validated_card_path and expected_contract')
+        supplied = validate_production(production['validated_card_path'], scalar, family,
+                                       production.get('expected_contract'))
+        if (production.get('expected_contract') is None or supplied['energy_TeV'] != 13
+            or supplied['process'] != 'pp_tbH2' or supplied['charge_definition'] != 'both'):
+            raise ValueError('HiggsTools Hpmtb requires explicit 13 TeV both-charge pp_tbH2 contract')
+        production = dict(supplied, charged_Hpmtb_13TeV_pb={'H2': supplied['sigma_pb']})
         expected_scalar = canonical_hash(scalar)
         yukawas = {k: canonical_hash(family[k]) for k in ('F', 'D', 'Ye', 'Ye2')}
         if production.get('scalar_sha256') != expected_scalar or production.get('yukawa_sha256') != yukawas:

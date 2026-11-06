@@ -1,0 +1,12 @@
+{
+  "files_sha256": {
+    "pilot_config.json": "bf94c5c747504302a45dcffeda2127950fd0b16a9f7bb527fc66753dfd8ea2e3",
+    "pilot_manifest.jsonl": "13646a256e1f9a242290100e90a179c7c8734f439a5df732444b3a57bf09253c",
+    "pilot_output.jsonl": "d583841ebb0a8d1c1b8433d195dea05fef64cacc65a3f38d68da52069ed69c7d",
+    "pilot_receipt.json": "9fe40c514d6a799018af65339453c146fa9d4ad605a03951cfa52484636938cd"
+  },
+  "origin": "Existing /tmp/zee-conditional-pilot-final-20261106/legacy_control; no computation or generation performed",
+  "remote_attestation": false,
+  "schema": "d14-frozen-replay-1",
+  "worker_source_sha256": "411ee0e3e70f118084e1891c7b075f40ba48f8b16356bc8131c0b2c3c74dbff0"
+}

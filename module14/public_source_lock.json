@@ -1,0 +1,61 @@
+{
+  "schema": "d14-public-source-lock-1",
+  "tools": {
+    "general_2hdm": {
+      "files_sha256": {
+        "LICENSE.txt": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0",
+        "README.md": "8a3c599c51a3981c54ea277a36b906a595eb3fe281e749007f6dd27c401365a4",
+        "example.py": "669d70f831ff9535d7bfc2930e7983a5dc0565957daf5069076bc896dce0fb0f",
+        "thdm.py": "9b4af7aa4bf7bf533a7b82c8c2603d118346424e3b7b5f9f06ab8cb41bc4e193"
+      },
+      "license": "Apache-2.0",
+      "operative_zee_backend": false,
+      "source_version": "b5035cd58d2a7e4a91e9790d045df062b97adffe"
+    },
+    "higgstools": {
+      "files_sha256": {
+        "LICENSE": "c465bf9d28141f3e60b2c397ba5fb3bfc7ad2de0d2973fc09eab9387edda8c44",
+        "python/Higgs/tools/Input.py": "7ba528fddf2930a61091954dd0ed885f680f74bf6a63529af0379a7631162334"
+      },
+      "installed_Input_py_sha256": "7ba528fddf2930a61091954dd0ed885f680f74bf6a63529af0379a7631162334",
+      "license": "GPL-3.0",
+      "operative_zee_backend": "Existing D13 diagnostic interface only",
+      "source_version": "1.1.3"
+    },
+    "homotopy": {
+      "files_sha256": {
+        "LICENSE": "daa586e6061bfa781cde07f5cfd3a4a44602d50f59d12b63e1716dcf20fbd17c",
+        "Project.toml": "15deb7f1b1368756d4fd294f2034e8c7d093a015274641bbd81bc1718a118c23",
+        "src/certification.jl": "67d4ace5e67224a128f29dd62cd7dc3450592d298fef14155019b5a64b2c4bb4"
+      },
+      "license": "MIT",
+      "operative_zee_backend": false,
+      "source_version": "0cbf1e27d062d7eb01d962c3b948c39444c9a62c"
+    },
+    "sarah": {
+      "archive_sha256": "4ab8f01ebe866cce954bc292118b5976913a2800efc6eeb2ad2e926a98fc42eb",
+      "files_sha256": {
+        "FlavorKit/LFV/Observables/Lto3Lp.f90": "959ad0244b9d0803d5563959810a40cabf9fe1f8a6ee8b81fb885fa3b5594f08",
+        "FlavorKit/LFV/Observables/MuEconversion.f90": "5f83849f7da81b4acf4f454881836b089acf1c9428d3f5e7a959d2a1ece9c584",
+        "FlavorKit/LFV/Operators/Gamma2l.m": "e03d364327be703c57d9b27c75a0a85dab2fcdb324d5014a59b648700da083a4",
+        "Package/Outputs/Vevacious.m": "7dcd075c6877b5476107669987c3712cf027f7fd527bf6be210fbee14f17991b",
+        "Package/SPheno/SPhenoLoopDecays.m": "d9a7480e10f1ad9a8213f9a99a29395808110d2cb4cb8d8a4a9b0907b41a88c7",
+        "SARAH.m": "8ed36ea4ed97e9f032ced9887a13594b4a40fe0f09fda475c69f7c5633be4d01"
+      },
+      "license": "NOT_VERIFIED_IN_INSPECTED_DISTRIBUTION; no source redistribution",
+      "operative_zee_backend": false,
+      "source_version": "4.15.4"
+    },
+    "vevacious": {
+      "files_sha256": {
+        "ModelFiles/PotentialFunctions/THDM.vin": "2e1f73dd134ca3f1a3f21897d2b6d9fef738f6e3339d483f38427019dd85e417",
+        "README.txt": "645880089b3f582ae15967d6b2913dc68a4666499bf8e45c4bbb376e06b53eec",
+        "source/PotentialMinimization/HomotopyContinuation/PHCRunner.cpp": "c02a30268fef508258cbef27654cede760f04f42db9713d916282c1bd1d21f2b",
+        "source/PotentialMinimization/StartingPointGeneration/PolynomialSystemSolver.cpp": "5bb043bbc3a3fc84cb1230800c3e00fa1235a304b7902853425782e21909634d"
+      },
+      "license": "GPL-3.0-or-later",
+      "operative_zee_backend": false,
+      "source_version": "657cf31c2489892d1862cd7ba21511e6f2ba863f"
+    }
+  }
+}

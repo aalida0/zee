@@ -1,0 +1,68 @@
+{
+  "commit": "b5035cd58d2a7e4a91e9790d045df062b97adffe",
+  "correction_diff_sha256": "e617933b1874cbfa59b4544f643aee464927b40debcfa9078e4f91bb915a2980",
+  "correction_source_inspection": [
+    "Neutral one-loop signs corrected in cR and cL",
+    "Charged one-loop cL sign corrected",
+    "Neutral fermion-loop cL prefactors and conjugations corrected"
+  ],
+  "elapsed_seconds": 0.6711978599996655,
+  "example": {
+    "2_1": {
+      "Gamma_GeV": 2.3799715772393228e-24,
+      "cL": {
+        "imag": 0.040701825859136495,
+        "real": -0.02109992811332834
+      },
+      "cR": {
+        "imag": -0.005345316788665917,
+        "real": 0.0023959452083295186
+      },
+      "rate_identity_relative_residual": 0.0
+    },
+    "3_1": {
+      "Gamma_GeV": 1.7353342836749715e-21,
+      "cL": {
+        "imag": 8.617094434315828e-06,
+        "real": 0.00033856656394999846
+      },
+      "cR": {
+        "imag": -0.0009657075654505072,
+        "real": 0.0003323436673626819
+      },
+      "rate_identity_relative_residual": 0.0
+    },
+    "3_2": {
+      "Gamma_GeV": 5.92354251264994e-22,
+      "cL": {
+        "imag": -0.00010575014828166216,
+        "real": 0.0001324482455298267
+      },
+      "cR": {
+        "imag": -0.0005316418287357373,
+        "real": 0.00028952751259590776
+      },
+      "rate_identity_relative_residual": 0.0
+    }
+  },
+  "flavor_diagonal_null_rates_GeV": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "published_nonzero_benchmark_comparison": "NOT_EVALUATED; upstream example provides no expected numerical output",
+  "publisher_erratum_equation_alignment": "PARTIAL_SOURCE_CHECK: corrected 5.7/5.8 fermion prefactors and conjugation structures, and grouped Phi2 term in f8e checked against publisher erratum. Not an exhaustive symbolic or Zee validation.",
+  "publisher_erratum_url": "https://link.springer.com/article/10.1007/JHEP07(2026)184",
+  "sources_sha256": {
+    "LICENSE.txt": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0",
+    "README.md": "8a3c599c51a3981c54ea277a36b906a595eb3fe281e749007f6dd27c401365a4",
+    "adm.py": "2730ded681459b6c77d81ef2bde5d973dd030059a78a0325f7fb1f8cab442564",
+    "example.py": "669d70f831ff9535d7bfc2930e7983a5dc0565957daf5069076bc896dce0fb0f",
+    "rge.py": "fc09384bddba9e283980cd95d0c104b45c6942ea4ff17b8e8da09182cefaff42",
+    "thdm.py": "9b4af7aa4bf7bf533a7b82c8c2603d118346424e3b7b5f9f06ab8cb41bc4e193"
+  },
+  "status": "UPSTREAM_CONTROL_ONLY",
+  "upstream_full_example_exit_code": 0,
+  "upstream_full_example_note": "Original example.py completed including EDM/RG outputs; those are not reused in D14.",
+  "zee_adapter": "UNVALIDATED"
+}

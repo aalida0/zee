@@ -7,6 +7,7 @@ from unittest.mock import patch
 
 from module14 import scan
 from module14.collect import collect
+from module14.fixtures.replay import materialize
 
 
 class CollectionTests(unittest.TestCase):
@@ -14,11 +15,8 @@ class CollectionTests(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
         self.root = Path(self.tmp.name)
-        self.config = json.loads(Path('module14/pilot_config.json').read_text())
-        self.config.update(count=4, shard_size=2)
-        scan.generate(self.config, self.root / 'scan')
-        self.manifest = self.root / 'scan/manifest.jsonl'
-        self.shards = [self.root / 'scan/shard_000000.jsonl', self.root / 'scan/shard_000001.jsonl']
+        self.config, self.manifest, triples = materialize(self.root/'scan', {0,1,2,3}, 2)
+        self.shards = [t[0] for t in triples]
 
     def worker(self, shard, name, resume=False):
         out, receipt = self.root / (name + '.jsonl'), self.root / (name + '.receipt')
