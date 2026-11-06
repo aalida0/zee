@@ -2,7 +2,28 @@
 
 **Branch:** `feature/zee-d14-conditional-cascade-scan`.
 
-## First task
+## Current task (after verified 8eaaac6 scan collection)
+
+The D14 conditional workflow is **complete** at 8eaaac6. Do not repeat
+the 20k+225 receipt audit or build another general scan sidecar.
+
+**Read and execute `module14/NEXT_PRODUCTION_VACUUM_TASK.md` first.**
+It targets the 16 vacuum-certificate-PASS + nominal flavor-compatible
+points for model-matched LO production, and the six lighter points with
+vacuum UNKNOWN for bounded stability diagnostics. Only 1–3 real
+production probes are proposed; do not run large scans or HTCondor.
+
+The B→Xsγ authors have already been emailed without a reply. Physical
+flavor remains UNKNOWN. No definitive exclusion or global acceptance
+may be inferred. Missing production must not be replaced by an
+unvalidated 13/13.6/14-TeV rescaling.
+
+Use English in all Codex responses, session titles, documentation,
+progress summaries and commits unless explicitly requested otherwise.
+
+## Historical conditional-scan task (completed)
+
+
 
 Read `module14/CONDITIONAL_SCAN_TASK.md` fully and execute its phases
 in order. This supersedes the historic D14A development task from the
