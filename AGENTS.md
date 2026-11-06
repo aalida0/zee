@@ -1,21 +1,91 @@
-# D14A — Production-shaped integrated Zee parameter scanner (LOCAL CODEX, SMALL PILOT)
+# Codex instructions — Zee B→Xsγ independent rate validation
 
-## Non-negotiable objective
-The user's actual goal is a **large, general-parameter Zee model scan** ending in a reproducible classified dataset, NOT per-benchmark optimization or paper go/no-go studies. Build a **generic configurable orchestration layer** that can later run O(10^6) proposed scalar/Yukawa points on HTCondor, reusing existing validated D0–D13 physics code. Start from pushed commit `5765b34e859c9849b168c0f9600daabffa989eed` on branch `feature/zee-d14-integrated-scan`; new clean local checkout `~/zee/workspaces/zee-integrated-d14`. Protect Modules0–13, all historical evidence, D9B patch, D10 certificate and prior Condor infrastructure. Implement ONLY new `module14/`, `scripts/zee_d14_*`, `tests/test_module14_*`, `validation/module14/`. No MG5, SARAH, SuperIso rebuild, HiggsTools source setup, PDF download, literature review, new physics formula, full-suite tests or Condor submission. Do not edit root AGENTS.md. This is **D14A orchestration**, NOT a completed all-constraints global scan.
+This file is scoped to branch `research/zee-bsgamma-rate-validation`.
+It replaces the D14-only instructions in this branch; the source branch
+`feature/zee-d14-integrated-scan` and its files must remain untouched.
 
-## What already exists; use actual APIs
-Read only needed parts of `module9/d7_prepare.py`, `module9/d7_worker.py`, `module9/d7_collect.py`, `module9/condor/`, `module1/scalar_constraints.py`, `module1/d10_certificate.py`, `module2/interface.py`, `module11/d11b_offline_fit.py`, `module3/interface.py`, `module4/interface.py`, `module7/d4_decay_table.py`, `module13/higgstools.py`, `module5/D9B_SUPERISO_REPAIR_AUDIT.md`; use compact selective reads. D7 only generates a **hardcoded 32-point NO pilot** and handles scoped scalar + inverse. It is an example for manifests/receipts, not an expandable scan as-is. D10 has a **sufficient full complex-field global certificate** for some scalar points; certificate miss=UNKNOWN. D11B uses NuFIT6.1 secondary best-fit-like NO/IO, not a joint likelihood. D9B legacy rate has NO current uncertainty-calibrated exclusion. Module4 LFV is incomplete (Wgamma, Zgamma, etc missing). D13 HiggsTools needs per-point matched production/complete widths; missing data must not be treated as zero. NO complete Zee acceptance has been established.
+## Scientific objective
 
-## D14A deliverable: REAL generic scan, staged & resumable, with no expensive physics
-1. **Declarative reproducible config** (versioned JSON) with variable seed, N proposals, shard size, NO/IO, scanning dimensions/ranges (all relevant physical scalar parameters including mH1,mH2,mh2,ma,alpha,beta,gamma,m12sq,lc,k1,k2,k12), and 1+ explicit neutrino target/complex-family proposals per eligible scalar point. Preserve mh1,v,EW convention and mass ordering; enforce mH2>mH1+mZ only if user config intentionally chooses cascade region. Include wide and targeted mathematically motivated sampling arms rather than the D7 fixed 32-point design; label proposal distribution and count. Check reasonable beta chart and quartics/mass values; signed gamma, soft m12sq explicitly, no nonphysical silent clamp. Use deterministic per-point RNG keyed by (global seed, scalar index, Yukawa index, ordering), independent of shard layout/restart; SHA-bound inputs and config. Avoid inventing a joint NuFIT likelihood.
-2. **Staged worker**: for each scalar proposal, reuse existing Module1 reconstruction, sufficient BFB, tree unitarity and EWPO cheaply; mark explicit PASS/FAIL/UNKNOWN/ERROR and record why. For scalar survivors try **D10 exact sufficient global certificate** using its real API, NOT 300-start minimization; a missed certificate => UNKNOWN (not FAIL), verified deeper witness if available => FAIL. Then evaluate frozen Module2 inverse NO/IO with deterministic Yukawa families, forward residual and perturbativity (F,D,Ye,Ye2). Actual scalar/Yukawa data must be consistent and hashed. Sample physics statuses must never be replaced by Python booleans that conflate failure, unknown and computation error. A scientifically failed point is not a Condor job failure.
-3. **Adapters/extension points** for later expensive stages in the correct order: LFV Module3+4, D9B Bsgamma, full charged widths Module7, HiggsTools Module13, production. For D14A, implementing a complete, source-validated adapter is optional only if it is **already directly callable** on arbitrary new scanned points without a model regeneration/build. Otherwise, record `NOT_EVALUATED` with exact missing dependency for each point; don't fabricate or borrow D13 fixed benchmark rates. Make clear which gates are currently CONDITIONAL or INCOMPLETE. No `global_zee_acceptance=true` anywhere. Cache scalar-only outputs per scalar SHA and Yukawa-dependent outputs per full input SHA: no repeating scalar, Bsgamma, hard production for multiple NO/IO/families; cache keys must include versions, scheme and dataset when relevant.
-4. **Scalable files and Condor shape**: deterministic JSONL manifest/shards; one worker CLI `--shard ... --output ... --receipt ...`; incremental atomic writes/checkpoint or exactly-once shard completed semantics; no swallowed errors; bound memory (stream files, do not hold millions in RAM); collector validates hashes, duplicate/missing IDs, count denominators, source commit/source bundle, stage statuses, resumes/partial results, cost per stage and CPU/resource stats. Make a compact **HTCondor .sub/worker** template modeled on D7, without claiming CERN/AF worker environments verified or running remote jobs. Avoid hardcoded 32, fixed four shards, path to author's laptop, or fixed sample masses. No developer test from unavailable AF.
-5. **Real local demonstration**: generate **at least 1000 reproducible proposed scalar configurations** with distinct hashes and configurable >1 neutrino family, NO+IO as requested in config. Execute **at least 100 actual proposed scalar points** through ALL cheap scalar gates (including D10 certificate for eligible ones) and inverse on surviving points; if none survive, apply a *documented unbiased/scalar-aware second sampling arm* with frozen seed rather than secretly injecting known benchmark fixtures; show actual acceptance fraction among proposals not advertised as model volume. Then compare **serial vs two independent shard runs**, collected merged outputs and manifest hashes exactly. Keep this pilot bounded; do not run 1000 full 300-trial vacua, MG5, or 200 HiggsTools evaluations. One previously certified D10 point may be used purely as a regression oracle, NOT as the study population.
-6. Explicit cutflow per *scalar proposal* and per *neutrino family*, scalar EVALUATION_ERROR distinct from BFB FAIL, and stage counts of PASS/FAIL/UNKNOWN/NOT_EVALUATED/ERROR. Include NO/IO separate counts, timing per stage and peak memory. 1000 proposals generated is **not** 1000 physics-evaluated survivors. Zero missing rate is **NOT_EVALUATED**, never physical zero.
+Establish whether an **existing independent, public flavor-physics backend**
+can produce a reproducible, accurate nonlinear `BR(B→X_s gamma, E_gamma>1.6 GeV)`
+for the real Type-II Zee quark sector with *two charged Higgs states*.
+Reuse the already validated LO/NLO QCD **ordinary-basis** matching
+`Delta C4, Delta C7, Delta C8`; do not start another matching, gauge,
+two-loop or multi-month symbolic-calculation project.
 
-## Tests, audit, and stop
-- `module14/D14A_INTEGRATED_SCAN_AUDIT.md` describing exact config, demo counts, stage coverage, scaling behavior, remaining D14B adapters, real local run instructions and future submit instructions.
-- `validation/module14/d14a_pilot.json` compact evidence with actual logs/manifest/result hashes, code/environment/version hashes, count and per-stage failures; detailed locally ignored `validation/module14/local/`.
-- **6–10 small meaningful tests** for deterministic restart/shard invariance, statuses, actual source-bound scalar/neutrino integration, per-index unique seeds, caching, no missing data→zero, collector missing/duplicate handling, strict source provenance. Run only new tests and select existing Module1/2/9 tests as needed, **not repository full suite**. `git diff --check`; commit and push if authentication works.
-- **Hard priority**: functioning generic generator + worker + collector + one actual bounded pilot before extra metadata, documentation, adapters or elaborate regression scaffolding. Avoid endless audit layers and numerous branch-guard tests. If external unavailable, still finish core pipeline; report missing services as optional. If resource/complexity blocker appears, stop with a **working useful partial pipeline** and exact next step. Do not spend user's limited Codex quota rebuilding validated theory or running long jobs. No `set -e` or `set -u` in Bash.
+The immediate deliverable is a **bounded independently executed rate comparison**,
+not a global scan, mass exclusion, complete NNLO solver, or full LFV calculation.
+Publishability and 2026 exclusion-readiness must remain UNKNOWN until validated.
+
+## Existing authoritative evidence
+
+Read before editing:
+- `module5/D9B_SUPERISO_REPAIR_AUDIT.md`: patched SuperIso v5.0 internal
+  Q1–Q8 NLO matching/observable consistency; this is a **legacy backend**,
+  not an independently validated modern rate.
+- `module5/BSGAMMA_2026_ACCURACY.md`, `module5/BSGAMMA_2026_CONVENTION.md`,
+  `module5/BSGAMMA_SCAN_TRIAGE.md` for independent BMU/HyperIso matching,
+  ordinary/effective-basis conventions and missing quadratic accuracy.
+- `module14/D14A_INTEGRATED_SCAN_AUDIT.md`: current D14
+  B-physics classification is **DIAGNOSTIC_ONLY**; no global acceptance.
+- `scripts/zee_module5_bmu_nlo.py`, `scripts/zee_d9b_rate_validate.py`,
+  and `module14/external.py` only as needed to understand existing interfaces.
+
+Example *diagnostic* point: mH1=550 GeV, mH2=900 GeV,
+tanbeta=5.3, gamma=1.09. In the frozen convention the full ordinary
+matching is the coherent sum with weights cos²gamma and sin²gamma.
+The archived patched SuperIso NLO legacy result is about
+3.88229911548e-4, **not** an external physical-rate oracle.
+
+## Allowed work and execution order
+
+1. Inventory *actual executable support* in current flavio+wilson, EOS and
+   HEPfit. Verify documented observables, Wilson basis/scale, operator
+   coverage, whether arbitrary BSM coefficients can enter the physical rate,
+   normalization, perturbative order, photon cut, supported SM inputs,
+   uncertainty interfaces and installation requirements. Do not assume
+   capabilities from a package name or version. Prefer small tests over
+   lengthy speculative source audits.
+2. Select one feasible independent backend, pin an upstream release/commit,
+   dependencies and input card, and run an **actual zero-NP SM result**.
+   Record exactly which published theoretical prediction it represents.
+3. Run a minimal independently reproducible one-state set: decoupling,
+   550/900 GeV, multiple tanbeta values and a physically opposite-coupling
+   sign *as a diagnostic only*. Vary C7 and C8 separately with ± perturbations,
+   and C4 if supported, to assess nonlinear/finite-basis effects. Keep
+   SM/NP coefficient bookkeeping explicit and avoid double evolution,
+   double `alpha_s/(4pi)` factors and ordinary/effective C7 confusion.
+4. If supported, inject the **coherent two-state coefficient vector ONCE**,
+   not a weighted sum of branching ratios. Verify gamma=0, pi/2, equal-mass
+   and interchange identities. Compare to the legacy SuperIso output only
+   under genuinely matched inputs/order. A difference between defaults is
+   not a backend failure.
+5. Assess what is still missing before a statistically defensible 2026
+   exclusion: current SM prediction vs legacy baseline, cutoff dependence,
+   NP quadratic terms, C4, perturbative truncation, finite-ms/primed/light
+   quark effects, uncertainty and covariance. Mark unvalidated coverage
+   `NOT_EVALUATED` or `DIAGNOSTIC_ONLY`; never invent a universal mass
+   cut or calibrate by rescaling a legacy SM central value.
+6. Once a rate interface is demonstrably valid, design a *separate*
+   integration adapter for D14; do not alter D14 accepted-point logic in this
+   exploratory branch. Include exact next steps if it is not ready.
+
+## Code, environment and output discipline
+
+- Put experiments in `research/bsgamma_rate_validation/` with a short README,
+  version-locked setup instructions, source references, executable commands,
+  machine-readable run results and a concise RESULT.md. Add focused tests.
+- Do not edit existing Modules 0–14, historical audits, frozen patches, source
+  evidence, `main`, or another Git branch. Existing backend code is read-only.
+- Use local ignored `research/bsgamma_rate_validation/local/` for external
+  repositories, environments, generated files, downloaded archives, binaries
+  and voluminous outputs. Do not vendor third-party sources or binaries.
+- Inspect license terms before reusing external code. Do not invent formulas,
+  missing numerical reference points or precision claims.
+- Work in bounded, testable increments; after each supported result run
+  focused tests and `git diff --check`. Commit only useful, reproducible
+  artifacts to this branch. If an external backend is inaccessible or lacks
+  necessary API support, document the concrete blocker and test the next
+  candidate, rather than rewriting its entire flavor framework.
+- Do not run a large physics scan, HTCondor submission or expensive symbolic
+  calculation for this investigation.
