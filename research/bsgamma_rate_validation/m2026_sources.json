@@ -1,0 +1,121 @@
+{
+  "ancillary_members": [
+    {
+      "bytes": 1542,
+      "name": "README",
+      "sha256": "ffc3a2013c7d83929bc22b0b38402a27bf93d93c342a9df8791e2725b0cb1fea"
+    },
+    {
+      "bytes": 10310,
+      "name": "G27_3P.m",
+      "sha256": "8110c5129347396796c24e2637b555b53f52d1ca8539be6dbc14b14041a74214"
+    }
+  ],
+  "ancillary_qualification": "README describes analytic three-particle-cut two-loop charm O2-O7 interference, not a complete generic high-scale NP rate response.",
+  "author_code_check": "Letter KIT entry links PDF/arXiv only; companion KIT entry additionally links the inspected data archive. No complete rate executable or follow-up linked on these entries.",
+  "checked_on": "2026-11-06",
+  "companion_reuse": "Sec.3, Eqs.(13)-(17), Appendices A-C and Ref.64 already inspected in C2/C3; no reconstruction repeated.",
+  "companion_version": "2608.29864v1, 30 August 2026",
+  "downloads": [
+    {
+      "access": "HTTP download successful",
+      "bytes": 43810,
+      "file": "m2026_letter_abs.html",
+      "fresh_check": true,
+      "sha256": "5ef9353900bf19cb2919668ed4dd7130df7b6e47407043d98febf7b0ceee2af1",
+      "url": "https://arxiv.org/abs/2608.29863"
+    },
+    {
+      "access": "HTTP download successful",
+      "bytes": 41464,
+      "file": "m2026_companion_abs.html",
+      "fresh_check": true,
+      "sha256": "d6f7b775aaf08e9ef0ca020550a6450b92ce34ad066c4f9b069af02512db7629",
+      "url": "https://arxiv.org/abs/2608.29864"
+    },
+    {
+      "access": "HTTP download successful",
+      "bytes": 161616,
+      "file": "m2026_letter.html",
+      "fresh_check": true,
+      "sha256": "d9968a191ed861a4172d9bea957db87d93e3c847ec28bc09b9ac60750b7649d6",
+      "url": "https://arxiv.org/html/2608.29863v1"
+    },
+    {
+      "access": "HTTP download successful",
+      "bytes": 197646,
+      "file": "m2026_letter.pdf",
+      "fresh_check": true,
+      "sha256": "e7c1687be9e02457cd4b092ee98e2991e2ba50530a8105c56d2c8bbd591d48bf",
+      "url": "https://arxiv.org/pdf/2608.29863v1"
+    },
+    {
+      "access": "HTTP download successful",
+      "bytes": 604754,
+      "file": "misiak260829864v1.html",
+      "fresh_check": false,
+      "sha256": "9f3c7513ef3730b188fed186c70e58589048949c6f1d62c4dab3fe57974d1d78",
+      "url": "https://arxiv.org/html/2608.29864v1"
+    },
+    {
+      "access": "HTTP download successful",
+      "bytes": 34822,
+      "file": "m2026_letter_kit.html",
+      "fresh_check": true,
+      "sha256": "770cdf6178493c511b4f6b9477a5e1d51c976aa54557cf8dddaaeb92137fd4a8",
+      "url": "https://www.ttp.kit.edu/preprints/2026/ttp26-033"
+    },
+    {
+      "access": "HTTP download successful",
+      "bytes": 35177,
+      "file": "m2026_companion_kit.html",
+      "fresh_check": true,
+      "sha256": "25d65d01e544f760dbdc9356581f3c71f758335e7c647459f09b28aaf1fe42de",
+      "url": "https://www.ttp.kit.edu/preprints/2026/ttp26-034"
+    },
+    {
+      "access": "HTTP download successful",
+      "bytes": 2793,
+      "file": "m2026_ancillary.tar.gz",
+      "fresh_check": true,
+      "sha256": "180b967024fdc7e6c845094a0defa798e6f1d53150bd71145a4884f53946dd5a",
+      "url": "https://www.ttp.kit.edu/_media/progdata/2026/ttp26-034.tar.gz"
+    }
+  ],
+  "formula": {
+    "BR_times_1e4_SM": 3.54,
+    "NP_sigma_or_covariance": null,
+    "SM_reported_sigma_times_1e4": 0.14,
+    "author_linear_formula_numeric_test_point": "NOT_LOCATED",
+    "complete_remainder_bound": null,
+    "cut_GeV": 1.6,
+    "finite_coefficient_range": null,
+    "hamiltonian_bridge": "module5/BSGAMMA_2026_CONVENTION.md: Letter Eq.(2), cited BMU Eqs.(9)-(11); H_eff=-4 GF/sqrt(2) Vts*Vtb sum C_i Q_i. Letter does not independently display the Hamiltonian.",
+    "higher_order_statement": "Following paragraph distinguishes generic NLO matching and NNLO 2HDM matching included in Fig.3.",
+    "location": "PDF p.4 Sec.IV Eq.(4); operator definitions PDF p.2 Eq.(2); observable/cut p.1 Eq.(1)",
+    "mu0_GeV": 160,
+    "order": "NP alpha_s^0 only; ordinary unprimed dipoles; no alpha_s/(4pi) factor",
+    "quadratic_statement": "where the quadratic terms in DeltaC7,8 have been neglected (p.4, immediately after Eq.4)",
+    "slope_C7": -8.51,
+    "slope_C8": -2.16
+  },
+  "licenses": {
+    "EOS": "GPL-2.0-only, existing runtime only",
+    "SuperIso": "GPL-3.0-or-later, existing frozen D9B probe only",
+    "ancillary": "No independent software license identified; inspected only, not executed/copied.",
+    "papers": "CC BY 4.0"
+  },
+  "paper_version": "2608.29863v1, 30 August 2026",
+  "revision_and_journal_check": "Both current arXiv histories list only v1; no journal reference/DOI beyond arXiv DOI on those records or inspected KIT pages. Focused official-domain search produced no result. Not proof of absence elsewhere.",
+  "scope": "One focused revision/journal/official-data check; prior C3 literature inventory reused.",
+  "stop_rule": "No complete source-supported finite remainder; author question required.",
+  "uncertainty_coverage": {
+    "EW_scalar_potential_leptonic_effects": "NOT_BOUNDED_FOR_FINITE_ZEE_DOMAIN",
+    "NLO_C4_C7_C8_and_truncation": "NOT_BOUNDED_FOR_FINITE_ZEE_DOMAIN",
+    "NP_parameter_covariance": "NOT_BOUNDED_FOR_FINITE_ZEE_DOMAIN",
+    "additional_operators_finite_ms_primed_light_quarks": "NOT_BOUNDED_FOR_FINITE_ZEE_DOMAIN",
+    "coefficient_dependent_resolved_photons": "NOT_BOUNDED_FOR_FINITE_ZEE_DOMAIN",
+    "joint_quadratic_NP": "NOT_BOUNDED_FOR_FINITE_ZEE_DOMAIN"
+  },
+  "validity_domain": "VALIDITY_DOMAIN_UNKNOWN"
+}

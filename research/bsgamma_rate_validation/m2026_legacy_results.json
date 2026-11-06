@@ -1,0 +1,177 @@
+{
+  "EOS_version": "1.0.21",
+  "SM_low_vector": [
+    -0.3371466006217203,
+    1.0067971791558485,
+    -0.005500076864340018,
+    -0.09099215130792836,
+    0.00036186331468437727,
+    0.0011206294542511434,
+    -0.33611886210932995,
+    -0.18263194133547667
+  ],
+  "SuperIso_version": "5.0 with exact frozen D9B patch",
+  "accuracy_domain": "VALIDITY_DOMAIN_UNKNOWN",
+  "binary_sha256": {
+    "EOS_evolve": "c07c24887b48808dc5dc8016f5698223e5ff45ee502a8f86911c72adc75d3fad",
+    "SuperIso_D9B": "f100cf146254e427a2ec529f5bfe04e10ca902af328bf595feab8a7c6ca3b78e"
+  },
+  "common_parameters": {
+    "QCD::alpha_s(MZ)": 0.118,
+    "QED::alpha_e(m_b)": 0.0072973525205055605,
+    "mass::Z": 91.188,
+    "mass::b(MSbar)": 4.183,
+    "mass::c": 1.273,
+    "sb::mu": 4.2
+  },
+  "definition": "Raw BR polynomial; slopes dBR/dDeltaCi, q78 multiplies c7*c8 (tensor off-diagonal=q78/2). No SM rebasing.",
+  "fit_points": 9,
+  "held_out_points": 2,
+  "input_order": "Ordinary NP C7_LO,C8_LO at 160 GeV only; all NP NLO inputs zero",
+  "mu0_GeV": 160.0,
+  "mu_b_GeV": 4.2,
+  "new_joint_or_holdout_points": 6,
+  "photon_cut_GeV": 1.6,
+  "points": [
+    {
+      "DeltaC7": 0.0,
+      "DeltaC8": 0.0,
+      "EOS": 0.0003222338578408801,
+      "SuperIso_D9B": 0.0003425772425468304,
+      "origin": "preserved:zero_NP"
+    },
+    {
+      "DeltaC7": 0.01,
+      "DeltaC8": 0.0,
+      "EOS": 0.0003138643509553199,
+      "SuperIso_D9B": 0.00033333232477856915,
+      "origin": "preserved:C7_+1"
+    },
+    {
+      "DeltaC7": -0.01,
+      "DeltaC8": 0.0,
+      "EOS": 0.00033071674527383353,
+      "SuperIso_D9B": 0.00035194042125918424,
+      "origin": "preserved:C7_-1"
+    },
+    {
+      "DeltaC7": 0.0,
+      "DeltaC8": 0.01,
+      "EOS": 0.000320227823562932,
+      "SuperIso_D9B": 0.0003404519712517311,
+      "origin": "preserved:C8_+1"
+    },
+    {
+      "DeltaC7": 0.0,
+      "DeltaC8": -0.01,
+      "EOS": 0.0003242479586607334,
+      "SuperIso_D9B": 0.00034471070143416083,
+      "origin": "preserved:C8_-1"
+    },
+    {
+      "DeltaC7": -0.01,
+      "DeltaC8": -0.01,
+      "EOS": 0.0003327571731085203,
+      "SuperIso_D9B": 0.00035410301894312255,
+      "origin": "executed"
+    },
+    {
+      "DeltaC7": -0.01,
+      "DeltaC8": 0.01,
+      "EOS": 0.00032868438398105196,
+      "SuperIso_D9B": 0.0003497860111674771,
+      "origin": "executed"
+    },
+    {
+      "DeltaC7": 0.01,
+      "DeltaC8": -0.01,
+      "EOS": 0.0003158521247603398,
+      "SuperIso_D9B": 0.0003354366448692918,
+      "origin": "executed"
+    },
+    {
+      "DeltaC7": 0.01,
+      "DeltaC8": 0.01,
+      "EOS": 0.00031188464369220523,
+      "SuperIso_D9B": 0.0003312361922800776,
+      "origin": "executed"
+    },
+    {
+      "DeltaC7": -0.017,
+      "DeltaC8": 0.023,
+      "EOS": 0.0003320174699154681,
+      "SuperIso_D9B": 0.00035357519539648763,
+      "origin": "executed"
+    },
+    {
+      "DeltaC7": 0.026,
+      "DeltaC8": -0.019,
+      "EOS": 0.0003044126044747738,
+      "SuperIso_D9B": 0.0003227030657351066,
+      "origin": "executed"
+    }
+  ],
+  "prescription_differences": "PARTIALLY_MATCHED: identical cut/scales/ordinary low vector; different rate truncation, normalization, charm/mass/QED/HQE prescriptions",
+  "preserved_C4_NLO_and_matching_sensitivity": {
+    "qualification": "Existing NLO/C4 sensitivity is not a complete omitted-term bound; not reexecuted.",
+    "source": "final_validation.json signed_high_scale_responses; bridge_results.json records"
+  },
+  "remainder_certified": false,
+  "responses": {
+    "EOS": {
+      "baseline_BR": 0.0003222338578408801,
+      "fit_grid_max_abs_residual": 5.421010862427522e-20,
+      "held_out_residuals": [
+        {
+          "BR_residual": -7.589415207398531e-19,
+          "DeltaC7": -0.017,
+          "DeltaC8": 0.023
+        },
+        {
+          "BR_residual": -8.131516293641283e-19,
+          "DeltaC7": 0.026,
+          "DeltaC8": -0.019
+        }
+      ],
+      "quadratic_C7_C8": 0.00026327014833441476,
+      "quadratic_C7_squared": 0.0005669027369661472,
+      "quadratic_C8_squared": 4.033270952624995e-05,
+      "slope_C7": -0.000842619715925682,
+      "slope_C8": -0.0002010067548900707
+    },
+    "SuperIso_D9B": {
+      "baseline_BR": 0.0003425772425468304,
+      "fit_grid_max_abs_residual": 5.421010862427522e-20,
+      "held_out_residuals": [
+        {
+          "BR_residual": -5.421010862427522e-20,
+          "DeltaC7": -0.017,
+          "DeltaC8": 0.023
+        },
+        {
+          "BR_residual": -1.0842021724855044e-19,
+          "DeltaC7": 0.026,
+          "DeltaC8": -0.019
+        }
+      ],
+      "quadratic_C7_C8": 0.0002913879660781558,
+      "quadratic_C7_squared": 0.0005913047204631448,
+      "quadratic_C8_squared": 4.09379611557726e-05,
+      "slope_C7": -0.0009304048240307546,
+      "slope_C8": -0.00021293650912148753
+    }
+  },
+  "reused_points": 5,
+  "source_build_provenance": {
+    "bridge.py": "5df0e4886b8a0f6f3fa7ae6c8041cff8b7780f1d76a968e00f93ca8da9e86a7c",
+    "bridge_results.json": "21ab189e2a7eb785aa9bec596d48b7e4c415b8155ff1a6d06d26988557d8f2d5",
+    "eos_evolve_probe.cc": "097711624a72f45308ea241627bcc51016e71b9d128b6193cd4474a83a451299",
+    "final_sources.json": "f67827eb30ec4a1958c0330ed1ecde928bc1c0da2812cd7c5dc34511eb628ca8",
+    "final_superiso_probe.c": "fac132c2f46b6fc39ea987491b5f548a12c9e6d1e74ba6daab1505b0a3a80378",
+    "final_validation.json": "08433e8b7171bf6059d26325d9ce0a26f50ce8cd096004bacfb848df4e94f299",
+    "m2026_legacy.py": "e37840fac5dc49e2b8f10133a9879ffa5dba5c40d55c497daaf307fb532de7b3",
+    "requirements.lock": "bf0fffffb04ddf56e8ab099ea3750ef5c28eb73bd256f068959fcfd7a0fe14ad"
+  },
+  "status": "DIAGNOSTIC_ONLY",
+  "step": 0.01
+}
