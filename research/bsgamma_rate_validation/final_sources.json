@@ -1,0 +1,137 @@
+{
+  "backend_scope": "Reuse pinned executable EOS/flavio/wilson inventory and successful native EOS bridge; no new HEPfit build or EOS 1.1 claim. Original and exact D9B SuperIso independently built locally. Original upstream native NLO matching has known audited defects and is a diagnostic only; original and patched SuperIso share a rate kernel and are not independent of one another.",
+  "downloads": [
+    {
+      "file": "bg9802391v1.html",
+      "sha256": "3a08ec1038498f6f73ac14f62ea672de586b038aa335822c28d37b7fd21defe6",
+      "url": "https://arxiv.org/html/hep-ph/9802391v1"
+    },
+    {
+      "file": "bg9809438v1.html",
+      "sha256": "d7cb690c8e779f7498d506634459700d117238914ffedb851873665a57d24cbf",
+      "url": "https://arxiv.org/html/hep-ph/9809438v1"
+    },
+    {
+      "file": "hms12082788v2.html",
+      "sha256": "5dab3b1ff4172ccd6a7f821f31cf299eba9694130a8b169374f79ccbb099b877",
+      "url": "https://arxiv.org/html/1208.2788v2"
+    },
+    {
+      "file": "misiak260829863v1.html",
+      "sha256": "d9968a191ed861a4172d9bea957db87d93e3c847ec28bc09b9ac60750b7649d6",
+      "url": "https://arxiv.org/html/2608.29863v1"
+    },
+    {
+      "file": "misiak260829864v1.html",
+      "sha256": "9f3c7513ef3730b188fed186c70e58589048949c6f1d62c4dab3fe57974d1d78",
+      "url": "https://arxiv.org/html/2608.29864v1"
+    },
+    {
+      "file": "superiso_v5.0.tgz",
+      "sha256": "7f8400e98ae80deac50af64486b980891e1630d729a0a4660ca309a4d7706b5f",
+      "url": "https://superiso.in2p3.fr/download/superiso_v5.0.tgz"
+    }
+  ],
+  "published_candidates": [
+    {
+      "id": "BG1998",
+      "input_card": {
+        "BR_semileptonic": 0.1049,
+        "CKMratio_squared": 0.95,
+        "X": "tan(beta)",
+        "Y": "cot(beta)",
+        "alpha_em_inverse": 130.3,
+        "alpha_s_MZ": 0.119,
+        "counting": "explicit alpha_s^2 amplitude-square terms dropped; NLO alpha_s in eta; semileptonic inverse width unexpanded",
+        "cut": "uncut, including virtual photon correction to b->sg",
+        "mH_GeV": "Type-II Fig.5 curve 100-600, no tabulated BR at 550 or 900",
+        "mb_minus_mc_pole_GeV": 3.39,
+        "mc_over_mb_pole": 0.29,
+        "mt_pole_GeV": 175,
+        "mu0": "mH in Fig.5 upper panel; MW..max(mt,mH) in lower",
+        "mu_b_GeV": [
+          2.4,
+          4.8,
+          9.6
+        ],
+        "mu_c": "pole charm in rate, not independent running scale",
+        "tanbeta": 2
+      },
+      "locations": [
+        "Sec.3.3 Eqs.(27)-(39)",
+        "Sec.4 Eq.(40)",
+        "Sec.4.3 Figs.5-6",
+        "Appendix F Table 1"
+      ],
+      "missing": "No tabulated one-state BR/input file found in inspected text. SM Eq.(40) is numerical but not a one-state benchmark. EOS cannot evaluate this uncut prescription; replacing cut or normalization would change the observable.",
+      "qualification": "SOURCE_PRESCRIPTION_INCOMPATIBLE_WITH_EOS",
+      "url": "https://arxiv.org/html/hep-ph/9802391v1"
+    },
+    {
+      "changes": "alpha_em_inverse=137.036 plus resummed leading QED logs; SM central 3.32e-4 (3.22e-4 with expanded inverse width). Updated exclusion contours are not pointwise rate oracles.",
+      "id": "BG_addendum",
+      "locations": [
+        "Eq.(1)",
+        "Fig.1 and discussion of inverse semileptonic width"
+      ],
+      "qualification": "NO_MATCHED_ONE_STATE_RATE_REFERENCE",
+      "url": "https://arxiv.org/html/hep-ph/9809438v1"
+    },
+    {
+      "id": "HMS2012",
+      "input_card": {
+        "alpha_s_MZ": 0.1184,
+        "cut_GeV": 1.6,
+        "mt_MSbar_mt_GeV": 163.5,
+        "mt_pole_GeV": 173.18,
+        "mu0_GeV": 160,
+        "mu_b_GeV": 2.5,
+        "mu_c_GeV": 1.5,
+        "tanbeta_default": 50
+      },
+      "locations": [
+        "Sec.3 Eq.(42)",
+        "Figs.5-6",
+        "Eq.(43)",
+        "Refs.8 and 9 for inherited SM/hadronic inputs"
+      ],
+      "missing": "Rates presented as curves and approximate enhancements; remaining inputs inherited from cited calculations. NNLO includes charged-Higgs matching absent from this NLO EOS prototype. No digitization or precision comparison attempted.",
+      "qualification": "NO_EXACT_ONE_STATE_NLO_ORACLE_EXTRACTED",
+      "url": "https://arxiv.org/html/1208.2788v2"
+    },
+    {
+      "id": "Misiak2026",
+      "linear_formula": {
+        "LO_NP_only": true,
+        "cut_GeV": 1.6,
+        "mu0_GeV": 160,
+        "slope_C7_in_units_1e4": -8.51,
+        "slope_C8_in_units_1e4": -2.16
+      },
+      "locations": [
+        "Sec.IV Eq.(3)",
+        "Sec.IV Fig.3 and Eq.(4)"
+      ],
+      "missing": "No numerical upper bound on neglected generic-NP quadratic terms/domain is stated in Eq.(4); small NP is an approximation. Type-II Fig.3 uses NNLO NP matching. These SM/experimental sigmas do not define a Zee NP theory sigma.",
+      "published_SM_BR": 0.000354,
+      "published_SM_sigma": 1.4e-05,
+      "published_experiment_BR": 0.000349,
+      "published_experiment_sigma": 1.9e-05,
+      "qualification": "LINEAR_FORMULA_NOT_NONLINEAR_RATE_BENCHMARK",
+      "url": "https://arxiv.org/html/2608.29863v1"
+    },
+    {
+      "id": "companion2026",
+      "locations": [
+        "Sec.3",
+        "Appendices A-C",
+        "Ref.64 data link (previous inventory)"
+      ],
+      "missing": "Published low-scale bilinear/HQE framework and inputs are not a ready complete high-scale C4/C7/C8 numerical rate interface. Prior bounded inventory found the associated archive supplies G27 functions, not a complete executable response tensor; not rebuilt here.",
+      "qualification": "FRAMEWORK_AVAILABLE_NOT_EXECUTED_FULL_2026_KERNEL",
+      "url": "https://arxiv.org/html/2608.29864v1"
+    }
+  ],
+  "revision_check": "arXiv abstract submission histories checked: BG/addendum v1, HMS v2, 2026 Letter/companion v1; no later revision listed at access time",
+  "verified_on": "2026-11-06"
+}

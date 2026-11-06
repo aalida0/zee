@@ -1,0 +1,19 @@
+{
+  "scope": "predeclared bounded Stage A diagnostics, no parameter-space scan",
+  "mu0_GeV": 160.0,
+  "mu_b_GeV": 4.2,
+  "cut_GeV": 1.6,
+  "one_state_masses_GeV": [550, 900],
+  "tanbeta": [2, 5.3, 50],
+  "decoupling_mass_GeV": 100000,
+  "opposite_coupling_control": {"mass_GeV": 550, "tanbeta": 5.3},
+  "two_state": {"masses_GeV": [550, 900], "tanbeta": 5.3, "gamma": [0, 1.09, 1.5707963267948966]},
+  "signed_high_scale_physical_step": 0.01,
+  "signed_probe_operators": [4, 7, 8],
+  "identity_absolute_tolerance": 2e-15,
+  "identical_low_input_absolute_tolerance": 2e-12,
+  "published_rounded_rate_tolerance_if_fully_matched": 5e-7,
+  "published_tolerance_reason": "half the final printed digit for a BR quoted as x.xx times 1e-4; numerical rounding only",
+  "independent_physical_rate_tolerance": null,
+  "independent_physical_rate_tolerance_reason": "No theory agreement threshold is justified for different observable prescriptions; do not assign PASS."
+}
