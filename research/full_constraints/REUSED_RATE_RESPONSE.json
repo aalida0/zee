@@ -1,0 +1,57 @@
+{
+  "exclusion": null,
+  "mu0_GeV": 160,
+  "mu_b_GeV": 4.2,
+  "note": "Copied evidence, not a new rate evaluator or a theory-uncertainty model.",
+  "photon_cut_GeV": 1.6,
+  "physical_bsgamma": "UNKNOWN",
+  "responses": {
+    "EOS": {
+      "baseline_BR": 0.0003222338578408801,
+      "fit_grid_max_abs_residual": 5.421010862427522e-20,
+      "held_out_residuals": [
+        {
+          "BR_residual": -7.589415207398531e-19,
+          "DeltaC7": -0.017,
+          "DeltaC8": 0.023
+        },
+        {
+          "BR_residual": -8.131516293641283e-19,
+          "DeltaC7": 0.026,
+          "DeltaC8": -0.019
+        }
+      ],
+      "quadratic_C7_C8": 0.00026327014833441476,
+      "quadratic_C7_squared": 0.0005669027369661472,
+      "quadratic_C8_squared": 4.033270952624995e-05,
+      "slope_C7": -0.000842619715925682,
+      "slope_C8": -0.0002010067548900707
+    },
+    "SuperIso_D9B": {
+      "baseline_BR": 0.0003425772425468304,
+      "fit_grid_max_abs_residual": 5.421010862427522e-20,
+      "held_out_residuals": [
+        {
+          "BR_residual": -5.421010862427522e-20,
+          "DeltaC7": -0.017,
+          "DeltaC8": 0.023
+        },
+        {
+          "BR_residual": -1.0842021724855044e-19,
+          "DeltaC7": 0.026,
+          "DeltaC8": -0.019
+        }
+      ],
+      "quadratic_C7_C8": 0.0002913879660781558,
+      "quadratic_C7_squared": 0.0005913047204631448,
+      "quadratic_C8_squared": 4.09379611557726e-05,
+      "slope_C7": -0.0009304048240307546,
+      "slope_C8": -0.00021293650912148753
+    }
+  },
+  "source_commit": "4c7998579e0dacd87fb1d73fa328de8c026a9c0c",
+  "source_file": "research/bsgamma_rate_validation/m2026_legacy_results.json",
+  "source_sha256": "2e32866a4b88e96cef5e4bb73df7454636c1ef2e5079c16592816352cfb58400",
+  "status": "DIAGNOSTIC_ONLY",
+  "theory_sigma": null
+}

@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-07",
+  "B_to_Xs_gamma": {
+    "feasibility_gate": "B_FULL_RATE_BLOCKED",
+    "coherent_top_only_LO_NLO_matching": "VALIDATED_PREVIOUSLY_REUSED",
+    "D9B_rate_dataflow_and_order_subset": "INTERNAL_CONSISTENCY_VALIDATED_PREVIOUSLY_REUSED",
+    "original_D12_cards_and_rates": "SAVED_EVIDENCE_REPLAY",
+    "nonlinear_signed_joint_response": "LEGACY_BACKEND_DIAGNOSTIC_REUSED",
+    "primary_research_backend": "SuperIso_5.0_frozen_D9B_NLO_patch",
+    "independent_kernel": "EOS_1.0.21_prior_execution",
+    "HEPfit_custom_coherent_adapter": "SOURCE_FEASIBLE_NOT_IMPLEMENTED",
+    "matched_independent_physical_rate": "NOT_ESTABLISHED",
+    "complete_operator_materiality_bounds": "NOT_ESTABLISHED",
+    "NP_uncertainty_and_covariance": "NOT_ESTABLISHED",
+    "published_one_state_confidence_bound": "NOT_EVALUATED",
+    "physical_bsgamma": "UNKNOWN",
+    "exclusion": null,
+    "theory_sigma": null
+  },
+  "LFV": {"status": "NOT_EVALUATED_IN_THIS_TASK", "complete": false},
+  "Higgs": {"status": "NOT_EVALUATED_IN_THIS_TASK", "complete": false},
+  "global_acceptance": null,
+  "final_scan_authorized": false,
+  "frozen_conditional_pipeline_modified": false
+}
