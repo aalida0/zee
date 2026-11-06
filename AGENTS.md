@@ -1,68 +1,61 @@
-# Codex AGENTS — Conditional Zee charged-Higgs cascade scan
+# Codex AGENTS — final Zee workflow code completion
 
 **Branch:** `feature/zee-d14-conditional-cascade-scan`.
 
-## Current task (after complete D14D production map)
+## USER PRIORITY — ONLY FINISH THE WORKFLOW CODE
 
-**Read `module14/PAPER_CONDITIONAL_ANALYSIS_TASK.md` first and execute
-its bounded paper-oriented tasks.** D14D's 16-point 13 TeV and three-point
-14 TeV real production calculations are complete at `26bdcf3`;
-do NOT repeat them.
+Read **`module14/WORKFLOW_COMPLETION_TASK.md`** first and execute it.
+This supersedes **all previous paper/scan/production task plans**.
+The existing 20k/225 collected scan, 16-point real 13 TeV map, and
+three 14 TeV checks are completed historical evidence, NOT work to rerun.
 
-Priorities: build exact per-family signal-chain branching-rate tables;
-run actual 14 TeV production for #8850 only if pinned assets exist;
-perform a controlled optional scale-sensitivity check; prepare
-source-qualified paper figures/limitations and a **manual, staged**
-high-statistics conditional scan package. Do not auto-submit HTCondor.
+**Prohibition:** do not launch or prepare an actual new proposal scan,
+including "small pilot", "another 20k", "100k", or "final big scan" itself.
+Do not generate any new physics points as a workflow test.
+Tests are unit tests, mock fixtures and replay of existing immutable
+records only. Do not submit HTCondor, execute MG5, redo physics
+calculations or ask authors for information.
 
-The modern physical B→Xsγ theory uncertainty remains unresolved, even
-though the published 2026 LO-NP equation is reproducible. The authors
-have already been contacted without a response. Partial LFV, HiggsTools
-coverage, other vacuum UNKNOWN cases, and production/decay theory errors
-remain explicit. No global-allowed claim or ungrounded HL-LHC limit.
+**Only after all workflow code is finished, tested and frozen** will the
+user authorize one final big scan in a separate step. Do not silently
+choose the count/seed/arms for them.
 
-Use English for all Codex communication and documentation.
+## Physics integrity
 
-## Prior research tasks (completed)
+- The published Misiak 2026 Eq.(4) flavor result is an **approximate,
+  conditional LO-NP diagnostic**, not a validated Zee B→Xsγ 95% CL
+  exclusion. Do not transfer the 2HDM-II one-Higgs 670 GeV bound to
+  individual mixed states.
+- Vacuum sufficient certificate misses remain UNKNOWN, partial LFV
+  remains PARTIAL/DIAGNOSTIC_ONLY; incomplete HiggsTools channels
+  remain NOT_EVALUATED/DIAGNOSTIC_ONLY. No claim of globally allowed
+  Zee points.
+- Source-validated production is an **optional per-point input/sidecar**;
+  absence means null, not 0. Decay BRs use full original on-shell
+  tree two-body inventory. Energy/PDF/scale/process mismatches fail closed.
+- Preserve Modules0–13, historical scans/probes/receipts,
+  original results and the independent flavor branch. New workflow
+  code may change Module14 and its conditional/Condor components
+  only with explicit backward-compatibility tests.
+- Use English exclusively for Codex session titles, progress, logs,
+  documentation and Git commit messages unless otherwise requested.
 
-Earlier `module14/NEXT_PRODUCTION_MAP_TASK.md`,
-`module14/NEXT_PRODUCTION_VACUUM_TASK.md` and
-`module14/CONDITIONAL_SCAN_TASK.md` are archival, not active.
+## Required completion outcome
 
-## Mandatory scientific safeguards
+Deliver `module14/{WORKFLOW_GAP_AUDIT.md,FINAL_WORKFLOW_RUNBOOK.md,
+FINAL_WORKFLOW_READINESS.md,final_config_template.json}`, the
+necessary **implemented and tested** orchestration components,
+and source-locked deterministic replay/robustness tests.
+Do not mark `CODE_READY` if the end-to-end fixture replay, failure
+handling, reproducible export and preflight aren't working.
+Scientific limitations must be separately and explicitly recorded.
 
-- Reuse the validated ordinary LO two-state matching and the **published
-  2026 linear Eq.(4)** strictly as a **conditional diagnostic**.
-- A nominal Gaussian or method-stability test is not a full
-  new-physics theory uncertainty or official 95% CL exclusion.
-  Report unresolved B→Xsγ physical classification as `UNKNOWN`.
-- `D10` sufficient vacuum certificate failures, partial LFV, incomplete
-  HiggsTools channels, and missing production must retain their actual
-  `UNKNOWN/NOT_EVALUATED` statuses. Do not declare globally allowed
-  points.
-- Keep the `H2→H1 Z` cascade open and remember its off-diagonal
-  coupling vanishes at gamma=0 and ±pi/2. Rank candidates with
-  validated complete decay BR and documented production, not
-  just a partial width.
-- Keep Modules 0–13, original Module14 pipeline/evidence,
-  source hashes, legacy bsgamma studies, and the separate research
-  branch untouched. Add a clearly separated optional sidecar.
-- First verify whether existing UChicago AF 20k and 225-point
-  follow-up results are actually accessible/complete. Ubuntu has no
-  automatic access to AF `/data`; do not claim the runs were collected
-  without reading remote outputs/receipts.
-- Do not run large scans, run HTCondor or commit binaries/logs on behalf
-  of the user. Prepare runbook commands and a small local pilot.
-- Use English exclusively for Codex text, titles, progress,
-  documentation and commit messages unless explicitly requested otherwise.
+Commit and push only code/documentation that passes tests.
+**Do not run the user's final large scan.**
 
-## Work and reporting
+## Historical documents
 
-Keep new code in `module14/conditional_scan/`, tests in
-`tests/test_module14_conditional_*.py`, and a scan-readiness report
-in `module14/CONDITIONAL_SCAN_READINESS.md`. Run targeted tests and
-`git diff --check`, then commit/push only validated changes to this branch.
-
-A valid outcome can be a conditional scan **ready to run**, not a final
-fully constrained physics result. Stop and document blockers instead of
-fabricating acceptance, uncertainty or remote scan data.
+The old `module14/PAPER_CONDITIONAL_ANALYSIS_TASK.md`,
+`NEXT_PRODUCTION_MAP_TASK.md`, `NEXT_PRODUCTION_VACUUM_TASK.md` and
+`CONDITIONAL_SCAN_TASK.md` are retained for provenance only and are
+NOT active instructions.
