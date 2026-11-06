@@ -1,0 +1,19 @@
+{
+  "diff_check": "PASS",
+  "historical_tracked_files_changed": false,
+  "results_sha256": "d9f215d91d786e8aea085f758395fb53ee51cd1a3c21699e49cd5e27795d041b",
+  "tests": {
+    "errors": 0,
+    "failures": 0,
+    "log_sha256": "67d92c8a456b609268bcc0be0c896d7f2b56db3a93f6ef58377e3b56f08d59c2",
+    "skips": 0,
+    "tests_run": 9
+  },
+  "upstream_test": {
+    "errors": 0,
+    "failures": 0,
+    "log_sha256": "39010df96b50e6100a71f05eb8254d2bb10b59ecd9ad062cc63344fcda06e174",
+    "skips": 0,
+    "tests_run": 1
+  }
+}

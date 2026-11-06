@@ -1,0 +1,143 @@
+{
+  "HEPfit_ROOT_config_executable": null,
+  "HEPfit_commit": "322bd73a2dadd94ce94a6d71cb79d616e569120a",
+  "external_sources": {
+    "eos_LICENSE": {
+      "sha256": "2a277d1bfb1002b6e85f2a8f9d958e1b3ca251bc7e37404b4cbb4b637e91e1e9",
+      "url": "https://raw.githubusercontent.com/eos/eos/v1.0.21/LICENSE"
+    },
+    "eos_bsgamma.cc": {
+      "sha256": "69a3bf948f9f78f8dae3b0492584aa360db1f3ff0135e22e006dcf781cf6973e",
+      "url": "https://raw.githubusercontent.com/eos/eos/v1.0.21/eos/rare-b-decays/inclusive-b-to-s-gamma.cc"
+    },
+    "eos_bsgamma_TEST.cc": {
+      "sha256": "4603d299302bdc2e10d445aba1767182a97e5a53ed6b640eb16ec54ffcaeacdb",
+      "url": "https://raw.githubusercontent.com/eos/eos/v1.0.21/eos/rare-b-decays/inclusive-b-to-s-gamma_TEST.cc"
+    },
+    "eos_v1.1_bsgamma.cc": {
+      "sha256": "c59960aa8a39a934e34606f0919b3d76032575f70ce3ea6fb3c648d2feb0a5b9",
+      "url": "https://raw.githubusercontent.com/eos/eos/v1.1/eos/rare-b-decays/inclusive-b-to-s-gamma.cc"
+    },
+    "eos_v1.1_wet.cc": {
+      "sha256": "35e40362765ea403b842fa596b88724e67ab6b80ffbd5b875febbb1a556de4d8",
+      "url": "https://raw.githubusercontent.com/eos/eos/v1.1/eos/models/wet.cc"
+    },
+    "eos_wet.cc": {
+      "sha256": "003c691455f1c27cc42129ee9c27f9c2d34741f4651fb9953386a2bfefff7645",
+      "url": "https://raw.githubusercontent.com/eos/eos/v1.0.21/eos/models/wet.cc"
+    },
+    "hepfit_COPYING": {
+      "sha256": "a37e17100c70a5048425aaa622e542ef1dc55073ae07d2a793ac1dfaf8b3dc38",
+      "url": "https://raw.githubusercontent.com/silvest/HEPfit/322bd73a2dadd94ce94a6d71cb79d616e569120a/doc/COPYING"
+    },
+    "hepfit_LICENSE": {
+      "sha256": "c61f12da7cdad526bdcbed47a4c0a603e60dbbfdaf8b66933cd088e9132c303f",
+      "url": "https://raw.githubusercontent.com/silvest/HEPfit/322bd73a2dadd94ce94a6d71cb79d616e569120a/doc/LICENSE"
+    },
+    "hepfit_README.md": {
+      "sha256": "3dd27012331c43b359a2dce53bd1c12c6a9f8bd6ff2ead6125eace3a026da217",
+      "url": "https://raw.githubusercontent.com/silvest/HEPfit/322bd73a2dadd94ce94a6d71cb79d616e569120a/README.md"
+    },
+    "hepfit_bsgamma.cpp": {
+      "sha256": "4bd90900c218ce05703e3176670f752b23a03b7971c20fbba2a662638e1f48e8",
+      "url": "https://raw.githubusercontent.com/silvest/HEPfit/322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/bsgamma.cpp"
+    },
+    "hepfit_matching.cpp": {
+      "sha256": "f063c7df7fef1a6abeffb25512f698ca9f6e1a3dede700f2b8fdaacb0bd174af",
+      "url": "https://raw.githubusercontent.com/silvest/HEPfit/322bd73a2dadd94ce94a6d71cb79d616e569120a/FlavourWilsonCoefficient/src/FlavourWilsonCoefficientMatching.cpp"
+    }
+  },
+  "flavio_C4_initialization": {
+    "exception": "AssertionError",
+    "message": "Wilson coefficients do not exist in this basis: {'C4_bs'}",
+    "status": "REJECTED"
+  },
+  "installed_sha256": {
+    "_eos.cpython-310-x86_64-linux-gnu.so": "d783966e26866e5f42603f2b7cfcd05292b0d9f043ed3ceb0066ae743f9f7149",
+    "flavio-2.7.1.dist-info/licenses/LICENSE.txt": "a82157d8f72d68faecafe5d31ff9fec99b1fc9182ee66ca1d06b6ef51bc60aef",
+    "flavio/data/config.yml": "2454d56e106e54239d16ffaca430caa7f55d9359f1459653c54a93d0519cbd5e",
+    "flavio/data/parameters_correlated.yml": "1eaad6869936c23f0851f3437700efc3ad9ed7c524e6e488486d034482245dc5",
+    "flavio/data/parameters_metadata.yml": "8b9917d4345e9180d60a3f2ab12ea0d48210521e584018a50dc5107f1eb4ca20",
+    "flavio/data/parameters_uncorrelated.yml": "ed1ce5b507a18382ff88356ab2ce38e1cbc52aa01b01c2cd609ab5a8b518ce88",
+    "flavio/physics/bdecays/bxgamma.py": "4040b5211e4a9a1a931239db9eaae6a01016bfb5ce871d09615af8fc8b5e7679",
+    "flavio/physics/bdecays/wilsoncoefficients.py": "50f9f20e62f5b603034346cb9f619bd02f342266b1a5d58b2ac94a27e9f0aa12",
+    "flavio/physics/data/wcsm/wc_sm_dB1_2_55.npy": "e5f56218768e5ef53ef4519489c40b97f8045ebc5b3fa1c65049c1b7e7f890a4",
+    "flavio/physics/eft.py": "cdf09d70f9e5ca75849a788eb5ab0f3f7e831c3fcfa7d13348a9048e8d60dc5c",
+    "wilson-2.5.2.dist-info/licenses/LICENSE": "9c242d0efb7a5bd5e6f7b83c7d6b79a38d77d06837713db861552681021c2896",
+    "wilson/run/wet/__init__.py": "4cedde2144f05b609bde28bf610443db59e5474574a64cbc6513579068f2055c",
+    "wilson/run/wet/adm.py": "c6e615864727d5c74f29450594c98962dd33134eb158e437750868049d50da74",
+    "wilson/run/wet/classes.py": "1dcc98ee7fa4389977861b35cb389d8c47356cadcbfd322bd8f60f383d6c5ec1",
+    "wilson/run/wet/definitions.py": "f12d5479c740a549f8be8a6587fee1fa7ef5e13412004e77c2dbd39ce2c6d4b5",
+    "wilson/run/wet/rge.py": "faf0e3c1a86788a0846f5bf382c30b137fbacc780705c594901eabc1b5ae19e4",
+    "wilson/run/wet/test_wetrunner.py": "6482cadce2b434f1edcd871022919f347ea4af8e04de740b3ee913dd0f62ad28",
+    "wilson/translate/wet.py": "a960255ca60134970a55a303d5b94474c49008d4cc1a42d20d00cbdba49b38a9",
+    "wilson/wcxf/bases/wet.bern.basis.json": "af1badb34f464a850c45db77d90dd87d5db286cd8acaf6fef4ed831a7a6c0634",
+    "wilson/wcxf/bases/wet.eos.basis.json": "e0c30102fe08b28d946a9833df6cbbb290740bfc7cf1909cfec054487af618c6",
+    "wilson/wcxf/bases/wet.flavio.basis.json": "5babc75819f3db2cf4fbbfce2dbe5073a7e34d43e1315a0034ca18d12cbf860c",
+    "wilson/wcxf/bases/wet.flavorkit.basis.json": "5038afb38da70aad1321cd655cbc733a6bf66654fadddf6d27d8f5954e056367",
+    "wilson/wcxf/bases/wet.formflavor.basis.json": "5b80d42f7780b6b1e5da2495a3bc4caf172ae766743c1364d40fc50063dea3a6",
+    "wilson/wcxf/bases/wet.jms.basis.json": "4b516b3531013bf49fcaf5008f1c864851ad810b0876b2a405f0aded6f6c5302"
+  },
+  "latest_upstream_release_tags": {
+    "eos": "v1.1",
+    "flavio": "v2.7.1"
+  },
+  "licenses": {
+    "EOS": "GPL-2.0",
+    "HEPfit": "GPL-3.0-or-later",
+    "flavio": "MIT",
+    "wilson": "MIT"
+  },
+  "local_implementation_sha256": {
+    "research/bsgamma_rate_validation/pilot.py": "1fe399c167c4435e737e566dfa41e803468d5bfb93eeb222bfce15c7dc7ea13a",
+    "research/bsgamma_rate_validation/provenance.py": "8724a7d22aea58774d4cc8d02680f6f5a829515a00d6b8978a2c78a6ec987a6c",
+    "research/bsgamma_rate_validation/test_pilot.py": "ec945068ff18d2167341f4ba9dedaa95038bdc714f8cbd2999c84757cd7bfe8f",
+    "scripts/zee_module5_bmu_nlo.py": "0c2dfb32a7138b02fa4a52c163c63f942f313bb5d697545e138ef1915c200c4e"
+  },
+  "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+  "python": "3.10.12",
+  "versions": {
+    "PyYAML": "6.0.3",
+    "appdirs": "1.4.4",
+    "argcomplete": "3.7.2",
+    "attrs": "26.1.0",
+    "ckmutil": "1.2.0",
+    "contourpy": "1.3.2",
+    "cycler": "0.12.1",
+    "dynesty": "3.1.0",
+    "eoshep": "1.0.21",
+    "flavio": "2.7.1",
+    "fonttools": "4.65.0",
+    "hepunits": "2.4.7",
+    "kiwisolver": "1.5.1",
+    "matplotlib": "3.10.9",
+    "mpmath": "1.3.0",
+    "numpy": "2.2.6",
+    "packaging": "26.3",
+    "pandas": "2.3.3",
+    "particle": "0.25.4",
+    "parton": "0.2.2",
+    "pillow": "12.3.0",
+    "pip": "22.0.2",
+    "pylha": "0.4",
+    "pypandoc": "1.17",
+    "pyparsing": "3.3.3",
+    "pypmc": "1.2.6",
+    "python-dateutil": "3.0.0",
+    "pytz": "2026.6",
+    "rundec": "0.7",
+    "scipy": "1.15.3",
+    "setuptools": "59.6.0",
+    "six": "1.17.0",
+    "tqdm": "4.70.1",
+    "typing_extensions": "4.16.0",
+    "tzdata": "2026.6",
+    "voluptuous": "0.16.0",
+    "wilson": "2.5.2"
+  },
+  "wilson_EOS_high_scale_running": {
+    "exception": "ValueError",
+    "message": "No translator from basis EOS to JMS found.",
+    "status": "REJECTED"
+  }
+}
