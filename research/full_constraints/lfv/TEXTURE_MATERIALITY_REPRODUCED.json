@@ -1,0 +1,207 @@
+{
+  "description": "D12 saved NO/IO textures, coherent missing-amplitude norm geometry; no new points",
+  "source_sha256": {
+    "validation/module12/d12_benchmarks.json": "f31ef3ccb64c3e4ff53131d35d52c21536b951a01e2c3924af766b7b2adf1cd8",
+    "research/full_constraints/lfv/PRACTICAL_SENSITIVITY.json": "d158c7efe8a3b9d9ad3f6b9422b12f0f78470ec06b04689026b7ce11a9b32014",
+    "research/full_constraints/lfv/experiments.json": "7faa6948d33fdc0bf290ed5de12471c8511b4bd2c39e7aedf01ba1c1d7575cbd"
+  },
+  "mu_to_e_gamma_observed_limit_90CL": 1.5e-13,
+  "cards": [
+    {
+      "spectrum": "d7_NO_neutral_near_heavy_07",
+      "ordering": "NO",
+      "central_witness_id": "d7_NO_neutral_near_heavy_07/NO/scale_0.001",
+      "central_partial_mu_e_gamma_BR": 1.3872844851464588e-10,
+      "low_texture_witness_id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "low_texture_design": "texture_0.0001",
+      "low_partial_mu_e_gamma_BR": 1.5612657134644163e-19,
+      "source_locked_neutrino_closure_relative": 1.1042025331536137e-15,
+      "partial_BR_suppression_factor": 888563985.7344354,
+      "central": {
+        "retained_norm_GeV_minus2": 4.159635092683472e-11,
+        "limit_norm_GeV_minus2": 1.3677858240837514e-12,
+        "max_missing_norm_sufficient_for_pass_GeV_minus2": 0.0,
+        "requires_cancellation_for_existing_retained_amplitude": true,
+        "minimum_cancellation_fraction_if_above_bound": 0.9671176486973677,
+        "note": "Sufficient conditional norm budget, NOT an estimated or measured omitted amplitude."
+      },
+      "low_texture": {
+        "retained_norm_GeV_minus2": 1.3954390753220692e-15,
+        "limit_norm_GeV_minus2": 1.3677858240837514e-12,
+        "max_missing_norm_sufficient_for_pass_GeV_minus2": 1.3663903850084294e-12,
+        "requires_cancellation_for_existing_retained_amplitude": false,
+        "minimum_cancellation_fraction_if_above_bound": 0.0,
+        "note": "Sufficient conditional norm budget, NOT an estimated or measured omitted amplitude."
+      },
+      "central_cascade_times_tb_BR": 0.04532591054579247,
+      "low_cascade_times_tb_BR": 0.045327757771725104,
+      "cascade_product_relative_shift": 4.075430389360868e-05,
+      "texture_0p001_one_percent_variations": [
+        {
+          "homogeneous_coefficient_factor": 0.99,
+          "partial_mu_e_gamma_BR": 1.4057629018104937e-14,
+          "partial_BR_over_experimental_limit": 0.09371752678736625,
+          "cascade_product": 0.04532590936319565
+        },
+        {
+          "homogeneous_coefficient_factor": 1.01,
+          "partial_mu_e_gamma_BR": 1.3685687006887751e-14,
+          "partial_BR_over_experimental_limit": 0.09123791337925168,
+          "cascade_product": 0.04532590931493133
+        }
+      ],
+      "partial_mu3e_tree_low": 1.2048571830257443e-50,
+      "physical_lfv": "UNKNOWN",
+      "physical_exclusion": null,
+      "note": "Neutrino closure and tree scalar vacuum are source-level; no full LFV or global model pass."
+    },
+    {
+      "spectrum": "d7_NO_neutral_near_heavy_07",
+      "ordering": "IO",
+      "central_witness_id": "d7_NO_neutral_near_heavy_07/IO/scale_0.001",
+      "central_partial_mu_e_gamma_BR": 3.2321443246469325e-10,
+      "low_texture_witness_id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "low_texture_design": "texture_0.0001",
+      "low_partial_mu_e_gamma_BR": 1.0857182280867012e-18,
+      "source_locked_neutrino_closure_relative": 2.3817330767492872e-15,
+      "partial_BR_suppression_factor": 297696422.61075,
+      "central": {
+        "retained_norm_GeV_minus2": 6.349182949948189e-11,
+        "limit_norm_GeV_minus2": 1.3677858240837516e-12,
+        "max_missing_norm_sufficient_for_pass_GeV_minus2": 0.0,
+        "requires_cancellation_for_existing_retained_amplitude": true,
+        "minimum_cancellation_fraction_if_above_bound": 0.9784572938775545,
+        "note": "Sufficient conditional norm budget, NOT an estimated or measured omitted amplitude."
+      },
+      "low_texture": {
+        "retained_norm_GeV_minus2": 3.679857772752651e-15,
+        "limit_norm_GeV_minus2": 1.3677858240837516e-12,
+        "max_missing_norm_sufficient_for_pass_GeV_minus2": 1.364105966310999e-12,
+        "requires_cancellation_for_existing_retained_amplitude": false,
+        "minimum_cancellation_fraction_if_above_bound": 0.0,
+        "note": "Sufficient conditional norm budget, NOT an estimated or measured omitted amplitude."
+      },
+      "central_cascade_times_tb_BR": 0.04532514044230056,
+      "low_cascade_times_tb_BR": 0.04532766868663532,
+      "cascade_product_relative_shift": 5.578017652219103e-05,
+      "texture_0p001_one_percent_variations": [
+        {
+          "homogeneous_coefficient_factor": 0.99,
+          "partial_mu_e_gamma_BR": 3.260779641403823e-14,
+          "partial_BR_over_experimental_limit": 0.21738530942692155,
+          "cascade_product": 0.04532513916984679
+        },
+        {
+          "homogeneous_coefficient_factor": 1.01,
+          "partial_mu_e_gamma_BR": 3.203327962613833e-14,
+          "partial_BR_over_experimental_limit": 0.2135551975075889,
+          "cascade_product": 0.045325139117915206
+        }
+      ],
+      "partial_mu3e_tree_low": 1.5169788986710899e-50,
+      "physical_lfv": "UNKNOWN",
+      "physical_exclusion": null,
+      "note": "Neutrino closure and tree scalar vacuum are source-level; no full LFV or global model pass."
+    },
+    {
+      "spectrum": "F13_heavy_0001330",
+      "ordering": "NO",
+      "central_witness_id": "F13_heavy_0001330/NO/scale_0.001",
+      "central_partial_mu_e_gamma_BR": 1.7851707659350024e-12,
+      "low_texture_witness_id": "F13_heavy_0001330/NO/texture_0.001",
+      "low_texture_design": "texture_0.001",
+      "low_partial_mu_e_gamma_BR": 4.0312827607113356e-20,
+      "source_locked_neutrino_closure_relative": 1.4324847930129873e-15,
+      "partial_BR_suppression_factor": 44282945.94795434,
+      "central": {
+        "retained_norm_GeV_minus2": 4.718591183477138e-12,
+        "limit_norm_GeV_minus2": 1.3677858240837519e-12,
+        "max_missing_norm_sufficient_for_pass_GeV_minus2": 0.0,
+        "requires_cancellation_for_existing_retained_amplitude": true,
+        "minimum_cancellation_fraction_if_above_bound": 0.7101283474454703,
+        "note": "Sufficient conditional norm budget, NOT an estimated or measured omitted amplitude."
+      },
+      "low_texture": {
+        "retained_norm_GeV_minus2": 7.090781443365356e-16,
+        "limit_norm_GeV_minus2": 1.3677858240837519e-12,
+        "max_missing_norm_sufficient_for_pass_GeV_minus2": 1.3670767459394152e-12,
+        "requires_cancellation_for_existing_retained_amplitude": false,
+        "minimum_cancellation_fraction_if_above_bound": 0.0,
+        "note": "Sufficient conditional norm budget, NOT an estimated or measured omitted amplitude."
+      },
+      "central_cascade_times_tb_BR": 0.4838537604503791,
+      "low_cascade_times_tb_BR": 0.4838536969504039,
+      "cascade_product_relative_shift": -1.3123794906366726e-07,
+      "texture_0p001_one_percent_variations": [
+        {
+          "homogeneous_coefficient_factor": 0.99,
+          "partial_mu_e_gamma_BR": 1.838369108024145e-16,
+          "partial_BR_over_experimental_limit": 0.00122557940534943,
+          "cascade_product": 0.4838536982140533
+        },
+        {
+          "homogeneous_coefficient_factor": 1.01,
+          "partial_mu_e_gamma_BR": 1.7318371679335027e-16,
+          "partial_BR_over_experimental_limit": 0.0011545581119556685,
+          "cascade_product": 0.4838536956740547
+        }
+      ],
+      "partial_mu3e_tree_low": 3.156923148537933e-56,
+      "physical_lfv": "UNKNOWN",
+      "physical_exclusion": null,
+      "note": "Neutrino closure and tree scalar vacuum are source-level; no full LFV or global model pass."
+    },
+    {
+      "spectrum": "F13_heavy_0001330",
+      "ordering": "IO",
+      "central_witness_id": "F13_heavy_0001330/IO/scale_0.001",
+      "central_partial_mu_e_gamma_BR": 4.158938417255523e-12,
+      "low_texture_witness_id": "F13_heavy_0001330/IO/texture_0.001",
+      "low_texture_design": "texture_0.001",
+      "low_partial_mu_e_gamma_BR": 1.3378605859646518e-19,
+      "source_locked_neutrino_closure_relative": 2.3997938059771805e-15,
+      "partial_BR_suppression_factor": 31086485.848275136,
+      "central": {
+        "retained_norm_GeV_minus2": 7.202175727998393e-12,
+        "limit_norm_GeV_minus2": 1.3677858240837516e-12,
+        "max_missing_norm_sufficient_for_pass_GeV_minus2": 0.0,
+        "requires_cancellation_for_existing_retained_amplitude": true,
+        "minimum_cancellation_fraction_if_above_bound": 0.8100871353684836,
+        "note": "Sufficient conditional norm budget, NOT an estimated or measured omitted amplitude."
+      },
+      "low_texture": {
+        "retained_norm_GeV_minus2": 1.291748299515493e-15,
+        "limit_norm_GeV_minus2": 1.3677858240837516e-12,
+        "max_missing_norm_sufficient_for_pass_GeV_minus2": 1.3664940757842362e-12,
+        "requires_cancellation_for_existing_retained_amplitude": false,
+        "minimum_cancellation_fraction_if_above_bound": 0.0,
+        "note": "Sufficient conditional norm budget, NOT an estimated or measured omitted amplitude."
+      },
+      "central_cascade_times_tb_BR": 0.48383233300753725,
+      "low_cascade_times_tb_BR": 0.48383226468655594,
+      "cascade_product_relative_shift": -1.412079695395363e-07,
+      "texture_0p001_one_percent_variations": [
+        {
+          "homogeneous_coefficient_factor": 0.99,
+          "partial_mu_e_gamma_BR": 4.2420986942568004e-16,
+          "partial_BR_over_experimental_limit": 0.0028280657961712004,
+          "cascade_product": 0.4838322660461432
+        },
+        {
+          "homogeneous_coefficient_factor": 1.01,
+          "partial_mu_e_gamma_BR": 4.0769496995215713e-16,
+          "partial_BR_over_experimental_limit": 0.0027179664663477144,
+          "cascade_product": 0.48383226331330437
+        }
+      ],
+      "partial_mu3e_tree_low": 2.6048526930957813e-55,
+      "physical_lfv": "UNKNOWN",
+      "physical_exclusion": null,
+      "note": "Neutrino closure and tree scalar vacuum are source-level; no full LFV or global model pass."
+    }
+  ],
+  "new_parameter_points": 0,
+  "new_loop_amplitudes": 0,
+  "experimental_exclusions": null,
+  "global_acceptance": null
+}

@@ -1,0 +1,221 @@
+{
+  "input_sha256": "f31ef3ccb64c3e4ff53131d35d52c21536b951a01e2c3924af766b7b2adf1cd8",
+  "cards": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "yukawa_sha256": {
+        "D": "399854794d73c2c1b8eb92ef2f259b0acb8f3b8765003595266902ecf3070844",
+        "F": "cca43f73fe99cac2237847ee58317d2215efa9ecdfe0ba5456a1b99d12975e44",
+        "Ye": "b589de28e3a68adf02d9186286dcc613b65bb222a132dec359d85d2ebd756e25",
+        "Ye2": "36782190a7c411548223ab7bdbe1ab1ffb0fb3aba266de33898f5a612de54967"
+      },
+      "D_em": {
+        "real": 1.164670302474663e-21,
+        "imag": 4.658681209898652e-21,
+        "abs": 4.8020586761231055e-21
+      },
+      "D_me": {
+        "real": -2.168404344971009e-19,
+        "imag": 2.168404344971009e-19,
+        "abs": 3.0665868333667484e-19
+      },
+      "FdagF_em": {
+        "real": -3.0402258350382816e-09,
+        "imag": -3.889052395713624e-09,
+        "abs": 4.9363652280438176e-09
+      },
+      "DdagD_em": {
+        "real": 1.0406355495205048e-09,
+        "imag": 9.088552855139468e-10,
+        "abs": 1.381644048564058e-09
+      },
+      "DDdag_em": {
+        "real": -7.277155597433771e-10,
+        "imag": -9.315627903076496e-10,
+        "abs": 1.1821079342337528e-09
+      },
+      "retained_complex_CL_CR": [
+        {
+          "real": -4.736210878714106e-18,
+          "imag": -1.0002445700719419e-19,
+          "abs": 4.73726697365152e-18
+        },
+        {
+          "real": -7.604190836413181e-16,
+          "imag": 1.170038712381531e-15,
+          "abs": 1.3954310342103379e-15
+        }
+      ],
+      "retained_norm": 1.3954390753220698e-15,
+      "group_norms": {
+        "charged_scalar_photon_BZ": 9.189414567521305e-27,
+        "fermion_photon_BZ": 2.4530888917642572e-25,
+        "scalar_one_loop": 1.3954390752730624e-15
+      },
+      "group_sum_residual": 2.7890444800711794e-31,
+      "note": "Coupling products are diagnostics, not missing amplitude estimates; no chirality or diagram matching assumed."
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "yukawa_sha256": {
+        "D": "d44a4307482efedcc35baab590d9d8dc56923aa6cf52d422a362522ecfcb0a46",
+        "F": "e331009b42e32bcf9ade00fc2187589b4c04aa596e87b88b800537cfd8cac0e2",
+        "Ye": "38d3064c21fb38744da9a2a573af957d923a8df4a79140e95a5c8855e7bb1d21",
+        "Ye2": "909e011cd8513f17a71466e97db3ae586ccaf3db09f19cd095b41f576c71dbc1"
+      },
+      "D_em": {
+        "real": -4.319868030996932e-20,
+        "imag": -1.93864665802828e-19,
+        "abs": 1.9861932088134105e-19
+      },
+      "D_me": {
+        "real": -1.6263032587282567e-19,
+        "imag": 0.0,
+        "abs": 1.6263032587282567e-19
+      },
+      "FdagF_em": {
+        "real": -3.862925491864878e-09,
+        "imag": -7.65892141001743e-09,
+        "abs": 8.577952583252187e-09
+      },
+      "DdagD_em": {
+        "real": 2.87013150142327e-10,
+        "imag": 2.590505867011344e-09,
+        "abs": 2.606357073651808e-09
+      },
+      "DDdag_em": {
+        "real": -1.0632043476974856e-09,
+        "imag": -2.1113794975231822e-09,
+        "abs": 2.3639642272090502e-09
+      },
+      "retained_complex_CL_CR": [
+        {
+          "real": -3.234625961780553e-19,
+          "imag": -9.535341908472629e-18,
+          "abs": 9.540826660337179e-18
+        },
+        {
+          "real": 3.004415881089376e-15,
+          "imag": 2.1247934990894255e-15,
+          "abs": 3.6798454044042034e-15
+        }
+      ],
+      "retained_norm": 3.679857772752651e-15,
+      "group_norms": {
+        "charged_scalar_photon_BZ": 7.691593124586154e-27,
+        "fermion_photon_BZ": 2.0532487324864473e-25,
+        "scalar_one_loop": 3.679857772650817e-15
+      },
+      "group_sum_residual": 3.944424924276391e-31,
+      "note": "Coupling products are diagnostics, not missing amplitude estimates; no chirality or diagram matching assumed."
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "yukawa_sha256": {
+        "D": "eaa0e8dadaf35acfa9bc4381f229070217fdeee0a0f6ae4261a0d1813e93dd47",
+        "F": "1d9b8ff9a6896b0966689cb5542bc7d7c1cb3f0e27668a8dc9837e2122223dd4",
+        "Ye": "8db3a9f690ba80b6ecdb866bfdd1dd3e0a03ef9b4ea745576acfa9a507ce41ef",
+        "Ye2": "0679a131d7092a5090313ffec6d892430cf85df385509c9a12da77f0240f745d"
+      },
+      "D_em": {
+        "real": -3.8712052667481695e-22,
+        "imag": -1.3698110943878138e-21,
+        "abs": 1.423462235705931e-21
+      },
+      "D_me": {
+        "real": -6.776263578034403e-21,
+        "imag": -6.776263578034403e-21,
+        "abs": 9.583083854271089e-21
+      },
+      "FdagF_em": {
+        "real": -3.0402258350382816e-07,
+        "imag": -3.8890523957136236e-07,
+        "abs": 4.936365228043817e-07
+      },
+      "DdagD_em": {
+        "real": 6.859498248934132e-12,
+        "imag": 5.990849767133213e-12,
+        "abs": 9.107304604518865e-12
+      },
+      "DDdag_em": {
+        "real": -4.798105541634956e-12,
+        "imag": -6.14214671802598e-12,
+        "abs": 7.794086418203571e-12
+      },
+      "retained_complex_CL_CR": [
+        {
+          "real": 1.997125056129804e-18,
+          "imag": 2.700571599837409e-18,
+          "abs": 3.3588086363575186e-18
+        },
+        {
+          "real": 4.1082242404682715e-16,
+          "imag": 5.779320626860719e-16,
+          "abs": 7.090701891775516e-16
+        }
+      ],
+      "retained_norm": 7.090781443365355e-16,
+      "group_norms": {
+        "charged_scalar_photon_BZ": 8.50436499975363e-29,
+        "fermion_photon_BZ": 1.12709056272454e-27,
+        "scalar_one_loop": 7.090781443367064e-16
+      },
+      "group_sum_residual": 1.1025002746395431e-31,
+      "note": "Coupling products are diagnostics, not missing amplitude estimates; no chirality or diagram matching assumed."
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "yukawa_sha256": {
+        "D": "3974afffa5947bbbd65d7112b49d27c6640e70726398e56a0dd580316601cb6c",
+        "F": "470b61093a28d889c6847ae08d34f8f8f466909a5c5ea46d7e5acadb578c5bce",
+        "Ye": "e62fbcdbe3b006b2042df75c07685d276e4bc4aa3d3c41b128e369b1a48d18c1",
+        "Ye2": "00cb8bd41895618fe6505a0ab8f5d55f9568d04ee009df47ed87f894cb7f5365"
+      },
+      "D_em": {
+        "real": -3.255782891008717e-21,
+        "imag": 4.221929846470653e-21,
+        "abs": 5.3314926485839585e-21
+      },
+      "D_me": {
+        "real": -2.0328790734103208e-20,
+        "imag": 1.3552527156068805e-20,
+        "abs": 2.4432165786662115e-20
+      },
+      "FdagF_em": {
+        "real": -3.8629254918648773e-07,
+        "imag": -7.65892141001743e-07,
+        "abs": 8.577952583252187e-07
+      },
+      "DdagD_em": {
+        "real": 1.891888280899028e-12,
+        "imag": 1.7075690395939785e-11,
+        "abs": 1.718017589448354e-11
+      },
+      "DDdag_em": {
+        "real": -7.0101096777025385e-12,
+        "imag": -1.392112024512891e-11,
+        "abs": 1.5586507837638193e-11
+      },
+      "retained_complex_CL_CR": [
+        {
+          "real": 2.6840813211095303e-18,
+          "imag": 5.1035270291106635e-18,
+          "abs": 5.766305634909773e-18
+        },
+        {
+          "real": 6.191318152845369e-16,
+          "imag": 1.133691410535939e-15,
+          "abs": 1.2917354291883816e-15
+        }
+      ],
+      "retained_norm": 1.291748299515493e-15,
+      "group_norms": {
+        "charged_scalar_photon_BZ": 2.1951342671406604e-28,
+        "fermion_photon_BZ": 2.90923001661645e-27,
+        "scalar_one_loop": 1.2917482995131666e-15
+      },
+      "group_sum_residual": 2.789044477473679e-31,
+      "note": "Coupling products are diagnostics, not missing amplitude estimates; no chirality or diagram matching assumed."
+    }
+  ]
+}
