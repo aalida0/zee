@@ -1,0 +1,115 @@
+{
+  "status": "DIAGNOSTIC_ONLY",
+  "source_files": {
+    "validation/module12/d12_benchmarks.json": "source of exact D12 136 solutions; values quoted via D12 audit",
+    "module12/D12_FLAVOR_COLLIDER_AUDIT.md": "657ef69f4a6b7c17a7445eb77afc084c32f2b874",
+    "research/full_constraints/lfv/PRACTICAL_SENSITIVITY.json": "80037d9732935ff05317e3aaad901416f118011c"
+  },
+  "published_experimental_90CL_limit_mu_e_gamma": 1.5e-13,
+  "scope": "Original D7/F13 central and D12 low_joint NO/IO; arithmetic on previously calculated retained dipoles. Missing amplitudes unknown.",
+  "formula": "n_limit=n_c*sqrt(BR_limit/BR_c); n_low=n_limit*sqrt(BR_low/BR_limit); if ||Delta_missing|| <= n_limit-n_low, then the combined mu→eγ rate is <= limit. This is a conditional sufficient criterion; no physical bound on Delta_missing is supplied.",
+  "results": [
+    {
+      "spectrum": "D7",
+      "ordering": "NO",
+      "central_id": "d7_NO_neutral_near_heavy_07/NO/scale_0.001",
+      "low_design": "low_joint / texture_0.0001",
+      "br_partial_mu_e_gamma_central": 1.3872844851464588e-10,
+      "br_partial_mu_e_gamma_low": 1.561e-19,
+      "suppression_factor": 888715237.1213701,
+      "br_partial_90CL_limit": 1.5e-13,
+      "norm_retained_central_GeV_minus2": 4.1596350926834735e-11,
+      "norm_limit_GeV_minus2": 1.3677858240837519e-12,
+      "norm_retained_low_GeV_minus2": 1.3953203246426094e-15,
+      "max_missing_coherent_norm_sufficient_conditional_pass_GeV_minus2": 1.3663905037591093e-12,
+      "min_cancellation_fraction_central": 0.9671176486973677,
+      "cascade_times_tb_central": 0.045326,
+      "cascade_times_tb_low": 0.045328,
+      "low_neutrino_closure_residual": 1.104e-15,
+      "texture_0p001_pm1pct_partial_br_range": [
+        1.369e-14,
+        1.406e-14
+      ],
+      "texture_0p001_pm1pct_max_ratio_to_limit": 0.09373333333333334,
+      "physical_lfv": "UNKNOWN",
+      "exclusion": null
+    },
+    {
+      "spectrum": "D7",
+      "ordering": "IO",
+      "central_id": "d7_NO_neutral_near_heavy_07/IO/scale_0.001",
+      "low_design": "low_joint / texture_0.0001",
+      "br_partial_mu_e_gamma_central": 3.2321443246469325e-10,
+      "br_partial_mu_e_gamma_low": 1.086e-18,
+      "suppression_factor": 297619182.7483363,
+      "br_partial_90CL_limit": 1.5e-13,
+      "norm_retained_central_GeV_minus2": 6.349182949948189e-11,
+      "norm_limit_GeV_minus2": 1.3677858240837516e-12,
+      "norm_retained_low_GeV_minus2": 3.680335250827939e-15,
+      "max_missing_coherent_norm_sufficient_conditional_pass_GeV_minus2": 1.3641054888329238e-12,
+      "min_cancellation_fraction_central": 0.9784572938775545,
+      "cascade_times_tb_central": 0.045325,
+      "cascade_times_tb_low": 0.045328,
+      "low_neutrino_closure_residual": 2.382e-15,
+      "texture_0p001_pm1pct_partial_br_range": [
+        3.203e-14,
+        3.261e-14
+      ],
+      "texture_0p001_pm1pct_max_ratio_to_limit": 0.2174,
+      "physical_lfv": "UNKNOWN",
+      "exclusion": null
+    },
+    {
+      "spectrum": "F13",
+      "ordering": "NO",
+      "central_id": "F13_heavy_0001330/NO/scale_0.001",
+      "low_design": "low_joint / texture_0.001",
+      "br_partial_mu_e_gamma_central": 1.7851707659350024e-12,
+      "br_partial_mu_e_gamma_low": 4.031e-20,
+      "suppression_factor": 44286052.24348803,
+      "br_partial_90CL_limit": 1.5e-13,
+      "norm_retained_central_GeV_minus2": 4.718591183477138e-12,
+      "norm_limit_GeV_minus2": 1.3677858240837519e-12,
+      "norm_retained_low_GeV_minus2": 7.090532759548877e-16,
+      "max_missing_coherent_norm_sufficient_conditional_pass_GeV_minus2": 1.367076770807797e-12,
+      "min_cancellation_fraction_central": 0.7101283474454703,
+      "cascade_times_tb_central": 0.483854,
+      "cascade_times_tb_low": 0.483854,
+      "low_neutrino_closure_residual": 1.432e-15,
+      "texture_0p001_pm1pct_partial_br_range": [
+        1.732e-16,
+        1.838e-16
+      ],
+      "texture_0p001_pm1pct_max_ratio_to_limit": 0.0012253333333333335,
+      "physical_lfv": "UNKNOWN",
+      "exclusion": null
+    },
+    {
+      "spectrum": "F13",
+      "ordering": "IO",
+      "central_id": "F13_heavy_0001330/IO/scale_0.001",
+      "low_design": "low_joint / texture_0.001",
+      "br_partial_mu_e_gamma_central": 4.158938417255523e-12,
+      "br_partial_mu_e_gamma_low": 1.338e-19,
+      "suppression_factor": 31083246.765736345,
+      "br_partial_90CL_limit": 1.5e-13,
+      "norm_retained_central_GeV_minus2": 7.202175727998393e-12,
+      "norm_limit_GeV_minus2": 1.3677858240837516e-12,
+      "norm_retained_low_GeV_minus2": 1.2918156021752892e-15,
+      "max_missing_coherent_norm_sufficient_conditional_pass_GeV_minus2": 1.3664940084815764e-12,
+      "min_cancellation_fraction_central": 0.8100871353684836,
+      "cascade_times_tb_central": 0.483832,
+      "cascade_times_tb_low": 0.483832,
+      "low_neutrino_closure_residual": 2.4e-15,
+      "texture_0p001_pm1pct_partial_br_range": [
+        4.077e-16,
+        4.242e-16
+      ],
+      "texture_0p001_pm1pct_max_ratio_to_limit": 0.0028280000000000002,
+      "physical_lfv": "UNKNOWN",
+      "exclusion": null
+    }
+  ],
+  "physical_exclusion": null,
+  "global_acceptance": null
+}
