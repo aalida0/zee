@@ -30,11 +30,33 @@ READ `research/full_constraints/LFV_PRACTICAL_APPROXIMATION_TASK.md`
 `LFV_COVERAGE.md`, `LFV_SOURCE_TO_CODE_REPORT.md`, and
 the original source-lock JSONs. Follow the staged stop rules.
 
-**IMMEDIATE BLOCKER (7977236):** READ `research/full_constraints/LFV_FORMCALC_READFORM_DIAGNOSIS_TASK.md` FIRST. SARAH 4.15.4 and FeynArts 3.12 already load; FormCalc 9.10 `./compile` exits zero but `ReadForm` does not connect via MathLink (`LinkOpen::linke`, `ReadForm::notcompiled`). Diagnose actual binary CLI behavior, ELF/linker libraries, matched Wolfram 15 WSTP SDK and Mathematica-selected absolute executable path. ONE bounded scratch-only source-backed repair. No wider reinstall, no new LFV theory until independently loading FormCalc is demonstrated. If irreparable, stop with full minimal reproducible upstream issue. Compare
-its generated radiative/3-body/conversion Wilson coefficients
-with the existing saved SARAH/FlavorKit source on **original
-D7/F13 NO/IO cards** only. Save individual complex operators,
-diagram topology inventory, source hashes and failed checks.
+**LATEST USER DIAGNOSTIC — ReadForm binary and compiler failure:**
+READ `research/full_constraints/LFV_FORMCALC_READFORM_DIAGNOSIS_TASK.md`
+FIRST (new observed failure subsection). The two 3.8 MB
+statically linked 2024 `ReadForm` copies are identical and
+both crash with **SIGFPE / exit 136**. Forced build after
+`touch FormCalc/ReadForm.tm` fails **exit 127** because bundled
+`drivers/tools/mcc` tries `/tmp/mcc.PID/mcc`, missing.
+No `mcc` was found in the user's usual Wolfram search or
+shell PATH. That wrapper searches legacy **MathLink**
+DeveloperKit locations, while Wolfram 15 may ship only a
+**WSTP** DeveloperKit using `wsprep`; `wsprep` is NOT
+drop-in `mcc`. Diagnose true `$InstallationDirectory`,
+`$TopDirectory`, `$SystemID`, SDK paths, headers and ABI;
+make one bounded source-backed scratch-only repair.
+If it works, compare generated LFV operators on ONLY the
+existing D7/F13 NO/IO cards, recording complex sectors,
+topology and source hashes.
+
+**CRITICAL FALLBACK:** If modern MathLink/WSTP cannot compile
+FormCalc's `ReadForm` without significant new toolchain
+development, STOP that secondary generator attempt and
+**CONTINUE physics using saved SARAH/FlavorKit Wilsons and
+independent flavio/wilson/MuonBridge rate checks**, with
+published source matching, suppression/materiality checks,
+and no unvalidated physical exclusion claims. Do not block
+the simple paper indefinitely on FlexibleSUSY integration.
+No new parameter points, scans, Condor or frozen code edits.
 
 Then use source-verified existing one-loop Zee/selected
 Barr–Zee contributions; check missing gauge/charged groups
