@@ -1,0 +1,71 @@
+{
+  "date": "2026-11-07",
+  "native": {
+    "compiler": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+    "description": "Herwig 7.3.0 bundled LoopTools; header identifies 2.13 (2016-09-08); FF 2.0 runtime banner",
+    "files": {
+      "/home/amine/codes/Herwig/herwigpp/include/Herwig/Looptools/clooptools.h": "504f40f68bbd62aeae6608364baf6fd5e69567477dc31bf6a47d72f96a04de2a",
+      "/home/amine/codes/Herwig/herwigpp/lib/ThePEG/libThePEG.so.30.0.0": "59fa1765aaf164f85eaf38053ccff354d968f260fa78bed3a53ca124c9e09dac",
+      "/home/amine/codes/Herwig/herwigpp/lib/libgsl.so.25.1.0": "d114aef4de3fdddb0142c9b333a543587e3d9663b823044b887b9defe5344bdc",
+      "/home/amine/codes/Herwig/herwigpp/src/Herwig-7.3.0/Looptools/.libs/libHwLooptools.a": "d438eab6eeea0658af6eaa6def545e28acd1cadeb7aac084c072468f596aac44",
+      "/home/amine/codes/Herwig/herwigpp/src/Herwig-7.3.0/Looptools/.libs/libHwLooptoolsCFC.a": "af990b1913ccf6aa64b574820a6c20d8cfd2e1ef326ebfc4b4a5780d951909ab",
+      "/home/amine/codes/Herwig/herwigpp/src/Herwig-7.3.0/Looptools/.libs/libHwLooptoolsXFC.a": "17c9fb1b4930dfbb5b71b5a718055b44bd4b0b74d714eb99de55172d38fbbf1b",
+      "/home/amine/codes/Herwig/herwigpp/src/Herwig-7.3.0/Looptools/clooptools.cc": "a287482c137b8051e30cdf43d66c4d3a265f19fabc7940ba3aed7079d21e63a5"
+    },
+    "probe_executable_sha256": "15052642734406b014064a202bf6d62c761b96ec967da173c0fc31db2ecd1f00",
+    "runtime_library_fix": "/tmp/zee-zgamma-native/libgsl.so.25 symlink to existing real libgsl.so.25.1.0; LD_LIBRARY_PATH used only for probe; no package installation",
+    "runtime_log": "native_receipt in ZGAMMA_SOURCE_EVIDENCE contains raw PV stdout; FF log retained as ZGAMMA_LOOPTOOLS_LOG.txt",
+    "runtime_log_sha256": "a09362d81b5fc69ad07b72ffb20fd219cf16b2fbc415584c6f7ba0e1437fb6b0"
+  },
+  "numpy": "2.2.6",
+  "papers": [
+    {
+      "arxiv": "2106.08332v1",
+      "doi": "10.1140/epjc/s10052-021-09956-2",
+      "id": "Flo21",
+      "local_read_path": "/home/amine/Downloads/s10052-021-09956-2.pdf",
+      "pdf_sha256": "322bba3db966f8277a30131eb9ef8b5cbc7fd83c49a9c5c93e07e2a382519a8b",
+      "url": "https://link.springer.com/content/pdf/10.1140/epjc/s10052-021-09956-2.pdf",
+      "version": "journal PDF, 24 pages"
+    },
+    {
+      "arxiv": "1712.05234v2",
+      "doi": "10.1140/epjc/s10052-018-6349-0",
+      "id": "Hue18",
+      "local_read_path": "/tmp/hue18.pdf",
+      "pdf_sha256": "d8ccaab5dd54f572a8568c2293962dbde4310ca5d435f90dce33b1cb034accb9",
+      "url": "https://arxiv.org/pdf/1712.05234v2",
+      "version": "arXiv v2, 33 pages"
+    },
+    {
+      "arxiv": null,
+      "doi": "10.52714/dthu.37.4.2019.686",
+      "id": "Thanh19",
+      "local_read_path": "/tmp/zee2019.pdf",
+      "pdf_sha256": "3e71b2a7f62e7a53b4b9797cb11847d41d34cdd412fb6baf22bbbb897df635c8",
+      "url": "https://dthujs.vn/index.php/dthujs/article/download/477/430/831",
+      "version": "journal PDF, pp.78-84"
+    },
+    {
+      "arxiv": "1408.2534v1",
+      "doi": "10.1007/JHEP12(2014)043",
+      "id": "Fontes14",
+      "local_read_path": "/tmp/fontes14.pdf",
+      "pdf_sha256": "180987d9fa0433d7652e8c411345ec138b43579fce76c3e5e44f68a4e9d29431",
+      "url": "https://arxiv.org/pdf/1408.2534v1",
+      "version": "arXiv v1, printed 11 Aug 2014"
+    },
+    {
+      "arxiv": "2312.13050v2",
+      "doi": "10.1103/PhysRevD.109.095002",
+      "id": "Boto24",
+      "local_read_path": "/tmp/boto24.pdf",
+      "pdf_sha256": "1e0c207fbe583de6801f3a033f1e3dc4c30e83c78f1977760e536c9c7dbc295a",
+      "url": "https://arxiv.org/pdf/2312.13050v2",
+      "version": "arXiv v2, printed 27 Mar 2024"
+    }
+  ],
+  "production_library_released": false,
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "scipy": "1.15.3"
+}

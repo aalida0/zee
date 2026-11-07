@@ -1,0 +1,167 @@
+{
+  "HiggsTools_predictions_constructed": 0,
+  "global_acceptance": null,
+  "inputs": {
+    "research/full_constraints/higgs/COVERAGE.json": "0a8aead96843aae22ac3a5038ba8b3888892695253ccea13803bb7e0055d027b",
+    "research/full_constraints/higgs/NEUTRAL_WIDTH_EVIDENCE.json": "a2bf2722c699f6cb6926a65d1b2752d8b4ee18a921ef0e0cd11563c1a93e6b41",
+    "research/full_constraints/higgs/SUSHI_EVIDENCE.json": "944412d0139d7b2c0bb3fe144d855488401ebb1607bc71511e039f6bda04332e"
+  },
+  "massResolution": {
+    "absolute": 5,
+    "relative": 0.15
+  },
+  "missing_width_numerical_bound": null,
+  "observable_uncertainty_tolerance": null,
+  "physical_higgs": "UNKNOWN",
+  "rows": [
+    {
+      "central_rate_times_formal_ratio_pb": {
+        "bbH": 5.506686574573539e-10,
+        "ggF": 4.496765361266202e-07
+      },
+      "certified_BR_upper": null,
+      "certified_signal_upper": null,
+      "charged_W_daughter_domains": [
+        {
+          "daughter_tree_width_GeV": 0.32355811346314894,
+          "state": "H1",
+          "threshold_gap_GeV": 113.32512775513489
+        },
+        {
+          "daughter_tree_width_GeV": 16.023422056201035,
+          "state": "H2",
+          "threshold_gap_GeV": -120.88112968131507
+        }
+      ],
+      "exclusion": null,
+      "formal_tau_over_known": 1.9334159495507845e-07,
+      "known_disjoint_sum_GeV": 11.958583169462178,
+      "known_over_mass": 0.024284800178795606,
+      "mass_GeV": 492.4307830996228,
+      "missing": [
+        "Complete H Zgamma: unequal-mass charged scalar G12 Z21 triangles, seagull and gauge completion",
+        "Model-matched charged-W off-shell/finite-daughter correction without double counting the on-shell cascade; no numerical bound",
+        "Nonresonant EW multibody channels outside transferred HDECAY approximations; no numerical materiality bound",
+        "Neutral/scalar off-shell cascades beyond transferred HDECAY approximation, including finite H in F13 A -> H Z*",
+        "Channel-specific QCD/EW truncation and parametric/correlated uncertainties; no total error budget"
+      ],
+      "name": "D7",
+      "physical_BR": null,
+      "retained_tree_tau_width_GeV": 2.312091543386775e-06,
+      "state": "H"
+    },
+    {
+      "central_rate_times_formal_ratio_pb": {
+        "bbH": 1.0355356588396306e-12,
+        "ggF": 1.3594079947045675e-09
+      },
+      "certified_BR_upper": null,
+      "certified_signal_upper": null,
+      "charged_W_daughter_domains": [
+        {
+          "daughter_tree_width_GeV": 0.32355811346314894,
+          "state": "H1",
+          "threshold_gap_GeV": 114.05566205719346
+        },
+        {
+          "daughter_tree_width_GeV": 16.023422056201035,
+          "state": "H2",
+          "threshold_gap_GeV": -120.1505953792565
+        }
+      ],
+      "exclusion": null,
+      "formal_tau_over_known": 3.3421197195770243e-10,
+      "known_disjoint_sum_GeV": 18.567778892882576,
+      "known_over_mass": 0.037650517665721674,
+      "mass_GeV": 493.16131740168134,
+      "missing": [
+        "A Zgamma fermion amplitudes with general complex lepton couplings; scalar sector CP forbids a bosonic epsilon tensor",
+        "Model-matched charged-W off-shell/finite-daughter correction without double counting the on-shell cascade; no numerical bound",
+        "Loop-induced A WW/ZZ with model-matched fermion and gauge amplitudes; no numerical width/materiality bound",
+        "Neutral/scalar off-shell cascades beyond transferred HDECAY approximation, including finite H in F13 A -> H Z*",
+        "Channel-specific QCD/EW truncation and parametric/correlated uncertainties; no total error budget"
+      ],
+      "name": "D7",
+      "physical_BR": null,
+      "retained_tree_tau_width_GeV": 6.20557399866489e-09,
+      "state": "A"
+    },
+    {
+      "central_rate_times_formal_ratio_pb": {
+        "bbH": 5.669144605375401e-11,
+        "ggF": 6.511011789109255e-11
+      },
+      "certified_BR_upper": null,
+      "certified_signal_upper": null,
+      "charged_W_daughter_domains": [
+        {
+          "daughter_tree_width_GeV": 0.20039903603528153,
+          "state": "H1",
+          "threshold_gap_GeV": 54.471313505159074
+        },
+        {
+          "daughter_tree_width_GeV": 12.13933026267094,
+          "state": "H2",
+          "threshold_gap_GeV": -246.50474496380582
+        }
+      ],
+      "exclusion": null,
+      "formal_tau_over_known": 4.087761993605546e-09,
+      "known_disjoint_sum_GeV": 2.2562694701599275,
+      "known_over_mass": 0.003190958995465662,
+      "mass_GeV": 707.0819378644715,
+      "missing": [
+        "Complete H Zgamma: unequal-mass charged scalar G12 Z21 triangles, seagull and gauge completion",
+        "Model-matched charged-W off-shell/finite-daughter correction without double counting the on-shell cascade; no numerical bound",
+        "Nonresonant EW multibody channels outside transferred HDECAY approximations; no numerical materiality bound",
+        "Neutral/scalar off-shell cascades beyond transferred HDECAY approximation, including finite H in F13 A -> H Z*",
+        "Channel-specific QCD/EW truncation and parametric/correlated uncertainties; no total error budget"
+      ],
+      "name": "F13",
+      "physical_BR": null,
+      "retained_tree_tau_width_GeV": 9.223092587452275e-09,
+      "state": "H"
+    },
+    {
+      "central_rate_times_formal_ratio_pb": {
+        "bbH": 6.780082734951885e-14,
+        "ggF": 1.2387364453724268e-13
+      },
+      "certified_BR_upper": null,
+      "certified_signal_upper": null,
+      "charged_W_daughter_domains": [
+        {
+          "daughter_tree_width_GeV": 0.20039903603528153,
+          "state": "H1",
+          "threshold_gap_GeV": 139.64872560383913
+        },
+        {
+          "daughter_tree_width_GeV": 12.13933026267094,
+          "state": "H2",
+          "threshold_gap_GeV": -161.32733286512575
+        }
+      ],
+      "exclusion": null,
+      "formal_tau_over_known": 8.444352443719926e-12,
+      "known_disjoint_sum_GeV": 7.7822941810353,
+      "known_over_mass": 0.009822912385189597,
+      "mass_GeV": 792.2593499631515,
+      "missing": [
+        "A Zgamma fermion amplitudes with general complex lepton couplings; scalar sector CP forbids a bosonic epsilon tensor",
+        "Model-matched charged-W off-shell/finite-daughter correction without double counting the on-shell cascade; no numerical bound",
+        "Loop-induced A WW/ZZ with model-matched fermion and gauge amplitudes; no numerical width/materiality bound",
+        "Neutral/scalar off-shell cascades beyond transferred HDECAY approximation, including finite H in F13 A -> H Z*",
+        "Channel-specific QCD/EW truncation and parametric/correlated uncertainties; no total error budget"
+      ],
+      "name": "F13",
+      "physical_BR": null,
+      "retained_tree_tau_width_GeV": 6.57164348853728e-11,
+      "state": "A"
+    }
+  ],
+  "scope": "Arithmetic replay of existing evidence only, after the h source mismatch stopping gate; no Phase II width calculations",
+  "selected_dataset_commit": "3539f9adf3724f8752701208bf059d1658824cd2",
+  "selected_dataset_sha256": "626edb4f21ab3c3a77febf71b3780ce070961b29c9221289c47853916262a591",
+  "selected_file": "neutral/tautau/LLH_LHC13_ATLAS_139.json",
+  "status": "HIGGS_SCOPED_SEARCH_BLOCKED"
+}
