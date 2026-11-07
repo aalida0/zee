@@ -1,0 +1,21 @@
+test_exact_rate_bridge_rejects_energy_pdf_charge_and_family_tampering (research.full_constraints.higgs.test_higgs.CoverageTests) ... ok
+test_mass_only_rejection_and_tree_zero_is_not_loop_zero (research.full_constraints.higgs.test_higgs.CoverageTests) ... ok
+test_pinned_datasets_all_limits_and_unknowns (research.full_constraints.higgs.test_higgs.CoverageTests) ... ok
+test_width_replacement_preserves_sum_without_inclusive_inv_double_count (research.full_constraints.higgs.test_higgs.CoverageTests) ... ok
+test_D12_complete_complex_amplitudes_independent_parameters (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_all_spin_functions_vs_independent_log_integral (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_charge_sign_coherence_and_fixed_trilinear_decoupling (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_cp_odd_tau_not_doubled_mu_and_no_unpolarized_interference (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_fail_closed_nonfinite_missing_and_nonhermitian (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_inverse_tau_published_sign_and_two_state_sum (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_mixing_endpoints_equal_mass_and_trace (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_polarization_width_normalization_and_identical_photons (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_scalar_and_fermion_triangle_parameters (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_scalar_qed_Ward_Bose_and_seagull_cancellation (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_sm_and_independent_compiled_HiggsTools_even_amplitude (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_trilinears_vs_independent_expanded_potential_on_D12_cards (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 4.704s
+
+OK

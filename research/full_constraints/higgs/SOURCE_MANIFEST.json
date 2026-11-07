@@ -1,0 +1,41 @@
+{
+  "retrieved_UTC_date": "2026-11-07",
+  "published_formulas": [
+    {
+      "url": "https://arxiv.org/html/0902.0851v2",
+      "local_replay_path": "/tmp/zee-higgs-0902.0851v2.html",
+      "sha256": "4e9db9ba16f768b35e88902489ecf9aa627dcd41d8b1f62958adad60726cd89c",
+      "scope": "2HDMC Eqs.24-28; signed scalar coupling mapped by L_int=-g h H- H+"
+    },
+    {
+      "url": "https://arxiv.org/html/1408.6133v2",
+      "local_replay_path": "/tmp/zee-higgs-1408.6133v2.html",
+      "sha256": "0c789d3a9b8493415cb9b1fdfd0284611dbc5ab6b35798dda85ddcd7312b9e4d",
+      "scope": "Eqs.3-5; opposite overall amplitude convention; kappa=-g v/(2m^2)"
+    }
+  ],
+  "other_primary_sources": [
+    {
+      "url": "https://arxiv.org/html/2102.10076",
+      "scope": "ATLAS tb search: NLO 4FS signal generation, narrow width, neglected signal-background interference; limits charge inclusive"
+    },
+    {
+      "url": "https://arxiv.org/abs/1212.3249",
+      "scope": "SusHi production implementation path only; no Zee rate or package installation"
+    },
+    {
+      "url": "https://higgsbounds.gitlab.io/higgstools/Datafile.html",
+      "scope": "Limit classes and per-analysis inputs; numerical implementation locked locally to 1.1.3"
+    },
+    {
+      "url": "https://higgsbounds.gitlab.io/higgstools/HiggsSignalsAPI.html",
+      "scope": "Fit API and measurement/correlation interpretation; local source controls actual implementation"
+    }
+  ],
+  "native_SARAH_evidence": "module4/native_evidence.json: historical 1038 signed complex checks, maximum absolute residual 4.636291350834654e-13; native raw files unavailable, not re-executed",
+  "raw_MG_production_receipts": "Absent on this checkout; committed exact-card rates and hash manifests replayed, not fresh native artifact validation",
+  "full_loop_SPheno": "UNAVAILABLE",
+  "HiggsTools_source_commit": "71a93a82f34fb120e3095460e52cb15b7bffcea0",
+  "HiggsTools_source_worktree": "CLEAN",
+  "hgamma_input_scheme": "Common v, MW, MZ tree inputs; e=g2*sw and alpha_tree=0.007565201924913188. alpha(0) widths separately labelled convention diagnostics, never a theory error."
+}
