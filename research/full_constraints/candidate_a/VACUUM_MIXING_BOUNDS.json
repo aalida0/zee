@@ -1,0 +1,13 @@
+{
+  "global_acceptance": null,
+  "verdict": "INCONCLUSIVE_METHOD_BLOCKED",
+  "p2_input_lagrangian_sha256": "81ace22289094d3bd6eeaf74f10e6a84af405e11d9f01e43c066feff8d720b54",
+  "saved_witness_threshold_GeV": 1346.140510102105,
+  "refined_witness_threshold_GeV": 1316.133373038139,
+  "local_charged_tachyon_threshold_approx_GeV": 1531.2969711579171,
+  "positive_stability_interval": null,
+  "claim": "necessary upper bound on one fixed slice only",
+  "positive_proof": "not independently reconstructed",
+  "stationary_2005_eq23_evaluation": "not performed",
+  "other_constraints": "UNKNOWN"
+}

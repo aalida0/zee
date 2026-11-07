@@ -1,0 +1,14 @@
+unittest.case.FunctionTestCase (test_analytic_deeper_singlet_and_80digit_validation) ... ok
+unittest.case.FunctionTestCase (test_cubic_deformation_is_deeper_with_locally_positive_EW) ... ok
+unittest.case.FunctionTestCase (test_exact_interval_and_ldl_negative_controls) ... ok
+unittest.case.FunctionTestCase (test_exact_rational_certificate_and_root_enclosure) ... ok
+unittest.case.FunctionTestCase (test_gauge_invariance_and_goldstone_nulls) ... ok
+unittest.case.FunctionTestCase (test_independent_complete_complex_polynomial) ... ok
+unittest.case.FunctionTestCase (test_orbit_phase_minimization_including_singular_strata) ... ok
+unittest.case.FunctionTestCase (test_source_bound_results_do_not_promote_numerical_absence) ... ok
+unittest.case.FunctionTestCase (test_symbolic_full_cubic_square_completion_identity) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 1.520s
+
+OK
