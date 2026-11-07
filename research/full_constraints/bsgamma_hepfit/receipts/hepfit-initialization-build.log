@@ -1,0 +1,4 @@
+Consolidate compiler generated dependencies of target THDM
+[ 16%] Building CXX object THDM/CMakeFiles/THDM.dir/src/THDMMatching.cpp.o
+[ 16%] Linking CXX static library libTHDM.a
+[100%] Built target THDM

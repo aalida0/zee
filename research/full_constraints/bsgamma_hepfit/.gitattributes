@@ -1,0 +1,4 @@
+# Preserve authenticated upstream stdout and unified-diff context byte-for-byte.
+execution/*.log -whitespace
+receipts/*.log -whitespace
+initialize_matching.patch -whitespace

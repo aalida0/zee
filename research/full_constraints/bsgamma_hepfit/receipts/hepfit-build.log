@@ -1,0 +1,283 @@
+[  0%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/CKM.cpp.o
+[  0%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/BParameter.cpp.o
+[ 12%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/EWSMApproximateFormulae.cpp.o
+[ 12%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/EWSMOneLoopEW.cpp.o
+[ 12%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/EWSMOneLoopEW_HV.cpp.o
+[ 12%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/EWSMThreeLoopEW.cpp.o
+[ 25%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/EWSMThreeLoopEW2QCD.cpp.o
+[ 25%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/EWSMThreeLoopQCD.cpp.o
+[ 25%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/EWSMTwoFermionsLEP2.cpp.o
+[ 37%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/EWSMTwoFermionsLEP2_Hollik.cpp.o
+[ 37%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/EWSMTwoLoopEW.cpp.o
+[ 37%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/EWSMTwoLoopQCD.cpp.o
+[ 50%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/EWSM_Output.cpp.o
+[ 50%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/EWSMcache.cpp.o
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/EWSM_Output.cpp: In member function ‘void EWSM_Output::outputEachDeltaRhoZ_l(QCD::lepton, double) const’:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/EWSM_Output.cpp:254:24: warning: ‘dummy’ may be used uninitialized [-Wmaybe-uninitialized]
+  254 |     outputEachDeltaRhoZ(f_AlphaToGF, DeltaRho, deltaRho_rem_f_real,
+      |     ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  255 |             DeltaRbar_rem, false, dummy, 0.0);
+      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/EWSM_Output.cpp:336:6: note: by argument 7 of type ‘const double*’ to ‘void EWSM_Output::outputEachDeltaRhoZ(double, const double*, const double*, double, bool, const double*, double) const’ declared here
+  336 | void EWSM_Output::outputEachDeltaRhoZ(const double f_AlphaToGF,
+      |      ^~~~~~~~~~~
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/EWSM_Output.cpp:253:12: note: ‘dummy’ declared here
+  253 |     double dummy[StandardModel::orders_EW_size];
+      |            ^~~~~
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/EWSM_Output.cpp: In member function ‘void EWSM_Output::outputEachDeltaKappaZ_l(QCD::lepton, double) const’:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/EWSM_Output.cpp:493:26: warning: ‘dummy’ may be used uninitialized [-Wmaybe-uninitialized]
+  493 |     outputEachDeltaKappaZ(f_AlphaToGF, cW2_TMP / sW2_TMP,
+      |     ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  494 |             DeltaRho, deltaKappa_rem_f_real,
+      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  495 |             DeltaRbar_rem, false, dummy, 0.0, Zgamma_EW2);
+      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/EWSM_Output.cpp:583:6: note: by argument 8 of type ‘const double*’ to ‘void EWSM_Output::outputEachDeltaKappaZ(double, double, const double*, const double*, double, bool, const double*, double, double) const’ declared here
+  583 | void EWSM_Output::outputEachDeltaKappaZ(const double f_AlphaToGF,
+      |      ^~~~~~~~~~~
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/EWSM_Output.cpp:492:12: note: ‘dummy’ declared here
+  492 |     double dummy[StandardModel::orders_EW_size];
+      |            ^~~~~
+[ 50%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/EffectiveEDMcouplings.cpp.o
+[ 50%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/Meson.cpp.o
+[ 62%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/MtMSbar.cpp.o
+[ 62%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/OrderScheme.cpp.o
+[ 62%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/PMNS.cpp.o
+[ 75%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/Particle.cpp.o
+[ 75%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/QCD.cpp.o
+[ 75%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/RGEvolutor.cpp.o
+[ 87%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/RGEvolutorNew.cpp.o
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/QCD.cpp: In member function ‘virtual bool QCD::Init(const std::map<std::__cxx11::basic_string<char>, double>&)’:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/QCD.cpp:125:11: warning: ‘*’ in boolean context, suggest ‘&&’ instead [-Wint-in-bool-context]
+  125 |     check *= Update(DPars) * QCDsuccess;
+      |     ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/QCD.cpp: In member function ‘const double QCD::Mbar2Mp(double, QCD::quark, orders) const’:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/QCD.cpp:1598:23: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<double>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+ 1598 |     for (int i = 0; i < x.size(); i++)
+      |                     ~~^~~~~~~~~~
+[ 87%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/StandardModel.cpp.o
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/QCD.cpp: In member function ‘const double QCD::AlsByOrder(double, orders, bool) const’:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/QCD.cpp:863:25: warning: ‘als’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+  863 |         als_cache[8][0] = als;
+      |         ~~~~~~~~~~~~~~~~^~~~~
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/QCD.cpp: In member function ‘const double QCD::AlsByOrder(double, int, orders) const’:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/QCD.cpp:1039:25: warning: ‘als’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+ 1039 |         als_cache[8][0] = als;
+      |         ~~~~~~~~~~~~~~~~^~~~~
+In file included from /tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/StandardModel.cpp:14:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/StandardModel.h: In constructor ‘StandardModel::StandardModel()’:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/StandardModel.h:3472:35: warning: ‘StandardModel::Yn’ will be initialized after [-Wreorder]
+ 3472 |     gslpp::matrix<gslpp::complex> Yn; ///< The Yukawa matrix of the neutrinos.
+      |                                   ^~
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/StandardModel.h:3469:59: warning:   ‘Matching<StandardModelMatching, StandardModel> StandardModel::SMM’ [-Wreorder]
+ 3469 |     mutable Matching<StandardModelMatching,StandardModel> SMM; ///< An object of type Matching.
+      |                                                           ^~~
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/StandardModel.cpp:41:1: warning:   when initialized here [-Wreorder]
+   41 | StandardModel::StandardModel()
+      | ^~~~~~~~~~~~~
+In file included from /tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/StandardModel.cpp:14:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/StandardModel.h:3752:13: warning: ‘StandardModel::SMFlavour’ will be initialized after [-Wreorder]
+ 3752 |     Flavour SMFlavour; ///< An object of type Flavour.
+      |             ^~~~~~~~~
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/StandardModel.h:3473:35: warning:   ‘gslpp::matrix<gslpp::complex> StandardModel::Ye’ [-Wreorder]
+ 3473 |     gslpp::matrix<gslpp::complex> Ye; ///< The Yukawa matrix of the charged leptons.
+      |                                   ^~
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/StandardModel.cpp:41:1: warning:   when initialized here [-Wreorder]
+   41 | StandardModel::StandardModel()
+      | ^~~~~~~~~~~~~
+[ 87%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/StandardModelMatching.cpp.o
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/StandardModel.cpp: In member function ‘const double StandardModel::AlsEByOrder(double, orders, bool) const’:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/StandardModel.cpp:747:30: warning: ‘als’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+  747 |             als_cache[10][0] = als;
+      |             ~~~~~~~~~~~~~~~~~^~~~~
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/StandardModel.cpp: In member function ‘const double StandardModel::Ale(double, orders, bool) const’:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/StandardModel.cpp:848:29: warning: ‘ale’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+  848 |             ale_cache[9][0] = ale;
+      |             ~~~~~~~~~~~~~~~~^~~~~
+[ 87%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/WilsonCoefficient.cpp.o
+[100%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/WilsonCoefficientNew.cpp.o
+[100%] Building CXX object StandardModel/CMakeFiles/StandardModel.dir/src/alpha_s.cpp.o
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/WilsonCoefficientNew.cpp: In member function ‘Expanded<gslpp::complex> WilsonCoefficientNew::getCoeffElement(int) const’:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/WilsonCoefficientNew.cpp:19:11: warning: comparison of integer expressions of different signedness: ‘int’ and ‘const unsigned int’ [-Wsign-compare]
+   19 |     if (i >= size) {
+      |         ~~^~~~~~~
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/WilsonCoefficientNew.cpp: In member function ‘void WilsonCoefficientNew::setCoeff(int, gslpp::complex, qcd_orders, qed_orders)’:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/StandardModel/src/WilsonCoefficientNew.cpp:33:11: warning: comparison of integer expressions of different signedness: ‘int’ and ‘unsigned int’ [-Wsign-compare]
+   33 |     if (i >= size) {
+      |         ~~^~~~~~~
+[100%] Linking CXX static library libStandardModel.a
+[100%] Built target StandardModel
+[ 16%] Building CXX object THDM/CMakeFiles/THDM.dir/src/CPoddHiggs.cpp.o
+[ 16%] Building CXX object THDM/CMakeFiles/THDM.dir/src/BDtaunu.cpp.o
+[ 16%] Building CXX object THDM/CMakeFiles/THDM.dir/src/EWPO.cpp.o
+[ 33%] Building CXX object THDM/CMakeFiles/THDM.dir/src/Runner.cpp.o
+[ 33%] Building CXX object THDM/CMakeFiles/THDM.dir/src/STU.cpp.o
+[ 33%] Building CXX object THDM/CMakeFiles/THDM.dir/src/THDM.cpp.o
+[ 33%] Building CXX object THDM/CMakeFiles/THDM.dir/src/THDMEDMcouplings.cpp.o
+[ 50%] Building CXX object THDM/CMakeFiles/THDM.dir/src/THDMMatching.cpp.o
+[ 50%] Building CXX object THDM/CMakeFiles/THDM.dir/src/THDMcache.cpp.o
+[ 50%] Building CXX object THDM/CMakeFiles/THDM.dir/src/THDMgminus2.cpp.o
+[ 66%] Building CXX object THDM/CMakeFiles/THDM.dir/src/THDMquantities.cpp.o
+[ 66%] Building CXX object THDM/CMakeFiles/THDM.dir/src/THDMquantitiesatQ.cpp.o
+[ 66%] Building CXX object THDM/CMakeFiles/THDM.dir/src/bsgammaTHDM.cpp.o
+[ 83%] Building CXX object THDM/CMakeFiles/THDM.dir/src/chargedHiggs.cpp.o
+[ 83%] Building CXX object THDM/CMakeFiles/THDM.dir/src/globalminimum.cpp.o
+[ 83%] Building CXX object THDM/CMakeFiles/THDM.dir/src/heavyHiggs.cpp.o
+[ 83%] Building CXX object THDM/CMakeFiles/THDM.dir/src/lightHiggs.cpp.o
+[100%] Building CXX object THDM/CMakeFiles/THDM.dir/src/positivity.cpp.o
+[100%] Building CXX object THDM/CMakeFiles/THDM.dir/src/unitarity.cpp.o
+[100%] Linking CXX static library libTHDM.a
+[100%] Built target THDM
+[  4%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/AmpDB2.cpp.o
+[  4%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/AmpDD2.cpp.o
+[  4%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/AmpDK2.cpp.o
+[  8%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/AmpDS1.cpp.o
+[  8%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/Asl.cpp.o
+[  8%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/BBd.cpp.o
+[  8%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/BClnu.cpp.o
+[ 12%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/BClnuObservables.cpp.o
+[ 12%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/BR_Bdnunu.cpp.o
+[ 12%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/BR_Bsnunu.cpp.o
+[ 16%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/BR_Kmumu.cpp.o
+[ 16%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/BR_Kp0nunu.cpp.o
+[ 16%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/BR_Kppnunu.cpp.o
+[ 20%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/BXqll.cpp.o
+[ 20%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/BXqllObservables.cpp.o
+[ 20%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/Bdmumu.cpp.o
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/Bdmumu.cpp: In member function ‘void Bdmumu::computeAmpSq(orders, orders_qed, double)’:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/Bdmumu.cpp:114:49: warning: unused variable ‘matching’ [-Wunused-variable]
+  114 |             if( const NPSMEFTd6GeneralMatching* matching = dynamic_cast<const NPSMEFTd6GeneralMatching*>(&SM.getMatching()))
+      |                                                 ^~~~~~~~
+[ 20%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/BdmumuOBsmumu.cpp.o
+[ 25%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/Bsmumu.cpp.o
+[ 25%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/Btaunu.cpp.o
+[ 25%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/C2beta.cpp.o
+[ 29%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/CPenguinBox.cpp.o
+[ 29%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/CPenguinBoxMu.cpp.o
+[ 29%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/Charm_Kpnunu.cpp.o
+[ 33%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/DGamma.cpp.o
+[ 33%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/Dleptonnu.cpp.o
+[ 33%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/DmBd.cpp.o
+[ 33%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/DmBs.cpp.o
+[ 37%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/DmK.cpp.o
+[ 37%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/EpsilonK.cpp.o
+[ 37%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/EpsilonP_O_Epsilon.cpp.o
+[ 41%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/EpsilonP_O_Epsilon_TH.cpp.o
+[ 41%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/EvolBsmm.cpp.o
+[ 41%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/EvolDB1Mll.cpp.o
+[ 45%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/EvolDB1bsg.cpp.o
+[ 45%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/EvolDC1.cpp.o
+[ 45%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/EvolDC1Buras.cpp.o
+[ 45%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/EvolDF1.cpp.o
+[ 50%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/EvolDF1_diujlknu.cpp.o
+[ 50%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/EvolDF1nlep.cpp.o
+[ 50%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/EvolDF2.cpp.o
+[ 54%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/FBd.cpp.o
+[ 54%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/FBdSqrtBBd.cpp.o
+[ 54%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/FBsSqrtBBs.cpp.o
+[ 58%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/F_1.cpp.o
+[ 58%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/F_2.cpp.o
+[ 58%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/Flavour.cpp.o
+[ 58%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/HeffDB1.cpp.o
+[ 62%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/HeffDC1.cpp.o
+[ 62%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/HeffDF1.cpp.o
+[ 62%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/HeffDF1_diujlknu.cpp.o
+[ 66%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/HeffDF1bnlep.cpp.o
+[ 66%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/HeffDF1bsg.cpp.o
+[ 66%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/HeffDF2.cpp.o
+[ 70%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/HeffDS1.cpp.o
+[ 70%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/Kmunu_o_Pmunu.cpp.o
+[ 70%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/MPll.cpp.o
+[ 70%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/MPllObservables.cpp.o
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/MPll.cpp: In member function ‘std::vector<std::__cxx11::basic_string<char> > MPll::initializeMPllParameters()’:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/MPll.cpp:124:8: warning: suggest explicit braces to avoid ambiguous ‘else’ [-Wdangling-else]
+  124 |     if (FixedWCbtos)
+      |        ^
+[ 75%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/MPlnu.cpp.o
+[ 75%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/MPlnuObservables.cpp.o
+[ 75%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/MVgamma.cpp.o
+[ 79%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/MVll.cpp.o
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/MVgamma.cpp: In member function ‘gslpp::complex MVgamma::h_lambda(int)’:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/MVgamma.cpp:818:1: warning: control reaches end of non-void function [-Wreturn-type]
+  818 | }
+      | ^
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/MVll.cpp: In member function ‘std::vector<std::__cxx11::basic_string<char> > MVll::initializeMVllParameters()’:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/MVll.cpp:280:17: warning: suggest explicit braces to avoid ambiguous ‘else’ [-Wdangling-else]
+  280 |         else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P)
+      |                 ^
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/MVll.cpp:331:17: warning: suggest explicit braces to avoid ambiguous ‘else’ [-Wdangling-else]
+  331 |         else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P)
+      |                 ^
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/MVll.cpp:359:8: warning: suggest explicit braces to avoid ambiguous ‘else’ [-Wdangling-else]
+  359 |     if (FixedWCbtos)
+      |        ^
+[ 79%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/MVllObservables.cpp.o
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/MVll.cpp: In member function ‘gslpp::complex MVll::H_0_nunu(double, bool, QCD::lepton)’:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/MVll.cpp:2673:1: warning: control reaches end of non-void function [-Wreturn-type]
+ 2673 | }
+      | ^
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/MVll.cpp: In member function ‘gslpp::complex MVll::H_p_nunu(double, bool, QCD::lepton)’:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/MVll.cpp:2687:1: warning: control reaches end of non-void function [-Wreturn-type]
+ 2687 | }
+      | ^
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/MVll.cpp: In member function ‘gslpp::complex MVll::H_m_nunu(double, bool, QCD::lepton)’:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/MVll.cpp:2701:1: warning: control reaches end of non-void function [-Wreturn-type]
+ 2701 | }
+      | ^
+[ 79%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/MVlnu.cpp.o
+[ 83%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/MVlnuObservables.cpp.o
+[ 83%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/Mll.cpp.o
+[ 83%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/Phis_JPsiPhi.cpp.o
+[ 83%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/Pmunu.cpp.o
+[ 87%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/SJPsiK.cpp.o
+[ 87%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/VCKM.cpp.o
+[ 87%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/WilsonCoefficientObservables.cpp.o
+[ 91%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/alpha.cpp.o
+[ 91%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/alpha_2a.cpp.o
+[ 95%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/gamma.cpp.o
+[ 95%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/bsgamma.cpp.o
+In file included from /tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/bsgamma.cpp:14:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/bsgamma.h: In constructor ‘Bsgamma::Bsgamma(const StandardModel&, QCD::quark, int)’:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/bsgamma.h:1852:27: warning: ‘Bsgamma::Intbc_cache’ will be initialized after [-Wreorder]
+ 1852 |     gslpp::vector<double> Intbc_cache;/**< Cache variable */
+      |                           ^~~~~~~~~~~
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/bsgamma.h:1810:31: warning:   ‘ROOT::Math::GSLIntegrator Bsgamma::ig’ [-Wreorder]
+ 1810 |     ROOT::Math::GSLIntegrator ig;/**< GSL integrator */
+      |                               ^~
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/bsgamma.cpp:23:1: warning:   when initialized here [-Wreorder]
+   23 | Bsgamma::Bsgamma(const StandardModel& SM_i, QCD::quark quark_i, int obsFlag)
+      | ^~~~~~~
+In file included from /tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/bsgamma.cpp:14:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/bsgamma.h: In constructor ‘Bsgamma::Bsgamma(const StandardModel&, int)’:
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/bsgamma.h:1852:27: warning: ‘Bsgamma::Intbc_cache’ will be initialized after [-Wreorder]
+ 1852 |     gslpp::vector<double> Intbc_cache;/**< Cache variable */
+      |                           ^~~~~~~~~~~
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/bsgamma.h:1810:31: warning:   ‘ROOT::Math::GSLIntegrator Bsgamma::ig’ [-Wreorder]
+ 1810 |     ROOT::Math::GSLIntegrator ig;/**< GSL integrator */
+      |                               ^~
+/tmp/zee-hepfit/HEPfit-322bd73a2dadd94ce94a6d71cb79d616e569120a/Flavour/src/bsgamma.cpp:58:1: warning:   when initialized here [-Wreorder]
+   58 | Bsgamma::Bsgamma(const StandardModel& SM_i, int obsFlag)
+      | ^~~~~~~
+[ 95%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/masses.cpp.o
+[ 95%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/phid.cpp.o
+[ 95%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/tauKnu_o_tauPnu.cpp.o
+[100%] Building CXX object Flavour/CMakeFiles/Flavour.dir/src/xi.cpp.o
+[100%] Linking CXX static library libFlavour.a
+[100%] Built target Flavour
+[  0%] Building CXX object LeptonFlavour/CMakeFiles/LeptonFlavour.dir/src/HeffDLi3j.cpp.o
+[ 33%] Building CXX object LeptonFlavour/CMakeFiles/LeptonFlavour.dir/src/HeffDLij.cpp.o
+[ 33%] Building CXX object LeptonFlavour/CMakeFiles/LeptonFlavour.dir/src/Heffgminus2.cpp.o
+[ 33%] Building CXX object LeptonFlavour/CMakeFiles/LeptonFlavour.dir/src/Heffmueconv.cpp.o
+[ 66%] Building CXX object LeptonFlavour/CMakeFiles/LeptonFlavour.dir/src/gminus2.cpp.o
+[ 66%] Building CXX object LeptonFlavour/CMakeFiles/LeptonFlavour.dir/src/li_3lj.cpp.o
+[ 66%] Building CXX object LeptonFlavour/CMakeFiles/LeptonFlavour.dir/src/li_lj_gamma.cpp.o
+[ 66%] Building CXX object LeptonFlavour/CMakeFiles/LeptonFlavour.dir/src/mueconversion.cpp.o
+[100%] Linking CXX static library libLeptonFlavour.a
+[100%] Built target LeptonFlavour
+[  0%] Building CXX object LoopFunctions/CMakeFiles/LoopFunctions.dir/src/ClausenFunctions.cpp.o
+[  0%] Building CXX object LoopFunctions/CMakeFiles/LoopFunctions.dir/src/BernoulliNumbers.cpp.o
+[ 50%] Building CXX object LoopFunctions/CMakeFiles/LoopFunctions.dir/src/LoopToolsWrapper.cpp.o
+[ 50%] Building CXX object LoopFunctions/CMakeFiles/LoopFunctions.dir/src/PVfunctions.cpp.o
+[ 50%] Building CXX object LoopFunctions/CMakeFiles/LoopFunctions.dir/src/Polylogarithms.cpp.o
+[100%] Linking CXX static library libLoopFunctions.a
+[100%] Built target LoopFunctions

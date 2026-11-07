@@ -1,0 +1,43 @@
+{
+  "HEPFIT_EXECUTION_sha256": "4d82f208714a58762a3f21d9ae0c193122c9c19f835c33547431018ca0ca5650",
+  "bilinear_response_raw_BR_units": {
+    "b": 0.0003491423243740102,
+    "q77": 0.0005642311526756849,
+    "q78": 0.00026677145524353727,
+    "q88": 3.9429105925343697e-05,
+    "s7": -0.0008732159531567776,
+    "s8": -0.00021077485184410486
+  },
+  "exclusion": null,
+  "frozen_repository_inputs": {
+    "module1/d10_benchmarks.json": "d354481895850cdaa6846a0728e1114a5ada6a7c1210260f350b79c1aba65015",
+    "module14/conditional_scan/flavor.py": "28f8b6a18b16f6b4224f606d946e20c45e6fbafecc99b5856e7e6895af076c30",
+    "module14/external.py": "e650eeed4fd290368e2c8b600805497ff23479ab0f9eed97b24ff4a8bf8a2281",
+    "module5/patches/d9b_superiso_v5.0.patch": "d0607f3e9dd12bc0e2fce6c0102c5c6e756d1d9d9767b2444bca3abee890e62b",
+    "scripts/zee_module5_bmu_nlo.py": "0c2dfb32a7138b02fa4a52c163c63f942f313bb5d697545e138ef1915c200c4e",
+    "validation/module1/d10_vacuum_global.json": "2658636db96bab6d009c90e09cb6fb45c2c702863545006dbaeb0db78b729466",
+    "validation/module12/d12_benchmarks.json": "f31ef3ccb64c3e4ff53131d35d52c21536b951a01e2c3924af766b7b2adf1cd8",
+    "validation/module5/accuracy_2026.json": "169b31df3d5d3d7a0ce7ef97bf1409b0be3e5e0d7389f0e3560f145f57cc88a9",
+    "validation/module5/d9b_superiso_repair.json": "945738f363e310481475616ff0534878296deed0bd049d2668544ed6ff17177d",
+    "validation/module5/linear_2026.json": "ac1e36c7769016608becd60cd3d87b8d2392414575bc4af5fd7f8613efc7dd7e"
+  },
+  "heldout": {
+    "DeltaC7": -0.017,
+    "DeltaC8": 0.023,
+    "executed_BR": 0.0003592187871464183,
+    "predicted_BR": 0.0003592187871464186,
+    "residual": -2.710505431213761e-19
+  },
+  "max_implementation_absolute_residual": 5.811323644522304e-17,
+  "signed_C4_NLO_finite_difference_dBR_dC4": 2.7355627875116006e-06,
+  "status": "IMPLEMENTATION_VALIDATED; PHYSICAL_RATE_AND_UNCERTAINTY_GATES_BLOCKED",
+  "successful_HEPfit_run_count": 37,
+  "tests": {
+    "errors": 0,
+    "failures": 0,
+    "receipt_sha256": "be1f91da11cd980dbd0572a6e90e9938264d0079dcd209a9e52abd2ca56acdcc",
+    "run": 18,
+    "skips": 0
+  },
+  "theory_sigma": null
+}

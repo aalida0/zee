@@ -1,0 +1,8 @@
+00000000007f1b78 T THDMMatching::CMbsg()
+00000000007f2822 T THDMMatching::setWCbsg(int, double, double, double, double, orders)
+000000000010ce20 W CoherentMatching::CMbsg()
+00000000003401c8 T Bsgamma::computeThValue()
+000000000033e168 T Bsgamma::updateParameters()
+000000000033deee T Bsgamma::N(double, double)
+000000000033cf18 T Bsgamma::P(double, double, double, orders)
+0000000000214e20 T HeffDB1::ComputeCoeffsgamma(double, bool, schemes)

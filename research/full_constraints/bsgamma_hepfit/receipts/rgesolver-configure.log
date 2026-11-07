@@ -1,0 +1,30 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Installation directory : /tmp/zee-hepfit/deps$
+-- Found Boost headers in /usr/include/boost
+-- Searching for Boost version...
+-- Boost version: 107400
+-- Boost version 1.60.0 or later found.
+-- Found Boost libs in /usr/lib/x86_64-linux-gnu
+-- Found gsl-config in /usr/bin
+-- GSL version: 2.7.1
+-- GSL cflags: -I/usr/include
+-- GSL libs: -L/usr/lib/x86_64-linux-gnu -lgsl -lgslcblas -lm
+-- Found root-config in /home/amine/root/bin
+-- ROOT cflags: -pthread -std=c++17 -m64 -I/home/amine/root/include
+-- ROOT cflags contains the C++ standard flag: -std=c++17.
+-- cxx standard set to 17 as required by root-config.
+-- Compiler flags :  -O3 -Wall -Wmissing-braces -pedantic -I/usr/include
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /tmp/zee-hepfit/rge-build

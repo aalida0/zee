@@ -6,6 +6,20 @@ validated normalization, perturbative accuracy and NP uncertainties is **not
 established**. `physical_bsgamma=UNKNOWN`, `exclusion=null`,
 `theory_sigma=null`, `global_acceptance=null`.
 
+**Subsequent actual HEPfit execution:**
+[HEPFIT_RATE_REPORT.md](bsgamma_hepfit/HEPFIT_RATE_REPORT.md) supersedes the
+historical "not built/executed" HEPfit statements below. Pinned HEPfit now
+compiles and executes 37 fixed-card/control processes (`HEPFIT_RUNTIME_PASS`,
+`INDEPENDENT_RATE_EXECUTABLE`). The coherent NLO full-vector bridge passes
+18 tests; published Type-II NNLO table interpolation is reproduced.
+Same-order physical matching remains unestablished (`INDEPENDENT_RATE_MISMATCH`),
+and `UNCERTAINTY_CALIBRATION_BLOCKED` prevents an exclusion. D7/F13 HEPfit
+research NLO BRs are 4.17955384241e-4 / 3.83711422745e-4. Fresh SuperIso
+executions reproduce the preserved D12 rates. The report gives shared-input/
+shared-NP controls and a source-located normalization/perturbative/power
+decomposition. No intercept or theory sigma is fitted. The original audit
+and reused receipts below are retained as historical evidence.
+
 This is a bounded source/archived-evidence audit, not a proof that a suitable
 calculation is impossible. No rate backend was rebuilt or rerun, no new
 parameter point was generated, and no LFV/Higgs implementation was started.

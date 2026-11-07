@@ -1,0 +1,13 @@
+{
+  "scope": "Unpatched nonzero-storage initialization falsifier ONLY; not an accepted rate",
+  "argv": [
+    "/tmp/zee-hepfit/driver_original_initialization",
+    "bridge",
+    "/home/amine/zee-full-constraints/research/full_constraints/bsgamma_hepfit/execution/d7_NO_neutral_near_heavy_07_central.txt"
+  ],
+  "driver_sha256": "de6579c386fdebeed26d3857aee9b0de15b53c9644efb06e8fa3a57ac0ecd17f",
+  "original_matching_sha256": "29a27053026acd083c70cd679542651b0af093b0f1864471fc438dd030f16d21",
+  "binary_sha256": "83b43719dc88b1aa13c6d51759a18f33fcdca2bf510c16da29d5ecabccd623c3",
+  "stdout_sha256": "d7e050d0375d3f4ce78102c2735c027e0a3b3873a8ba6907100b44bf12949642",
+  "returncode": 0
+}

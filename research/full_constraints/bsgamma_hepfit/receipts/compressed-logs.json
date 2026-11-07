@@ -1,0 +1,14 @@
+{
+  "superiso-build-serial.log.gz": {
+    "gzip_sha256": "46e6c89012d99aabf31ebe5c0e56ac4486e632fe63c7958e1c941d1c52df64a2",
+    "note": "Full compiler stdout/stderr, losslessly compressed.",
+    "uncompressed_bytes": 1187747,
+    "uncompressed_sha256": "f5b3cad13ade8a4caf06966d2130f3fe974ba68eba5a79b34dbf9722615a8a56"
+  },
+  "superiso-build.log.gz": {
+    "gzip_sha256": "e6dca1e5453217ba48861644723e8e20ea683c67b3473134ecb502d21c130a88",
+    "note": "Full compiler stdout/stderr, losslessly compressed.",
+    "uncompressed_bytes": 1187747,
+    "uncompressed_sha256": "14d3d687ab594bed1776ee6fd4e2d89cb438cabacc41eafdec45db65db559c8f"
+  }
+}

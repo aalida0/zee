@@ -1,10 +1,10 @@
-# Constraint readiness after the bounded Higgs stage — 2026-11-07
+# Constraint readiness after bounded Higgs and HEPfit execution — 2026-11-07
 
 **A fully constrained final scan is not supported. No scan is authorized.**
 
 | Mandatory area | Current state | Operative full-physics exclusion from this program |
 | --- | --- | --- |
-| B→Xsγ | B_FULL_RATE_BLOCKED; previous source/rate/uncertainty findings retained without reinvestigation | none |
+| B→Xsγ | B_FULL_RATE_BLOCKED; pinned HEPfit executes coherent NLO fixed-card rates; physical matching and uncertainty remain blocked | none |
 | LFV | LFV_FULL_COVERAGE_BLOCKED; previous matched operator/gauge/uncertainty findings retained without reinvestigation | none |
 | Higgs | HIGGS_FULL_COVERAGE_BLOCKED; complete leading h125 diphoton amplitude independently validated; exact dataset and saved-card gaps recorded | none newly established |
 
@@ -51,8 +51,16 @@ complete gauge-consistent physical-scheme Zγ prediction and a qualified
 production/decay/uncertainty chain for applicable neutral/charged searches.
 A package build or imported database does not replace those dependencies.
 
-B and LFV reports and original numerical evidence remain unchanged.
-The separate HEPfit rate task remains queued and was not executed here.
+The subsequent [HEPfit execution](bsgamma_hepfit/HEPFIT_RATE_REPORT.md)
+completes the runtime and coherent-bridge portion of that task: 37 HEPfit
+fixed-card/control runs, published Type-II NNLO table interpolation and 18
+passing tests. Fresh SuperIso runs reproduce the original D12 values.
+Shared physical-input/NP-vector controls retain a measured rate discrepancy;
+source-located normalization, perturbative/EM and power terms account for it
+without intercept alignment. Same-order physical reference matching, complete
+operator materiality and defensible NP uncertainty/confidence calibration
+remain unestablished. B stays at 2/5 and no exclusion is attempted.
+LFV reports, the Higgs stage and original numerical evidence remain unchanged.
 Original conditional diagnostics, Modules0–13, D14 collections and receipts,
 and the frozen conditional branch remain unchanged. No final merge or scan
 is supported or authorized by this milestone.

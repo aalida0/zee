@@ -1,0 +1,13 @@
+--- a/THDM/src/THDMMatching.cpp
++++ b/THDM/src/THDMMatching.cpp
+@@ -21,7 +21,9 @@
+     mcbtaunu(5, NDR, LO),
+     mcbsg(8, NDR, NNLO),
+     mcprimebsg(8, NDR, NNLO),
+-    mcgminus2mu(2,NDR,NLO)
++    mcgminus2mu(2,NDR,NLO),
++    CWbsgArrayLO{}, CWbsgArrayNLO{}, CWbsgArrayNNLO{},
++    tanbsg(-1.), mtbsg(-1.), mhpbsg(-1.), mubsg(-1.)
+ {}
+ 
+ std::vector<WilsonCoefficient>& THDMMatching::CMdbs2() {

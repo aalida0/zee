@@ -11,7 +11,7 @@
 | EWPO | 3/3 | ██████████ | PASS scoped scalar one-loop STU |
 | Radiative neutrino fit | 3/3 | ██████████ | PASS scoped fixed target/NO/IO reconstruction |
 | Full-field vacuum | 2/4 | █████░░░░░ | Tree potential and D10 sufficient certificate; global exhaustive classification UNKNOWN |
-| B→Xsγ physical exclusion | 2/5 | ████░░░░░░ | BLOCKED: independent physical rate, NP uncertainty, physical confidence |
+| B→Xsγ physical exclusion | 2/5 | ████░░░░░░ | BLOCKED: HEPfit now executes coherent NLO rates; matched physical reference, NP uncertainty and confidence remain open |
 | Full-model LFV exclusion | 2/6 | ███░░░░░░░ | BLOCKED: missing gauge aggregates, full three-body/conversion operator vectors and physical comparison |
 | Full Higgs exclusion | 2/6 | ███░░░░░░░ | BLOCKED: Zγ/full h125, H/A, H1/extra energy/process rates, fit/uncertainty |
 | Validated charged-cascade publication inputs | 2/3 | ██████░░░░ | D4 tree full 2-body rates and 16 point-source H2 LO production; broader rates conditional/deferred |
@@ -34,6 +34,7 @@ All scanned outcomes must continue to use `global_acceptance=null` while any man
 ## Source of truth
 
 - `research/full_constraints/FEASIBILITY_GATE.md`
+- `research/full_constraints/bsgamma_hepfit/HEPFIT_RATE_REPORT.md` — 37 real HEPfit runs, published NNLO table interpolation, coherent NLO bridge and shared-input SuperIso decomposition; 18 tests pass; full B milestone count remains 2/5.
 - `research/full_constraints/LFV_EXECUTION_REPORT.md`
 - `research/full_constraints/HIGGS_EXECUTION_REPORT.md`
 - `research/full_constraints/HIGGS_SUSHI_EXECUTION.md` — actual neutral production and partial-width advance, no new physical exclusion; milestone count remains 2/6.

@@ -7,6 +7,22 @@ validated sector from the additional coverage needed for a complete exclusion.
 Sources/byte pins: [manifest](SOURCE_MANIFEST.json). Decision and numerical
 evidence: [feasibility gate](FEASIBILITY_GATE.md).
 
+**Execution advance, full gate unchanged:** pinned HEPfit has actually built
+and run. The [execution report](bsgamma_hepfit/HEPFIT_RATE_REPORT.md) and
+[37-run receipt](bsgamma_hepfit/execution/HEPFIT_EXECUTION.json) establish a
+coherent eight-operator NLO bridge, exact model-limit controls, signed C4/C7/C8
+response and a held-out bilinear cross term. Native Type-II versus independent
+BMU matching agrees within 5.82e-17; 18 tests pass. Published NNLO table
+interpolation is reproduced, but a matched same-order physical benchmark and
+confidence-bound reproduction are still missing. HEPfit/D9B differences
+persist with shared inputs/NP matching and are decomposed by actual source
+normalization, perturbative/EM and power terms. `HEPFIT_RUNTIME_PASS` and
+`INDEPENDENT_RATE_EXECUTABLE` do not promote `B_FULL_RATE_BLOCKED`.
+HEPfit's approximate ms/mb-induced primed rule is retained and separately
+identified; it does not certify the omitted full primed sector in this ledger.
+The Type-II table's 7% nuisance and kernel's BLNPcorr*P0 are not a calibrated
+two-state NLO covariance. `UNCERTAINTY_CALIBRATION_BLOCKED` remains operative.
+
 ## Model, operators and matching
 
 Use H_eff=−4 GF/√2 Vts*Vtb Σ C_i Q_i,
