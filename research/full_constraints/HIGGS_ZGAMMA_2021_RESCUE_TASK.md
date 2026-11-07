@@ -5,6 +5,16 @@
 **NO NEW SCANS OR SCALAR PROPOSALS. NO BROAD MG5/CONDOR.**
 **Priority:** Recover already-published Zee-specific one-loop formulas, validate their applicability, and quantify what remains missing; do NOT restart an open-ended custom one-loop derivation.
 
+## 2026-11-07 citation-network correction — THREE published sources, not just one
+
+The source-first survey `research/full_constraints/LITERATURE_SOURCE_RESCUE_AUDIT_2026-11-07.md` identified a **pre-2021 Zee-specific** off-diagonal charged-scalar result:
+
+- **Trương Tín Thành, Lâm Thị Thanh Phương, Trịnh Thị Hồng and Huỳnh Lê Tuyết Mai**, *Bổ đính bậc một vòng cho quá trình rã h→Zγ trong mô hình Zee*, *Tạp chí Khoa học*, issue 37 (04/2019), pp.78–84. Eq.(1.12) and Table 2: off-diagonal Z scalar currents. Eq.(1.17), Table 4: i,j summed mixed charged scalar PV form factor. Figure 2 includes nondegenerate m(h1)=0.5 m(h2). It does **not** print full LoopTools PV arguments/seagull or independent Ward checks. Treat as **earlier calculation/reference only**.
+- **Hue et al.**, *EPJC 78 (2018) 885*, doi:10.1140/epjc/s10052-018-6349-0, Eq.(16) and Appendix A: generic unequal-mass CP-even scalar PV form factor with documented mass arguments and charge orientation. Use for an independent kernel and normalization check.
+- **Florentino/Romão/Silva (2021)** Eq.(D.20): specific Zee off-diagonal B0/C0 formula. Audit printed loop normalization and mass variables; no unproved generalization to CP-odd A.
+
+**Mandatory gate:** compare all three sources in common signed SARAH physical conventions, first for h125 on frozen D7/F13 cards. If their conventions or PV routing disagree, record explicit derivations and controlled tests before claiming `hZgamma` physical. Extend to CP-even H only after h passes; CP-odd A is a distinct chiral/CP form-factor calculation, not obtained by replacing an external mass in a CP-even formula. Do not misrepresent the 2019 result as a fully gauge-validated independent code output.
+
 ## New, material literature finding — must inspect FIRST
 
 The 2021 **Florentino, Romão & Silva** paper, *Off diagonal charged scalar couplings with the Z boson: Zee-type models as an example*, **EPJC 81, 1148 (2021)**, DOI `10.1140/epjc/s10052-021-09956-2`, contains a model-generalized calculation of
