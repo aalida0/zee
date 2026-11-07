@@ -4,38 +4,38 @@
 **Frozen working parent:** `feature/zee-d14-conditional-cascade-scan`
 at `133a34061723b6bb45b19e8ebe29852ac8b5a9c2`.
 
-## CURRENT TASK — independently execute HEPfit B→Xsγ physical rate
+## CURRENT TASK — execute SusHi H/A production and neutral width bridge
 
-User wants **actual complete LFV, B→Xsγ and Higgs exclusions** before
-one final large scan. We have completed bounded feasibility and
-Higgs/LFV source studies. **No complete physical exclusion is yet
-validated.**
+**Read `research/full_constraints/HIGGS_SUSHI_EXECUTION_TASK.md` first.**
+Also read `SCANNERS_HIGGS_REUSE.md`, `HIGGS_COVERAGE.md`,
+`HIGGS_EXECUTION_REPORT.md` and `PROGRESS_TO_FINAL_SCAN.md`.
 
-**Read `research/full_constraints/HEPFIT_RATE_EXECUTION_TASK.md` first.**
-Also read `research/full_constraints/PROGRESS_TO_FINAL_SCAN.md`,
-`FEASIBILITY_GATE.md`, `BSGAMMA_COVERAGE.md` and source pins.
+User's immediate focus is to **reuse physics calculators** for
+missing Zee Higgs exclusions instead of extending ScannerS itself.
+The job is to actually **run** pinned SusHi on D7/F13 ORIGINAL saved
+points and qualify its neutral Type-II quark Yukawa mapping; then
+evaluate transferable HDECAY/anyHdecay widths and model-specific
+additional Zee channels. Report an executed value or exact compile/
+source blocker, not another long inventory. Use HiggsTools 1.1.3 as
+the consumer of only complete model-matched channel inputs.
 
-The current task is an **actual, independently executed** pinned
-HEPfit THDM B→Xsγ benchmark, followed if feasible by an isolated
-coherent two-mixed-state order-separated NLO Wilson adapter and
-research comparison to the frozen D9B rate. We do NOT want another
-generic public-code inventory, code-only self-tests or rederived
-Module5 matching. Output an executed physical rate, or exact build/
-source blocker. The theory/NP uncertainty gate is separate; a
-numerical rate does NOT imply a 95% CL exclusion.
+B→Xsγ and LFV remain independently BLOCKED at their recorded
+source/scientific gates. The separate HEPfit rate execution task
+`research/full_constraints/HEPFIT_RATE_EXECUTION_TASK.md` is
+**queued, not canceled**. Do not run both streams in one Codex
+session or claim one resolves the other.
 
-After source-validated calculation, update the real milestone
-scorecard; never inflate completion percentages from additional
-scripts/tests alone. If independent full physical rate validation or
-justified NP theory errors are absent, keep
-`B_FULL_RATE_BLOCKED`.
-
-Frozen parent `feature/zee-d14-conditional-cascade-scan` at
-`133a340` is protected and untouched. Original Modules0–13,
-previous D14 evidence, LFV and Higgs research outputs are read-only.
-No random proposals, small/big scans, Condor, MG5 production,
-or final scan without explicit separate authorization.
-Use English for commits/docs/logs.
+Do not rewrite existing full LO h→γγ or frozen Modules0–13,
+or use pathological full-loop SPheno widths. Preserve the
+frozen `feature/zee-d14-conditional-cascade-scan` at `133a340`.
+No new random scalar cards, exploratory/large parameter scans,
+HTCondor submissions, MG5 production campaigns or user final scan.
+Source-pin source/package versions and only original fixed D12/D14
+cards for numerical validation. If required rate or decay channels
+cannot be source-qualified, mark `MISSING_PREDICTION` rather than
+zero. No hard Higgs exclusion until full applicable signal/uncertainty
+requirements are met. Work only on research branch, commit/push
+validated artifacts, and use English in all progress/report text.
 
 ## Mandatory physics safeguards
 
