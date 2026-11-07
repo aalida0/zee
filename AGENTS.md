@@ -19,48 +19,57 @@ Do **not** call an unimplemented published expression nonexistent; do not call
 a restricted formula complete general Zee physics. Citation-search indexing is
 not exhaustive; report limitations. Always preserve original frozen modules.
 
-## CURRENT TASK — one measurable h125 VBF→bb rate or exact materiality blocker
+## CURRENT TASK — PAPER 1 FEASIBILITY REVIEW; STOP expanding one-loop tasks
 
-**Read** `research/full_constraints/HIGGS_H125_VBF_BB_OBSERVABLE_GATE_TASK.md`
-first, then `HIGGS_H125_SIGNAL_STRENGTH_REPORT.md`,
-`HIGGS_ZGAMMA_COMPLETE_H125.md`, HiggsTools pinned source and
-ATLAS `2011.08280` VBF bb 13-TeV measurement.
+**Read `research/full_constraints/PAPER1_SCOPE_DECISION_2026-11-07.md` FIRST.**
 
-The most recent fixed-card `654794f` h125 integration completed
-and source-pinned all normal partial widths, including corrected
-HDECAY charm input, LFV and validated γγ/Zγ. Its known-channel
-widths are **4.280495766 MeV (D7)** and **4.005236276 MeV
-(F13)**, NOT certified Γtotal. Three width-independent
-signal-strength ratios are proven (D7 γγ/WW* VBF 0.933958096,
-Zγ/WW* VBF 0.981041588; F13 0.975031103/0.989596141).
-Absolute μ and experimental constraints are UNKNOWN.
+The user wants a publishable physics paper on the **Zee Type-II
+H2±→H1±Z cascade**, with a genuinely meaningful scan/constraints
+and collider prospects, not an indefinite series of standalone
+loop implementations. After validated fixed-card Higgs, B and
+LFV calculations, the remaining full-physics gates still cannot
+be promoted to true exclusions. We must stop repeatedly opening
+new higher-loop/width computational tasks without first evaluating
+the manuscript's scientific **viability and unique contribution**
+versus Herrero-García et al. JHEP 2017 full Zee scan and
+Florentino/Romão/Silva EPJC 2021 cascade analysis.
 
-**Goal:** assess the source-matched ATLAS `μ_VBF,bb≈0.99±0.35`
-observable first. Set its sensitivity requirement before chasing
-arbitrary sub-1% corrections; identify and (if possible) bound
-virtual Zee exotic h125 off-shell states, radiative hνν and
-interference with existing SM 4-body widths. Preserve correct
-reference normalization `SMHiggsEW σ×BR=2.20257783862 pb`;
-the pinned source is an **absolute rate**, not μ=2.16.
-Qualify actual model signal rate+uncertainty+acceptance; run a
-single exact measurement if justified. Otherwise stop with
-`H125_ABSOLUTE_MU_BLOCKED` and a quantitative, source-specific
-missing input. DO NOT create arbitrary 5/10% theory errors,
-treat closed on-shell scalars as proof of zero virtual widths,
-or claim one observation makes full Higgs PASS.
-**No heavy H/A loop or ττ likelihood work in this task**;
-it currently has far less projected value on D7/F13.
+Latest bound at `1986edf`: ATLAS VBF h→bb selected 1σ
+width-shift thresholds D7 (-0.857/+2.843) MeV,
+F13 (-0.986/+2.279) MeV. Those are endpoint sensitivities
+and NOT theory uncertainty bounds. Physical Γtotal,
+absolute h125 μ and exclusions are still UNKNOWN.
+This weak measurement does **not** justify another
+month of off-shell scalar 4f / Majorana hνν loops.
+B still `B_FULL_RATE_BLOCKED` pending documented Wilson-
+dependent uncertainty specialist input. LFV still
+`LFV_FULL_COVERAGE_BLOCKED` with complex missing gauge
+operator/coherent rates and corrected nuclear-current issue.
+Higgs full remains BLOCKED; scalar/neutrino/EWPO
+validated within declared scope; global vacuum UNKNOWN.
 
-B stays `B_FULL_RATE_BLOCKED` pending flavor specialist; LFV
-`LFV_FULL_COVERAGE_BLOCKED` pending full 1-loop/gauge terms,
-with confirmed FlavorKit scalar conversion proton/neutron bug;
-vacuum global UNKNOWN. Do not restart any of those during this
-task. Keep Modules0–13, original D14 data and scan branch
+**NOW: produce only** `research/full_constraints/PAPER1_FEASIBILITY_REVIEW.md`.
+Compare full-text prior 2017 and 2021 figures/scope with proposed
+new physics, check old 33 vacuum certified historical IDs
+against saved D14 production/cascade inputs (only if source
+joins exist), choose at most 4 defensible result figures, give
+a peer-review-style novelty and feasibility judgement, and
+contrast A fully constrained (requires unresolved theory) vs
+B explicitly conditional/scoped (user approval required).
+Use only existing saved source data, not new cards/scan.
+Do not claim global acceptance or a real physical veto
+from B/LFV/Higgs partial subset results. A scoped result can
+be shown only as 'conditional on unimplemented constraints',
+not 'allowed Zee parameter region'.
+
+No code/gen changes, exploratory pilot or final scan, no
+Condor/MG5, no independent new loop derivations.
+Frozen Modules0–13/D14 and
 `feature/zee-d14-conditional-cascade-scan` at `133a340`
-frozen. No parameter-space points/scans of any size, Condor,
-MG5 production or SPheno broken full-loop masses.
-Research branch only, source-pinned numeric tests and English
-commits/reports, commit/push scope-validated findings.
+remain protected. Commit/push only review/report evidence
+on `research/zee-full-constraints` in English.
+The user must explicitly approve any change of paper scope
+AND authorize a future single final parameter-space scan.
 
 ## Mandatory physics safeguards
 
