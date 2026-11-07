@@ -3,9 +3,10 @@ test_experimental_absolute_rate_convention (research.full_constraints.higgs.test
 test_incomplete_never_becomes_a_signal (research.full_constraints.higgs.test_h125_signal_strength.PhysicalLedger) ... ok
 test_mass_scheme_and_coherent_ggF (research.full_constraints.higgs.test_h125_signal_strength.PhysicalLedger) ... ok
 test_native_chiral_widths_both_charges (research.full_constraints.higgs.test_h125_signal_strength.PhysicalLedger) ... ok
+test_raw_receipts_preserved (research.full_constraints.higgs.test_h125_signal_strength.PhysicalLedger) ... ok
 test_sm_normalization_and_width_independent_ratio (research.full_constraints.higgs.test_h125_signal_strength.PhysicalLedger) ... ok
 
 ----------------------------------------------------------------------
-Ran 6 tests in 0.127s
+Ran 7 tests in 0.135s
 
 OK

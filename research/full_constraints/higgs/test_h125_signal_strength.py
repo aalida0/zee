@@ -2,13 +2,14 @@
 import copy
 import math
 import unittest
+import tarfile
 import numpy as np
 from module2.interface import decode
 from module3.core import vertices
 from module7.d4_inputs import SM
 from module7.d4_tree_kernels import scalar_fermions
 from research.full_constraints.higgs.sushi_bridge import benchmark
-from research.full_constraints.higgs.h125_signal_strength import calculate, signal_strength
+from research.full_constraints.higgs.h125_signal_strength import calculate, signal_strength, RECEIPTS
 
 
 class PhysicalLedger(unittest.TestCase):
@@ -63,6 +64,14 @@ class PhysicalLedger(unittest.TestCase):
             self.assertIsNone(row['neutrinos']['leading_loop_width_GeV'])
             self.assertEqual(row['neutrinos']['tree_width_GeV'],0.)
             self.assertAlmostEqual(math.fsum(row['width']['partial_widths_GeV'].values()),row['width']['known_channel_sum_GeV'],places=15)
+
+    def test_raw_receipts_preserved(self):
+        with tarfile.open(RECEIPTS/'RAW_OUTPUTS.tar.gz') as archive:
+            self.assertEqual(len(archive.getnames()),9)
+            for member in archive.getmembers():
+                raw=archive.extractfile(member).read().decode()
+                normalized='\n'.join(line.rstrip() for line in raw.splitlines())+'\n'
+                self.assertEqual((RECEIPTS/member.name).read_text(),normalized)
 
     def test_experimental_absolute_rate_convention(self):
         category=self.evidence['experimental_category']

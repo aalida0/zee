@@ -35,13 +35,13 @@ Thanks for using LHAPDF 6.5.3. Please make sure to cite the paper:
 #--------------------------------------------------#
 #--------------------------------------------------#
  The bbh results are given by:
-       LO:          0.39914   +-     0.00000   pb     
+       LO:          0.39914   +-     0.00000   pb
 #--------------------------------------------------#
  The ggh results are given by:
-       LO:         17.93238   +-     0.00001   pb     
-  muR unc.:  -      3.68150   +      5.31675   pb     
+       LO:         17.93238   +-     0.00001   pb
+  muR unc.:  -      3.68150   +      5.31675   pb
  The scale uncertainty is obtained by a variation
  of muR within [ 0.50000E+00, 0.20000E+01]* 0.62500E+02 GeV.
 #--------------------------------------------------#
- Results written in output file: D7_h125.out                                                 
+ Results written in output file: D7_h125.out
  [32mMake sure to cite the references listed in output file D7_h125.out![0m

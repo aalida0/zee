@@ -47,6 +47,7 @@
   ],
   "production_cwd": "/home/amine/zee-full-constraints/research/full_constraints/higgs/h125_receipts",
   "production_runs": 3,
+  "receipt_storage": "RAW_OUTPUTS.tar.gz preserves byte-exact original SusHi outputs/logs; adjacent text copies remove trailing whitespace only",
   "scope": "Original h125 D7/F13 plus matched unit-Yukawa reference only; no new scalar point",
   "sm_command": [
     "/tmp/zee-h125-sm-reference"

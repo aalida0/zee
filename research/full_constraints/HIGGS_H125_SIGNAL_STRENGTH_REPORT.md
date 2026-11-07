@@ -150,6 +150,8 @@ missing potentially competing leading channels additionally block normalization.
 Only three new native SusHi 1.7.0 runs were made: original h125 at D7/F13,
 and a unit-quark-Yukawa SM reference at the same 125 GeV/13 TeV. Raw cards,
 outputs, logs, exact executable/PDF lineage and environment are retained.
+`h125_receipts/RAW_OUTPUTS.tar.gz` preserves original bytes; adjacent readable
+output/log copies remove only trailing whitespace for clean diffs.
 
 | Production | D7 σ/SM | F13 σ/SM | Accuracy/scope |
 |---|---:|---:|---|
@@ -212,7 +214,7 @@ Historical conditional 159-observable χ² outputs remain unchanged.
 
 ## Verification and release
 
-Six focused checks pass: independent chiral phase space/all charges; incomplete
+Seven focused checks pass (including byte-preserved native receipt replay): independent chiral phase space/all charges; incomplete
 and missing→zero rejection; SM normalization and exact total cancellation;
 charm-scheme/coherent-production controls; all on-shell exotic thresholds;
 and native absolute-rate experimental convention. Native library, source,
