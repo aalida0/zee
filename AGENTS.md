@@ -30,11 +30,7 @@ READ `research/full_constraints/LFV_PRACTICAL_APPROXIMATION_TASK.md`
 `LFV_COVERAGE.md`, `LFV_SOURCE_TO_CODE_REPORT.md`, and
 the original source-lock JSONs. Follow the staged stop rules.
 
-**Immediate bounded target:** Repair newer FeynArts (>=3.10) /
-FormCalc (>=9.8) setup for pinned FlexibleSUSY `913bbbf`
-in an ISOLATED user/scratch directory. The previous attempt
-detected SARAH but stopped before Zee generation due to old/missing
-dependencies; it did not disprove Zee compatibility. Compare
+**IMMEDIATE BLOCKER (7977236):** READ `research/full_constraints/LFV_FORMCALC_READFORM_DIAGNOSIS_TASK.md` FIRST. SARAH 4.15.4 and FeynArts 3.12 already load; FormCalc 9.10 `./compile` exits zero but `ReadForm` does not connect via MathLink (`LinkOpen::linke`, `ReadForm::notcompiled`). Diagnose actual binary CLI behavior, ELF/linker libraries, matched Wolfram 15 WSTP SDK and Mathematica-selected absolute executable path. ONE bounded scratch-only source-backed repair. No wider reinstall, no new LFV theory until independently loading FormCalc is demonstrated. If irreparable, stop with full minimal reproducible upstream issue. Compare
 its generated radiative/3-body/conversion Wilson coefficients
 with the existing saved SARAH/FlavorKit source on **original
 D7/F13 NO/IO cards** only. Save individual complex operators,
