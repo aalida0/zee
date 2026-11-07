@@ -4,49 +4,49 @@
 **Frozen working parent:** `feature/zee-d14-conditional-cascade-scan`
 at `133a34061723b6bb45b19e8ebe29852ac8b5a9c2`.
 
-## CURRENT TASK — fixed-card neutral H/A widths and usable Higgs search
+## CURRENT TASK — 2021 published Zee Zgamma expression, not a new loop program
 
-Read **`research/full_constraints/HIGGS_NEUTRAL_WIDTH_SEARCH_TASK.md`**
-first, including its references to the SusHi/HDECAY execution report,
-HiggsTools analysis coverage and frozen D12 D7/F13 cards.
+**READ FIRST**:
+`research/full_constraints/HIGGS_ZGAMMA_2021_RESCUE_TASK.md`.
+Previous completed stage: `f30131a` executes D7/F13 HDECAY
+and independently validates H/A→γγ (35 tests).
+The ATLAS `tau tau` ID `200212223` observed search is still blocked
+by incomplete widths and acceptance/uncertainty; no physical BR,
+observed ratio or global pass.
 
-**B→Xsγ fixed-card NLO validation / uncertainty work is completed
-within the known scientific scope** at commit `59e919f`.
-The central two-scalar HEPfit/SuperIso rate, a seven-input correlated
-block and 69 nuisance/scale computations are archived and tested.
-The historical Type-II confidence control gave 473.1 GeV vs published
-480 GeV. Wilson-dependent nonlocal/resolved-photon covariance,
-charm-scale physical variation and omitted-effect materiality remain
-unqualified. **STOP solo B-code work now**. Use
-`research/full_constraints/bsgamma_hepfit/specialist_question.md`
-to obtain outside theory guidance if/when user authorizes.
-No more rate reimplementation or ungrounded `theory_sigma`.
-B `B_FULL_RATE_BLOCKED`; no physical exclusions.
+**CRITICAL NEW SOURCE**: Florentino, Romão & Silva,
+*EPJC 81 (2021) 1148*, Appendix D.3 Eq.(D.20) ALREADY derives
+`phi→Zγ` with off-diagonal `Z H1^+ H2^-` and unequal-mass
+charged-scalar loops using B0/C0. Appendices D.1–D.4 contain
+fermion/W formulas and widths. This is our *own 2021 Zee/cascade
+model reference*. Do NOT call mixed-state Zgamma absent in public
+literature or start an unbounded custom one-loop derivation.
+Translate published conventions to native SARAH, audit potential
+printed equation typos and independently validate source formulas
+and scalar/gauge/fermion contributions on **original D7/F13 only**.
 
-**Focus Higgs:** native source-validated SusHi 1.7.0 LO 13-TeV
-H/A ggF/bbH production is available for ORIGINAL D7/F13 cards,
-including tested PDF/scale response. HDECAY 6.60 partial widths and
-native Zee charged-W/general-lepton additions are incomplete but
-reusable. Execute fixed-card F13 HDECAY transfer and independently
-validate model-matched H/A→γγ and all relevant competing widths.
-Attempt at least one genuinely applicable HiggsBounds observed
-search only with complete BR, production/acceptance assumptions
-and justified uncertainty. Missing contributions remain
-`MISSING_PREDICTION`, not zero. A scoped result does not imply
-globally allowed physics or full Higgs coverage. Full-loop
-SPheno is **UNAVAILABLE**.
+After validating the one-loop Zγ partial widths, quantify whether
+other missing A→VV, finite-width charged-W tails and uncertainties
+materially affect `BR(H/A→tau tau)`. A controlled upper-bound
+comparison `Γ_total ≥ ΣΓ_known` may be reported *only with exact
+nonnegative-channel and production/acceptance qualifications*.
+Do not normalize an incomplete width sum or fabricate physical
+HiggsBounds exclusion. Account for D7 H/A near degeneracy and
+the two-production-mode ATLAS likelihood.
 
-LFV remains `LFV_FULL_COVERAGE_BLOCKED` pending substantive
-gauge-invariant theory work.
+B `B_FULL_RATE_BLOCKED` after pinned HEPfit NLO,
+69 nuisance runs and a precise specialist request; STOP solo
+flavor-rate reimplementation until specialist input.
+LFV `LFV_FULL_COVERAGE_BLOCKED` pending substantive gauge
+operator work. Original Modules0–13, final D14 production/scan and
+`feature/zee-d14-conditional-cascade-scan` at `133a340`
+remain frozen.
 
-Never edit frozen Modules0–13 or the final scan branch
-`feature/zee-d14-conditional-cascade-scan` at `133a340`.
-No new scalar points or pilot/large scans, no Condor, no broad
-MadGraph production, no global pass or final-scan launch.
-Only source-pinned exact D7/F13 and original D14 saved cards
-for bounded independent validation. Work on
-`research/zee-full-constraints`; commit/push real evidence.
-All reports and communications in English.
+No new Zee parameter points, pilot/full scans, Condor submissions,
+broad MG5 generation, SPheno full-loop substitutions, missing→zero
+or global-pass claims. Work only on original fixed D7/F13 cards,
+on branch `research/zee-full-constraints`, commit/push source-
+validated results; all docs/commits in English.
 
 ## Mandatory physics safeguards
 
