@@ -4,7 +4,7 @@
 
 ## Evidence and completeness declaration
 
-- Fresh **75 relevant-paper semantic graph search**, plus Babu et al. (2020) recovered separately through direct citations; **23 full-text focused reviews**, with directed outgoing/incoming screens for key 2001/2005/2017/2021/2022/2023/2025/2026 sources.
+- Fresh **75 relevant-paper semantic graph search**, plus Babu et al. (2020) recovered separately through direct citations; **27 successful focused full-text reviews**, with directed outgoing/incoming screens for key 2001/2005/2017/2021/2022/2023/2025/2026 sources.
 - Semantic citation queries are NOT exhaustive reverse-citation lists, and **not every reference of every paper has been read**. The previous October novelty audit extracted 356 numbered bibliography entries across four focal publications, with duplicates. Do not claim all 356 inspected.
 - Detailed two-way graph and full-text evidence: Undermind workspace `5c874c15-c3c8-4ebd-b96f-9fcd953e4ce8`, search `/Zee model two-hop formulas software and exclusion closure November 2026`.
 - Before claiming any loop, vacuum equation, theory uncertainty or acceptance is 'not available in public sources', inspect full text **and its relevant citations/citers**, record paper DOI, equations, model assumptions, and public reference implementation; don't confuse 'not directly ready to use' with 'not published'.
@@ -23,8 +23,11 @@
 10. **Babu/Dev/Jana/Thapa JHEP03(2020)006**, doi:10.1007/JHEP03(2020)006 **Eq(4.24–4.25)**: gauge-fixed 5-VEV Zee CB minimization; useful witness-search coordinates, not exhaustive global proof.
 11. **Lopes/Milagre/Silva 2025/26**, doi:10.1142/S0217751X26501265, **BounDS** `https://github.com/andremilagre/BounDS`: generic tree unitary scattering 2-doublet+1-charged-singlet (not vacuum solver).
 12. **FlexibleDecay** doi:10.1016/j.cpc.2022.108584: generic loop scalar widths and CP-odd epsilon tensor for A→VV and Zgamma, if a supported custom Zee FlexibleSUSY model generates right vertices. NO automatic offshell charged-W multibody closure.
-13. **Hermann/Misiak/Steinhauser JHEP11(2012)036**, doi:10.1007/JHEP11(2012)036: NNLO charged-Higgs matching expansions and published Mathematica companion; neither historical one-state bound nor code addresses arbitrary Wilson-dependent resolved-photon covariance in two-state Zee.
-14. **Schmidt/Vandeleur JHEP06(2026)006**, doi:10.1007/JHEP06(2026)006: Zee→2HDM EFT matching/RG; warns **never add full one-loop neutrino amplitude and corresponding EFT-running contribution**.
+13. **Thành/Phương/Hồng/Mai (2019), Vietnamese-language Zee h→Zgamma study**, *Tạp chí Khoa học* issue 37 (Apr 2019), pp.78–84, **Eqs(1.12),(1.14),(1.17), Tables 2 & 4**: a **PRE-2021 independent Zee-specific** sum over i,j=1,2 with off-diagonal charged-scalar Z and trilinear couplings and unequal-mass figure. Uses LoopTools, no accessible DOI/arXiv in PDF; DOES NOT print PV arguments or gauge seagull diagrams or independent validation. Retain as historical priority and a potential mixed-Zgamma formula, NOT an independently proven complete gauge-invariant reference.
+14. **Altmannshofer et al. JHEP06(2025)156**, doi:10.1007/JHEP06(2025)156, **Eqs(5.6–5.19), App B**: general-2HDM two-loop mu→e gamma including gauge/kinetic, charged-H W, photon/Z, fermion amplitudes with UV counterterms and consistent gamma5; public Python reference **`https://gitlab.com/jbrod/general-2hdm-pheno`**. A direct **reference implementation for the DOUBLEt 2HDM LIMIT**, not a validated mixed Zee F-sector calculation. Audit source and explicit independent limiting tests before using as physical LFV Zee.
+15. **H-COUP v3**, for built-in Type-I/II/X/Y 2HDM benchmark A→WW/ZZ/Zgamma and standard H/Higgs widths; not general Zee, no two mixed charged states.
+16. **Hermann/Misiak/Steinhauser JHEP11(2012)036**, doi:10.1007/JHEP11(2012)036: NNLO charged-Higgs matching expansions and published Mathematica companion; neither historical one-state bound nor code addresses arbitrary Wilson-dependent resolved-photon covariance in two-state Zee.
+17. **Schmidt/Vandeleur JHEP06(2026)006**, doi:10.1007/JHEP06(2026)006: Zee→2HDM EFT matching/RG; warns **never add full one-loop neutrino amplitude and corresponding EFT-running contribution**.
 
 ## Directed citation relationships actually screened
 
@@ -46,3 +49,7 @@ The target's quark sector is Type II but its leptonic Yukawas are **general comp
 - Flo21 EqD20 **versus** Hue18 Eq16 (including printed typos check), at h original D7/F13, then CP-even H and separately CP-odd A.
 - Bil93 singlet EFT **versus** native one-loop F sector; Mit01b box and Gho01 on-shell mixed Z form factors **versus** one-loop generated diagrams; optionally independent FlexibleSUSY NPointFunctions 3l/conversion operator response to pinned FlavorKit.
 - No absent full two-loop Zee W/Goldstone/ghost gauge class was located as a ready-to-run general-model package in the inspected papers. Mark this literature finding provisional given incomplete graph coverage, not as proof nonexistence.
+
+## Late material addition: correction to historical precedence
+
+2019 **Trương Tín Thành, Lâm Thị Thanh Phương, Trịnh Thị Hồng and Huỳnh Lê Tuyết Mai** published *Bổ đính bậc một vòng cho quá trình rã h→Zγ trong mô hình Zee* (one-loop Zee h→Zγ). Its Eq.(1.17) is an i,j-summed off-diagonal charged-scalar triangle with PV C_2+C_22+C_12 and it scans unequal charged masses m(h1)=0.5 m(h2). Source does not disclose complete LoopTools arguments, UV and contact-term checks. This **predates 2021**, correcting any inference that 2021 was the first Zee mixed Zgamma result; no demonstrated direct citation between the two confirmed. Do not imply full one-loop validation from this 2019 work.
