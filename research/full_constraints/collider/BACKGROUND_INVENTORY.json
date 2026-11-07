@@ -1,0 +1,92 @@
+{
+  "date": "2026-11-07",
+  "status": "BACKGROUND_MODEL_BLOCKED",
+  "search_scope": "Repository runbooks and manifests; home ATLAS command sheet, recovered bbll campaign notes/configuration; explicitly visible local HepMC; PATH and documented D14 native receipt directories. Not an exhaustive storage or Grid search.",
+  "campaign_evidence": {
+    "description": "Recovered bbll campaign notes, SHA256 ba84c84f5af78663507044fa9f4b46bc96880c2aa4f7768013c9c9d16e30b5fe; cross-checked background_campaigns_v1.json in user grid-production archive",
+    "era": "Run 3, intended 13.6 TeV; actual dataset beam energy not independently inspected",
+    "completion": "launched according to recovered notes; completion and file availability unverified",
+    "samples": [
+      {
+        "label": "ttZ_ee",
+        "DSID": 522024,
+        "target_events": 1250000
+      },
+      {
+        "label": "ttZ_mumu",
+        "DSID": 522028,
+        "target_events": 1250000
+      },
+      {
+        "label": "ttZ_qq",
+        "DSID": 522036,
+        "target_events": 1250000
+      },
+      {
+        "label": "ttZ_nunu",
+        "DSID": 522040,
+        "target_events": 1250000
+      },
+      {
+        "label": "ttW",
+        "DSID": 700991,
+        "target_events": 5000000
+      },
+      {
+        "label": "ttH_dil",
+        "DSID": 602637,
+        "target_events": 5000000
+      },
+      {
+        "label": "ttbar_nonprompt",
+        "DSID": 601229,
+        "target_events": 3000000
+      }
+    ],
+    "actual_events": null,
+    "generator_shower_order_PDF": null,
+    "cross_section": null,
+    "filter_efficiency": null,
+    "sumw": null,
+    "sumw2": null,
+    "negative_weight_fraction": null,
+    "hf_definition_and_overlap": null,
+    "accessible_files": null,
+    "input_sha256": null,
+    "sample_status": "NOT_AVAILABLE_FOR_PILOT"
+  },
+  "other_local_hepmc": {
+    "status": "NOT_QUALIFIED",
+    "sha256": "494cdc8a917206d3c7bbceac266fd23f7658ed73726f23ff6e0a4e11a6c25ab5",
+    "events_counted": 100,
+    "first_event_beam_energy_GeV": 6800,
+    "process_generator_normalization": "not established; no association to ttZ inferred"
+  },
+  "software": {
+    "PATH_mg5_aMC": null,
+    "PATH_DelphesHepMC": null,
+    "PATH_root": null,
+    "PATH_rucio": null,
+    "separate_madgraph_tree": "present, version and equivalence to pinned D14 runtime not established",
+    "D14_native_receipt_directories": "not present in this checkout",
+    "bbll_delphes": "historical notes describe Delphes 3.5.1; runnable installation and Zee-specific validation not established"
+  },
+  "pilot": {
+    "ran": false,
+    "energy_TeV": null,
+    "signal_acceptance": null,
+    "background_yields": null,
+    "cutflows": null,
+    "mass_distributions": null,
+    "background_uncertainties": null,
+    "expected_CLs": null
+  },
+  "missing": [
+    "accessible event files and exact dataset identities and beam energy",
+    "generator/shower/PDF/order, cross sections, filters and signed weight sums and sumw2",
+    "ttZ heavy-flavor coverage and exclusive overlap prescription",
+    "other relevant backgrounds and nonprompt model",
+    "same-energy signal generation and decay pipeline bound to exact family card",
+    "common validated detector and selection, MC statistics and systematic likelihood"
+  ]
+}
