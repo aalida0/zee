@@ -4,6 +4,21 @@
 **Frozen working parent:** `feature/zee-d14-conditional-cascade-scan`
 at `133a34061723b6bb45b19e8ebe29852ac8b5a9c2`.
 
+## Mandatory source-first literature gate (new: 7 Nov 2026)
+
+Before claiming any Zee-specific loop calculation, scalar/vacuum constraint,
+flavor uncertainty, or numerical implementation is absent from the literature,
+**read** `research/full_constraints/LITERATURE_SOURCE_RESCUE_AUDIT_2026-11-07.md`
+and the actual paper full text, then check relevant **references AND citing works**.
+Document DOI/arXiv, exact equation, physical particle content, Yukawa
+restrictions, source/code version, and a tested limiting case. A previous
+false absence claim overlooked Florentino–Romão–Silva 2021 App. D.3 Eq(D.20)
+for mixed charged-scalar h→Zγ, Hue 2018 unequal-mass PV formulas,
+Bilenky–Santamaria 1994 singlet EFT, and old Zee LFV box/Z-penguin formulas.
+Do **not** call an unimplemented published expression nonexistent; do not call
+a restricted formula complete general Zee physics. Citation-search indexing is
+not exhaustive; report limitations. Always preserve original frozen modules.
+
 ## CURRENT TASK — 2021 published Zee Zgamma expression, not a new loop program
 
 **READ FIRST**:
