@@ -19,49 +19,50 @@ Do **not** call an unimplemented published expression nonexistent; do not call
 a restricted formula complete general Zee physics. Citation-search indexing is
 not exhaustive; report limitations. Always preserve original frozen modules.
 
-## CURRENT TASK — 2021 published Zee Zgamma expression, not a new loop program
+## CURRENT TASK — execute source-matched full one-loop Zee LFV operators
 
-**READ FIRST**:
-`research/full_constraints/HIGGS_ZGAMMA_2021_RESCUE_TASK.md`.
-Previous completed stage: `f30131a` executes D7/F13 HDECAY
-and independently validates H/A→γγ (35 tests).
-The ATLAS `tau tau` ID `200212223` observed search is still blocked
-by incomplete widths and acceptance/uncertainty; no physical BR,
-observed ratio or global pass.
+**Read `research/full_constraints/LFV_SOURCE_TO_CODE_TASK.md` first**,
+then `LITERATURE_SOURCE_RESCUE_AUDIT_2026-11-07.md`,
+`LFV_EXECUTION_REPORT.md` and `LFV_COVERAGE.md`.
 
-**CRITICAL NEW SOURCE**: Florentino, Romão & Silva,
-*EPJC 81 (2021) 1148*, Appendix D.3 Eq.(D.20) ALREADY derives
-`phi→Zγ` with off-diagonal `Z H1^+ H2^-` and unequal-mass
-charged-scalar loops using B0/C0. Appendices D.1–D.4 contain
-fermion/W formulas and widths. This is our *own 2021 Zee/cascade
-model reference*. Do NOT call mixed-state Zgamma absent in public
-literature or start an unbounded custom one-loop derivation.
-Translate published conventions to native SARAH, audit potential
-printed equation typos and independently validate source formulas
-and scalar/gauge/fermion contributions on **original D7/F13 only**.
+After the two-way citation audit we now know directly relevant
+published source formulas:
+- Bilenky & Santamaria 1994, gauge-invariant singlet-F EFT;
+- Mitsuda & Sasaki 2001, TWO mixed charged-scalar F^4 mu3e box;
+- Ghosal et al. 2001, mixed charged-scalar on-shell LFV Z vertex;
+- Primulando et al. 2022, conversion operator controls;
+- FlexibleSUSY NPointFunctions 2024, generic tree+one-loop mu3e
+  and mu-e conversion, with real generated coefficients;
+- Altmannshofer et al. 2025 public 2HDM two-loop LFV: existing
+  neutral fermion/photon subset is ALREADY in Module4.
 
-After validating the one-loop Zγ partial widths, quantify whether
-other missing A→VV, finite-width charged-W tails and uncertainties
-materially affect `BR(H/A→tau tau)`. A controlled upper-bound
-comparison `Γ_total ≥ ΣΓ_known` may be reported *only with exact
-nonnegative-channel and production/acceptance qualifications*.
-Do not normalize an incomplete width sum or fabricate physical
-HiggsBounds exclusion. Account for D7 H/A near degeneracy and
-the two-production-mode ATLAS likelihood.
+**STOP broad surveys and speculative new symbolic two-loop work.**
+Produce an **actually executed**, complete tree+one-loop
+`μ→3e` **complex operator-vector cross-check** on the original
+D7/F13 fixed physical cards and independent conversion tests,
+or prove exact code/physics limitation after one bounded setup
+attempt. Check full penguin/box/gauge topology coverage and
+correctness; do not confuse a restricted paper's F-only form
+with a full Zee one-loop calculation.
 
-B `B_FULL_RATE_BLOCKED` after pinned HEPfit NLO,
-69 nuisance runs and a precise specialist request; STOP solo
-flavor-rate reimplementation until specialist input.
-LFV `LFV_FULL_COVERAGE_BLOCKED` pending substantive gauge
-operator work. Original Modules0–13, final D14 production/scan and
-`feature/zee-d14-conditional-cascade-scan` at `133a340`
-remain frozen.
+Current previously validated: charged F dipoles and neutral
+photon subset, full 3-body rate kernel against Dirac traces,
+gold-target FlavorKit scalar isovector **6.972% rate difference**
+which must be checked against another nuclear matching.
+Unvalidated complete amplitude remains UNKNOWN.
+Full two-loop Wγ/gauge Barr–Zee groups remain separate; do NOT
+claim `LFV_FULL_COVERAGE_VALIDATED` from one-loop alone.
 
-No new Zee parameter points, pilot/full scans, Condor submissions,
-broad MG5 generation, SPheno full-loop substitutions, missing→zero
-or global-pass claims. Work only on original fixed D7/F13 cards,
-on branch `research/zee-full-constraints`, commit/push source-
-validated results; all docs/commits in English.
+Higgs `HIGGS_ZGAMMA_2021_RESCUE_TASK.md` is **queued**, now
+with 2019 Zee and 2018 general unequal-mass reference for
+source-independent checks. B rate is queued for specialist
+answer, `B_FULL_RATE_BLOCKED`; do NOT rerun HEPfit code.
+Higgs `HIGGS_FULL_COVERAGE_BLOCKED` at prior fixed cards.
+No new scalar points, scans of any size, Condor, MG5 production
+or use of broken SPheno full-loop masses. Frozen
+`feature/zee-d14-conditional-cascade-scan` and Modules0–13
+unchanged. Work only on research branch and commit/push
+source-verified, independently tested code/evidence in English.
 
 ## Mandatory physics safeguards
 
