@@ -19,52 +19,51 @@ Do **not** call an unimplemented published expression nonexistent; do not call
 a restricted formula complete general Zee physics. Citation-search indexing is
 not exhaustive; report limitations. Always preserve original frozen modules.
 
-## CURRENT TASK — finish complete physical h125→Zgamma, D7/F13
+## CURRENT TASK — use verified h125 widths for actual signal strengths
 
-**Read `research/full_constraints/HIGGS_ZGAMMA_COMPLETE_H125_TASK.md` first.**
-Also read the source audit `HIGGS_ZGAMMA_2021_RESCUE.md`, original
-`ZGAMMA_SOURCE_EVIDENCE.json`, saved Higgs neutral and h→γγ
-evidence, and the 7-Nov literature citation index.
+Read `research/full_constraints/HIGGS_H125_SIGNAL_STRENGTH_TASK.md`
+FIRST; then the completed `HIGGS_ZGAMMA_COMPLETE_H125.md`,
+`HIGGS_EXECUTION_REPORT.md`, exact D7/F13 original card evidence
+and pinned HiggsTools/HiggsSignals coverage.
 
-At `45a9d11` three independent methods (native LoopTools
-2.13, analytical/parameter integrals, scalar Ward/UV) agreed on
-the **physical photon-adjacent mass ordering** in unequal-mass
-h→Zgamma charged-scalar loops; literal Flo21 D.20 differs by
-0.232% D7 and 0.0388% F13 **of the mixed scalar kernel**.
-The corrected candidate is strongly validated **as a subthreshold
-scalar loop in our explicit PV convention**. It does NOT yet
-include correct relative W/fermion/scalar signs, complete SM
-normalization or CP-odd diagonal-lepton contributions.
-Do NOT hold independent physics back solely to demand that
-an ambiguously printed formula matches verbatim; document
-the source ambiguity, retain falsifying Ward test, and validate
-the final full amplitude against independent SM and one-state
-2HDM benchmarks.
+At `1166f15`, **complete leading one-loop** h125→Zgamma
+is independently VALIDATED at D7/F13, with source-bound HEPfit
+SM and signed one-scalar checks. Γ_Zγ/SM=(0.978770448547,
+0.989590176981); earlier verified Γ_γγ/SM=(0.9317959556,
+0.9750252264). These are source-verified partial widths,
+**not** signal strengths or exclusions. Do NOT rederive W,
+fermion, mixed scalar or PV routing loops again.
 
-**The target is ONE completed observable:** physical one-loop
-`Γ(h125→Zgamma)` for exact saved D7/F13 cards, with SM
-benchmark, full tensor/W+fermion+mixed scalar interference
-and source hashes. Do NOT extend to heavy H/A yet; thresholds
-and A's CP tensor need a separate new stage. No tau-tau
-HiggsBounds likelihood and no final scan until inputs
-are independently qualified. Higgs overall remains BLOCKED
-even if this h125 sub-observable passes.
+**Now build model-consistent h125 Γtotal and Higgs production ratios**
+on these ORIGINAL cards using transferable higher-order standard
+decays and native Zee general complex lepton Yukawas plus actual
+LFV/exotic channels. Quantify coverage and missing inputs first.
+If sufficiently complete, compute 1–3 actual source-matched
+h125 signal strengths and try only an experimentally compatible
+pinned HiggsSignals category. Do not mix HiggsTools default
+Zgamma=0 or conditional legacy χ² with a physical 95% CL.
+Use correct energy/production mixtures and theoretically justified
+uncertainty; otherwise report explicit observable-specific blocker.
 
-LFV last work `77148f0` finished bounded F-only box,
-on-shell Z controls and confirmed FlavorKit scalar
-proton/neutron interchange; NPointFunctions needs newer
-FeynArts/FormCalc, so complete one-loop and two-loop LFV
-remain UNKNOWN. Do not retry those packages in this task.
-B still `B_FULL_RATE_BLOCKED`, pending specialist
-Wilson-dependent uncertainty. Vacuum global UNKNOWN.
+Important prioritization: previous D7/F13 heavy-H/A ττ central
+diagnostics were exceptionally small and have no certified
+physical exclusion; **do not initiate new heavy-H/A Zgamma,
+A→WW/ZZ, multi-body or tau tau likelihood loops in this task**.
+New physical h125 channel/experimental result has higher value.
 
-All `research/zee-full-constraints` work must preserve
-frozen Modules0–13, original D14 and
-`feature/zee-d14-conditional-cascade-scan` at `133a340`.
-No model-space point generation, exploratory/full scans,
-Condor, broad MG5, fictitious Higgs widths, or global pass.
-Run actual numerical checks and commit/push only proven
-scoped physics output in English.
+LFV at `77148f0`: complete 1-loop still UNKNOWN; validated
+F-only box, on-shell Z and FlavorKit scalar proton/neutron
+bug; NPointFunctions needs newer FeynArts/FormCalc, not a proven
+Zee-model incompatibility. B `B_FULL_RATE_BLOCKED` for
+Wilson-dependent hadronic uncertainty. Vacuum global UNKNOWN.
+These statuses are unchanged and are NOT to be re-audited now.
+
+Preserve research-only branch `research/zee-full-constraints`.
+Frozen Modules0–13, saved D14 and
+`feature/zee-d14-conditional-cascade-scan` at `133a340`
+are read-only. No new mass/Yukawa proposals or parameter scans
+(including pilot), Condor, broad MG5, fake full widths or
+global PASS. Commit/push source-verified work, English reports.
 
 ## Mandatory physics safeguards
 
