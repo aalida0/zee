@@ -4,41 +4,39 @@
 **Frozen working parent:** `feature/zee-d14-conditional-cascade-scan`
 at `133a34061723b6bb45b19e8ebe29852ac8b5a9c2`.
 
-## Current milestone — LFV completion after source-backed B feasibility gate
+## Current milestone — Higgs coverage and h125 charged-loop integration
 
-The user requires fully validated LFV, B→Xsγ and Higgs exclusions
-before the one final large scan.
+The user requires genuinely validated LFV, B→Xsγ and Higgs exclusions
+before **one final large scan**. B and LFV source/validation gates are
+already executed on this research branch:
+- B `B_FULL_RATE_BLOCKED` at `64bdf27`: coherent two-state rates exist
+  but independent matched physical rate and theory uncertainty are absent.
+- LFV `LFV_FULL_COVERAGE_BLOCKED` at `da6e858`: contact three-body
+  rate and interference independently validated, but gauge-invariant
+  radiative and complete three-body operator matching remain missing.
+  Frozen Module3/4 tests pass 73/75; the two failures assert historical
+  branch names and do not signify numerical physics failures.
 
-**B source feasibility is complete at `64bdf27`:**
-`B_FULL_RATE_BLOCKED`. The nonlinear coherent two-state code is
-available, but neither independent matched finite-cut physical
-normalization nor a qualified model-specific NP uncertainty is
-established. Never mislabel a legacy kernel, 2026 LO linearization,
-or backend nuisance as a validated 95% CL Zee exclusion.
+**Current task: read `research/full_constraints/HIGGS_NEXT_STAGE.md`,
+`research/full_constraints/HIGGS_TASK.md` and `PLAN.md`, then
+execute the bounded HiggsTools coverage and corrected h125 study.**
 
-**Current task: read and execute**
-`research/full_constraints/LFV_NEXT_STAGE.md`,
-`research/full_constraints/LFV_TASK.md`,
-`research/full_constraints/PLAN.md`, and
-`research/full_constraints/FEASIBILITY_GATE.md`.
-Focus on **source-level diagram and operator completeness** and an
-independently validated new LFV observable/gauge group, if feasible.
-Existing corrected general-2HDM neutral-fermion/photon contributions
-are ALREADY in Module4, so do not double count.
+First inventory the actual experimental data, analysis processes and
+required model-specific rates. Then try to validate the complete
+h125 diphoton **W+fermion+both mixed charged scalars** amplitude in a
+common physical tree-input scheme, and consume only existing exact
+H2 benchmark production. Do not treat a single channel as a full
+HiggsTools pass. Full-loop SPheno remains UNAVAILABLE. Preserve
+per-analysis `MISSING_PREDICTION`, `NOT_APPLICABLE` and unknown
+statuses. A model-correct, validated **scoped fail** may exclude a
+point, but no globally allowed point can be declared while applicable
+channels are missing.
 
-After LFV reports a real validated scope or exact block, the
-independent Higgs coverage task is
-`research/full_constraints/HIGGS_TASK.md`. A final all-three-gates
-claim is prohibited while B is blocked.
-
-No new parameter-space points or scans of any size, no HTCondor
-submission, no model-wide MG5 production. Existing saved cards and
-analytic limiting cases are allowed for bounded independent
-validation. The original `feature/zee-d14-conditional-cascade-scan`
-remains frozen and untouched.
-
-Use English for every Codex title, log, note and commit. Commit and
-push only source-verified research changes to this branch.
+**Do not rerun B/LFV audits, alter protected Modules0–13, launch
+new parameter proposals or pilot scans, submit Condor, run a broad
+MG5 production campaign, or touch the frozen conditional branch.**
+Current work is a research-only Higgs stage on existing cards.
+No final scan authorized. Log/report code and commits in English.
 
 ## Mandatory physics safeguards
 
