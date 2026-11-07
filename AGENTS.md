@@ -19,18 +19,20 @@ Do **not** call an unimplemented published expression nonexistent; do not call
 a restricted formula complete general Zee physics. Citation-search indexing is
 not exhaustive; report limitations. Always preserve original frozen modules.
 
-## CURRENT TASK — bounded flavor–charged-cascade novelty kill test (7 Nov 2026)
+## CURRENT TASK — decisive Candidate A tree-vacuum / charged-mixing investigation (7 Nov 2026)
 
-**This task supersedes the completed collider-feasibility pilot.** The collider pilot's result is `BACKGROUND_MODEL_BLOCKED` and is preserved as historical evidence; do NOT repeat collider inventory, generate events, run Delphes, or restart LFV two-loop calculations. The user authorized a **source-bound examination of existing D12/D14 cards** to decide whether Paper 1 has a substantive new flavor–charged-Higgs physics result *without event generation*, **not** a new parameter-space scan.
+**This supersedes the completed flavor–charged-cascade novelty NO-GO and collider inventory tasks.** The user has authorized **one comprehensive, bounded scalar-theory study** with public-code reuse and a final GO/NO-GO paper decision, not a new unconstrained model scan or event simulation.
 
-**READ AND EXECUTE:** `research/full_constraints/FLAVOR_CASCADE_NOVELTY_PILOT_TASK.md`. Its detailed source, model, novelty, comparison, validation, and stop policies are binding. Read the full `PAPER1_FEASIBILITY_REVIEW.md`, `D12_FLAVOR_COLLIDER_AUDIT.md`, `LFV_TEXTURE_MATERIALITY_RESULT.md`, and 2017/2021 primary papers before any positive novelty claim.
+**READ FIRST AND EXECUTE IN FULL:** `research/full_constraints/CANDIDATE_A_GLOBAL_VACUUM_MIXING_DECISIVE_TASK.md`. Follow its 8 work packages, source/equation/code/literature gate, CPU/RAM budgets, explicit necessary-versus-sufficient proof standards, reproducibility deliverables, and decision criteria. Begin with frozen D10 exact potential and original 2005/2021 primary papers, including 2005 Eq. (23), not previously completed collider/LFV tasks. Use public SOS/homotopy/algebra tools if practicable, with actual installed versions and evidence.
 
-- Existing D12's 136 Yukawa designs show large conditional leptonic daughter BR changes, but already state **novelty not established**, and full LFV is UNKNOWN.
-- D14 maps **16** unique tree-vacuum-certificate spectra at 13 TeV, **3** at 14 TeV; NO/IO/family cascade differences at fixed spectrum are small. D12 D7/F13 are **not** the same exact scalar cards as D14 map IDs.
-- Quantify paired exact-fixed-card `H1→tb`, `H1→ℓν`, `H2→H1Z`, and cascade daughter BRs from **existing saved** model data, not rounded table joins or guessed generator rates. Compare what the 2017 JHEP and 2021 EPJC papers already established plus relevant later sources/citations; attempt to **disprove** proposed novelty.
-- Return `GO_CONDITIONAL_PAPER_CANDIDATE`, `NO_GO_CURRENT_PAPER1_CENTER`, or `SOURCE_BLOCKED` with reviewer-level evidence. No experimental allowedness or sensitivity claim.
-- Save a compact report, machine-readable witness matrix, and source comparison **only** under `research/full_constraints/`. Commit/push validated files to `research/zee-full-constraints` only.
-- Preserve `global_acceptance=null`, scalar/vacuum/EWPO/neutrino scoped selections, full B/LFV/Higgs UNKNOWN statuses, the frozen source files and the one-final-scan approval requirement.
+**Precise user authorization override for this task only:** deterministic scalar-only 1D Mu4 continuation of existing D10 cards and trial-field search within the task's numerical point/resource limits is permitted to test vacuum/mixing bounds. This overrides the general ban on **new scalar-only diagnostic evaluation points only within this narrowly authorized study**; it does **not** permit a new broad scalar/neutrino/flavor scan, a full model acceptance campaign, changes to frozen modules, or Condor/MG5/Pythia/Delphes/collider simulations. The eventual one final full-constraint scan remains unauthorized.
+
+- Source exact CP-conserving full-ten-real-field D10 potential (not the most general complex Zee theory); prove identities/gauge coverage/field-space inequalities.
+- Both rigorously sufficient global-vacuum certificates and rigorously necessary no-deeper-witness inequalities; test and potentially **refute** the previously estimated P2 Mu4 <=~1346.14 GeV bound.
+- Recalculate charged masses and signed mixing consistently on every cubic-coupling deformation; connect only to source-validated off-diagonal Z coupling and conditional tree partial width, no detector reach.
+- Cross-examine 2005 and 2021 published results, generic public algebra/vacuum codes and citing literature. GO only if an independently verified new reusable result with material scalar physics consequences is demonstrably distinct. Otherwise NO-GO or explicit INCONCLUSIVE.
+- All original modules/inputs/receipts remain read-only; write compact evidence and standalone adapters under `research/full_constraints/candidate_a/`, summarize in `research/full_constraints/CANDIDATE_A_DECISIVE_REPORT.md`. Commit and push to research branch only.
+- Keep `global_acceptance=null`; do not infer quantum/thermal vacuum stability, full B/LFV/Higgs allowedness, physical 95% exclusion or HL-LHC/FCC-hh sensitivity.
 
 ## Mandatory physics safeguards
 
@@ -65,4 +67,4 @@ not exhaustive; report limitations. Always preserve original frozen modules.
 
 ## Current deliverable
 
-Execute `research/full_constraints/FLAVOR_CASCADE_NOVELTY_PILOT_TASK.md`: fixed-card quantitative and literature novelty audit, no new scan or event generation. Output `FLAVOR_CASCADE_NOVELTY_PILOT_REPORT.md`, `flavor_cascade/NOVELTY_WITNESS_MATRIX.json`, `flavor_cascade/LITERATURE_COMPARISON.md` under `research/full_constraints/`, with a clear GO/NO-GO.
+Execute `research/full_constraints/CANDIDATE_A_GLOBAL_VACUUM_MIXING_DECISIVE_TASK.md` completely. Produce one decisive report, public-code/literature ledger, exact positive/negative certificate objects and source-bound mixing/partial-width results as supported. End in GO_SCALAR_THEORY_PAPER_CANDIDATE, NO_GO_CANDIDATE_A or INCONCLUSIVE_METHOD_BLOCKED. No follow-on scan authorization.
