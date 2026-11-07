@@ -1,0 +1,132 @@
+{
+  "schema_version": "zee-paper1-scoped-constraints-v1",
+  "date": "2026-11-07",
+  "objective": "Conditional neutrino-compatible Type-II Zee charged-Higgs cascade phenomenology plus matched-background collider feasibility",
+  "scientific_status": "SCOPED_METHOD_FROZEN_NO_GLOBAL_EXCLUSIONS",
+  "global_acceptance": null,
+  "physical_model_allowed": null,
+  "final_parameter_scan_authorized": false,
+  "detector_reach_qualified": false,
+  "calculation_context": {
+    "type_II": "quark sector Type-II; leptonic Yukawas general complex, Zee charged singlet antisymmetric F",
+    "charged_Higgs": "two mixed physical H1±, H2±; no single-doublet mass bound imposed separately",
+    "neutrino": "one-loop Zee reconstruction, NuFIT6.1 pinned secondary coordinates, NO/IO, not a joint fit",
+    "collider": "D14D MG5_aMC 3.6.7 LO 5FS, charge-summed, 13 TeV 16 same-scalar IDs; 14 TeV 3 IDs; no shower/acceptance"
+  },
+  "constraint_rules": [
+    {
+      "id": "scalar_tree",
+      "status": "APPLIED_SCOPED",
+      "source": "module1 scalar reconstruction, BFB, unitarity and perturbativity",
+      "claim": "Tree-level theoretical domain only",
+      "hard_reject_policy": "Only verified physical tree failures can reject the declared tree-domain point"
+    },
+    {
+      "id": "scalar_EWPO",
+      "status": "APPLIED_SCOPED",
+      "source": "module1 scoped 1-loop S,T,U test",
+      "claim": "Implemented scalar oblique calculation with pinned covariance/reference",
+      "hard_reject_policy": "Only within stated one-loop oblique test; not complete precision electroweak fit"
+    },
+    {
+      "id": "neutrino",
+      "status": "APPLIED_SCOPED",
+      "source": "module2; module12 fixed NO/IO inverse-family records",
+      "claim": "Valid 1-loop mass reconstruction and specified target closure, with chosen nuisance assumptions",
+      "hard_reject_policy": "Numerical and declared perturbativity gates, not full global oscillation or cosmology fit"
+    },
+    {
+      "id": "global_tree_vacuum",
+      "status": "APPLIED_POSITIVE_CERTIFICATE_SUBSET",
+      "source": "module1 D10 positive sufficient tree vacuum witness; 33 of 225 historical spectra",
+      "claim": "Include only positively certified records in main evidence; 192 historical UNKNOWN are not physically excluded",
+      "hard_reject_policy": "NO certificate = UNKNOWN, may be left out of certified showcase but never labeled vacuum FAIL"
+    },
+    {
+      "id": "B_to_Xs_gamma",
+      "status": "DIAGNOSTIC_ONLY",
+      "source": "research/full_constraints/BSGAMMA_COVERAGE.md; coherent two-state NLO HEPfit/D9B",
+      "experimental_reference": "PDG2026 3.49±0.19 ×10^-4 inclusive average, theory covariance unresolved",
+      "claim": "Central prediction and explicit hypothetical nuisance stress; no calibrated 95% exclusion",
+      "hard_reject_policy": "NONE"
+    },
+    {
+      "id": "LFV_radiative",
+      "status": "DIAGNOSTIC_ONLY",
+      "source": "module3 one loop + module4 photon-mediated Barr–Zee; LFV_TEXTURE_MATERIALITY_RESULT.md",
+      "experimental_reference": "MEG II observed 90% CL BR(mu->e gamma)<1.5e-13, per pinned snapshot",
+      "claim": "Partial coherent CL/CR and experimental-ratio display only; uncomputed mixed-F/gauge EW effects not zero",
+      "hard_reject_policy": "NONE"
+    },
+    {
+      "id": "LFV_mu_to_3e",
+      "status": "DIAGNOSTIC_ONLY",
+      "source": "validated Module3 neutral scalar tree and diagnostic dipole-only; complete penguin/box relative interference unavailable",
+      "experimental_reference": "SINDRUM 90% CL BR(mu->3e)<1e-12, per pinned snapshot",
+      "claim": "Tree and dipole examples are not complete rates",
+      "hard_reject_policy": "NONE"
+    },
+    {
+      "id": "LFV_mu_to_e_conversion",
+      "status": "NOT_APPLIED_UNKNOWN",
+      "source": "LFV_SOURCE_TO_CODE_REPORT.md; FlavorKit scalar proton/neutron swap and incomplete semileptonic Wilsons",
+      "claim": "No physical predicted rate or bound",
+      "hard_reject_policy": "NONE"
+    },
+    {
+      "id": "Higgs_h125",
+      "status": "DIAGNOSTIC_ONLY",
+      "source": "HIGGS_H125_SIGNAL_STRENGTH_REPORT.md and HIGGS_ZGAMMA_COMPLETE_H125.md",
+      "claim": "Validated selected partial widths and total-width-independent ratios; absolute strengths/current exclusion UNKNOWN",
+      "hard_reject_policy": "NONE"
+    },
+    {
+      "id": "Higgs_H_A_and_charged_direct",
+      "status": "NOT_APPLIED_UNKNOWN",
+      "source": "HIGGS_COVERAGE.md; HiggsTools missing full source-bound rates/widths, charged cascade topology unrecased",
+      "claim": "No broad full collider-search pass or exclusion",
+      "hard_reject_policy": "NONE"
+    },
+    {
+      "id": "cosmology_neutrino_sum",
+      "status": "NOT_APPLIED_UNKNOWN",
+      "source": "Target m_lightest selected by existing D12 scenario; no cosmological likelihood source-qualified",
+      "claim": "State cosmology assumptions only, no universal cosmology-veto",
+      "hard_reject_policy": "NONE"
+    }
+  ],
+  "collider_pilot": {
+    "status": "RAW_YIELD_PRE_DETECTOR_ONLY",
+    "source": "research/full_constraints/collider/RAW_14TEV_PREDICTION.json",
+    "14_TeV_models": [
+      15591,
+      2264,
+      15673
+    ],
+    "energy_matching": "Do not mix 14 TeV signal with 13.6 TeV background",
+    "preferred_evidence_mode": "Inventory existing 13.6 TeV ATLAS HepMC samples; pilot at same energy if ttZ+HF backgrounds present",
+    "14_TeV_3l_raw_range_3000fb": {
+      "2264": [
+        149.10128382995794,
+        149.12794418955227
+      ],
+      "15591": [
+        306.82793451083205,
+        306.91517654527894
+      ],
+      "15673": [
+        96.4433999065988,
+        96.59005258829723
+      ]
+    },
+    "background_yields": null,
+    "detector_efficiency": null,
+    "statistical_limit": null,
+    "claims_forbidden": [
+      "95% CLs without normalized matched background",
+      "globally Zee-allowed",
+      "recast of an unmatched ATLAS search",
+      "raw yield as sensitivity"
+    ]
+  }
+}
