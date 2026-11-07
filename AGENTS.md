@@ -4,38 +4,41 @@
 **Frozen working parent:** `feature/zee-d14-conditional-cascade-scan`
 at `133a34061723b6bb45b19e8ebe29852ac8b5a9c2`.
 
-## CURRENT TASK — execute SusHi H/A production and neutral width bridge
+## CURRENT TASK — execute independent HEPfit B→Xsγ rates
 
-**Read `research/full_constraints/HIGGS_SUSHI_EXECUTION_TASK.md` first.**
-Also read `SCANNERS_HIGGS_REUSE.md`, `HIGGS_COVERAGE.md`,
-`HIGGS_EXECUTION_REPORT.md` and `PROGRESS_TO_FINAL_SCAN.md`.
+**Read `research/full_constraints/HEPFIT_RATE_EXECUTION_TASK.md` first.**
+Also read `research/full_constraints/FEASIBILITY_GATE.md`,
+`research/full_constraints/BSGAMMA_COVERAGE.md`,
+`research/full_constraints/PROGRESS_TO_FINAL_SCAN.md` and
+`research/full_constraints/SOURCE_MANIFEST.json`.
 
-User's immediate focus is to **reuse physics calculators** for
-missing Zee Higgs exclusions instead of extending ScannerS itself.
-The job is to actually **run** pinned SusHi on D7/F13 ORIGINAL saved
-points and qualify its neutral Type-II quark Yukawa mapping; then
-evaluate transferable HDECAY/anyHdecay widths and model-specific
-additional Zee channels. Report an executed value or exact compile/
-source blocker, not another long inventory. Use HiggsTools 1.1.3 as
-the consumer of only complete model-matched channel inputs.
+The SusHi/HDECAY Higgs stage is **complete as a bounded task** at
+commit `2356cea`: SusHi 1.7.0 genuinely executes validated 13-TeV
+LO ggF/bbH for H/A on both original D7/F13 cards, with LO coupling
+and PDF/scale controls; anyHdecay/HDECAY 6.60 gives transferable
+D7 neutral partial widths and native Zee H/A→H1W/lepton additions.
+Its total widths remain **INCOMPLETE**. Higgs
+`HIGGS_FULL_COVERAGE_BLOCKED` is not promoted. Do not repeat
+this stage or overwrite its evidence.
 
-B→Xsγ and LFV remain independently BLOCKED at their recorded
-source/scientific gates. The separate HEPfit rate execution task
-`research/full_constraints/HEPFIT_RATE_EXECUTION_TASK.md` is
-**queued, not canceled**. Do not run both streams in one Codex
-session or claim one resolves the other.
+**Now calculate real, independently executed HEPfit
+B→Xsγ one-state rates and, if feasible, a coherent Zee
+two-charged-state order-separated matching bridge.** The objective
+is an independently validated finite-cut physical rate and an
+independently justified NP uncertainty prescription, not more
+source inventories. Use the pinned HEPfit source and the original
+D12 model points. A compiled/running central rate without model-
+appropriate accuracy and uncertainties remains
+`B_FULL_RATE_BLOCKED`; do not fabricate exclusion.
 
-Do not rewrite existing full LO h→γγ or frozen Modules0–13,
-or use pathological full-loop SPheno widths. Preserve the
-frozen `feature/zee-d14-conditional-cascade-scan` at `133a340`.
-No new random scalar cards, exploratory/large parameter scans,
-HTCondor submissions, MG5 production campaigns or user final scan.
-Source-pin source/package versions and only original fixed D12/D14
-cards for numerical validation. If required rate or decay channels
-cannot be source-qualified, mark `MISSING_PREDICTION` rather than
-zero. No hard Higgs exclusion until full applicable signal/uncertainty
-requirements are met. Work only on research branch, commit/push
-validated artifacts, and use English in all progress/report text.
+LFV remains `LFV_FULL_COVERAGE_BLOCKED`.
+The frozen original Modules0–13 and D14 study plus
+`feature/zee-d14-conditional-cascade-scan` at `133a340`
+must remain untouched. No new scalar parameter proposals, pilot
+or large scan, HTCondor submission, MG5 production, or final
+global acceptance claim. Keep new work and test receipts under
+`research/full_constraints/bsgamma_hepfit/`; English in
+all logs/commits. Commit/push only source-verified code and reports.
 
 ## Mandatory physics safeguards
 
