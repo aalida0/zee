@@ -4,40 +4,49 @@
 **Frozen working parent:** `feature/zee-d14-conditional-cascade-scan`
 at `133a34061723b6bb45b19e8ebe29852ac8b5a9c2`.
 
-## CURRENT TASK — physically justify HEPfit Zee B→Xsγ uncertainty
+## CURRENT TASK — fixed-card neutral H/A widths and usable Higgs search
 
-Read **`research/full_constraints/BSGAMMA_NP_UNCERTAINTY_TASK.md`**
-first, plus the pinned **executed** HEPfit rate report and earlier B
-coverage ledger. The HEPfit matching and central-rate executable are
-**COMPLETE within scoped NLO** at `e2202f1` (37 fixed-card runs,
-18 tests). Do NOT reopen BMU matching, build HEPfit again by default,
-repeat SuperIso/EOS comparisons or redo previous source searches.
+Read **`research/full_constraints/HIGGS_NEUTRAL_WIDTH_SEARCH_TASK.md`**
+first, including its references to the SusHi/HDECAY execution report,
+HiggsTools analysis coverage and frozen D12 D7/F13 cards.
 
-Our immediate missing B physics gate is independently qualified
-NLO two-state rate **uncertainty** and one-state published confidence
-construction. Execute a **finite fixed-D7/F13 nuisance/scale
-propagation**, recording sources, true input covariances and
-Wilson-dependent power corrections; compare historical published
-one-state prescriptions without silently assigning their NNLO SM
-error to our NLO NP model. Demonstrate the exact 95% CL framework
-before any physical fail/pass. If irreducible Wilson-dependent
-theory covariance or full materiality is unavailable in public
-sources, **stop this code stream** and write the exact question to
-a flavor specialist. No guessed `theory_sigma` or physical exclusion.
+**B→Xsγ fixed-card NLO validation / uncertainty work is completed
+within the known scientific scope** at commit `59e919f`.
+The central two-scalar HEPfit/SuperIso rate, a seven-input correlated
+block and 69 nuisance/scale computations are archived and tested.
+The historical Type-II confidence control gave 473.1 GeV vs published
+480 GeV. Wilson-dependent nonlocal/resolved-photon covariance,
+charm-scale physical variation and omitted-effect materiality remain
+unqualified. **STOP solo B-code work now**. Use
+`research/full_constraints/bsgamma_hepfit/specialist_question.md`
+to obtain outside theory guidance if/when user authorizes.
+No more rate reimplementation or ungrounded `theory_sigma`.
+B `B_FULL_RATE_BLOCKED`; no physical exclusions.
 
-Other tracks: Higgs `HIGGS_FULL_COVERAGE_BLOCKED`, but original
-D7/F13 SusHi ggF/bbH and HDECAY partial-width checks are validated.
-LFV `LFV_FULL_COVERAGE_BLOCKED` with incomplete gauge and
-four-lepton matching. All reports/sources are retained read-only.
+**Focus Higgs:** native source-validated SusHi 1.7.0 LO 13-TeV
+H/A ggF/bbH production is available for ORIGINAL D7/F13 cards,
+including tested PDF/scale response. HDECAY 6.60 partial widths and
+native Zee charged-W/general-lepton additions are incomplete but
+reusable. Execute fixed-card F13 HDECAY transfer and independently
+validate model-matched H/A→γγ and all relevant competing widths.
+Attempt at least one genuinely applicable HiggsBounds observed
+search only with complete BR, production/acceptance assumptions
+and justified uncertainty. Missing contributions remain
+`MISSING_PREDICTION`, not zero. A scoped result does not imply
+globally allowed physics or full Higgs coverage. Full-loop
+SPheno is **UNAVAILABLE**.
 
-Protected parent `feature/zee-d14-conditional-cascade-scan`
-at `133a340`, Modules0–13 and earlier D14 production/scans
-remain immutable. Do not generate new Zee parameter points,
-run a parameter scan, submit Condor, launch MG5 production or
-claim global Zee acceptance. Only existing exact saved cards
-and published reference limit controls may be evaluated.
-Commit/push only source-verified work in this research branch.
-Communicate in English.
+LFV remains `LFV_FULL_COVERAGE_BLOCKED` pending substantive
+gauge-invariant theory work.
+
+Never edit frozen Modules0–13 or the final scan branch
+`feature/zee-d14-conditional-cascade-scan` at `133a340`.
+No new scalar points or pilot/large scans, no Condor, no broad
+MadGraph production, no global pass or final-scan launch.
+Only source-pinned exact D7/F13 and original D14 saved cards
+for bounded independent validation. Work on
+`research/zee-full-constraints`; commit/push real evidence.
+All reports and communications in English.
 
 ## Mandatory physics safeguards
 
