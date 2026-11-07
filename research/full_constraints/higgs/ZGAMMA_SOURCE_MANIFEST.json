@@ -14,7 +14,7 @@
     },
     "probe_executable_sha256": "15052642734406b014064a202bf6d62c761b96ec967da173c0fc31db2ecd1f00",
     "runtime_library_fix": "/tmp/zee-zgamma-native/libgsl.so.25 symlink to existing real libgsl.so.25.1.0; LD_LIBRARY_PATH used only for probe; no package installation",
-    "runtime_log": "native_receipt in ZGAMMA_SOURCE_EVIDENCE contains raw PV stdout; FF log retained as ZGAMMA_LOOPTOOLS_LOG.txt",
+    "runtime_log": "Raw FF log retained byte-for-byte as ZGAMMA_LOOPTOOLS_LOG.txt.gz; runtime_log_sha256 is the uncompressed digest; raw PV stdout is in ZGAMMA_SOURCE_EVIDENCE.json",
     "runtime_log_sha256": "a09362d81b5fc69ad07b72ffb20fd219cf16b2fbc415584c6f7ba0e1437fb6b0"
   },
   "numpy": "2.2.6",

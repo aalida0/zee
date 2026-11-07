@@ -1109,7 +1109,7 @@
     "research/full_constraints/HIGGS_VALIDATION.json": "5fa4fecad784cc88b5da59449e554d152a809a54c2f395035647a3d2a727f291",
     "research/full_constraints/higgs/NEUTRAL_WIDTH_EVIDENCE.json": "a2bf2722c699f6cb6926a65d1b2752d8b4ee18a921ef0e0cd11563c1a93e6b41",
     "research/full_constraints/higgs/SOURCE_MANIFEST.json": "3b3d4049c5f466d156ae3f74a5440bb376ec18c064b590cd918ad73463d5252f",
-    "research/full_constraints/higgs/ZGAMMA_SOURCE_MANIFEST.json": "e6775f708f2bd84c7868e8219a689056f3490d3063eac5fb97327e77f26b5320",
+    "research/full_constraints/higgs/ZGAMMA_SOURCE_MANIFEST.json": "af6df230f6efa38d51ba9cfea9849293453a57f0ef02f354ffd3c0315dfb5c96",
     "research/full_constraints/higgs/build_zgamma_probe.sh": "6a2d1a38982af63f15ba0533e3036373f0cf137f4cfae31e378d4e3a096aaf8f",
     "research/full_constraints/higgs/test_zgamma_source_audit.py": "ad337c65d08e45c8f8a2e7bd2dd1f2d4a7cb9aad5bd9a3a8a753518f641babf7",
     "research/full_constraints/higgs/zgamma_pv_probe.cpp": "f3322eddb7e7c8caa80192461d72b1c400b67f9a3a1952ad976d23c27745b09e",

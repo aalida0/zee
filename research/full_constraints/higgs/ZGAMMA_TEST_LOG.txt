@@ -12,6 +12,6 @@ test_species_order_rephasing_and_nonzero_mixed_terms (research.full_constraints.
 test_threshold_and_missing_prediction_fail_closed (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
 
 ----------------------------------------------------------------------
-Ran 12 tests in 0.330s
+Ran 12 tests in 0.327s
 
 OK
