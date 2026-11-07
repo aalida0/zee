@@ -1,0 +1,25 @@
+test_chiral_vector_sum_and_native_yukawa_conjugation (research.full_constraints.higgs.test_zgamma.ZgammaTests) ... ok
+test_independently_executed_SM_and_one_scalar_interference (research.full_constraints.higgs.test_zgamma.ZgammaTests) ... ok
+test_native_absorptive_fermion_and_CP_tensors (research.full_constraints.higgs.test_zgamma.ZgammaTests) ... ok
+test_scalar_routing_and_quadrature_preserved (research.full_constraints.higgs.test_zgamma.ZgammaTests) ... ok
+test_signed_interference_is_material (research.full_constraints.higgs.test_zgamma.ZgammaTests) ... ok
+test_sources_and_fixed_cards (research.full_constraints.higgs.test_zgamma.ZgammaTests) ... ok
+test_strict_domains_and_no_global_release (research.full_constraints.higgs.test_zgamma.ZgammaTests) ... ok
+test_unpolarized_CP_noninterference_and_width_prefactor (research.full_constraints.higgs.test_zgamma.ZgammaTests) ... ok
+test_UV_and_scale_cancellation (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_Ward_including_seagull_distinguishes_routings (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_degenerate_mass_basis_trace_and_mixing_endpoints (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_independent_adaptive_integral_and_equal_mass_I1 (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_literal_mixed_mismatch_survives_quadrature_refinement (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_native_library_matches_parameter_integrals (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_nonidentical_two_body_width_normalization (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_original_signed_couplings_and_native_library_pins (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_pinned_sources_and_original_cards (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_retained_materiality_replay_is_not_a_physical_BR (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_species_order_rephasing_and_nonzero_mixed_terms (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_threshold_and_missing_prediction_fail_closed (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.367s
+
+OK

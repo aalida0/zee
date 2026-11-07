@@ -1,5 +1,14 @@
 # Higgs coverage gate — 2026-11-07
 
+**h125 Zγ update:** the [complete leading one-loop h125 calculation](HIGGS_ZGAMMA_COMPLETE_H125.md)
+now passes independent matched-input SM and signed one-charged-scalar controls,
+including both mixed charged scalars and complex diagonal leptons. D7/F13
+ΓZγ=(6.338611988312, 6.408681594999)e−6 GeV and Γ/ΓSM=
+(0.978770448547, 0.989590176981). This supersedes the h125 Zγ missing-input
+statements in the historical inventory below, only at the declared leading
+order. H/A Zγ, total-width/likelihood qualification and all global blockers
+remain unchanged; no new exclusion or scan authorization follows.
+
 **HIGGS_FULL_COVERAGE_BLOCKED.** The complete leading one-loop
 h125→γγ amplitude is independently validated on the two original D12
 NO/low_joint witnesses, including W, all nine charged fermions and **both**
