@@ -42,3 +42,6 @@ All scanned outcomes must continue to use `global_acceptance=null` while any man
 - Frozen code: `module14/FINAL_PHYSICS_FREEZE.md`
 
 **Update this scorecard only when new independent source/numerical evidence passes the corresponding gate.** Do not automatically increment on a new file, passing unit test, source inventory, or package build. Prioritize a real physical observable over inflated percentage-complete indicators.
+
+
+Fixed-card uncertainty gate: [UNCERTAINTY_REPORT.md](bsgamma_hepfit/UNCERTAINTY_REPORT.md) records 69 new nuisance/scale executions, correlated partial errors and an unresolved Wilson-dependent theory budget. Historical table confidence root 473.1 GeV does not exactly reproduce 480 GeV. Specialist input required; B_FULL_RATE_BLOCKED, physical_bsgamma=UNKNOWN, exclusion=null, theory_sigma=null. Milestones unchanged.

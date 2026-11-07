@@ -64,3 +64,6 @@ LFV reports, the Higgs stage and original numerical evidence remain unchanged.
 Original conditional diagnostics, Modules0–13, D14 collections and receipts,
 and the frozen conditional branch remain unchanged. No final merge or scan
 is supported or authorized by this milestone.
+
+
+Fixed-card uncertainty gate: [UNCERTAINTY_REPORT.md](bsgamma_hepfit/UNCERTAINTY_REPORT.md) records 69 new nuisance/scale executions, correlated partial errors and an unresolved Wilson-dependent theory budget. Historical table confidence root 473.1 GeV does not exactly reproduce 480 GeV. Specialist input required; B_FULL_RATE_BLOCKED, physical_bsgamma=UNKNOWN, exclusion=null, theory_sigma=null. Milestones unchanged.

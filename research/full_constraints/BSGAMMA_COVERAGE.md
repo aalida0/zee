@@ -87,3 +87,6 @@ are real source features; neither is assigned to the repaired two-state NLO
 prediction without validation. The 2026 linear formula omits quadratic terms
 and supplies no certified finite Zee remainder domain. Complete uncertainty
 coverage is therefore unresolved even though nonlinear kernels are available.
+
+
+Fixed-card uncertainty gate: [UNCERTAINTY_REPORT.md](bsgamma_hepfit/UNCERTAINTY_REPORT.md) records 69 new nuisance/scale executions, correlated partial errors and an unresolved Wilson-dependent theory budget. Historical table confidence root 473.1 GeV does not exactly reproduce 480 GeV. Specialist input required; B_FULL_RATE_BLOCKED, physical_bsgamma=UNKNOWN, exclusion=null, theory_sigma=null. Milestones unchanged.

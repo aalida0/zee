@@ -1,0 +1,35 @@
+{
+  "status": "B_FULL_RATE_BLOCKED",
+  "physical_bsgamma": "UNKNOWN",
+  "theory_sigma": null,
+  "exclusion": null,
+  "seven_input_fit": {
+    "status": "PROPAGATED_LINEARIZED_CORRELATED",
+    "source": "Pinned Configurations/Temporary/Bsgamma/Bsgamma_input.conf; Gambino_fit_pars",
+    "partial_sigma": {
+      "SM": 6.252601392644749e-06,
+      "d7_NO_neutral_near_heavy_07": 7.483555832786016e-06,
+      "d7_NO_neutral_near_heavy_07_delta": 1.2549548851632688e-06,
+      "F13_heavy_0001330": 6.868699397001041e-06,
+      "F13_heavy_0001330_delta": 6.268940069771565e-07
+    }
+  },
+  "scales": {
+    "status": "SIGNED_ENDPOINT_RESPONSES_ONLY",
+    "source": "1503.01789v2 Sec II",
+    "charm_warning": "Mcatmuc held fixed; explicit muc only enters NNLO Kij_2. Zero response is NOT a complete charm-scheme variation."
+  },
+  "resolved_photons": {
+    "status": "WILSON_DEPENDENT_JOINT_UNCERTAINTY_UNESTABLISHED",
+    "source": "1003.5012v2 Eqs 103-104; HEPfit N_27/N_77/N",
+    "BLNP_width": 0.05
+  },
+  "missing_operators": {
+    "status": "MATERIALITY_NOT_BOUNDED",
+    "source": "BSGAMMA_COVERAGE.md"
+  },
+  "one_state": {
+    "status": "REFERENCE_APPROXIMATION_DISAGREES",
+    "source": "ONE_STATE_CONFIDENCE.json"
+  }
+}

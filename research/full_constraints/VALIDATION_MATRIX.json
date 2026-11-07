@@ -12,7 +12,7 @@
     "matched_independent_physical_rate": "NOT_ESTABLISHED",
     "complete_operator_materiality_bounds": "NOT_ESTABLISHED",
     "NP_uncertainty_and_covariance": "NOT_ESTABLISHED",
-    "published_one_state_confidence_bound": "NOT_EVALUATED",
+    "published_one_state_confidence_bound": "ATTEMPTED_473_1_VS_480_NOT_REPRODUCED",
     "physical_bsgamma": "UNKNOWN",
     "exclusion": null,
     "theory_sigma": null,
@@ -24,7 +24,11 @@
     "HEPfit_implementation_tests": "18_PASS_ZERO_SKIPS",
     "HEPfit_uncertainty": "UNCERTAINTY_CALIBRATION_BLOCKED",
     "HEPfit_evidence": "bsgamma_hepfit/execution/HEPFIT_EXECUTION.json",
-    "HEPfit_report": "bsgamma_hepfit/HEPFIT_RATE_REPORT.md"
+    "HEPfit_report": "bsgamma_hepfit/HEPFIT_RATE_REPORT.md",
+    "HEPfit_uncertainty_runs": 69,
+    "HEPfit_correlated_partial_inputs": "PROPAGATED_SEVEN_INPUT_BLOCK_ONLY",
+    "uncertainty_report": "bsgamma_hepfit/UNCERTAINTY_REPORT.md",
+    "specialist_input": "REQUIRED_WILSON_DEPENDENT_NONLOCAL_COVARIANCE_AND_REMAINDER"
   },
   "LFV": {
     "status": "LFV_FULL_COVERAGE_BLOCKED",

@@ -181,3 +181,6 @@ in a separately reviewed manifest, and supply the pinned prior checkout.
 No third-party sources, binaries or runtime environment are vendored.
 The archived report records this audit's successful complete verification;
 local hints are convenience paths, not source authority.
+
+
+Fixed-card uncertainty gate: [UNCERTAINTY_REPORT.md](bsgamma_hepfit/UNCERTAINTY_REPORT.md) records 69 new nuisance/scale executions, correlated partial errors and an unresolved Wilson-dependent theory budget. Historical table confidence root 473.1 GeV does not exactly reproduce 480 GeV. Specialist input required; B_FULL_RATE_BLOCKED, physical_bsgamma=UNKNOWN, exclusion=null, theory_sigma=null. Milestones unchanged.

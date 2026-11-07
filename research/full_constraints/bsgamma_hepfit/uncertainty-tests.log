@@ -1,0 +1,28 @@
+test_coherence_is_not_weighted_rate_average (test_execution.EvidenceTests) ... ok
+test_constructor_initialization (test_execution.EvidenceTests) ... ok
+test_duplicate_SM_falsifier (test_execution.EvidenceTests) ... ok
+test_extra_alpha_s_falsifier (test_execution.EvidenceTests) ... ok
+test_independent_heldout_bilinear_cross_term (test_execution.EvidenceTests) ... ok
+test_missing_operator_order_falsifier (test_execution.EvidenceTests) ... ok
+test_missing_uncertainty_cannot_promote (test_execution.EvidenceTests) ... ok
+test_original_cards_and_SuperIso_receipts_reproduced (test_execution.EvidenceTests) ... ok
+test_published_table_interpolation_is_not_NLO_rate_matching (test_execution.EvidenceTests) ... ok
+test_receipt_authentication_and_full_order_vectors (test_execution.EvidenceTests) ... ok
+test_scale_controls_recompute_running_top (test_execution.EvidenceTests) ... ok
+test_signed_C4_C7_C8_response (test_execution.EvidenceTests) ... ok
+test_source_decomposition_closes_without_intercept_fit (test_execution.EvidenceTests) ... ok
+test_source_digest_falsifier (test_execution.EvidenceTests) ... ok
+test_source_native_matching_independent_BMU_and_endpoints (test_execution.EvidenceTests) ... ok
+test_unpatched_constructor_is_rejected_by_witness (test_execution.EvidenceTests) ... ok
+test_wrong_C4_finite_map_falsifier (test_execution.EvidenceTests) ... ok
+test_wrong_cut_falsifier (test_execution.EvidenceTests) ... ok
+test_correlated_covariance (test_uncertainty.UncertaintyEvidence) ... ok
+test_no_promotion (test_uncertainty.UncertaintyEvidence) ... ok
+test_receipts (test_uncertainty.UncertaintyEvidence) ... ok
+test_subtraction_and_preserved_central (test_uncertainty.UncertaintyEvidence) ... ok
+test_table_confidence_mismatch_retained (test_uncertainty.UncertaintyEvidence) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.167s
+
+OK

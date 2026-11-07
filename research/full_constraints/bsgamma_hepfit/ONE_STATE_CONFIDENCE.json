@@ -1,0 +1,14 @@
+{
+  "source": "1503.01789v2 Eq(1),(11); 1702.04571v1 Sec5 identifies historical one-sided prescription",
+  "prescription": "Gaussian confidence belt lower edge theory-z95*sqrt(exp_variance+(0.07*theory)^2); table only",
+  "measurement": 0.000343,
+  "experimental_sigma": 2.2135943621178656e-05,
+  "z95": 1.6448536269514715,
+  "tanbeta": 100.0,
+  "mass_root_GeV": 473.1082454034481,
+  "published_rounded_bound_GeV": 480,
+  "BR_at_480": 0.0004006662484397775,
+  "pull_at_480": 1.613956850456592,
+  "table_sha256": "4ab62f2e4ab2897232e284060aa14349f54a47b9e47f70c883a8b11e4749a6f8",
+  "Zee_transfer": false
+}
