@@ -19,96 +19,82 @@ Do **not** call an unimplemented published expression nonexistent; do not call
 a restricted formula complete general Zee physics. Citation-search indexing is
 not exhaustive; report limitations. Always preserve original frozen modules.
 
-## CURRENT TASK — decisive LFV texture materiality for a simple paper
+## CURRENT TASK — scoped paper constraints and matched-energy collider pilot
 
-**User direction:** continue actual physics using justified published
-approximations, with no more endless generalized two-loop projects.
-READ `research/full_constraints/LFV_TEXTURE_FEASIBILITY_GATE_2026-11-07.md`
-FIRST and `research/full_constraints/LFV_PUBLIC_CODE_REUSE_AUDIT_2026-11-07.md`,
-then the original D12 study
-`module12/D12_FLAVOR_COLLIDER_AUDIT.md` and
-`research/full_constraints/LFV_COVERAGE.md`.
+**User approved this next bounded milestone:** turn our Zee Type-II
+H2±→H1±Z paper into a clear **applied-subset** methodology,
+assess **actual** source-bound 14 TeV raw pre-detector yields,
+and test a small same-energy signal/background trilepton pilot
+only where relevant existing samples are available.
 
-**Major existing source-backed result:**
-D12 has already produced 112 neutrino-family designs and 24 actual
-coefficient perturbations (136 full inversions) at original D7/F13
-NO/IO spectra. Targeted direct-eμ texture cancellation gives
-F13 NO and IO **partial** BR(μ→eγ)=4.031e-20 and 1.338e-19,
-respectively, while BR(H2→H1 Z)≈0.485 and BR(H1→tb)≈0.9976.
-These are *not complete LFV rates*, but show the standard F13
-central diagnostic excess is not a model-level impossibility.
+**READ FIRST**
+`research/full_constraints/PAPER1_CONSTRAINT_AND_COLLIDER_FEASIBILITY_2026-11-07.md`,
+then `research/full_constraints/COLLIDER_FEASIBILITY_NEXT_TASK.md`.
+Consult original `PAPER1_FEASIBILITY_REVIEW.md`,
+`module14/conditional_scan/PRODUCTION_MAP_REPORT.md`
+and B/LFV/Higgs coverage reports. Do not restart the
+FormCalc/SARAH/FlexibleSUSY investigation or full two-loop
+calculations.
 
-The saved central complex Wilson coefficients calibrate the
-MEG II 90% CL limit at `||C_lim||=1.36778582408e−12 GeV−2`.
-On all four saved low_joint texture witnesses, **if**
-the total as-yet-omitted complex dipole vector has norm
-`||ΔC_missing|| < 1.364e−12 GeV−2`,
-then the limit is satisfied for these witnesses by the triangle
-inequality. This is a **sufficient conditional target, not
-a physics estimate/bound on ΔC_missing**. See
-`lfv/TEXTURE_MATERIALITY_DIAGNOSTIC.json`.
-F13 `texture_0.001` ±1% saved variants remain below the
-measured bound in the retained subset; D7 `texture_0.0001`
-nominal low_joint variants are not robust to ±1% in the
-tested homogeneous direction, but D7 `texture_0.001` is.
+**Source-backed starting observations:**
+- 16 native 13 TeV LO 5FS charge-summed H2 associated
+  integrations on *tree-vacuum-certified* historical points;
+  3 separate 14 TeV integrations (IDs 15591,2264,15673).
+- 14 TeV at 3000 fb^-1, including stored BR(H1→tb),
+  Z→ee/mumu and exactly one direct W→e/mu with the
+  other W→hadrons, gives **raw 3l counts** 306.83–306.92,
+  149.10–149.13, 96.44–96.59 **before acceptance**.
+  See `collider/RAW_14TEV_PREDICTION.json`.
+- Reproduce with `python3 research/full_constraints/collider/raw_decay_budget.py`
+  and `python3 -m unittest discover -s research/full_constraints/collider -p 'test_*.py' -v`.
+  The code and raw JSON have been source-calculated but
+  the end-to-end Python command must be run on the repo
+  checkout. Report any execution error, do not claim tests
+  that were not actually run.
 
-**NEXT BOUNDED EXECUTION — do actual physics work, not another
-preparatory paper search/toolchain audit.**
-1. Run and independently check
-`python3 research/full_constraints/lfv/texture_materiality_gate.py`
-on existing D12 full-precision JSON; compare the reported budget
-and source source-hashes with the rounded committed table.
-If the script has an error, fix it in this research branch,
-never change the original D12 source.
-2. Investigate the **actual** potentially leading omitted
-`μ→eγ` amplitudes only on the original F13 NO/IO low_joint
-and D7 low_joint cards. Rank the missing non-overlapping
-2HDM `Zγ/Wγ/kinetic` and Zee mixed-F charged-current
-sectors using the *source-validated* post-2026-erratum
-2HDM code, published Zee limits, stored Yukawa tensors,
-and genuine chiral/loop-mass power counting. Preserve
-both complex chiralities. Reuse existing Module3/4 code,
-do not double-count neutral-fermion/photon or
-charged-scalar/photon terms. A **quantitatively justified
-combined-norm bound** and its derivation are the goal.
-If such a bound cannot be established without
-a multi-week general calculation, stop and label
-physical LFV UNKNOWN: do not infer it from
-small partial rates, Yukawa textures, or loop factors alone.
-3. If a sound `μ→eγ` approximation is obtained, test
-complete leading `μ→3e` operator interference at
-same F13 low textures using native generated
-SARAH/FlavorKit and independent flavio EFT rates;
-separate diagnostic tree and full result.
-4. Produce `research/full_constraints/LFV_TEXTURE_MATERIALITY_RESULT.md`
-with source/version/formula, per-topology numeric evidence,
-the ±1% perturbation caveat, exclusion/UNKNOWN and
-B/Higgs/vacuum caveats. Goal is a modest neutrino+LFV-
-informed charged-cascade paper, not sophisticated precision.
-No new point, full parameter scan, Condor, MG5 or additional
-unrestricted custom loop project. No formula absent claims
-without looking at original full text and cited work.
+**Physics scope:** Scalar BFB/unitarity/EWPO/one-loop
+neutrino closure plus a **sufficient positive tree-vacuum
+certificate** are explicitly applied within stated order.
+B→Xsγ theory uncertainty, LFV mixed-F/gauge loops,
+μ→3e non-dipole interference, μ→e conversion and
+Higgs full rates remain **UNKNOWN**. Display their
+limited predictions as `DIAGNOSTIC_ONLY`, with explicit
+experimental reference scales, *never* as full
+model-pass/exclusion or assumed zero. `global_acceptance=null`
+and **no new parameter-space scan**.
 
-**Environment decision:** SARAH/FeynArts/FormCalc combined kernel
-is blocked, despite fixed scratch `ReadForm`; FlexibleSUSY
-is an OPTIONAL independent check, not a precondition.
-STOP debugging/reinstalling that toolchain for now;
-use current validated SARAH/FlavorKit pieces and
-public code/analytical results.
+**Collider scope:** Most promising pilot 3 e/μ with
+OSSF Z and top semileptonic/hadronic system; in 5FS,
+after H1→tb and both tops→Wb, **three** decay-origin
+b quarks (no hard spectator b) before shower. Require
+genuine same-energy signal/background. User has
+historical 13.6 TeV ATLAS HepMC backgrounds but their
+process/weights/availability for this Zee channel are
+NOT CONFIRMED. Inventory first. If suitable, stage a
+single 13.6 TeV pilot on old exact certified IDs
+15591 and 2264 (at most 2000 signal events per card),
+with cross section and decay/selection source hashes.
+Use existing backgrounds only when same energy and
+no overlap. No Condor/heavy production. If missing
+background, stop at yield-only feasibility.
+**Never** combine 14 TeV signal with 13.6 TeV
+backgrounds, or use published 2021 tb search limits
+on a different final state. Real CLs requires signal
+acceptance, background MC and systematic model.
 
-**Scientific release:** all previous `B→Xsγ` theory
-uncertainties, Higgs signal strengths and quantum vacuum
-limitations remain. `physical_lfv=UNKNOWN` and
-`global_acceptance=null` until independently validated
-per-observable full amplitudes/physical exclusions.
-D12 targeted family isn't statistically representative or
-a global-flavor-allowed population.
+**Deliverables:** source-bound scoped constraint-contract
+JSON plus `research/full_constraints/COLLIDER_FEASIBILITY_PILOT_REPORT.md`
+with real pilot cutflow/plots if executed, or an explicit
+input blocker, and go/no-go for a larger detector study.
+User has NOT authorized the eventual **one final
+parameter-space scan**.
 
-Research branch `research/zee-full-constraints` only.
-Frozen Modules0–13 / old D14 pipeline/scanners/read-only
-data and `feature/zee-d14-conditional-cascade-scan` at
-`133a340` remain protected.
-Commit and push the verified report/code on this branch.
+Frozen Modules0–13, historical D14 inputs/receipts,
+the feature scan branch `feature/zee-d14-conditional-cascade-scan`
+at `133a340`, and older B/Higgs/LFV baseline
+data are read-only. All output to new research files
+and ignored scratch. Record actual test result, diff
+and commit/push on `research/zee-full-constraints`.
 
 ## Mandatory physics safeguards
 
@@ -143,9 +129,10 @@ Commit and push the verified report/code on this branch.
 
 ## Current deliverable
 
-`research/full_constraints/LFV_TEXTURE_MATERIALITY_RESULT.md`,
-with the precise source-matched missing-amplitude bound
-(or a documented reason it cannot be justified at
-phenomenology accuracy), before any future scan. Cite
-`LFV_TEXTURE_FEASIBILITY_GATE_2026-11-07.md`
-and never mislabel missing terms as zero.
+`research/full_constraints/PAPER1_CONSTRAINT_CONTRACT.json`
+and `research/full_constraints/COLLIDER_FEASIBILITY_PILOT_REPORT.md`
+with source-bound background availability and matched-energy
+signal/acceptance or explicit NULL, following
+`COLLIDER_FEASIBILITY_NEXT_TASK.md`.
+No unsupported HL-LHC reach/physical exclusion and
+no scan authorization.
