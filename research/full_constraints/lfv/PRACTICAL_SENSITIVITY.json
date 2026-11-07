@@ -1,0 +1,198 @@
+{
+  "description": "Distances in coherent amplitude norm, not bounds on omitted physics; mu3e norm is phase-space integrated.",
+  "cards": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/scale_0.001",
+      "witness_sha256": "1405271f3b38ca25cd8fc088aea06deac3c4941e58707bfa4f0a326945e6b04f",
+      "mu_dipole_coefficients_GeV_minus2": {
+        "C_L": {
+          "real": -2.715995462464355e-14,
+          "imag": -4.128766089235618e-14
+        },
+        "C_R": {
+          "real": 2.7948101068055274e-11,
+          "imag": 3.080840169148791e-11
+        }
+      },
+      "results": {
+        "mu_to_e_gamma": {
+          "partial_BR": 1.3872844851464588e-10,
+          "observed_limit": 1.5e-13,
+          "partial_over_limit": 924.8563234309726,
+          "minimum_missing_norm_over_partial": 0.9671176486973677,
+          "status": "UNKNOWN",
+          "exclusion": null
+        },
+        "tau_to_e_gamma": {
+          "partial_BR": 1.1017972997691403e-16,
+          "observed_limit": 5.6e-08,
+          "partial_over_limit": 1.967495178159179e-09,
+          "minimum_missing_norm_over_partial": 22543.632572189006,
+          "status": "UNKNOWN",
+          "exclusion": null
+        },
+        "tau_to_mu_gamma": {
+          "partial_BR": 1.5116706894548248e-13,
+          "observed_limit": 4.2e-08,
+          "partial_over_limit": 3.5992159272733926e-06,
+          "minimum_missing_norm_over_partial": 526.1036808789,
+          "status": "UNKNOWN",
+          "exclusion": null
+        },
+        "mu_to_3e": {
+          "partial_BR": 8.500455783765099e-13,
+          "observed_limit": 1e-12,
+          "partial_over_limit": 0.85004557837651,
+          "minimum_missing_norm_over_partial": 0.08462320985660621,
+          "status": "UNKNOWN",
+          "exclusion": null
+        }
+      }
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/scale_0.001",
+      "witness_sha256": "fc06a40f48731ed97d115b7b681d4084661791fa4a1c257248fa195f21ba9509",
+      "mu_dipole_coefficients_GeV_minus2": {
+        "C_L": {
+          "real": -2.238097434382581e-13,
+          "imag": -3.410001473871113e-14
+        },
+        "C_R": {
+          "real": -2.9555556935390984e-11,
+          "imag": 5.619279503475403e-11
+        }
+      },
+      "results": {
+        "mu_to_e_gamma": {
+          "partial_BR": 3.2321443246469325e-10,
+          "observed_limit": 1.5e-13,
+          "partial_over_limit": 2154.762883097955,
+          "minimum_missing_norm_over_partial": 0.9784572938775545,
+          "status": "UNKNOWN",
+          "exclusion": null
+        },
+        "tau_to_e_gamma": {
+          "partial_BR": 1.908541201625448e-15,
+          "observed_limit": 5.6e-08,
+          "partial_over_limit": 3.408109288616872e-08,
+          "minimum_missing_norm_over_partial": 5415.805522160865,
+          "status": "UNKNOWN",
+          "exclusion": null
+        },
+        "tau_to_mu_gamma": {
+          "partial_BR": 1.7345490224308416e-13,
+          "observed_limit": 4.2e-08,
+          "partial_over_limit": 4.1298786248353376e-06,
+          "minimum_missing_norm_over_partial": 491.075062071528,
+          "status": "UNKNOWN",
+          "exclusion": null
+        },
+        "mu_to_3e": {
+          "partial_BR": 1.9804661706072494e-12,
+          "observed_limit": 1e-12,
+          "partial_over_limit": 1.9804661706072495,
+          "minimum_missing_norm_over_partial": 0.28941459056627983,
+          "status": "UNKNOWN",
+          "exclusion": null
+        }
+      }
+    },
+    {
+      "id": "F13_heavy_0001330/NO/scale_0.001",
+      "witness_sha256": "603314b8ae8209b1cdeb11c2137a6773ab0364735bff5020916dda83c4eebb32",
+      "mu_dipole_coefficients_GeV_minus2": {
+        "C_L": {
+          "real": -3.0797002325420805e-15,
+          "imag": -4.68173865480011e-15
+        },
+        "C_R": {
+          "real": 3.1703351527580613e-12,
+          "imag": 3.4948599932964895e-12
+        }
+      },
+      "results": {
+        "mu_to_e_gamma": {
+          "partial_BR": 1.7851707659350024e-12,
+          "observed_limit": 1.5e-13,
+          "partial_over_limit": 11.901138439566683,
+          "minimum_missing_norm_over_partial": 0.7101283474454703,
+          "status": "UNKNOWN",
+          "exclusion": null
+        },
+        "tau_to_e_gamma": {
+          "partial_BR": 1.3128809141501422e-18,
+          "observed_limit": 5.6e-08,
+          "partial_over_limit": 2.3444302038395398e-11,
+          "minimum_missing_norm_over_partial": 206528.14449621085,
+          "status": "UNKNOWN",
+          "exclusion": null
+        },
+        "tau_to_mu_gamma": {
+          "partial_BR": 1.870235796708056e-15,
+          "observed_limit": 4.2e-08,
+          "partial_over_limit": 4.452942373114419e-08,
+          "minimum_missing_norm_over_partial": 4737.88819622188,
+          "status": "UNKNOWN",
+          "exclusion": null
+        },
+        "mu_to_3e": {
+          "partial_BR": 1.0938466713046628e-14,
+          "observed_limit": 1e-12,
+          "partial_over_limit": 0.010938466713046628,
+          "minimum_missing_norm_over_partial": 8.561406340639786,
+          "status": "UNKNOWN",
+          "exclusion": null
+        }
+      }
+    },
+    {
+      "id": "F13_heavy_0001330/IO/scale_0.001",
+      "witness_sha256": "daa3dc285f89663632f28ea44281f0121ae16df790ac179f10012b4da68f1aa2",
+      "mu_dipole_coefficients_GeV_minus2": {
+        "C_L": {
+          "real": -2.5384891492323662e-14,
+          "imag": -3.865084707501035e-15
+        },
+        "C_R": {
+          "real": -3.3521254018710017e-12,
+          "imag": 6.374474972537306e-12
+        }
+      },
+      "results": {
+        "mu_to_e_gamma": {
+          "partial_BR": 4.158938417255523e-12,
+          "observed_limit": 1.5e-13,
+          "partial_over_limit": 27.72625611503682,
+          "minimum_missing_norm_over_partial": 0.8100871353684836,
+          "status": "UNKNOWN",
+          "exclusion": null
+        },
+        "tau_to_e_gamma": {
+          "partial_BR": 2.3376608178540376e-17,
+          "observed_limit": 5.6e-08,
+          "partial_over_limit": 4.174394317596496e-10,
+          "minimum_missing_norm_over_partial": 48943.42882498045,
+          "status": "UNKNOWN",
+          "exclusion": null
+        },
+        "tau_to_mu_gamma": {
+          "partial_BR": 2.1459164588890517e-15,
+          "observed_limit": 4.2e-08,
+          "partial_over_limit": 5.10932490211679e-08,
+          "minimum_missing_norm_over_partial": 4423.03179794343,
+          "status": "UNKNOWN",
+          "exclusion": null
+        },
+        "mu_to_3e": {
+          "partial_BR": 2.5483505727774564e-14,
+          "observed_limit": 1e-12,
+          "partial_over_limit": 0.025483505727774563,
+          "minimum_missing_norm_over_partial": 5.264269210371504,
+          "status": "UNKNOWN",
+          "exclusion": null
+        }
+      }
+    }
+  ],
+  "global_acceptance": null
+}
