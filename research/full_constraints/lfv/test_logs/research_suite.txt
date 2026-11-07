@@ -1,0 +1,10 @@
+test_missing_and_changed_sources_are_errors (research.full_constraints.lfv.test_validate.LFVSourceAndRateTests) ... ok
+test_pinned_unmodified_native_rate_and_original_cards (research.full_constraints.lfv.test_validate.LFVSourceAndRateTests) ... ok
+test_research_branch_and_frozen_source_identity (research.full_constraints.lfv.test_validate.LFVSourceAndRateTests) ... ok
+test_saved_receipt_preserves_physics_blocks_and_source_identity (research.full_constraints.lfv.test_validate.LFVSourceAndRateTests) ... ok
+test_trace_quadrature_and_interference_are_independent_of_polynomial (research.full_constraints.lfv.test_validate.LFVSourceAndRateTests) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 2.868s
+
+OK

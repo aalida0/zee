@@ -1,0 +1,466 @@
+{
+  "schema": "zee-lfv-source-lock-1",
+  "date": "2026-11-07",
+  "research_baseline": "51f5280e1e537c32bb90492a658f007c94a4dd1c",
+  "pilot_checkout_commit": "81cd376294e223c7311fba134f643db5c02bbad0",
+  "versions": {
+    "SARAH": "4.15.4",
+    "SPheno": "4.0.5",
+    "general_2hdm": "b5035cd58d2a7e4a91e9790d045df062b97adffe"
+  },
+  "artifacts": [
+    {
+      "id": "module4_amplitudes.py",
+      "path_hint": "module4/amplitudes.py",
+      "sha256": "ce800f3aeabc458a3fb8b43dbf194e0ea0b91343ae8fdc26e838e584068f9a12",
+      "role": "frozen implementation"
+    },
+    {
+      "id": "module4_charged_scalar.py",
+      "path_hint": "module4/charged_scalar.py",
+      "sha256": "514d265d88a7d7d3671266bdb087e45e04d9971f11d3c40d94e1acc840447471",
+      "role": "frozen implementation"
+    },
+    {
+      "id": "module4_interface.py",
+      "path_hint": "module4/interface.py",
+      "sha256": "f2c2e8d65a7a48c5281c622d82fb717d72c6e3aae1d9096229356d837cc04f74",
+      "role": "frozen implementation"
+    },
+    {
+      "id": "module4_MATCHING_AUDIT.md",
+      "path_hint": "module4/MATCHING_AUDIT.md",
+      "sha256": "afcdcb6a309766935702f4ebe123677baf6070e38ebf36a3d0ec2e36c1f57411",
+      "role": "frozen implementation"
+    },
+    {
+      "id": "module4_CHARGED_SCALAR_AUDIT.md",
+      "path_hint": "module4/CHARGED_SCALAR_AUDIT.md",
+      "sha256": "eca4ccede91f3b613b45a6e20fc199a64ef42d47e5f23c34288d10a955e627cb",
+      "role": "frozen implementation"
+    },
+    {
+      "id": "module3_core.py",
+      "path_hint": "module3/core.py",
+      "sha256": "5390e63af12a27c8e53823cc3625cd54851b10f5205d5ed2aab2ddd6767fd494",
+      "role": "frozen implementation"
+    },
+    {
+      "id": "module3_tree.py",
+      "path_hint": "module3/tree.py",
+      "sha256": "e0886ac383e32f16eeaa888c9c2c50e124460fc08243d37917156c19ff091bd5",
+      "role": "frozen implementation"
+    },
+    {
+      "id": "module3_CONVENTIONS.md",
+      "path_hint": "module3/CONVENTIONS.md",
+      "sha256": "1e7908cd9901aa3930738dbe9162ee31a0777cde3739cd55611e3c20a38dffe5",
+      "role": "frozen implementation"
+    },
+    {
+      "id": "module14/lfv.py",
+      "path_hint": "module14/lfv.py",
+      "sha256": "f526f8c57b440972dca30b6a29418f230ddcfa125c404972d19dbf3eb311cb42",
+      "role": "frozen input/evidence"
+    },
+    {
+      "id": "module14/physics_adapters/lfv_reference.py",
+      "path_hint": "module14/physics_adapters/lfv_reference.py",
+      "sha256": "61f8f50c5ca29e410489b848b75097db23ca8f2d13e1491bbb1a5378fe6a45df",
+      "role": "frozen input/evidence"
+    },
+    {
+      "id": "module14/physics_adapters/lfv_reference_evidence.json",
+      "path_hint": "module14/physics_adapters/lfv_reference_evidence.json",
+      "sha256": "0322620c915066060929c56d8ee0423039d4c42377324ffc986bb80f72921e08",
+      "role": "frozen input/evidence"
+    },
+    {
+      "id": "module14/physics_adapters/spheno_build_evidence.json",
+      "path_hint": "module14/physics_adapters/spheno_build_evidence.json",
+      "sha256": "d4407855bba1d437330ea03ea4fd7e3b2584ace0ad56df989bc3700c9acb6c95",
+      "role": "frozen input/evidence"
+    },
+    {
+      "id": "module14/physics_adapters/spheno_forensic_evidence.json",
+      "path_hint": "module14/physics_adapters/spheno_forensic_evidence.json",
+      "sha256": "c094ee860b661f0d47a10d3d2f8bbe36f2896db43dc0556b35088768ae1b08d7",
+      "role": "frozen input/evidence"
+    },
+    {
+      "id": "module14/public_source_lock.json",
+      "path_hint": "module14/public_source_lock.json",
+      "sha256": "f46886568f8a28734ce6ef6cf7766fdfa7043181c67196176f56513e14e76b75",
+      "role": "frozen input/evidence"
+    },
+    {
+      "id": "validation/module12/d12_benchmarks.json",
+      "path_hint": "validation/module12/d12_benchmarks.json",
+      "sha256": "f31ef3ccb64c3e4ff53131d35d52c21536b951a01e2c3924af766b7b2adf1cd8",
+      "role": "frozen input/evidence"
+    },
+    {
+      "id": "module3/example.json",
+      "path_hint": "module3/example.json",
+      "sha256": "6a55f774041a9d5e06bd6ea30a628bfcf5c840af0ddff30bce5f692a551c2915",
+      "role": "frozen input/evidence"
+    },
+    {
+      "id": "module4/example.json",
+      "path_hint": "module4/example.json",
+      "sha256": "355e37e028256390e7f25fd1b3a2ddc811c049bb447a207844738fec4fe6872c",
+      "role": "frozen input/evidence"
+    },
+    {
+      "id": "scripts/zee_d14_lfv_reference.py",
+      "path_hint": "scripts/zee_d14_lfv_reference.py",
+      "sha256": "a7ac4f32ee00d49f100d29fe2742f1d900af11f9bb61beb871b233223c1d26f4",
+      "role": "frozen input/evidence"
+    },
+    {
+      "id": "general_2hdm_thdm",
+      "path_hint": "/tmp/zee-public-source/general-2hdm-pheno-b5035cd58d2a7e4a91e9790d045df062b97adffe-b5035cd58d2a7e4a91e9790d045df062b97adffe/thdm.py",
+      "sha256": "9b4af7aa4bf7bf533a7b82c8c2603d118346424e3b7b5f9f06ab8cb41bc4e193",
+      "role": "corrected general 2HDM reference; not a Zee backend",
+      "url": "https://gitlab.com/jbrod/general-2hdm-pheno/-/blob/b5035cd58d2a7e4a91e9790d045df062b97adffe/thdm.py",
+      "commit": "b5035cd58d2a7e4a91e9790d045df062b97adffe"
+    },
+    {
+      "id": "general_2hdm_README.md",
+      "path_hint": "/tmp/zee-public-source/general-2hdm-pheno-b5035cd58d2a7e4a91e9790d045df062b97adffe-b5035cd58d2a7e4a91e9790d045df062b97adffe/README.md",
+      "sha256": "8a3c599c51a3981c54ea277a36b906a595eb3fe281e749007f6dd27c401365a4",
+      "role": "corrected general 2HDM reference; not a Zee backend",
+      "url": "https://gitlab.com/jbrod/general-2hdm-pheno/-/blob/b5035cd58d2a7e4a91e9790d045df062b97adffe/README.md",
+      "commit": "b5035cd58d2a7e4a91e9790d045df062b97adffe"
+    },
+    {
+      "id": "general_2hdm_example",
+      "path_hint": "/tmp/zee-public-source/general-2hdm-pheno-b5035cd58d2a7e4a91e9790d045df062b97adffe-b5035cd58d2a7e4a91e9790d045df062b97adffe/example.py",
+      "sha256": "669d70f831ff9535d7bfc2930e7983a5dc0565957daf5069076bc896dce0fb0f",
+      "role": "corrected general 2HDM reference; not a Zee backend",
+      "url": "https://gitlab.com/jbrod/general-2hdm-pheno/-/blob/b5035cd58d2a7e4a91e9790d045df062b97adffe/example.py",
+      "commit": "b5035cd58d2a7e4a91e9790d045df062b97adffe"
+    },
+    {
+      "id": "general_2hdm_LICENSE.txt",
+      "path_hint": "/tmp/zee-public-source/general-2hdm-pheno-b5035cd58d2a7e4a91e9790d045df062b97adffe-b5035cd58d2a7e4a91e9790d045df062b97adffe/LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0",
+      "role": "corrected general 2HDM reference; not a Zee backend",
+      "url": "https://gitlab.com/jbrod/general-2hdm-pheno/-/blob/b5035cd58d2a7e4a91e9790d045df062b97adffe/LICENSE.txt",
+      "commit": "b5035cd58d2a7e4a91e9790d045df062b97adffe"
+    },
+    {
+      "id": "flavorkit_Lto3Lp",
+      "path_hint": "/home/amine/.Mathematica/Applications/SARAH-4.15.4/FlavorKit/LFV/Observables/Lto3Lp.f90",
+      "sha256": "959ad0244b9d0803d5563959810a40cabf9fe1f8a6ee8b81fb885fa3b5594f08",
+      "role": "SARAH 4.15.4; source only; not redistributed",
+      "url": "https://sarah.hepforge.org/"
+    },
+    {
+      "id": "flavorkit_Lto3Lp_definition",
+      "path_hint": "/home/amine/.Mathematica/Applications/SARAH-4.15.4/FlavorKit/LFV/Observables/Lto3Lp.m",
+      "sha256": "88110dc81669e6c525fad43e5cfa12bacb3845777b62021564694a24d51f2dee",
+      "role": "SARAH 4.15.4; source only; not redistributed",
+      "url": "https://sarah.hepforge.org/"
+    },
+    {
+      "id": "flavorkit_LtoL1L2L2",
+      "path_hint": "/home/amine/.Mathematica/Applications/SARAH-4.15.4/FlavorKit/LFV/Observables/LtoL1L2L2.f90",
+      "sha256": "53f85988a0e7eb3a4539a5eab6db70429752ffe2e83b8b0732b1fdcbdc3701d3",
+      "role": "SARAH 4.15.4; source only; not redistributed",
+      "url": "https://sarah.hepforge.org/"
+    },
+    {
+      "id": "flavorkit_LtoL1L2L2_definition",
+      "path_hint": "/home/amine/.Mathematica/Applications/SARAH-4.15.4/FlavorKit/LFV/Observables/LtoL1L2L2.m",
+      "sha256": "e888b5f7c0a30abe244f7a405873c588f8b2e8aa1d8ef3cc02a5cd1f8b745c00",
+      "role": "SARAH 4.15.4; source only; not redistributed",
+      "url": "https://sarah.hepforge.org/"
+    },
+    {
+      "id": "flavorkit_MuEconversion",
+      "path_hint": "/home/amine/.Mathematica/Applications/SARAH-4.15.4/FlavorKit/LFV/Observables/MuEconversion.f90",
+      "sha256": "5f83849f7da81b4acf4f454881836b089acf1c9428d3f5e7a959d2a1ece9c584",
+      "role": "SARAH 4.15.4; source only; not redistributed",
+      "url": "https://sarah.hepforge.org/"
+    },
+    {
+      "id": "flavorkit_Photon_wrapper",
+      "path_hint": "/home/amine/.Mathematica/Applications/SARAH-4.15.4/FlavorKit/LFV/Operators/Photon_wrapper.m",
+      "sha256": "09a3c93de8fa2c8952f370f7fa2fbc36e5583af6fc021e2d6249509c6d5f94bb",
+      "role": "SARAH 4.15.4; source only; not redistributed",
+      "url": "https://sarah.hepforge.org/"
+    },
+    {
+      "id": "flavorkit_Gamma2l",
+      "path_hint": "/home/amine/.Mathematica/Applications/SARAH-4.15.4/FlavorKit/LFV/Operators/Gamma2l.m",
+      "sha256": "e03d364327be703c57d9b27c75a0a85dab2fcdb324d5014a59b648700da083a4",
+      "role": "SARAH 4.15.4; source only; not redistributed",
+      "url": "https://sarah.hepforge.org/"
+    },
+    {
+      "id": "flavorkit_4L_wrapper",
+      "path_hint": "/home/amine/.Mathematica/Applications/SARAH-4.15.4/FlavorKit/LFV/Operators/4L/4L_wrapper.m",
+      "sha256": "ef66d9774224b474b271da3ddec36ca606003db72e49db1b992a8a3cce858310",
+      "role": "SARAH 4.15.4; source only; not redistributed",
+      "url": "https://sarah.hepforge.org/"
+    },
+    {
+      "id": "flavorkit_4L_TreeS",
+      "path_hint": "/home/amine/.Mathematica/Applications/SARAH-4.15.4/FlavorKit/LFV/Operators/4L/4L_TreeS.m",
+      "sha256": "76d6d5ad71a206e029fc053c7e13e767860e4597acf820231090576d07258987",
+      "role": "SARAH 4.15.4; source only; not redistributed",
+      "url": "https://sarah.hepforge.org/"
+    },
+    {
+      "id": "generated_FlavorKit_LFV_ZeeTypeII",
+      "path_hint": "/home/amine/zee-conditional-cascade-scan/validation/module14/local/output/ZeeTypeII/EWSB/SPheno/Observables/FlavorKit_LFV_ZeeTypeII.f90",
+      "sha256": "2d30006d8d4759b2b7bfe76e2e4795bd2cf2f19ef5cb5772390ed3155b1bc41d",
+      "role": "saved corrected full-build source; no spectrum execution"
+    },
+    {
+      "id": "generated_LowEnergy_ZeeTypeII",
+      "path_hint": "/home/amine/zee-conditional-cascade-scan/validation/module14/local/output/ZeeTypeII/EWSB/SPheno/Observables/LowEnergy_ZeeTypeII.f90",
+      "sha256": "cf3552d25de21a6df0869d1fc013dded8efe26206195a08f84ab6ec251d63727",
+      "role": "saved corrected full-build source; no spectrum execution"
+    },
+    {
+      "id": "generated_Couplings_ZeeTypeII",
+      "path_hint": "/home/amine/zee-conditional-cascade-scan/validation/module14/local/output/ZeeTypeII/EWSB/SPheno/Couplings_ZeeTypeII.f90",
+      "sha256": "a0de851498f3e68e7421538098b3979381a3ecf5245021fce9d1c2df46a42e8c",
+      "role": "saved corrected full-build source; no spectrum execution"
+    },
+    {
+      "id": "pilot_CROSSING_BRIDGE",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/spheno_flavorkit/CROSSING_BRIDGE.md",
+      "sha256": "bb6161a2ab6ad88adba9b891f7f1c844aa8e1691baee47b13a8c5d342bc2a3e1",
+      "role": "previous independent research; audited archival evidence, not rerun or imported",
+      "url": "https://github.com/aalida0/zee/blob/81cd376294e223c7311fba134f643db5c02bbad0/research/spheno_flavorkit/CROSSING_BRIDGE.md",
+      "commit": "81cd376294e223c7311fba134f643db5c02bbad0"
+    },
+    {
+      "id": "pilot_LOOP_FUNCTION_AUDIT",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/spheno_flavorkit/LOOP_FUNCTION_AUDIT.md",
+      "sha256": "72f0fd9cfffb679d10cc69462b4ee3789d694344b0f4e7b73412c127f416c0f5",
+      "role": "previous independent research; audited archival evidence, not rerun or imported",
+      "url": "https://github.com/aalida0/zee/blob/81cd376294e223c7311fba134f643db5c02bbad0/research/spheno_flavorkit/LOOP_FUNCTION_AUDIT.md",
+      "commit": "81cd376294e223c7311fba134f643db5c02bbad0"
+    },
+    {
+      "id": "pilot_crossing_bridge_evidence",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/spheno_flavorkit/crossing_bridge_evidence.json",
+      "sha256": "7591e3eb14f8fa988cbb5a8a51474ae355ffc5d52ab16a4cc4ae9e1eb9ad6d6d",
+      "role": "previous independent research; audited archival evidence, not rerun or imported",
+      "url": "https://github.com/aalida0/zee/blob/81cd376294e223c7311fba134f643db5c02bbad0/research/spheno_flavorkit/crossing_bridge_evidence.json",
+      "commit": "81cd376294e223c7311fba134f643db5c02bbad0"
+    },
+    {
+      "id": "pilot_patch_small_ratio",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/spheno_flavorkit/patch_small_ratio.py",
+      "sha256": "13e1d5987835fb1091dbd555a30aa5ed4b043d574c62165d07e0dd9d5f80df52",
+      "role": "previous independent research; audited archival evidence, not rerun or imported",
+      "url": "https://github.com/aalida0/zee/blob/81cd376294e223c7311fba134f643db5c02bbad0/research/spheno_flavorkit/patch_small_ratio.py",
+      "commit": "81cd376294e223c7311fba134f643db5c02bbad0"
+    },
+    {
+      "id": "pilot_STATUS",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/wgamma_d16/STATUS.md",
+      "sha256": "5119250b0fe10962f2617b90970cea2a10856c171c8d903ee6de81674eb8685b",
+      "role": "previous independent research; audited archival evidence, not rerun or imported",
+      "url": "https://github.com/aalida0/zee/blob/81cd376294e223c7311fba134f643db5c02bbad0/research/wgamma_d16/STATUS.md",
+      "commit": "81cd376294e223c7311fba134f643db5c02bbad0"
+    },
+    {
+      "id": "pilot_GAUGE_COMPLETION_LEDGER",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/wgamma_d16/GAUGE_COMPLETION_LEDGER.md",
+      "sha256": "b40e3d6f5eb1eb25007ddfcd156daa9f8062f2379131cfd32c70bb4d0678e9ab",
+      "role": "previous independent research; audited archival evidence, not rerun or imported",
+      "url": "https://github.com/aalida0/zee/blob/81cd376294e223c7311fba134f643db5c02bbad0/research/wgamma_d16/GAUGE_COMPLETION_LEDGER.md",
+      "commit": "81cd376294e223c7311fba134f643db5c02bbad0"
+    },
+    {
+      "id": "pilot_HW_NORMALIZATION_AUDIT",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/wgamma_d16/HW_NORMALIZATION_AUDIT.md",
+      "sha256": "feb3be15d4055f445fafd95e4a047a65b43c21fa538defdbf12bbe8d9b0dc058",
+      "role": "previous independent research; audited archival evidence, not rerun or imported",
+      "url": "https://github.com/aalida0/zee/blob/81cd376294e223c7311fba134f643db5c02bbad0/research/wgamma_d16/HW_NORMALIZATION_AUDIT.md",
+      "commit": "81cd376294e223c7311fba134f643db5c02bbad0"
+    },
+    {
+      "id": "pilot_GENERIC_2HDM_CLOSURE",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/wgamma_d16/GENERIC_2HDM_CLOSURE.md",
+      "sha256": "78880f7cb66fc7749b0672b3b8f5bcfd314b5ef69d2871bee5deda70ec17341a",
+      "role": "previous independent research; audited archival evidence, not rerun or imported",
+      "url": "https://github.com/aalida0/zee/blob/81cd376294e223c7311fba134f643db5c02bbad0/research/wgamma_d16/GENERIC_2HDM_CLOSURE.md",
+      "commit": "81cd376294e223c7311fba134f643db5c02bbad0"
+    },
+    {
+      "id": "pilot_MIXED_HZ_DERIVATION",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/wgamma_d16/MIXED_HZ_DERIVATION.md",
+      "sha256": "37095ab84fb6b1b6283cc2212f6c67fa38dfb0c5bfa13bd5c0c763648fd53439",
+      "role": "previous independent research; audited archival evidence, not rerun or imported",
+      "url": "https://github.com/aalida0/zee/blob/81cd376294e223c7311fba134f643db5c02bbad0/research/wgamma_d16/MIXED_HZ_DERIVATION.md",
+      "commit": "81cd376294e223c7311fba134f643db5c02bbad0"
+    },
+    {
+      "id": "pilot_ZEE_TWO_LOOP_DERIVATION",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/wgamma_d16/ZEE_TWO_LOOP_DERIVATION.md",
+      "sha256": "61c0c9a0743fc93ad77c9491e802cb31bdfb398fa91a91f1e91b066e98df786f",
+      "role": "previous independent research; audited archival evidence, not rerun or imported",
+      "url": "https://github.com/aalida0/zee/blob/81cd376294e223c7311fba134f643db5c02bbad0/research/wgamma_d16/ZEE_TWO_LOOP_DERIVATION.md",
+      "commit": "81cd376294e223c7311fba134f643db5c02bbad0"
+    },
+    {
+      "id": "pilot_REMAINING_SUBGRAPH_DERIVATION",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/wgamma_d16/REMAINING_SUBGRAPH_DERIVATION.md",
+      "sha256": "405acd8542ebd737e5caa9b069913fbd90f5a3ef66444b77697c9a24d97a4d5e",
+      "role": "previous independent research; audited archival evidence, not rerun or imported",
+      "url": "https://github.com/aalida0/zee/blob/81cd376294e223c7311fba134f643db5c02bbad0/research/wgamma_d16/REMAINING_SUBGRAPH_DERIVATION.md",
+      "commit": "81cd376294e223c7311fba134f643db5c02bbad0"
+    },
+    {
+      "id": "pilot_hw_generic_evidence",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/wgamma_d16/hw_generic_evidence.json",
+      "sha256": "0c653088f60affedab75eb63cc13e8958c0f6b3c7617e8e6f44b996dfbe1e537",
+      "role": "previous independent research; audited archival evidence, not rerun or imported",
+      "url": "https://github.com/aalida0/zee/blob/81cd376294e223c7311fba134f643db5c02bbad0/research/wgamma_d16/hw_generic_evidence.json",
+      "commit": "81cd376294e223c7311fba134f643db5c02bbad0"
+    },
+    {
+      "id": "pilot_two_loop_evidence",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/wgamma_d16/two_loop_evidence.json",
+      "sha256": "6e5e849a2b0d5848207e614c8f6773d6d2d1cc898a00f6e75c64a4968e403eac",
+      "role": "previous independent research; audited archival evidence, not rerun or imported",
+      "url": "https://github.com/aalida0/zee/blob/81cd376294e223c7311fba134f643db5c02bbad0/research/wgamma_d16/two_loop_evidence.json",
+      "commit": "81cd376294e223c7311fba134f643db5c02bbad0"
+    },
+    {
+      "id": "pilot_gww_outer_evidence",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/wgamma_d16/gww_outer_evidence.json",
+      "sha256": "cde8363bfd0fb33830bb917dde53cadfa0ee10d4fba7cfdd9a7d55c41f903108",
+      "role": "previous independent research; audited archival evidence, not rerun or imported",
+      "url": "https://github.com/aalida0/zee/blob/81cd376294e223c7311fba134f643db5c02bbad0/research/wgamma_d16/gww_outer_evidence.json",
+      "commit": "81cd376294e223c7311fba134f643db5c02bbad0"
+    },
+    {
+      "id": "pilot_remaining_subgraph_evidence",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/wgamma_d16/remaining_subgraph_evidence.json",
+      "sha256": "feefde64a9a08af074ed8f32a7cfb4804b526ed1dbdce489e12dfee0250442cb",
+      "role": "previous independent research; audited archival evidence, not rerun or imported",
+      "url": "https://github.com/aalida0/zee/blob/81cd376294e223c7311fba134f643db5c02bbad0/research/wgamma_d16/remaining_subgraph_evidence.json",
+      "commit": "81cd376294e223c7311fba134f643db5c02bbad0"
+    },
+    {
+      "id": "pilot_external_2hdm_sources",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/wgamma_d16/external_2hdm_sources.json",
+      "sha256": "92c8588fdd04db7f923b9e3a57141831ef924309257bb3dd7bb141e1a04bdc38",
+      "role": "previous independent research; audited archival evidence, not rerun or imported",
+      "url": "https://github.com/aalida0/zee/blob/81cd376294e223c7311fba134f643db5c02bbad0/research/wgamma_d16/external_2hdm_sources.json",
+      "commit": "81cd376294e223c7311fba134f643db5c02bbad0"
+    },
+    {
+      "id": "pilot_neutral_fermion_z",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/wgamma_d16/neutral_fermion_z.py",
+      "sha256": "1adf57ea2946fdfcee76e4c11332fac889777d7a24994bdf8e8fee9237927da0",
+      "role": "previous independent research; audited archival evidence, not rerun or imported",
+      "url": "https://github.com/aalida0/zee/blob/81cd376294e223c7311fba134f643db5c02bbad0/research/wgamma_d16/neutral_fermion_z.py",
+      "commit": "81cd376294e223c7311fba134f643db5c02bbad0"
+    },
+    {
+      "id": "pilot_zee_mixed_hz",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/wgamma_d16/zee_mixed_hz.py",
+      "sha256": "8cfdaedd14368429d8f9e22f1ae565bdd25cdfb283ddcda13bb8e4e27223a62c",
+      "role": "previous independent research; audited archival evidence, not rerun or imported",
+      "url": "https://github.com/aalida0/zee/blob/81cd376294e223c7311fba134f643db5c02bbad0/research/wgamma_d16/zee_mixed_hz.py",
+      "commit": "81cd376294e223c7311fba134f643db5c02bbad0"
+    },
+    {
+      "id": "pilot_zee_two_loop",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/wgamma_d16/zee_two_loop.py",
+      "sha256": "a3c06bfecb9d82d2b480a2c819fdbeee886eefb463a5e43521f542a404c6a055",
+      "role": "previous independent research; audited archival evidence, not rerun or imported",
+      "url": "https://github.com/aalida0/zee/blob/81cd376294e223c7311fba134f643db5c02bbad0/research/wgamma_d16/zee_two_loop.py",
+      "commit": "81cd376294e223c7311fba134f643db5c02bbad0"
+    },
+    {
+      "id": "reference_paper-v4.html",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/wgamma_d16/local/external_2hdm_reference/paper-v4.html",
+      "sha256": "8b0f9f6bb25a56315d94f1d0cf2ab7c42ef17fb2dfacbcff850e8b504a558c96",
+      "role": "published source preserved from prior research",
+      "url": "https://arxiv.org/html/2410.17313v4"
+    },
+    {
+      "id": "reference_paper-v4.pdf",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/wgamma_d16/local/external_2hdm_reference/paper-v4.pdf",
+      "sha256": "497275248e615e0729c69c49e7038bc1fe073868cc41caaec17da65a29232512",
+      "role": "published source preserved from prior research",
+      "url": "https://arxiv.org/pdf/2410.17313v4"
+    },
+    {
+      "id": "reference_erratum-2026.pdf",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/wgamma_d16/local/external_2hdm_reference/erratum-2026.pdf",
+      "sha256": "0f09c8df6b9a6106322d4121c4bf00271a539e43d69d3550ad1caf6402723148",
+      "role": "published source preserved from prior research",
+      "url": "https://link.springer.com/content/pdf/10.1007/JHEP07(2026)184.pdf"
+    },
+    {
+      "id": "historical_F19b",
+      "path_hint": "reference/neutrino/docs/zee_paper1_F19b_exact_F17f_neutrino_partial_LFV.md",
+      "sha256": "2073b3394832bef226ece516477e8beb8bd85362ea68462642be34fa4f5dd6ec",
+      "role": "previous original-card/model evidence; read-only"
+    },
+    {
+      "id": "D15_original_comparison.json",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/spheno_flavorkit/local/crossing_original_cards/comparison.json",
+      "sha256": "8e03f4d331c416036810fda64c41ceaa7a8bfc041117f93f3a3c16a71efc24cc",
+      "role": "previous original-card/model evidence; read-only"
+    },
+    {
+      "id": "D15_original_components.json",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/spheno_flavorkit/local/crossing_original_cards/components.json",
+      "sha256": "21826ded904b3d706850a71fdec5424b520f61d051590e1b0170b5bd6008ceeb",
+      "role": "previous original-card/model evidence; read-only"
+    },
+    {
+      "id": "D15_original_group0.in",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/spheno_flavorkit/local/crossing_original_cards/group0.in",
+      "sha256": "9f482fff50757228a2919ea1565f48d034349cb34efb99746bc9dce2dd6499c5",
+      "role": "previous original-card/model evidence; read-only"
+    },
+    {
+      "id": "D15_original_group1.in",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/spheno_flavorkit/local/crossing_original_cards/group1.in",
+      "sha256": "4242010cfcc484152b4a26174cdb9751f3dc0adadaa8f0df4f9cd3130fc35d49",
+      "role": "previous original-card/model evidence; read-only"
+    },
+    {
+      "id": "D15_original_group2.in",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/spheno_flavorkit/local/crossing_original_cards/group2.in",
+      "sha256": "bac3c31269e85de2b3d29683c70c826361de655cfe178d3e299e80a8a4fb1eda",
+      "role": "previous original-card/model evidence; read-only"
+    },
+    {
+      "id": "D15_original_group3.in",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/spheno_flavorkit/local/crossing_original_cards/group3.in",
+      "sha256": "b6682f2d790ea945daa89383ad57347e9f8884bf7e34f2f483391c750b578ba6",
+      "role": "previous original-card/model evidence; read-only"
+    },
+    {
+      "id": "pilot_model_SPheno.m",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/spheno_flavorkit/model/SPheno.m",
+      "sha256": "cf22a17e4fb9e0d74b168cb0c6e9cf8879c7f0fa36bf676825c7b34b89b8ae38",
+      "role": "previous original-card/model evidence; read-only"
+    },
+    {
+      "id": "experimental_snapshot",
+      "path_hint": "research/full_constraints/lfv/experiments.json",
+      "sha256": "7faa6948d33fdc0bf290ed5de12471c8511b4bd2c39e7aedf01ba1c1d7575cbd",
+      "role": "versioned observed bound and normalization metadata"
+    }
+  ],
+  "notes": [
+    "Path hints are local restoration locations; hashes and versioned URLs identify sources.",
+    "No upstream/previous-research files or runtime spectrum outputs are modified.",
+    "Prior new-card experiments are archived evidence only and are not rerun."
+  ]
+}

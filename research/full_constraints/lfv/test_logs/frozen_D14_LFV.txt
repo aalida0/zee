@@ -1,0 +1,7 @@
+test_d12_coherent_and_tree_reference (test_module14_lfv.LFVTests) ... ok
+test_optional_tree_and_input_binding (test_module14_lfv.LFVTests) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.576s
+
+OK

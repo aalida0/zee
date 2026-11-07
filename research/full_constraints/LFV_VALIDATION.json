@@ -1,0 +1,1201 @@
+{
+  "schema": "zee-lfv-validation-1",
+  "date": "2026-11-07",
+  "status": "LFV_FULL_COVERAGE_BLOCKED",
+  "physical_lfv": "UNKNOWN",
+  "scoped_observable_validated": false,
+  "complete_lfv": false,
+  "exclusion": null,
+  "global_acceptance": null,
+  "added_amplitudes": [],
+  "new_model_cards": 0,
+  "scans": 0,
+  "native_spectrum_runs": 0,
+  "manifest_sha256": "ed1f21dfdc493a1087d3d955cb4cc1a2de903f5ec2b667e03f9c7c070da121d0",
+  "checked_artifacts": [
+    "module4_amplitudes.py",
+    "module4_charged_scalar.py",
+    "module4_interface.py",
+    "module4_MATCHING_AUDIT.md",
+    "module4_CHARGED_SCALAR_AUDIT.md",
+    "module3_core.py",
+    "module3_tree.py",
+    "module3_CONVENTIONS.md",
+    "module14/lfv.py",
+    "module14/physics_adapters/lfv_reference.py",
+    "module14/physics_adapters/lfv_reference_evidence.json",
+    "module14/physics_adapters/spheno_build_evidence.json",
+    "module14/physics_adapters/spheno_forensic_evidence.json",
+    "module14/public_source_lock.json",
+    "validation/module12/d12_benchmarks.json",
+    "module3/example.json",
+    "module4/example.json",
+    "scripts/zee_d14_lfv_reference.py",
+    "general_2hdm_thdm",
+    "general_2hdm_README.md",
+    "general_2hdm_example",
+    "general_2hdm_LICENSE.txt",
+    "flavorkit_Lto3Lp",
+    "flavorkit_Lto3Lp_definition",
+    "flavorkit_LtoL1L2L2",
+    "flavorkit_LtoL1L2L2_definition",
+    "flavorkit_MuEconversion",
+    "flavorkit_Photon_wrapper",
+    "flavorkit_Gamma2l",
+    "flavorkit_4L_wrapper",
+    "flavorkit_4L_TreeS",
+    "generated_FlavorKit_LFV_ZeeTypeII",
+    "generated_LowEnergy_ZeeTypeII",
+    "generated_Couplings_ZeeTypeII",
+    "pilot_CROSSING_BRIDGE",
+    "pilot_LOOP_FUNCTION_AUDIT",
+    "pilot_crossing_bridge_evidence",
+    "pilot_patch_small_ratio",
+    "pilot_STATUS",
+    "pilot_GAUGE_COMPLETION_LEDGER",
+    "pilot_HW_NORMALIZATION_AUDIT",
+    "pilot_GENERIC_2HDM_CLOSURE",
+    "pilot_MIXED_HZ_DERIVATION",
+    "pilot_ZEE_TWO_LOOP_DERIVATION",
+    "pilot_REMAINING_SUBGRAPH_DERIVATION",
+    "pilot_hw_generic_evidence",
+    "pilot_two_loop_evidence",
+    "pilot_gww_outer_evidence",
+    "pilot_remaining_subgraph_evidence",
+    "pilot_external_2hdm_sources",
+    "pilot_neutral_fermion_z",
+    "pilot_zee_mixed_hz",
+    "pilot_zee_two_loop",
+    "reference_paper-v4.html",
+    "reference_paper-v4.pdf",
+    "reference_erratum-2026.pdf",
+    "historical_F19b",
+    "D15_original_comparison.json",
+    "D15_original_components.json",
+    "D15_original_group0.in",
+    "D15_original_group1.in",
+    "D15_original_group2.in",
+    "D15_original_group3.in",
+    "pilot_model_SPheno.m",
+    "experimental_snapshot"
+  ],
+  "experimental_snapshot_sha256": "7faa6948d33fdc0bf290ed5de12471c8511b4bd2c39e7aedf01ba1c1d7575cbd",
+  "code_sha256": "033475d9107de6a0c5f6bf497c92395b7ca8913ab302396233cf169f41d016e5",
+  "driver_sha256": "7f11c2153ecd01ab9a37c4c367f0ee017838e8aa2a0730c52871ed19aface798",
+  "environment": {
+    "python": "3.10.12",
+    "numpy": "2.2.6",
+    "gfortran": "GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0"
+  },
+  "rate_controls": {
+    "contact_actions": [
+      {
+        "name": "SLL",
+        "coefficients": {
+          "SLL": [
+            1.0,
+            0.0
+          ]
+        },
+        "trace_width": 2.624636591243444e-06,
+        "FlavorKit_width": 2.6246365912434484e-06,
+        "relative_residual": 1.5543122344752192e-15,
+        "interference_width": 0.0
+      },
+      {
+        "name": "SRR",
+        "coefficients": {
+          "SRR": [
+            1.0,
+            0.0
+          ]
+        },
+        "trace_width": 2.624636591243444e-06,
+        "FlavorKit_width": 2.6246365912434484e-06,
+        "relative_residual": 1.5543122344752192e-15,
+        "interference_width": 0.0
+      },
+      {
+        "name": "SLR",
+        "coefficients": {
+          "SLR": [
+            1.0,
+            0.0
+          ]
+        },
+        "trace_width": 5.249273182486892e-06,
+        "FlavorKit_width": 5.249273182486897e-06,
+        "relative_residual": 8.881784197001252e-16,
+        "interference_width": 0.0
+      },
+      {
+        "name": "SRL",
+        "coefficients": {
+          "SRL": [
+            1.0,
+            0.0
+          ]
+        },
+        "trace_width": 5.249273182486892e-06,
+        "FlavorKit_width": 5.249273182486897e-06,
+        "relative_residual": 8.881784197001252e-16,
+        "interference_width": 0.0
+      },
+      {
+        "name": "VLL",
+        "coefficients": {
+          "VLL": [
+            1.0,
+            0.0
+          ]
+        },
+        "trace_width": 4.1994185459895106e-05,
+        "FlavorKit_width": 4.1994185459895174e-05,
+        "relative_residual": 1.5543122344752192e-15,
+        "interference_width": 0.0
+      },
+      {
+        "name": "VRR",
+        "coefficients": {
+          "VRR": [
+            1.0,
+            0.0
+          ]
+        },
+        "trace_width": 4.1994185459895106e-05,
+        "FlavorKit_width": 4.1994185459895174e-05,
+        "relative_residual": 1.5543122344752192e-15,
+        "interference_width": 0.0
+      },
+      {
+        "name": "VLR",
+        "coefficients": {
+          "VLR": [
+            1.0,
+            0.0
+          ]
+        },
+        "trace_width": 2.0997092729947567e-05,
+        "FlavorKit_width": 2.0997092729947587e-05,
+        "relative_residual": 8.881784197001252e-16,
+        "interference_width": 0.0
+      },
+      {
+        "name": "VRL",
+        "coefficients": {
+          "VRL": [
+            1.0,
+            0.0
+          ]
+        },
+        "trace_width": 2.0997092729947567e-05,
+        "FlavorKit_width": 2.0997092729947587e-05,
+        "relative_residual": 8.881784197001252e-16,
+        "interference_width": 0.0
+      },
+      {
+        "name": "TLL",
+        "coefficients": {
+          "TLL": [
+            1.0,
+            0.0
+          ]
+        },
+        "trace_width": 0.0003779476691390562,
+        "FlavorKit_width": 0.00037794766913905656,
+        "relative_residual": 1.1102230246251565e-15,
+        "interference_width": 0.0
+      },
+      {
+        "name": "TRR",
+        "coefficients": {
+          "TRR": [
+            1.0,
+            0.0
+          ]
+        },
+        "trace_width": 0.0003779476691390562,
+        "FlavorKit_width": 0.00037794766913905656,
+        "relative_residual": 1.1102230246251565e-15,
+        "interference_width": 0.0
+      },
+      {
+        "name": "complex_all",
+        "coefficients": {
+          "SLL": [
+            0.07,
+            -0.13
+          ],
+          "SRR": [
+            0.14,
+            0.0
+          ],
+          "SLR": [
+            0.21000000000000002,
+            0.13
+          ],
+          "SRL": [
+            0.28,
+            -0.13
+          ],
+          "VLL": [
+            0.35000000000000003,
+            0.0
+          ],
+          "VRR": [
+            0.42000000000000004,
+            0.13
+          ],
+          "VLR": [
+            0.49000000000000005,
+            -0.13
+          ],
+          "VRL": [
+            0.56,
+            0.0
+          ],
+          "TLL": [
+            0.6300000000000001,
+            0.13
+          ],
+          "TRR": [
+            0.7000000000000001,
+            -0.13
+          ]
+        },
+        "trace_width": 0.0003611636430653726,
+        "FlavorKit_width": 0.0003611636430653731,
+        "relative_residual": 1.3322676295501878e-15,
+        "interference_width": -1.29846021441998e-05
+      },
+      {
+        "name": "scalar_vector",
+        "coefficients": {
+          "SLR": [
+            0.31,
+            0.47
+          ],
+          "VLR": [
+            -0.23,
+            0.19
+          ]
+        },
+        "trace_width": 3.154813182674623e-06,
+        "FlavorKit_width": 3.1548131826746253e-06,
+        "relative_residual": 8.881784197001252e-16,
+        "interference_width": -3.779476691390547e-07
+      },
+      {
+        "name": "scalar_tensor",
+        "coefficients": {
+          "SLL": [
+            0.31,
+            0.47
+          ],
+          "TLL": [
+            -0.23,
+            0.19
+          ]
+        },
+        "trace_width": 3.333550934538303e-05,
+        "FlavorKit_width": 3.333550934538304e-05,
+        "relative_residual": 4.440892098500626e-16,
+        "interference_width": -1.1338430074171323e-06
+      }
+    ],
+    "dipole_ratio": 0.0061269764126128555,
+    "dipole_width": 1.58668221232801e-30,
+    "dipole_relative_residual": 4.440892098500626e-16,
+    "phase_controls": {
+      "coherent": 4.97119855579376e-05,
+      "common_phase": 4.971198555793763e-05,
+      "conjugate_one_coefficient": 6.071481056803157e-05,
+      "incoherent": 5.382811337416759e-05,
+      "K1_to_vector_relative_residual": 0.0
+    },
+    "scope": "RATE_FUNCTION_ONLY; no Zee loop-operator or dipole/contact relative-sign validation"
+  },
+  "original_D12_cards": [
+    {
+      "group": 0,
+      "id": "d7_NO_neutral_near_heavy_07/NO/scale_0.001",
+      "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+      "neutrino_input_sha256": "6288c8e073177ed3d20872bf9bcd17305e471839b838e2280dc1fc58b234cfb8",
+      "witness_sha256": "1405271f3b38ca25cd8fc088aea06deac3c4941e58707bfa4f0a326945e6b04f",
+      "module4_output_sha256": "f52cd87455e6fbcf76ad42cfa12b196cf0412cae1f8e3873e16410f99a69ee46",
+      "scalar_contact_coefficients": {
+        "SLL": [
+          -1.4870641413495918e-19,
+          -2.2596340160723497e-19
+        ],
+        "SRR": [
+          1.5289554353282834e-16,
+          1.685993369558724e-16
+        ],
+        "SLR": [
+          -1.2788892829988169e-19,
+          -1.9905533363792363e-19
+        ],
+        "SRL": [
+          1.3534122226626667e-16,
+          1.459888477099735e-16
+        ]
+      },
+      "partial_dipole_coefficients": {
+        "C_L": {
+          "real": -2.715995462464355e-14,
+          "imag": -4.128766089235618e-14
+        },
+        "C_R": {
+          "real": 2.7948101068055274e-11,
+          "imag": 3.080840169148791e-11
+        }
+      },
+      "total_mu_width_GeV": 2.995983701908041e-19,
+      "alpha_em": 0.0072973525692838015,
+      "tree_BR": 1.5107256132927487e-23,
+      "massless_contact_tree_BR": 1.511921747247684e-23,
+      "independent_trace_tree_BR": 1.5119217472476823e-23,
+      "contact_trace_relative_residual": 1.1102230246251565e-15,
+      "finite_mass_propagator_relative_shift": -0.0007911348302998,
+      "partial_mu_gamma_BR": 1.3872844851464588e-10,
+      "partial_mu_gamma_to_observed_limit_DIAGNOSTIC": 924.8563234309726,
+      "partial_dipole_only_mu3e_BR_DIAGNOSTIC": 8.500455783765099e-13,
+      "partial_dipole_only_mu3e_to_observed_limit_DIAGNOSTIC": 0.85004557837651,
+      "dipole_only_to_tree": 56267370520.30029,
+      "physical_comparison": "UNKNOWN",
+      "exclusion": null
+    },
+    {
+      "group": 1,
+      "id": "d7_NO_neutral_near_heavy_07/IO/scale_0.001",
+      "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+      "neutrino_input_sha256": "6c84fbf4795bc0afa259ad270bb922b28c51a0106e482c8bbb95981e654975bc",
+      "witness_sha256": "fc06a40f48731ed97d115b7b681d4084661791fa4a1c257248fa195f21ba9509",
+      "module4_output_sha256": "7fbdeff80e0abe2dcea75add6a11dc47e777675c5589003db8c4b418034a8005",
+      "scalar_contact_coefficients": {
+        "SLL": [
+          -1.2223007002876521e-18,
+          -1.9259256774590827e-19
+        ],
+        "SRR": [
+          -1.6000685167504068e-16,
+          3.0789067467399784e-16
+        ],
+        "SLR": [
+          -1.0382849437725969e-18,
+          1.8880902577672998e-19
+        ],
+        "SRL": [
+          -2.1544413012681028e-16,
+          2.0287526283374385e-16
+        ]
+      },
+      "partial_dipole_coefficients": {
+        "C_L": {
+          "real": -2.238097434382581e-13,
+          "imag": -3.410001473871113e-14
+        },
+        "C_R": {
+          "real": -2.9555556935390984e-11,
+          "imag": 5.619279503475403e-11
+        }
+      },
+      "total_mu_width_GeV": 2.995983701908041e-19,
+      "alpha_em": 0.0072973525692838015,
+      "tree_BR": 3.40723740686046e-23,
+      "massless_contact_tree_BR": 3.409438446105911e-23,
+      "independent_trace_tree_BR": 3.409438446105908e-23,
+      "contact_trace_relative_residual": 8.881784197001252e-16,
+      "finite_mass_propagator_relative_shift": -0.0006455723663127966,
+      "partial_mu_gamma_BR": 3.2321443246469325e-10,
+      "partial_mu_gamma_to_observed_limit_DIAGNOSTIC": 2154.762883097955,
+      "partial_dipole_only_mu3e_BR_DIAGNOSTIC": 1.9804661706072494e-12,
+      "partial_dipole_only_mu3e_to_observed_limit_DIAGNOSTIC": 1.9804661706072495,
+      "dipole_only_to_tree": 58125276701.28263,
+      "physical_comparison": "UNKNOWN",
+      "exclusion": null
+    },
+    {
+      "group": 2,
+      "id": "F13_heavy_0001330/NO/scale_0.001",
+      "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+      "neutrino_input_sha256": "b8617bf561b911358b7ab3998c4bf7ebe8b743b8825d73be7163c853b91eccb4",
+      "witness_sha256": "603314b8ae8209b1cdeb11c2137a6773ab0364735bff5020916dda83c4eebb32",
+      "module4_output_sha256": "1fe50f5dbe1a832e63cbc917cc306007f81eee073e5406c346ec321b4e8100e1",
+      "scalar_contact_coefficients": {
+        "SLL": [
+          6.940292839795829e-21,
+          1.0699042614226475e-20
+        ],
+        "SRR": [
+          -7.260571578668952e-18,
+          -7.900860364321486e-18
+        ],
+        "SLR": [
+          1.2376044232059305e-20,
+          1.7496196776676237e-20
+        ],
+        "SRL": [
+          -1.1657752787326508e-17,
+          -1.3756739715490824e-17
+        ]
+      },
+      "partial_dipole_coefficients": {
+        "C_L": {
+          "real": -3.0797002325420805e-15,
+          "imag": -4.68173865480011e-15
+        },
+        "C_R": {
+          "real": 3.1703351527580613e-12,
+          "imag": 3.4948599932964895e-12
+        }
+      },
+      "total_mu_width_GeV": 2.995983701908041e-19,
+      "alpha_em": 0.0072973525692838015,
+      "tree_BR": 8.823167499027922e-26,
+      "massless_contact_tree_BR": 8.830028241728764e-26,
+      "independent_trace_tree_BR": 8.830028241728756e-26,
+      "contact_trace_relative_residual": 8.881784197001252e-16,
+      "finite_mass_propagator_relative_shift": -0.0007769785682473218,
+      "partial_mu_gamma_BR": 1.7851707659350024e-12,
+      "partial_mu_gamma_to_observed_limit_DIAGNOSTIC": 11.901138439566683,
+      "partial_dipole_only_mu3e_BR_DIAGNOSTIC": 1.0938466713046628e-14,
+      "partial_dipole_only_mu3e_to_observed_limit_DIAGNOSTIC": 0.010938466713046628,
+      "dipole_only_to_tree": 123974374443.77834,
+      "physical_comparison": "UNKNOWN",
+      "exclusion": null
+    },
+    {
+      "group": 3,
+      "id": "F13_heavy_0001330/IO/scale_0.001",
+      "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+      "neutrino_input_sha256": "1c76508f1c02c1d0a4f4ff597a35c1b667dfbb98dfd4fd1175bea4174f34e54f",
+      "witness_sha256": "daa3dc285f89663632f28ea44281f0121ae16df790ac179f10012b4da68f1aa2",
+      "module4_output_sha256": "74d59c9fa23a9cdac0af275170905c9362b88b93260e7f45784c7125bc223fae",
+      "scalar_contact_coefficients": {
+        "SLL": [
+          6.211156401242853e-20,
+          -1.6627250258942528e-21
+        ],
+        "SRR": [
+          1.0714539932417715e-17,
+          -1.3739667489005786e-17
+        ],
+        "SLR": [
+          1.0628217112927048e-19,
+          1.144125666526048e-19
+        ],
+        "SRL": [
+          -8.126872285994761e-18,
+          -4.3029780268108476e-17
+        ]
+      },
+      "partial_dipole_coefficients": {
+        "C_L": {
+          "real": -2.5384891492323662e-14,
+          "imag": -3.865084707501035e-15
+        },
+        "C_R": {
+          "real": -3.3521254018710017e-12,
+          "imag": 6.374474972537306e-12
+        }
+      },
+      "total_mu_width_GeV": 2.995983701908041e-19,
+      "alpha_em": 0.0072973525692838015,
+      "tree_BR": 4.770905846360832e-25,
+      "massless_contact_tree_BR": 4.774511161472087e-25,
+      "independent_trace_tree_BR": 4.774511161472082e-25,
+      "contact_trace_relative_residual": 8.881784197001252e-16,
+      "finite_mass_propagator_relative_shift": -0.0007551171186586103,
+      "partial_mu_gamma_BR": 4.158938417255523e-12,
+      "partial_mu_gamma_to_observed_limit_DIAGNOSTIC": 27.72625611503682,
+      "partial_dipole_only_mu3e_BR_DIAGNOSTIC": 2.5483505727774564e-14,
+      "partial_dipole_only_mu3e_to_observed_limit_DIAGNOSTIC": 0.025483505727774563,
+      "dipole_only_to_tree": 53414396654.28099,
+      "physical_comparison": "UNKNOWN",
+      "exclusion": null
+    }
+  ],
+  "public_2hdm_group_inventory": {
+    "L": [
+      {
+        "group": "1loop",
+        "line": 1539,
+        "self_attributes": [
+          "MHp",
+          "Mh1",
+          "Mh2",
+          "Mh3",
+          "absq2",
+          "ml",
+          "q1",
+          "q2s",
+          "rhol",
+          "rhols",
+          "vev"
+        ],
+        "charged_mass_dependent": true
+      },
+      {
+        "group": "th",
+        "line": 1577,
+        "self_attributes": [
+          "Mh1",
+          "Mh2",
+          "Mh3",
+          "Qu",
+          "absq2",
+          "alphaQED",
+          "ml",
+          "mt",
+          "q1",
+          "q2s",
+          "rhol",
+          "rhou",
+          "rhous",
+          "vZe",
+          "vZu",
+          "vev",
+          "xth1",
+          "xth2",
+          "xth3",
+          "xtz"
+        ],
+        "charged_mass_dependent": false
+      },
+      {
+        "group": "ch",
+        "line": 1610,
+        "self_attributes": [
+          "Mh1",
+          "Mh2",
+          "Mh3",
+          "Qu",
+          "absq2",
+          "alphaQED",
+          "mc",
+          "ml",
+          "q1",
+          "q2s",
+          "rhol",
+          "rhou",
+          "rhous",
+          "vZe",
+          "vZu",
+          "vev",
+          "xch1",
+          "xch2",
+          "xch3",
+          "xcz"
+        ],
+        "charged_mass_dependent": false
+      },
+      {
+        "group": "bh",
+        "line": 1643,
+        "self_attributes": [
+          "Mh1",
+          "Mh2",
+          "Mh3",
+          "Qd",
+          "absq2",
+          "alphaQED",
+          "mb",
+          "ml",
+          "q1",
+          "q2s",
+          "rhod",
+          "rhods",
+          "rhol",
+          "vZd",
+          "vZe",
+          "vev",
+          "xbh1",
+          "xbh2",
+          "xbh3",
+          "xbz"
+        ],
+        "charged_mass_dependent": false
+      },
+      {
+        "group": "tauh",
+        "line": 1676,
+        "self_attributes": [
+          "Mh1",
+          "Mh2",
+          "Mh3",
+          "Qe",
+          "absq2",
+          "alphaQED",
+          "ml",
+          "mtau",
+          "q1",
+          "q2s",
+          "rhol",
+          "rhols",
+          "vZe",
+          "vev",
+          "xtauh1",
+          "xtauh2",
+          "xtauh3",
+          "xtauz"
+        ],
+        "charged_mass_dependent": false
+      },
+      {
+        "group": "tHp",
+        "line": 1710,
+        "self_attributes": [
+          "MHp",
+          "alphaQED",
+          "mb",
+          "ml",
+          "mt",
+          "rhods",
+          "rhol",
+          "rhous",
+          "sw",
+          "vev",
+          "xtH",
+          "xtw"
+        ],
+        "charged_mass_dependent": true
+      },
+      {
+        "group": "cHp",
+        "line": 1715,
+        "self_attributes": [
+          "MHp",
+          "alphaQED",
+          "mc",
+          "ml",
+          "rhol",
+          "rhous",
+          "sw",
+          "vev",
+          "xcH",
+          "xcw",
+          "xwH"
+        ],
+        "charged_mass_dependent": true
+      },
+      {
+        "group": "tauHp",
+        "line": 1721,
+        "self_attributes": [
+          "MHp",
+          "alphaQED",
+          "ml",
+          "mtau",
+          "rhol",
+          "rhols",
+          "sw",
+          "vev",
+          "xwH"
+        ],
+        "charged_mass_dependent": true
+      },
+      {
+        "group": "hZ",
+        "line": 1731,
+        "self_attributes": [
+          "MZ",
+          "aZe",
+          "alphaQED",
+          "cw",
+          "el",
+          "ml",
+          "q1",
+          "q2s",
+          "rhol",
+          "sw",
+          "vZe",
+          "vev",
+          "xzh1",
+          "xzh2",
+          "xzh3"
+        ],
+        "charged_mass_dependent": false
+      },
+      {
+        "group": "kin",
+        "line": 1741,
+        "self_attributes": [
+          "MW",
+          "MZ",
+          "alphaQED",
+          "cw",
+          "el",
+          "ml",
+          "q1",
+          "q2s",
+          "rhol",
+          "sw",
+          "vZe",
+          "vev",
+          "xwH",
+          "xwh1",
+          "xwh2",
+          "xwh3",
+          "xzh1",
+          "xzh2",
+          "xzh3"
+        ],
+        "charged_mass_dependent": true
+      },
+      {
+        "group": "HA",
+        "line": 1773,
+        "self_attributes": [
+          "Mh1",
+          "Mh2",
+          "Mh3",
+          "ReZ7q2",
+          "Z3",
+          "alphaQED",
+          "ml",
+          "q1",
+          "q2s",
+          "rhol",
+          "vev",
+          "xHh1",
+          "xHh2",
+          "xHh3"
+        ],
+        "charged_mass_dependent": true
+      },
+      {
+        "group": "HZ",
+        "line": 1782,
+        "self_attributes": [
+          "Mh1",
+          "Mh2",
+          "Mh3",
+          "ReZ7q2",
+          "Z3",
+          "alphaQED",
+          "cw",
+          "ml",
+          "q1",
+          "q2s",
+          "rhol",
+          "sw",
+          "vZe",
+          "vev",
+          "xHh1",
+          "xHh2",
+          "xHh3",
+          "xzh1",
+          "xzh2",
+          "xzh3"
+        ],
+        "charged_mass_dependent": true
+      },
+      {
+        "group": "HW",
+        "line": 1792,
+        "self_attributes": [
+          "MW",
+          "Mh1",
+          "Mh2",
+          "Mh3",
+          "ReZ7q2",
+          "Z3",
+          "alphaQED",
+          "ml",
+          "q1",
+          "q2s",
+          "rhol",
+          "sw",
+          "vev",
+          "xHh1",
+          "xHh2",
+          "xHh3",
+          "xwh1",
+          "xwh2",
+          "xwh3"
+        ],
+        "charged_mass_dependent": true
+      }
+    ],
+    "R": [
+      {
+        "group": "1loop",
+        "line": 1256,
+        "self_attributes": [
+          "Mh1",
+          "Mh2",
+          "Mh3",
+          "absq2",
+          "ml",
+          "q1",
+          "q2",
+          "rhol",
+          "rhols",
+          "vev"
+        ],
+        "charged_mass_dependent": false
+      },
+      {
+        "group": "th",
+        "line": 1296,
+        "self_attributes": [
+          "Mh1",
+          "Mh2",
+          "Mh3",
+          "Qu",
+          "absq2",
+          "alphaQED",
+          "ml",
+          "mt",
+          "q1",
+          "q2",
+          "rhols",
+          "rhou",
+          "rhous",
+          "vZe",
+          "vZu",
+          "vev",
+          "xth1",
+          "xth2",
+          "xth3",
+          "xtz"
+        ],
+        "charged_mass_dependent": false
+      },
+      {
+        "group": "ch",
+        "line": 1329,
+        "self_attributes": [
+          "Mh1",
+          "Mh2",
+          "Mh3",
+          "Qu",
+          "absq2",
+          "alphaQED",
+          "mc",
+          "ml",
+          "q1",
+          "q2",
+          "rhols",
+          "rhou",
+          "rhous",
+          "vZe",
+          "vZu",
+          "vev",
+          "xch1",
+          "xch2",
+          "xch3",
+          "xcz"
+        ],
+        "charged_mass_dependent": false
+      },
+      {
+        "group": "bh",
+        "line": 1362,
+        "self_attributes": [
+          "Mh1",
+          "Mh2",
+          "Mh3",
+          "Qd",
+          "absq2",
+          "alphaQED",
+          "mb",
+          "ml",
+          "q1",
+          "q2",
+          "rhod",
+          "rhods",
+          "rhols",
+          "vZd",
+          "vZe",
+          "vev",
+          "xbh1",
+          "xbh2",
+          "xbh3",
+          "xbz"
+        ],
+        "charged_mass_dependent": false
+      },
+      {
+        "group": "tauh",
+        "line": 1395,
+        "self_attributes": [
+          "Mh1",
+          "Mh2",
+          "Mh3",
+          "Qe",
+          "absq2",
+          "alphaQED",
+          "ml",
+          "mtau",
+          "q1",
+          "q2",
+          "rhol",
+          "rhols",
+          "vZe",
+          "vev",
+          "xtauh1",
+          "xtauh2",
+          "xtauh3",
+          "xtauz"
+        ],
+        "charged_mass_dependent": false
+      },
+      {
+        "group": "tHp",
+        "line": 1429,
+        "self_attributes": [
+          "MHp",
+          "alphaQED",
+          "mb",
+          "ml",
+          "mt",
+          "rhod",
+          "rhols",
+          "rhou",
+          "sw",
+          "vev",
+          "xtH",
+          "xtw"
+        ],
+        "charged_mass_dependent": true
+      },
+      {
+        "group": "cHp",
+        "line": 1434,
+        "self_attributes": [
+          "MHp",
+          "alphaQED",
+          "mc",
+          "ml",
+          "rhols",
+          "rhou",
+          "sw",
+          "vev",
+          "xcH",
+          "xcw",
+          "xwH"
+        ],
+        "charged_mass_dependent": true
+      },
+      {
+        "group": "tauHp",
+        "line": 1440,
+        "self_attributes": [
+          "MHp",
+          "alphaQED",
+          "ml",
+          "mtau",
+          "rhol",
+          "rhols",
+          "sw",
+          "vev",
+          "xwH"
+        ],
+        "charged_mass_dependent": true
+      },
+      {
+        "group": "hZ",
+        "line": 1450,
+        "self_attributes": [
+          "MZ",
+          "aZe",
+          "alphaQED",
+          "cw",
+          "el",
+          "ml",
+          "q1",
+          "q2",
+          "rhols",
+          "sw",
+          "vZe",
+          "vev",
+          "xzh1",
+          "xzh2",
+          "xzh3"
+        ],
+        "charged_mass_dependent": false
+      },
+      {
+        "group": "kin",
+        "line": 1460,
+        "self_attributes": [
+          "MW",
+          "MZ",
+          "alphaQED",
+          "cw",
+          "el",
+          "ml",
+          "q1",
+          "q2",
+          "rhols",
+          "sw",
+          "vZe",
+          "vev",
+          "xwH",
+          "xwh1",
+          "xwh2",
+          "xwh3",
+          "xzh1",
+          "xzh2",
+          "xzh3"
+        ],
+        "charged_mass_dependent": true
+      },
+      {
+        "group": "HA",
+        "line": 1492,
+        "self_attributes": [
+          "Mh1",
+          "Mh2",
+          "Mh3",
+          "ReZ7q2",
+          "Z3",
+          "alphaQED",
+          "ml",
+          "q1",
+          "q2",
+          "rhols",
+          "vev",
+          "xHh1",
+          "xHh2",
+          "xHh3"
+        ],
+        "charged_mass_dependent": true
+      },
+      {
+        "group": "HZ",
+        "line": 1501,
+        "self_attributes": [
+          "Mh1",
+          "Mh2",
+          "Mh3",
+          "ReZ7q2",
+          "Z3",
+          "alphaQED",
+          "cw",
+          "ml",
+          "q1",
+          "q2",
+          "rhols",
+          "sw",
+          "vZe",
+          "vev",
+          "xHh1",
+          "xHh2",
+          "xHh3",
+          "xzh1",
+          "xzh2",
+          "xzh3"
+        ],
+        "charged_mass_dependent": true
+      },
+      {
+        "group": "HW",
+        "line": 1511,
+        "self_attributes": [
+          "MW",
+          "Mh1",
+          "Mh2",
+          "Mh3",
+          "ReZ7q2",
+          "Z3",
+          "alphaQED",
+          "ml",
+          "q1",
+          "q2",
+          "rhols",
+          "sw",
+          "vev",
+          "xHh1",
+          "xHh2",
+          "xHh3",
+          "xwh1",
+          "xwh2",
+          "xwh3"
+        ],
+        "charged_mass_dependent": true
+      }
+    ]
+  },
+  "conversion_scalar_isovector_control": {
+    "status": "SOURCE_DISCREPANCY_REPRODUCED",
+    "driver_sha256": "1eed066337cef6dee691fb033186c7216572ec4372a4411ca58e67a4fac00d38",
+    "expected": "Z*g_p+N*g_n; plus scalar isovector term in published Eq.(27)",
+    "source": "Z*g_n+N*g_p in scalar sector; vector sector retains correct assignment",
+    "scope": "EFT scalar-only source control; no Zee Wilsons or physical conversion exclusion",
+    "numerical_tolerance": 1e-07,
+    "tolerance_reason": "Original GSp/GSn decimal literals are default-real before double assignment",
+    "records": [
+      {
+        "target": "Al",
+        "source_rate": 169.6593964297809,
+        "direct_proton_neutron_rate": 167.5336897830735,
+        "source_over_reference": 1.0126882339275154,
+        "swapped_rounding_relative_residual": 1.797972060124664e-08,
+        "expected_scalar_current": 126.5,
+        "source_scalar_current": 127.29999999999998
+      },
+      {
+        "target": "Ti",
+        "source_rate": 339.63432464346704,
+        "direct_proton_neutron_rate": 330.13452997521864,
+        "source_over_reference": 1.0287755257499465,
+        "swapped_rounding_relative_residual": 1.511103708828898e-08,
+        "expected_scalar_current": 224.0,
+        "source_scalar_current": 227.2
+      },
+      {
+        "target": "Sr",
+        "source_rate": 425.5800563458716,
+        "direct_proton_neutron_rate": 418.3973923632332,
+        "source_over_reference": 1.0171670859181712,
+        "swapped_rounding_relative_residual": 1.717422004610114e-08,
+        "expected_scalar_current": 374.4,
+        "source_scalar_current": 377.6
+      },
+      {
+        "target": "Sb",
+        "source_rate": 619.0726497810715,
+        "direct_proton_neutron_rate": 586.8470303447262,
+        "source_over_reference": 1.0549131507360874,
+        "swapped_rounding_relative_residual": 1.0590865739956712e-08,
+        "expected_scalar_current": 561.0999999999999,
+        "source_scalar_current": 576.3
+      },
+      {
+        "target": "Au",
+        "source_rate": 370.9420173415539,
+        "direct_proton_neutron_rate": 346.7643663005484,
+        "source_over_reference": 1.0697235742499855,
+        "swapped_rounding_relative_residual": 8.103446358376232e-09,
+        "expected_scalar_current": 910.3,
+        "source_scalar_current": 941.5
+      },
+      {
+        "target": "Pb",
+        "source_rate": 358.15336058655123,
+        "direct_proton_neutron_rate": 333.6983646121103,
+        "source_over_reference": 1.0732847342625347,
+        "swapped_rounding_relative_residual": 7.513039301798585e-09,
+        "expected_scalar_current": 955.7,
+        "source_scalar_current": 990.0999999999999
+      }
+    ]
+  },
+  "frozen_neutral_fermion_photon_replay": {
+    "comparisons": 12,
+    "max_relative_residual": 3.6906219658617896e-11,
+    "double_counting": "Already present in Module4; no amplitude added"
+  },
+  "unvalidated": [
+    "Zee full two-loop dipoles",
+    "fixed-physical-scheme one-loop four-lepton operators",
+    "dipole/contact relative ordered-action bridge",
+    "complete coherent three-body rates",
+    "semileptonic matching and nuclear conversion",
+    "materiality and theory uncertainties"
+  ]
+}

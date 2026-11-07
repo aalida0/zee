@@ -1,0 +1,61 @@
+{
+  "date": "2026-11-07",
+  "test_suites": [
+    {
+      "name": "research_suite",
+      "command": "python3 -m unittest research.full_constraints.lfv.test_validate -v",
+      "exit_code": 0,
+      "counts": {
+        "run": 5,
+        "pass": 5,
+        "fail": 0
+      },
+      "transcript": "research/full_constraints/lfv/test_logs/research_suite.txt",
+      "sha256": "e3f34eabfcf2794490f59578f5509bd0d18b2d7cb2a5fce873a8234e546372ec"
+    },
+    {
+      "name": "frozen_D14_LFV",
+      "command": "python3 -m unittest discover -s tests -p 'test_module14_lfv.py' -v",
+      "exit_code": 0,
+      "counts": {
+        "run": 2,
+        "pass": 2,
+        "fail": 0
+      },
+      "transcript": "research/full_constraints/lfv/test_logs/frozen_D14_LFV.txt",
+      "sha256": "cc8bf3c8a95b23eb491755fc3ee034d05c55f84f890cc4eaf565f2c90aa53a19"
+    },
+    {
+      "name": "frozen_Module3_Module4",
+      "command": "python3 -m unittest discover -s tests -p 'test_module[34]_*.py' -v",
+      "exit_code": 1,
+      "counts": {
+        "run": 75,
+        "pass": 73,
+        "fail": 2
+      },
+      "transcript": "research/full_constraints/lfv/test_logs/frozen_Module3_Module4.txt",
+      "sha256": "31fad7f77b8dc7e677b2dd2d070fe7a2fd82f46be5fe9307a2c77d5229032a10"
+    }
+  ],
+  "retained_failures": [
+    {
+      "test": "test_foundation_hashes_and_branch_ancestry",
+      "reason": "requires feature/zee-lfv-module3; current required research branch differs"
+    },
+    {
+      "test": "test_Module4_foundations_correct_branch_and_ancestry",
+      "reason": "requires feature/zee-barrzee-module4; current required research branch differs"
+    }
+  ],
+  "correct_branch_and_frozen_source_test": "PASS; no mocking or modifications of historical tests",
+  "saved_forensic_replay": {
+    "status": "EXACT_JSON_REPLAY_PASS",
+    "artifact_count": 87,
+    "native_reruns": 0,
+    "command": "python3 scripts/zee_d14_spheno_forensics.py --local /home/amine/zee-conditional-cascade-scan/validation/module14/local --output /tmp/NEW_LFV_FORENSICS.json",
+    "frozen_reference_sha256": "c094ee860b661f0d47a10d3d2f8bbe36f2896db43dc0556b35088768ae1b08d7"
+  },
+  "diff_check": "PASS",
+  "physics_status": "LFV_FULL_COVERAGE_BLOCKED"
+}

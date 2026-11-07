@@ -1,0 +1,102 @@
+test_NO_IO_full_current_family_three_spectra (test_module3_interface.InterfaceTests) ... ok
+test_actual_Module1_output_and_Module2_output (test_module3_interface.InterfaceTests) ... ok
+test_cli_single_and_JSONL_batch_error_isolation (test_module3_interface.InterfaceTests) ... ok
+test_foundation_hashes_and_branch_ancestry (test_module3_interface.InterfaceTests) ... FAIL
+test_quadrature_nonconvergence_is_UNKNOWN (test_module3_interface.InterfaceTests) ... ok
+test_strict_input_negative_cases (test_module3_interface.InterfaceTests) ... ok
+test_tampered_full_Module2_output_rejected (test_module3_interface.InterfaceTests) ... ok
+test_typed_output_contract_rejects_false_completeness (test_module3_interface.InterfaceTests) ... ok
+test_unsupported_minimal_scalar_record_rejected (test_module3_interface.InterfaceTests) ... ok
+test_Herrero_internal_tau_leading_log_signed (test_module3_physics.DipoleTests) ... ok
+test_charged_F_and_D_sign_from_same_QB (test_module3_physics.DipoleTests) ... ok
+test_charged_mixing_degenerate_and_pure_limits (test_module3_physics.DipoleTests) ... ok
+test_chirality_flip_transpose (test_module3_physics.DipoleTests) ... ok
+test_coherence_cancellation_and_rejected_mismatches (test_module3_physics.DipoleTests) ... ok
+test_dimensional_scaling_and_yukawa_scaling (test_module3_physics.DipoleTests) ... ok
+test_external_invariant_approximation_against_exact_parameters (test_module3_physics.DipoleTests) ... ok
+test_flavor_diagonal_and_zero_limits (test_module3_physics.DipoleTests) ... ok
+test_general_Lavoura_quadrature_all_channels (test_module3_physics.DipoleTests) ... ok
+test_kernels_vs_independent_quadrature_including_unity (test_module3_physics.DipoleTests) ... ok
+test_legacy_after_exact_basis_conversion (test_module3_physics.DipoleTests) ... ok
+test_neutrino_basis_unitarity_charged_contractions (test_module3_physics.DipoleTests) ... ok
+test_physical_neutral_degenerate_cancellation_subset (test_module3_physics.DipoleTests) ... ok
+test_radiative_width_independent_photon_trace (test_module3_physics.DipoleTests) ... ok
+test_rephasing_CP_and_reverse_channel_hermiticity (test_module3_physics.DipoleTests) ... ok
+test_scalar_and_pseudoscalar_g_minus_2_sign_normalization (test_module3_physics.DipoleTests) ... ok
+test_small_t_and_invalid_ratios (test_module3_physics.DipoleTests) ... ok
+test_alignment_and_CP_odd_vertex (test_module3_physics.MappingTests) ... ok
+test_archived_complex_E3_conversion (test_module3_physics.MappingTests) ... ok
+test_random_unrestricted_Ye_mass_closure_and_charged_rows (test_module3_physics.MappingTests) ... ok
+test_coherent_scalar_cancellation_and_threshold (test_module3_physics.TreeAndWidthTests) ... ok
+test_distinct_flavor_crossed_contraction_nonzero (test_module3_physics.TreeAndWidthTests) ... ok
+test_independent_spinor_sum_with_massive_interference (test_module3_physics.TreeAndWidthTests) ... ok
+test_massless_contact_analytic_identical_factor (test_module3_physics.TreeAndWidthTests) ... ok
+test_neutral_diagonal_scalar_pseudoscalar_threshold (test_module3_physics.TreeAndWidthTests) ... ok
+test_neutral_width_independent_trace_and_CP (test_module3_physics.TreeAndWidthTests) ... ok
+test_tree_rephasing_CP_convergence_and_mass_effect (test_module3_physics.TreeAndWidthTests) ... ok
+test_universality_general_GF_subtraction_and_basis (test_module3_physics.TreeAndWidthTests) ... ok
+test_all_NO_IO_rephasing_reverse_channels_and_coherence (test_module4_charged_scalar.ChargedScalarTests) ... ok
+test_degenerate_mixing_and_decoupling_at_fixed_trilinear (test_module4_charged_scalar.ChargedScalarTests) ... ok
+test_invalid_and_complex_trilinear_fail_closed (test_module4_charged_scalar.ChargedScalarTests) ... ok
+test_kernel_three_independent_representations_and_limits (test_module4_charged_scalar.ChargedScalarTests) ... ok
+test_mass_basis_complex_unitary_and_offdiagonal_selection (test_module4_charged_scalar.ChargedScalarTests) ... ok
+test_prior_validated_34_rows_and_blocked_W_are_unchanged (test_module4_charged_scalar.ChargedScalarTests) ... ok
+test_signed_Ilisie_and_PRD_diagonal_moment (test_module4_charged_scalar.ChargedScalarTests) ... ok
+test_transverse_soft_vertex_from_diagrams_not_projection (test_module4_charged_scalar.ChargedScalarTests) ... ok
+test_two_triangle_seagull_Ward_Bose_and_convergence (test_module4_charged_scalar.ChargedScalarTests) ... ok
+test_Module4_foundations_correct_branch_and_ancestry (test_module4_interface.InterfaceTests) ... FAIL
+test_all_NO_IO_matching_records_no_neutrino_fit (test_module4_interface.InterfaceTests) ... ok
+test_cli_real_example_and_fail_closed_no_partial_output (test_module4_interface.InterfaceTests) ... ok
+test_complete_Module3_output_preserved_and_signed_components_reproduced (test_module4_interface.InterfaceTests) ... ok
+test_provenance_tampering_rejected (test_module4_interface.InterfaceTests) ... ok
+test_schema_version_finite_unknown_fields_and_mass_scheme_rejected (test_module4_interface.InterfaceTests) ... ok
+test_NO_IO_complex_reverse_channels_and_coherent_interference (test_module4_matching.MatchingAuditTests) ... ok
+test_W_exact_source_difference_and_offshell_form_factors (test_module4_matching.MatchingAuditTests) ... ok
+test_independent_Euclidean_parameters_and_three_primary_sources (test_module4_matching.MatchingAuditTests) ... ok
+test_offshell_W_P_tensor_pinch_cancellation_scope (test_module4_matching.MatchingAuditTests) ... ok
+test_outer_Wick_projection_both_orders_and_complex_chiralities (test_module4_matching.MatchingAuditTests) ... ok
+test_scalar_pseudoscalar_and_mixed_diagonal_moments (test_module4_matching.MatchingAuditTests) ... ok
+test_sigma_gamma5_Hermitian_conjugation_and_action_vertex (test_module4_matching.MatchingAuditTests) ... ok
+test_W_CHK_equations_goldstone_term_and_cancellation (test_module4_physics.AmplitudeTests) ... ok
+test_aligned_HA_interference_top_add_bottom_cancel (test_module4_physics.AmplitudeTests) ... ok
+test_all_witnesses_channels_complex_tau_and_rephasing (test_module4_physics.AmplitudeTests) ... ok
+test_charge_squared_color_chirality_and_pseudo_i_falsifiers (test_module4_physics.AmplitudeTests) ... ok
+test_coherent_interference_rejects_operator_and_basis_mismatch (test_module4_physics.AmplitudeTests) ... ok
+test_davidson_operator_mapping_sign_charge_and_complex_conjugation (test_module4_physics.AmplitudeTests) ... ok
+test_decoupling_mass_scaling_and_massless_fermion_limit (test_module4_physics.AmplitudeTests) ... ok
+test_legacy_fermion_and_W_signed_comparison_after_A_field_rephase (test_module4_physics.AmplitudeTests) ... ok
+test_asymptotics_and_h_derivative (test_module4_physics.KernelTests) ... ok
+test_direct_parameters_vs_haber_dilog_all_regimes (test_module4_physics.KernelTests) ... ok
+test_invalid_kernel_arguments (test_module4_physics.KernelTests) ... ok
+test_reference_kernels_without_scan_imports (test_module4_physics.KernelTests) ... ok
+test_charged_scalar_form_factor_and_photon_Ward_tensor (test_module4_physics.NativeAndFoundationAuditTests) ... ok
+test_independent_ilisie_signed_source_conflict_is_not_hidden (test_module4_physics.NativeAndFoundationAuditTests) ... ok
+test_scalar_trilinears_independent_polynomial_derivatives (test_module4_physics.NativeAndFoundationAuditTests) ... ok
+test_signed_one_loop_and_tree_reference_discrepancies (test_module4_physics.NativeAndFoundationAuditTests) ... ok
+
+======================================================================
+FAIL: test_foundation_hashes_and_branch_ancestry (test_module3_interface.InterfaceTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amine/zee-full-constraints/tests/test_module3_interface.py", line 20, in test_foundation_hashes_and_branch_ancestry
+    self.assertEqual(subprocess.check_output(['git','branch','--show-current'],cwd=ROOT,text=True).strip(),'feature/zee-lfv-module3')
+AssertionError: 'research/zee-full-constraints' != 'feature/zee-lfv-module3'
+- research/zee-full-constraints
++ feature/zee-lfv-module3
+
+
+======================================================================
+FAIL: test_Module4_foundations_correct_branch_and_ancestry (test_module4_interface.InterfaceTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amine/zee-full-constraints/tests/test_module4_interface.py", line 29, in test_Module4_foundations_correct_branch_and_ancestry
+    self.assertEqual(branch,'feature/zee-barrzee-module4')
+AssertionError: 'research/zee-full-constraints' != 'feature/zee-barrzee-module4'
+- research/zee-full-constraints
++ feature/zee-barrzee-module4
+
+
+----------------------------------------------------------------------
+Ran 75 tests in 24.752s
+
+FAILED (failures=2)

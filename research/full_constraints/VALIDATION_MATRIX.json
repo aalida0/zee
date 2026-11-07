@@ -17,8 +17,25 @@
     "exclusion": null,
     "theory_sigma": null
   },
-  "LFV": {"status": "NOT_EVALUATED_IN_THIS_TASK", "complete": false},
-  "Higgs": {"status": "NOT_EVALUATED_IN_THIS_TASK", "complete": false},
+  "LFV": {
+    "status": "LFV_FULL_COVERAGE_BLOCKED",
+    "complete": false,
+    "physical_lfv": "UNKNOWN",
+    "scoped_observable_validated": false,
+    "exclusion": null,
+    "new_amplitudes_integrated": 0,
+    "frozen_neutral_fermion_photon_reference": "COMPLEX_COEFFICIENT_REPLAY_PASS",
+    "three_body_contact_rate_function": "INDEPENDENT_DIRAC_TRACE_VALIDATED",
+    "full_fixed_scheme_four_lepton_operator_vector": "NOT_ESTABLISHED",
+    "full_Zee_two_loop_gauge_sum": "NOT_ESTABLISHED",
+    "conversion_scalar_isovector": "PINNED_SOURCE_DISCREPANCY_REPRODUCED",
+    "evidence": "LFV_VALIDATION.json",
+    "coverage": "LFV_COVERAGE.md"
+  },
+  "Higgs": {
+    "status": "NOT_EVALUATED_IN_THIS_TASK",
+    "complete": false
+  },
   "global_acceptance": null,
   "final_scan_authorized": false,
   "frozen_conditional_pipeline_modified": false
