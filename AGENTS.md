@@ -19,57 +19,56 @@ Do **not** call an unimplemented published expression nonexistent; do not call
 a restricted formula complete general Zee physics. Citation-search indexing is
 not exhaustive; report limitations. Always preserve original frozen modules.
 
-## CURRENT TASK — PAPER 1 FEASIBILITY REVIEW; STOP expanding one-loop tasks
+## CURRENT TASK — practical Zee LFV with justified published approximations
 
-**Read `research/full_constraints/PAPER1_SCOPE_DECISION_2026-11-07.md` FIRST.**
+**User approved continued LFV technical research** using published
+leading-contribution approximations; **not** a new point/parameter
+scan and not a wholesale paper-scope or collider-analysis authorization.
 
-The user wants a publishable physics paper on the **Zee Type-II
-H2±→H1±Z cascade**, with a genuinely meaningful scan/constraints
-and collider prospects, not an indefinite series of standalone
-loop implementations. After validated fixed-card Higgs, B and
-LFV calculations, the remaining full-physics gates still cannot
-be promoted to true exclusions. We must stop repeatedly opening
-new higher-loop/width computational tasks without first evaluating
-the manuscript's scientific **viability and unique contribution**
-versus Herrero-García et al. JHEP 2017 full Zee scan and
-Florentino/Romão/Silva EPJC 2021 cascade analysis.
+READ `research/full_constraints/LFV_PRACTICAL_APPROXIMATION_TASK.md`
+**first** and `LFV_PUBLIC_CODE_REUSE_AUDIT_2026-11-07.md`,
+`LFV_COVERAGE.md`, `LFV_SOURCE_TO_CODE_REPORT.md`, and
+the original source-lock JSONs. Follow the staged stop rules.
 
-Latest bound at `1986edf`: ATLAS VBF h→bb selected 1σ
-width-shift thresholds D7 (-0.857/+2.843) MeV,
-F13 (-0.986/+2.279) MeV. Those are endpoint sensitivities
-and NOT theory uncertainty bounds. Physical Γtotal,
-absolute h125 μ and exclusions are still UNKNOWN.
-This weak measurement does **not** justify another
-month of off-shell scalar 4f / Majorana hνν loops.
-B still `B_FULL_RATE_BLOCKED` pending documented Wilson-
-dependent uncertainty specialist input. LFV still
-`LFV_FULL_COVERAGE_BLOCKED` with complex missing gauge
-operator/coherent rates and corrected nuclear-current issue.
-Higgs full remains BLOCKED; scalar/neutrino/EWPO
-validated within declared scope; global vacuum UNKNOWN.
+**Immediate bounded target:** Repair newer FeynArts (>=3.10) /
+FormCalc (>=9.8) setup for pinned FlexibleSUSY `913bbbf`
+in an ISOLATED user/scratch directory. The previous attempt
+detected SARAH but stopped before Zee generation due to old/missing
+dependencies; it did not disprove Zee compatibility. Compare
+its generated radiative/3-body/conversion Wilson coefficients
+with the existing saved SARAH/FlavorKit source on **original
+D7/F13 NO/IO cards** only. Save individual complex operators,
+diagram topology inventory, source hashes and failed checks.
 
-**NOW: produce only** `research/full_constraints/PAPER1_FEASIBILITY_REVIEW.md`.
-Compare full-text prior 2017 and 2021 figures/scope with proposed
-new physics, check old 33 vacuum certified historical IDs
-against saved D14 production/cascade inputs (only if source
-joins exist), choose at most 4 defensible result figures, give
-a peer-review-style novelty and feasibility judgement, and
-contrast A fully constrained (requires unresolved theory) vs
-B explicitly conditional/scoped (user approval required).
-Use only existing saved source data, not new cards/scan.
-Do not claim global acceptance or a real physical veto
-from B/LFV/Higgs partial subset results. A scoped result can
-be shown only as 'conditional on unimplemented constraints',
-not 'allowed Zee parameter region'.
+Then use source-verified existing one-loop Zee/selected
+Barr–Zee contributions; check missing gauge/charged groups
+and the **post-2026-erratum general-2HDM code** only for
+non-duplicated transferable terms. Compute `μ→eγ`,
+`τ→eγ`, `τ→μγ`, `μ→3e` with explicit coherent
+interference and **materiality bounds** for omitted terms.
+Conversion via flavio/wilson/MuonBridge is optional
+follow-up only if complete correct EFT vector obtained;
+original FlavorKit conversion has scalar proton/neutron
+interchange, so don't use unpatched results. A green
+compiler, a partial amplitude, or numerical stability is
+NOT a physical exclusion. Use documented phenomenological
+approximation if it cannot change observable's decision;
+otherwise keep `UNKNOWN`.
 
-No code/gen changes, exploratory pilot or final scan, no
-Condor/MG5, no independent new loop derivations.
-Frozen Modules0–13/D14 and
+Do NOT recalculate validated Module3/4 dipoles, photon
+Barr–Zee, F-only 3-body box or Higgs widths. No full two-loop
+program without separate user decision. Keep full-LFV
+status BLOCKED until physically covered; B flavor
+uncertainty, Higgs full signals and vacuum global remain
+UNKNOWN. Final `global_acceptance=null`.
+
+Branch `research/zee-full-constraints` only.
+Modules0–13, frozen D14 data/scanners and
 `feature/zee-d14-conditional-cascade-scan` at `133a340`
-remain protected. Commit/push only review/report evidence
-on `research/zee-full-constraints` in English.
-The user must explicitly approve any change of paper scope
-AND authorize a future single final parameter-space scan.
+remain read-only. No new scalar point (pilot or final),
+parameter scan, Condor, large MG5 or submission.
+Record actual numerical inputs/sources, tests and caveats;
+commit/push to research branch in English.
 
 ## Mandatory physics safeguards
 
@@ -104,8 +103,9 @@ AND authorize a future single final parameter-space scan.
 
 ## Current deliverable
 
-A source-verified B→Xsγ feasibility and full-rate path
-(`FEASIBILITY_GATE.md`, `BSGAMMA_COVERAGE.md`), with executable
-bounded controls only if scientifically supported. Commit and push
-to this research branch. Retain unvalidated results explicitly
-research-only and the original conditional pipeline unchanged.
+`research/full_constraints/LFV_PRACTICAL_IMPLEMENTATION_REPORT.md`
+with actual version-pinned software results and four-card
+per-observable Wilson/rate/omission evidence, or a precise,
+bounded code/model compatibility blocker. Follow the
+`LFV_PRACTICAL_APPROXIMATION_TASK.md` stop rules; no global
+LFV PASS, B/Higgs relabel, or scan authorization.
