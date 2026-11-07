@@ -43,5 +43,14 @@ All scanned outcomes must continue to use `global_acceptance=null` while any man
 
 **Update this scorecard only when new independent source/numerical evidence passes the corresponding gate.** Do not automatically increment on a new file, passing unit test, source inventory, or package build. Prioritize a real physical observable over inflated percentage-complete indicators.
 
+[Neutral-width update](HIGGS_NEUTRAL_WIDTH_SEARCH_REPORT.md): F13 HDECAY
+and independently validated leading H/A gamma gamma on original D7/F13
+are now executed (35 Higgs tests pass). This advances the partial H/A
+prediction evidence, but does not finish that milestone: mixed H Zgamma,
+off-shell/finite-daughter effects, loop A WW/ZZ and uncertainty/acceptance
+qualification remain missing. ATLAS ID 200212223 rejects all four
+incomplete signals before BR construction. Higgs remains 2/6, no new
+physical exclusions, final scan NOT_AUTHORIZED.
+
 
 Fixed-card uncertainty gate: [UNCERTAINTY_REPORT.md](bsgamma_hepfit/UNCERTAINTY_REPORT.md) records 69 new nuisance/scale executions, correlated partial errors and an unresolved Wilson-dependent theory budget. Historical table confidence root 473.1 GeV does not exactly reproduce 480 GeV. Specialist input required; B_FULL_RATE_BLOCKED, physical_bsgamma=UNKNOWN, exclusion=null, theory_sigma=null. Milestones unchanged.

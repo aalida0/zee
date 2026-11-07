@@ -51,6 +51,16 @@ complete gauge-consistent physical-scheme Zγ prediction and a qualified
 production/decay/uncertainty chain for applicable neutral/charged searches.
 A package build or imported database does not replace those dependencies.
 
+[Original-card neutral-width execution](HIGGS_NEUTRAL_WIDTH_SEARCH_REPORT.md)
+now adds the F13 HDECAY transfer and leading H/A gamma gamma on both D7/F13,
+independently checked against parameter integrals, expanded potential and
+fresh SARAH vertices. All 35 Higgs tests pass. The selected ATLAS tau-tau
+search (ID 200212223) remains `MISSING_PREDICTION`: complete widths/BRs,
+mixed H Zgamma, finite-width/off-shell corrections, A WW/ZZ and the signal
+uncertainty/acceptance qualification remain missing. No incomplete sum is
+normalized and no exclusion ratio is assigned. Higgs stays 2/6; mandatory
+constraints and final-scan authorization are unchanged.
+
 The subsequent [HEPfit execution](bsgamma_hepfit/HEPFIT_RATE_REPORT.md)
 completes the runtime and coherent-bridge portion of that task: 37 HEPfit
 fixed-card/control runs, published Type-II NNLO table interpolation and 18

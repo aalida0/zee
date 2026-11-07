@@ -1,0 +1,9 @@
+{
+  "heavy_trilinear_polynomial_max_abs_GeV": 1.708428953861585e-10,
+  "native_signed_trilinear_max_abs_GeV": 7.105427357601002e-14,
+  "heavy_amplitudes_log_integral_max_abs": 4.965068306494546e-16,
+  "tests_run": 35,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0
+}

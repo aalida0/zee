@@ -1,0 +1,267 @@
+{
+  "HiggsTools_predictions_constructed": 0,
+  "HiggsTools_version": "1.1.3",
+  "attempts": [
+    {
+      "BR_tautau": null,
+      "consumer_rejection": "MISSING_PREDICTION: incomplete Zee width cannot enter HiggsTools",
+      "expected_ratio": null,
+      "known_sum_over_mass_diagnostic": 0.024284800178795606,
+      "mass_GeV": 492.4307830996228,
+      "mass_bracket_GeV": [
+        400,
+        500
+      ],
+      "name": "D7",
+      "observed_ratio": null,
+      "retained_SusHi_rates": {
+        "bbH": {
+          "integration_error_pb": 2.04891612e-09,
+          "sigma_pb": 0.00284816445
+        },
+        "ggF": {
+          "integration_error_pb": 1.21866036e-06,
+          "sigma_pb": 2.32581373
+        }
+      },
+      "retained_SusHi_uncertainties": {
+        "bbH": {
+          "EW_Zee_error_pb": null,
+          "PDF_symmetric_68_percent_pb": 8.287990999756239e-05,
+          "parametric_error_pb": null,
+          "scale_down_pb": 0.0006094778700000002,
+          "scale_up_pb": 0.0005177275499999999
+        },
+        "ggF": {
+          "EW_Zee_error_pb": null,
+          "PDF_symmetric_68_percent_pb": 0.04679635809019104,
+          "parametric_error_pb": null,
+          "scale_down_pb": 0.5396446100000001,
+          "scale_up_pb": 0.76432331
+        }
+      },
+      "sigma_times_BR_pb": null,
+      "state": "H",
+      "status": "MISSING_PREDICTION"
+    },
+    {
+      "BR_tautau": null,
+      "consumer_rejection": "MISSING_PREDICTION: incomplete Zee width cannot enter HiggsTools",
+      "expected_ratio": null,
+      "known_sum_over_mass_diagnostic": 0.037650517665721674,
+      "mass_GeV": 493.16131740168134,
+      "mass_bracket_GeV": [
+        400,
+        500
+      ],
+      "name": "D7",
+      "observed_ratio": null,
+      "retained_SusHi_rates": {
+        "bbH": {
+          "integration_error_pb": 2.22851058e-09,
+          "sigma_pb": 0.00309843975
+        },
+        "ggF": {
+          "integration_error_pb": 2.13153132e-06,
+          "sigma_pb": 4.06750239
+        }
+      },
+      "retained_SusHi_uncertainties": {
+        "bbH": {
+          "EW_Zee_error_pb": null,
+          "PDF_symmetric_68_percent_pb": 9.025067759807655e-05,
+          "parametric_error_pb": null,
+          "scale_down_pb": 0.0006623040800000004,
+          "scale_up_pb": 0.0005624572899999999
+        },
+        "ggF": {
+          "EW_Zee_error_pb": null,
+          "PDF_symmetric_68_percent_pb": 0.08191821567866005,
+          "parametric_error_pb": null,
+          "scale_down_pb": 0.9439497499999994,
+          "scale_up_pb": 1.3370723700000005
+        }
+      },
+      "sigma_times_BR_pb": null,
+      "state": "A",
+      "status": "MISSING_PREDICTION"
+    },
+    {
+      "BR_tautau": null,
+      "consumer_rejection": "MISSING_PREDICTION: incomplete Zee width cannot enter HiggsTools",
+      "expected_ratio": null,
+      "known_sum_over_mass_diagnostic": 0.003190958995465662,
+      "mass_GeV": 707.0819378644715,
+      "mass_bracket_GeV": [
+        700,
+        800
+      ],
+      "name": "F13",
+      "observed_ratio": null,
+      "retained_SusHi_rates": {
+        "bbH": {
+          "integration_error_pb": 9.35325725e-09,
+          "sigma_pb": 0.013868578
+        },
+        "ggF": {
+          "integration_error_pb": 8.55250108e-09,
+          "sigma_pb": 0.0159280599
+        }
+      },
+      "retained_SusHi_uncertainties": {
+        "bbH": {
+          "EW_Zee_error_pb": null,
+          "PDF_symmetric_68_percent_pb": 0.000525430616105818,
+          "parametric_error_pb": null,
+          "scale_down_pb": 0.0022184953999999993,
+          "scale_up_pb": 0.001762470000000002
+        },
+        "ggF": {
+          "EW_Zee_error_pb": null,
+          "PDF_symmetric_68_percent_pb": 0.0004135820945758257,
+          "parametric_error_pb": null,
+          "scale_down_pb": 0.0038755843,
+          "scale_up_pb": 0.0055964077
+        }
+      },
+      "sigma_times_BR_pb": null,
+      "state": "H",
+      "status": "MISSING_PREDICTION"
+    },
+    {
+      "BR_tautau": null,
+      "consumer_rejection": "MISSING_PREDICTION: incomplete Zee width cannot enter HiggsTools",
+      "expected_ratio": null,
+      "known_sum_over_mass_diagnostic": 0.009822912385189597,
+      "mass_GeV": 792.2593499631515,
+      "mass_bracket_GeV": [
+        700,
+        800
+      ],
+      "name": "F13",
+      "observed_ratio": null,
+      "retained_SusHi_rates": {
+        "bbH": {
+          "integration_error_pb": 5.3164349e-09,
+          "sigma_pb": 0.00802913282
+        },
+        "ggF": {
+          "integration_error_pb": 7.77352199e-09,
+          "sigma_pb": 0.0146694072
+        }
+      },
+      "retained_SusHi_uncertainties": {
+        "bbH": {
+          "EW_Zee_error_pb": null,
+          "PDF_symmetric_68_percent_pb": 0.00033373825338781375,
+          "parametric_error_pb": null,
+          "scale_down_pb": 0.00115820454,
+          "scale_up_pb": 0.0008969575500000007
+        },
+        "ggF": {
+          "EW_Zee_error_pb": null,
+          "PDF_symmetric_68_percent_pb": 0.0004156338646312555,
+          "parametric_error_pb": null,
+          "scale_down_pb": 0.0036210293,
+          "scale_up_pb": 0.005257826000000002
+        }
+      },
+      "sigma_times_BR_pb": null,
+      "state": "A",
+      "status": "MISSING_PREDICTION"
+    }
+  ],
+  "complete_signals_connected": 0,
+  "dataset_commit": "3539f9adf3724f8752701208bf059d1658824cd2",
+  "dataset_sha256": "626edb4f21ab3c3a77febf71b3780ce070961b29c9221289c47853916262a591",
+  "exclusion": null,
+  "experimental_source": "https://arxiv.org/html/2002.12223v2",
+  "extrapolation": false,
+  "global_acceptance": null,
+  "interpretation": "Two-production-channel observed/expected likelihood grids, not a single observed cross-section curve",
+  "mass_grid_GeV": [
+    200,
+    250,
+    300,
+    350,
+    400,
+    500,
+    600,
+    700,
+    800,
+    1000,
+    1200,
+    1500,
+    2000,
+    2500
+  ],
+  "native_limit_description": "2d likelihood {LHC13 [ggH>tautau], LHC13 [bbH>tautau]}",
+  "physical_higgs": "UNKNOWN",
+  "remaining_signal_inputs": [
+    "Qualified total widths/BRs with missing-channel bounds and correlated decay uncertainty",
+    "LO SusHi scale/PDF bands do not qualify omitted QCD/EW and mass-scheme/parametric uncertainties",
+    "Zee general complex tau coupling CP mixture and production kinematics acceptance transfer to the b-tag/veto selections",
+    "Finite width, nearby H/A overlap and interference treatment for the full model signal",
+    "Expected-sensitivity selection and observed likelihood confidence inversion with qualified signal uncertainty"
+  ],
+  "selected_analysis": {
+    "acceptances": null,
+    "category": "neutral",
+    "collider": "LHC13",
+    "confidence": "95% CL observed limit; choose by expected sensitivity; no independent observed-limit shopping",
+    "constraints": null,
+    "equalDaughterMasses": false,
+    "equalParticleMasses": false,
+    "experiment": "ATLAS",
+    "extent": "M=(200, 2500)",
+    "file": "neutral/tautau/LLH_LHC13_ATLAS_139.json",
+    "grid_axes": {
+      "mass": [
+        200,
+        2500
+      ]
+    },
+    "id": 200212223,
+    "limitClass": "LikelihoodLimit",
+    "luminosity": 139.0,
+    "massResolution": {
+      "absolute": 5,
+      "relative": 0.15
+    },
+    "normalization": null,
+    "perturbative_order": "Experimental bound has no generator order; model LO central only where identified, higher-order/uncertainty qualification missing",
+    "process": [
+      {
+        "channels": [
+          [
+            "ggH",
+            "tautau"
+          ]
+        ]
+      },
+      {
+        "channels": [
+          [
+            "bbH",
+            "tautau"
+          ]
+        ]
+      }
+    ],
+    "process_description": "2d likelihood {LHC13 [ggH>tautau], LHC13 [bbH>tautau]}",
+    "productionAcceptances": null,
+    "reference": "2002.12223",
+    "relativeWidth": null,
+    "required_HiggsTools_input": "setMass, setTotalWidth; setCxn(collider, production, pb), setBr(decay); chain/pair BR and pairCxn or coupling where process specifies; source metadata retained verbatim",
+    "sha256": "626edb4f21ab3c3a77febf71b3780ce070961b29c9221289c47853916262a591",
+    "source": "Tab. 23-36 (obs) & 37-50 (exp)",
+    "source_url": "https://gitlab.com/higgsbounds/hbdataset/-/blob/3539f9adf3724f8752701208bf059d1658824cd2/neutral/tautau/LLH_LHC13_ATLAS_139.json",
+    "suppressLimit": null,
+    "suppressLimitMassRange": null,
+    "width_validity": "Explicit width grid where present; otherwise narrow-width/signal-model interpretation requires source qualification"
+  },
+  "selection_reason": "Both original H/A masses lie in the 13-TeV ggF/bbH tau-tau domain; production already independently validated; selected before computing any ratio",
+  "source_hypothesis": "Spin-zero resonance; natural width negligible compared with resolution; ggF Powheg-Box v2 and bbH MG5_aMC@NLO signal samples; b-tag and b-veto categories",
+  "status": "HIGGS_SCOPED_SEARCH_BLOCKED",
+  "width_grid": null
+}

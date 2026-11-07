@@ -1,0 +1,40 @@
+test_CP_and_flavour_trace_proof_for_photons (research.full_constraints.higgs.test_neutral_widths.NeutralWidthsTests) ... ok
+test_H_and_A_trilinears_against_expanded_real_potential (research.full_constraints.higgs.test_neutral_widths.NeutralWidthsTests) ... ok
+test_charge_summed_vector_width_independent_rest_frame_polarizations (research.full_constraints.higgs.test_neutral_widths.NeutralWidthsTests) ... ok
+test_fixed_card_evidence_and_no_incomplete_normalization (research.full_constraints.higgs.test_neutral_widths.NeutralWidthsTests) ... ok
+test_fresh_signed_SARAH_H_and_A_vertices (research.full_constraints.higgs.test_neutral_widths.NeutralWidthsTests) ... ok
+test_heavy_amplitudes_against_logarithmic_parameter_integrals (research.full_constraints.higgs.test_neutral_widths.NeutralWidthsTests) ... ok
+test_historical_source_pins_and_tampering (research.full_constraints.higgs.test_neutral_widths.NeutralWidthsTests) ... ok
+test_lepton_width_independent_scalar_pseudoscalar_and_LFV_counting (research.full_constraints.higgs.test_neutral_widths.NeutralWidthsTests) ... ok
+test_original_h125_regression (research.full_constraints.higgs.test_neutral_widths.NeutralWidthsTests) ... ok
+test_exact_rate_bridge_rejects_energy_pdf_charge_and_family_tampering (research.full_constraints.higgs.test_higgs.CoverageTests) ... ok
+test_mass_only_rejection_and_tree_zero_is_not_loop_zero (research.full_constraints.higgs.test_higgs.CoverageTests) ... ok
+test_pinned_datasets_all_limits_and_unknowns (research.full_constraints.higgs.test_higgs.CoverageTests) ... ok
+test_width_replacement_preserves_sum_without_inclusive_inv_double_count (research.full_constraints.higgs.test_higgs.CoverageTests) ... ok
+test_D12_complete_complex_amplitudes_independent_parameters (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_all_spin_functions_vs_independent_log_integral (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_charge_sign_coherence_and_fixed_trilinear_decoupling (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_cp_odd_tau_not_doubled_mu_and_no_unpolarized_interference (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_fail_closed_nonfinite_missing_and_nonhermitian (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_inverse_tau_published_sign_and_two_state_sum (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_mixing_endpoints_equal_mass_and_trace (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_polarization_width_normalization_and_identical_photons (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_scalar_and_fermion_triangle_parameters (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_scalar_qed_Ward_Bose_and_seagull_cancellation (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_sm_and_independent_compiled_HiggsTools_even_amplitude (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_trilinears_vs_independent_expanded_potential_on_D12_cards (research.full_constraints.higgs.test_higgs.DiphotonTests) ... ok
+test_all_source_and_receipt_bytes (research.full_constraints.higgs.test_sushi.ExecutedSusHiTests) ... ok
+test_missing_nan_negative_or_tampered_rates_rejected (research.full_constraints.higgs.test_sushi.ExecutedSusHiTests) ... ok
+test_native_signed_quark_and_extra_vertices (research.full_constraints.higgs.test_sushi.ExecutedSusHiTests) ... ok
+test_no_exclusion_and_exact_per_id_missing_gate (research.full_constraints.higgs.test_sushi.ExecutedSusHiTests) ... ok
+test_nonzero_loop_interference_and_cp_functions (research.full_constraints.higgs.test_sushi.ExecutedSusHiTests) ... ok
+test_original_cards_and_executed_central_contracts (research.full_constraints.higgs.test_sushi.ExecutedSusHiTests) ... ok
+test_scale_pdf_uncertainties_recomputed (research.full_constraints.higgs.test_sushi.ExecutedSusHiTests) ... ok
+test_total_and_invisible_double_counting_cannot_pass (research.full_constraints.higgs.test_sushi.ExecutedSusHiTests) ... ok
+test_transferable_widths_and_native_extras_recomputed (research.full_constraints.higgs.test_sushi.ExecutedSusHiTests) ... ok
+test_wrong_energy_pdf_cp_order_flavour_scheme_sources_rejected (research.full_constraints.higgs.test_sushi.ExecutedSusHiTests) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 10.197s
+
+OK

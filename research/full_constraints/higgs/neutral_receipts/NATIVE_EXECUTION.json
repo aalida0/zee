@@ -1,0 +1,18 @@
+{
+  "command": [
+    "math",
+    "-script",
+    "research/full_constraints/higgs/native_neutral_vertices.m"
+  ],
+  "environment": {
+    "ZEE_SUSHI_NATIVE_OUT": "/tmp/zee-neutral-native"
+  },
+  "input_sha256": "13d369272f541d3cf24dded30e099fa2ca8f854184a13bc5be531a130ab8513b",
+  "log_gzip_sha256": "bfa16de8f4667ed5b2f52be248b44c152d57517a94304fce4cfa6074679685a0",
+  "math_launcher_sha256": "2965d0044c90dbfc0e82b404b93722945d12d38353faf351f7553d1741f9731a",
+  "output_sha256": "5f6d403ad30a14eefcdb63e8dc82a00042d94be10239d826f4fa79d23d41224a",
+  "raw_log_sha256": "e9c5d376ee625e537169325231ef35c3ef53dbf3c5092a17b94d930314a17cd0",
+  "returncode": 0,
+  "scope": "Eight signed H/A charged-scalar coefficients per original D7/F13; no spectrum or full-loop observable",
+  "script_sha256": "8f2d483fe1667682590a8360ee99e8b650b946ceb8b48b7810ec0a2cb883fcd2"
+}

@@ -1,0 +1,125 @@
+{
+	"status":"NATIVE_EXTRACTED_REQUIRES_COMPARISON",
+	"math_version":"15.0.1 for Linux x86 (64-bit) (July 2, 2026)",
+	"sarah_version":"4.15.4",
+	"sarah_sha256":"8ed36ea4ed97e9f032ced9887a13594b4a40fe0f09fda475c69f7c5633be4d01",
+	"raw":[
+		"{{hh[{2}], conj[Hm[{2}]], Hm[{2}]}, {I*(-(Lambda1*v1*ZH[2, 1]*ZP[2, 1]^2) - Lambda4*v2*ZH[2, 1]*ZP[2, 1]*ZP[2, 2] - Lambda5*v2*ZH[2, 1]*ZP[2, 1]*ZP[2, 2] - Lambda4*v1*ZH[2, 2]*ZP[2, 1]*ZP[2, 2] - Lambda5*v1*ZH[2, 2]*ZP[2, 1]*ZP[2, 2] - Lambda2*v2*ZH[2, 2]*ZP[2, 2]^2 - Lambda3*(v2*ZH[2, 2]*ZP[2, 1]^2 + v1*ZH[2, 1]*ZP[2, 2]^2) - Sqrt[2]*Mu4*ZH[2, 2]*ZP[2, 1]*ZP[2, 3] + Sqrt[2]*Mu4*ZH[2, 1]*ZP[2, 2]*ZP[2, 3] - K1*v1*ZH[2, 1]*ZP[2, 3]^2 + K12*v2*ZH[2, 1]*ZP[2, 3]^2 + K12*v1*ZH[2, 2]*ZP[2, 3]^2 - K2*v2*ZH[2, 2]*ZP[2, 3]^2), 1}}",
+		"{{hh[{2}], conj[Hm[{2}]], Hm[{3}]}, {(I\/2)*(-2*Lambda1*v1*ZH[2, 1]*ZP[2, 1]*ZP[3, 1] - Lambda4*v2*ZH[2, 1]*ZP[2, 2]*ZP[3, 1] - Lambda5*v2*ZH[2, 1]*ZP[2, 2]*ZP[3, 1] - Lambda4*v1*ZH[2, 2]*ZP[2, 2]*ZP[3, 1] - Lambda5*v1*ZH[2, 2]*ZP[2, 2]*ZP[3, 1] - Sqrt[2]*Mu4*ZH[2, 2]*ZP[2, 3]*ZP[3, 1] - Lambda4*v2*ZH[2, 1]*ZP[2, 1]*ZP[3, 2] - Lambda5*v2*ZH[2, 1]*ZP[2, 1]*ZP[3, 2] - Lambda4*v1*ZH[2, 2]*ZP[2, 1]*ZP[3, 2] - Lambda5*v1*ZH[2, 2]*ZP[2, 1]*ZP[3, 2] - 2*Lambda2*v2*ZH[2, 2]*ZP[2, 2]*ZP[3, 2] + Sqrt[2]*Mu4*ZH[2, 1]*ZP[2, 3]*ZP[3, 2] - 2*Lambda3*(v2*ZH[2, 2]*ZP[2, 1]*ZP[3, 1] + v1*ZH[2, 1]*ZP[2, 2]*ZP[3, 2]) - Sqrt[2]*Mu4*ZH[2, 2]*ZP[2, 1]*ZP[3, 3] + Sqrt[2]*Mu4*ZH[2, 1]*ZP[2, 2]*ZP[3, 3] - 2*K1*v1*ZH[2, 1]*ZP[2, 3]*ZP[3, 3] + 2*K12*v2*ZH[2, 1]*ZP[2, 3]*ZP[3, 3] + 2*K12*v1*ZH[2, 2]*ZP[2, 3]*ZP[3, 3] - 2*K2*v2*ZH[2, 2]*ZP[2, 3]*ZP[3, 3]), 1}}",
+		"{{hh[{2}], conj[Hm[{3}]], Hm[{2}]}, {(I\/2)*(-2*Lambda1*v1*ZH[2, 1]*ZP[2, 1]*ZP[3, 1] - Lambda4*v2*ZH[2, 1]*ZP[2, 2]*ZP[3, 1] - Lambda5*v2*ZH[2, 1]*ZP[2, 2]*ZP[3, 1] - Lambda4*v1*ZH[2, 2]*ZP[2, 2]*ZP[3, 1] - Lambda5*v1*ZH[2, 2]*ZP[2, 2]*ZP[3, 1] - Sqrt[2]*Mu4*ZH[2, 2]*ZP[2, 3]*ZP[3, 1] - Lambda4*v2*ZH[2, 1]*ZP[2, 1]*ZP[3, 2] - Lambda5*v2*ZH[2, 1]*ZP[2, 1]*ZP[3, 2] - Lambda4*v1*ZH[2, 2]*ZP[2, 1]*ZP[3, 2] - Lambda5*v1*ZH[2, 2]*ZP[2, 1]*ZP[3, 2] - 2*Lambda2*v2*ZH[2, 2]*ZP[2, 2]*ZP[3, 2] + Sqrt[2]*Mu4*ZH[2, 1]*ZP[2, 3]*ZP[3, 2] - 2*Lambda3*(v2*ZH[2, 2]*ZP[2, 1]*ZP[3, 1] + v1*ZH[2, 1]*ZP[2, 2]*ZP[3, 2]) - Sqrt[2]*Mu4*ZH[2, 2]*ZP[2, 1]*ZP[3, 3] + Sqrt[2]*Mu4*ZH[2, 1]*ZP[2, 2]*ZP[3, 3] - 2*K1*v1*ZH[2, 1]*ZP[2, 3]*ZP[3, 3] + 2*K12*v2*ZH[2, 1]*ZP[2, 3]*ZP[3, 3] + 2*K12*v1*ZH[2, 2]*ZP[2, 3]*ZP[3, 3] - 2*K2*v2*ZH[2, 2]*ZP[2, 3]*ZP[3, 3]), 1}}",
+		"{{hh[{2}], conj[Hm[{3}]], Hm[{3}]}, {I*(-(Lambda1*v1*ZH[2, 1]*ZP[3, 1]^2) - Lambda4*v2*ZH[2, 1]*ZP[3, 1]*ZP[3, 2] - Lambda5*v2*ZH[2, 1]*ZP[3, 1]*ZP[3, 2] - Lambda4*v1*ZH[2, 2]*ZP[3, 1]*ZP[3, 2] - Lambda5*v1*ZH[2, 2]*ZP[3, 1]*ZP[3, 2] - Lambda2*v2*ZH[2, 2]*ZP[3, 2]^2 - Lambda3*(v2*ZH[2, 2]*ZP[3, 1]^2 + v1*ZH[2, 1]*ZP[3, 2]^2) - Sqrt[2]*Mu4*ZH[2, 2]*ZP[3, 1]*ZP[3, 3] + Sqrt[2]*Mu4*ZH[2, 1]*ZP[3, 2]*ZP[3, 3] - K1*v1*ZH[2, 1]*ZP[3, 3]^2 + K12*v2*ZH[2, 1]*ZP[3, 3]^2 + K12*v1*ZH[2, 2]*ZP[3, 3]^2 - K2*v2*ZH[2, 2]*ZP[3, 3]^2), 1}}",
+		"{{Ah[{2}], conj[Hm[{2}]], Hm[{2}]}, {0, 1}}",
+		"{{Ah[{2}], conj[Hm[{2}]], Hm[{3}]}, {(Lambda4*(v2*ZA[2, 1] - v1*ZA[2, 2])*(ZP[2, 2]*ZP[3, 1] - ZP[2, 1]*ZP[3, 2]) - Lambda5*(v2*ZA[2, 1] - v1*ZA[2, 2])*(ZP[2, 2]*ZP[3, 1] - ZP[2, 1]*ZP[3, 2]) + Sqrt[2]*Mu4*(ZA[2, 2]*(-(ZP[2, 3]*ZP[3, 1]) + ZP[2, 1]*ZP[3, 3]) + ZA[2, 1]*(ZP[2, 3]*ZP[3, 2] - ZP[2, 2]*ZP[3, 3])))\/2, 1}}",
+		"{{Ah[{2}], conj[Hm[{3}]], Hm[{2}]}, {(-(Lambda4*(v2*ZA[2, 1] - v1*ZA[2, 2])*(ZP[2, 2]*ZP[3, 1] - ZP[2, 1]*ZP[3, 2])) + Lambda5*(v2*ZA[2, 1] - v1*ZA[2, 2])*(ZP[2, 2]*ZP[3, 1] - ZP[2, 1]*ZP[3, 2]) - Sqrt[2]*Mu4*(ZA[2, 2]*(-(ZP[2, 3]*ZP[3, 1]) + ZP[2, 1]*ZP[3, 3]) + ZA[2, 1]*(ZP[2, 3]*ZP[3, 2] - ZP[2, 2]*ZP[3, 3])))\/2, 1}}",
+		"{{Ah[{2}], conj[Hm[{3}]], Hm[{3}]}, {0, 1}}"
+	],
+	"cases":[
+		{
+			"id":"D7",
+			"coefficients":[
+				[
+					{
+						"real":0.0,
+						"imag":1.2412783490240861e2
+					}
+				],
+				[
+					{
+						"real":0.0,
+						"imag":1.667433636912503e1
+					}
+				],
+				[
+					{
+						"real":0.0,
+						"imag":1.667433636912503e1
+					}
+				],
+				[
+					{
+						"real":0.0,
+						"imag":2.624039126967476e1
+					}
+				],
+				[
+					{
+						"real":0.0,
+						"imag":0
+					}
+				],
+				[
+					{
+						"real":-1.0690825871907872e-14,
+						"imag":0
+					}
+				],
+				[
+					{
+						"real":1.0690825871907872e-14,
+						"imag":0
+					}
+				],
+				[
+					{
+						"real":0.0,
+						"imag":0
+					}
+				]
+			]
+		},
+		{
+			"id":"F13",
+			"coefficients":[
+				[
+					{
+						"real":0.0,
+						"imag":6.2290870408634014e1
+					}
+				],
+				[
+					{
+						"real":0.0,
+						"imag":-1.2733392404489314e2
+					}
+				],
+				[
+					{
+						"real":0.0,
+						"imag":-1.2733392404489314e2
+					}
+				],
+				[
+					{
+						"real":0.0,
+						"imag":2.4352506167209793e2
+					}
+				],
+				[
+					{
+						"real":0.0,
+						"imag":0
+					}
+				],
+				[
+					{
+						"real":2.0138778018502855e-14,
+						"imag":0
+					}
+				],
+				[
+					{
+						"real":-2.0138778018502855e-14,
+						"imag":0
+					}
+				],
+				[
+					{
+						"real":0.0,
+						"imag":0
+					}
+				]
+			]
+		}
+	],
+	"input_sha256":"13d369272f541d3cf24dded30e099fa2ca8f854184a13bc5be531a130ab8513b"
+}

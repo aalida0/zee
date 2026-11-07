@@ -8,6 +8,19 @@ for the amplitude, not a validated experimental exclusion.
 `physical_higgs=UNKNOWN`, `exclusion=null`, `global_acceptance=null`.
 No Higgs hard veto or global PASS is supplied.
 
+The [neutral-width execution](HIGGS_NEUTRAL_WIDTH_SEARCH_REPORT.md) adds
+the original F13 HDECAY transfer and independently checked leading H/A
+diphoton widths on both cards, with 16 fresh signed SARAH trilinear checks.
+Known disjoint sums are D7 H/A = 11.9585831695/18.5677788929 GeV and F13
+H/A = 2.25626947016/7.78229418104 GeV; none is a physical total or BR
+normalization. The exact ATLAS tau-tau analysis ID 200212223 is loaded and
+source checked, but all four signal inputs fail the complete-width gate.
+Mixed H Zgamma, off-shell/finite-daughter effects, loop A WW/ZZ and
+uncertainty/acceptance remain unbounded. `HIGGS_SCOPED_SEARCH_BLOCKED`;
+zero new usable exclusions. The historical inventories/receipts below are
+preserved; [OBSERVED_SEARCH_COVERAGE.json](higgs/OBSERVED_SEARCH_COVERAGE.json)
+records this selected-analysis stopping decision. Higgs milestones stay 2/6.
+
 The subsequent [executed SusHi/HDECAY stage](HIGGS_SUSHI_EXECUTION.md)
 adds independently validated **13-TeV LO ggF and 5FS bbH for H and A on
 both original D7/F13 cards**, with signed native-SARAH matching, seven-point

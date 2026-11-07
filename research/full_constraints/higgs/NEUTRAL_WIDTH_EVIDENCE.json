@@ -1,0 +1,987 @@
+{
+  "B_reexecuted": false,
+  "benchmarks": [
+    {
+      "global_acceptance": null,
+      "name": "D7",
+      "physical_higgs": "UNKNOWN",
+      "raw_sha256": "c60f3a6c105876d941619f3b2d9e6f6a9155d06d766bd92e15d9539e81acb970",
+      "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+      "states": {
+        "A": {
+          "branching_fractions": null,
+          "charged_W_daughter_domains": [
+            {
+              "daughter_tree_width_GeV": 0.32355811346314894,
+              "state": "H1",
+              "threshold_gap_GeV": 114.05566205719346
+            },
+            {
+              "daughter_tree_width_GeV": 16.023422056201035,
+              "state": "H2",
+              "threshold_gap_GeV": -120.1505953792565
+            }
+          ],
+          "charged_pair_thresholds": [
+            {
+              "channel": "H1+ H1-",
+              "status": "CLOSED_ON_SHELL",
+              "threshold_GeV": 597.4533106889758
+            },
+            {
+              "channel": "H1+ H2-",
+              "status": "CLOSED_ON_SHELL",
+              "threshold_GeV": 831.6595681254257
+            },
+            {
+              "channel": "H2+ H2-",
+              "status": "CLOSED_ON_SHELL",
+              "threshold_GeV": 1065.8658255618757
+            }
+          ],
+          "exclusion": null,
+          "known_disjoint_sum_GeV": 18.567778892882576,
+          "missing": [
+            "A Zgamma fermion amplitudes with general complex lepton couplings; scalar sector CP forbids a bosonic epsilon tensor",
+            "Model-matched charged-W off-shell/finite-daughter correction without double counting the on-shell cascade; no numerical bound",
+            "Loop-induced A WW/ZZ with model-matched fermion and gauge amplitudes; no numerical width/materiality bound",
+            "Neutral/scalar off-shell cascades beyond transferred HDECAY approximation, including finite H in F13 A -> H Z*",
+            "Channel-specific QCD/EW truncation and parametric/correlated uncertainties; no total error budget"
+          ],
+          "partial_widths_GeV": {
+            "H1+ W- plus conjugate": 0.9393567398077386,
+            "H2+ W- plus conjugate": 0.0,
+            "ZHh": 2.2314447230145508e-13,
+            "ZHl": 0.06569304034402525,
+            "bb": 0.009214607269752444,
+            "cc": 0.0004861316884705842,
+            "dd tree": 2.6701550478583507e-08,
+            "e e": 4.2733548125204614e-10,
+            "e mu both charges": 9.228606405469398e-37,
+            "e tau both charges": 1.2128284987789378e-08,
+            "gamma gamma": 0.00020861021029989376,
+            "gg": 0.0623983969549565,
+            "mu mu": 1.8263482055463354e-05,
+            "mu tau both charges": 4.87837545287121e-06,
+            "ss": 3.371410928914116e-06,
+            "tau tau": 6.20557399866489e-09,
+            "tt": 17.490394804236637,
+            "uu tree": 3.6392902797724965e-09
+          },
+          "photon": {
+            "G12_Z21_GeV": {
+              "imag": 1.1616528578010395e-15,
+              "real": 0.0
+            },
+            "G_charged_GeV": [
+              [
+                {
+                  "imag": 2.106610770321732e-16,
+                  "real": 0.0
+                },
+                {
+                  "imag": -1.2884086753500211e-14,
+                  "real": 0.0
+                }
+              ],
+              [
+                {
+                  "imag": 4.977487719810744e-15,
+                  "real": 0.0
+                },
+                {
+                  "imag": -2.7479689951300376e-15,
+                  "real": 0.0
+                }
+              ]
+            ],
+            "Z_current": [
+              [
+                -0.14175368174782363,
+                -0.09016183141466771
+              ],
+              [
+                -0.09016183141466771,
+                0.18173195666116063
+              ]
+            ],
+            "Zgamma_status": "MISSING_PREDICTION",
+            "alpha_em": 0.007565201924913188,
+            "amplitude": {
+              "even": {
+                "imag": 2.769478144513374e-06,
+                "real": -2.845150164781468e-06
+              },
+              "even_terms": {
+                "W": {
+                  "imag": -0.0,
+                  "real": 0.0
+                },
+                "b": {
+                  "imag": 0.0,
+                  "real": -0.0
+                },
+                "c": {
+                  "imag": 0.0,
+                  "real": -0.0
+                },
+                "d": {
+                  "imag": 0.0,
+                  "real": -0.0
+                },
+                "e": {
+                  "imag": 6.129718043634955e-11,
+                  "real": -2.6395844662956813e-10
+                },
+                "mu": {
+                  "imag": -1.6300583514861868e-06,
+                  "real": 4.170604818777548e-06
+                },
+                "s": {
+                  "imag": 0.0,
+                  "real": -0.0
+                },
+                "t": {
+                  "imag": 0.0,
+                  "real": 0.0
+                },
+                "tau": {
+                  "imag": 4.399475198819124e-06,
+                  "real": -7.015491025112387e-06
+                },
+                "u": {
+                  "imag": 0.0,
+                  "real": -0.0
+                }
+              },
+              "norm": 14.62387622503948,
+              "odd": {
+                "imag": 3.2986330140344555,
+                "real": 1.9346566785209407
+              },
+              "odd_terms": {
+                "b": {
+                  "imag": 0.004071233241411185,
+                  "real": -0.005318572983479399
+                },
+                "c": {
+                  "imag": 0.0011926305446438646,
+                  "real": -0.002105186851692807
+                },
+                "d": {
+                  "imag": 9.815008942480046e-09,
+                  "real": -3.545235103869148e-08
+                },
+                "e": {
+                  "imag": -8.338593246961312e-10,
+                  "real": 3.6100338981394096e-09
+                },
+                "mu": {
+                  "imag": 2.185114216339502e-05,
+                  "real": -5.673078108222909e-05
+                },
+                "s": {
+                  "imag": 2.879615250145919e-06,
+                  "real": -7.592042208053208e-06
+                },
+                "t": {
+                  "imag": 3.2933433526536695,
+                  "real": 1.9421465554849724
+                },
+                "tau": {
+                  "imag": 1.0507471109235551e-06,
+                  "real": -1.7349952297407306e-06
+                },
+                "u": {
+                  "imag": 7.109056716427417e-09,
+                  "real": -2.7468022342505288e-08
+                }
+              },
+              "width_GeV": 0.00020861021029989376
+            },
+            "charged": [],
+            "kV": 0.0,
+            "kappas": {
+              "b": {
+                "imag": 1.115726870050509,
+                "real": 0.0
+              },
+              "c": {
+                "imag": 0.8962767025183591,
+                "real": 0.0
+              },
+              "d": {
+                "imag": 1.115726870050509,
+                "real": 0.0
+              },
+              "e": {
+                "imag": -2.2425511394941693,
+                "real": 0.16485042232513095
+              },
+              "mu": {
+                "imag": 2.2419760276011402,
+                "real": -0.1672476610740973
+              },
+              "s": {
+                "imag": 1.115726870050509,
+                "real": 0.0
+              },
+              "t": {
+                "imag": 0.8962767025183591,
+                "real": 0.0
+              },
+              "tau": {
+                "imag": 0.0005724427872687738,
+                "real": 0.0023969408051920686
+              },
+              "u": {
+                "imag": 0.8962767025183591,
+                "real": 0.0
+              }
+            },
+            "mass_GeV": 493.16131740168134,
+            "scalar_photon_trace": "diagonal G only; Q and QQ seagull diagonal; A diagonal G=0",
+            "status": "LEADING_ONE_LOOP_PARTIAL_WIDTH",
+            "theory_sigma": null
+          },
+          "status": "TOTAL_WIDTH_INCOMPLETE",
+          "theory_sigma": null,
+          "total_width_GeV": null
+        },
+        "H": {
+          "branching_fractions": null,
+          "charged_W_daughter_domains": [
+            {
+              "daughter_tree_width_GeV": 0.32355811346314894,
+              "state": "H1",
+              "threshold_gap_GeV": 113.32512775513489
+            },
+            {
+              "daughter_tree_width_GeV": 16.023422056201035,
+              "state": "H2",
+              "threshold_gap_GeV": -120.88112968131507
+            }
+          ],
+          "charged_pair_thresholds": [
+            {
+              "channel": "H1+ H1-",
+              "status": "CLOSED_ON_SHELL",
+              "threshold_GeV": 597.4533106889758
+            },
+            {
+              "channel": "H1+ H2-",
+              "status": "CLOSED_ON_SHELL",
+              "threshold_GeV": 831.6595681254257
+            },
+            {
+              "channel": "H2+ H2-",
+              "status": "CLOSED_ON_SHELL",
+              "threshold_GeV": 1065.8658255618757
+            }
+          ],
+          "exclusion": null,
+          "known_disjoint_sum_GeV": 11.958583169462178,
+          "missing": [
+            "Complete H Zgamma: unequal-mass charged scalar G12 Z21 triangles, seagull and gauge completion",
+            "Model-matched charged-W off-shell/finite-daughter correction without double counting the on-shell cascade; no numerical bound",
+            "Nonresonant EW multibody channels outside transferred HDECAY approximations; no numerical materiality bound",
+            "Neutral/scalar off-shell cascades beyond transferred HDECAY approximation, including finite H in F13 A -> H Z*",
+            "Channel-specific QCD/EW truncation and parametric/correlated uncertainties; no total error budget"
+          ],
+          "partial_widths_GeV": {
+            "AA": 0.0,
+            "H1+ W- plus conjugate": 0.9260201080917658,
+            "H2+ W- plus conjugate": 0.0,
+            "HlHl": 0.0006081272378253494,
+            "WW": 0.07575472584779727,
+            "ZA": 0.0,
+            "ZZ": 0.036123067975141504,
+            "bb": 0.008234427962272637,
+            "cc": 0.0005335073023616714,
+            "dd tree": 2.4352968962684016e-08,
+            "e e": 4.4410060597494346e-10,
+            "e mu both charges": 9.19360295322525e-37,
+            "e tau both charges": 1.2082282336275357e-08,
+            "gamma gamma": 9.861334510587355e-05,
+            "gg": 0.0353317713923548,
+            "mu mu": 1.7425053628196932e-05,
+            "mu tau both charges": 4.859871547169558e-06,
+            "ss": 2.8951475742166838e-06,
+            "tau tau": 2.312091543386775e-06,
+            "tt": 10.875851287238245,
+            "uu tree": 4.025663854123835e-09
+          },
+          "photon": {
+            "G12_Z21_GeV": 1.5033887046645145,
+            "G_charged_GeV": [
+              [
+                -124.1278349024086,
+                -16.67433636912504
+              ],
+              [
+                -16.674336369125037,
+                -26.240391269674774
+              ]
+            ],
+            "Z_current": [
+              [
+                -0.14175368174782363,
+                -0.09016183141466771
+              ],
+              [
+                -0.09016183141466771,
+                0.18173195666116063
+              ]
+            ],
+            "Zgamma_status": "MISSING_PREDICTION",
+            "alpha_em": 0.007565201924913188,
+            "amplitude": {
+              "even": {
+                "imag": 1.6021028427418802,
+                "real": 2.0921319910064593
+              },
+              "even_terms": {
+                "H1": -0.09620716897551565,
+                "H2": -0.004292935343815103,
+                "W": {
+                  "imag": -0.16332318412676128,
+                  "real": -0.09069370303857731
+                },
+                "b": {
+                  "imag": -0.0038997844148730377,
+                  "real": 0.004824613790418202
+                },
+                "c": {
+                  "imag": 0.0012586535420990226,
+                  "real": -0.002153846493934373
+                },
+                "d": {
+                  "imag": -9.407023972433882e-09,
+                  "real": 3.371512920746591e-08
+                },
+                "e": {
+                  "imag": 8.532187135235442e-10,
+                  "real": -3.6737278148695195e-09
+                },
+                "mu": {
+                  "imag": -2.1416541535603232e-05,
+                  "real": 5.4784945405825405e-05
+                },
+                "s": {
+                  "imag": -2.7597930739572963e-06,
+                  "real": 7.1722722670591816e-06
+                },
+                "t": {
+                  "imag": 1.7680038361493704,
+                  "real": 2.280732554406063
+                },
+                "tau": {
+                  "imag": 8.749897668615217e-05,
+                  "real": -0.00013948180132615333
+                },
+                "u": {
+                  "imag": 7.503773690048702e-09,
+                  "real": -2.8795927651837224e-08
+                }
+              },
+              "norm": 6.943749786531176,
+              "odd": {
+                "imag": 2.7738380119275074e-06,
+                "real": -3.035905700952918e-06
+              },
+              "odd_terms": {
+                "b": {
+                  "imag": 0.0,
+                  "real": -0.0
+                },
+                "c": {
+                  "imag": 0.0,
+                  "real": -0.0
+                },
+                "d": {
+                  "imag": 0.0,
+                  "real": -0.0
+                },
+                "e": {
+                  "imag": 6.140137691268128e-11,
+                  "real": -2.6579612609860836e-10
+                },
+                "mu": {
+                  "imag": -1.6327186527723735e-06,
+                  "real": 4.238130293017703e-06
+                },
+                "s": {
+                  "imag": 0.0,
+                  "real": -0.0
+                },
+                "t": {
+                  "imag": 0.0,
+                  "real": 0.0
+                },
+                "tau": {
+                  "imag": 4.406495263322968e-06,
+                  "real": -7.273770197844522e-06
+                },
+                "u": {
+                  "imag": 0.0,
+                  "real": -0.0
+                }
+              },
+              "width_GeV": 9.861334510587355e-05
+            },
+            "charged": [
+              [
+                298.7266553444879,
+                -124.1278349024086,
+                1
+              ],
+              [
+                532.9329127809378,
+                -26.240391269674774,
+                1
+              ]
+            ],
+            "kV": 0.04811474985017382,
+            "kappas": {
+              "b": -1.0663199017706009,
+              "c": 0.9433533978910215,
+              "d": -1.0663199017706009,
+              "e": {
+                "imag": 0.16465949499372376,
+                "real": 2.2880685996403267
+              },
+              "mu": {
+                "imag": -0.16705395729607486,
+                "real": -2.191264654133075
+              },
+              "s": -1.0663199017706009,
+              "t": 0.9433533978910215,
+              "tau": {
+                "imag": 0.002394164703650917,
+                "real": 0.04754297005771097
+              },
+              "u": 0.9433533978910215
+            },
+            "mass_GeV": 492.4307830996228,
+            "scalar_photon_trace": "diagonal G only; Q and QQ seagull diagonal; A diagonal G=0",
+            "status": "LEADING_ONE_LOOP_PARTIAL_WIDTH",
+            "theory_sigma": null
+          },
+          "status": "TOTAL_WIDTH_INCOMPLETE",
+          "theory_sigma": null,
+          "total_width_GeV": null
+        }
+      },
+      "yukawa_sha256": {
+        "D": "399854794d73c2c1b8eb92ef2f259b0acb8f3b8765003595266902ecf3070844",
+        "F": "cca43f73fe99cac2237847ee58317d2215efa9ecdfe0ba5456a1b99d12975e44",
+        "Ye": "b589de28e3a68adf02d9186286dcc613b65bb222a132dec359d85d2ebd756e25",
+        "Ye2": "36782190a7c411548223ab7bdbe1ab1ffb0fb3aba266de33898f5a612de54967"
+      }
+    },
+    {
+      "global_acceptance": null,
+      "name": "F13",
+      "physical_higgs": "UNKNOWN",
+      "raw_sha256": "5d18afe56456b690178cf7c3abe9bfe023f30b1071954a9f0b43b605baa19eac",
+      "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+      "states": {
+        "A": {
+          "branching_fractions": null,
+          "charged_W_daughter_domains": [
+            {
+              "daughter_tree_width_GeV": 0.20039903603528153,
+              "state": "H1",
+              "threshold_gap_GeV": 139.64872560383913
+            },
+            {
+              "daughter_tree_width_GeV": 12.13933026267094,
+              "state": "H2",
+              "threshold_gap_GeV": -161.32733286512575
+            }
+          ],
+          "charged_pair_thresholds": [
+            {
+              "channel": "H1+ H1-",
+              "status": "CLOSED_ON_SHELL",
+              "threshold_GeV": 1144.4632487186248
+            },
+            {
+              "channel": "H1+ H2-",
+              "status": "CLOSED_ON_SHELL",
+              "threshold_GeV": 1445.4393071875897
+            },
+            {
+              "channel": "H2+ H2-",
+              "status": "CLOSED_ON_SHELL",
+              "threshold_GeV": 1746.4153656565545
+            }
+          ],
+          "exclusion": null,
+          "known_disjoint_sum_GeV": 7.7822941810353,
+          "missing": [
+            "A Zgamma fermion amplitudes with general complex lepton couplings; scalar sector CP forbids a bosonic epsilon tensor",
+            "Model-matched charged-W off-shell/finite-daughter correction without double counting the on-shell cascade; no numerical bound",
+            "Loop-induced A WW/ZZ with model-matched fermion and gauge amplitudes; no numerical width/materiality bound",
+            "Neutral/scalar off-shell cascades beyond transferred HDECAY approximation, including finite H in F13 A -> H Z*",
+            "Channel-specific QCD/EW truncation and parametric/correlated uncertainties; no total error budget"
+          ],
+          "partial_widths_GeV": {
+            "H1+ W- plus conjugate": 6.154915041028017,
+            "H2+ W- plus conjugate": 0.0,
+            "ZHh": 0.009988108790410054,
+            "ZHl": 0.0008733396160147594,
+            "bb": 0.30644298118464025,
+            "cc": 3.194821890515315e-05,
+            "dd tree": 9.70778610379298e-07,
+            "e e": 4.526420646821103e-12,
+            "e mu both charges": 1.4794016797382168e-39,
+            "e tau both charges": 1.2843358977676523e-10,
+            "gamma gamma": 1.193952056378579e-05,
+            "gg": 0.0034846594423820635,
+            "mu mu": 1.9345068099662133e-07,
+            "mu tau both charges": 5.1673567598816415e-08,
+            "ss": 0.00010973319247067385,
+            "tau tau": 6.57164348853728e-11,
+            "tt": 1.3064352136820216,
+            "uu tree": 2.58338847341573e-10
+          },
+          "photon": {
+            "G12_Z21_GeV": {
+              "imag": 2.878214134723868e-15,
+              "real": 0.0
+            },
+            "G_charged_GeV": [
+              [
+                {
+                  "imag": -1.2456841262080381e-15,
+                  "real": 0.0
+                },
+                {
+                  "imag": -1.8925015807013143e-14,
+                  "real": 0.0
+                }
+              ],
+              [
+                {
+                  "imag": 6.421948475726822e-15,
+                  "real": 0.0
+                },
+                {
+                  "imag": -2.066359891851535e-15,
+                  "real": 0.0
+                }
+              ]
+            ],
+            "Z_current": [
+              [
+                -0.08565175551108596,
+                -0.1520851641062975
+              ],
+              [
+                -0.1520851641062975,
+                0.12563003042442303
+              ]
+            ],
+            "Zgamma_status": "MISSING_PREDICTION",
+            "alpha_em": 0.007565201924913188,
+            "amplitude": {
+              "even": {
+                "imag": 9.590646548864407e-08,
+                "real": -1.1711340125749971e-07
+              },
+              "even_terms": {
+                "W": {
+                  "imag": -0.0,
+                  "real": 0.0
+                },
+                "b": {
+                  "imag": 0.0,
+                  "real": -0.0
+                },
+                "c": {
+                  "imag": 0.0,
+                  "real": -0.0
+                },
+                "d": {
+                  "imag": 0.0,
+                  "real": -0.0
+                },
+                "e": {
+                  "imag": 1.994933381268992e-12,
+                  "real": -8.896939973611715e-12
+                },
+                "mu": {
+                  "imag": -5.416396320148541e-08,
+                  "real": 1.4713089750600972e-07
+                },
+                "s": {
+                  "imag": 0.0,
+                  "real": -0.0
+                },
+                "t": {
+                  "imag": 0.0,
+                  "real": 0.0
+                },
+                "tau": {
+                  "imag": 1.500684337567482e-07,
+                  "real": -2.642354018235358e-07
+                },
+                "u": {
+                  "imag": 0.0,
+                  "real": -0.0
+                }
+              },
+              "norm": 0.20187322537505975,
+              "odd": {
+                "imag": 0.44903020516674325,
+                "real": 0.01565567701983166
+              },
+              "odd_terms": {
+                "b": {
+                  "imag": 0.008271916085399098,
+                  "real": -0.0121846046097222
+                },
+                "c": {
+                  "imag": 0.00010486681156171625,
+                  "real": -0.00020194941613290454
+                },
+                "d": {
+                  "imag": 1.8833853128488672e-08,
+                  "real": -7.09212541873437e-08
+                },
+                "e": {
+                  "imag": -2.713807218773042e-11,
+                  "real": 1.2163553099993746e-10
+                },
+                "mu": {
+                  "imag": 7.260748217818974e-07,
+                  "real": -1.9982113017815556e-06
+                },
+                "s": {
+                  "imag": 5.601585632186923e-06,
+                  "real": -1.564061604639177e-05
+                },
+                "t": {
+                  "imag": 0.440647039360933,
+                  "real": 0.028060008064835648
+                },
+                "tau": {
+                  "imag": 3.584040157632969e-08,
+                  "real": -6.497681053386575e-08
+                },
+                "u": {
+                  "imag": 6.012787823619743e-10,
+                  "real": -2.4153715223988257e-09
+                }
+              },
+              "width_GeV": 1.193952056378579e-05
+            },
+            "charged": [],
+            "kV": 0.0,
+            "kappas": {
+              "b": {
+                "imag": 5.307751319043352,
+                "real": 0.0
+              },
+              "c": {
+                "imag": 0.18840370241389454,
+                "real": 0.0
+              },
+              "d": {
+                "imag": 5.307751319043352,
+                "real": 0.0
+              },
+              "e": {
+                "imag": -0.1820942116041303,
+                "real": 0.013385837385670384
+              },
+              "mu": {
+                "imag": 0.18204766291639332,
+                "real": -0.013580451106158166
+              },
+              "s": {
+                "imag": 5.307751319043352,
+                "real": 0.0
+              },
+              "t": {
+                "imag": 0.18840370241389454,
+                "real": 0.0
+              },
+              "tau": {
+                "imag": 4.64760204060333e-05,
+                "real": 0.00019460507180321586
+              },
+              "u": {
+                "imag": 0.18840370241389454,
+                "real": 0.0
+              }
+            },
+            "mass_GeV": 792.2593499631515,
+            "scalar_photon_trace": "diagonal G only; Q and QQ seagull diagonal; A diagonal G=0",
+            "status": "LEADING_ONE_LOOP_PARTIAL_WIDTH",
+            "theory_sigma": null
+          },
+          "status": "TOTAL_WIDTH_INCOMPLETE",
+          "theory_sigma": null,
+          "total_width_GeV": null
+        },
+        "H": {
+          "branching_fractions": null,
+          "charged_W_daughter_domains": [
+            {
+              "daughter_tree_width_GeV": 0.20039903603528153,
+              "state": "H1",
+              "threshold_gap_GeV": 54.471313505159074
+            },
+            {
+              "daughter_tree_width_GeV": 12.13933026267094,
+              "state": "H2",
+              "threshold_gap_GeV": -246.50474496380582
+            }
+          ],
+          "charged_pair_thresholds": [
+            {
+              "channel": "H1+ H1-",
+              "status": "CLOSED_ON_SHELL",
+              "threshold_GeV": 1144.4632487186248
+            },
+            {
+              "channel": "H1+ H2-",
+              "status": "CLOSED_ON_SHELL",
+              "threshold_GeV": 1445.4393071875897
+            },
+            {
+              "channel": "H2+ H2-",
+              "status": "CLOSED_ON_SHELL",
+              "threshold_GeV": 1746.4153656565545
+            }
+          ],
+          "exclusion": null,
+          "known_disjoint_sum_GeV": 2.2562694701599275,
+          "missing": [
+            "Complete H Zgamma: unequal-mass charged scalar G12 Z21 triangles, seagull and gauge completion",
+            "Model-matched charged-W off-shell/finite-daughter correction without double counting the on-shell cascade; no numerical bound",
+            "Nonresonant EW multibody channels outside transferred HDECAY approximations; no numerical materiality bound",
+            "Neutral/scalar off-shell cascades beyond transferred HDECAY approximation, including finite H in F13 A -> H Z*",
+            "Channel-specific QCD/EW truncation and parametric/correlated uncertainties; no total error budget"
+          ],
+          "partial_widths_GeV": {
+            "AA": 0.0,
+            "H1+ W- plus conjugate": 1.0534237469495895,
+            "H2+ W- plus conjugate": 0.0,
+            "HlHl": 0.0025611143603052303,
+            "WW": 0.0006348353180725426,
+            "ZA": 0.0,
+            "ZZ": 0.00030995455026144875,
+            "bb": 0.27848905994445733,
+            "cc": 2.8049751051271727e-05,
+            "dd tree": 8.672046619935433e-07,
+            "e e": 3.932140375991172e-12,
+            "e mu both charges": 1.3203402304263651e-39,
+            "e tau both charges": 1.1462444827537344e-10,
+            "gamma gamma": 7.125538759948928e-06,
+            "gg": 0.0019104287790212753,
+            "mu mu": 1.7731332735241154e-07,
+            "mu tau both charges": 4.611763968312851e-08,
+            "ss": 9.956222131041481e-05,
+            "tau tau": 9.223092587452275e-09,
+            "tt": 0.9188044925452271,
+            "uu tree": 2.2459341759203208e-10
+          },
+          "photon": {
+            "G12_Z21_GeV": -19.365600734666405,
+            "G_charged_GeV": [
+              [
+                -62.29087040863405,
+                127.33392404489321
+              ],
+              [
+                127.3339240448932,
+                -243.52506167209793
+              ]
+            ],
+            "Z_current": [
+              [
+                -0.08565175551108596,
+                -0.1520851641062975
+              ],
+              [
+                -0.1520851641062975,
+                0.12563003042442303
+              ]
+            ],
+            "Zgamma_status": "MISSING_PREDICTION",
+            "alpha_em": 0.007565201924913188,
+            "amplitude": {
+              "even": {
+                "imag": 0.3749616445543602,
+                "real": 0.16993384459068428
+              },
+              "even_terms": {
+                "H1": -0.009935590058909599,
+                "H2": -0.014388969365806773,
+                "W": {
+                  "imag": 0.005035914392946089,
+                  "real": 0.003656324756327974
+                },
+                "b": {
+                  "imag": -0.010156531609632742,
+                  "real": 0.013910239186122213
+                },
+                "c": {
+                  "imag": 0.00012763895895023962,
+                  "real": -0.00023447275112065894
+                },
+                "d": {
+                  "imag": -2.3432032873003882e-08,
+                  "real": 8.674767287066631e-08
+                },
+                "e": {
+                  "imag": 3.3342532485312965e-11,
+                  "real": -1.4747201504162374e-10
+                },
+                "mu": {
+                  "imag": -9.120545818239179e-07,
+                  "real": 2.4430255123475676e-06
+                },
+                "s": {
+                  "imag": -6.947196515127055e-06,
+                  "real": 1.889098419759705e-05
+                },
+                "t": {
+                  "imag": 0.3799648812600358,
+                  "real": 0.17690080482497797
+                },
+                "tau": {
+                  "imag": -2.37653656768117e-06,
+                  "real": 4.09030979189332e-06
+                },
+                "u": {
+                  "imag": 7.384157944456939e-10,
+                  "real": -2.920609580446364e-09
+                }
+              },
+              "norm": 0.16947374642431634,
+              "odd": {
+                "imag": 1.1776180311265633e-07,
+                "real": -1.4581730647786442e-07
+              },
+              "odd_terms": {
+                "b": {
+                  "imag": 0.0,
+                  "real": -0.0
+                },
+                "c": {
+                  "imag": 0.0,
+                  "real": -0.0
+                },
+                "d": {
+                  "imag": 0.0,
+                  "real": -0.0
+                },
+                "e": {
+                  "imag": 2.48452246310715e-12,
+                  "real": -1.1044822069963547e-11
+                },
+                "mu": {
+                  "imag": -6.713244797600389e-08,
+                  "real": 1.8224657979073836e-07
+                },
+                "s": {
+                  "imag": 0.0,
+                  "real": -0.0
+                },
+                "t": {
+                  "imag": 0.0,
+                  "real": 0.0
+                },
+                "tau": {
+                  "imag": 1.8489176656619712e-07,
+                  "real": -3.280528414465328e-07
+                },
+                "u": {
+                  "imag": 0.0,
+                  "real": -0.0
+                }
+              },
+              "width_GeV": 7.125538759948928e-06
+            },
+            "charged": [
+              [
+                572.2316243593124,
+                -62.29087040863405,
+                1
+              ],
+              [
+                873.2076828282773,
+                -243.52506167209793,
+                1
+              ]
+            ],
+            "kV": -0.0024549678929315258,
+            "kappas": {
+              "b": -5.310190292355607,
+              "c": 0.18594816677804576,
+              "d": -5.310190292355607,
+              "e": {
+                "imag": 0.013385797048276424,
+                "real": 0.17963869498154225
+              },
+              "mu": {
+                "imag": -0.013580410182307785,
+                "real": -0.18450208221993988
+              },
+              "s": -5.310190292355607,
+              "t": 0.18594816677804576,
+              "tau": {
+                "imag": 0.00019460448537285508,
+                "real": -0.0025014437732849434
+              },
+              "u": 0.18594816677804576
+            },
+            "mass_GeV": 707.0819378644715,
+            "scalar_photon_trace": "diagonal G only; Q and QQ seagull diagonal; A diagonal G=0",
+            "status": "LEADING_ONE_LOOP_PARTIAL_WIDTH",
+            "theory_sigma": null
+          },
+          "status": "TOTAL_WIDTH_INCOMPLETE",
+          "theory_sigma": null,
+          "total_width_GeV": null
+        }
+      },
+      "yukawa_sha256": {
+        "D": "eaa0e8dadaf35acfa9bc4381f229070217fdeee0a0f6ae4261a0d1813e93dd47",
+        "F": "1d9b8ff9a6896b0966689cb5542bc7d7c1cb3f0e27668a8dc9837e2122223dd4",
+        "Ye": "8db3a9f690ba80b6ecdb866bfdd1dd3e0a03ef9b4ea745576acfa9a507ce41ef",
+        "Ye2": "0679a131d7092a5090313ffec6d892430cf85df385509c9a12da77f0240f745d"
+      }
+    }
+  ],
+  "declared_accuracy": "Leading one-loop gamma gamma in common physical tree inputs; tree general leptons/charged-W/u,d; HDECAY 6.60 channel-specific QCD quark/gg and neutral/vector approximations. Incomplete mixed-accuracy sum, no total precision claimed.",
+  "exclusion": null,
+  "final_scan_authorized": false,
+  "global_acceptance": null,
+  "physical_higgs": "UNKNOWN",
+  "production_reexecuted": false,
+  "sources": {
+    "research/full_constraints/higgs/COVERAGE.json": "0a8aead96843aae22ac3a5038ba8b3888892695253ccea13803bb7e0055d027b",
+    "research/full_constraints/higgs/SOURCE_MANIFEST.json": "3b3d4049c5f466d156ae3f74a5440bb376ec18c064b590cd918ad73463d5252f",
+    "research/full_constraints/higgs/SUSHI_EVIDENCE.json": "944412d0139d7b2c0bb3fe144d855488401ebb1607bc71511e039f6bda04332e",
+    "research/full_constraints/higgs/SUSHI_SOURCE_MANIFEST.json": "d947acf14e9d8c42006f396fc02c3e151b607b68b1cf2906474ea936b0a3c49d",
+    "research/full_constraints/higgs/native_neutral_vertices.m": "8f2d483fe1667682590a8360ee99e8b650b946ceb8b48b7810ec0a2cb883fcd2",
+    "research/full_constraints/higgs/neutral_receipts/F13_EXECUTION.json": "96ce539d6cd74ca2192ed7aac9fbcd82d5a1e0328eb997594e98c5f55b6e15bf",
+    "research/full_constraints/higgs/neutral_receipts/NATIVE_EXECUTION.json": "128ab27452e48a8504b50d8b74eb24b07b364edd3c48aad7d4e29ba3d34b7617",
+    "research/full_constraints/higgs/neutral_receipts/TEST_LOG.txt": "7449b824891acc0c0d9754f751de9f344c7b89f21429b670f55c236c29d92dbc",
+    "research/full_constraints/higgs/neutral_receipts/VALIDATION.json": "7662a8c9dad144089999a896d447104d12b6a238ecda6d9e6c9e553731838783",
+    "research/full_constraints/higgs/neutral_receipts/anyhdecay-F13.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "research/full_constraints/higgs/neutral_receipts/anyhdecay-F13.stdout": "5d18afe56456b690178cf7c3abe9bfe023f30b1071954a9f0b43b605baa19eac",
+    "research/full_constraints/higgs/neutral_receipts/native.log.gz": "bfa16de8f4667ed5b2f52be248b44c152d57517a94304fce4cfa6074679685a0",
+    "research/full_constraints/higgs/neutral_receipts/native_inputs.json": "13d369272f541d3cf24dded30e099fa2ca8f854184a13bc5be531a130ab8513b",
+    "research/full_constraints/higgs/neutral_receipts/native_vertices.json": "5f6d403ad30a14eefcdb63e8dc82a00042d94be10239d826f4fa79d23d41224a",
+    "research/full_constraints/higgs/neutral_study.py": "07879645df817ee7747fc4995cd7860120d4547370993dd0aeafcdcc5bfd9cc4",
+    "research/full_constraints/higgs/neutral_widths.py": "244e504939314b194bfd7282f45c8c63e0aecb8bb7a21d3853183b99fc1c91fd",
+    "research/full_constraints/higgs/test_neutral_widths.py": "bfe04f5cb48dcc9dc9eb590ac3f168efac3e2ae052885acaef764d9f346fde09"
+  },
+  "status": "HIGGS_SCOPED_SEARCH_BLOCKED"
+}
