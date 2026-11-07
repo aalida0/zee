@@ -1,0 +1,163 @@
+{
+  "description": "Verified source-bound 14 TeV 5FS LO charge-summed cascade raw Z->ee/mumu and top W decay yields, L=3000 fb^-1. No detector acceptance or background.",
+  "reference_source_csv": "module14/conditional_scan/production_map_14TeV_families.csv",
+  "source_csv_git_blob_sha1": "71c87a8227647bde082f1240b91398b89214d515",
+  "cross_section_unit": "pb for native sigma; fb for sigma*BR",
+  "BR_source_W": "https://pdgprod.lbl.gov/pdgprod/pdgLive/Particle.action?home=&node=S043",
+  "BR_source_Z": "https://pdgprod.lbl.gov/pdgprod/pdgLive/Particle.action?node=S044",
+  "pdg_fractions": {
+    "Z_ee": 0.033632,
+    "Z_mumu": 0.033662,
+    "W_enu": 0.1071,
+    "W_munu": 0.1063,
+    "W_hadrons": 0.6741
+  },
+  "channel_factor_including_Zll": {
+    "two_lepton": 0.03057912104814,
+    "three_lepton": 0.01936087948872,
+    "four_lepton": 0.00306453915064
+  },
+  "top_to_Wb_assumed": 1,
+  "benchmark_families": [
+    {
+      "id": "2264",
+      "mH1_GeV": 674.2744271130853,
+      "mH2_GeV": 1165.9748152800885,
+      "record_count": 4,
+      "range": {
+        "sigma_times_cascade_fb": [
+          2.575084328523389,
+          2.575148077952222
+        ],
+        "br_H2_H1Z": [
+          0.3686486182963106,
+          0.36865774465329876
+        ],
+        "br_H1_tb": [
+          0.9968802281686766,
+          0.9970351909899542
+        ],
+        "sigma_LO_pb": [
+          0.0069852,
+          0.0069852
+        ],
+        "raw_tb_Zall": [
+          7701.1627450512815,
+          7702.539767185522
+        ],
+        "raw_2l": [
+          235.49478779234926,
+          235.53689591887814
+        ],
+        "raw_3l": [
+          149.10128382995794,
+          149.12794418955227
+        ],
+        "raw_4l": [
+          23.60051473765986,
+          23.604734675901536
+        ],
+        "H2_width_over_mass": [
+          0.08272825643464962,
+          0.08273030447596527
+        ]
+      }
+    },
+    {
+      "id": "15591",
+      "mH1_GeV": 442.5934118113654,
+      "mH2_GeV": 1035.7037066197445,
+      "record_count": 4,
+      "range": {
+        "sigma_times_cascade_fb": [
+          5.296092357816749,
+          5.296604608734873
+        ],
+        "br_H2_H1Z": [
+          0.32603375756074543,
+          0.32606529233777837
+        ],
+        "br_H1_tb": [
+          0.9974543070743047,
+          0.9976414243122581
+        ],
+        "sigma_LO_pb": [
+          0.016244,
+          0.016244
+        ],
+        "raw_tb_Zall": [
+          15847.83039890288,
+          15852.336497631386
+        ],
+        "raw_2l": [
+          484.61272411844396,
+          484.75051665691785
+        ],
+        "raw_3l": [
+          306.82793451083205,
+          306.91517654527894
+        ],
+        "raw_4l": [
+          48.5662967101406,
+          48.58010582611076
+        ],
+        "H2_width_over_mass": [
+          0.038345244905482724,
+          0.03834895375071831
+        ]
+      }
+    },
+    {
+      "id": "15673",
+      "mH1_GeV": 714.5075625548351,
+      "mH2_GeV": 1277.3632872728326,
+      "record_count": 4,
+      "range": {
+        "sigma_times_cascade_fb": [
+          1.6673481416164362,
+          1.6674894707781056
+        ],
+        "br_H2_H1Z": [
+          0.3937532510606768,
+          0.3937866267040041
+        ],
+        "br_H1_tb": [
+          0.9958227844232489,
+          0.9972934479412416
+        ],
+        "sigma_LO_pb": [
+          0.0042345,
+          0.0042345
+        ],
+        "raw_tb_Zall": [
+          4981.354280046446,
+          4988.92897115404
+        ],
+        "raw_2l": [
+          152.32543551321055,
+          152.55706290949192
+        ],
+        "raw_3l": [
+          96.4433999065988,
+          96.59005258829723
+        ],
+        "raw_4l": [
+          15.265555214410462,
+          15.288768151863687
+        ],
+        "H2_width_over_mass": [
+          0.03714401756564801,
+          0.03714716599801948
+        ]
+      }
+    }
+  ],
+  "missing": {
+    "detector_acceptance": null,
+    "background_yields": null,
+    "uncertainties": null,
+    "expected_CLs": null,
+    "full_B_and_LFV_and_Higgs_acceptance": null
+  },
+  "note": "The family range is a variation across saved neutrino Yukawa choices at fixed scalar, NOT uncertainty. 5FS production does not contain a resolved hard spectator b. Raw 3l has both possible top lepton assignments. 14 TeV background data absent."
+}
