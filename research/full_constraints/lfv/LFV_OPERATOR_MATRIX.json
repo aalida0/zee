@@ -1,0 +1,160 @@
+{
+  "status": "LFV_ONE_LOOP_BLOCKED",
+  "scope": "Tree plus one-loop target; selected restricted subset controls only",
+  "coefficient_units": "GeV^-2 except dimensionless printed on-shell K",
+  "physical_lfv": "UNKNOWN",
+  "full_vector_independently_validated": false,
+  "gauge_choice": "No complete fixed-gauge/renormalization-scheme vector validated; Ward and xi cancellation NOT_TESTED",
+  "rows": [
+    {
+      "topology": "tree_neutral",
+      "operators": [
+        "SLL",
+        "SRR",
+        "SLR",
+        "SRL"
+      ],
+      "status": "ALREADY_VALIDATED",
+      "fields_and_source": "h/H/A, full D; direct action from module3.tree, full chirality",
+      "kinematics": "q2=0 contact controls; finite-propagator tree remains separate",
+      "chirality_mixing_ordering": "Native complex vertices, direct and identical-electron exchange in verified rate action",
+      "remaining_gap": "No complete loop vector"
+    },
+    {
+      "topology": "photon_dipole",
+      "operators": [
+        "K2L",
+        "K2R"
+      ],
+      "status": "ALREADY_VALIDATED",
+      "fields_and_source": "neutral h/H/A leptons; H1/H2 neutrinos, DDdagger and FdaggerF",
+      "kinematics": "frozen massless-neutrino/external-invariant expansion",
+      "chirality_mixing_ordering": "K2=-conj(C) at same parent mass; not an overall four-fermion bridge",
+      "remaining_gap": "full higher-order dipole and finite-invariant error"
+    },
+    {
+      "topology": "photon_monopole",
+      "operators": [
+        "K1L",
+        "K1R"
+      ],
+      "status": "GENERATED_SOURCE_UNVALIDATED",
+      "fields_and_source": "neutral/charged scalar, lepton/neutrino, electroweak gauge partners",
+      "kinematics": "off-shell photon; generated low-energy expansion",
+      "chirality_mixing_ordering": "rate shift V->V+e^2 K1 tested; physical-scheme phases not matched",
+      "remaining_gap": "signed complex physical K1, gauge/UV cancellations"
+    },
+    {
+      "topology": "Z_penguin",
+      "operators": [
+        "VLL",
+        "VRR",
+        "VLR",
+        "VRL"
+      ],
+      "status": "GENERATED_SOURCE_UNVALIDATED",
+      "fields_and_source": "two mixed H1/H2, F and D; W, Goldstones and external waves",
+      "kinematics": "PengV4L uses zero-invariant B0/C0check; Gho01 on-shell not interchangeable",
+      "chirality_mixing_ordering": "both scalar orientations needed; charged-current/reducible cancellations untested",
+      "remaining_gap": "full off-shell Z_L/R, all D/F/gauge contributions"
+    },
+    {
+      "topology": "published_Z_F_limit",
+      "operators": [
+        "on_shell_Z",
+        "only"
+      ],
+      "status": "PUBLISHED_MODEL_LIMIT_ONLY",
+      "fields_and_source": "Gho01 Eq4.1-4.7,A.3,A.5; singlet F vertices, both mixed scalar states",
+      "kinematics": "q2=mZ^2 only; real printed G independently integrated",
+      "chirality_mixing_ordering": "theta: cos^2(theta)=sin^2(gamma); F_native=2f; candidate complex flavor continuation explicitly unvalidated",
+      "remaining_gap": "no on-shell generated comparator, absorptive/chirality crossing and off-shell continuation"
+    },
+    {
+      "topology": "scalar_penguin",
+      "operators": [
+        "SLL",
+        "SRR",
+        "SLR",
+        "SRL"
+      ],
+      "status": "GENERATED_SOURCE_UNVALIDATED",
+      "fields_and_source": "h/H/A exchange; scalar, fermion, W/Goldstone internal fields",
+      "kinematics": "low-energy limit",
+      "chirality_mixing_ordering": "external wave and vertex relative phases untested",
+      "remaining_gap": "full PS operator set, counterterms/finite scheme"
+    },
+    {
+      "topology": "published_F_box",
+      "operators": [
+        "VLL",
+        "raw;",
+        "paper",
+        "PLPL"
+      ],
+      "status": "PUBLISHED_MODEL_LIMIT_ONLY",
+      "fields_and_source": "Mit01 Eq16,26,27; F^4, massless neutrinos, two charged scalars",
+      "kinematics": "q2=0; no internal neutrino-mass chirality terms",
+      "chirality_mixing_ordering": "native vertices + exact extracted block + original D00 execute; raw B_VLL=-paper L_PLPL; physical common-action crossing not proved",
+      "remaining_gap": "general D^4/F^2D^2 boxes, finite masses and common relative phases"
+    },
+    {
+      "topology": "remaining_boxes",
+      "operators": [
+        "SLL",
+        "SRR",
+        "SLR",
+        "SRL",
+        "VLL",
+        "VRR",
+        "VLR",
+        "VRL",
+        "TLL",
+        "TRR"
+      ],
+      "status": "GENERATED_SOURCE_UNVALIDATED",
+      "fields_and_source": "neutral/charged scalars, neutrinos/leptons, W/Goldstone; both charges and crossed identical particles",
+      "kinematics": "generated local limit",
+      "chirality_mixing_ordering": "F-only block is not all charged diagrams; no full Zee Ward/topology test",
+      "remaining_gap": "complete mixed Yukawa/gauge box vector and ordered-action map"
+    },
+    {
+      "topology": "conversion_UV_matching",
+      "operators": [
+        "quark",
+        "S/V,",
+        "dipole,",
+        "gluon"
+      ],
+      "status": "GENERATED_SOURCE_UNVALIDATED",
+      "fields_and_source": "u/d/s and heavy-quark threshold contributions; native F/D",
+      "kinematics": "matching scales, QED/QCD running unqualified",
+      "chirality_mixing_ordering": "nucleon-current controls do not generate UV Wilsons",
+      "remaining_gap": "full signed semileptonic coefficients, heavy-quark/gluon thresholds, running"
+    },
+    {
+      "topology": "conversion_nuclear_currents",
+      "operators": [
+        "proton/neutron",
+        "scalar/vector"
+      ],
+      "status": "ALREADY_VALIDATED",
+      "fields_and_source": "unmodified FlavorKit and extracted pinned FlexibleSUSY currents; Au/Al independent overlaps",
+      "kinematics": "fixed EFT insertions, not Zee cards",
+      "chirality_mixing_ordering": "scalar FK uses (Z-N)(-g1S), vector +(Z-N)g1V; pure-isovector rates hide error; coherent control exposes it",
+      "remaining_gap": "target systematics and full physical rate not validated"
+    },
+    {
+      "topology": "two_loop_remainder",
+      "operators": [
+        "K2L",
+        "K2R"
+      ],
+      "status": "MISSING",
+      "fields_and_source": "complete Zee Wgamma/charged-current/gauge groups not validated here",
+      "kinematics": "outside this one-loop task",
+      "chirality_mixing_ordering": "Module4 neutral fermion/photon subset already included, never appended",
+      "remaining_gap": "materially interfering two-loop amplitudes and uncertainty qualification"
+    }
+  ]
+}

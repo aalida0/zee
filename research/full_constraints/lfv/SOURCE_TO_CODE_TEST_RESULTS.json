@@ -1,0 +1,53 @@
+{
+  "status": "LFV_ONE_LOOP_BLOCKED",
+  "baseline_commit": "636e790ea23d1c9c2f4d439e76d1494ec12b8ac9",
+  "new_suite": {
+    "passed": 4,
+    "failed": 0
+  },
+  "previous_research_suite": {
+    "passed": 5,
+    "failed": 0
+  },
+  "frozen_D14": {
+    "passed": 2,
+    "failed": 0
+  },
+  "frozen_Module3_Module4": {
+    "passed": 73,
+    "failed": 2,
+    "failures": "unchanged historical branch assertions feature/zee-lfv-module3 and feature/zee-barrzee-module4"
+  },
+  "protected_Module0_to_13_diff_from_frozen_parent": "empty",
+  "logs": [
+    {
+      "path": "research/full_constraints/lfv/source_to_code_logs/frozen_D14.txt",
+      "sha256": "2d10f70514e08584f8eb06650bfe7286a380505fd0bb7cf7f5444b5ea56e7dc0"
+    },
+    {
+      "path": "research/full_constraints/lfv/source_to_code_logs/frozen_module34.txt",
+      "sha256": "61dce1f4ac8d0b6fc1280f742fc9a020c6950fad4231e614a7a1f39980b41180"
+    },
+    {
+      "path": "research/full_constraints/lfv/source_to_code_logs/lfv-fs-configure-first.log",
+      "sha256": "428bd777aa24fda6e19b2381f137a66f23fe7bdd68e50a53d0f0c1d536f630de"
+    },
+    {
+      "path": "research/full_constraints/lfv/source_to_code_logs/lfv-fs-configure-repair.log",
+      "sha256": "54ed28e62233d9ec5ceba72ec2cd0db86673edf51fd03d76a0b3067337500b71"
+    },
+    {
+      "path": "research/full_constraints/lfv/source_to_code_logs/math-lfv",
+      "sha256": "1ac9507b26c0c06a779de4a908494906a077f59def6ac6d76c4be8630d27aba8"
+    },
+    {
+      "path": "research/full_constraints/lfv/source_to_code_logs/previous_research_tests.txt",
+      "sha256": "24e7f664d67d306bf90a87c23adce77750c6c25811156ae55635636ff58bac3c"
+    },
+    {
+      "path": "research/full_constraints/lfv/source_to_code_logs/research_tests.txt",
+      "sha256": "6585c545d78f6b4181d6cc727e90c83f08290eb4c9954acc05dfaafb30aead03"
+    }
+  ],
+  "fixed_results_sha256": "149e25d28ae863a34469ccfa543d152b548350f70c37292d2ee34882538e2175"
+}

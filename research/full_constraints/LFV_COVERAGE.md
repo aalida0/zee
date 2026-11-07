@@ -1,5 +1,11 @@
 # Zee LFV source and operator coverage — 2026-11-07
 
+Source-to-code follow-up: [LFV_SOURCE_TO_CODE_REPORT.md](LFV_SOURCE_TO_CODE_REPORT.md)
+records the bounded FlexibleSUSY prerequisite failure, numerical mixed-state
+F-box/printed on-shell Z controls and independent nuclear-current confirmation
+of the scalar proton/neutron interchange. `LFV_ONE_LOOP_BLOCKED`; the full
+coverage status below is unchanged. No complete operator vector was validated.
+
 **LFV_FULL_COVERAGE_BLOCKED.** No newly complete physical observable or
 exclusion is established. `physical_lfv=UNKNOWN`, `exclusion=null`,
 `global_acceptance=null`. The new independent result validates parts of the

@@ -1,0 +1,6 @@
+Checking for RGE solvers ... ok (two_scale semi_analytic shooting)
+Checking for Mathematica kernel math ... found /usr/local/bin/math
+Checking for Mathematica version >= 11.0 ... ok (version 15. for Linux-x86-64 in /usr/local/Wolfram/Wolfram/15.0)
+Checking for SARAH installation ... not ok
+Error: SARAH is not installed correctly.
+   Please make sure Needs["SARAH`"] works correctly.

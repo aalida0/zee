@@ -1,0 +1,175 @@
+{
+  "FlexibleSUSY_commit": "913bbbf107d2b4aa2741dfbaa87c780853e39ca4",
+  "SARAH": "4.15.4",
+  "SPheno": "4.0.5",
+  "FeynArts": "not loadable; archived 3.5/3.9 below required 3.10",
+  "FormCalc": "archived 7.5 below required 9.8; configure never reached check",
+  "artifacts": [
+    {
+      "id": "generated",
+      "path_hint": "/home/amine/zee-conditional-cascade-scan/validation/module14/local/output/ZeeTypeII/EWSB/SPheno/Observables/FlavorKit_LFV_ZeeTypeII.f90",
+      "sha256": "2d30006d8d4759b2b7bfe76e2e4795bd2cf2f19ef5cb5772390ed3155b1bc41d"
+    },
+    {
+      "id": "couplings",
+      "path_hint": "/home/amine/zee-conditional-cascade-scan/validation/module14/local/output/ZeeTypeII/EWSB/SPheno/Couplings_ZeeTypeII.f90",
+      "sha256": "a0de851498f3e68e7421538098b3979381a3ecf5245021fce9d1c2df46a42e8c"
+    },
+    {
+      "id": "loops",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/spheno_flavorkit/local/SPheno-4.0.5/src/LoopFunctions.f90",
+      "sha256": "8142a813fcc00283d1de2865266be04ff1de25c09422b24b04d57523a6595a24"
+    },
+    {
+      "id": "fs_conversion",
+      "path_hint": "/tmp/lfv-source-work/templates/observables/l_to_l_conversion.cpp.in",
+      "sha256": "cf32d67e2d79f77cfa1a8831bbbc3976c08800d495d72ebdb7caaf3b77aeec86"
+    },
+    {
+      "id": "fs_settings",
+      "path_hint": "/tmp/lfv-source-work/src/observables/l_to_l_conversion/settings.cpp",
+      "sha256": "09fb22ededa43355b4cdb472499203bbe1735d949e02ac5893cf479dd6b82883"
+    },
+    {
+      "id": "fs_npoint",
+      "path_hint": "/tmp/lfv-source-work/meta/NPointFunctions.m",
+      "sha256": "c4c4f07592c1cfde2a0d59471e09b02fc86e5896854d72f388687ee9fd0e660f"
+    },
+    {
+      "id": "fs_readme",
+      "path_hint": "/tmp/lfv-source-work/README.rst",
+      "sha256": "6db6dd2175c718b25c10c2f2f6c08924a2b2bfd71d368e1a483c04bcfb764fb2"
+    },
+    {
+      "id": "fk_conversion",
+      "path_hint": "/home/amine/.Mathematica/Applications/SARAH-4.15.4/FlavorKit/LFV/Observables/MuEconversion.f90",
+      "sha256": "5f83849f7da81b4acf4f454881836b089acf1c9428d3f5e7a959d2a1ece9c584"
+    },
+    {
+      "id": "paper_mitsuda",
+      "path_hint": "/tmp/lfv-mitsuda.pdf",
+      "sha256": "e452072529dc74f6654babb0ae7f8713b730e4edcdf0a916956feee9372d476a",
+      "url": "https://arxiv.org/pdf/hep-ph/0103202v3"
+    },
+    {
+      "id": "paper_ghosal",
+      "path_hint": "/tmp/lfv-ghosal.pdf",
+      "sha256": "2b377adb10e8f8cf61c94bb64d504c368921a677d3c3306cd5ae7d258b643c0a",
+      "url": "https://arxiv.org/pdf/hep-ph/0104104v2"
+    },
+    {
+      "id": "paper_bilenky",
+      "path_hint": "/tmp/lfv-bilenky.pdf",
+      "sha256": "a7f01fa9c226607eb820e6485bd7a52f6b17feb63d7256744486d160540d6b93",
+      "url": "https://arxiv.org/pdf/hep-ph/9310302v1"
+    },
+    {
+      "id": "paper_primulando",
+      "path_hint": "/tmp/lfv-primulando.pdf",
+      "sha256": "b6cecd8e265cc1bd15881d97b9d6c2fe4f83a8f624043a7816b1ee2767df6c0a",
+      "url": "https://arxiv.org/pdf/2201.01960"
+    },
+    {
+      "id": "paper_npoint",
+      "path_hint": "/tmp/lfv-npoint.pdf",
+      "sha256": "e1df7f30ac5e7be41a342b7fdce27e3ce0fdbc542c8bbcbc9d7b1777bf2a95c9",
+      "url": "https://arxiv.org/pdf/2402.14630"
+    },
+    {
+      "id": "paper_crivellin",
+      "path_hint": "/tmp/lfv-crivellin.pdf",
+      "sha256": "b2b891f9ff0eb02ec173d03e34112a307d51880886debca49c44b40cda29da18",
+      "url": "https://arxiv.org/pdf/1702.03020v3"
+    },
+    {
+      "id": "paper_kko",
+      "path_hint": "/tmp/lfv-kko.pdf",
+      "sha256": "a0a6215842a698c50d9d4bad61f28f66218a736ca2eb36a02b15730400ba2167",
+      "url": "https://arxiv.org/pdf/hep-ph/0203110v4"
+    },
+    {
+      "id": "configure_first",
+      "path_hint": "/home/amine/zee-full-constraints/research/full_constraints/lfv/source_to_code_logs/lfv-fs-configure-first.log",
+      "sha256": "428bd777aa24fda6e19b2381f137a66f23fe7bdd68e50a53d0f0c1d536f630de"
+    },
+    {
+      "id": "configure_repair",
+      "path_hint": "/home/amine/zee-full-constraints/research/full_constraints/lfv/source_to_code_logs/lfv-fs-configure-repair.log",
+      "sha256": "54ed28e62233d9ec5ceba72ec2cd0db86673edf51fd03d76a0b3067337500b71"
+    },
+    {
+      "id": "math_wrapper",
+      "path_hint": "/tmp/lfv-source-work/math-lfv",
+      "sha256": "1ac9507b26c0c06a779de4a908494906a077f59def6ac6d76c4be8630d27aba8"
+    },
+    {
+      "id": "archived_FeynArts39",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/spheno_flavorkit/local/FeynArts-3.9/FeynArts.m",
+      "sha256": "bec573da34435c3568863b65dcb95531c5776972bc60e76c26d5b7cd68553848"
+    },
+    {
+      "id": "archived_FormCalc75",
+      "path_hint": "/home/amine/zee-spheno-flavorkit-pilot/research/spheno_flavorkit/local/FormCalc-7.5/FormCalc.m",
+      "sha256": "422c96860b40d3d22b8ae28e96b9fd6d7aa288de500dbae7c7ec9f284d1ce37d"
+    }
+  ],
+  "date": "2026-11-07",
+  "FlexibleSUSY_url": "https://github.com/FlexibleSUSY/FlexibleSUSY/tree/913bbbf107d2b4aa2741dfbaa87c780853e39ca4",
+  "FlexibleSUSY_archive_sha256": "6809a57a2062839e45a151b27b5cfbd5e3a55b59f23e50bc5dedd44bfc81f626",
+  "setup_attempts": [
+    {
+      "attempt": "configure with enabled FeynArts/FormCalc",
+      "exit_code": 1,
+      "failure": "Needs[SARAH`] not loadable in Mathematica15 default .Wolfram path"
+    },
+    {
+      "attempt": "one path repair via --with-math-cmd wrapper",
+      "exit_code": 1,
+      "failure": "SARAH4.15.4 loads; Needs[FeynArts`] fails; no model generation reached"
+    }
+  ],
+  "papers": {
+    "mitsuda": {
+      "arxiv": "hep-ph/0103202v3",
+      "doi": "10.1016/S0370-2693(01)00842-5",
+      "equations": "16,26,27; do not use incoherent Eq28",
+      "content": "two mixed charged scalars, F-only, massless neutrinos"
+    },
+    "ghosal": {
+      "arxiv": "hep-ph/0104104v2",
+      "doi": "10.1103/PhysRevD.64.053012",
+      "equations": "4.1-4.7,A.3,A.5",
+      "content": "on-shell Z, F-only; real printed G checked; full complex action bridge unvalidated"
+    },
+    "bilenky": {
+      "arxiv": "hep-ph/9310302v1",
+      "doi": "10.1016/0550-3213(94)90375-1",
+      "equations": "4.8-4.17,4.20-4.21,Sec6",
+      "content": "heavy unmixed singlet EFT; not a full mixed Zee match"
+    },
+    "primulando": {
+      "arxiv": "2201.01960",
+      "doi": "10.1140/epjc/s10052-022-10189-0",
+      "equations": "35-43",
+      "content": "family Z2 restricted texture; independent conversion-current convention only"
+    },
+    "crivellin": {
+      "arxiv": "1702.03020v3",
+      "doi": "10.1007/JHEP05(2017)117",
+      "equations": "2.1,3.3-3.7",
+      "content": "low-energy EFT running/matching; no Zee UV matching executed"
+    },
+    "npoint": {
+      "arxiv": "2402.14630",
+      "doi": "10.1016/j.cpc.2024.109244",
+      "equations": "Sec2,Tables1,4; model generation requires FeynArts/FormCalc",
+      "content": "generic source generator, no Zee numerical result here"
+    },
+    "kko": {
+      "arxiv": "hep-ph/0203110v4",
+      "doi": "10.1103/PhysRevD.66.096002",
+      "equations": "Table2,Table8",
+      "content": "independent proton/neutron overlaps and Au/Pb capture rates"
+    }
+  }
+}

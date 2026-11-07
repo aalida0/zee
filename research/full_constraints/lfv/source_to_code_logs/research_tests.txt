@@ -1,0 +1,9 @@
+test_complex_box_and_published_real_Z (research.full_constraints.lfv.test_source_to_code.PublishedSourceControls) ... ok
+test_missing_operators_cannot_be_physical_prediction (research.full_constraints.lfv.test_source_to_code.PublishedSourceControls) ... ok
+test_modified_source_lock_rejected (research.full_constraints.lfv.test_source_to_code.PublishedSourceControls) ... ok
+test_scalar_vector_interference_falsifies_source_sign (research.full_constraints.lfv.test_source_to_code.PublishedSourceControls) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.130s
+
+OK
