@@ -21,7 +21,7 @@
 
 - **B (2/5):** ✓ coherent two-charged-state LO/NLO matching; ✓ executable internally checked nonlinear kernel; ☐ independently matched physical SM/one-state reference; ☐ defensible NP theory/parametric uncertainty and omitted effects; ☐ qualified confidence/exclusion adapter.
 - **LFV (2/6):** ✓ source-matched one-loop dipoles; ✓ photon-mediated two-loop subsets; ☐ full gauge-invariant leading two-loop sum; ☐ complete three-body source-matched operator vector including interference; ☐ complete conversion rate and target nuclear response; ☐ full experimental physical comparison. Independent contact-rate trace validation is extra evidence, not proof of its missing model coefficients.
-- **Higgs (2/6):** ✓ 310 HB limits + 159 HS observable applicability inventory; ✓ independently validated full leading h125 γγ amplitude with H1/H2; ☐ h125 Zγ and coherent width/production; ☐ H/A production, competing widths; ☐ H1 plus missing H2 production energies/channels and signal-model qualification; ☐ full valid HB/HS theory/experimental confidence interpretation.
+- **Higgs (2/6):** ✓ 310 HB limits + 159 HS observable applicability inventory; ✓ independently validated full leading h125 γγ amplitude with H1/H2; ☐ h125 Zγ and coherent width/production; ☐ H/A production, competing widths (**partial advance:** actual SusHi 1.7.0 13-TeV ggF/bbH on original D7/F13, independently validated; HDECAY D7 partial widths and native Zee charged-W/lepton additions executed; complete widths still missing); ☐ H1 plus missing H2 production energies/channels and signal-model qualification; ☐ full valid HB/HS theory/experimental confidence interpretation.
 - **Vacuum (2/4):** ✓ ten-field polynomial/potential check; ✓ D10 **sufficient** PASS certificate method; ☐ complete gauge-reduced model stationary-point enumeration; ☐ independently certified global energy ordering for required points. 33 of previous 225 certificates PASS, 192 UNKNOWN — these are data counts, not 15% 'validation progress'.
 - **Collider (2/3):** ✓ tree on-shell decay inventory; ✓ real sourced H2 LO production at 16 historical points; ☐ matched production for other chosen benchmarks and qualified theory/recast as needed. This last point may be post-scan and does not excuse omitted mandatory theory constraints.
 - **AF (0/3):** ☐ choose immutable final configuration/seed/shards/arms; ☐ actual AF source/runtime/disk/resource preflight; ☐ explicit user authorization to generate and submit one final scan.
@@ -36,6 +36,7 @@ All scanned outcomes must continue to use `global_acceptance=null` while any man
 - `research/full_constraints/FEASIBILITY_GATE.md`
 - `research/full_constraints/LFV_EXECUTION_REPORT.md`
 - `research/full_constraints/HIGGS_EXECUTION_REPORT.md`
+- `research/full_constraints/HIGGS_SUSHI_EXECUTION.md` — actual neutral production and partial-width advance, no new physical exclusion; milestone count remains 2/6.
 - `research/full_constraints/CONSTRAINT_COMPLETION_READINESS.md`
 - Frozen code: `module14/FINAL_PHYSICS_FREEZE.md`
 

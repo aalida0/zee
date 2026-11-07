@@ -26,6 +26,18 @@ remain explicit. Raw native production receipt directories are absent on
 this checkout; the committed source/card/rate manifests are reused honestly.
 No integration or parameter generation is performed.
 
+The subsequent [SusHi/HDECAY execution](HIGGS_SUSHI_EXECUTION.md) advances
+neutral predictions: eight real 13-TeV LO cross sections (H/A ggF and bbH,
+original D7/F13), independent LO convolutions and native signed-vertex
+checks, seven-point scale envelopes and 50 PDF error members. Rebuilt
+anyHdecay/HDECAY runs on D7; transferable quark/vector/neutral-scalar
+partial widths and native Zee charged-W/general-lepton additions are
+calculated. This stage executes 52 bounded fixed-card production/control/
+scale runs, **no MG5 integration or parameter generation**. Complete Zee
+widths remain INCOMPLETE, so zero new complete signals or physical
+exclusions are connected to HiggsTools. The historical sentence above about
+no integrations describes the earlier charged-receipt replay only.
+
 The old D7 central LO charged ratio above one is not promoted to a newly
 validated exclusion: its production/decay theory uncertainty and signal-model
 qualification remain absent. No arbitrary K factor or theory sigma is added.
@@ -40,6 +52,7 @@ production/decay/uncertainty chain for applicable neutral/charged searches.
 A package build or imported database does not replace those dependencies.
 
 B and LFV reports and original numerical evidence remain unchanged.
+The separate HEPfit rate task remains queued and was not executed here.
 Original conditional diagnostics, Modules0–13, D14 collections and receipts,
 and the frozen conditional branch remain unchanged. No final merge or scan
 is supported or authorized by this milestone.

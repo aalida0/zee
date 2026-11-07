@@ -8,6 +8,19 @@ for the amplitude, not a validated experimental exclusion.
 `physical_higgs=UNKNOWN`, `exclusion=null`, `global_acceptance=null`.
 No Higgs hard veto or global PASS is supplied.
 
+The subsequent [executed SusHi/HDECAY stage](HIGGS_SUSHI_EXECUTION.md)
+adds independently validated **13-TeV LO ggF and 5FS bbH for H and A on
+both original D7/F13 cards**, with signed native-SARAH matching, seven-point
+scale envelopes and MMHT2014lo68cl Hessian PDF estimates. It also executes
+HDECAY 6.60 through rebuilt anyHdecay on D7 and validates transferable
+neutral partial widths plus native charged-W/general-lepton additions.
+Complete Zee widths and physical analysis qualification remain missing:
+zero new usable exclusions, zero complete signals connected to HiggsTools.
+Machine evidence and the D7/F13 per-ID consumer gate are in
+[SUSHI_EVIDENCE.json](higgs/SUSHI_EVIDENCE.json). The historical
+`COVERAGE.json` inventory below is preserved; the new evidence overlays its
+prediction availability without changing its qualified exclusion statuses.
+
 ## Dataset and exact analysis inventory
 
 [The machine-readable matrix](higgs/COVERAGE.json) enumerates **all 310
@@ -210,14 +223,20 @@ off-shell/finite-width, continuum interference and acceptance qualification.
 ChannelWidthLimits retain their actual relative/absolute width convention;
 unknown neutral widths cannot be tested against that grid.
 
-[SusHi](https://arxiv.org/abs/1212.3249) is a source-feasible gg/bb calculation
-path. The Zee neutral Type-II quark vertices have a transferable colour-singlet
-quark sector, but that does not transfer 2HDM total widths, electroweak loops
-or experimental acceptances. HiggsTools' built-in effective production is
-another explicitly approximate path. Neither supplies independently matched
-full Zee neutral predictions here. 2HDMC's decay machinery would require the
-second charged state, mixed currents and general lepton sector rather than
-an unmodified 2HDM input. No packages are installed to imply otherwise.
+[SusHi](https://arxiv.org/abs/1212.3249) 1.7.0 now **executes** this gg/bb
+path at scoped LO CTB-QCD accuracy. D7 (H,A) ggF=(2.32581373,4.06750239) pb,
+bbH=(0.00284816445,0.00309843975) pb; F13 ggF=(0.0159280599,0.0146694072)
+pb, bbH=(0.0138685780,0.00802913282) pb. All are pp at exactly 13 TeV.
+Source- and scheme-matched independent convolutions agree within 1.56e−6
+relative. The transferred colour-singlet quark sector does not transfer
+2HDM total widths, electroweak loops or experimental acceptances. Executed
+HDECAY partial widths plus native Zee additions give known disjoint D7 sums
+11.9584845277 GeV (H) and 18.5675702523 GeV (A), **not** physical totals.
+In particular H/A→H1±W∓ contributes 0.926020/0.939357 GeV on D7 and
+1.053424/6.154915 GeV on F13. Complete photon/off-shell/uncertainty channels
+remain missing. Other energies/processes and the full signal gates above
+remain unfilled. Full provenance, omitted terms and uncertainties are in
+the execution report; installed/built packages alone do not establish coverage.
 
 ## Uncertainty and stop decision
 
