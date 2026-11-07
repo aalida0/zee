@@ -19,74 +19,96 @@ Do **not** call an unimplemented published expression nonexistent; do not call
 a restricted formula complete general Zee physics. Citation-search indexing is
 not exhaustive; report limitations. Always preserve original frozen modules.
 
-## CURRENT TASK — practical Zee LFV with justified published approximations
+## CURRENT TASK — decisive LFV texture materiality for a simple paper
 
-**User approved continued LFV technical research** using published
-leading-contribution approximations; **not** a new point/parameter
-scan and not a wholesale paper-scope or collider-analysis authorization.
+**User direction:** continue actual physics using justified published
+approximations, with no more endless generalized two-loop projects.
+READ `research/full_constraints/LFV_TEXTURE_FEASIBILITY_GATE_2026-11-07.md`
+FIRST and `research/full_constraints/LFV_PUBLIC_CODE_REUSE_AUDIT_2026-11-07.md`,
+then the original D12 study
+`module12/D12_FLAVOR_COLLIDER_AUDIT.md` and
+`research/full_constraints/LFV_COVERAGE.md`.
 
-READ `research/full_constraints/LFV_PRACTICAL_APPROXIMATION_TASK.md`
-**first** and `LFV_PUBLIC_CODE_REUSE_AUDIT_2026-11-07.md`,
-`LFV_COVERAGE.md`, `LFV_SOURCE_TO_CODE_REPORT.md`, and
-the original source-lock JSONs. Follow the staged stop rules.
+**Major existing source-backed result:**
+D12 has already produced 112 neutrino-family designs and 24 actual
+coefficient perturbations (136 full inversions) at original D7/F13
+NO/IO spectra. Targeted direct-eμ texture cancellation gives
+F13 NO and IO **partial** BR(μ→eγ)=4.031e-20 and 1.338e-19,
+respectively, while BR(H2→H1 Z)≈0.485 and BR(H1→tb)≈0.9976.
+These are *not complete LFV rates*, but show the standard F13
+central diagnostic excess is not a model-level impossibility.
 
-**LATEST USER DIAGNOSTIC — ReadForm binary and compiler failure:**
-READ `research/full_constraints/LFV_FORMCALC_READFORM_DIAGNOSIS_TASK.md`
-FIRST (new observed failure subsection). The two 3.8 MB
-statically linked 2024 `ReadForm` copies are identical and
-both crash with **SIGFPE / exit 136**. Forced build after
-`touch FormCalc/ReadForm.tm` fails **exit 127** because bundled
-`drivers/tools/mcc` tries `/tmp/mcc.PID/mcc`, missing.
-No `mcc` was found in the user's usual Wolfram search or
-shell PATH. That wrapper searches legacy **MathLink**
-DeveloperKit locations, while Wolfram 15 may ship only a
-**WSTP** DeveloperKit using `wsprep`; `wsprep` is NOT
-drop-in `mcc`. Diagnose true `$InstallationDirectory`,
-`$TopDirectory`, `$SystemID`, SDK paths, headers and ABI;
-make one bounded source-backed scratch-only repair.
-If it works, compare generated LFV operators on ONLY the
-existing D7/F13 NO/IO cards, recording complex sectors,
-topology and source hashes.
+The saved central complex Wilson coefficients calibrate the
+MEG II 90% CL limit at `||C_lim||=1.36778582408e−12 GeV−2`.
+On all four saved low_joint texture witnesses, **if**
+the total as-yet-omitted complex dipole vector has norm
+`||ΔC_missing|| < 1.364e−12 GeV−2`,
+then the limit is satisfied for these witnesses by the triangle
+inequality. This is a **sufficient conditional target, not
+a physics estimate/bound on ΔC_missing**. See
+`lfv/TEXTURE_MATERIALITY_DIAGNOSTIC.json`.
+F13 `texture_0.001` ±1% saved variants remain below the
+measured bound in the retained subset; D7 `texture_0.0001`
+nominal low_joint variants are not robust to ±1% in the
+tested homogeneous direction, but D7 `texture_0.001` is.
 
-**CRITICAL FALLBACK:** If modern MathLink/WSTP cannot compile
-FormCalc's `ReadForm` without significant new toolchain
-development, STOP that secondary generator attempt and
-**CONTINUE physics using saved SARAH/FlavorKit Wilsons and
-independent flavio/wilson/MuonBridge rate checks**, with
-published source matching, suppression/materiality checks,
-and no unvalidated physical exclusion claims. Do not block
-the simple paper indefinitely on FlexibleSUSY integration.
-No new parameter points, scans, Condor or frozen code edits.
+**NEXT BOUNDED EXECUTION — do actual physics work, not another
+preparatory paper search/toolchain audit.**
+1. Run and independently check
+`python3 research/full_constraints/lfv/texture_materiality_gate.py`
+on existing D12 full-precision JSON; compare the reported budget
+and source source-hashes with the rounded committed table.
+If the script has an error, fix it in this research branch,
+never change the original D12 source.
+2. Investigate the **actual** potentially leading omitted
+`μ→eγ` amplitudes only on the original F13 NO/IO low_joint
+and D7 low_joint cards. Rank the missing non-overlapping
+2HDM `Zγ/Wγ/kinetic` and Zee mixed-F charged-current
+sectors using the *source-validated* post-2026-erratum
+2HDM code, published Zee limits, stored Yukawa tensors,
+and genuine chiral/loop-mass power counting. Preserve
+both complex chiralities. Reuse existing Module3/4 code,
+do not double-count neutral-fermion/photon or
+charged-scalar/photon terms. A **quantitatively justified
+combined-norm bound** and its derivation are the goal.
+If such a bound cannot be established without
+a multi-week general calculation, stop and label
+physical LFV UNKNOWN: do not infer it from
+small partial rates, Yukawa textures, or loop factors alone.
+3. If a sound `μ→eγ` approximation is obtained, test
+complete leading `μ→3e` operator interference at
+same F13 low textures using native generated
+SARAH/FlavorKit and independent flavio EFT rates;
+separate diagnostic tree and full result.
+4. Produce `research/full_constraints/LFV_TEXTURE_MATERIALITY_RESULT.md`
+with source/version/formula, per-topology numeric evidence,
+the ±1% perturbation caveat, exclusion/UNKNOWN and
+B/Higgs/vacuum caveats. Goal is a modest neutrino+LFV-
+informed charged-cascade paper, not sophisticated precision.
+No new point, full parameter scan, Condor, MG5 or additional
+unrestricted custom loop project. No formula absent claims
+without looking at original full text and cited work.
 
-Then use source-verified existing one-loop Zee/selected
-Barr–Zee contributions; check missing gauge/charged groups
-and the **post-2026-erratum general-2HDM code** only for
-non-duplicated transferable terms. Compute `μ→eγ`,
-`τ→eγ`, `τ→μγ`, `μ→3e` with explicit coherent
-interference and **materiality bounds** for omitted terms.
-Conversion via flavio/wilson/MuonBridge is optional
-follow-up only if complete correct EFT vector obtained;
-original FlavorKit conversion has scalar proton/neutron
-interchange, so don't use unpatched results. A green
-compiler, a partial amplitude, or numerical stability is
-NOT a physical exclusion. Use documented phenomenological
-approximation if it cannot change observable's decision;
-otherwise keep `UNKNOWN`.
+**Environment decision:** SARAH/FeynArts/FormCalc combined kernel
+is blocked, despite fixed scratch `ReadForm`; FlexibleSUSY
+is an OPTIONAL independent check, not a precondition.
+STOP debugging/reinstalling that toolchain for now;
+use current validated SARAH/FlavorKit pieces and
+public code/analytical results.
 
-Do NOT recalculate validated Module3/4 dipoles, photon
-Barr–Zee, F-only 3-body box or Higgs widths. No full two-loop
-program without separate user decision. Keep full-LFV
-status BLOCKED until physically covered; B flavor
-uncertainty, Higgs full signals and vacuum global remain
-UNKNOWN. Final `global_acceptance=null`.
+**Scientific release:** all previous `B→Xsγ` theory
+uncertainties, Higgs signal strengths and quantum vacuum
+limitations remain. `physical_lfv=UNKNOWN` and
+`global_acceptance=null` until independently validated
+per-observable full amplitudes/physical exclusions.
+D12 targeted family isn't statistically representative or
+a global-flavor-allowed population.
 
-Branch `research/zee-full-constraints` only.
-Modules0–13, frozen D14 data/scanners and
-`feature/zee-d14-conditional-cascade-scan` at `133a340`
-remain read-only. No new scalar point (pilot or final),
-parameter scan, Condor, large MG5 or submission.
-Record actual numerical inputs/sources, tests and caveats;
-commit/push to research branch in English.
+Research branch `research/zee-full-constraints` only.
+Frozen Modules0–13 / old D14 pipeline/scanners/read-only
+data and `feature/zee-d14-conditional-cascade-scan` at
+`133a340` remain protected.
+Commit and push the verified report/code on this branch.
 
 ## Mandatory physics safeguards
 
@@ -121,9 +143,9 @@ commit/push to research branch in English.
 
 ## Current deliverable
 
-`research/full_constraints/LFV_PRACTICAL_IMPLEMENTATION_REPORT.md`
-with actual version-pinned software results and four-card
-per-observable Wilson/rate/omission evidence, or a precise,
-bounded code/model compatibility blocker. Follow the
-`LFV_PRACTICAL_APPROXIMATION_TASK.md` stop rules; no global
-LFV PASS, B/Higgs relabel, or scan authorization.
+`research/full_constraints/LFV_TEXTURE_MATERIALITY_RESULT.md`,
+with the precise source-matched missing-amplitude bound
+(or a documented reason it cannot be justified at
+phenomenology accuracy), before any future scan. Cite
+`LFV_TEXTURE_FEASIBILITY_GATE_2026-11-07.md`
+and never mislabel missing terms as zero.
