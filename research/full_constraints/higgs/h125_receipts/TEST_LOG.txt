@@ -1,0 +1,11 @@
+test_all_on_shell_scalar_channels_closed (research.full_constraints.higgs.test_h125_signal_strength.PhysicalLedger) ... ok
+test_experimental_absolute_rate_convention (research.full_constraints.higgs.test_h125_signal_strength.PhysicalLedger) ... ok
+test_incomplete_never_becomes_a_signal (research.full_constraints.higgs.test_h125_signal_strength.PhysicalLedger) ... ok
+test_mass_scheme_and_coherent_ggF (research.full_constraints.higgs.test_h125_signal_strength.PhysicalLedger) ... ok
+test_native_chiral_widths_both_charges (research.full_constraints.higgs.test_h125_signal_strength.PhysicalLedger) ... ok
+test_sm_normalization_and_width_independent_ratio (research.full_constraints.higgs.test_h125_signal_strength.PhysicalLedger) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.127s
+
+OK

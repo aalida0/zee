@@ -51,8 +51,8 @@
     "physical_higgs": "UNKNOWN",
     "scoped_channel": "HIGGS_SCOPED_CHANNEL_VALIDATED",
     "h125_gamma_gamma": "COMPLETE_LEADING_ONE_LOOP_W_NINE_FERMIONS_BOTH_CHARGED_SCALARS_INDEPENDENTLY_VALIDATED",
-    "h125_Z_gamma": "UNKNOWN_MIXED_CHARGED_CURRENT_GAUGE_COMPLETION_MISSING",
-    "full_h125_likelihood": "UNKNOWN; CONDITIONAL_SENSITIVITY_STUDY_ONLY",
+    "h125_Z_gamma": "COMPLETE_LEADING_ONE_LOOP_INDEPENDENTLY_VALIDATED; HIGGS_ZGAMMA_COMPLETE_H125.md (existing gate, reused)",
+    "full_h125_likelihood": "UNKNOWN; ABSOLUTE_MU_BLOCKED_BY_COMPETING_CHANNEL_BOUND_AND_UNCERTAINTY_ACCEPTANCE",
     "loaded_HB_limits": 310,
     "loaded_HS_measurements": 22,
     "loaded_HS_observables": 159,
@@ -89,7 +89,10 @@
     "neutral_width_report": "HIGGS_NEUTRAL_WIDTH_SEARCH_REPORT.md",
     "selected_neutral_observed_search": "ATLAS_2002.12223_ID_200212223_HIGGS_SCOPED_SEARCH_BLOCKED_NO_BRS_OR_RATIOS",
     "selected_neutral_observed_search_evidence": "higgs/OBSERVED_SEARCH_COVERAGE.json",
-    "neutral_stage_tests": "35_PASS_ZERO_SKIPS"
+    "neutral_stage_tests": "35_PASS_ZERO_SKIPS",
+    "h125_width_ledger": "PARTIAL_NATIVE_GENERAL_LEPTONS_HDECAY_QCD_CORRECTED_CHARM; TOTAL_WIDTH_QUALIFICATION_BLOCKED",
+    "h125_width_independent_ratios": "THREE_DECLARED_ORDER_PREDICTIONS; NO_EXPERIMENTAL_COMPARISON",
+    "h125_signal_strength_evidence": "higgs/H125_SIGNAL_STRENGTH_EVIDENCE.json"
   },
   "global_acceptance": null,
   "final_scan_authorized": false,

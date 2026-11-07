@@ -1,0 +1,323 @@
+{
+  "HiggsSignals_comparison": "UNKNOWN",
+  "cases": [
+    {
+      "charm_scheme_correction_GeV": -6.994024670147455e-05,
+      "consumer_rejection": "MISSING_PREDICTION: incomplete Zee width cannot enter HiggsTools",
+      "couplings": {
+        "kV": 0.9988418147268642,
+        "kd": 1.0525247339804618,
+        "ku": 0.9557176853886548,
+        "leptons": [
+          {
+            "imag": -0.007931736832869183,
+            "real": 0.89094202762388
+          },
+          {
+            "imag": 0.008047079375606845,
+            "real": 1.1067139304649796
+          },
+          {
+            "imag": -0.00011532820724749062,
+            "real": 0.9988693576683771
+          }
+        ]
+      },
+      "ggF_charm_pole_mass_GeV": 3.20168553,
+      "ggF_coherent_t_b_c_ratio": 0.9038614023135635,
+      "ggF_incoherent_ratio": 0.9155362574391288,
+      "lfv_both_charge_sum_GeV": 2.868574226008115e-09,
+      "name": "D7",
+      "neutrinos": {
+        "leading_loop_width_GeV": null,
+        "reason": "No right-handed neutrino or renormalizable neutral h nu nu Yukawa; massless-neutrino tree order only",
+        "tree_width_GeV": 0.0
+      },
+      "physical": {
+        "alpha": 0.7919087742464253,
+        "beta": 0.840042107971211,
+        "gamma": 1.3165278528084012,
+        "k1": 1.082,
+        "k12": -0.001266,
+        "k2": 0.00398,
+        "lc": 4.473,
+        "m12sq": 37805.29796645005,
+        "mH1": 298.7266553444879,
+        "mH2": 532.9329127809378,
+        "ma": 493.16131740168134,
+        "mh1": 125.0,
+        "mh2": 492.4307830996228,
+        "v": 246.21965
+      },
+      "positive_extra_width_for_1pct_denominator_suppression_GeV": 4.323733096874612e-05,
+      "production_pb": {
+        "bbH": 0.39914004,
+        "ggF": 17.9323833
+      },
+      "production_ratios": {
+        "VBF": 0.9976849708468553,
+        "WH_DY": 0.9976849708468553,
+        "ZH_DY": 0.9976849708468553,
+        "ZH_inclusive": null,
+        "bbH": 1.107808317617411,
+        "ggF": 0.9038614042136391,
+        "ttH": 0.9133962941646476
+      },
+      "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+      "scalar_thresholds_GeV": {
+        "mH1": 298.7266553444879,
+        "mH2": 532.9329127809378,
+        "ma": 493.16131740168134,
+        "mh2": 492.4307830996228
+      },
+      "signal_strength_numerators": {
+        "VBF_WW": 0.9953753010536902,
+        "VBF_bb": 1.1043732485290068,
+        "ggF_gammagamma": 0.8422144008771184
+      },
+      "signal_strengths": {
+        "VBF_WW": null,
+        "VBF_bb": null,
+        "ggF_gammagamma": null
+      },
+      "signed_width_budget_for_1pct_linear_precision_GeV": 4.280495765905866e-05,
+      "status": "H125_TOTAL_WIDTH_QUALIFICATION_BLOCKED",
+      "total_ratio": null,
+      "width": {
+        "branching_fractions": null,
+        "known_channel_sum_GeV": 0.004280495765905866,
+        "missing": [
+          "Coherent virtual-heavy-scalar contributions to h125 -> W(*)ff, Z(*)ff, four fermions, and interference with retained WW*/ZZ*; no certified numerical materiality bound",
+          "Leading loop h125 -> nu nu from radiative Majorana sector: no native finite-mass numerical bound in this ledger",
+          "Source-matched decay/production truncation and parametric covariance, including Zee EW/scalar effects; theory_sigma not established"
+        ],
+        "partial_widths_GeV": {
+          "WW": 0.0008394650869980585,
+          "ZZ": 0.00010461639696456304,
+          "Zgamma": 6.338611988311954e-06,
+          "bb": 0.0026675190738538338,
+          "cc": 0.00010906396217046727,
+          "dd": 6.022909281623006e-09,
+          "ee": 1.7005838918197253e-11,
+          "emu": 5.415181491771373e-40,
+          "etau": 7.1139796217135405e-12,
+          "gammagamma": 9.31610954631791e-06,
+          "gg": 0.0002839523019629883,
+          "mumu": 1.1218232692403996e-06,
+          "mutau": 2.8614602463864014e-09,
+          "ss": 9.72355941736831e-07,
+          "tautau": 0.0002581200858725639,
+          "uu": 1.0488484375114373e-09
+        },
+        "status": "INCOMPLETE",
+        "theory_sigma": null,
+        "total_width_GeV": null
+      },
+      "width_independent_signal_strength_ratios": {
+        "VBF_Zgamma_over_VBF_WW": 0.9810415884242212,
+        "VBF_gammagamma_over_VBF_WW": 0.9339580958284126,
+        "ggF_gammagamma_over_VBF_WW": 0.8461274857689981
+      },
+      "yukawa_sha256": {
+        "D": "399854794d73c2c1b8eb92ef2f259b0acb8f3b8765003595266902ecf3070844",
+        "F": "cca43f73fe99cac2237847ee58317d2215efa9ecdfe0ba5456a1b99d12975e44",
+        "Ye": "b589de28e3a68adf02d9186286dcc613b65bb222a132dec359d85d2ebd756e25",
+        "Ye2": "36782190a7c411548223ab7bdbe1ab1ffb0fb3aba266de33898f5a612de54967"
+      }
+    },
+    {
+      "charm_scheme_correction_GeV": -7.664202124125442e-05,
+      "consumer_rejection": "MISSING_PREDICTION: incomplete Zee width cannot enter HiggsTools",
+      "couplings": {
+        "kV": 0.9999969865617819,
+        "kd": 0.9869666274898656,
+        "ku": 1.0004595116021175,
+        "leptons": [
+          {
+            "imag": 3.286180100182326e-05,
+            "real": 1.0004440220047588
+          },
+          {
+            "imag": -3.333957143714472e-05,
+            "real": 0.999550065394339
+          },
+          {
+            "imag": 4.777492030785291e-07,
+            "real": 0.999996872464644
+          }
+        ]
+      },
+      "ggF_charm_pole_mass_GeV": 3.20168553,
+      "ggF_coherent_t_b_c_ratio": 1.0023312657140364,
+      "ggF_incoherent_ratio": 1.000624059749368,
+      "lfv_both_charge_sum_GeV": 4.923896417201744e-14,
+      "name": "F13",
+      "neutrinos": {
+        "leading_loop_width_GeV": null,
+        "reason": "No right-handed neutrino or renormalizable neutral h nu nu Yukawa; massless-neutrino tree order only",
+        "tree_width_GeV": 0.0
+      },
+      "physical": {
+        "alpha": 1.3870304796252606,
+        "beta": 1.3845755092663614,
+        "gamma": 1.0889500926314342,
+        "k1": 0.36294235759470134,
+        "k12": -0.01744840047090771,
+        "k2": 0.5346711278360509,
+        "lc": 1.1465628128505794,
+        "m12sq": 88336.32560991515,
+        "mH1": 572.2316243593124,
+        "mH2": 873.2076828282773,
+        "ma": 792.2593499631515,
+        "mh1": 125.0,
+        "mh2": 707.0819378644715,
+        "v": 246.21965
+      },
+      "positive_extra_width_for_1pct_denominator_suppression_GeV": 4.04569320807751e-05,
+      "production_pb": {
+        "bbH": 0.350966457,
+        "ggF": 19.8860007
+      },
+      "production_ratios": {
+        "VBF": 0.9999939731326447,
+        "WH_DY": 0.9999939731326447,
+        "ZH_DY": 0.9999939731326447,
+        "ZH_inclusive": null,
+        "bbH": 0.9741031249816817,
+        "ggF": 1.0023312694244835,
+        "ttH": 1.0009192343551476
+      },
+      "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+      "scalar_thresholds_GeV": {
+        "mH1": 572.2316243593124,
+        "mH2": 873.2076828282773,
+        "ma": 792.2593499631515,
+        "mh2": 707.0819378644715
+      },
+      "signal_strength_numerators": {
+        "VBF_WW": 0.9999879463016125,
+        "VBF_bb": 0.9742112832245059,
+        "ggF_gammagamma": 0.9772982728667053
+      },
+      "signal_strengths": {
+        "VBF_WW": null,
+        "VBF_bb": null,
+        "ggF_gammagamma": null
+      },
+      "signed_width_budget_for_1pct_linear_precision_GeV": 4.005236275996735e-05,
+      "status": "H125_TOTAL_WIDTH_QUALIFICATION_BLOCKED",
+      "total_ratio": null,
+      "width": {
+        "branching_fractions": null,
+        "known_channel_sum_GeV": 0.004005236275996735,
+        "missing": [
+          "Coherent virtual-heavy-scalar contributions to h125 -> W(*)ff, Z(*)ff, four fermions, and interference with retained WW*/ZZ*; no certified numerical materiality bound",
+          "Leading loop h125 -> nu nu from radiative Majorana sector: no native finite-mass numerical bound in this ledger",
+          "Source-matched decay/production truncation and parametric covariance, including Zee EW/scalar effects; theory_sigma not established"
+        ],
+        "partial_widths_GeV": {
+          "WW": 0.0008414079114981347,
+          "ZZ": 0.00010485851697917769,
+          "Zgamma": 6.408681594998847e-06,
+          "bb": 0.002347690584008176,
+          "cc": 0.00011951462712166979,
+          "dd": 5.295983666697775e-09,
+          "ee": 2.144126167016104e-11,
+          "emu": 1.4067592377594677e-45,
+          "etau": 1.22079217721173e-16,
+          "gammagamma": 9.748316425495588e-06,
+          "gg": 0.0003151253697692823,
+          "mumu": 9.150394851386284e-07,
+          "mutau": 4.9116884954296266e-14,
+          "ss": 8.576236918793384e-07,
+          "tautau": 0.0002587031385980186,
+          "uu": 1.1493505959411115e-09
+        },
+        "status": "INCOMPLETE",
+        "theory_sigma": null,
+        "total_width_GeV": null
+      },
+      "width_independent_signal_strength_ratios": {
+        "VBF_Zgamma_over_VBF_WW": 0.9895961411459406,
+        "VBF_gammagamma_over_VBF_WW": 0.9750311027514962,
+        "ggF_gammagamma_over_VBF_WW": 0.9773100530673161
+      },
+      "yukawa_sha256": {
+        "D": "eaa0e8dadaf35acfa9bc4381f229070217fdeee0a0f6ae4261a0d1813e93dd47",
+        "F": "1d9b8ff9a6896b0966689cb5542bc7d7c1cb3f0e27668a8dc9837e2122223dd4",
+        "Ye": "8db3a9f690ba80b6ecdb866bfdd1dd3e0a03ef9b4ea745576acfa9a507ce41ef",
+        "Ye2": "0679a131d7092a5090313ffec6d892430cf85df385509c9a12da77f0240f745d"
+      }
+    }
+  ],
+  "converted_mc3_GeV": 0.9928272100394416,
+  "exclusion": null,
+  "experimental_category": {
+    "HiggsSignals_calls": 0,
+    "dataset_sha256": "af81a27cac94386196338afdf91dd0defdbc494e9b29c8523d5116817018ad60",
+    "file": "/home/amine/Tools/hsdataset/h125/bb_vbfH_LHC13_ATLAS_126.json",
+    "id": 201108280,
+    "location": "Table 6 and results paragraph",
+    "native_SM_reference_sigma_BR_pb": 2.20257783862,
+    "normalization": "No ref key: JsonSupport.cpp readRateMeasurement defaults to absolute reference-particle process rate; observed 2.16 has pb units, not dimensionless mu",
+    "paper": "https://arxiv.org/html/2011.08280v2",
+    "paper_observed_mu": 0.99,
+    "paper_sigma_BR_pb": 2.16,
+    "pinned_observed_sigma_BR_pb": [
+      1.41293909217521,
+      2.16,
+      2.94032044699598
+    ],
+    "status": "DATA_NORMALIZATION_VALIDATED_MODEL_COMPARISON_BLOCKED"
+  },
+  "final_scan_authorized": false,
+  "global_acceptance": null,
+  "matched_SM_known_sum_GeV": 0.004070980542386676,
+  "matched_SM_ledger_GeV": {
+    "WW": 0.0008414129825825718,
+    "ZZ": 0.0001048591489513594,
+    "Zgamma": 6.476096614609173e-06,
+    "bb": 0.0024098226690805174,
+    "cc": 0.00011940486606660957,
+    "dd": 5.436779266402219e-09,
+    "ee": 2.1422233537351844e-11,
+    "gammagamma": 9.998014576304503e-06,
+    "gg": 0.00031849946250683315,
+    "mumu": 9.158634560380312e-07,
+    "ss": 8.800752433126653e-07,
+    "tautau": 0.00025870475681197627,
+    "uu": 1.1482950436871087e-09
+  },
+  "mc_at_mc_GeV": 1.273,
+  "production": {
+    "VBF_WH_DY_ZH_DY_ttH": "Tree EW Lorentz structures; QCD factorizing ratios; no BSM EW corrections; inclusive ZH unavailable",
+    "bbH": "LO 5FS same PDF; MSbar mb(mb)=4.183; scales (M,M/4)",
+    "energy_GeV": 13000,
+    "ggF": "SusHi 1.7.0 LO QCD massive coherent t,b,c; MMHT2014lo68cl; OS mb=4.78; scales M/2"
+  },
+  "source_sha256": {
+    "research/full_constraints/HIGGS_VALIDATION.json": "5fa4fecad784cc88b5da59449e554d152a809a54c2f395035647a3d2a727f291",
+    "research/full_constraints/higgs/COVERAGE.json": "0a8aead96843aae22ac3a5038ba8b3888892695253ccea13803bb7e0055d027b",
+    "research/full_constraints/higgs/SUSHI_SOURCE_MANIFEST.json": "d947acf14e9d8c42006f396fc02c3e151b607b68b1cf2906474ea936b0a3c49d",
+    "research/full_constraints/higgs/ZGAMMA_H125_EVIDENCE.json": "21e95fdf2d67d090257675825aafd494133d60270b4f02ea96a2c64a9a82357e",
+    "research/full_constraints/higgs/h125_receipts/D7_h125.in": "955df83f9c681eda30d3652d4eed6ecfbca748ab1edcb4f0b168b95798ce0869",
+    "research/full_constraints/higgs/h125_receipts/D7_h125.log": "9e50ebe774a1d3f7a2edf61d279170153a86695c4ee23f34a3e9434cb6a2a9fc",
+    "research/full_constraints/higgs/h125_receipts/D7_h125.out": "4915a21821d57d87809d42fbf51c365309ee6329c2162b60befa0afc14ffc849",
+    "research/full_constraints/higgs/h125_receipts/D7_h125.out_murdep": "a0269c91255b13ac20d2aec365bb4bcb2c71abe2bf6144f8c5433a0fa3560cd9",
+    "research/full_constraints/higgs/h125_receipts/EXECUTION.json": "407b03be99e1869417eb2ddeabcd1a1b2b051c29b27db61bf7608ed05add64b6",
+    "research/full_constraints/higgs/h125_receipts/F13_h125.in": "e28d63bfcbc235b48eab2bdc5b1ef0d9ced2004d271fc45611f24f1f6f4597ea",
+    "research/full_constraints/higgs/h125_receipts/F13_h125.log": "33a41ce3055a41f8315a25309d5704eba5d3f16a74147b8152cbc34655391cc1",
+    "research/full_constraints/higgs/h125_receipts/F13_h125.out": "70772c2fc0cbe37dba6013a31060f72bd0036ac478c38984cbf86f7e83a7069c",
+    "research/full_constraints/higgs/h125_receipts/F13_h125.out_murdep": "1db44105808c9c3e9a2f585b3256227e08ecd4ea46e9770c3ca03f19296fa68d",
+    "research/full_constraints/higgs/h125_receipts/SM_h125.in": "cc07e27839e7b055c2c6204e56e915e646ae834b696bfd9ef04a9e1e2cfb8325",
+    "research/full_constraints/higgs/h125_receipts/SM_h125.log": "274c0848ec11787929cfe6888799315470fe88c576e7d65add408e8af8fcbad9",
+    "research/full_constraints/higgs/h125_receipts/SM_h125.out": "32a8647bfadb278ae79153fff54be9fd8336b4ecb3f736e7eb7a4a15deddee88",
+    "research/full_constraints/higgs/h125_receipts/SM_h125.out_murdep": "7584cb9c5d593a154ff54b0874cd230e6d18073e314ef0b6d7559d74a84883e3",
+    "research/full_constraints/higgs/h125_receipts/TEST_LOG.txt": "14902678532f3f91abf53b5820699c87afe57afd27e982f2338c62af3cacf396",
+    "research/full_constraints/higgs/h125_receipts/sm125.stdout": "baf332e1f5939bd1823b31c94998f71587b17287182ddf88dc804a2446aa20fe",
+    "research/full_constraints/higgs/h125_signal_strength.py": "c4a5785c0c4f9a82023c8e826af2c570d4c70884df5694db2a5b86ded5a85e6d",
+    "research/full_constraints/higgs/h125_sm_reference.cpp": "04964f22edce2889ae9c1cd1849003dc00462f229317f2797e24c9f5f98d521d",
+    "research/full_constraints/higgs/test_h125_signal_strength.py": "b66270863693a89eb1bdda35b56c910ee80a88e5d3a60bee686c1a5c0b7ac2c3"
+  },
+  "status": "H125_SIGNAL_STRENGTH_BLOCKED"
+}

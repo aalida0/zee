@@ -1,0 +1,55 @@
+{
+  "charm_conversion": "Initialize original SM HDECAY; read RUNM_HDEC(1.273,4); m_c(3)=1.273*1.273/RUNM; reexecute SM only",
+  "compile_command": [
+    "c++",
+    "-std=c++17",
+    "-I/tmp/zee-sushi-execution/anyhdecay-src/include",
+    "research/full_constraints/higgs/h125_sm_reference.cpp",
+    "-L/tmp/zee-sushi-execution/anyhdecay-build/lib",
+    "-lanyhdecay",
+    "-lgfortran",
+    "-o",
+    "/tmp/zee-h125-sm-reference"
+  ],
+  "environment": {
+    "LD_LIBRARY_PATH": "/home/amine/codes/Herwig/herwigpp/lib",
+    "LHAPDF_DATA_PATH": "/home/amine/codes/Herwig/herwigpp/share/LHAPDF"
+  },
+  "external_source_sha256": {
+    "/home/amine/Tools/ScannerS/build/_deps/n2hdecay-src/src/hdecay_core.f": "c2dcf59c6b1c6c29d194c2fb46b44395d9e7d8aaa815c2ff09d1f5a18a376e05",
+    "/home/amine/Tools/higgstools/src/signals/JsonSupport.cpp": "ea9eb3e2debab4c5946f66ade125c9172b9e7506f85701038ce2e96da847c8fa",
+    "/home/amine/Tools/higgstools/src/signals/Measurements/RateMeasurement.cpp": "ec770901ef9520bd97a40e9926c0ad9b3bc153efaf5e6f43134e115d19587cd8",
+    "/home/amine/codes/Herwig/herwigpp/lib/libLHAPDF.so": "6cfc4e3fe5523bf1aea2e1955f8358fc778ef97b74dc4b458bd16b6f00ca79ea",
+    "/tmp/zee-h125-sm-reference": "fcf3e7189d022f77f8dcfb62e5547120b26c6834f06fb92457abb6e8427386a1",
+    "/tmp/zee-sushi-execution/SusHi-1.7.0/bin/sushi": "4f78e6ff777467e8afd47f15feb2f9a1a39324b9a44dff18dd5b6d0c62e9bb1c",
+    "/tmp/zee-sushi-execution/anyhdecay-build/lib/libanyhdecay.a": "6ebc218606a5a4c4002d83aafe78ed5c09f6041e748c5919ce017b077d44a10f",
+    "/tmp/zee-sushi-execution/anyhdecay-src/src/libified_hdecay/hdec_2HDM.f": "338a5cd08efd1b1c4a45ce0fb646b1561f7d8ad62eb4d65d2e9cf88eaadcb46d",
+    "/tmp/zee-sushi-execution/anyhdecay-src/src/wrappers/standard_hdecay.f90": "b44b9045358644b42d4124fededbd58347e1aef33af1b9f47994f0262b04fef8"
+  },
+  "heavy_production_runs": 0,
+  "parent_manifest_sha256": "d947acf14e9d8c42006f396fc02c3e151b607b68b1cf2906474ea936b0a3c49d",
+  "production_commands": [
+    [
+      "/tmp/zee-sushi-execution/SusHi-1.7.0/bin/sushi",
+      "D7_h125.in",
+      "D7_h125.out"
+    ],
+    [
+      "/tmp/zee-sushi-execution/SusHi-1.7.0/bin/sushi",
+      "F13_h125.in",
+      "F13_h125.out"
+    ],
+    [
+      "/tmp/zee-sushi-execution/SusHi-1.7.0/bin/sushi",
+      "SM_h125.in",
+      "SM_h125.out"
+    ]
+  ],
+  "production_cwd": "/home/amine/zee-full-constraints/research/full_constraints/higgs/h125_receipts",
+  "production_runs": 3,
+  "scope": "Original h125 D7/F13 plus matched unit-Yukawa reference only; no new scalar point",
+  "sm_command": [
+    "/tmp/zee-h125-sm-reference"
+  ],
+  "sm_driver": "h125_sm_reference.cpp"
+}

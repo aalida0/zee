@@ -1,5 +1,7 @@
 # Progress to one final full-constraint scan — 2026-11-07
 
+**h125 signal-strength task:** [report](HIGGS_H125_SIGNAL_STRENGTH_REPORT.md) releases three width-independent rate ratios, a corrected-charm standard/LFV width ledger, and original-card h125-only LO production ratios. Absolute μ and the scoped experimental comparison remain UNKNOWN: virtual-exotic/invisible materiality and uncertainty/acceptance gates are open. No final-scan authorization or full-Higgs milestone increase.
+
 **Status:** NOT_AUTHORIZED / FULL_CONSTRAINTS_BLOCKED.
 **Evidence HEAD at start:** `e72c7b4a177d2b98aa9167ba3afda4d711e85825`.
 **Interpretation:** Bars below count defined validation milestones, **not** percentage of physics theory completed, probability of success or compute time. A partial observable is not a physical exclusion.

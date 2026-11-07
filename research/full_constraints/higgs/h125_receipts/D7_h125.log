@@ -1,0 +1,47 @@
+LHAPDF 6.5.3 loading /home/amine/codes/Herwig/herwigpp/share/LHAPDF/MMHT2014lo68cl/MMHT2014lo68cl_0000.dat
+MMHT2014lo68cl PDF set, member #0, version 3; LHAPDF ID = 25000
+Note: The following floating-point exceptions are signalling: IEEE_DENORMAL
+Thanks for using LHAPDF 6.5.3. Please make sure to cite the paper:
+  Eur.Phys.J. C75 (2015) 3, 132  (http://arxiv.org/abs/1412.7420)
+#--------------------------------------------------#
+# SusHi: (Supersymmetric) Higgs production through #
+#  __      __        gluon fusion and bottom-quark #
+# [_  | | [_  |_| |  annihilation                  #
+# __] |_| __] | | |                                #
+#                    Version 1.7.0     March 2019  #
+#        R. Harlander, S. Liebler, and H. Mantler  #
+#               (harlander@physik.rwth-aachen.de)  #
+#                        (stefan.liebler@kit.edu)  #
+#            BU Wuppertal, RWTH Aachen, DESY, KIT  #
+# Contributions by:                                #
+# Shruti Patel (KIT): SusHiMi for CP violation     #
+# Lars-Thorben Moos (RWTH): Link to ext. codes     #
+#--------------------------------------------------#
+# SusHi is based on a number of calculations       #
+# due to various groups. Please acknowledge these  #
+# efforts by citing the list of references which   #
+# are included in the output file of every run.    #
+#--------------------------------------------------#
+ SusHi (info): SUSHI(21) defaults to 0: All bbh@nnlo subprocesses included.
+ SusHi (info): VEGAS will be called only once.
+#--------------------------------------------------#
+ Higgs mass:     125.00000   GeV
+#--------------------------------------------------#
+#--------------------------------------------------#
+ Calling ggh@nnlo and bbh@nnlo
+#--------------------------------------------------#
+#--------------------------------------------------#
+ Performing LO ggh calculation
+#--------------------------------------------------#
+#--------------------------------------------------#
+ The bbh results are given by:
+       LO:          0.39914   +-     0.00000   pb     
+#--------------------------------------------------#
+ The ggh results are given by:
+       LO:         17.93238   +-     0.00001   pb     
+  muR unc.:  -      3.68150   +      5.31675   pb     
+ The scale uncertainty is obtained by a variation
+ of muR within [ 0.50000E+00, 0.20000E+01]* 0.62500E+02 GeV.
+#--------------------------------------------------#
+ Results written in output file: D7_h125.out                                                 
+ [32mMake sure to cite the references listed in output file D7_h125.out![0m

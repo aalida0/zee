@@ -1,5 +1,7 @@
 # Higgs coverage gate — 2026-11-07
 
+**h125 rate-ledger update:** [current report](HIGGS_H125_SIGNAL_STRENGTH_REPORT.md) supplies corrected-charm ordinary-channel sums 4.280495766/4.005236276 MeV, full native LFV and independently checked h125-only LO production. Three width-independent signal-strength ratios are released. Absolute μ/BR normalization and the scoped VBF→bb comparison remain BLOCKED pending a competing-channel bound and uncertainty/acceptance qualification. No new exclusion or milestone increment. The selected HS absolute-rate convention is source-checked; missing `ref` does not mean μ=1 normalization.
+
 **h125 Zγ update:** the [complete leading one-loop h125 calculation](HIGGS_ZGAMMA_COMPLETE_H125.md)
 now passes independent matched-input SM and signed one-charged-scalar controls,
 including both mixed charged scalars and complex diagonal leptons. D7/F13
