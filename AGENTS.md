@@ -19,50 +19,59 @@ Do **not** call an unimplemented published expression nonexistent; do not call
 a restricted formula complete general Zee physics. Citation-search indexing is
 not exhaustive; report limitations. Always preserve original frozen modules.
 
-## CURRENT TASK — execute source-matched full one-loop Zee LFV operators
+## CURRENT TASK — independently validate published mixed Zee h/H/A→Zgamma
 
-**Read `research/full_constraints/LFV_SOURCE_TO_CODE_TASK.md` first**,
-then `LITERATURE_SOURCE_RESCUE_AUDIT_2026-11-07.md`,
-`LFV_EXECUTION_REPORT.md` and `LFV_COVERAGE.md`.
+**Read first** `research/full_constraints/HIGGS_ZGAMMA_2021_RESCUE_TASK.md`
+and `research/full_constraints/LITERATURE_SOURCE_RESCUE_AUDIT_2026-11-07.md`.
+The current task is specifically to **execute and independently validate**
+the CP-even *h* unequal-mass charged-loop sector using three prior
+published sources in one exact SARAH physical convention:
 
-After the two-way citation audit we now know directly relevant
-published source formulas:
-- Bilenky & Santamaria 1994, gauge-invariant singlet-F EFT;
-- Mitsuda & Sasaki 2001, TWO mixed charged-scalar F^4 mu3e box;
-- Ghosal et al. 2001, mixed charged-scalar on-shell LFV Z vertex;
-- Primulando et al. 2022, conversion operator controls;
-- FlexibleSUSY NPointFunctions 2024, generic tree+one-loop mu3e
-  and mu-e conversion, with real generated coefficients;
-- Altmannshofer et al. 2025 public 2HDM two-loop LFV: existing
-  neutral fermion/photon subset is ALREADY in Module4.
+1. Trương Tín Thành et al. (2019): pre-2021 Zee off-diagonal Z
+   currents and Eq.(1.17) mixed scalar loop, **incomplete documented
+   PV arguments**, so not a standalone validated amplitude.
+2. Hue et al., EPJC 78 (2018) 885, Eq.(16), Appendix A:
+   generic unequal-internal-mass CP-even PV function.
+3. Florentino/Romão/Silva, EPJC 81 (2021) 1148,
+   Appendix D.3 Eq.(D.20): exact Zee charged-scalar mixed form.
 
-**STOP broad surveys and speculative new symbolic two-loop work.**
-Produce an **actually executed**, complete tree+one-loop
-`μ→3e` **complex operator-vector cross-check** on the original
-D7/F13 fixed physical cards and independent conversion tests,
-or prove exact code/physics limitation after one bounded setup
-attempt. Check full penguin/box/gauge topology coverage and
-correctness; do not confuse a restricted paper's F-only form
-with a full Zee one-loop calculation.
+Start with original **D7/F13 h125**, independent SM/one-state/equal-mass/
+mixing controls and stable PV/UV/EM Ward checks. Only then extend to
+CP-even H using exact SARAH couplings and separate CP-odd A
+structure. Reconcile source formula/width prefactors instead of
+copying printed expressions uncritically. If validated, compute
+original fixed-card widths and test **materiality** of remaining
+tau-tau width corrections before any HiggsBounds physical claim.
+No incorrect full BR from known disjoint partial-width sums.
+If no full one-loop validation, report exact irreducible loop blocker
+and stop. Existing SusHi, HDECAY, h/H/A gamma gamma results are
+validated in scope and must not be recomputed.
 
-Current previously validated: charged F dipoles and neutral
-photon subset, full 3-body rate kernel against Dirac traces,
-gold-target FlavorKit scalar isovector **6.972% rate difference**
-which must be checked against another nuclear matching.
-Unvalidated complete amplitude remains UNKNOWN.
-Full two-loop Wγ/gauge Barr–Zee groups remain separate; do NOT
-claim `LFV_FULL_COVERAGE_VALIDATED` from one-loop alone.
+**Previous LFV stage is DONE within its bounded scope at `77148f0`:**
+Mitsuda–Sasaki F-only two-charged-state mu3e box matches native
+generated source to 3.9e-16; Ghosal on-shell Z kernel checked, not
+low-energy off-shell matching. Independent nuclear matching found a
+real scalar proton/neutron exchange in pinned FlavorKit conversion
+affecting scalar/vector interference. Never use that unpatched
+source for a physical Zee conversion claim. FlexibleSUSY
+NPointFunctions model generation was **NOT TESTED**: configuration
+stopped because installed FeynArts/FormCalc were old and pin requires
+FeynArts>=3.10, FormCalc>=9.8. This is a dependency block, NOT
+a Zee model-physics incompatibility. Do not repeat the same setup
+without a separate authorized focused prerequisites task.
+LFV remains `LFV_FULL_COVERAGE_BLOCKED`; any missing two-loop
+gauge contributions remain explicitly UNKNOWN.
 
-Higgs `HIGGS_ZGAMMA_2021_RESCUE_TASK.md` is **queued**, now
-with 2019 Zee and 2018 general unequal-mass reference for
-source-independent checks. B rate is queued for specialist
-answer, `B_FULL_RATE_BLOCKED`; do NOT rerun HEPfit code.
-Higgs `HIGGS_FULL_COVERAGE_BLOCKED` at prior fixed cards.
-No new scalar points, scans of any size, Condor, MG5 production
-or use of broken SPheno full-loop masses. Frozen
-`feature/zee-d14-conditional-cascade-scan` and Modules0–13
-unchanged. Work only on research branch and commit/push
-source-verified, independently tested code/evidence in English.
+B still `B_FULL_RATE_BLOCKED` pending Wilson-dependent
+uncertainty specialist input. No HEPfit reimplementation.
+
+No new scalar points, even pilot/large scans, Condor, broad
+MadGraph integrations, false global acceptance or broken full-loop
+SPheno spectrum use. Frozen Modules0–13 and
+`feature/zee-d14-conditional-cascade-scan` at `133a340`
+are read-only. Work in isolated research subtree on
+`research/zee-full-constraints`; commit/push real source-verified
+numerical results and no unsupported exclusions.
 
 ## Mandatory physics safeguards
 
