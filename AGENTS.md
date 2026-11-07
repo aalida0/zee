@@ -4,39 +4,38 @@
 **Frozen working parent:** `feature/zee-d14-conditional-cascade-scan`
 at `133a34061723b6bb45b19e8ebe29852ac8b5a9c2`.
 
-## Current milestone — Higgs coverage and h125 charged-loop integration
+## CURRENT TASK — independently execute HEPfit B→Xsγ physical rate
 
-The user requires genuinely validated LFV, B→Xsγ and Higgs exclusions
-before **one final large scan**. B and LFV source/validation gates are
-already executed on this research branch:
-- B `B_FULL_RATE_BLOCKED` at `64bdf27`: coherent two-state rates exist
-  but independent matched physical rate and theory uncertainty are absent.
-- LFV `LFV_FULL_COVERAGE_BLOCKED` at `da6e858`: contact three-body
-  rate and interference independently validated, but gauge-invariant
-  radiative and complete three-body operator matching remain missing.
-  Frozen Module3/4 tests pass 73/75; the two failures assert historical
-  branch names and do not signify numerical physics failures.
+User wants **actual complete LFV, B→Xsγ and Higgs exclusions** before
+one final large scan. We have completed bounded feasibility and
+Higgs/LFV source studies. **No complete physical exclusion is yet
+validated.**
 
-**Current task: read `research/full_constraints/HIGGS_NEXT_STAGE.md`,
-`research/full_constraints/HIGGS_TASK.md` and `PLAN.md`, then
-execute the bounded HiggsTools coverage and corrected h125 study.**
+**Read `research/full_constraints/HEPFIT_RATE_EXECUTION_TASK.md` first.**
+Also read `research/full_constraints/PROGRESS_TO_FINAL_SCAN.md`,
+`FEASIBILITY_GATE.md`, `BSGAMMA_COVERAGE.md` and source pins.
 
-First inventory the actual experimental data, analysis processes and
-required model-specific rates. Then try to validate the complete
-h125 diphoton **W+fermion+both mixed charged scalars** amplitude in a
-common physical tree-input scheme, and consume only existing exact
-H2 benchmark production. Do not treat a single channel as a full
-HiggsTools pass. Full-loop SPheno remains UNAVAILABLE. Preserve
-per-analysis `MISSING_PREDICTION`, `NOT_APPLICABLE` and unknown
-statuses. A model-correct, validated **scoped fail** may exclude a
-point, but no globally allowed point can be declared while applicable
-channels are missing.
+The current task is an **actual, independently executed** pinned
+HEPfit THDM B→Xsγ benchmark, followed if feasible by an isolated
+coherent two-mixed-state order-separated NLO Wilson adapter and
+research comparison to the frozen D9B rate. We do NOT want another
+generic public-code inventory, code-only self-tests or rederived
+Module5 matching. Output an executed physical rate, or exact build/
+source blocker. The theory/NP uncertainty gate is separate; a
+numerical rate does NOT imply a 95% CL exclusion.
 
-**Do not rerun B/LFV audits, alter protected Modules0–13, launch
-new parameter proposals or pilot scans, submit Condor, run a broad
-MG5 production campaign, or touch the frozen conditional branch.**
-Current work is a research-only Higgs stage on existing cards.
-No final scan authorized. Log/report code and commits in English.
+After source-validated calculation, update the real milestone
+scorecard; never inflate completion percentages from additional
+scripts/tests alone. If independent full physical rate validation or
+justified NP theory errors are absent, keep
+`B_FULL_RATE_BLOCKED`.
+
+Frozen parent `feature/zee-d14-conditional-cascade-scan` at
+`133a340` is protected and untouched. Original Modules0–13,
+previous D14 evidence, LFV and Higgs research outputs are read-only.
+No random proposals, small/big scans, Condor, MG5 production,
+or final scan without explicit separate authorization.
+Use English for commits/docs/logs.
 
 ## Mandatory physics safeguards
 
