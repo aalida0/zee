@@ -1,0 +1,1411 @@
+{
+  "HiggsSignals_calls": 0,
+  "cases": [
+    {
+      "conditional_Cauchy_BSM_norm_target_GeV": 0.00013729134564788764,
+      "conditional_curve": [
+        {
+          "conditional_mu_native": 1.3696552017837484,
+          "conditional_rate_pb": 3.0167721939994885,
+          "signed_delta_GeV": -0.0009440814839626215
+        },
+        {
+          "conditional_mu_native": 1.3568207605525366,
+          "conditional_rate_pb": 2.9885033381725505,
+          "signed_delta_GeV": -0.0009125216683484069
+        },
+        {
+          "conditional_mu_native": 1.3442246182229471,
+          "conditional_rate_pb": 2.9607593542252935,
+          "signed_delta_GeV": -0.0008809618527341923
+        },
+        {
+          "conditional_mu_native": 1.331860199046845,
+          "conditional_rate_pb": 2.9335257585606027,
+          "signed_delta_GeV": -0.0008494020371199776
+        },
+        {
+          "conditional_mu_native": 1.3197211670106175,
+          "conditional_rate_pb": 2.9067885956153097,
+          "signed_delta_GeV": -0.0008178422215057629
+        },
+        {
+          "conditional_mu_native": 1.307801415008736,
+          "conditional_rate_pb": 2.8805344140141194,
+          "signed_delta_GeV": -0.0007862824058915483
+        },
+        {
+          "conditional_mu_native": 1.2960950545987737,
+          "conditional_rate_pb": 2.854750244004238,
+          "signed_delta_GeV": -0.0007547225902773336
+        },
+        {
+          "conditional_mu_native": 1.2845964063017687,
+          "conditional_rate_pb": 2.8294235760911692,
+          "signed_delta_GeV": -0.000723162774663119
+        },
+        {
+          "conditional_mu_native": 1.2732999904143654,
+          "conditional_rate_pb": 2.8045423408017394,
+          "signed_delta_GeV": -0.0006916029590489042
+        },
+        {
+          "conditional_mu_native": 1.2622005183015028,
+          "conditional_rate_pb": 2.780094889505568,
+          "signed_delta_GeV": -0.0006600431434346896
+        },
+        {
+          "conditional_mu_native": 1.251292884140584,
+          "conditional_rate_pb": 2.756069976230953,
+          "signed_delta_GeV": -0.000628483327820475
+        },
+        {
+          "conditional_mu_native": 1.2405721570900439,
+          "conditional_rate_pb": 2.73245674041554,
+          "signed_delta_GeV": -0.0005969235122062603
+        },
+        {
+          "conditional_mu_native": 1.2300335738570871,
+          "conditional_rate_pb": 2.709244690536177,
+          "signed_delta_GeV": -0.0005653636965920457
+        },
+        {
+          "conditional_mu_native": 1.2196725316410502,
+          "conditional_rate_pb": 2.6864236885661277,
+          "signed_delta_GeV": -0.0005338038809778311
+        },
+        {
+          "conditional_mu_native": 1.2094845814304303,
+          "conditional_rate_pb": 2.6639839352112524,
+          "signed_delta_GeV": -0.0005022440653636164
+        },
+        {
+          "conditional_mu_native": 1.199465421633074,
+          "conditional_rate_pb": 2.641915955880003,
+          "signed_delta_GeV": -0.0004706842497494017
+        },
+        {
+          "conditional_mu_native": 1.1896108920203599,
+          "conditional_rate_pb": 2.620210587345014,
+          "signed_delta_GeV": -0.00043912443413518705
+        },
+        {
+          "conditional_mu_native": 1.179916967967469,
+          "conditional_rate_pb": 2.5988589650568517,
+          "signed_delta_GeV": -0.0004075646185209724
+        },
+        {
+          "conditional_mu_native": 1.170379754972991,
+          "conditional_rate_pb": 2.577852511073016,
+          "signed_delta_GeV": -0.0003760048029067578
+        },
+        {
+          "conditional_mu_native": 1.1609954834421827,
+          "conditional_rate_pb": 2.5571829225676646,
+          "signed_delta_GeV": -0.00034444498729254303
+        },
+        {
+          "conditional_mu_native": 1.151760503719203,
+          "conditional_rate_pb": 2.5368421608897243,
+          "signed_delta_GeV": -0.0003128851716783284
+        },
+        {
+          "conditional_mu_native": 1.1426712813545699,
+          "conditional_rate_pb": 2.516822441139094,
+          "signed_delta_GeV": -0.00028132535606411376
+        },
+        {
+          "conditional_mu_native": 1.1337243925949456,
+          "conditional_rate_pb": 2.4971162222325476,
+          "signed_delta_GeV": -0.0002497655404498991
+        },
+        {
+          "conditional_mu_native": 1.1249165200831621,
+          "conditional_rate_pb": 2.477716197432703,
+          "signed_delta_GeV": -0.0002182057248356845
+        },
+        {
+          "conditional_mu_native": 1.1162444487571361,
+          "conditional_rate_pb": 2.4586152853150662,
+          "signed_delta_GeV": -0.00018664590922146986
+        },
+        {
+          "conditional_mu_native": 1.1077050619370299,
+          "conditional_rate_pb": 2.4398066211496965,
+          "signed_delta_GeV": -0.0001550860936072551
+        },
+        {
+          "conditional_mu_native": 1.0992953375906485,
+          "conditional_rate_pb": 2.421283548675454,
+          "signed_delta_GeV": -0.00012352627799304048
+        },
+        {
+          "conditional_mu_native": 1.0910123447676754,
+          "conditional_rate_pb": 2.4030396122461246,
+          "signed_delta_GeV": -9.196646237882584e-05
+        },
+        {
+          "conditional_mu_native": 1.0828532401939062,
+          "conditional_rate_pb": 2.3850685493289574,
+          "signed_delta_GeV": -6.0406646764611205e-05
+        },
+        {
+          "conditional_mu_native": 1.0748152650171667,
+          "conditional_rate_pb": 2.3673642833372934,
+          "signed_delta_GeV": -2.884683115039657e-05
+        },
+        {
+          "conditional_mu_native": 1.066895741697096,
+          "conditional_rate_pb": 2.349920916780071,
+          "signed_delta_GeV": 2.7129844638181747e-06
+        },
+        {
+          "conditional_mu_native": 1.0590920710314193,
+          "conditional_rate_pb": 2.332732724711963,
+          "signed_delta_GeV": 3.427280007803281e-05
+        },
+        {
+          "conditional_mu_native": 1.0514017293117865,
+          "conditional_rate_pb": 2.315794148468885,
+          "signed_delta_GeV": 6.583261569224745e-05
+        },
+        {
+          "conditional_mu_native": 1.0438222656026228,
+          "conditional_rate_pb": 2.2990997896744565,
+          "signed_delta_GeV": 9.739243130646208e-05
+        },
+        {
+          "conditional_mu_native": 1.0363512991368422,
+          "conditional_rate_pb": 2.2826444045038548,
+          "signed_delta_GeV": 0.00012895224692067672
+        },
+        {
+          "conditional_mu_native": 1.0289865168226002,
+          "conditional_rate_pb": 2.266422898192245,
+          "signed_delta_GeV": 0.00016051206253489135
+        },
+        {
+          "conditional_mu_native": 1.0217256708556086,
+          "conditional_rate_pb": 2.250430319775716,
+          "signed_delta_GeV": 0.000192071878149106
+        },
+        {
+          "conditional_mu_native": 1.0145665764318286,
+          "conditional_rate_pb": 2.2346618570533097,
+          "signed_delta_GeV": 0.00022363169376332062
+        },
+        {
+          "conditional_mu_native": 1.0075071095556571,
+          "conditional_rate_pb": 2.2191128317593827,
+          "signed_delta_GeV": 0.0002551915093775355
+        },
+        {
+          "conditional_mu_native": 1.0005452049389887,
+          "conditional_rate_pb": 2.2037786949361227,
+          "signed_delta_GeV": 0.0002867513249917501
+        },
+        {
+          "conditional_mu_native": 0.9936788539867776,
+          "conditional_rate_pb": 2.188655022496595,
+          "signed_delta_GeV": 0.00031831114060596475
+        },
+        {
+          "conditional_mu_native": 0.9869061028649903,
+          "conditional_rate_pb": 2.1737375109692576,
+          "signed_delta_GeV": 0.0003498709562201794
+        },
+        {
+          "conditional_mu_native": 0.9802250506470245,
+          "conditional_rate_pb": 2.159021973415303,
+          "signed_delta_GeV": 0.000381430771834394
+        },
+        {
+          "conditional_mu_native": 0.9736338475349192,
+          "conditional_rate_pb": 2.144504335510737,
+          "signed_delta_GeV": 0.00041299058744860865
+        },
+        {
+          "conditional_mu_native": 0.9671306931518442,
+          "conditional_rate_pb": 2.1301806317854513,
+          "signed_delta_GeV": 0.0004445504030628233
+        },
+        {
+          "conditional_mu_native": 0.9607138349025697,
+          "conditional_rate_pb": 2.116047002012033,
+          "signed_delta_GeV": 0.0004761102186770379
+        },
+        {
+          "conditional_mu_native": 0.9543815663987716,
+          "conditional_rate_pb": 2.1020996877373763,
+          "signed_delta_GeV": 0.0005076700342912526
+        },
+        {
+          "conditional_mu_native": 0.9481322259462075,
+          "conditional_rate_pb": 2.088335028950567,
+          "signed_delta_GeV": 0.0005392298499054672
+        },
+        {
+          "conditional_mu_native": 0.9419641950909368,
+          "conditional_rate_pb": 2.0747494608808235,
+          "signed_delta_GeV": 0.0005707896655196818
+        },
+        {
+          "conditional_mu_native": 0.935875897221926,
+          "conditional_rate_pb": 2.061339510919623,
+          "signed_delta_GeV": 0.0006023494811338967
+        },
+        {
+          "conditional_mu_native": 0.9298657962274911,
+          "conditional_rate_pb": 2.0481017956614127,
+          "signed_delta_GeV": 0.0006339092967481113
+        },
+        {
+          "conditional_mu_native": 0.9239323952031838,
+          "conditional_rate_pb": 2.035033018057628,
+          "signed_delta_GeV": 0.000665469112362326
+        },
+        {
+          "conditional_mu_native": 0.9180742352088298,
+          "conditional_rate_pb": 2.0221299646789737,
+          "signed_delta_GeV": 0.0006970289279765406
+        },
+        {
+          "conditional_mu_native": 0.9122898940725562,
+          "conditional_rate_pb": 2.0093895030811995,
+          "signed_delta_GeV": 0.0007285887435907552
+        },
+        {
+          "conditional_mu_native": 0.9065779852397486,
+          "conditional_rate_pb": 1.9968085792698398,
+          "signed_delta_GeV": 0.0007601485592049699
+        },
+        {
+          "conditional_mu_native": 0.9009371566649779,
+          "conditional_rate_pb": 1.9843842152595952,
+          "signed_delta_GeV": 0.0007917083748191845
+        },
+        {
+          "conditional_mu_native": 0.8953660897450384,
+          "conditional_rate_pb": 1.9721135067242674,
+          "signed_delta_GeV": 0.0008232681904333991
+        },
+        {
+          "conditional_mu_native": 0.8898634982913306,
+          "conditional_rate_pb": 1.9599936207333508,
+          "signed_delta_GeV": 0.0008548280060476138
+        },
+        {
+          "conditional_mu_native": 0.8844281275399034,
+          "conditional_rate_pb": 1.948021793571574,
+          "signed_delta_GeV": 0.0008863878216618284
+        },
+        {
+          "conditional_mu_native": 0.8790587531975571,
+          "conditional_rate_pb": 1.9361953286378673,
+          "signed_delta_GeV": 0.0009179476372760433
+        },
+        {
+          "conditional_mu_native": 0.8737541805224828,
+          "conditional_rate_pb": 1.9245115944203994,
+          "signed_delta_GeV": 0.0009495074528902579
+        },
+        {
+          "conditional_mu_native": 0.8685132434379899,
+          "conditional_rate_pb": 1.9129680225444934,
+          "signed_delta_GeV": 0.0009810672685044725
+        },
+        {
+          "conditional_mu_native": 0.8633348036779379,
+          "conditional_rate_pb": 1.9015621058903744,
+          "signed_delta_GeV": 0.0010126270841186872
+        },
+        {
+          "conditional_mu_native": 0.858217749962561,
+          "conditional_rate_pb": 1.890291396777857,
+          "signed_delta_GeV": 0.0010441868997329018
+        },
+        {
+          "conditional_mu_native": 0.8531609972034274,
+          "conditional_rate_pb": 1.8791535052152089,
+          "signed_delta_GeV": 0.0010757467153471164
+        },
+        {
+          "conditional_mu_native": 0.8481634857363426,
+          "conditional_rate_pb": 1.8681460972095585,
+          "signed_delta_GeV": 0.001107306530961331
+        },
+        {
+          "conditional_mu_native": 0.8432241805810552,
+          "conditional_rate_pb": 1.857266893136341,
+          "signed_delta_GeV": 0.0011388663465755457
+        },
+        {
+          "conditional_mu_native": 0.8383420707266801,
+          "conditional_rate_pb": 1.846513666165386,
+          "signed_delta_GeV": 0.0011704261621897603
+        },
+        {
+          "conditional_mu_native": 0.8335161684418017,
+          "conditional_rate_pb": 1.8358842407413674,
+          "signed_delta_GeV": 0.001201985977803975
+        },
+        {
+          "conditional_mu_native": 0.8287455086082705,
+          "conditional_rate_pb": 1.8253764911164367,
+          "signed_delta_GeV": 0.0012335457934181896
+        },
+        {
+          "conditional_mu_native": 0.8240291480777451,
+          "conditional_rate_pb": 1.8149883399329596,
+          "signed_delta_GeV": 0.0012651056090324042
+        },
+        {
+          "conditional_mu_native": 0.8193661650500847,
+          "conditional_rate_pb": 1.8047177568543737,
+          "signed_delta_GeV": 0.0012966654246466189
+        },
+        {
+          "conditional_mu_native": 0.8147556584727251,
+          "conditional_rate_pb": 1.7945627572422698,
+          "signed_delta_GeV": 0.0013282252402608335
+        },
+        {
+          "conditional_mu_native": 0.8101967474602203,
+          "conditional_rate_pb": 1.7845214008778858,
+          "signed_delta_GeV": 0.0013597850558750482
+        },
+        {
+          "conditional_mu_native": 0.8056885707331632,
+          "conditional_rate_pb": 1.7745917907262876,
+          "signed_delta_GeV": 0.0013913448714892628
+        },
+        {
+          "conditional_mu_native": 0.8012302860757352,
+          "conditional_rate_pb": 1.7647720717415771,
+          "signed_delta_GeV": 0.0014229046871034779
+        },
+        {
+          "conditional_mu_native": 0.7968210698111658,
+          "conditional_rate_pb": 1.7550604297115537,
+          "signed_delta_GeV": 0.0014544645027176925
+        },
+        {
+          "conditional_mu_native": 0.7924601162944165,
+          "conditional_rate_pb": 1.7454550901403096,
+          "signed_delta_GeV": 0.0014860243183319071
+        },
+        {
+          "conditional_mu_native": 0.788146637421435,
+          "conditional_rate_pb": 1.735954317167325,
+          "signed_delta_GeV": 0.0015175841339461218
+        },
+        {
+          "conditional_mu_native": 0.7838798621543471,
+          "conditional_rate_pb": 1.7265564125216655,
+          "signed_delta_GeV": 0.0015491439495603364
+        },
+        {
+          "conditional_mu_native": 0.7796590360619916,
+          "conditional_rate_pb": 1.717259714509974,
+          "signed_delta_GeV": 0.001580703765174551
+        },
+        {
+          "conditional_mu_native": 0.7754834208752157,
+          "conditional_rate_pb": 1.7080625970369763,
+          "signed_delta_GeV": 0.0016122635807887657
+        },
+        {
+          "conditional_mu_native": 0.7713522940563893,
+          "conditional_rate_pb": 1.6989634686573005,
+          "signed_delta_GeV": 0.0016438233964029803
+        },
+        {
+          "conditional_mu_native": 0.7672649483826007,
+          "conditional_rate_pb": 1.6899607716574345,
+          "signed_delta_GeV": 0.001675383212017195
+        },
+        {
+          "conditional_mu_native": 0.7632206915420396,
+          "conditional_rate_pb": 1.6810529811667274,
+          "signed_delta_GeV": 0.0017069430276314096
+        },
+        {
+          "conditional_mu_native": 0.7592188457430727,
+          "conditional_rate_pb": 1.6722386042963482,
+          "signed_delta_GeV": 0.0017385028432456242
+        },
+        {
+          "conditional_mu_native": 0.7552587473355582,
+          "conditional_rate_pb": 1.6635161793052025,
+          "signed_delta_GeV": 0.0017700626588598388
+        },
+        {
+          "conditional_mu_native": 0.7513397464439471,
+          "conditional_rate_pb": 1.6548842747918078,
+          "signed_delta_GeV": 0.0018016224744740535
+        },
+        {
+          "conditional_mu_native": 0.7474612066117502,
+          "conditional_rate_pb": 1.646341488911206,
+          "signed_delta_GeV": 0.0018331822900882681
+        },
+        {
+          "conditional_mu_native": 0.7436225044569592,
+          "conditional_rate_pb": 1.6378864486160005,
+          "signed_delta_GeV": 0.0018647421057024828
+        },
+        {
+          "conditional_mu_native": 0.7398230293380333,
+          "conditional_rate_pb": 1.6295178089206663,
+          "signed_delta_GeV": 0.0018963019213166974
+        },
+        {
+          "conditional_mu_native": 0.7360621830300703,
+          "conditional_rate_pb": 1.621234252188291,
+          "signed_delta_GeV": 0.001927861736930912
+        },
+        {
+          "conditional_mu_native": 0.7323393794108083,
+          "conditional_rate_pb": 1.6130344874389702,
+          "signed_delta_GeV": 0.0019594215525451267
+        },
+        {
+          "conditional_mu_native": 0.7286540441561054,
+          "conditional_rate_pb": 1.6049172496790765,
+          "signed_delta_GeV": 0.0019909813681593413
+        },
+        {
+          "conditional_mu_native": 0.7250056144445696,
+          "conditional_rate_pb": 1.5968812992506851,
+          "signed_delta_GeV": 0.002022541183773556
+        },
+        {
+          "conditional_mu_native": 0.7213935386710171,
+          "conditional_rate_pb": 1.588925421200442,
+          "signed_delta_GeV": 0.0020541009993877706
+        },
+        {
+          "conditional_mu_native": 0.7178172761684545,
+          "conditional_rate_pb": 1.58104842466721,
+          "signed_delta_GeV": 0.002085660815001985
+        },
+        {
+          "conditional_mu_native": 0.7142762969382888,
+          "conditional_rate_pb": 1.5732491422878334,
+          "signed_delta_GeV": 0.0021172206306162003
+        },
+        {
+          "conditional_mu_native": 0.710770081388485,
+          "conditional_rate_pb": 1.5655264296204106,
+          "signed_delta_GeV": 0.002148780446230415
+        },
+        {
+          "conditional_mu_native": 0.7072981200793955,
+          "conditional_rate_pb": 1.557879164584464,
+          "signed_delta_GeV": 0.0021803402618446295
+        },
+        {
+          "conditional_mu_native": 0.7038599134770054,
+          "conditional_rate_pb": 1.5503062469174427,
+          "signed_delta_GeV": 0.002211900077458844
+        },
+        {
+          "conditional_mu_native": 0.700454971713338,
+          "conditional_rate_pb": 1.5428065976469973,
+          "signed_delta_GeV": 0.002243459893073059
+        },
+        {
+          "conditional_mu_native": 0.697082814353782,
+          "conditional_rate_pb": 1.5353791585785,
+          "signed_delta_GeV": 0.0022750197086872734
+        },
+        {
+          "conditional_mu_native": 0.6937429701711068,
+          "conditional_rate_pb": 1.5280228917972953,
+          "signed_delta_GeV": 0.002306579524301488
+        },
+        {
+          "conditional_mu_native": 0.6904349769259436,
+          "conditional_rate_pb": 1.5207367791851942,
+          "signed_delta_GeV": 0.0023381393399157027
+        },
+        {
+          "conditional_mu_native": 0.6871583811535172,
+          "conditional_rate_pb": 1.513519821950732,
+          "signed_delta_GeV": 0.0023696991555299174
+        },
+        {
+          "conditional_mu_native": 0.6839127379564217,
+          "conditional_rate_pb": 1.5063710401727417,
+          "signed_delta_GeV": 0.002401258971144132
+        },
+        {
+          "conditional_mu_native": 0.6806976108032405,
+          "conditional_rate_pb": 1.4992894723567993,
+          "signed_delta_GeV": 0.0024328187867583466
+        },
+        {
+          "conditional_mu_native": 0.6775125713328211,
+          "conditional_rate_pb": 1.4922741750041235,
+          "signed_delta_GeV": 0.0024643786023725613
+        },
+        {
+          "conditional_mu_native": 0.6743571991640187,
+          "conditional_rate_pb": 1.4853242221925211,
+          "signed_delta_GeV": 0.002495938417986776
+        },
+        {
+          "conditional_mu_native": 0.6712310817107312,
+          "conditional_rate_pb": 1.478438705168987,
+          "signed_delta_GeV": 0.0025274982336009905
+        },
+        {
+          "conditional_mu_native": 0.668133814002056,
+          "conditional_rate_pb": 1.4716167319535856,
+          "signed_delta_GeV": 0.002559058049215205
+        },
+        {
+          "conditional_mu_native": 0.6650649985074023,
+          "conditional_rate_pb": 1.4648574269542476,
+          "signed_delta_GeV": 0.00259061786482942
+        },
+        {
+          "conditional_mu_native": 0.6620242449664012,
+          "conditional_rate_pb": 1.4581599305921333,
+          "signed_delta_GeV": 0.0026221776804436344
+        },
+        {
+          "conditional_mu_native": 0.6590111702234609,
+          "conditional_rate_pb": 1.4515233989372274,
+          "signed_delta_GeV": 0.002653737496057849
+        },
+        {
+          "conditional_mu_native": 0.6560253980668191,
+          "conditional_rate_pb": 1.4449470033538396,
+          "signed_delta_GeV": 0.0026852973116720637
+        },
+        {
+          "conditional_mu_native": 0.653066559071951,
+          "conditional_rate_pb": 1.4384299301556982,
+          "signed_delta_GeV": 0.0027168571272862783
+        },
+        {
+          "conditional_mu_native": 0.6501342904491955,
+          "conditional_rate_pb": 1.4319713802703362,
+          "signed_delta_GeV": 0.002748416942900493
+        },
+        {
+          "conditional_mu_native": 0.6472282358954686,
+          "conditional_rate_pb": 1.4255705689124767,
+          "signed_delta_GeV": 0.002779976758514708
+        },
+        {
+          "conditional_mu_native": 0.6443480454499364,
+          "conditional_rate_pb": 1.4192267252661424,
+          "signed_delta_GeV": 0.0028115365741289227
+        },
+        {
+          "conditional_mu_native": 0.6414933753535226,
+          "conditional_rate_pb": 1.41293909217521,
+          "signed_delta_GeV": 0.002843096389743137
+        }
+      ],
+      "conditional_zero_delta_mu_ledger": 1.0503180594415338,
+      "conditional_zero_delta_mu_native": 1.0675719417753187,
+      "conditional_zero_delta_rate_pb": 2.3514103000868376,
+      "exclusion": null,
+      "heavy_scalar_propagator_bounds": {
+        "mH1": {
+          "max_abs_GeV_minus2": 1.3584628195223268e-05,
+          "max_relative_contact_remainder": 0.21225981555036355
+        },
+        "mH2": {
+          "max_abs_GeV_minus2": 3.72588667353973e-06,
+          "max_relative_contact_remainder": 0.05821697927405828
+        },
+        "ma": {
+          "max_abs_GeV_minus2": 4.3939996686568154e-06,
+          "max_relative_contact_remainder": 0.06865624482276274
+        },
+        "mh2": {
+          "max_abs_GeV_minus2": 4.4079451667347625e-06,
+          "max_relative_contact_remainder": 0.06887414323023065
+        }
+      },
+      "invisible_only_Y_frobenius_target": 0.03381237781682149,
+      "known_sum_GeV": 0.004280495765905866,
+      "missing_physics_bounds": {
+        "acceptance_bias": null,
+        "disjoint_additional_width_GeV": null,
+        "loop_Majorana_width_GeV": null,
+        "signed_interference_interval_GeV": null,
+        "theory_rate_uncertainty": null
+      },
+      "multiplicative_rate_error_to_68_endpoints": [
+        -0.39910993325025823,
+        0.25044976067655833
+      ],
+      "name": "D7",
+      "native_yukawa_frobenius": {
+        "D": 0.0015364439371789453,
+        "F": 0.00016224530912457228
+      },
+      "physical_mu": null,
+      "physical_rate_pb": null,
+      "reason": "Higgs-inserted mixed scalar/current norm, finite-momentum Majorana form factor and uncertainty transfer are unqualified; targets are not achieved bounds",
+      "retained_WW_ZZ_proxy_GeV": 0.0009440814839626215,
+      "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+      "signed_delta_to_68_endpoints_GeV": [
+        -0.000857330837160632,
+        0.002843096389743137
+      ],
+      "signed_delta_to_95_gaussian_surrogate_GeV": [
+        -0.0015523551716576378,
+        0.010185417248409316
+      ],
+      "yukawa_sha256": {
+        "D": "399854794d73c2c1b8eb92ef2f259b0acb8f3b8765003595266902ecf3070844",
+        "F": "cca43f73fe99cac2237847ee58317d2215efa9ecdfe0ba5456a1b99d12975e44",
+        "Ye": "b589de28e3a68adf02d9186286dcc613b65bb222a132dec359d85d2ebd756e25",
+        "Ye2": "36782190a7c411548223ab7bdbe1ab1ffb0fb3aba266de33898f5a612de54967"
+      }
+    },
+    {
+      "conditional_Cauchy_BSM_norm_target_GeV": 0.00017399537682941127,
+      "conditional_curve": [
+        {
+          "conditional_mu_native": 1.3178115324115065,
+          "conditional_rate_pb": 2.9025824767674457,
+          "signed_delta_GeV": -0.0009462664284773124
+        },
+        {
+          "conditional_mu_native": 1.3063344367687297,
+          "conditional_rate_pb": 2.8773032802529435,
+          "signed_delta_GeV": -0.0009193911593883402
+        },
+        {
+          "conditional_mu_native": 1.295055527917916,
+          "conditional_rate_pb": 2.852460605574326,
+          "signed_delta_GeV": -0.000892515890299368
+        },
+        {
+          "conditional_mu_native": 1.2839697163597,
+          "conditional_rate_pb": 2.828043242713082,
+          "signed_delta_GeV": -0.0008656406212103957
+        },
+        {
+          "conditional_mu_native": 1.2730720853822373,
+          "conditional_rate_pb": 2.804040362228664,
+          "signed_delta_GeV": -0.0008387653521214235
+        },
+        {
+          "conditional_mu_native": 1.2623578837902871,
+          "conditional_rate_pb": 2.7804414992437274,
+          "signed_delta_GeV": -0.0008118900830324514
+        },
+        {
+          "conditional_mu_native": 1.251822518998383,
+          "conditional_rate_pb": 2.757236538231302,
+          "signed_delta_GeV": -0.0007850148139434791
+        },
+        {
+          "conditional_mu_native": 1.2414615504670012,
+          "conditional_rate_pb": 2.7344156985574415,
+          "signed_delta_GeV": -0.0007581395448545069
+        },
+        {
+          "conditional_mu_native": 1.2312706834620126,
+          "conditional_rate_pb": 2.71196952073593,
+          "signed_delta_GeV": -0.0007312642757655347
+        },
+        {
+          "conditional_mu_native": 1.2212457631189944,
+          "conditional_rate_pb": 2.689888853354467,
+          "signed_delta_GeV": -0.0007043890066765624
+        },
+        {
+          "conditional_mu_native": 1.2113827687951704,
+          "conditional_rate_pb": 2.668164840634377,
+          "signed_delta_GeV": -0.0006775137375875902
+        },
+        {
+          "conditional_mu_native": 1.2016778086928457,
+          "conditional_rate_pb": 2.646788910588306,
+          "signed_delta_GeV": -0.000650638468498618
+        },
+        {
+          "conditional_mu_native": 1.1921271147392325,
+          "conditional_rate_pb": 2.625752763742635,
+          "signed_delta_GeV": -0.0006237631994096457
+        },
+        {
+          "conditional_mu_native": 1.182727037708514,
+          "conditional_rate_pb": 2.605048362393454,
+          "signed_delta_GeV": -0.0005968879303206735
+        },
+        {
+          "conditional_mu_native": 1.173474042572885,
+          "conditional_rate_pb": 2.5846679203668583,
+          "signed_delta_GeV": -0.0005700126612317013
+        },
+        {
+          "conditional_mu_native": 1.16436470407012,
+          "conditional_rate_pb": 2.5646038932561805,
+          "signed_delta_GeV": -0.0005431373921427291
+        },
+        {
+          "conditional_mu_native": 1.1553957024760007,
+          "conditional_rate_pb": 2.544848969110426,
+          "signed_delta_GeV": -0.0005162621230537568
+        },
+        {
+          "conditional_mu_native": 1.1465638195706351,
+          "conditional_rate_pb": 2.525396059549781,
+          "signed_delta_GeV": -0.0004893868539647846
+        },
+        {
+          "conditional_mu_native": 1.137865934788374,
+          "conditional_rate_pb": 2.5062382912855026,
+          "signed_delta_GeV": -0.0004625115848758124
+        },
+        {
+          "conditional_mu_native": 1.1292990215416543,
+          "conditional_rate_pb": 2.4873689980228977,
+          "signed_delta_GeV": -0.00043563631578684024
+        },
+        {
+          "conditional_mu_native": 1.1208601437096604,
+          "conditional_rate_pb": 2.4687817127273264,
+          "signed_delta_GeV": -0.000408761046697868
+        },
+        {
+          "conditional_mu_native": 1.112546452283257,
+          "conditional_rate_pb": 2.4504701602344054,
+          "signed_delta_GeV": -0.0003818857776088958
+        },
+        {
+          "conditional_mu_native": 1.1043551821581323,
+          "conditional_rate_pb": 2.432428250186655,
+          "signed_delta_GeV": -0.00035501050851992355
+        },
+        {
+          "conditional_mu_native": 1.096283649068571,
+          "conditional_rate_pb": 2.4146500702798996,
+          "signed_delta_GeV": -0.0003281352394309513
+        },
+        {
+          "conditional_mu_native": 1.088329246654717,
+          "conditional_rate_pb": 2.3971298798036793,
+          "signed_delta_GeV": -0.0003012599703419791
+        },
+        {
+          "conditional_mu_native": 1.0804894436565897,
+          "conditional_rate_pb": 2.3798621034608574,
+          "signed_delta_GeV": -0.00027438470125300686
+        },
+        {
+          "conditional_mu_native": 1.072761781228512,
+          "conditional_rate_pb": 2.362841325452437,
+          "signed_delta_GeV": -0.0002475094321640346
+        },
+        {
+          "conditional_mu_native": 1.0651438703679634,
+          "conditional_rate_pb": 2.34606228381441,
+          "signed_delta_GeV": -0.0002206341630750625
+        },
+        {
+          "conditional_mu_native": 1.057633389453209,
+          "conditional_rate_pb": 2.329519864994194,
+          "signed_delta_GeV": -0.00019375889398609027
+        },
+        {
+          "conditional_mu_native": 1.0502280818843763,
+          "conditional_rate_pb": 2.313209098654918,
+          "signed_delta_GeV": -0.00016688362489711804
+        },
+        {
+          "conditional_mu_native": 1.0429257538229408,
+          "conditional_rate_pb": 2.297125152696467,
+          "signed_delta_GeV": -0.0001400083558081458
+        },
+        {
+          "conditional_mu_native": 1.035724272024866,
+          "conditional_rate_pb": 2.2812633284828023,
+          "signed_delta_GeV": -0.00011313308671917358
+        },
+        {
+          "conditional_mu_native": 1.0286215617629042,
+          "conditional_rate_pb": 2.2656190562656664,
+          "signed_delta_GeV": -8.625781763020135e-05
+        },
+        {
+          "conditional_mu_native": 1.0216156048338003,
+          "conditional_rate_pb": 2.2501878907952957,
+          "signed_delta_GeV": -5.938254854122912e-05
+        },
+        {
+          "conditional_mu_native": 1.0147044376463874,
+          "conditional_rate_pb": 2.2349655071093024,
+          "signed_delta_GeV": -3.2507279452256886e-05
+        },
+        {
+          "conditional_mu_native": 1.0078861493867612,
+          "conditional_rate_pb": 2.2199476964913267,
+          "signed_delta_GeV": -5.632010363284656e-06
+        },
+        {
+          "conditional_mu_native": 1.0011588802569344,
+          "conditional_rate_pb": 2.2051303625915377,
+          "signed_delta_GeV": 2.1243258725687575e-05
+        },
+        {
+          "conditional_mu_native": 0.9945208197835657,
+          "conditional_rate_pb": 2.1905095177014764,
+          "signed_delta_GeV": 4.81185278146597e-05
+        },
+        {
+          "conditional_mu_native": 0.9879702051935237,
+          "conditional_rate_pb": 2.1760812791761093,
+          "signed_delta_GeV": 7.499379690363193e-05
+        },
+        {
+          "conditional_mu_native": 0.9815053198532316,
+          "conditional_rate_pb": 2.1618418659963625,
+          "signed_delta_GeV": 0.00010186906599260416
+        },
+        {
+          "conditional_mu_native": 0.9751244917688849,
+          "conditional_rate_pb": 2.1477875954657364,
+          "signed_delta_GeV": 0.0001287443350815764
+        },
+        {
+          "conditional_mu_native": 0.9688260921447952,
+          "conditional_rate_pb": 2.133914880034944,
+          "signed_delta_GeV": 0.00015561960417054862
+        },
+        {
+          "conditional_mu_native": 0.9626085339972449,
+          "conditional_rate_pb": 2.1202202242488184,
+          "signed_delta_GeV": 0.00018249487325952085
+        },
+        {
+          "conditional_mu_native": 0.9564702708213743,
+          "conditional_rate_pb": 2.1067002218100286,
+          "signed_delta_GeV": 0.00020937014234849308
+        },
+        {
+          "conditional_mu_native": 0.9504097953087529,
+          "conditional_rate_pb": 2.0933515527544295,
+          "signed_delta_GeV": 0.00023624541143746531
+        },
+        {
+          "conditional_mu_native": 0.9444256381133987,
+          "conditional_rate_pb": 2.080170980733124,
+          "signed_delta_GeV": 0.00026312068052643754
+        },
+        {
+          "conditional_mu_native": 0.9385163666641224,
+          "conditional_rate_pb": 2.067155350396558,
+          "signed_delta_GeV": 0.0002899959496154098
+        },
+        {
+          "conditional_mu_native": 0.9326805840211813,
+          "conditional_rate_pb": 2.0543015848762125,
+          "signed_delta_GeV": 0.000316871218704382
+        },
+        {
+          "conditional_mu_native": 0.9269169277753274,
+          "conditional_rate_pb": 2.0416066833596713,
+          "signed_delta_GeV": 0.00034374648779335424
+        },
+        {
+          "conditional_mu_native": 0.9212240689874258,
+          "conditional_rate_pb": 2.029067718755046,
+          "signed_delta_GeV": 0.00037062175688232647
+        },
+        {
+          "conditional_mu_native": 0.9156007111669083,
+          "conditional_rate_pb": 2.0166818354409437,
+          "signed_delta_GeV": 0.0003974970259712987
+        },
+        {
+          "conditional_mu_native": 0.9100455892874161,
+          "conditional_rate_pb": 2.004446247098341,
+          "signed_delta_GeV": 0.00042437229506027093
+        },
+        {
+          "conditional_mu_native": 0.9045574688380597,
+          "conditional_rate_pb": 1.9923582346209114,
+          "signed_delta_GeV": 0.00045124756414924316
+        },
+        {
+          "conditional_mu_native": 0.8991351449088014,
+          "conditional_rate_pb": 1.9804151441005082,
+          "signed_delta_GeV": 0.0004781228332382154
+        },
+        {
+          "conditional_mu_native": 0.8937774413085385,
+          "conditional_rate_pb": 1.9686143848846747,
+          "signed_delta_GeV": 0.0005049981023271874
+        },
+        {
+          "conditional_mu_native": 0.8884832097145288,
+          "conditional_rate_pb": 1.9569534277031868,
+          "signed_delta_GeV": 0.0005318733714161596
+        },
+        {
+          "conditional_mu_native": 0.8832513288518694,
+          "conditional_rate_pb": 1.9454298028607933,
+          "signed_delta_GeV": 0.0005587486405051319
+        },
+        {
+          "conditional_mu_native": 0.878080703701796,
+          "conditional_rate_pb": 1.9340410984934304,
+          "signed_delta_GeV": 0.0005856239095941041
+        },
+        {
+          "conditional_mu_native": 0.8729702647376272,
+          "conditional_rate_pb": 1.922784958885332,
+          "signed_delta_GeV": 0.0006124991786830763
+        },
+        {
+          "conditional_mu_native": 0.8679189671872357,
+          "conditional_rate_pb": 1.9116590828445643,
+          "signed_delta_GeV": 0.0006393744477720486
+        },
+        {
+          "conditional_mu_native": 0.8629257903209789,
+          "conditional_rate_pb": 1.900661222134637,
+          "signed_delta_GeV": 0.0006662497168610208
+        },
+        {
+          "conditional_mu_native": 0.8579897367640668,
+          "conditional_rate_pb": 1.889789179959941,
+          "signed_delta_GeV": 0.000693124985949993
+        },
+        {
+          "conditional_mu_native": 0.8531098318323964,
+          "conditional_rate_pb": 1.8790408095028712,
+          "signed_delta_GeV": 0.0007200002550389653
+        },
+        {
+          "conditional_mu_native": 0.8482851228909227,
+          "conditional_rate_pb": 1.8684140125105897,
+          "signed_delta_GeV": 0.0007468755241279375
+        },
+        {
+          "conditional_mu_native": 0.8435146787336807,
+          "conditional_rate_pb": 1.857906737929474,
+          "signed_delta_GeV": 0.0007737507932169097
+        },
+        {
+          "conditional_mu_native": 0.8387975889846072,
+          "conditional_rate_pb": 1.8475169805853833,
+          "signed_delta_GeV": 0.0008006260623058819
+        },
+        {
+          "conditional_mu_native": 0.8341329635183574,
+          "conditional_rate_pb": 1.837242779907959,
+          "signed_delta_GeV": 0.0008275013313948542
+        },
+        {
+          "conditional_mu_native": 0.8295199319003383,
+          "conditional_rate_pb": 1.8270822186972566,
+          "signed_delta_GeV": 0.0008543766004838264
+        },
+        {
+          "conditional_mu_native": 0.8249576428452219,
+          "conditional_rate_pb": 1.8170334219310786,
+          "signed_delta_GeV": 0.0008812518695727986
+        },
+        {
+          "conditional_mu_native": 0.820445263693229,
+          "conditional_rate_pb": 1.8070945556114482,
+          "signed_delta_GeV": 0.0009081271386617709
+        },
+        {
+          "conditional_mu_native": 0.815981979903507,
+          "conditional_rate_pb": 1.7972638256487345,
+          "signed_delta_GeV": 0.0009350024077507431
+        },
+        {
+          "conditional_mu_native": 0.8115669945639545,
+          "conditional_rate_pb": 1.787539476782004,
+          "signed_delta_GeV": 0.0009618776768397153
+        },
+        {
+          "conditional_mu_native": 0.8071995279168748,
+          "conditional_rate_pb": 1.7779197915342344,
+          "signed_delta_GeV": 0.0009887529459286877
+        },
+        {
+          "conditional_mu_native": 0.8028788168998615,
+          "conditional_rate_pb": 1.7684030892010796,
+          "signed_delta_GeV": 0.0010156282150176597
+        },
+        {
+          "conditional_mu_native": 0.7986041147013516,
+          "conditional_rate_pb": 1.7589877248719414,
+          "signed_delta_GeV": 0.0010425034841066317
+        },
+        {
+          "conditional_mu_native": 0.7943746903303023,
+          "conditional_rate_pb": 1.7496720884821488,
+          "signed_delta_GeV": 0.0010693787531956041
+        },
+        {
+          "conditional_mu_native": 0.7901898281994679,
+          "conditional_rate_pb": 1.7404546038950932,
+          "signed_delta_GeV": 0.0010962540222845762
+        },
+        {
+          "conditional_mu_native": 0.7860488277217818,
+          "conditional_rate_pb": 1.7313337280132268,
+          "signed_delta_GeV": 0.0011231292913735486
+        },
+        {
+          "conditional_mu_native": 0.7819510029193614,
+          "conditional_rate_pb": 1.722307949916868,
+          "signed_delta_GeV": 0.0011500045604625206
+        },
+        {
+          "conditional_mu_native": 0.7778956820446805,
+          "conditional_rate_pb": 1.713375790029803,
+          "signed_delta_GeV": 0.001176879829551493
+        },
+        {
+          "conditional_mu_native": 0.7738822072134698,
+          "conditional_rate_pb": 1.704535799310719,
+          "signed_delta_GeV": 0.001203755098640465
+        },
+        {
+          "conditional_mu_native": 0.7699099340489209,
+          "conditional_rate_pb": 1.6957865584695389,
+          "signed_delta_GeV": 0.0012306303677294375
+        },
+        {
+          "conditional_mu_native": 0.7659782313367943,
+          "conditional_rate_pb": 1.6871266772077667,
+          "signed_delta_GeV": 0.0012575056368184095
+        },
+        {
+          "conditional_mu_native": 0.7620864806910393,
+          "conditional_rate_pb": 1.6785547934819918,
+          "signed_delta_GeV": 0.001284380905907382
+        },
+        {
+          "conditional_mu_native": 0.7582340762295577,
+          "conditional_rate_pb": 1.6700695727897314,
+          "signed_delta_GeV": 0.001311256174996354
+        },
+        {
+          "conditional_mu_native": 0.75442042425975,
+          "conditional_rate_pb": 1.6616697074768234,
+          "signed_delta_GeV": 0.0013381314440853265
+        },
+        {
+          "conditional_mu_native": 0.7506449429735063,
+          "conditional_rate_pb": 1.6533539160656185,
+          "signed_delta_GeV": 0.0013650067131742985
+        },
+        {
+          "conditional_mu_native": 0.7469070621513074,
+          "conditional_rate_pb": 1.6451209426032407,
+          "signed_delta_GeV": 0.0013918819822632705
+        },
+        {
+          "conditional_mu_native": 0.7432062228751254,
+          "conditional_rate_pb": 1.6369695560292277,
+          "signed_delta_GeV": 0.001418757251352243
+        },
+        {
+          "conditional_mu_native": 0.7395418772498151,
+          "conditional_rate_pb": 1.628898549561875,
+          "signed_delta_GeV": 0.001445632520441215
+        },
+        {
+          "conditional_mu_native": 0.7359134881327087,
+          "conditional_rate_pb": 1.6209067401026465,
+          "signed_delta_GeV": 0.0014725077895301874
+        },
+        {
+          "conditional_mu_native": 0.7323205288711304,
+          "conditional_rate_pb": 1.6129929676580297,
+          "signed_delta_GeV": 0.0014993830586191594
+        },
+        {
+          "conditional_mu_native": 0.7287624830475643,
+          "conditional_rate_pb": 1.6051560947782486,
+          "signed_delta_GeV": 0.0015262583277081319
+        },
+        {
+          "conditional_mu_native": 0.725238844232214,
+          "conditional_rate_pb": 1.5973950060122566,
+          "signed_delta_GeV": 0.0015531335967971039
+        },
+        {
+          "conditional_mu_native": 0.7217491157427057,
+          "conditional_rate_pb": 1.589708607378465,
+          "signed_delta_GeV": 0.0015800088658860763
+        },
+        {
+          "conditional_mu_native": 0.7182928104106978,
+          "conditional_rate_pb": 1.58209582585068,
+          "signed_delta_GeV": 0.0016068841349750483
+        },
+        {
+          "conditional_mu_native": 0.7148694503551615,
+          "conditional_rate_pb": 1.574555608858739,
+          "signed_delta_GeV": 0.0016337594040640208
+        },
+        {
+          "conditional_mu_native": 0.7114785667621166,
+          "conditional_rate_pb": 1.5670869238033582,
+          "signed_delta_GeV": 0.0016606346731529928
+        },
+        {
+          "conditional_mu_native": 0.7081196996706053,
+          "conditional_rate_pb": 1.5596887575847251,
+          "signed_delta_GeV": 0.0016875099422419652
+        },
+        {
+          "conditional_mu_native": 0.7047923977646986,
+          "conditional_rate_pb": 1.552360116144377,
+          "signed_delta_GeV": 0.0017143852113309373
+        },
+        {
+          "conditional_mu_native": 0.7014962181713423,
+          "conditional_rate_pb": 1.545100024019939,
+          "signed_delta_GeV": 0.0017412604804199097
+        },
+        {
+          "conditional_mu_native": 0.6982307262638466,
+          "conditional_rate_pb": 1.5379075239122961,
+          "signed_delta_GeV": 0.0017681357495088817
+        },
+        {
+          "conditional_mu_native": 0.6949954954708394,
+          "conditional_rate_pb": 1.5307816762647972,
+          "signed_delta_GeV": 0.0017950110185978542
+        },
+        {
+          "conditional_mu_native": 0.6917901070905074,
+          "conditional_rate_pb": 1.523721558854108,
+          "signed_delta_GeV": 0.0018218862876868262
+        },
+        {
+          "conditional_mu_native": 0.6886141501099526,
+          "conditional_rate_pb": 1.5167262663923275,
+          "signed_delta_GeV": 0.0018487615567757986
+        },
+        {
+          "conditional_mu_native": 0.6854672210295034,
+          "conditional_rate_pb": 1.5097949101400214,
+          "signed_delta_GeV": 0.0018756368258647706
+        },
+        {
+          "conditional_mu_native": 0.6823489236918201,
+          "conditional_rate_pb": 1.5029266175298124,
+          "signed_delta_GeV": 0.001902512094953743
+        },
+        {
+          "conditional_mu_native": 0.6792588691156436,
+          "conditional_rate_pb": 1.4961205318001998,
+          "signed_delta_GeV": 0.001929387364042715
+        },
+        {
+          "conditional_mu_native": 0.6761966753340428,
+          "conditional_rate_pb": 1.489375811639286,
+          "signed_delta_GeV": 0.001956262633131687
+        },
+        {
+          "conditional_mu_native": 0.6731619672370146,
+          "conditional_rate_pb": 1.4826916308380909,
+          "signed_delta_GeV": 0.0019831379022206596
+        },
+        {
+          "conditional_mu_native": 0.6701543764183067,
+          "conditional_rate_pb": 1.4760671779531678,
+          "signed_delta_GeV": 0.0020100131713096316
+        },
+        {
+          "conditional_mu_native": 0.6671735410263258,
+          "conditional_rate_pb": 1.4695016559782164,
+          "signed_delta_GeV": 0.002036888440398604
+        },
+        {
+          "conditional_mu_native": 0.6642191056190081,
+          "conditional_rate_pb": 1.4629942820244242,
+          "signed_delta_GeV": 0.002063763709487576
+        },
+        {
+          "conditional_mu_native": 0.6612907210225294,
+          "conditional_rate_pb": 1.4565442870092642,
+          "signed_delta_GeV": 0.0020906389785765485
+        },
+        {
+          "conditional_mu_native": 0.6583880441937354,
+          "conditional_rate_pb": 1.4501509153534868,
+          "signed_delta_GeV": 0.0021175142476655205
+        },
+        {
+          "conditional_mu_native": 0.6555107380861791,
+          "conditional_rate_pb": 1.4438134246860572,
+          "signed_delta_GeV": 0.002144389516754493
+        },
+        {
+          "conditional_mu_native": 0.6526584715196568,
+          "conditional_rate_pb": 1.4375310855567984,
+          "signed_delta_GeV": 0.002171264785843465
+        },
+        {
+          "conditional_mu_native": 0.649830919053134,
+          "conditional_rate_pb": 1.4313031811564998,
+          "signed_delta_GeV": 0.0021981400549324374
+        },
+        {
+          "conditional_mu_native": 0.6470277608609615,
+          "conditional_rate_pb": 1.4251290070442746,
+          "signed_delta_GeV": 0.0022250153240214094
+        },
+        {
+          "conditional_mu_native": 0.6442486826122803,
+          "conditional_rate_pb": 1.4190078708819387,
+          "signed_delta_GeV": 0.002251890593110382
+        },
+        {
+          "conditional_mu_native": 0.6414933753535226,
+          "conditional_rate_pb": 1.41293909217521,
+          "signed_delta_GeV": 0.002278765862199354
+        }
+      ],
+      "conditional_zero_delta_mu_ledger": 0.9902025510825947,
+      "conditional_zero_delta_mu_native": 1.0064688983565593,
+      "conditional_zero_delta_rate_pb": 2.216826090780443,
+      "exclusion": null,
+      "heavy_scalar_propagator_bounds": {
+        "mH1": {
+          "max_abs_GeV_minus2": 3.2069369184043698e-06,
+          "max_relative_contact_remainder": 0.050108389350068276
+        },
+        "mH2": {
+          "max_abs_GeV_minus2": 1.338927089807056e-06,
+          "max_relative_contact_remainder": 0.02092073577823525
+        },
+        "ma": {
+          "max_abs_GeV_minus2": 1.6338537700794186e-06,
+          "max_relative_contact_remainder": 0.025528965157490917
+        },
+        "mh2": {
+          "max_abs_GeV_minus2": 2.0646658853318744e-06,
+          "max_relative_contact_remainder": 0.032260404458310535
+        }
+      },
+      "invisible_only_Y_frobenius_target": 0.030271209486373313,
+      "known_sum_GeV": 0.004005236275996735,
+      "missing_physics_bounds": {
+        "acceptance_bias": null,
+        "disjoint_additional_width_GeV": null,
+        "loop_Majorana_width_GeV": null,
+        "signed_interference_interval_GeV": null,
+        "theory_rate_uncertainty": null
+      },
+      "multiplicative_rate_error_to_68_endpoints": [
+        -0.36262970827911045,
+        0.3263649589945181
+      ],
+      "name": "F13",
+      "native_yukawa_frobenius": {
+        "D": 0.00012475868214462398,
+        "F": 0.0016224530912457228
+      },
+      "physical_mu": null,
+      "physical_rate_pb": null,
+      "reason": "Higgs-inserted mixed scalar/current norm, finite-momentum Majorana form factor and uncertainty transfer are unqualified; targets are not achieved bounds",
+      "retained_WW_ZZ_proxy_GeV": 0.0009462664284773124,
+      "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+      "signed_delta_to_68_endpoints_GeV": [
+        -0.0009855272216856216,
+        0.002278765862199354
+      ],
+      "signed_delta_to_95_gaussian_surrogate_GeV": [
+        -0.001598635651905626,
+        0.008755717232666528
+      ],
+      "yukawa_sha256": {
+        "D": "eaa0e8dadaf35acfa9bc4381f229070217fdeee0a0f6ae4261a0d1813e93dd47",
+        "F": "1d9b8ff9a6896b0966689cb5542bc7d7c1cb3f0e27668a8dc9837e2122223dd4",
+        "Ye": "8db3a9f690ba80b6ecdb866bfdd1dd3e0a03ef9b4ea745576acfa9a507ce41ef",
+        "Ye2": "0679a131d7092a5090313ffec6d892430cf85df385509c9a12da77f0240f745d"
+      }
+    }
+  ],
+  "experimental": {
+    "id": 201108280,
+    "native_SM_BRbb": 0.58238441,
+    "native_SM_VBF_pb": 3.782,
+    "native_SM_rate_pb": 2.20257783862,
+    "observed_mu_native": [
+      0.6414933753535226,
+      0.9806690878871839,
+      1.3349450790979558
+    ],
+    "observed_rate_endpoints_pb": [
+      1.41293909217521,
+      2.16,
+      2.94032044699598
+    ],
+    "sha256": "af81a27cac94386196338afdf91dd0defdbc494e9b29c8523d5116817018ad60",
+    "source": "/home/amine/Tools/hsdataset/h125/bb_vbfH_LHC13_ATLAS_126.json",
+    "surrogate95_is_official_confidence_interval": false,
+    "surrogate95_rate_endpoints_pb": [
+      0.6957875264056146,
+      3.6893999725123168
+    ]
+  },
+  "final_scan_authorized": false,
+  "full_text_sources": {
+    "ATLAS_2011.08280v2": {
+      "local_read_path": "/tmp/h125-gate-atlas.html",
+      "sha256": "467f23b11845dcf601add892819065f7dee3f40b3029f6ca55378d7c980bae33"
+    },
+    "Bilenky_hep-ph_9310302v1": {
+      "local_read_path": "/tmp/lfv-bilenky.pdf",
+      "sha256": "a7f01fa9c226607eb820e6485bd7a52f6b17feb63d7256744486d160540d6b93"
+    },
+    "HDECAY_1801.09506v1": {
+      "local_read_path": "/tmp/h125-gate-hdecay.html",
+      "sha256": "8a3ccdddc0fef72a9cb82ad9319a9418c0591d8263c21d09e18f28570e76f8ac"
+    },
+    "Herrero_1701.05345v2": {
+      "local_read_path": "/tmp/h125-gate-zee.html",
+      "sha256": "e41cd88b51a178a28a92cb2bbaffd2732633ccabb72b47a5443babf8e8fc4aff"
+    },
+    "LET_hep-ph_9505225v1": {
+      "local_read_path": "/tmp/h125-gate-let.pdf",
+      "sha256": "b68359892756bd74be45594e6ddbdee7f895151c4ae8024aa184dd676794f03f"
+    },
+    "Prophecy_1912.02010v1": {
+      "local_read_path": "/tmp/h125-gate-prophecy.html",
+      "sha256": "7abba2a2ecd04cbea527c1ec19e47b9345a04eb51d22df4c7571fca8482788a2"
+    },
+    "Schmidt_2512.17235_published": {
+      "local_read_path": "/tmp/h125-gate-matching.pdf",
+      "sha256": "786e36369d14299a95e5f583ba6e0973f1b53520aee58f3b242a96899fa9eb3c"
+    }
+  },
+  "global_acceptance": null,
+  "independent_checks": {
+    "bisection_inverse_max_absolute_GeV": 1.734723475976807e-18,
+    "propagator_endpoint_max_absolute_GeV_minus2": 0.0
+  },
+  "interpretation": "All curves and inverse budgets conditional; no complete model rate, nuisance distribution or likelihood evaluation",
+  "matched_SM_ledger_to_native_BR_factor": 1.0164272928363802,
+  "source_sha256": {
+    "/home/amine/Tools/higgstools/src/signals/JsonSupport.cpp": "ea9eb3e2debab4c5946f66ade125c9172b9e7506f85701038ce2e96da847c8fa",
+    "/home/amine/Tools/higgstools/src/signals/Measurements/RateMeasurement.cpp": "ec770901ef9520bd97a40e9926c0ad9b3bc153efaf5e6f43134e115d19587cd8",
+    "/home/amine/zee-full-constraints/research/full_constraints/higgs/H125_SIGNAL_STRENGTH_EVIDENCE.json": "38d13c083d026b244575b035ad1fb9af82126b49afaf9c155237a41051706e97",
+    "/home/amine/zee-full-constraints/research/full_constraints/higgs/vbf_bb_materiality.py": "993b89575d1682c31e2f5c316d9214685c18aa5a9cd92b668cae1e643c658254"
+  },
+  "status": "H125_ABSOLUTE_MU_BLOCKED"
+}

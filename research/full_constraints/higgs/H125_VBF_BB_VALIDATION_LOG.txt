@@ -1,0 +1,29 @@
+$ python -m unittest research.full_constraints.higgs.test_h125_signal_strength -v
+test_all_on_shell_scalar_channels_closed (research.full_constraints.higgs.test_h125_signal_strength.PhysicalLedger) ... ok
+test_experimental_absolute_rate_convention (research.full_constraints.higgs.test_h125_signal_strength.PhysicalLedger) ... ok
+test_incomplete_never_becomes_a_signal (research.full_constraints.higgs.test_h125_signal_strength.PhysicalLedger) ... ok
+test_mass_scheme_and_coherent_ggF (research.full_constraints.higgs.test_h125_signal_strength.PhysicalLedger) ... ok
+test_native_chiral_widths_both_charges (research.full_constraints.higgs.test_h125_signal_strength.PhysicalLedger) ... ok
+test_raw_receipts_preserved (research.full_constraints.higgs.test_h125_signal_strength.PhysicalLedger) ... ok
+test_sm_normalization_and_width_independent_ratio (research.full_constraints.higgs.test_h125_signal_strength.PhysicalLedger) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.133s
+
+OK
+exit_code=0
+
+$ python -m research.full_constraints.higgs.vbf_bb_materiality
+{"status": "H125_ABSOLUTE_MU_BLOCKED", "independent_checks": {"bisection_inverse_max_absolute_GeV": 1.734723475976807e-18, "propagator_endpoint_max_absolute_GeV_minus2": 0.0}, "HiggsSignals_calls": 0}
+/home/amine/.local/lib/python3.10/site-packages/matplotlib/projections/__init__.py:63: UserWarning: Unable to import Axes3D. This may be due to multiple versions of Matplotlib being installed (e.g. as a system package and as a pip package). As a result, the 3D projection is not available.
+  warnings.warn("Unable to import Axes3D. This may be due to multiple versions of "
+exit_code=0
+
+$ git diff --check
+exit_code=0
+
+PASS: new artifact source hashes match; no pre-existing tracked file differs from starting HEAD.
+
+PASS: 133a34061723b6bb45b19e8ebe29852ac8b5a9c2 remains an existing commit; frozen branch is not present as a local ref and was not created or moved.
+
+PASS: conditional PNG rendered and visually inspected; no model HiggsSignals call, new point or production execution.
