@@ -19,82 +19,18 @@ Do **not** call an unimplemented published expression nonexistent; do not call
 a restricted formula complete general Zee physics. Citation-search indexing is
 not exhaustive; report limitations. Always preserve original frozen modules.
 
-## CURRENT TASK — scoped paper constraints and matched-energy collider pilot
+## CURRENT TASK — bounded flavor–charged-cascade novelty kill test (7 Nov 2026)
 
-**User approved this next bounded milestone:** turn our Zee Type-II
-H2±→H1±Z paper into a clear **applied-subset** methodology,
-assess **actual** source-bound 14 TeV raw pre-detector yields,
-and test a small same-energy signal/background trilepton pilot
-only where relevant existing samples are available.
+**This task supersedes the completed collider-feasibility pilot.** The collider pilot's result is `BACKGROUND_MODEL_BLOCKED` and is preserved as historical evidence; do NOT repeat collider inventory, generate events, run Delphes, or restart LFV two-loop calculations. The user authorized a **source-bound examination of existing D12/D14 cards** to decide whether Paper 1 has a substantive new flavor–charged-Higgs physics result *without event generation*, **not** a new parameter-space scan.
 
-**READ FIRST**
-`research/full_constraints/PAPER1_CONSTRAINT_AND_COLLIDER_FEASIBILITY_2026-11-07.md`,
-then `research/full_constraints/COLLIDER_FEASIBILITY_NEXT_TASK.md`.
-Consult original `PAPER1_FEASIBILITY_REVIEW.md`,
-`module14/conditional_scan/PRODUCTION_MAP_REPORT.md`
-and B/LFV/Higgs coverage reports. Do not restart the
-FormCalc/SARAH/FlexibleSUSY investigation or full two-loop
-calculations.
+**READ AND EXECUTE:** `research/full_constraints/FLAVOR_CASCADE_NOVELTY_PILOT_TASK.md`. Its detailed source, model, novelty, comparison, validation, and stop policies are binding. Read the full `PAPER1_FEASIBILITY_REVIEW.md`, `D12_FLAVOR_COLLIDER_AUDIT.md`, `LFV_TEXTURE_MATERIALITY_RESULT.md`, and 2017/2021 primary papers before any positive novelty claim.
 
-**Source-backed starting observations:**
-- 16 native 13 TeV LO 5FS charge-summed H2 associated
-  integrations on *tree-vacuum-certified* historical points;
-  3 separate 14 TeV integrations (IDs 15591,2264,15673).
-- 14 TeV at 3000 fb^-1, including stored BR(H1→tb),
-  Z→ee/mumu and exactly one direct W→e/mu with the
-  other W→hadrons, gives **raw 3l counts** 306.83–306.92,
-  149.10–149.13, 96.44–96.59 **before acceptance**.
-  See `collider/RAW_14TEV_PREDICTION.json`.
-- Reproduce with `python3 research/full_constraints/collider/raw_decay_budget.py`
-  and `python3 -m unittest discover -s research/full_constraints/collider -p 'test_*.py' -v`.
-  The code and raw JSON have been source-calculated but
-  the end-to-end Python command must be run on the repo
-  checkout. Report any execution error, do not claim tests
-  that were not actually run.
-
-**Physics scope:** Scalar BFB/unitarity/EWPO/one-loop
-neutrino closure plus a **sufficient positive tree-vacuum
-certificate** are explicitly applied within stated order.
-B→Xsγ theory uncertainty, LFV mixed-F/gauge loops,
-μ→3e non-dipole interference, μ→e conversion and
-Higgs full rates remain **UNKNOWN**. Display their
-limited predictions as `DIAGNOSTIC_ONLY`, with explicit
-experimental reference scales, *never* as full
-model-pass/exclusion or assumed zero. `global_acceptance=null`
-and **no new parameter-space scan**.
-
-**Collider scope:** Most promising pilot 3 e/μ with
-OSSF Z and top semileptonic/hadronic system; in 5FS,
-after H1→tb and both tops→Wb, **three** decay-origin
-b quarks (no hard spectator b) before shower. Require
-genuine same-energy signal/background. User has
-historical 13.6 TeV ATLAS HepMC backgrounds but their
-process/weights/availability for this Zee channel are
-NOT CONFIRMED. Inventory first. If suitable, stage a
-single 13.6 TeV pilot on old exact certified IDs
-15591 and 2264 (at most 2000 signal events per card),
-with cross section and decay/selection source hashes.
-Use existing backgrounds only when same energy and
-no overlap. No Condor/heavy production. If missing
-background, stop at yield-only feasibility.
-**Never** combine 14 TeV signal with 13.6 TeV
-backgrounds, or use published 2021 tb search limits
-on a different final state. Real CLs requires signal
-acceptance, background MC and systematic model.
-
-**Deliverables:** source-bound scoped constraint-contract
-JSON plus `research/full_constraints/COLLIDER_FEASIBILITY_PILOT_REPORT.md`
-with real pilot cutflow/plots if executed, or an explicit
-input blocker, and go/no-go for a larger detector study.
-User has NOT authorized the eventual **one final
-parameter-space scan**.
-
-Frozen Modules0–13, historical D14 inputs/receipts,
-the feature scan branch `feature/zee-d14-conditional-cascade-scan`
-at `133a340`, and older B/Higgs/LFV baseline
-data are read-only. All output to new research files
-and ignored scratch. Record actual test result, diff
-and commit/push on `research/zee-full-constraints`.
+- Existing D12's 136 Yukawa designs show large conditional leptonic daughter BR changes, but already state **novelty not established**, and full LFV is UNKNOWN.
+- D14 maps **16** unique tree-vacuum-certificate spectra at 13 TeV, **3** at 14 TeV; NO/IO/family cascade differences at fixed spectrum are small. D12 D7/F13 are **not** the same exact scalar cards as D14 map IDs.
+- Quantify paired exact-fixed-card `H1→tb`, `H1→ℓν`, `H2→H1Z`, and cascade daughter BRs from **existing saved** model data, not rounded table joins or guessed generator rates. Compare what the 2017 JHEP and 2021 EPJC papers already established plus relevant later sources/citations; attempt to **disprove** proposed novelty.
+- Return `GO_CONDITIONAL_PAPER_CANDIDATE`, `NO_GO_CURRENT_PAPER1_CENTER`, or `SOURCE_BLOCKED` with reviewer-level evidence. No experimental allowedness or sensitivity claim.
+- Save a compact report, machine-readable witness matrix, and source comparison **only** under `research/full_constraints/`. Commit/push validated files to `research/zee-full-constraints` only.
+- Preserve `global_acceptance=null`, scalar/vacuum/EWPO/neutrino scoped selections, full B/LFV/Higgs UNKNOWN statuses, the frozen source files and the one-final-scan approval requirement.
 
 ## Mandatory physics safeguards
 
@@ -129,10 +65,4 @@ and commit/push on `research/zee-full-constraints`.
 
 ## Current deliverable
 
-`research/full_constraints/PAPER1_CONSTRAINT_CONTRACT.json`
-and `research/full_constraints/COLLIDER_FEASIBILITY_PILOT_REPORT.md`
-with source-bound background availability and matched-energy
-signal/acceptance or explicit NULL, following
-`COLLIDER_FEASIBILITY_NEXT_TASK.md`.
-No unsupported HL-LHC reach/physical exclusion and
-no scan authorization.
+Execute `research/full_constraints/FLAVOR_CASCADE_NOVELTY_PILOT_TASK.md`: fixed-card quantitative and literature novelty audit, no new scan or event generation. Output `FLAVOR_CASCADE_NOVELTY_PILOT_REPORT.md`, `flavor_cascade/NOVELTY_WITNESS_MATRIX.json`, `flavor_cascade/LITERATURE_COMPARISON.md` under `research/full_constraints/`, with a clear GO/NO-GO.
