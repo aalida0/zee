@@ -1,0 +1,3 @@
+# Test receipt
+
+Executed `python3 research/full_constraints/lfv_transfer_2026/replay.py`: four frozen texture Module2 and Module4 output hashes, complex C_L/C_R and partial BRs reproduced, retained norm residual <= 1e-10 (observed zero); four old-scale identities recorded separately. Executed `python3 research/full_constraints/lfv_transfer_2026/test_replay.py`: 6/6 passed, including modified imaginary Yukawa, scalar mismatch, wrong ordering, mismatched family, and baseline-tolerance rejection. These test the provenance and replay gate only. Independent nonzero neutral-source numerical controls: 0. Phase, chirality, pure singlet, mixing endpoints and source normalization tests of a new contribution: not performed. No new group is validated.

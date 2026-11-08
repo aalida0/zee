@@ -1,0 +1,3 @@
+# Reproduce
+
+From the repository root run `python3 research/full_constraints/lfv_transfer_2026/replay.py` and `python3 research/full_constraints/lfv_transfer_2026/test_replay.py`. The replay reads frozen existing inputs and writes four JSON artifacts in this directory; no new parameter points are generated. Exact dependency file hashes are in INPUT_SHA256.json. The author source is an externally cached file at the path recorded in research/full_constraints/lfv/sources.json; this execution checked its bytes against the pinned hash and did not download it. A missing cache does not invalidate the replay but prevents repeating source inspection until a verified pinned copy is available.

@@ -1,0 +1,101 @@
+{
+  "baseline_replay_pass": true,
+  "cards": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+      "yukawa_sha256": {
+        "D": "399854794d73c2c1b8eb92ef2f259b0acb8f3b8765003595266902ecf3070844",
+        "F": "cca43f73fe99cac2237847ee58317d2215efa9ecdfe0ba5456a1b99d12975e44",
+        "Ye": "b589de28e3a68adf02d9186286dcc613b65bb222a132dec359d85d2ebd756e25",
+        "Ye2": "36782190a7c411548223ab7bdbe1ab1ffb0fb3aba266de33898f5a612de54967"
+      },
+      "module4_output_sha256": "6c8d3047951b387c55bc60aa94e905e43e7c028e5de9ab3c0fc0e8ef8f19f503",
+      "C_L": {
+        "real": -4.736210878714106e-18,
+        "imag": -1.0002445700719419e-19
+      },
+      "C_R": {
+        "real": -7.604190836413181e-16,
+        "imag": 1.170038712381531e-15
+      },
+      "BR_partial": 1.5612657134644163e-19,
+      "norm_GeV_minus2": 1.3954390753220696e-15,
+      "relative_norm_residual": 0.0,
+      "sufficient_missing_norm_budget_GeV_minus2": 1.366390385008678e-12,
+      "budget_note": "conditional sufficient budget; not a bound on omitted physics"
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+      "yukawa_sha256": {
+        "D": "d44a4307482efedcc35baab590d9d8dc56923aa6cf52d422a362522ecfcb0a46",
+        "F": "e331009b42e32bcf9ade00fc2187589b4c04aa596e87b88b800537cfd8cac0e2",
+        "Ye": "38d3064c21fb38744da9a2a573af957d923a8df4a79140e95a5c8855e7bb1d21",
+        "Ye2": "909e011cd8513f17a71466e97db3ae586ccaf3db09f19cd095b41f576c71dbc1"
+      },
+      "module4_output_sha256": "cb671314dcff8f1e3b948c2ea021f529a1d7a89cd3fe0de51d7f616f54e7999d",
+      "C_L": {
+        "real": -3.234625961780553e-19,
+        "imag": -9.535341908472629e-18
+      },
+      "C_R": {
+        "real": 3.004415881089376e-15,
+        "imag": 2.1247934990894255e-15
+      },
+      "BR_partial": 1.0857182280867012e-18,
+      "norm_GeV_minus2": 3.679857772752651e-15,
+      "relative_norm_residual": 0.0,
+      "sufficient_missing_norm_budget_GeV_minus2": 1.3641059663112474e-12,
+      "budget_note": "conditional sufficient budget; not a bound on omitted physics"
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+      "yukawa_sha256": {
+        "D": "eaa0e8dadaf35acfa9bc4381f229070217fdeee0a0f6ae4261a0d1813e93dd47",
+        "F": "1d9b8ff9a6896b0966689cb5542bc7d7c1cb3f0e27668a8dc9837e2122223dd4",
+        "Ye": "8db3a9f690ba80b6ecdb866bfdd1dd3e0a03ef9b4ea745576acfa9a507ce41ef",
+        "Ye2": "0679a131d7092a5090313ffec6d892430cf85df385509c9a12da77f0240f745d"
+      },
+      "module4_output_sha256": "8213d02f4883b8627e493df0c135c1c84588b0762cd151bd08265cc16a86a31c",
+      "C_L": {
+        "real": 1.997125056129804e-18,
+        "imag": 2.700571599837409e-18
+      },
+      "C_R": {
+        "real": 4.1082242404682715e-16,
+        "imag": 5.779320626860719e-16
+      },
+      "BR_partial": 4.0312827607113356e-20,
+      "norm_GeV_minus2": 7.090781443365354e-16,
+      "relative_norm_residual": 0.0,
+      "sufficient_missing_norm_budget_GeV_minus2": 1.3670767459396634e-12,
+      "budget_note": "conditional sufficient budget; not a bound on omitted physics"
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+      "yukawa_sha256": {
+        "D": "3974afffa5947bbbd65d7112b49d27c6640e70726398e56a0dd580316601cb6c",
+        "F": "470b61093a28d889c6847ae08d34f8f8f466909a5c5ea46d7e5acadb578c5bce",
+        "Ye": "e62fbcdbe3b006b2042df75c07685d276e4bc4aa3d3c41b128e369b1a48d18c1",
+        "Ye2": "00cb8bd41895618fe6505a0ab8f5d55f9568d04ee009df47ed87f894cb7f5365"
+      },
+      "module4_output_sha256": "9cfab328b2bfa23ad9f8d52f796b10c0fa1cd4c561ed8684d69aefb6f0a79649",
+      "C_L": {
+        "real": 2.6840813211095303e-18,
+        "imag": 5.1035270291106635e-18
+      },
+      "C_R": {
+        "real": 6.191318152845369e-16,
+        "imag": 1.133691410535939e-15
+      },
+      "BR_partial": 1.3378605859646518e-19,
+      "norm_GeV_minus2": 1.291748299515493e-15,
+      "relative_norm_residual": 0.0,
+      "sufficient_missing_norm_budget_GeV_minus2": 1.3664940757844846e-12,
+      "budget_note": "conditional sufficient budget; not a bound on omitted physics"
+    }
+  ]
+}

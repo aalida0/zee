@@ -1,0 +1,15 @@
+{
+  "validation/module12/d12_benchmarks.json": "f31ef3ccb64c3e4ff53131d35d52c21536b951a01e2c3924af766b7b2adf1cd8",
+  "module1/d10_benchmarks.json": "d354481895850cdaa6846a0728e1114a5ada6a7c1210260f350b79c1aba65015",
+  "module2/interface.py": "b98eea5a98c171565bc7bf632288039d8e5e2fb762fb0aa474fc8becec8cc1d2",
+  "module3/core.py": "5390e63af12a27c8e53823cc3625cd54851b10f5205d5ed2aab2ddd6767fd494",
+  "module4/amplitudes.py": "ce800f3aeabc458a3fb8b43dbf194e0ea0b91343ae8fdc26e838e584068f9a12",
+  "module4/charged_scalar.py": "514d265d88a7d7d3671266bdb087e45e04d9971f11d3c40d94e1acc840447471",
+  "module4/interface.py": "f2c2e8d65a7a48c5281c622d82fb717d72c6e3aae1d9096229356d837cc04f74",
+  "module14/lfv.py": "f526f8c57b440972dca30b6a29418f230ddcfa125c404972d19dbf3eb311cb42",
+  "research/full_constraints/lfv/experiments.json": "7faa6948d33fdc0bf290ed5de12471c8511b4bd2c39e7aedf01ba1c1d7575cbd",
+  "research/full_constraints/lfv/PRACTICAL_SENSITIVITY.json": "d158c7efe8a3b9d9ad3f6b9422b12f0f78470ec06b04689026b7ce11a9b32014",
+  "research/full_constraints/lfv/TEXTURE_COUPLING_AUDIT.json": "322cd36289c3b2e1a623febec2e7407d17ad5e37988ed28833856ae24a50c60b",
+  "research/full_constraints/lfv/TEXTURE_MATERIALITY_REPRODUCED.json": "7cc3113a462d56ce20f1f92a36274010a7a0f351671cc520a363edca8d222e03",
+  "research/full_constraints/LFV_VALIDATION.json": "1728b410753e538f2e8033649de8e479ff4a4c0c00196c8c041a25a8b18f7d9f"
+}

@@ -1,0 +1,81 @@
+{
+  "cards": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "baseline": {
+        "C_L": {
+          "real": -4.736210878714106e-18,
+          "imag": -1.0002445700719419e-19
+        },
+        "C_R": {
+          "real": -7.604190836413181e-16,
+          "imag": 1.170038712381531e-15
+        }
+      },
+      "neutral_Zgamma": null,
+      "hZ": null,
+      "sum_scoped": null,
+      "BR_scoped": null,
+      "interference": null,
+      "missing": "NOT_EVALUATED"
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "baseline": {
+        "C_L": {
+          "real": -3.234625961780553e-19,
+          "imag": -9.535341908472629e-18
+        },
+        "C_R": {
+          "real": 3.004415881089376e-15,
+          "imag": 2.1247934990894255e-15
+        }
+      },
+      "neutral_Zgamma": null,
+      "hZ": null,
+      "sum_scoped": null,
+      "BR_scoped": null,
+      "interference": null,
+      "missing": "NOT_EVALUATED"
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "baseline": {
+        "C_L": {
+          "real": 1.997125056129804e-18,
+          "imag": 2.700571599837409e-18
+        },
+        "C_R": {
+          "real": 4.1082242404682715e-16,
+          "imag": 5.779320626860719e-16
+        }
+      },
+      "neutral_Zgamma": null,
+      "hZ": null,
+      "sum_scoped": null,
+      "BR_scoped": null,
+      "interference": null,
+      "missing": "NOT_EVALUATED"
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "baseline": {
+        "C_L": {
+          "real": 2.6840813211095303e-18,
+          "imag": 5.1035270291106635e-18
+        },
+        "C_R": {
+          "real": 6.191318152845369e-16,
+          "imag": 1.133691410535939e-15
+        }
+      },
+      "neutral_Zgamma": null,
+      "hZ": null,
+      "sum_scoped": null,
+      "BR_scoped": null,
+      "interference": null,
+      "missing": "NOT_EVALUATED"
+    }
+  ],
+  "physical_lfv": "UNKNOWN"
+}

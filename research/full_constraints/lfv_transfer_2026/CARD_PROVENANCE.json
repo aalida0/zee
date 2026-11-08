@@ -1,0 +1,281 @@
+{
+  "input_sha256": "f31ef3ccb64c3e4ff53131d35d52c21536b951a01e2c3924af766b7b2adf1cd8",
+  "datasets": {
+    "texture_low_joint": [
+      {
+        "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+        "type": "texture_0.0001",
+        "ordering": "NO",
+        "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+        "yukawa_sha256": {
+          "D": "399854794d73c2c1b8eb92ef2f259b0acb8f3b8765003595266902ecf3070844",
+          "F": "cca43f73fe99cac2237847ee58317d2215efa9ecdfe0ba5456a1b99d12975e44",
+          "Ye": "b589de28e3a68adf02d9186286dcc613b65bb222a132dec359d85d2ebd756e25",
+          "Ye2": "36782190a7c411548223ab7bdbe1ab1ffb0fb3aba266de33898f5a612de54967"
+        },
+        "witness_sha256": "6d52314a489510283c0236f133bae99b0836eff6867dddf720467c1c18fc2053",
+        "module2_input_sha256": "6bfb8560854bff0262d5c2aa1e85acc2860993aaed8dc7dbe595633bbf8a3742",
+        "module2_output_sha256": "766f27421c36503d6e58f92be855f455c5d0e6616cd8021f9ce0af42c928d491",
+        "module4_output_sha256": "6c8d3047951b387c55bc60aa94e905e43e7c028e5de9ab3c0fc0e8ef8f19f503",
+        "direct_D_e_mu": {
+          "real": 1.164670302474663e-21,
+          "imag": 4.658681209898652e-21
+        },
+        "direct_D_mu_e": {
+          "real": -2.168404344971009e-19,
+          "imag": 2.168404344971009e-19
+        },
+        "available_fields": [
+          "full scalar record",
+          "module2 input",
+          "F",
+          "D",
+          "Ye",
+          "Ye2",
+          "signed radiative components"
+        ],
+        "status": "HASH_VERIFIED"
+      },
+      {
+        "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+        "type": "texture_0.0001",
+        "ordering": "IO",
+        "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+        "yukawa_sha256": {
+          "D": "d44a4307482efedcc35baab590d9d8dc56923aa6cf52d422a362522ecfcb0a46",
+          "F": "e331009b42e32bcf9ade00fc2187589b4c04aa596e87b88b800537cfd8cac0e2",
+          "Ye": "38d3064c21fb38744da9a2a573af957d923a8df4a79140e95a5c8855e7bb1d21",
+          "Ye2": "909e011cd8513f17a71466e97db3ae586ccaf3db09f19cd095b41f576c71dbc1"
+        },
+        "witness_sha256": "df280325bd1808c810954ddf091ba780b664d74ce46c8820a6997a10c5ac602b",
+        "module2_input_sha256": "7581b8d18a07522a300adb80fbc6cf10b4a7ea1eaa716ce19bdb13a3c556de91",
+        "module2_output_sha256": "0209bfc54669ff5b1a424d85efdd72fdac72f6a1714fb814fc56fb34ef7d1903",
+        "module4_output_sha256": "cb671314dcff8f1e3b948c2ea021f529a1d7a89cd3fe0de51d7f616f54e7999d",
+        "direct_D_e_mu": {
+          "real": -4.319868030996932e-20,
+          "imag": -1.93864665802828e-19
+        },
+        "direct_D_mu_e": {
+          "real": -1.6263032587282567e-19,
+          "imag": 0.0
+        },
+        "available_fields": [
+          "full scalar record",
+          "module2 input",
+          "F",
+          "D",
+          "Ye",
+          "Ye2",
+          "signed radiative components"
+        ],
+        "status": "HASH_VERIFIED"
+      },
+      {
+        "id": "F13_heavy_0001330/NO/texture_0.001",
+        "type": "texture_0.001",
+        "ordering": "NO",
+        "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+        "yukawa_sha256": {
+          "D": "eaa0e8dadaf35acfa9bc4381f229070217fdeee0a0f6ae4261a0d1813e93dd47",
+          "F": "1d9b8ff9a6896b0966689cb5542bc7d7c1cb3f0e27668a8dc9837e2122223dd4",
+          "Ye": "8db3a9f690ba80b6ecdb866bfdd1dd3e0a03ef9b4ea745576acfa9a507ce41ef",
+          "Ye2": "0679a131d7092a5090313ffec6d892430cf85df385509c9a12da77f0240f745d"
+        },
+        "witness_sha256": "3e894e52f2575ea24ea3c852033a1afecf4ca26546837b08f2c2145fe3cbd76f",
+        "module2_input_sha256": "206abc087cee8e3adc5f69587cb925b88ea35afe9800d73c347484617cd51eec",
+        "module2_output_sha256": "396f1f236d7b8fa32625ec094afbff9afcf182cb83ae7c16bf26f2548f6721ee",
+        "module4_output_sha256": "8213d02f4883b8627e493df0c135c1c84588b0762cd151bd08265cc16a86a31c",
+        "direct_D_e_mu": {
+          "real": -3.8712052667481695e-22,
+          "imag": -1.3698110943878138e-21
+        },
+        "direct_D_mu_e": {
+          "real": -6.776263578034403e-21,
+          "imag": -6.776263578034403e-21
+        },
+        "available_fields": [
+          "full scalar record",
+          "module2 input",
+          "F",
+          "D",
+          "Ye",
+          "Ye2",
+          "signed radiative components"
+        ],
+        "status": "HASH_VERIFIED"
+      },
+      {
+        "id": "F13_heavy_0001330/IO/texture_0.001",
+        "type": "texture_0.001",
+        "ordering": "IO",
+        "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+        "yukawa_sha256": {
+          "D": "3974afffa5947bbbd65d7112b49d27c6640e70726398e56a0dd580316601cb6c",
+          "F": "470b61093a28d889c6847ae08d34f8f8f466909a5c5ea46d7e5acadb578c5bce",
+          "Ye": "e62fbcdbe3b006b2042df75c07685d276e4bc4aa3d3c41b128e369b1a48d18c1",
+          "Ye2": "00cb8bd41895618fe6505a0ab8f5d55f9568d04ee009df47ed87f894cb7f5365"
+        },
+        "witness_sha256": "f1617bf7fc9a15dabb24fc3b543ddc469267354009960aafc96f64906d2e291d",
+        "module2_input_sha256": "1e1b4600136cde84bbec0f83d7f26dc200d77c9c2f2effad8b3a47a814de8745",
+        "module2_output_sha256": "935bff752a32a7aa62a3211bde0c2ad846f5c1fec3d98dd00582e91da80472de",
+        "module4_output_sha256": "9cfab328b2bfa23ad9f8d52f796b10c0fa1cd4c561ed8684d69aefb6f0a79649",
+        "direct_D_e_mu": {
+          "real": -3.255782891008717e-21,
+          "imag": 4.221929846470653e-21
+        },
+        "direct_D_mu_e": {
+          "real": -2.0328790734103208e-20,
+          "imag": 1.3552527156068805e-20
+        },
+        "available_fields": [
+          "full scalar record",
+          "module2 input",
+          "F",
+          "D",
+          "Ye",
+          "Ye2",
+          "signed radiative components"
+        ],
+        "status": "HASH_VERIFIED"
+      }
+    ],
+    "scale_0.001_old": [
+      {
+        "id": "d7_NO_neutral_near_heavy_07/NO/scale_0.001",
+        "type": "scale_0.001",
+        "ordering": "NO",
+        "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+        "yukawa_sha256": {
+          "D": "a055decef8fa44a7f054d1091b8d715c258bdf164f374d24d1b9cd9b86c291d0",
+          "F": "1d9b8ff9a6896b0966689cb5542bc7d7c1cb3f0e27668a8dc9837e2122223dd4",
+          "Ye": "ca4a823aa39619c9409c61d7641e1b22b3928d09090549d0c2be6e5a4c5d80a9",
+          "Ye2": "7fa173658ca6af153e9bc865456bff84a5a0d4f816c3d3ca5428544f458642b5"
+        },
+        "witness_sha256": "1405271f3b38ca25cd8fc088aea06deac3c4941e58707bfa4f0a326945e6b04f",
+        "module2_input_sha256": "6288c8e073177ed3d20872bf9bcd17305e471839b838e2280dc1fc58b234cfb8",
+        "module2_output_sha256": "406dab98368ec79fa8836d6effb4d2790ec3c3af86a764ef4596a109109f1e95",
+        "module4_output_sha256": "f52cd87455e6fbcf76ad42cfa12b196cf0412cae1f8e3873e16410f99a69ee46",
+        "direct_D_e_mu": {
+          "real": 3.5286157105177196e-08,
+          "imag": 5.3638149703014216e-08
+        },
+        "direct_D_mu_e": {
+          "real": -3.629638560425737e-05,
+          "imag": 4.0010670894815015e-05
+        },
+        "available_fields": [
+          "full scalar record",
+          "module2 input",
+          "F",
+          "D",
+          "Ye",
+          "Ye2",
+          "signed radiative components"
+        ],
+        "status": "HASH_VERIFIED"
+      },
+      {
+        "id": "d7_NO_neutral_near_heavy_07/IO/scale_0.001",
+        "type": "scale_0.001",
+        "ordering": "IO",
+        "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+        "yukawa_sha256": {
+          "D": "970dea779501435edf61b30ffb2363a96786f9fb23104a139f4a36ad047f4c5b",
+          "F": "470b61093a28d889c6847ae08d34f8f8f466909a5c5ea46d7e5acadb578c5bce",
+          "Ye": "e7f02fb925ab41f44bbdc43a637b5026bec9eb744556f0eec13d317099534811",
+          "Ye2": "e43ce98e61b575db404f71646b10633ccd183fecb6032ca54a379cc0fe391570"
+        },
+        "witness_sha256": "fc06a40f48731ed97d115b7b681d4084661791fa4a1c257248fa195f21ba9509",
+        "module2_input_sha256": "6c84fbf4795bc0afa259ad270bb922b28c51a0106e482c8bbb95981e654975bc",
+        "module2_output_sha256": "3c581a0d44bc76c53a605fe277ad5adb872b6bcad274721d9e16577a7388d352",
+        "module4_output_sha256": "7fbdeff80e0abe2dcea75add6a11dc47e777675c5589003db8c4b418034a8005",
+        "direct_D_e_mu": {
+          "real": 2.906943170516691e-07,
+          "imag": 4.4316696411969987e-08
+        },
+        "direct_D_mu_e": {
+          "real": 3.838921948356123e-05,
+          "imag": 7.297677739639769e-05
+        },
+        "available_fields": [
+          "full scalar record",
+          "module2 input",
+          "F",
+          "D",
+          "Ye",
+          "Ye2",
+          "signed radiative components"
+        ],
+        "status": "HASH_VERIFIED"
+      },
+      {
+        "id": "F13_heavy_0001330/NO/scale_0.001",
+        "type": "scale_0.001",
+        "ordering": "NO",
+        "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+        "yukawa_sha256": {
+          "D": "502f47d5f33791b24499c9b3a5f502264691560ff648680be5c7612b6003784b",
+          "F": "1d9b8ff9a6896b0966689cb5542bc7d7c1cb3f0e27668a8dc9837e2122223dd4",
+          "Ye": "9d93bfb102041ff09f3c896041688e56586d51ac565c3935bc3d3e71a22a073b",
+          "Ye2": "584a29c761ff686c0ac161d07d45b54f7062b77391c3e9541c57e4441ecd5c72"
+        },
+        "witness_sha256": "603314b8ae8209b1cdeb11c2137a6773ab0364735bff5020916dda83c4eebb32",
+        "module2_input_sha256": "b8617bf561b911358b7ab3998c4bf7ebe8b743b8825d73be7163c853b91eccb4",
+        "module2_output_sha256": "690caa9d381e0e32f3815caf50351ecc1e179132d513fa8f3020b77d2ba23b4f",
+        "module4_output_sha256": "1fe50f5dbe1a832e63cbc917cc306007f81eee073e5406c346ec321b4e8100e1",
+        "direct_D_e_mu": {
+          "real": 2.8652250220324785e-08,
+          "imag": 4.355383336849261e-08
+        },
+        "direct_D_mu_e": {
+          "real": -2.947256668627168e-05,
+          "imag": 3.24885355054716e-05
+        },
+        "available_fields": [
+          "full scalar record",
+          "module2 input",
+          "F",
+          "D",
+          "Ye",
+          "Ye2",
+          "signed radiative components"
+        ],
+        "status": "HASH_VERIFIED"
+      },
+      {
+        "id": "F13_heavy_0001330/IO/scale_0.001",
+        "type": "scale_0.001",
+        "ordering": "IO",
+        "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+        "yukawa_sha256": {
+          "D": "550fb1d39dabe7fb88fef2521bc90c88a035a8e0e9f172b9bb7d35cf7548bd75",
+          "F": "470b61093a28d889c6847ae08d34f8f8f466909a5c5ea46d7e5acadb578c5bce",
+          "Ye": "f8df4e5e77d122f1ac7c156b11150fb16f1cf9e3ad156920a95eb46b77418bf6",
+          "Ye2": "87af1c2da679b18a3babcd50cb564a61f73b6ac8e4cca86fccb0c5915962e838"
+        },
+        "witness_sha256": "daa3dc285f89663632f28ea44281f0121ae16df790ac179f10012b4da68f1aa2",
+        "module2_input_sha256": "1c76508f1c02c1d0a4f4ff597a35c1b667dfbb98dfd4fd1175bea4174f34e54f",
+        "module2_output_sha256": "02d517eb0cc41c38a710ccf80545fcd1f40da2aeb8af85b47875592ade3157b0",
+        "module4_output_sha256": "74d59c9fa23a9cdac0af275170905c9362b88b93260e7f45784c7125bc223fae",
+        "direct_D_e_mu": {
+          "real": 2.3604250211899107e-07,
+          "imag": 3.598501858253909e-08
+        },
+        "direct_D_mu_e": {
+          "real": 3.117191983272765e-05,
+          "imag": 5.925690007474064e-05
+        },
+        "available_fields": [
+          "full scalar record",
+          "module2 input",
+          "F",
+          "D",
+          "Ye",
+          "Ye2",
+          "signed radiative components"
+        ],
+        "status": "HASH_VERIFIED"
+      }
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "status": "EXECUTION_BLOCKED",
+  "four_cards_count": 4,
+  "validated_new_groups": [],
+  "baseline_replay_pass": true,
+  "original_source_sha": "9b4af7aa4bf7bf533a7b82c8c2603d118346424e3b7b5f9f06ab8cb41bc4e193",
+  "original_source_sha_observed": true,
+  "test_counts": {
+    "focused_falsifier_tests": 6,
+    "passed": 6,
+    "source_independent_nonzero_controls": 0,
+    "four_card_baseline_replays": 4
+  },
+  "missing_groups": [
+    "neutral heavy-fermion Zgamma: source-to-Zee ordered complex chirality and independent controls not validated",
+    "neutral hZ: ordered complex map and independent numerical controls not validated",
+    "tHp/cHp/tauHp charged-fermion W",
+    "full kin W/Goldstone/ghost aggregate",
+    "mixed Zee HZ and off-diagonal Z currents",
+    "HW and reported public normalization discrepancy",
+    "F-dagger-F gauge-dressed and mixed-current contributions",
+    "mu->3e and mu-e conversion complete operator vectors and interference"
+  ],
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null,
+  "final_artifacts_ready": false,
+  "reason": "Neutral source-to-Zee ordered complex matching, independent nonzero numerical controls and mandated operator-level limits were not completed; therefore no new amplitude may be transferred. This is an incomplete execution, not evidence the formulas cannot be transferred."
+}
