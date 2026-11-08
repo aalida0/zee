@@ -1,78 +1,63 @@
-# Resolved algebraic neutral-Yukawa map for 2HDM → Zee LFV (8 November 2026)
+# CORRECTED: neutral 2HDM ↔ native Zee lepton chirality mapping (8 Nov 2026)
 
-**Scope of this note:** a *source-level algebraic mapping*, not a new dipole or independently validated loop result. This note is a follow-up to the completed, pushed but `EXECUTION_BLOCKED` four-card run (Git `a1f65de33b6c2bb82077d256475439840835e554`). Existing `RESULT.json`, complex baselines, validations and physical unknowns remain untouched.
+**Supersedes the erroneous mapping committed as 6195fc3.** The old document identified the native D matrix with the paper's rho-dagger, which is WRONG. A 2026-11-08 independent Zgamma pilot detected the conflict. This note corrects the algebraic map only. It does not claim that any new Zgamma group or hZ group has been independently matched. The original pilot remains EXECUTION_BLOCKED and physical LFV remains UNKNOWN.
 
-## Derivation from published source and frozen code
+## Explicit field orientation
 
-General 2HDM source: Altmannshofer et al., JHEP06(2025)156 and 2026 erratum, arXiv:2410.17313v4 [Eqs. (3), (5), (8), (10)–(13), (48), (54)–(55), (59)](https://arxiv.org/html/2410.17313v4). This mapping is established from the published **definitions**, not from post-erratum loop-function numerical execution.
+Published Altmannshofer et al., arXiv:2410.17313v4, Eqs. (10)–(12): the leptonic source is
 
-The paper's Higgs-basis charged-lepton Yukawa matrices satisfy, explicitly in Eq. (12):
-\[
-\rho_\ell^\dagger
-=\frac{Y_{\ell}^{(2)}\cos\beta-Y_{\ell}^{(1)}\sin\beta}{\sqrt{2}},
-\]
-with Eq. (11) defining the neutral mass-eigenstate coupling \(\bar\ell_{L,i}\,[\frac{m_i}{v}\delta_{ij}q_{k1}+(\rho_\ell^\dagger)_{ij}q_{k2}]\,\ell_{R,j}\,h_k\), in the action with an overall minus sign.
+    L_Y  =  - h_k [bar(e_L,i) (m_i/v delta_ij q_k1 + (rho_l^dagger)_ij q_k2) e_R,j + h.c.]
 
-Frozen native convention: `module2/core.py::yukawa_rotation` and `module3/core.py::vertices`; `module3/CONVENTIONS.md`:
-\[
-D=Y_{e2}\cos\beta-Y_e\sin\beta,\qquad
-C_h=\cos(\beta-\alpha)\frac{M_\ell}{v}-\sin(\beta-\alpha)\frac{D}{\sqrt2},
-\quad C_H=\sin(\beta-\alpha)\frac{M_\ell}{v}+\cos(\beta-\alpha)\frac{D}{\sqrt2},
-\quad C_A=-i\frac{D}{\sqrt2}.
-\]
+The Yukawa matrices in this formula are LH-row / RH-column. By contrast, the *native SARAH model source*, models/SARAH/ZeeTypeII/ZeeTypeII.m, defines the term `Ye conj[H1].e.l + Ye2 conj[H2].e.l`. The native frozen module3/core.py::vertices defines
 
-**Conclusion at the neutral Lagrangian level** with the same Higgs-basis gauge-field phase convention:
-\[
-\boxed{\rho_\ell^\dagger=D/\sqrt2},\qquad
-\begin{array}{c|cc}
- &q_{k1}&q_{k2}\\
-h&\cos(\beta-\alpha)&-\sin(\beta-\alpha)\\
-H&\sin(\beta-\alpha)&+\cos(\beta-\alpha)\\
-A&0&-i
-\end{array}
-\]
-(up to an overall sign redefinition of the real CP-odd field `A`, applied consistently to all its vertices).
+    L_native = -s bar(e)_a [C_ab PL + (C_ba)* PR] e_b,
+    C_h = cos(beta-alpha) diag(m/v) - sin(beta-alpha) D/sqrt(2),
+    C_H = sin(beta-alpha) diag(m/v) + cos(beta-alpha) D/sqrt(2),
+    C_A = -i D/sqrt(2).
 
-Use the source paper's **one-based e,μ,τ indexing**, \(\rho_\ell^\dagger{}_{ij}=\rho_{\ell,ji}^*\):
-\[
-\boxed{\rho_{\ell,21}^{*}=(\rho_\ell^\dagger)_{12}=D_{e\mu}/\sqrt2},\quad
-\boxed{\rho_{\ell,12}=(\rho_\ell^\dagger)_{21}^{*}=D_{\mu e}^{*}/\sqrt2}.
-\]
+A scalar term with PL on the incoming fermion is `bar(e_R,a) ... e_L,b`; thus native D has an **RH row and LH column**. The published paper's corresponding matrix for `bar(e_R) ... e_L` is **rho_l**, the Hermitian conjugate of the matrix in the paper's explicit `bar(e_L) ... e_R` term.
 
-Thus the 2HDM source \(c_R\) neutral \(Z\gamma\) term in Eqs. (54)–(55), and \(c_R^{hZ}\) in Eq. (59), contain the **actual \(D_{e\mu}\)** direct entry; \(c_L\) contains **\(D_{\mu e}^*\)**, after preserving the paper's convention for which term is conjugated and how loop kernels transform. Do not swap these entries or substitute \((F^\dagger F)_{e\mu}\) for them.
+Therefore, when referring to the physical native arrays,
 
-**Operator map** from paper Eq. (48) and native `module3/core.py::OPERATOR`:
-\[
-\mathcal L^{2HDM}_{\rm dip}=-\frac{e m_\mu}{16\pi^2 v^2}\bar e\sigma^{\mu\nu}(c_LP_L+c_RP_R)\mu F_{\mu\nu}
-\quad\longleftrightarrow\quad
-\mathcal L^{Zee}_{\rm dip}=+\frac{e m_\mu}{2}\bar e\sigma^{\mu\nu}(C_LP_L+C_RP_R)\mu F_{\mu\nu},
-\]
-hence
-\[
-\boxed{C_{L,R}=-c_{L,R}/(8\pi^2v^2)}
-\]
-**provided the external field ordering and \(\sigma^{\mu\nu},F_{\mu\nu}\) definitions are matched as in the two specified actions**. This is the unambiguous algebraic prefactor, not independent validation of a loop implementation.
+    CORRECT: rho_l        = D / sqrt(2)
+    CORRECT: rho_l^dagger = D^dagger / sqrt(2)
+    WRONG:   rho_l^dagger = D / sqrt(2)   [previous 6195fc3 note]
 
-## What the previous study was unable to establish
+The paper's `Y_e^(1,2)` (LH-row/RH-column) are the Hermitian conjugates of the native SARAH `Ye,Ye2` arrays; that was the missed index-orientation step when interpreting published Eq. (12).
 
-The previous `EXECUTION_REPORT.md` described the whole ordered phase/chirality map as unfinished. **The neutral Yukawa and operator-level algebraic pieces above can now be regarded as solved on paper**, with the caveat that source **loop** phase, relative signs to other two-loop subsets and numerical evaluation are *still* unvalidated. Do not retroactively change the outcome `EXECUTION_BLOCKED` or claim that new amplitudes were run.
+With 1-based paper flavor labels 1=e, 2=mu, the source dipole terms are
 
-The official erratum JHEP07(2026)184 exists, the pinned `thdm.py` SHA256 `9b4af7aa4bf7bf533a7b82c8c2603d118346424e3b7b5f9f06ab8cb41bc4e193` was previously checked, but its numerical implementation was not independently compared here. Eq. (54)–(55) post-erratum functions must be taken from the corrected release, not the 2025 version. The `hZ` Eq. (59) contains neutral \(q_{k1}q_{k2}\) mixing and is not a single-loop-Barr–Zee photon term; source says it is a distinct gauge group.
+    c_L: rho_l,12        = D[e,mu]/sqrt(2)
+    c_R: (rho_l,21)^*    = (D[mu,e])^*/sqrt(2)
 
-**Important:** The native charged-Higgs `D` couplings in `module3/core.py::dipole_ledger` involve charge-conjugation and neutrino-field orientation. Do **not** assume that matching the neutral \(\rho^\dagger=D/\sqrt2\) automatically validates the two-loop charged-current `tHp,cHp,tauHp` or singlet-\(F\) groups; they remain separate tasks.
+Paper Eq. (48) and native module3/core.py::OPERATOR share the *same* projector placement on the incoming muon. The overall normalization, without a chirality exchange, is
 
-## Decisive next minimal execution (rather than repeating card replay)
+    C_L = -c_L/(8*pi^2*v^2)
+    C_R = -c_R/(8*pi^2*v^2)
 
-1. Extract exact paper v4 Eqs. (54)–(55) **Z-proportional** parts and Eq. (59) `hZ`. Pin public author `thdm.py` to hash above; never copy photon terms already in Module4. Test 2 genuinely complex nonzero source-only 2HDM vectors, using independent loop-function quadrature/analytic formula vs author code. Do not use arbitrary model-limit vectors as phenomenological Zee cards.
-2. Obtain `q_{k1},q_{k2}` through the exact frozen `beta,alpha` and \(D_{e\mu},D_{\mu e}\) from four joined `texture` records in `CARD_PROVENANCE.json` and saved `validation/module12/d12_benchmarks.json` (not the separate `scale_0.001` witness family).
-3. Compare signed \((c_L,c_R)\) to \((C_L,C_R)\) with operator map above, keeping neutral-photon Module4 terms **unchanged**, and execute both chiralities, CP-even/odd sign and \(D\)-zero rephasing tests.
-4. If that passes, produce only 4-card Zγ / hZ complex term ledger and relative interference; otherwise a single exact numerical counterexample, not a new 69,570-token umbrella run. All uncomputed Zee-\(F\), kin, HZ, HW, μ→3e and conversion remain `UNKNOWN`.
+with the published and frozen sigma and F conventions. For the neutral CP-conserving fields, the h,H,A factors remain the frozen native coefficients `q_h1=cos(beta-alpha), q_h2=-sin(beta-alpha), q_H1=sin(beta-alpha), q_H2=cos(beta-alpha), q_A1=0, q_A2=-i`, with consistent field orientation.
 
-## Present classification
+## Already archived **independent complex photon check** (do not redo)
 
-- Source Yukawa map: **ALGEBRAICALLY_SOURCE_VERIFIED**.
-- Source dipole operator prefactor: **ALGEBRAICALLY_SOURCE_VERIFIED**.
-- 2HDM loop functions as independently implemented and tested here: **NOT TESTED**.
-- Complex neutral new term \((\Delta C_L,\Delta C_R)\) on each Zee saved card: **NULL / NOT COMPUTED**.
-- Existing four-card 6/6 replay tests: **PASS from prior execution**; no tests executed in this note.
-- Physical LFV: **UNKNOWN**. Global acceptance: **null**.
+The existing `module14/physics_adapters/lfv_reference.py::fixed_card_reference` **already passes the native matrix directly as `rho = D/sqrt(2)`** into the pinned public author's `thdm.py` and maps the outputs as
+
+    coefficients = -array([cL_llpg, cR_llpg]).T/(8*pi^2*v^2).
+
+`module14/physics_adapters/lfv_reference_evidence.json` records complex per-chirality photon subsets and maximum relative matching residual ~3.2e-13, comparing them to native Module4 on the four original D12 central cards and multiple radiative channels. This *validates the general ordered convention in that photon subset*, but DOES NOT by itself validate a NEW neutral-fermion Zgamma coefficient; the Z-exchange kernel, corrected 2026 coefficients and full two-loop phases need distinct nonzero numerical controls. The source-matched photon check was already done, so repeating it would waste work.
+
+## Numerical hZ precursor must be corrected
+
+The previous `HZ_EQ59_PRELIMINARY_NUMERICAL_2026-11-08.md` used the erroneous conjugated map. Its old complex C_L/C_R table **and stated interference shifts are invalid**; refer to the corrected notice and numbers at the very top of that report. At the printed precision of the old preliminary Eq.(59) coefficients, the correct new `C_L` is the old `C_R`, and the correct new `C_R` is the old `C_L`. The scalar group norm is therefore unchanged, but the interference with frozen baseline changes. That is merely an algebraic reorientation of a preliminary evaluation, NOT independent author-code validation.
+
+## Next minimal calculation
+
+Read paper arXiv:2410.17313v4 Eqs. (48), (54), (55) (verified arXiv post-correction version), and 2026 erratum JHEP07(2026)184; use pinned author's b5035cd5 thdm.py. Retain the genuine Z-exchange parts `f3/f4`, including the published top/charm versus bottom/tau conjugations, and do NOT duplicate photon `f1/f2` already in Module4. Reuse the validated rho mapping and archived photon comparison as a **prerequisite that is already satisfied**.
+
+Execute TWO nonzero complex independent Zgamma controls against author code, test cL/cR routing with D[e,mu] and D[mu,e] switched on one at a time, and only then evaluate exact 4 texture cards. If controls fail, preserve the counterexample and maintain UNKNOWN. Do not rerun provenance reconstruction, source literature audit, full hZ/kinetic sectors, B/Higgs/vacuum, or generate new scan cards.
+
+## References / evidence
+
+- Published source: https://arxiv.org/html/2410.17313v4 Eqs. (10)–(12), (48), (54)–(55), (59).
+- Official erratum: https://doi.org/10.1007/JHEP07(2026)184 (verified exists, independent full formula review not claimed here).
+- Native SARAH: `models/SARAH/ZeeTypeII/ZeeTypeII.m`, `module3/core.py::vertices`, `module3/CONVENTIONS.md`.
+- Independent archived controls: `module14/physics_adapters/lfv_reference.py`, `module14/physics_adapters/lfv_reference_evidence.json`, `module4/amplitudes.py::fermion_component`.
