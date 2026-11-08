@@ -39,13 +39,16 @@ mkdir -p "$LOGDIR"
 # Official sources and package registries. No blanket * allow.
 PROXY_DOMAINS='{ "arxiv.org" = "allow", "*.arxiv.org" = "allow", "inspirehep.net" = "allow", "*.inspirehep.net" = "allow", "github.com" = "allow", "*.github.com" = "allow", "githubusercontent.com" = "allow", "*.githubusercontent.com" = "allow", "pypi.org" = "allow", "*.pypi.org" = "allow", "files.pythonhosted.org" = "allow", "doi.org" = "allow", "zenodo.org" = "allow", "*.zenodo.org" = "allow", "hepdata.net" = "allow", "*.hepdata.net" = "allow", "cds.cern.ch" = "allow", "indico.cern.ch" = "allow", "journals.aps.org" = "allow", "link.springer.com" = "allow", "*.springer.com" = "allow", "sciencedirect.com" = "allow", "*.sciencedirect.com" = "allow", "*.cern.ch" = "allow" }'
 
-# --ask-for-approval on-request: actions beyond sandbox still require a reviewer.
-# Network is enabled but proxied to allowlisted hosts. git/.git stays protected.
-CODEX_BASE=(codex
+# Current CLI: --approve-for-me and -c are TOP-LEVEL codex options;
+# 'codex exec' itself does not accept --ask-for-approval.
+# Automatic review is still subject to the workspace-write sandbox; the
+# trusted wrapper (not Codex) owns narrowly scoped commit/push operations.
+CODEX_GLOBAL=(codex
+  --approve-for-me
   -c 'sandbox_workspace_write.network_access=true'
   -c 'features.network_proxy.enabled=true'
-  -c "features.network_proxy.domains=$PROXY_DOMAINS"
-  exec --sandbox workspace-write --ask-for-approval on-request)
+  -c "features.network_proxy.domains=$PROXY_DOMAINS")
+CODEX_EXEC_ARGS=(--sandbox workspace-write)
 
 is_final() {
  [[ -s "$REPORT" && -s "$RESULT" && -s "$DIR/REPRODUCE.md" ]] || return 1
@@ -126,9 +129,9 @@ for ((n=1;n<=LIMIT;n++)); do
   echo "===== Codex scientific round $n/$LIMIT ====="
   set +e
   if (( n==1 )); then
-    "${CODEX_BASE[@]}" "$PROMPT" 2>&1 | tee "$LOGDIR/round_$n.log"
+    "${CODEX_GLOBAL[@]}" exec "${CODEX_EXEC_ARGS[@]}" "$PROMPT" 2>&1 | tee "$LOGDIR/round_$n.log"
   else
-    "${CODEX_BASE[@]}" resume --last \
+    "${CODEX_GLOBAL[@]}" exec resume --last \
       "CONTINUE the SAME $TASK from $DIR/WORK_CHECKPOINT.md. Do not stop after a plan or a partial source list. Finish the remaining physics validation and conservative joined-card report, then write $RESULT final_artifacts_ready=true only when evidence and tests exist. Do not commit: wrapper handles scoped commit/push. A justified NO_VALIDATED_BENCHMARKS_YET is a real final result." \
       2>&1 | tee "$LOGDIR/round_$n.log"
   fi
