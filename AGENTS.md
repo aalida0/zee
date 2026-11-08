@@ -4,6 +4,16 @@
 **Frozen working parent:** `feature/zee-d14-conditional-cascade-scan`
 at `133a34061723b6bb45b19e8ebe29852ac8b5a9c2`.
 
+## LATEST FOLLOW-UP (8 Nov 2026) — Zgamma only, corrected chirality
+
+The **first** four-card `lfv_transfer_2026/TASK.md` run already executed and ended `EXECUTION_BLOCKED` (no new amplitudes); do **not** rerun baseline replay/provenance reconstruction. A subsequent **local uncommitted** Zgamma pilot reported four independent loop-function-pair checks and revealed an incorrect mapping in earlier assistant-authored notes. The source convention has since been **corrected in Git**:
+
+- `research/full_constraints/lfv_transfer_2026/NEUTRAL_YUKAWA_ORDERED_MAPPING.md` — **correct** source `rho_l=D/sqrt(2)` (NOT `rho_l^dagger=D/sqrt(2)`). For mu→e gamma: source `c_L` takes `D[e,mu]/sqrt(2)`, source `c_R` takes `conj(D[mu,e])/sqrt(2)`; no native chirality swap; `C_X=-c_X/(8*pi^2*v^2)`.
+- `module14/physics_adapters/lfv_reference.py` and `lfv_reference_evidence.json` **already contain** an independent complex photon-subset source-to-native matching, at ~3.2e-13 maximum relative residual. **Reuse** this, do not repeat it or double count photon amplitudes.
+- `research/full_constraints/lfv_transfer_2026/HZ_EQ59_PRELIMINARY_NUMERICAL_2026-11-08.md` — prior hZ coefficients/interference have been corrected; hZ remains preliminary, NOT independently matched to author code.
+
+**If explicitly continuing Zgamma:** inspect existing local `research/full_constraints/lfv_transfer_2026/zgamma/` files first, which are not on GitHub as of this note; preserve their original tests and reports. Run only a minimal independent nonzero **complete complex Z-exchange coefficient** check against post-erratum source author `thdm.py` and exact 4 texture-card amplitude evaluation. Do not repeat the already-passed 4 loop-function tests unless a failure specifically requires it. Do not run the old `run_once.sh` (it is complete), do not regenerate vacuum/global pilot, and do not modify frozen modules. Even success on this subset leaves physical LFV `UNKNOWN`.
+
 ## Mandatory source-first literature gate (new: 7 Nov 2026)
 
 Before claiming any Zee-specific loop calculation, scalar/vacuum constraint,
