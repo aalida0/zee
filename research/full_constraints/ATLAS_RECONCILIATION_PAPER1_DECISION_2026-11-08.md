@@ -34,3 +34,8 @@ Audit the D10 *existing* exact certificates independently (do not import compute
 Only if an **independently checked new analytical condition plus significant quantified physical/model-domain insight** survive the recent prior-art kill checks should Paper 1 be reconsidered as a narrow scalar-vacuum theory/phenomenology paper. Such a scoped paper would NOT need to claim full physical B/LFV/Higgs passes, but would need to label tree-level and theoretical assumptions explicitly. No new scan, sensitivity study, two-loop derivation or model change has been initiated by this note.
 
 **Consistency rule:** repository results remain authoritative for what was actually executed; the literature atlas is authoritative for source papers and novelty gaps. This note does not modify the frozen numerical model or change any existing gate/decision receipt.
+
+
+### Independent numerical arithmetic check recorded in literature atlas
+
+A separate read-only reconstruction from committed `validation/module1/d10_vacuum_global.json` rebuilt the five floating `LDL^T` pivots of `C-epsilon J` without using D10's saved pivot arrays. The smallest D7 and F13_1330 pivots are **0.148668473145** and **0.104770108173**, and both doublet and singlet residual coefficients were positive. Details: [independent source-input spot-check](https://github.com/aalida0/zee-literature-atlas/blob/main/reports/INDEPENDENT_D10_VACUUM_NUMERICAL_SPOTCHECK_2026-11-08.md). This is **not** an independent exact-rational/Krawczyk proof or a new model certificate and does not change any frozen statuses.
