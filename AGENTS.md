@@ -19,20 +19,17 @@ Do **not** call an unimplemented published expression nonexistent; do not call
 a restricted formula complete general Zee physics. Citation-search indexing is
 not exhaustive; report limitations. Always preserve original frozen modules.
 
-## CURRENT TASK — decisive Candidate A tree-vacuum / charged-mixing investigation (7 Nov 2026)
+## CURRENT TASK — FINAL ONE-PIECE CANDIDATE A PHYSICS DECISION (8 Nov 2026)
 
-**This supersedes the completed flavor–charged-cascade novelty NO-GO and collider inventory tasks.** The user has authorized **one comprehensive, bounded scalar-theory study** with public-code reuse and a final GO/NO-GO paper decision, not a new unconstrained model scan or event simulation.
+**User instruction: one big Codex execution, continue through intermediate gates until a scientifically defensible outcome.**
 
-**READ FIRST AND EXECUTE IN FULL:** `research/full_constraints/CANDIDATE_A_GLOBAL_VACUUM_MIXING_DECISIVE_TASK.md`. Follow its 8 work packages, source/equation/code/literature gate, CPU/RAM budgets, explicit necessary-versus-sufficient proof standards, reproducibility deliverables, and decision criteria. Begin with frozen D10 exact potential and original 2005/2021 primary papers, including 2005 Eq. (23), not previously completed collider/LFV tasks. Use public SOS/homotopy/algebra tools if practicable, with actual installed versions and evidence.
+**READ FIRST AND EXECUTE THE WHOLE TASK:** `research/full_constraints/CANDIDATE_A_FINAL_END_TO_END_EXECUTION.md`. It supersedes the earlier `CANDIDATE_A_GLOBAL_VACUUM_MIXING_DECISIVE_TASK.md` (whose partial result was `INCONCLUSIVE_METHOD_BLOCKED`) and all prior flavor–cascade / collider pilot work. Do not re-run those completed pilots.
 
-**Precise user authorization override for this task only:** deterministic scalar-only 1D Mu4 continuation of existing D10 cards and trial-field search within the task's numerical point/resource limits is permitted to test vacuum/mixing bounds. This overrides the general ban on **new scalar-only diagnostic evaluation points only within this narrowly authorized study**; it does **not** permit a new broad scalar/neutrino/flavor scan, a full model acceptance campaign, changes to frozen modules, or Condor/MG5/Pythia/Delphes/collider simulations. The eventual one final full-constraint scan remains unauthorized.
+**Authorization override for this specific task:** controlled **scalar-only deterministic diagnostic points** (three 31-point fixed-potential Mu4 continuations, one optional 8×8 local scalar-only chart, overall cap 160 distinct new scalar-only points), independent exact certificate/witness checks, finite-start comparisons, and source-matched **tree charged-Higgs coupling/partial-width** calculation are approved. This does **not** authorize the frozen full 20k/225 model scan, refitting neutrino/LFV, MG5/Condor/Delphes/collider generation, new two-loop derivations, or source-model modification.
 
-- Source exact CP-conserving full-ten-real-field D10 potential (not the most general complex Zee theory); prove identities/gauge coverage/field-space inequalities.
-- Both rigorously sufficient global-vacuum certificates and rigorously necessary no-deeper-witness inequalities; test and potentially **refute** the previously estimated P2 Mu4 <=~1346.14 GeV bound.
-- Recalculate charged masses and signed mixing consistently on every cubic-coupling deformation; connect only to source-validated off-diagonal Z coupling and conditional tree partial width, no detector reach.
-- Cross-examine 2005 and 2021 published results, generic public algebra/vacuum codes and citing literature. GO only if an independently verified new reusable result with material scalar physics consequences is demonstrably distinct. Otherwise NO-GO or explicit INCONCLUSIVE.
-- All original modules/inputs/receipts remain read-only; write compact evidence and standalone adapters under `research/full_constraints/candidate_a/`, summarize in `research/full_constraints/CANDIDATE_A_DECISIVE_REPORT.md`. Commit and push to research branch only.
-- Keep `global_acceptance=null`; do not infer quantum/thermal vacuum stability, full B/LFV/Higgs allowedness, physical 95% exclusion or HL-LHC/FCC-hh sensitivity.
+**Hard outcome:** scientifically justified `GO_SCALAR_THEORY_PAPER_CANDIDATE`, `NO_GO_CURRENT_DIRECTION`, or narrowly documented `BLOCKED_EXTERNAL` after actually attempted fallbacks. **Checkpoint commits are not completion; do not stop after writing another INCONCLUSIVE progress report.** A negative scientifically defensible outcome fully solves the publication-decision question. Codex cannot bypass external runtime limits; leave resumable checkpoints and never invent performed work.
+
+Original SARAH/Module1–14/validation artifacts are immutable. New task-specific scientific files go only under `research/full_constraints/candidate_a/final_study/` and the new final decision report. Keep `global_acceptance=null` for incomplete flavor/B/Higgs gates. Commit and push real tracked results to `research/zee-full-constraints`, verify the remote SHA.
 
 ## Mandatory physics safeguards
 
@@ -67,4 +64,4 @@ not exhaustive; report limitations. Always preserve original frozen modules.
 
 ## Current deliverable
 
-Execute `research/full_constraints/CANDIDATE_A_GLOBAL_VACUUM_MIXING_DECISIVE_TASK.md` completely. Produce one decisive report, public-code/literature ledger, exact positive/negative certificate objects and source-bound mixing/partial-width results as supported. End in GO_SCALAR_THEORY_PAPER_CANDIDATE, NO_GO_CANDIDATE_A or INCONCLUSIVE_METHOD_BLOCKED. No follow-on scan authorization.
+Complete `research/full_constraints/CANDIDATE_A_FINAL_END_TO_END_EXECUTION.md`: independent proof and negative witnesses, actual 2005/2020/2021 comparison, predeclared scalar-only materiality test, physical tree-width impact, reproducible GO/NO-GO and commit/push. Do not finish after a partial method/software inventory.
