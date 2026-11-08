@@ -1,0 +1,218 @@
+{
+  "status": "SCOPED_NEUTRAL_TRANSFER_VALIDATED",
+  "source_sha256": "9b4af7aa4bf7bf533a7b82c8c2603d118346424e3b7b5f9f06ab8cb41bc4e193",
+  "archive_sha256": "f31ef3ccb64c3e4ff53131d35d52c21536b951a01e2c3924af766b7b2adf1cd8",
+  "baseline_sha256": "81d63c385c61018bb72d7be7a1532e54b8e38f3b803855acea37c4a9a746d88e",
+  "provenance_sha256": "eb787725a9636239aee61a4a6613698481afb4c733b465a166733ccc1ba44462",
+  "source_inputs": {
+    "alphaQED": 0.007751937984496124,
+    "sw2": 0.23129,
+    "MZ": 91.188,
+    "quark_running_masses_GeV": {
+      "top": 162.8173421484607,
+      "charm": 0.7392868765402552,
+      "bottom": 2.9541016808991745
+    }
+  },
+  "cards": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "source_comparison_relative_errors": [
+        4.3172420502882036e-15,
+        4.398650854796272e-15
+      ],
+      "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+      "yukawa_sha256": {
+        "D": "399854794d73c2c1b8eb92ef2f259b0acb8f3b8765003595266902ecf3070844",
+        "F": "cca43f73fe99cac2237847ee58317d2215efa9ecdfe0ba5456a1b99d12975e44",
+        "Ye": "b589de28e3a68adf02d9186286dcc613b65bb222a132dec359d85d2ebd756e25",
+        "Ye2": "36782190a7c411548223ab7bdbe1ab1ffb0fb3aba266de33898f5a612de54967"
+      },
+      "baseline_C_GeV_minus2": [
+        [
+          -4.736210878714106e-18,
+          -1.0002445700719419e-19
+        ],
+        [
+          -7.604190836413181e-16,
+          1.170038712381531e-15
+        ]
+      ],
+      "zgamma_C_GeV_minus2": [
+        [
+          -1.3050209755127992e-29,
+          -5.220084299718836e-29
+        ],
+        [
+          2.4297119976240766e-27,
+          2.4297119105199782e-27
+        ]
+      ],
+      "sum_C_GeV_minus2": [
+        [
+          -4.736210878727156e-18,
+          -1.0002445705939503e-19
+        ],
+        [
+          -7.604190836388885e-16,
+          1.1700387123839607e-15
+        ]
+      ],
+      "baseline_BR_partial": 1.5612657134644163e-19,
+      "scoped_BR": 1.5612657134660124e-19,
+      "relative_interference_shift": 1.0222873750867075e-12,
+      "zgamma_to_baseline_norm": 2.4627036221087776e-12,
+      "sufficient_missing_norm_budget_GeV_minus2": 1.3663903850086772e-12
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "source_comparison_relative_errors": [
+        4.481049333107479e-15,
+        4.312402836436986e-15
+      ],
+      "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+      "yukawa_sha256": {
+        "D": "d44a4307482efedcc35baab590d9d8dc56923aa6cf52d422a362522ecfcb0a46",
+        "F": "e331009b42e32bcf9ade00fc2187589b4c04aa596e87b88b800537cfd8cac0e2",
+        "Ye": "38d3064c21fb38744da9a2a573af957d923a8df4a79140e95a5c8855e7bb1d21",
+        "Ye2": "909e011cd8513f17a71466e97db3ae586ccaf3db09f19cd095b41f576c71dbc1"
+      },
+      "baseline_C_GeV_minus2": [
+        [
+          -3.234625961780553e-19,
+          -9.535341908472629e-18
+        ],
+        [
+          3.004415881089376e-15,
+          2.1247934990894255e-15
+        ]
+      ],
+      "zgamma_C_GeV_minus2": [
+        [
+          4.840441302050835e-28,
+          2.1722668899520028e-27
+        ],
+        [
+          1.8222839580398595e-27,
+          -3.8713956285486823e-35
+        ]
+      ],
+      "sum_C_GeV_minus2": [
+        [
+          -3.2346259569401117e-19,
+          -9.535341906300362e-18
+        ],
+        [
+          3.004415881091198e-15,
+          2.1247934990894255e-15
+        ]
+      ],
+      "baseline_BR_partial": 1.0857182280867012e-18,
+      "scoped_BR": 1.0857182280875757e-18,
+      "relative_interference_shift": 8.055367601369819e-13,
+      "zgamma_to_baseline_norm": 7.816646140984996e-13,
+      "sufficient_missing_norm_budget_GeV_minus2": 1.364105966311246e-12
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "source_comparison_relative_errors": [
+        5.26390158015352e-14,
+        5.23959777711908e-14
+      ],
+      "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+      "yukawa_sha256": {
+        "D": "eaa0e8dadaf35acfa9bc4381f229070217fdeee0a0f6ae4261a0d1813e93dd47",
+        "F": "1d9b8ff9a6896b0966689cb5542bc7d7c1cb3f0e27668a8dc9837e2122223dd4",
+        "Ye": "8db3a9f690ba80b6ecdb866bfdd1dd3e0a03ef9b4ea745576acfa9a507ce41ef",
+        "Ye2": "0679a131d7092a5090313ffec6d892430cf85df385509c9a12da77f0240f745d"
+      },
+      "baseline_C_GeV_minus2": [
+        [
+          1.997125056129804e-18,
+          2.700571599837409e-18
+        ],
+        [
+          4.1082242404682715e-16,
+          5.779320626860719e-16
+        ]
+      ],
+      "zgamma_C_GeV_minus2": [
+        [
+          6.345877468181451e-31,
+          2.245464440047685e-30
+        ],
+        [
+          1.1107997828335174e-29,
+          -1.1107998100602206e-29
+        ]
+      ],
+      "sum_C_GeV_minus2": [
+        [
+          1.9971250561304383e-18,
+          2.7005715998396546e-18
+        ],
+        [
+          4.1082242404683825e-16,
+          5.779320626860608e-16
+        ]
+      ],
+      "baseline_BR_partial": 4.0312827607113356e-20,
+      "scoped_BR": 4.031282760711306e-20,
+      "relative_interference_shift": -7.354623593823878e-15,
+      "zgamma_to_baseline_norm": 2.23973018989084e-14,
+      "sufficient_missing_norm_budget_GeV_minus2": 1.3670767459396636e-12
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "source_comparison_relative_errors": [
+        5.29131365543211e-14,
+        5.275364434725398e-14
+      ],
+      "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+      "yukawa_sha256": {
+        "D": "3974afffa5947bbbd65d7112b49d27c6640e70726398e56a0dd580316601cb6c",
+        "F": "470b61093a28d889c6847ae08d34f8f8f466909a5c5ea46d7e5acadb578c5bce",
+        "Ye": "e62fbcdbe3b006b2042df75c07685d276e4bc4aa3d3c41b128e369b1a48d18c1",
+        "Ye2": "00cb8bd41895618fe6505a0ab8f5d55f9568d04ee009df47ed87f894cb7f5365"
+      },
+      "baseline_C_GeV_minus2": [
+        [
+          2.6840813211095303e-18,
+          5.1035270291106635e-18
+        ],
+        [
+          6.191318152845369e-16,
+          1.133691410535939e-15
+        ]
+      ],
+      "zgamma_C_GeV_minus2": [
+        [
+          5.337046001620602e-30,
+          -6.920803347066104e-30
+        ],
+        [
+          3.3323994241717756e-29,
+          2.221599546197184e-29
+        ]
+      ],
+      "sum_C_GeV_minus2": [
+        [
+          2.6840813211148674e-18,
+          5.1035270291037425e-18
+        ],
+        [
+          6.191318152845703e-16,
+          1.1336914105359612e-15
+        ]
+      ],
+      "baseline_BR_partial": 1.3378605859646518e-19,
+      "scoped_BR": 1.3378605859647252e-19,
+      "relative_interference_shift": 5.4892314117105455e-14,
+      "zgamma_to_baseline_norm": 3.173445930973303e-14,
+      "sufficient_missing_norm_budget_GeV_minus2": 1.3664940757844846e-12
+    }
+  ],
+  "physical_lfv": "UNKNOWN",
+  "hZ": "NOT_EVALUATED",
+  "global_acceptance": null
+}

@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "tolerance_relative": 2e-07,
+  "two_complex_controls": [
+    {
+      "case": 1,
+      "independent_c": [
+        [
+          0.0017544763786428788,
+          0.0015324823988629918
+        ],
+        [
+          -0.0003079292929036423,
+          -0.0021841445755769336
+        ]
+      ],
+      "author_c": [
+        [
+          0.0017544763786429328,
+          0.0015324823988630363
+        ],
+        [
+          -0.00030792929290364895,
+          -0.002184144575577
+        ]
+      ],
+      "relative_errors": [
+        3.002228374892883e-14,
+        3.023349417158162e-14
+      ]
+    },
+    {
+      "case": 2,
+      "independent_c": [
+        [
+          0.005919831884516392,
+          0.0017006133492643693
+        ],
+        [
+          0.001713219697747084,
+          -0.005574666675270431
+        ]
+      ],
+      "author_c": [
+        [
+          0.0059198318845163815,
+          0.0017006133492643912
+        ],
+        [
+          0.0017132196977470593,
+          -0.005574666675270434
+        ]
+      ],
+      "relative_errors": [
+        3.936892112286746e-15,
+        4.26208074316852e-15
+      ]
+    }
+  ],
+  "one_sided_controls": "four passed, both chiralities in each case",
+  "prior_four_loop_pairs": "preserved in TEST_RESULTS.json; not rerun",
+  "photon_comparison": "reused module14/physics_adapters/lfv_reference_evidence.json"
+}

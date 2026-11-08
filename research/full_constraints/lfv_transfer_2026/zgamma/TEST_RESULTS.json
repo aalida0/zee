@@ -1,0 +1,83 @@
+{
+  "author_sha256": "9b4af7aa4bf7bf533a7b82c8c2603d118346424e3b7b5f9f06ab8cb41bc4e193",
+  "loop_controls": [
+    {
+      "x": 0.03,
+      "y": 0.4,
+      "quadrature": [
+        -12.76915888065804,
+        -9.763969400991193
+      ],
+      "author": [
+        -12.76915888065802,
+        -9.763969400991169
+      ],
+      "relative_errors": [
+        1.5302437236489139e-15,
+        2.5470169692542175e-15
+      ]
+    },
+    {
+      "x": 0.8,
+      "y": 3.7,
+      "quadrature": [
+        -2.2751705364931865,
+        -1.626524467576032
+      ],
+      "author": [
+        -2.2751705364931873,
+        -1.626524467576039
+      ],
+      "relative_errors": [
+        3.9037883334631725e-16,
+        4.368472469516557e-15
+      ]
+    },
+    {
+      "x": 0.006,
+      "y": 0.12,
+      "quadrature": [
+        -22.508537040671676,
+        -17.921326494410714
+      ],
+      "author": [
+        -22.508537040671875,
+        -17.9213264944109
+      ],
+      "relative_errors": [
+        8.83895588830723e-15,
+        1.0308450736347057e-14
+      ]
+    },
+    {
+      "x": 1.3,
+      "y": 0.19,
+      "quadrature": [
+        -0.771992107288106,
+        -0.5664585454988669
+      ],
+      "author": [
+        -0.7719921072881093,
+        -0.5664585454988671
+      ],
+      "relative_errors": [
+        4.314382287631933e-15,
+        3.9198738670184894e-16
+      ]
+    }
+  ],
+  "source_eq54_R_for_D_e_mu": "nonzero",
+  "module4_one_sided_D_e_mu": {
+    "C_L": [
+      2.9557097005730963e-07,
+      3.940946267430796e-07
+    ],
+    "C_R": [
+      0.0,
+      0.0
+    ]
+  },
+  "conjugate_transpose_falsifier": "PASS: nonzero moves from Module4 C_L to C_R with identical complex amplitude",
+  "checks_passed": 6,
+  "checks_note": "4 loop-pair comparisons and 2 one-sided routing assertions; no source full-amplitude or physical-card validation"
+}

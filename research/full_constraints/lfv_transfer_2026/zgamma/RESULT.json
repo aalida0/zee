@@ -1,0 +1,16 @@
+{
+  "status": "SOURCE_OR_CODE_DISCREPANCY",
+  "blocker": "Supplied source-to-Zee ordered Yukawa map assigns D[e,mu] to source c_R, while native declared neutral Lagrangian and Module4 photon ledger route that entry to C_L under the same incoming-muon projector labels; relative source-to-Module4 sign also not independently established.",
+  "author_source_sha256": "9b4af7aa4bf7bf533a7b82c8c2603d118346424e3b7b5f9f06ab8cb41bc4e193",
+  "card_archive_sha256": "f31ef3ccb64c3e4ff53131d35d52c21536b951a01e2c3924af766b7b2adf1cd8",
+  "baseline_replay": "Previously passed; not rerun in this execution",
+  "validated_new_groups": [],
+  "loop_pair_controls_passed": 4,
+  "chirality_routing_controls_passed": 2,
+  "complete_complex_source_controls": 0,
+  "four_card_zgamma_amplitudes": null,
+  "coherent_br_changes": null,
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null,
+  "final_artifacts_ready": false
+}
