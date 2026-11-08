@@ -66,18 +66,39 @@ PY
 }
 
 remote_verified() {
-    [[ -z "$(git status --porcelain)" ]] || return 1
+    # Do not let unrelated pre-existing UNTRACKED logs (e.g. work_sarah/)
+    # masquerade as unfinished science. Verify required *tracked* deliverables,
+    # the task's staged/unstaged changes, and the remote ref itself.
+    local dir="research/full_constraints/candidate_a/final_study"
+    local must
+    for must in "$VERDICT" "$REPORT" \
+        "$dir/TEST_RECEIPT.md" \
+        "$dir/SCALAR_ONLY_RESULT_TABLE.json" \
+        "$dir/SCALAR_ONLY_RESULT_TABLE.csv" \
+        "$dir/INDEPENDENT_PROOF.md" \
+        "$dir/SCALAR_OBSERVABLE_IMPACT.md"; do
+        git ls-files --error-unmatch "$must" >/dev/null 2>&1 || return 1
+    done
+    git diff --quiet HEAD -- "$REPORT" "$dir" || return 1
+    git diff --cached --quiet -- "$REPORT" "$dir" || return 1
     local sha remote
     sha="$(git rev-parse HEAD)"
     remote="$(git ls-remote origin refs/heads/research/zee-full-constraints | awk 'NR==1 {print $1}')" || return 1
     [[ -n "$remote" && "$sha" == "$remote" ]]
 }
 
-if already_done && remote_verified; then
-    echo "Already complete, remote verified:"
-    python3 -c 'import json; print(json.load(open("research/full_constraints/candidate_a/final_study/VERDICT.json"))["verdict"])'
-    git rev-parse HEAD
-    exit 0
+if already_done; then
+    if remote_verified; then
+        echo "ALREADY COMPLETE: final scientific verdict committed and remote verified."
+        python3 -c 'import json; print(json.load(open("research/full_constraints/candidate_a/final_study/VERDICT.json"))["verdict"])'
+        git rev-parse HEAD
+        exit 0
+    fi
+    echo "SCIENCE IS COMPLETE, DELIVERY CHECK NEEDS ATTENTION." >&2
+    echo "Do NOT spend further Codex rounds rerunning the physics." >&2
+    echo "Inspect: git status -sb; git diff --check; git ls-remote origin refs/heads/research/zee-full-constraints" >&2
+    echo "Check whether the required results are tracked and push any already-committed results." >&2
+    exit 5
 fi
 
 # Current Codex CLI: --full-auto is deprecated. Workspace-write is required
@@ -112,7 +133,10 @@ for ((i=1;i<=MAX_ROUNDS;i++)); do
             git rev-parse HEAD
             exit 0
         fi
-        echo "A final verdict exists but Git cleanliness/remote verification is unfinished; continuing."
+        echo "A final verdict exists, but remote verification/tracked delivery has not completed." >&2
+        echo "STOPPING: do not consume Codex rounds to solve a Git or network issue." >&2
+        echo "Check git status, tracked report files and git ls-remote; push manually if needed." >&2
+        exit 5
     fi
 done
 echo "STOP: $MAX_ROUNDS rounds completed without verified final verdict." >&2
