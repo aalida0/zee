@@ -16,6 +16,12 @@ if [[ ! -f "$TASK" ]]; then
     exit 2
 fi
 command -v codex >/dev/null || { echo "ERROR: Codex CLI missing" >&2; exit 2; }
+# Prefer current CLI automatic review of on-request permissions when present;
+# it retains the workspace-write sandbox and can authorize Git network access.
+EXEC_FLAGS=(--sandbox workspace-write)
+if codex exec --help 2>/dev/null | grep -q -- "--approve-for-me"; then
+    EXEC_FLAGS=(--approve-for-me)
+fi
 MAX_ROUNDS="${CODEX_MAX_ROUNDS:-12}"
 if ! [[ "$MAX_ROUNDS" =~ ^[1-9][0-9]*$ ]]; then
     echo "CODEX_MAX_ROUNDS must be a positive integer" >&2; exit 2
@@ -28,6 +34,20 @@ echo "Task: $TASK | max Codex turns: $MAX_ROUNDS"
 VERDICT="research/full_constraints/candidate_a/final_study/VERDICT.json"
 REPORT="research/full_constraints/CANDIDATE_A_FINAL_DECISION_2026-11-08.md"
 RESUME_PROMPT="Continue executing $TASK from final_study/WORK_CHECKPOINT.md. Do not stop after a partial or inconclusive summary. Finish independent exact proofs, source novelty check, predeclared scalar sample, method comparison and charged observable effects, then produce an honest GO or NO_GO. Execute tests, COMMIT and PUSH, and verify remote SHA. A checkpoint is not completion. Use Python/exact math fallbacks if specialist packages are absent."
+
+blocked_external() {
+    [[ -s "$VERDICT" ]] || return 1
+    python3 - "$VERDICT" <<'PY'
+import json,sys
+try:
+    x=json.load(open(sys.argv[1]))
+    if x.get("verdict") == "BLOCKED_EXTERNAL":
+        sys.exit(0)
+except Exception:
+    pass
+sys.exit(1)
+PY
+}
 
 already_done() {
     [[ -s "$VERDICT" && -s "$REPORT" ]] || return 1
@@ -67,7 +87,7 @@ for ((i=1;i<=MAX_ROUNDS;i++)); do
     logfile="$LOG_DIR/codex_round_${i}.log"
     set +e
     if (( i == 1 )); then
-        codex exec --sandbox workspace-write \
+        codex exec "${EXEC_FLAGS[@]}" \
             "Read AGENTS.md and $TASK. Execute the ENTIRE scientific task, not a plan. Continue all gates until reviewer-defensible GO or NO_GO. Commit/push real progress checkpoints and the final verified result; use math/software fallbacks if needed. If a runtime context limit forces a checkpoint, write WORK_CHECKPOINT.md so the same session can resume." \
             2>&1 | tee "$logfile"
         code="${PIPESTATUS[0]}"
@@ -79,6 +99,11 @@ for ((i=1;i<=MAX_ROUNDS;i++)); do
     if [[ "$code" -ne 0 ]]; then
         echo "ERROR: Codex exited $code; see $logfile. Not automatically retrying auth/quota/fatal failures." >&2
         exit "$code"
+    fi
+    if blocked_external; then
+        echo "HARD BLOCKER: Codex reported BLOCKED_EXTERNAL in $VERDICT" >&2
+        echo "Inspect the blocker and fix permissions/source availability; no blind retries." >&2
+        exit 4
     fi
     if already_done; then
         if remote_verified; then
