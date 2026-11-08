@@ -19,17 +19,15 @@ Do **not** call an unimplemented published expression nonexistent; do not call
 a restricted formula complete general Zee physics. Citation-search indexing is
 not exhaustive; report limitations. Always preserve original frozen modules.
 
-## CURRENT TASK — FINAL ONE-PIECE CANDIDATE A PHYSICS DECISION (8 Nov 2026)
+## CURRENT TASK — Practical physical-constraint closure on saved Zee cards (8 Nov 2026)
 
-**User instruction: one big Codex execution, continue through intermediate gates until a scientifically defensible outcome.**
+**Authorized science task:** `research/full_constraints/PHYSICAL_CONSTRAINT_CLOSURE_EXECUTION_TASK_2026-11-08.md`. Execute source-checked repairs and bounded independent validation of missing LFV amplitudes/materiality, B→Xsγ one-state control/theory uncertainty, applicable Higgs predictions and an integrated conservative benchmark-acceptance table. This supersedes the **completed** Candidate A vacuum task, which ended `NO_GO_CURRENT_DIRECTION`; retain the valid D10 exact sufficient tree certificates rather than rerunning the 93-point vacuum materiality exercise. The prior fixed-card flavor–cascade novelty pilot also returned NO-GO and must not be repeated.
 
-**READ FIRST AND EXECUTE THE WHOLE TASK:** `research/full_constraints/CANDIDATE_A_FINAL_END_TO_END_EXECUTION.md`. It supersedes the earlier `CANDIDATE_A_GLOBAL_VACUUM_MIXING_DECISIVE_TASK.md` (whose partial result was `INCONCLUSIVE_METHOD_BLOCKED`) and all prior flavor–cascade / collider pilot work. Do not re-run those completed pilots.
+**User authorization and permissions:** Codex may write **only** `research/full_constraints/physical_closure_2026/` and the new report `research/full_constraints/PHYSICAL_CONSTRAINT_CLOSURE_REPORT_2026-11-08.md`. It may run bounded Python/math code and download verified public papers, official public-code releases and datasets into ignored `work/physical_closure_2026/` using a workspace-write Codex sandbox and outbound **network allowlist**. It must NOT use full-access or `--yolo`, alter system packages, inspect secret credentials or write outside the repository, modify frozen SARAH or Modules 0–14, submit Condor/MG5 jobs, create a broad new scan or run detector simulation. **Do not ask for direct Git metadata write access**: a separate user-launched narrow Git wrapper commits/pushes only allowlisted research outputs.
 
-**Authorization override for this specific task:** controlled **scalar-only deterministic diagnostic points** (three 31-point fixed-potential Mu4 continuations, one optional 8×8 local scalar-only chart, overall cap 160 distinct new scalar-only points), independent exact certificate/witness checks, finite-start comparisons, and source-matched **tree charged-Higgs coupling/partial-width** calculation are approved. This does **not** authorize the frozen full 20k/225 model scan, refitting neutrino/LFV, MG5/Condor/Delphes/collider generation, new two-loop derivations, or source-model modification.
+**Status policy:** A partial but validated result is not a full physical exclusion. Missing LFV gauge/mixed-F, non-calibrated B NP theory uncertainty or incomplete Higgs signal tables stay `UNKNOWN`. A validated single hard failure can reject a point, but `GLOBAL_PASS` requires every applicable mandatory constraint independently covered. `global_acceptance=null` for any unresolved card. Never convert all unproven vacua into exclusions; saved D10 positive certificates apply to their exact pinned tree potentials.
 
-**Hard outcome:** scientifically justified `GO_SCALAR_THEORY_PAPER_CANDIDATE`, `NO_GO_CURRENT_DIRECTION`, or narrowly documented `BLOCKED_EXTERNAL` after actually attempted fallbacks. **Checkpoint commits are not completion; do not stop after writing another INCONCLUSIVE progress report.** A negative scientifically defensible outcome fully solves the publication-decision question. Codex cannot bypass external runtime limits; leave resumable checkpoints and never invent performed work.
-
-Original SARAH/Module1–14/validation artifacts are immutable. New task-specific scientific files go only under `research/full_constraints/candidate_a/final_study/` and the new final decision report. Keep `global_acceptance=null` for incomplete flavor/B/Higgs gates. Commit and push real tracked results to `research/zee-full-constraints`, verify the remote SHA.
+**Completion:** source-hashed fixed-card joined data, bounded real attempts to close the three blockers, independent controls, actual executable acceptance gate, tested results and report, with a truthful `GLOBAL_BENCHMARKS_VERIFIED` / `NO_VALIDATED_BENCHMARKS_YET` / `ALL_SAVED_CARDS_VALIDATED_FAIL` status. The safe launcher is `research/full_constraints/physical_closure_2026/run_codex_closure.sh`; it handles scoped Git commits/pushes and stops on failures, rather than consuming rounds for Git/network issues.
 
 ## Mandatory physics safeguards
 
@@ -64,4 +62,4 @@ Original SARAH/Module1–14/validation artifacts are immutable. New task-specifi
 
 ## Current deliverable
 
-Complete `research/full_constraints/CANDIDATE_A_FINAL_END_TO_END_EXECUTION.md`: independent proof and negative witnesses, actual 2005/2020/2021 comparison, predeclared scalar-only materiality test, physical tree-width impact, reproducible GO/NO-GO and commit/push. Do not finish after a partial method/software inventory.
+Execute the complete `PHYSICAL_CONSTRAINT_CLOSURE_EXECUTION_TASK_2026-11-08.md` on existing validated cards; record physical uncertainty and missing amplitudes honestly; deliver a tested joined-card gate and final scientific blocker report. Do not re-run past completed novelty or global vacuum investigations.
