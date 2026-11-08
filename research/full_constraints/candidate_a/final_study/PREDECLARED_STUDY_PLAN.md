@@ -1,0 +1,9 @@
+# Predeclared scalar-only diagnostic plan
+
+Declared before executing this study's continuation evaluations. Scope: the frozen restricted CP-conserving tree potential and all its complex field directions; not full-model acceptance. Parent HEAD `87ab81494555076de9c9cbed3b5cddd6965110f3`; model SHA-256 `78d6b48232f9a75a21b058301d9233dba3ed067e21f534d27c0d6f415484aa4d`; benchmark file SHA-256 `d354481895850cdaa6846a0728e1114a5ada6a7c1210260f350b79c1aba65015`.
+
+Three fixed-potential paths use P2, D7, and F13_heavy_0001330 and exactly 31 points each, Mu4 = parent Mu4 times k/20 for integer k=0,...,30. Hold every other reconstructed binary64 coefficient fixed; calculate at each point and preserve exact coefficient identity. This includes the saved parent and the P2 saved 0, 0.5, 1, 1.25, 1.5 controls. No adaptive substitutions. Optional 8x8 chart only if needed and specified before inspecting that chart; cap 160 distinct new diagnostic points.
+
+Compute local mass/Hessian, tree BFB and unitarity with scope and reuse documented. Classify independently: exact positive proof, exact deeper-field witness, or UNKNOWN. A failed sufficient certificate is UNKNOWN. Compare deterministic full-field search starts 32, 128, 512 with seeds 0 through 511, recording nested results, timing, verified witness depths and denominator. Classify scalar-only; global_acceptance remains null. Compute signed mixing, Z coupling and tree H2-to-H1 Z width with thresholds; no production transport or interpolated exclusion boundary.
+
+The reviewer screen requires a reproducible >=10% difference in an accessible meaningful observable region across at least two independent families, after local, BFB and unitarity gates, and a distinction beyond prior numerical methods; also report sensitivity to 5% and 20%. These are heuristic thresholds, not confidence levels. No failure of this heuristic implies a mathematical no-go theorem.
