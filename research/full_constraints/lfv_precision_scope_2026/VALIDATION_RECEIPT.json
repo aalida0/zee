@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "tests": "Independent 4-card arithmetic using original frozen complex F matrices and scalar masses, not only source-generated FdagF products; JS offline math inside GitHub-source tool.",
+  "source_D12_blob_sha1": "8fb68eda56dddb6a6226f570d6f3f1420267f1e4",
+  "source_D12_expected_sha256": "f31ef3ccb64c3e4ff53131d35d52c21536b951a01e2c3924af766b7b2adf1cd8",
+  "checked_cards": 4,
+  "passed": 4,
+  "rows": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "calculated_directly_from_frozen_complex_F": 2.792496298648899e-17,
+      "saved_value": 2.7924962986488985e-17,
+      "relative_error": 2.206977257237907e-16,
+      "pass": true
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "calculated_directly_from_frozen_complex_F": 4.8525382000978765e-17,
+      "saved_value": 4.8525382000978765e-17,
+      "relative_error": 0,
+      "pass": true
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "calculated_directly_from_frozen_complex_F": 6.980642426096766e-16,
+      "saved_value": 6.980642426096765e-16,
+      "relative_error": 1.4125865090007631e-16,
+      "pass": true
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "calculated_directly_from_frozen_complex_F": 1.2130305794943305e-15,
+      "saved_value": 1.2130305794943307e-15,
+      "relative_error": 1.6258058917811041e-16,
+      "pass": true
+    }
+  ],
+  "not_checked": "No independent physics diagram/gauge-invariant loop calculation, no physical LFV closure, no user-local execution of reproduce_scope.py."
+}
