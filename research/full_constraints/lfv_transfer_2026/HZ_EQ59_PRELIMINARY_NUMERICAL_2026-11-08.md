@@ -1,68 +1,56 @@
-# Preliminary numerical hZ neutral LFV check — source Eq. (59), 8 Nov 2026
+# CORRECTED preliminary neutral hZ Eq.(59) diagnostic — 8 November 2026
 
-**Status: SOURCE_EQUATION_EVALUATED / AUTHOR_CODE_NOT_INDEPENDENTLY_MATCHED / PHYSICAL_LFV_UNKNOWN.** This note is new preliminary physics evidence, not a replacement for the existing `RESULT.json=EXECUTION_BLOCKED` or an accepted full LFV amplitude. No Codex session or new scan was used for this calculation; independently written Python/mpmath was run interactively, with SciPy quadrature as an independent check of the loop integral.
+> **CHIRALITY CORRECTION**: The previous revision at commit cfb10fe assigned D[e,mu] to c_R and D[mu,e]* to c_L, contrary to the actual SARAH action. That reversed the native C_L/C_R coefficients and invalidated the reported coherent rate shifts. The source Eq.(59) loop-function integrals were not invalidated. This note supersedes the old complex coefficient and interference tables. No new author-code or two-loop amplitude validation is claimed.
 
-## Source, conventions and inputs
+**Evidence level:** Source equation evaluated using previously numerically integrated f7 loop functions; input Yukawa and baseline hashes unchanged; the corrected complex coefficients below are algebraic reorientation of the old provisional results. No independently evaluated author-code hZ group, no complete LFV, no physical exclusion. Physical LFV UNKNOWN.
 
-Primary source: Altmannshofer et al., *Electron EDM and Γ(μ→eγ) in the 2HDM*, JHEP06(2025)156, [arXiv:2410.17313v4](https://arxiv.org/html/2410.17313v4) **Eq. (59)** for `c_{R,L}^{hZ}`, **Eq. (35)** for `f_{7±}`, **Eq. (48)** for the effective dipole action. The published `hZ` is a standalone neutral gauge-invariant group in the 2HDM; this does not validate other `kin`/charged-Zee sectors. The documented 2026 erratum chiefly concerns Eqs. (54)-(55), not Eq. (59), but no independent author-code computation of `hZ` was obtained.
+## Source and fixed conventions
 
-Algebraic matching: `NEUTRAL_YUKAWA_ORDERED_MAPPING.md`. `rho^†=D/√2`; `rho_{l,21}^*=D_{eμ}/√2` enters `c_R`, `rho_{l,12}=D_{μe}^*/√2` enters `c_L`; native `C_{L,R}=-c_{L,R}/(8π²v²)`.
+Altmannshofer et al., arXiv:2410.17313v4 Eq. (59), Eq. (35), Eq. (48): the neutral hZ group is separately gauge invariant in the pure 2HDM. Published **c_R** contains `rho_l,21*` and published **c_L** contains `rho_l,12`. The source `rho_l` is the matrix in the *bar(e_R) ... e_L* interaction.
 
-For CP-conserving neutral mixing, `q_h1=cos(beta-alpha)`, `q_h2=-sin(beta-alpha)`, `q_H1=sin(beta-alpha)`, `q_H2=cos(beta-alpha)`, and `q_A1=0`. Therefore only the heavy CP-even state contributes to the Eq. (59) difference, proportional to `sin(beta-alpha)cos(beta-alpha)`.
+For native SARAH `Ye conj[H1].e.l`, RH rows and LH columns, the physical neutral matrix in `module3/core.py::vertices` is `D`. The **correct** paper/native coupling dictionary (see `NEUTRAL_YUKAWA_ORDERED_MAPPING.md`) is
 
-The source-hashed D7 and F13 scalar inputs were taken from original `research/full_constraints/higgs/h125_receipts/{D7,F13}_h125.in` as `tanbeta`, `alpha_SusHi`, `mh=125`, `mH=Block MASS 35`. The frozen F13 execution `higgs/neutral_receipts/F13_EXECUTION.json` directly verifies `alpha_physical=alpha_SusHi−π/2`. D7 and F13 values:
+    rho_l = D/sqrt(2)
+    c_L: rho_l,12       = D[e,mu]/sqrt(2)
+    c_R: (rho_l,21)*   = D[mu,e]*/sqrt(2)
+    C_L/R = -c_L/R/(8*pi^2*v^2), no L/R swap
 
-| Input | D7 | F13 |
-|---|---:|---:|
-| tanβ | 1.1157268700505090 | 5.3077513190433523 |
-| α_SusHi | 2.3627051010413220 | 2.9578268064201572 |
-| m_h (GeV) | 125 | 125 |
-| m_H (GeV) | 492.43078309962277 | 707.08193786447146 |
-| β−α_physical | 0.048133334 | −0.0024549704 |
+The previous revision instead applied the *conjugated rho mapping*. The signed native frozen baseline itself is not changed.
 
-**Electroweak numerical scheme for this diagnostic only**: `v=246.21965 GeV`, `M_Z=91.1876 GeV`, `m_mu=0.1056583745 GeV`, `alpha_EM=1/137.035999084`, `sin²theta_W=0.23122`. This is *not* claimed to reproduce every running-coupling or renormalization-scheme choice of the author `thdm.py`; no theoretical-uncertainty calibration performed.
+## Equation evaluated
 
-The **four** direct `D_{eμ}`, `D_{μe}` entries and signed baseline dipoles were taken **unchanged** from the hash-verified `CARD_PROVENANCE.json` and `BASELINE_REPLAY.json` saved in this same directory, **texture witnesses** (not historical `scale_0.001` cards).
+For CP-conserving scalar mixing, only H contributes to the subtracted heavy-neutral sum, `q_H1 q_H2=sin(beta-alpha)cos(beta-alpha)`. The common scalar factor is
 
-## Evaluated expression
+    K = -(e alphaEM)/(48*pi*sin(thetaW)*cos(thetaW)) *
+        (v^2/(mZ*m_mu))*sin(beta-alpha)*cos(beta-alpha) *
+        [(v_e^Z)^2 (f7plus(mZ^2/mH^2)-f7plus(mZ^2/mh^2))
+          + (a_e^Z)^2 (f7minus(mZ^2/mH^2)-f7minus(mZ^2/mh^2))].
+    c_L = K*D[e,mu]/sqrt(2)
+    c_R = K*conj(D[mu,e])/sqrt(2).
 
-Using the original source's \(v_e^Z=(-1/2+2s_W²)/(s_W c_W)\), \(a_e^Z=(+1/2)/(s_Wc_W)\), \(x_{Zs}=M_Z²/m_s²\):
+Eq. (35) f7 values were originally evaluated at 50-digit precision with both mpmath and independent SciPy one-dimensional quadratures. These check the loop integral but are NOT an independent author-code hZ amplitude check. Same preliminary electroweak inputs are retained: v=246.21965 GeV, mZ=91.1876 GeV, m_mu=0.1056583745 GeV, alphaEM=1/137.035999084, sin^2 thetaW=0.23122. Original source-hashed D7/F13 masses: tanbeta=(1.1157268700505090,5.3077513190433523), alpha_SusHi=(2.3627051010413220,2.9578268064201572), mh=125 GeV, mH=(492.43078309962277,707.08193786447146) GeV, alpha_physical=alpha_SusHi-pi/2.
 
-\[
-c_R^{hZ}=-\frac{e\alpha}{48\pi s_W c_W}\frac{v²}{M_Z m_\mu}\,
-\sin(\beta-\alpha)\cos(\beta-\alpha)\,\frac{D_{e\mu}}{\sqrt2}
-\left[(v_e^Z)^2\Delta f_{7+}+(a_e^Z)^2\Delta f_{7-}\right],
-\]
-\[
-c_L^{hZ}=\left(c_R^{hZ}\text{ with }D_{e\mu}\to D_{\mu e}^{*}\right),\quad
-\Delta f_{7\pm}=f_{7\pm}(M_Z²/m_H²)-f_{7\pm}(M_Z²/m_h²).
-\]
+D7 and F13 delta loop-function values (f7+,f7−) from the original preliminary source integration are respectively (-1.424737373,-0.8759489842) and (-1.722202669,-0.9674053207).
 
-Eq. (35) `f7` was evaluated with **50 decimal digits** and with a one-dimensional representation for the source \(\Phi(1/(4x))\):
-\[
-\Phi(1/(4x))=\int_0^1\mathrm dt\,
-\frac{\log[t(1-t)/x]}{t(1-t)-x},
-\]
-where the removable points at \(t(1-t)=x\) are evaluated by their limit \(1/x\). Cross-check: independent `scipy.integrate.quad` versus `mpmath.quad` integral values at \(x=0.01,\ M_Z²/m_H²\) for both D7/F13 and \(M_Z²/m_h²\); relative differences are \(3.0\times10^{-15}\), \(2.4\times10^{-16}\), \(2.0\times10^{-14}\), \(7.6\times10^{-16}\), respectively. These independently verify the integral evaluation, **not** the full author program or analytic two-loop diagram renormalization.
+## Four source-texture cards: corrected coefficient orientation
 
-Numerically, \((\Delta f_{7+},\Delta f_{7-})=(-1.424737373,-0.8759489842)\) for D7, \((-1.722202669,-0.9674053207)\) for F13.
+The correction swaps the two formerly printed *hZ-only* chirality components. The loop factors and Euclidean norm of the hZ subvector are unchanged. Complex numbers below are truncated to the previously printed precision.
 
-## Four-card numerical diagnostic (NOT complete physical LFV)
+| Texture card | Corrected hZ C_L (GeV^-2) | Corrected hZ C_R (GeV^-2) | Norm(hZ)/Norm(frozen retained) | Corrected relative shift of *partial* mu→eγ rate |
+|---|---|---|---:|---:|
+| D7 NO, texture_0.0001 | (-2.24823 - 8.99292 i)e-30 | (4.18580 + 4.18580 i)e-28 | 4.24263e-13 | +1.76115e-13 |
+| D7 IO, texture_0.0001 | (8.33889 + 37.4228 i)e-29 | 3.13935e-28 | 1.34662e-13 | +1.38774e-13 |
+| F13 NO, texture_0.001 | (-4.21946 - 14.9304 i)e-32 | (-7.38585 + 7.38585 i)e-31 | 1.48923e-15 | +4.89018e-16 |
+| F13 IO, texture_0.001 | (-3.54867 + 4.60173 i)e-31 | (-2.21576 - 1.47717 i)e-30 | 2.11007e-15 | -3.64986e-15 |
 
-| Card | ΔC_L^{hZ} (GeV⁻²) | ΔC_R^{hZ} (GeV⁻²) | norm ΔC | norm ΔC / retained norm |
-|---|---:|---:|---:|---:|
-| D7 NO | \((4.18580+4.18580i)\times10^{-28}\) | \((-2.24823-8.99292i)\times10^{-30}\) | \(5.92034\times10^{-28}\) | \(4.24263\times10^{-13}\) |
-| D7 IO | \(3.13935\times10^{-28}\) | \((8.33889+37.4228i)\times10^{-29}\) | \(4.95536\times10^{-28}\) | \(1.34662\times10^{-13}\) |
-| F13 NO | \((-7.38585+7.38585i)\times10^{-31}\) | \((-4.21946-14.9304i)\times10^{-32}\) | \(1.05598\times10^{-30}\) | \(1.48923\times10^{-15}\) |
-| F13 IO | \((-2.21576-1.47717i)\times10^{-30}\) | \((-3.54867+4.60173i)\times10^{-31}\) | \(2.72567\times10^{-30}\) | \(2.11007\times10^{-15}\) |
+The rate fractional shifts are computed from the unchanged `BASELINE_REPLAY.json` complex vectors by the exact coherent identity
 
-The **relative changes in the diagnostic partial dipole rate**, after coherent addition to the saved baseline, are: D7 NO \(-1.11304\times10^{-14}\), D7 IO \(+1.54429\times10^{-13}\), F13 NO \(-4.10120\times10^{-16}\), F13 IO \(+3.45795\times10^{-16}\) (high-precision evaluation, **not physical BR shifts**). No complete physical rate or exclusion has been produced.
+    deltaR/R_retained = [2*Re(conj(C_retained) dot deltaC_hZ) + |deltaC_hZ|^2] / |C_retained|^2.
 
-This shows that **within the stated Eq. (59) mapping, this neutral gauge-invariant contribution is far too small to matter on these texture inputs**, because the direct \(D_{e\mu},D_{\mu e}\) entries are extraordinarily small and the chosen scalar states are close to neutral alignment. This does **not** place a numerical bound on the charged/gauge singlet-\(F\) sector or establish that other missing 2HDM/Zee terms are small.
+The rounded, chirality-corrected numbers are not independently validated physical predictions. They show only that this **one** source-evaluated neutral hZ group is very small for these specific texture cards. They cannot be used to bound the not-yet-evaluated Zgamma/kinetic/HZ/HW/mixed F-gauge sectors or mark any card allowed.
 
-## Safeguards and next action
+## Relationship to Zgamma follow-up and archived numerical matching
 
-- Verify the numerical `c_{L,R}^{hZ}` against the **pinned, post-erratum author implementation** with two nonzero complex source controls before marking it validated. The paper expression alone and independent \(\Phi\) integration are not a full independent amplitude calculation.
-- Then evaluate the **neutral heavy-fermion \(Z\gamma\)** portion of corrected Eqs. (54)-(55) separately, retaining the appropriate Type-II-quark \(\rho_f\) and post-erratum signs/conjugations. The source says these Z pieces are generally suppressed by \(v_e^Z\), but this is not a per-card bound.
-- Prioritize the residual potentially material Zee \(F^\dagger F\), mixed \(F D\), charged-current and gauge contributions **after** the two neutral sectors are completed, without restarting the complete global constraints/vacuum studies.
-- Do **not** update `RESULT.json`, assign LFV PASS/FAIL, or authorize a parameter scan on the basis of this preliminary note.
+The existing `module14/physics_adapters/lfv_reference.py` passes `rho = D/sqrt(2)` to the pinned source and matches the complex **fermion–photon** terms to native Module4, with an archived maximum relative residual approximately 3.2e-13; this prior comparison should be reused as chirality evidence, not rerun.
+
+For **new neutral-fermion Zgamma**, independently check the actual f3/f4 exchange parts of corrected post-erratum arXiv v4 Eqs. (54)-(55) against the pinned author code for two nonzero complex test vectors, respecting cL/cR orientation above. Do not add the f1/f2 photon pieces again. If that check passes, apply the mapping to the same 4 texture cards. All original physical classification remains UNKNOWN.
