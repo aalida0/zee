@@ -1,0 +1,104 @@
+{
+  "title": "Four-card singlet F one-loop reference and necessary missing-amplitude scale",
+  "purpose": "Power counting and materiality screening ONLY. Not a bound or calculation of uncomputed two-loop diagrams.",
+  "date": "2026-11-08",
+  "model": "Zee Type-II; four exact D7/F13 low-texture cards",
+  "source": "research/full_constraints/lfv/TEXTURE_COUPLING_AUDIT.json; validation/module12/d12_benchmarks.json; module3/core.py::dipole_ledger",
+  "original_D12_sha256": "f31ef3ccb64c3e4ff53131d35d52c21536b951a01e2c3924af766b7b2adf1cd8",
+  "operator": "L_D=e*m_mu/2*bar(e)*sigma(C_L PL+C_R PR)mu F; coefficients GeV^-2",
+  "equation": "|C_R^(F,1loop)| = |(F†F)_{eμ}|/(192*pi^2) * [sin(gamma)^2/mH1^2 + cos(gamma)^2/mH2^2]; |C_L|=(m_e/m_mu)|C_R|",
+  "mu_e_gamma_norm_limit_90CL_GeV_minus2": 1.3677858240837514e-12,
+  "limit_from": "research/full_constraints/lfv/TEXTURE_MATERIALITY_REPRODUCED.json (experimental BR input 1.5e-13, NOT validated missing amplitude)",
+  "cards": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "yukawa_sha256": {
+        "D": "399854794d73c2c1b8eb92ef2f259b0acb8f3b8765003595266902ecf3070844",
+        "F": "cca43f73fe99cac2237847ee58317d2215efa9ecdfe0ba5456a1b99d12975e44",
+        "Ye": "b589de28e3a68adf02d9186286dcc613b65bb222a132dec359d85d2ebd756e25",
+        "Ye2": "36782190a7c411548223ab7bdbe1ab1ffb0fb3aba266de33898f5a612de54967"
+      },
+      "FdagF_e_mu_abs": 4.9363652280438176e-9,
+      "charged_masses_GeV": [
+        298.7266553444879,
+        532.9329127809378
+      ],
+      "gamma_rad": 1.3165278528084012,
+      "singlet_propagator_weight_GeV_minus2": 0.000010719790447632258,
+      "CR_F_only_abs_GeV_minus2": 2.7924962986488985e-17,
+      "critical_enhancement_factor_to_mu_gamma_limit_using_F_only": 48980.756921523265,
+      "F_only_abs_over_saved_retained_total_norm": 0.020011595977448067,
+      "saved_retained_total_norm_GeV_minus2": 1.3954390753220698e-15,
+      "physical_exclusion": null,
+      "status": "DIAGNOSTIC_NOT_A_BOUND"
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "yukawa_sha256": {
+        "D": "d44a4307482efedcc35baab590d9d8dc56923aa6cf52d422a362522ecfcb0a46",
+        "F": "e331009b42e32bcf9ade00fc2187589b4c04aa596e87b88b800537cfd8cac0e2",
+        "Ye": "38d3064c21fb38744da9a2a573af957d923a8df4a79140e95a5c8855e7bb1d21",
+        "Ye2": "909e011cd8513f17a71466e97db3ae586ccaf3db09f19cd095b41f576c71dbc1"
+      },
+      "FdagF_e_mu_abs": 8.577952583252187e-9,
+      "charged_masses_GeV": [
+        298.7266553444879,
+        532.9329127809378
+      ],
+      "gamma_rad": 1.3165278528084012,
+      "singlet_propagator_weight_GeV_minus2": 0.000010719790447632258,
+      "CR_F_only_abs_GeV_minus2": 4.8525382000978765e-17,
+      "critical_enhancement_factor_to_mu_gamma_limit_using_F_only": 28187.018168268372,
+      "F_only_abs_over_saved_retained_total_norm": 0.01318675476000265,
+      "saved_retained_total_norm_GeV_minus2": 3.679857772752651e-15,
+      "physical_exclusion": null,
+      "status": "DIAGNOSTIC_NOT_A_BOUND"
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "yukawa_sha256": {
+        "D": "eaa0e8dadaf35acfa9bc4381f229070217fdeee0a0f6ae4261a0d1813e93dd47",
+        "F": "1d9b8ff9a6896b0966689cb5542bc7d7c1cb3f0e27668a8dc9837e2122223dd4",
+        "Ye": "8db3a9f690ba80b6ecdb866bfdd1dd3e0a03ef9b4ea745576acfa9a507ce41ef",
+        "Ye2": "0679a131d7092a5090313ffec6d892430cf85df385509c9a12da77f0240f745d"
+      },
+      "FdagF_e_mu_abs": 4.936365228043817e-7,
+      "charged_masses_GeV": [
+        572.2316243593124,
+        873.2076828282773
+      ],
+      "gamma_rad": 1.0889500926314342,
+      "singlet_propagator_weight_GeV_minus2": 0.0000026797179295748496,
+      "CR_F_only_abs_GeV_minus2": 6.980642426096765e-16,
+      "critical_enhancement_factor_to_mu_gamma_limit_using_F_only": 1959.3982052000774,
+      "F_only_abs_over_saved_retained_total_norm": 0.9844672948745806,
+      "saved_retained_total_norm_GeV_minus2": 7.090781443365355e-16,
+      "physical_exclusion": null,
+      "status": "DIAGNOSTIC_NOT_A_BOUND"
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "yukawa_sha256": {
+        "D": "3974afffa5947bbbd65d7112b49d27c6640e70726398e56a0dd580316601cb6c",
+        "F": "470b61093a28d889c6847ae08d34f8f8f466909a5c5ea46d7e5acadb578c5bce",
+        "Ye": "e62fbcdbe3b006b2042df75c07685d276e4bc4aa3d3c41b128e369b1a48d18c1",
+        "Ye2": "00cb8bd41895618fe6505a0ab8f5d55f9568d04ee009df47ed87f894cb7f5365"
+      },
+      "FdagF_e_mu_abs": 8.577952583252187e-7,
+      "charged_masses_GeV": [
+        572.2316243593124,
+        873.2076828282773
+      ],
+      "gamma_rad": 1.0889500926314342,
+      "singlet_propagator_weight_GeV_minus2": 0.0000026797179295748496,
+      "CR_F_only_abs_GeV_minus2": 1.2130305794943307e-15,
+      "critical_enhancement_factor_to_mu_gamma_limit_using_F_only": 1127.5773646645682,
+      "F_only_abs_over_saved_retained_total_norm": 0.9390611003314752,
+      "saved_retained_total_norm_GeV_minus2": 1.291748299515493e-15,
+      "physical_exclusion": null,
+      "status": "DIAGNOSTIC_NOT_A_BOUND"
+    }
+  ],
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null
+}
