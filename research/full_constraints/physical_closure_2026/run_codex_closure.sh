@@ -37,7 +37,7 @@ mkdir -p "$LOGDIR"
 
 # Allowed download hosts only, confined to sandboxed spawned commands.
 # Official sources and package registries. No blanket * allow.
-PROXY_DOMAINS='{ "arxiv.org" = "allow", "*.arxiv.org" = "allow", "inspirehep.net" = "allow", "*.inspirehep.net" = "allow", "github.com" = "allow", "*.github.com" = "allow", "githubusercontent.com" = "allow", "*.githubusercontent.com" = "allow", "pypi.org" = "allow", "*.pypi.org" = "allow", "files.pythonhosted.org" = "allow", "doi.org" = "allow", "zenodo.org" = "allow", "*.zenodo.org" = "allow", "hepdata.net" = "allow", "*.hepdata.net" = "allow", "cds.cern.ch" = "allow", "indico.cern.ch" = "allow", "inspirehep.net" = "allow", "journals.aps.org" = "allow", "link.springer.com" = "allow", "*.springer.com" = "allow", "sciencedirect.com" = "allow", "*.sciencedirect.com" = "allow", "*.cern.ch" = "allow" }'
+PROXY_DOMAINS='{ "arxiv.org" = "allow", "*.arxiv.org" = "allow", "inspirehep.net" = "allow", "*.inspirehep.net" = "allow", "github.com" = "allow", "*.github.com" = "allow", "githubusercontent.com" = "allow", "*.githubusercontent.com" = "allow", "pypi.org" = "allow", "*.pypi.org" = "allow", "files.pythonhosted.org" = "allow", "doi.org" = "allow", "zenodo.org" = "allow", "*.zenodo.org" = "allow", "hepdata.net" = "allow", "*.hepdata.net" = "allow", "cds.cern.ch" = "allow", "indico.cern.ch" = "allow", "journals.aps.org" = "allow", "link.springer.com" = "allow", "*.springer.com" = "allow", "sciencedirect.com" = "allow", "*.sciencedirect.com" = "allow", "*.cern.ch" = "allow" }'
 
 # --ask-for-approval on-request: actions beyond sandbox still require a reviewer.
 # Network is enabled but proxied to allowlisted hosts. git/.git stays protected.
@@ -69,6 +69,10 @@ check_scope() {
   local changed
   while IFS= read -r changed; do
     [[ -z "$changed" ]] && continue
+    if [[ "$changed" == "$DIR/run_codex_closure.sh" ]]; then
+      echo "STOP: Codex attempted to change its trusted launcher. Preserve for user review." >&2
+      return 1
+    fi
     case "$changed" in
       "$DIR"/*|"$REPORT") ;;
       *) echo "STOP: out-of-scope tracked change: $changed" >&2; return 1 ;;
@@ -88,6 +92,9 @@ trusted_commit_push() {
   if [[ -n "$staged" ]]; then
     # Reject accidentally staged paths even if they predated the task.
     while IFS= read -r p; do
+      if [[ "$p" == "$DIR/run_codex_closure.sh" ]]; then
+        echo "STOP: never auto-stage modifications to trusted launcher" >&2; return 6
+      fi
       case "$p" in "$DIR"/*|"$REPORT") ;; *) echo "STOP: unsafe staged path $p" >&2; return 6;; esac
     done <<< "$staged"
     git diff --cached --stat
