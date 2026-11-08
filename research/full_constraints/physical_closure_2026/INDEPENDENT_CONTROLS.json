@@ -1,0 +1,123 @@
+{
+  "higgs": [
+    {
+      "case": "D7",
+      "propagator_maxima_GeV_minus2": {
+        "mH1": 1.3584628195223268e-05,
+        "mH2": 3.72588667353973e-06,
+        "ma": 4.3939996686568154e-06,
+        "mh2": 4.4079451667347625e-06
+      },
+      "conditional_B_target_GeV": 0.00013729134564788764,
+      "physical_B_bound": null,
+      "note": "kinematic propagator maximum and conditional budget only, not a 4f width bound"
+    },
+    {
+      "case": "F13",
+      "propagator_maxima_GeV_minus2": {
+        "mH1": 3.2069369184043698e-06,
+        "mH2": 1.338927089807056e-06,
+        "ma": 1.6338537700794186e-06,
+        "mh2": 2.0646658853318744e-06
+      },
+      "conditional_B_target_GeV": 0.00017399537682941127,
+      "physical_B_bound": null,
+      "note": "kinematic propagator maximum and conditional budget only, not a 4f width bound"
+    }
+  ],
+  "lfv": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "ordering": "NO",
+      "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+      "yukawa_sha256": {
+        "D": "399854794d73c2c1b8eb92ef2f259b0acb8f3b8765003595266902ecf3070844",
+        "F": "cca43f73fe99cac2237847ee58317d2215efa9ecdfe0ba5456a1b99d12975e44",
+        "Ye": "b589de28e3a68adf02d9186286dcc613b65bb222a132dec359d85d2ebd756e25",
+        "Ye2": "36782190a7c411548223ab7bdbe1ab1ffb0fb3aba266de33898f5a612de54967"
+      },
+      "retained_CL_abs": 4.73726697365152e-18,
+      "retained_CR_abs": 1.3954310342103379e-15,
+      "retained_norm": 1.3954390753220696e-15,
+      "FdagF_em_abs": 4.9363652280438176e-09,
+      "FdagF_cauchy_upper_bound": 5.823228059704213e-09,
+      "sufficient_missing_norm_budget": 1.3663903850084294e-12,
+      "missing_bound": null,
+      "status": "UNKNOWN",
+      "BR_retained": 1.5612657134644163e-19
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "ordering": "IO",
+      "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+      "yukawa_sha256": {
+        "D": "d44a4307482efedcc35baab590d9d8dc56923aa6cf52d422a362522ecfcb0a46",
+        "F": "e331009b42e32bcf9ade00fc2187589b4c04aa596e87b88b800537cfd8cac0e2",
+        "Ye": "38d3064c21fb38744da9a2a573af957d923a8df4a79140e95a5c8855e7bb1d21",
+        "Ye2": "909e011cd8513f17a71466e97db3ae586ccaf3db09f19cd095b41f576c71dbc1"
+      },
+      "retained_CL_abs": 9.540826660337179e-18,
+      "retained_CR_abs": 3.6798454044042034e-15,
+      "retained_norm": 3.679857772752651e-15,
+      "FdagF_em_abs": 8.577952583252187e-09,
+      "FdagF_cauchy_upper_bound": 9.310829051876142e-09,
+      "sufficient_missing_norm_budget": 1.3641059663109988e-12,
+      "missing_bound": null,
+      "status": "UNKNOWN",
+      "BR_retained": 1.0857182280867012e-18
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "ordering": "NO",
+      "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+      "yukawa_sha256": {
+        "D": "eaa0e8dadaf35acfa9bc4381f229070217fdeee0a0f6ae4261a0d1813e93dd47",
+        "F": "1d9b8ff9a6896b0966689cb5542bc7d7c1cb3f0e27668a8dc9837e2122223dd4",
+        "Ye": "8db3a9f690ba80b6ecdb866bfdd1dd3e0a03ef9b4ea745576acfa9a507ce41ef",
+        "Ye2": "0679a131d7092a5090313ffec6d892430cf85df385509c9a12da77f0240f745d"
+      },
+      "retained_CL_abs": 3.3588086363575186e-18,
+      "retained_CR_abs": 7.090701891775516e-16,
+      "retained_norm": 7.090781443365354e-16,
+      "FdagF_em_abs": 4.936365228043817e-07,
+      "FdagF_cauchy_upper_bound": 5.823228059704213e-07,
+      "sufficient_missing_norm_budget": 1.3670767459394148e-12,
+      "missing_bound": null,
+      "status": "UNKNOWN",
+      "BR_retained": 4.0312827607113356e-20
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "ordering": "IO",
+      "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+      "yukawa_sha256": {
+        "D": "3974afffa5947bbbd65d7112b49d27c6640e70726398e56a0dd580316601cb6c",
+        "F": "470b61093a28d889c6847ae08d34f8f8f466909a5c5ea46d7e5acadb578c5bce",
+        "Ye": "e62fbcdbe3b006b2042df75c07685d276e4bc4aa3d3c41b128e369b1a48d18c1",
+        "Ye2": "00cb8bd41895618fe6505a0ab8f5d55f9568d04ee009df47ed87f894cb7f5365"
+      },
+      "retained_CL_abs": 5.766305634909773e-18,
+      "retained_CR_abs": 1.2917354291883816e-15,
+      "retained_norm": 1.291748299515493e-15,
+      "FdagF_em_abs": 8.577952583252187e-07,
+      "FdagF_cauchy_upper_bound": 9.310829051876143e-07,
+      "sufficient_missing_norm_budget": 1.366494075784236e-12,
+      "missing_bound": null,
+      "status": "UNKNOWN",
+      "BR_retained": 1.3378605859646518e-19
+    }
+  ],
+  "b_control": {
+    "table_sha256": "4ab62f2e4ab2897232e284060aa14349f54a47b9e47f70c883a8b11e4749a6f8",
+    "cut_GeV": 1.6,
+    "tanbeta": 100,
+    "theory_fraction_illustrative": 0.07,
+    "observed": 0.000343,
+    "experimental_sigma": 2.2135943621178656e-05,
+    "interpolated_root_GeV": 473.1082454034481,
+    "published_rounded_GeV": 480,
+    "BR_at_480": 0.0004006662484397775,
+    "physical_zee_theory_sigma": null,
+    "physical_95_exclusion": null
+  }
+}

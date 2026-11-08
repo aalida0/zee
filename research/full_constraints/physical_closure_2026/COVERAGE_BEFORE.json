@@ -1,0 +1,81 @@
+{
+  "status": "REPLAY_OF_FROZEN_COVERAGE",
+  "note": "Historical sector outputs; not a new physics likelihood",
+  "higgs_summary": {
+    "D14_11016": {
+      "MISSING_PREDICTION": 148,
+      "NOT_APPLICABLE": 162
+    },
+    "D14_13345": {
+      "MISSING_PREDICTION": 176,
+      "NOT_APPLICABLE": 134
+    },
+    "D14_14074": {
+      "MISSING_PREDICTION": 149,
+      "NOT_APPLICABLE": 161
+    },
+    "D14_14187": {
+      "MISSING_PREDICTION": 158,
+      "NOT_APPLICABLE": 152
+    },
+    "D14_14555": {
+      "MISSING_PREDICTION": 170,
+      "NOT_APPLICABLE": 140
+    },
+    "D14_14984": {
+      "MISSING_PREDICTION": 156,
+      "NOT_APPLICABLE": 154
+    },
+    "D14_15591": {
+      "MISSING_PREDICTION": 172,
+      "NOT_APPLICABLE": 138
+    },
+    "D14_15673": {
+      "MISSING_PREDICTION": 153,
+      "NOT_APPLICABLE": 157
+    },
+    "D14_16385": {
+      "MISSING_PREDICTION": 175,
+      "NOT_APPLICABLE": 135
+    },
+    "D14_2264": {
+      "MISSING_PREDICTION": 175,
+      "NOT_APPLICABLE": 135
+    },
+    "D14_2616": {
+      "MISSING_PREDICTION": 152,
+      "NOT_APPLICABLE": 158
+    },
+    "D14_3693": {
+      "MISSING_PREDICTION": 175,
+      "NOT_APPLICABLE": 135
+    },
+    "D14_4611": {
+      "MISSING_PREDICTION": 177,
+      "NOT_APPLICABLE": 133
+    },
+    "D14_8294": {
+      "MISSING_PREDICTION": 157,
+      "NOT_APPLICABLE": 153
+    },
+    "D14_8850": {
+      "MISSING_PREDICTION": 179,
+      "NOT_APPLICABLE": 131
+    },
+    "D14_9454": {
+      "MISSING_PREDICTION": 175,
+      "NOT_APPLICABLE": 135
+    },
+    "D7": {
+      "MISSING_PREDICTION": 173,
+      "NOT_APPLICABLE": 137
+    },
+    "F13": {
+      "MISSING_PREDICTION": 179,
+      "NOT_APPLICABLE": 131
+    }
+  },
+  "LFV": "incomplete radiative/three-body/conversion",
+  "B": "NLO coherent central exists for D7/F13; full theory sigma unknown",
+  "vacuum": "D10 positive sufficient certificates apply only to their exact tree potentials"
+}

@@ -1,0 +1,19 @@
+test_fail (__main__.Gate) ... ok
+test_hash (__main__.Gate) ... ok
+test_join_missing (__main__.Gate) ... ok
+test_misjoined_scalar (__main__.Gate) ... ok
+test_misjoined_yukawa (__main__.Gate) ... ok
+test_missing_H2_width (__main__.Gate) ... ok
+test_missing_b_sigma (__main__.Gate) ... ok
+test_missing_field (__main__.Gate) ... ok
+test_missing_operator (__main__.Gate) ... ok
+test_missing_width (__main__.Gate) ... ok
+test_order (__main__.Gate) ... ok
+test_pass (__main__.Gate) ... ok
+test_phase (__main__.Gate) ... ok
+test_unknown (__main__.Gate) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.005s
+
+OK

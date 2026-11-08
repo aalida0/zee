@@ -4,10 +4,13 @@
     "/home/amine/zee/research/full_constraints/higgs/COVERAGE.json": "0a8aead96843aae22ac3a5038ba8b3888892695253ccea13803bb7e0055d027b",
     "/tmp/zee-d14c-dataset.json": "2d97c2a58cb65f5ec7244282a04c5e19a0cae0897b8a0581b76503180acd4be9",
     "/home/amine/zee/module14/conditional_scan/production_map_13_14.json": "95510ec92f95d4598d85e64a1163da949dc0ce529b63ef5e536f0a6a4f2f7aab",
-    "/home/amine/zee/validation/module12/d12_benchmarks.json": "f31ef3ccb64c3e4ff53131d35d52c21536b951a01e2c3924af766b7b2adf1cd8"
+    "/home/amine/zee/validation/module12/d12_benchmarks.json": "f31ef3ccb64c3e4ff53131d35d52c21536b951a01e2c3924af766b7b2adf1cd8",
+    "/home/amine/zee/module1/d10_benchmarks.json": "d354481895850cdaa6846a0728e1114a5ada6a7c1210260f350b79c1aba65015",
+    "/home/amine/zee/validation/module13/higgstools_production_inputs.json": "514215b7a67195c963afb73912202265bd930941cd1c41e5486157df7a1981ca"
   },
-  "candidate_count": 66,
-  "fully_verified_join_count": 0,
+  "candidate_count": 68,
+  "documentary_join_count": 66,
+  "raw_production_receipts_verified": 0,
   "rows": [
     {
       "case": "D7",
@@ -36,8 +39,9 @@
         "v": 246.21965
       },
       "source": "D12",
-      "join_evidence": "witness and four Yukawa hashes matched; scalar and production receipt binding pending",
-      "complete_join_verified": false,
+      "join_evidence": "D10 scalar, D12 Yukawas and D13 production manifest matched; raw receipt qualification pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -68,8 +72,9 @@
         "v": 246.21965
       },
       "source": "D12",
-      "join_evidence": "witness and four Yukawa hashes matched; scalar and production receipt binding pending",
-      "complete_join_verified": false,
+      "join_evidence": "D10 scalar, D12 Yukawas and D13 production manifest matched; raw receipt qualification pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -100,8 +105,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -132,8 +138,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -164,8 +171,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -196,8 +204,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -228,8 +237,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -260,8 +270,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -292,8 +303,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -324,8 +336,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -356,8 +369,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -388,8 +402,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -420,8 +435,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -452,8 +468,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -484,8 +501,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -516,8 +534,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -548,8 +567,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -580,8 +600,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -612,8 +633,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -644,8 +666,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -676,8 +699,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -708,8 +732,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -740,8 +765,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -772,8 +798,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -804,8 +831,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -836,8 +864,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -868,8 +897,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -900,8 +930,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -932,8 +963,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -964,8 +996,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -996,8 +1029,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1028,8 +1062,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1060,8 +1095,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1092,8 +1128,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1124,8 +1161,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1156,8 +1194,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1188,8 +1227,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1220,8 +1260,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1252,8 +1293,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1284,8 +1326,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1316,8 +1359,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1348,8 +1392,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1380,8 +1425,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1412,8 +1458,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1444,8 +1491,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1476,8 +1524,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1508,8 +1557,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1540,8 +1590,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1572,8 +1623,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1604,8 +1656,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1636,8 +1689,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1668,8 +1722,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1700,8 +1755,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1732,8 +1788,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1764,8 +1821,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1796,8 +1854,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1828,8 +1887,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1860,8 +1920,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1892,8 +1953,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1924,8 +1986,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1956,8 +2019,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -1988,8 +2052,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -2020,8 +2085,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -2052,8 +2118,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -2084,8 +2151,9 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
-      "complete_join_verified": false,
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"
     },
@@ -2116,7 +2184,72 @@
         "v": 246.21965
       },
       "source": "D14 dataset",
-      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw receipt and independently recomputed Yukawa hashes pending",
+      "join_evidence": "scalar/order/family/module2/Yukawa digests and production manifest matched; raw production receipt pending",
+      "complete_join_verified": true,
+      "receipt_content_verified": false,
+      "global_acceptance": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "case": "D7",
+      "witness": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+      "yukawa_sha256": {
+        "D": "d44a4307482efedcc35baab590d9d8dc56923aa6cf52d422a362522ecfcb0a46",
+        "F": "e331009b42e32bcf9ade00fc2187589b4c04aa596e87b88b800537cfd8cac0e2",
+        "Ye": "38d3064c21fb38744da9a2a573af957d923a8df4a79140e95a5c8855e7bb1d21",
+        "Ye2": "909e011cd8513f17a71466e97db3ae586ccaf3db09f19cd095b41f576c71dbc1"
+      },
+      "physical": {
+        "mh1": 125.0,
+        "mh2": 492.4307830996228,
+        "ma": 493.16131740168134,
+        "mH1": 298.7266553444879,
+        "mH2": 532.9329127809378,
+        "alpha": 0.7919087742464253,
+        "beta": 0.840042107971211,
+        "gamma": 1.3165278528084012,
+        "m12sq": 37805.29796645005,
+        "lc": 4.473,
+        "k1": 1.082,
+        "k2": 0.00398,
+        "k12": -0.001266,
+        "v": 246.21965
+      },
+      "source": "D12",
+      "join_evidence": "D10 scalar and D12 IO Yukawa digests matched; production manifest binds NO witness, IO production association unverified",
+      "complete_join_verified": false,
+      "global_acceptance": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "case": "F13",
+      "witness": "F13_heavy_0001330/IO/texture_0.001",
+      "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+      "yukawa_sha256": {
+        "D": "3974afffa5947bbbd65d7112b49d27c6640e70726398e56a0dd580316601cb6c",
+        "F": "470b61093a28d889c6847ae08d34f8f8f466909a5c5ea46d7e5acadb578c5bce",
+        "Ye": "e62fbcdbe3b006b2042df75c07685d276e4bc4aa3d3c41b128e369b1a48d18c1",
+        "Ye2": "00cb8bd41895618fe6505a0ab8f5d55f9568d04ee009df47ed87f894cb7f5365"
+      },
+      "physical": {
+        "mh1": 125.0,
+        "mh2": 707.0819378644715,
+        "ma": 792.2593499631515,
+        "mH1": 572.2316243593124,
+        "mH2": 873.2076828282773,
+        "alpha": 1.3870304796252606,
+        "beta": 1.3845755092663614,
+        "gamma": 1.0889500926314342,
+        "m12sq": 88336.32560991515,
+        "lc": 1.1465628128505794,
+        "k1": 0.36294235759470134,
+        "k2": 0.5346711278360509,
+        "k12": -0.01744840047090771,
+        "v": 246.21965
+      },
+      "source": "D12",
+      "join_evidence": "D10 scalar and D12 IO Yukawa digests matched; production manifest binds NO witness, IO production association unverified",
       "complete_join_verified": false,
       "global_acceptance": null,
       "status": "UNKNOWN"

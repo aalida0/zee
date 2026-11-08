@@ -1,0 +1,134 @@
+{
+  "status": "NO_VALIDATED_BENCHMARKS_YET",
+  "status_scope": "66 selected documentary-joined cards; two additional IO candidates unjoined and unknown; no statement about all model parameter space",
+  "join_count": 66,
+  "unjoined_candidate_count": 2,
+  "pass_count": 0,
+  "fail_count": 0,
+  "unknown_count": 66,
+  "raw_production_receipts_verified": 0,
+  "global_acceptance": null,
+  "sector_gates": {
+    "LFV": "UNKNOWN",
+    "B_to_Xs_gamma": "UNKNOWN; THEORY_SIGMA_UNKNOWN; no physical 95% exclusion",
+    "HIGGS": "UNKNOWN; incomplete widths and applicable signals",
+    "vacuum": "positive sufficient tree certificates for exact saved potentials only",
+    "neutrinos": "partial target closure; modern global likelihood not established",
+    "charged_collider": "UNKNOWN"
+  },
+  "source_hashes": {
+    "/home/amine/zee/research/full_constraints/higgs/COVERAGE.json": "0a8aead96843aae22ac3a5038ba8b3888892695253ccea13803bb7e0055d027b",
+    "/tmp/zee-d14c-dataset.json": "2d97c2a58cb65f5ec7244282a04c5e19a0cae0897b8a0581b76503180acd4be9",
+    "/home/amine/zee/module14/conditional_scan/production_map_13_14.json": "95510ec92f95d4598d85e64a1163da949dc0ce529b63ef5e536f0a6a4f2f7aab",
+    "/home/amine/zee/validation/module12/d12_benchmarks.json": "f31ef3ccb64c3e4ff53131d35d52c21536b951a01e2c3924af766b7b2adf1cd8",
+    "/home/amine/zee/module1/d10_benchmarks.json": "d354481895850cdaa6846a0728e1114a5ada6a7c1210260f350b79c1aba65015",
+    "/home/amine/zee/validation/module13/higgstools_production_inputs.json": "514215b7a67195c963afb73912202265bd930941cd1c41e5486157df7a1981ca"
+  },
+  "tests": {
+    "focused_passed": 57,
+    "focused_failed": 0,
+    "commands": [
+      {
+        "command": [
+          "/usr/bin/python3",
+          "/home/amine/zee/research/full_constraints/physical_closure_2026/test_gate.py",
+          "-v"
+        ],
+        "passed": 14,
+        "expected": 14,
+        "returncode": 0
+      },
+      {
+        "command": [
+          "/usr/bin/python3",
+          "/home/amine/zee/research/full_constraints/physical_closure_2026/test_source_guard.py",
+          "-v"
+        ],
+        "passed": 1,
+        "expected": 1,
+        "returncode": 0
+      },
+      {
+        "command": [
+          "/usr/bin/python3",
+          "-m",
+          "unittest",
+          "research.full_constraints.lfv.test_source_to_code",
+          "-v"
+        ],
+        "passed": 4,
+        "expected": 4,
+        "returncode": 0
+      },
+      {
+        "command": [
+          "/usr/bin/python3",
+          "-m",
+          "unittest",
+          "research.full_constraints.bsgamma_hepfit.test_uncertainty",
+          "-v"
+        ],
+        "passed": 5,
+        "expected": 5,
+        "returncode": 0
+      },
+      {
+        "command": [
+          "/usr/bin/python3",
+          "-m",
+          "unittest",
+          "research.full_constraints.higgs.test_zgamma",
+          "research.full_constraints.higgs.test_zgamma_source_audit",
+          "-v"
+        ],
+        "passed": 20,
+        "expected": 20,
+        "returncode": 0
+      },
+      {
+        "command": [
+          "/usr/bin/python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_module1_d10_global.py",
+          "-v"
+        ],
+        "passed": 9,
+        "expected": 9,
+        "returncode": 0
+      },
+      {
+        "command": [
+          "/usr/bin/python3",
+          "/home/amine/zee/research/full_constraints/physical_closure_2026/test_outputs.py",
+          "-v"
+        ],
+        "passed": 4,
+        "expected": 4,
+        "returncode": 0
+      }
+    ],
+    "log": "FINAL_TEST_LOG.txt",
+    "historical_full_suite": {
+      "total": 474,
+      "failures": 3,
+      "errors": 16,
+      "skips": 20,
+      "new_run": false
+    }
+  },
+  "remaining_blockers": [
+    "complete gauge-invariant mixed-F and charged-current LFV amplitudes or justified bounds and complete mu3e/conversion operators",
+    "Wilson-dependent B theory and experimental covariance, omitted-operator materiality and one-state confidence calibration",
+    "complete Higgs widths, production, applicable search inputs and uncertainty/acceptance qualification",
+    "source qualification of raw production receipts and two IO production associations",
+    "full neutrino, electroweak, collider, cosmology and other applicable constraints"
+  ],
+  "final_artifacts_ready": true,
+  "final_physics_complete": false,
+  "notes": "Final report and conservative gate are ready; physical constraints remain incomplete. No commit or push."
+}

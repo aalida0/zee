@@ -1,0 +1,105 @@
+$ /usr/bin/python3 /home/amine/zee/research/full_constraints/physical_closure_2026/test_gate.py -v
+test_fail (__main__.Gate) ... ok
+test_hash (__main__.Gate) ... ok
+test_join_missing (__main__.Gate) ... ok
+test_misjoined_scalar (__main__.Gate) ... ok
+test_misjoined_yukawa (__main__.Gate) ... ok
+test_missing_H2_width (__main__.Gate) ... ok
+test_missing_b_sigma (__main__.Gate) ... ok
+test_missing_field (__main__.Gate) ... ok
+test_missing_operator (__main__.Gate) ... ok
+test_missing_width (__main__.Gate) ... ok
+test_order (__main__.Gate) ... ok
+test_pass (__main__.Gate) ... ok
+test_phase (__main__.Gate) ... ok
+test_unknown (__main__.Gate) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.006s
+
+OK
+
+$ /usr/bin/python3 /home/amine/zee/research/full_constraints/physical_closure_2026/test_source_guard.py -v
+test_actual_source_mismatch_rejected_before_output (__main__.SourceGuard) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+OK
+
+$ /usr/bin/python3 -m unittest research.full_constraints.lfv.test_source_to_code -v
+test_complex_box_and_published_real_Z (research.full_constraints.lfv.test_source_to_code.PublishedSourceControls) ... ok
+test_missing_operators_cannot_be_physical_prediction (research.full_constraints.lfv.test_source_to_code.PublishedSourceControls) ... ok
+test_modified_source_lock_rejected (research.full_constraints.lfv.test_source_to_code.PublishedSourceControls) ... ok
+test_scalar_vector_interference_falsifies_source_sign (research.full_constraints.lfv.test_source_to_code.PublishedSourceControls) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.140s
+
+OK
+
+$ /usr/bin/python3 -m unittest research.full_constraints.bsgamma_hepfit.test_uncertainty -v
+test_correlated_covariance (research.full_constraints.bsgamma_hepfit.test_uncertainty.UncertaintyEvidence) ... ok
+test_no_promotion (research.full_constraints.bsgamma_hepfit.test_uncertainty.UncertaintyEvidence) ... ok
+test_receipts (research.full_constraints.bsgamma_hepfit.test_uncertainty.UncertaintyEvidence) ... ok
+test_subtraction_and_preserved_central (research.full_constraints.bsgamma_hepfit.test_uncertainty.UncertaintyEvidence) ... ok
+test_table_confidence_mismatch_retained (research.full_constraints.bsgamma_hepfit.test_uncertainty.UncertaintyEvidence) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.059s
+
+OK
+
+$ /usr/bin/python3 -m unittest research.full_constraints.higgs.test_zgamma research.full_constraints.higgs.test_zgamma_source_audit -v
+test_chiral_vector_sum_and_native_yukawa_conjugation (research.full_constraints.higgs.test_zgamma.ZgammaTests) ... ok
+test_independently_executed_SM_and_one_scalar_interference (research.full_constraints.higgs.test_zgamma.ZgammaTests) ... ok
+test_native_absorptive_fermion_and_CP_tensors (research.full_constraints.higgs.test_zgamma.ZgammaTests) ... ok
+test_scalar_routing_and_quadrature_preserved (research.full_constraints.higgs.test_zgamma.ZgammaTests) ... ok
+test_signed_interference_is_material (research.full_constraints.higgs.test_zgamma.ZgammaTests) ... ok
+test_sources_and_fixed_cards (research.full_constraints.higgs.test_zgamma.ZgammaTests) ... ok
+test_strict_domains_and_no_global_release (research.full_constraints.higgs.test_zgamma.ZgammaTests) ... ok
+test_unpolarized_CP_noninterference_and_width_prefactor (research.full_constraints.higgs.test_zgamma.ZgammaTests) ... ok
+test_UV_and_scale_cancellation (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_Ward_including_seagull_distinguishes_routings (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_degenerate_mass_basis_trace_and_mixing_endpoints (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_independent_adaptive_integral_and_equal_mass_I1 (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_literal_mixed_mismatch_survives_quadrature_refinement (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_native_library_matches_parameter_integrals (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_nonidentical_two_body_width_normalization (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_original_signed_couplings_and_native_library_pins (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_pinned_sources_and_original_cards (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_retained_materiality_replay_is_not_a_physical_BR (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_species_order_rephasing_and_nonzero_mixed_terms (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+test_threshold_and_missing_prediction_fail_closed (research.full_constraints.higgs.test_zgamma_source_audit.SourceAuditTests) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.360s
+
+OK
+
+$ /usr/bin/python3 -m unittest discover -s tests -p test_module1_d10_global.py -v
+unittest.case.FunctionTestCase (test_analytic_deeper_singlet_and_80digit_validation) ... ok
+unittest.case.FunctionTestCase (test_cubic_deformation_is_deeper_with_locally_positive_EW) ... ok
+unittest.case.FunctionTestCase (test_exact_interval_and_ldl_negative_controls) ... ok
+unittest.case.FunctionTestCase (test_exact_rational_certificate_and_root_enclosure) ... ok
+unittest.case.FunctionTestCase (test_gauge_invariance_and_goldstone_nulls) ... ok
+unittest.case.FunctionTestCase (test_independent_complete_complex_polynomial) ... ok
+unittest.case.FunctionTestCase (test_orbit_phase_minimization_including_singular_strata) ... ok
+unittest.case.FunctionTestCase (test_source_bound_results_do_not_promote_numerical_absence) ... ok
+unittest.case.FunctionTestCase (test_symbolic_full_cubic_square_completion_identity) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 1.482s
+
+OK
+
+$ /usr/bin/python3 /home/amine/zee/research/full_constraints/physical_closure_2026/test_outputs.py -v
+test_all_mandatory_and_no_promotion (__main__.OutputValidation) ... ok
+test_independent_card_decision_replay (__main__.OutputValidation) ... ok
+test_sector_coverage (__main__.OutputValidation) ... ok
+test_unique_documentary_joins (__main__.OutputValidation) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.124s
+
+OK

@@ -1,0 +1,640 @@
+{
+  "cut_GeV": 1.6,
+  "perturbative_scope": "coherent top-only two-state NLO charged-scalar matching and NLO rate; not NP NNLO",
+  "source": "research/full_constraints/bsgamma_hepfit/HEPFIT_RATE_REPORT.md",
+  "source_version": "HEPfit 322bd73a2dadd94ce94a6d71cb79d616e569120a",
+  "one_state_control": {
+    "table_sha256": "4ab62f2e4ab2897232e284060aa14349f54a47b9e47f70c883a8b11e4749a6f8",
+    "cut_GeV": 1.6,
+    "tanbeta": 100,
+    "theory_fraction_illustrative": 0.07,
+    "observed": 0.000343,
+    "experimental_sigma": 2.2135943621178656e-05,
+    "interpolated_root_GeV": 473.1082454034481,
+    "published_rounded_GeV": 480,
+    "BR_at_480": 0.0004006662484397775,
+    "physical_zee_theory_sigma": null,
+    "physical_95_exclusion": null
+  },
+  "uncertainty": "THEORY_SIGMA_UNKNOWN",
+  "missing": [
+    "Wilson-dependent resolved-photon covariance",
+    "calibrated perturbative remainder",
+    "u/c, down Yukawa, finite ms and primed terms",
+    "NP electroweak and higher-order materiality"
+  ],
+  "rows": [
+    {
+      "case": "D7",
+      "witness": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+      "nlo_HEPfit_BR": 0.000417955384241,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "F13",
+      "witness": "F13_heavy_0001330/NO/texture_0.001",
+      "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+      "nlo_HEPfit_BR": 0.000383711422745,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_2264",
+      "witness": "NO_0",
+      "scalar_sha256": "49d468ccfd1262ea2900ac41479071e821475f854c3b13441130c6a289417c8e",
+      "diagnostic_BR_linear": 0.00039206032710332724,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_2264",
+      "witness": "NO_1",
+      "scalar_sha256": "49d468ccfd1262ea2900ac41479071e821475f854c3b13441130c6a289417c8e",
+      "diagnostic_BR_linear": 0.00039206032710332724,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_2264",
+      "witness": "IO_0",
+      "scalar_sha256": "49d468ccfd1262ea2900ac41479071e821475f854c3b13441130c6a289417c8e",
+      "diagnostic_BR_linear": 0.00039206032710332724,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_2264",
+      "witness": "IO_1",
+      "scalar_sha256": "49d468ccfd1262ea2900ac41479071e821475f854c3b13441130c6a289417c8e",
+      "diagnostic_BR_linear": 0.00039206032710332724,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_2616",
+      "witness": "NO_0",
+      "scalar_sha256": "e7715382d81767cc7b0592473b21153cd9a830193f3d73f4cf48b66612060c01",
+      "diagnostic_BR_linear": 0.00038169261721055853,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_2616",
+      "witness": "NO_1",
+      "scalar_sha256": "e7715382d81767cc7b0592473b21153cd9a830193f3d73f4cf48b66612060c01",
+      "diagnostic_BR_linear": 0.00038169261721055853,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_2616",
+      "witness": "IO_0",
+      "scalar_sha256": "e7715382d81767cc7b0592473b21153cd9a830193f3d73f4cf48b66612060c01",
+      "diagnostic_BR_linear": 0.00038169261721055853,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_2616",
+      "witness": "IO_1",
+      "scalar_sha256": "e7715382d81767cc7b0592473b21153cd9a830193f3d73f4cf48b66612060c01",
+      "diagnostic_BR_linear": 0.00038169261721055853,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_3693",
+      "witness": "NO_0",
+      "scalar_sha256": "9f7484984f15eab8d0e561d9a148e1cd3065d79d8731715c301de1999474e3a2",
+      "diagnostic_BR_linear": 0.0003886865138239371,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_3693",
+      "witness": "NO_1",
+      "scalar_sha256": "9f7484984f15eab8d0e561d9a148e1cd3065d79d8731715c301de1999474e3a2",
+      "diagnostic_BR_linear": 0.0003886865138239371,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_3693",
+      "witness": "IO_0",
+      "scalar_sha256": "9f7484984f15eab8d0e561d9a148e1cd3065d79d8731715c301de1999474e3a2",
+      "diagnostic_BR_linear": 0.0003886865138239371,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_3693",
+      "witness": "IO_1",
+      "scalar_sha256": "9f7484984f15eab8d0e561d9a148e1cd3065d79d8731715c301de1999474e3a2",
+      "diagnostic_BR_linear": 0.0003886865138239371,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_4611",
+      "witness": "NO_0",
+      "scalar_sha256": "7dd280c858c7cecfdcec04962cb34764ebfb583239afd7ef2f8423a1425313c7",
+      "diagnostic_BR_linear": 0.00038414449016249734,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_4611",
+      "witness": "NO_1",
+      "scalar_sha256": "7dd280c858c7cecfdcec04962cb34764ebfb583239afd7ef2f8423a1425313c7",
+      "diagnostic_BR_linear": 0.00038414449016249734,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_4611",
+      "witness": "IO_0",
+      "scalar_sha256": "7dd280c858c7cecfdcec04962cb34764ebfb583239afd7ef2f8423a1425313c7",
+      "diagnostic_BR_linear": 0.00038414449016249734,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_4611",
+      "witness": "IO_1",
+      "scalar_sha256": "7dd280c858c7cecfdcec04962cb34764ebfb583239afd7ef2f8423a1425313c7",
+      "diagnostic_BR_linear": 0.00038414449016249734,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_8294",
+      "witness": "NO_0",
+      "scalar_sha256": "4c86e656e3e8685707a0d484af9a328cdff92fb84cb833b09f8fd7dafa66eacc",
+      "diagnostic_BR_linear": 0.0003857240281001316,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_8294",
+      "witness": "NO_1",
+      "scalar_sha256": "4c86e656e3e8685707a0d484af9a328cdff92fb84cb833b09f8fd7dafa66eacc",
+      "diagnostic_BR_linear": 0.0003857240281001316,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_8294",
+      "witness": "IO_0",
+      "scalar_sha256": "4c86e656e3e8685707a0d484af9a328cdff92fb84cb833b09f8fd7dafa66eacc",
+      "diagnostic_BR_linear": 0.0003857240281001316,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_8294",
+      "witness": "IO_1",
+      "scalar_sha256": "4c86e656e3e8685707a0d484af9a328cdff92fb84cb833b09f8fd7dafa66eacc",
+      "diagnostic_BR_linear": 0.0003857240281001316,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_8850",
+      "witness": "NO_0",
+      "scalar_sha256": "b72c9e33585920efddad37434852a777cb416eb34ccbd40cbf6fa42136c47c99",
+      "diagnostic_BR_linear": 0.0003871762421935454,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_8850",
+      "witness": "NO_1",
+      "scalar_sha256": "b72c9e33585920efddad37434852a777cb416eb34ccbd40cbf6fa42136c47c99",
+      "diagnostic_BR_linear": 0.0003871762421935454,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_8850",
+      "witness": "IO_0",
+      "scalar_sha256": "b72c9e33585920efddad37434852a777cb416eb34ccbd40cbf6fa42136c47c99",
+      "diagnostic_BR_linear": 0.0003871762421935454,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_8850",
+      "witness": "IO_1",
+      "scalar_sha256": "b72c9e33585920efddad37434852a777cb416eb34ccbd40cbf6fa42136c47c99",
+      "diagnostic_BR_linear": 0.0003871762421935454,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_9454",
+      "witness": "NO_0",
+      "scalar_sha256": "69be4512bf1a1dbbddfa17379ba1f6c4a22c0653f27221025debcb6f7ba14118",
+      "diagnostic_BR_linear": 0.0003917701019384925,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_9454",
+      "witness": "NO_1",
+      "scalar_sha256": "69be4512bf1a1dbbddfa17379ba1f6c4a22c0653f27221025debcb6f7ba14118",
+      "diagnostic_BR_linear": 0.0003917701019384925,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_9454",
+      "witness": "IO_0",
+      "scalar_sha256": "69be4512bf1a1dbbddfa17379ba1f6c4a22c0653f27221025debcb6f7ba14118",
+      "diagnostic_BR_linear": 0.0003917701019384925,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_9454",
+      "witness": "IO_1",
+      "scalar_sha256": "69be4512bf1a1dbbddfa17379ba1f6c4a22c0653f27221025debcb6f7ba14118",
+      "diagnostic_BR_linear": 0.0003917701019384925,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_11016",
+      "witness": "NO_0",
+      "scalar_sha256": "1061b4b46e36edc1c4e775b14cd6c27e226360eb4b5079fd0837fef924e21477",
+      "diagnostic_BR_linear": 0.0003750459683927315,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_11016",
+      "witness": "NO_1",
+      "scalar_sha256": "1061b4b46e36edc1c4e775b14cd6c27e226360eb4b5079fd0837fef924e21477",
+      "diagnostic_BR_linear": 0.0003750459683927315,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_11016",
+      "witness": "IO_0",
+      "scalar_sha256": "1061b4b46e36edc1c4e775b14cd6c27e226360eb4b5079fd0837fef924e21477",
+      "diagnostic_BR_linear": 0.0003750459683927315,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_11016",
+      "witness": "IO_1",
+      "scalar_sha256": "1061b4b46e36edc1c4e775b14cd6c27e226360eb4b5079fd0837fef924e21477",
+      "diagnostic_BR_linear": 0.0003750459683927315,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_13345",
+      "witness": "NO_0",
+      "scalar_sha256": "4eebe4a9ed14953357b2e412a506c1337e76d4e0ea27ec90b24e88a2d27055ba",
+      "diagnostic_BR_linear": 0.0003882882334566212,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_13345",
+      "witness": "NO_1",
+      "scalar_sha256": "4eebe4a9ed14953357b2e412a506c1337e76d4e0ea27ec90b24e88a2d27055ba",
+      "diagnostic_BR_linear": 0.0003882882334566212,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_13345",
+      "witness": "IO_0",
+      "scalar_sha256": "4eebe4a9ed14953357b2e412a506c1337e76d4e0ea27ec90b24e88a2d27055ba",
+      "diagnostic_BR_linear": 0.0003882882334566212,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_13345",
+      "witness": "IO_1",
+      "scalar_sha256": "4eebe4a9ed14953357b2e412a506c1337e76d4e0ea27ec90b24e88a2d27055ba",
+      "diagnostic_BR_linear": 0.0003882882334566212,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_14074",
+      "witness": "NO_0",
+      "scalar_sha256": "f47e298e7ad28828686ae49bede6cb672db93d0609025500aa4716ec42678d86",
+      "diagnostic_BR_linear": 0.00037387521581275305,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_14074",
+      "witness": "NO_1",
+      "scalar_sha256": "f47e298e7ad28828686ae49bede6cb672db93d0609025500aa4716ec42678d86",
+      "diagnostic_BR_linear": 0.00037387521581275305,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_14074",
+      "witness": "IO_0",
+      "scalar_sha256": "f47e298e7ad28828686ae49bede6cb672db93d0609025500aa4716ec42678d86",
+      "diagnostic_BR_linear": 0.00037387521581275305,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_14074",
+      "witness": "IO_1",
+      "scalar_sha256": "f47e298e7ad28828686ae49bede6cb672db93d0609025500aa4716ec42678d86",
+      "diagnostic_BR_linear": 0.00037387521581275305,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_14187",
+      "witness": "NO_0",
+      "scalar_sha256": "d4f14203efc525f45ee2629db2cd1acbf205170c50d50867c251c93e183913f0",
+      "diagnostic_BR_linear": 0.00038494424951952046,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_14187",
+      "witness": "NO_1",
+      "scalar_sha256": "d4f14203efc525f45ee2629db2cd1acbf205170c50d50867c251c93e183913f0",
+      "diagnostic_BR_linear": 0.00038494424951952046,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_14187",
+      "witness": "IO_0",
+      "scalar_sha256": "d4f14203efc525f45ee2629db2cd1acbf205170c50d50867c251c93e183913f0",
+      "diagnostic_BR_linear": 0.00038494424951952046,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_14187",
+      "witness": "IO_1",
+      "scalar_sha256": "d4f14203efc525f45ee2629db2cd1acbf205170c50d50867c251c93e183913f0",
+      "diagnostic_BR_linear": 0.00038494424951952046,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_14555",
+      "witness": "NO_0",
+      "scalar_sha256": "5775698598d81418eb46632f057739755f0ad86e8c6f9f077f2af16d5c59ff2f",
+      "diagnostic_BR_linear": 0.0003887816516113987,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_14555",
+      "witness": "NO_1",
+      "scalar_sha256": "5775698598d81418eb46632f057739755f0ad86e8c6f9f077f2af16d5c59ff2f",
+      "diagnostic_BR_linear": 0.0003887816516113987,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_14555",
+      "witness": "IO_0",
+      "scalar_sha256": "5775698598d81418eb46632f057739755f0ad86e8c6f9f077f2af16d5c59ff2f",
+      "diagnostic_BR_linear": 0.0003887816516113987,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_14555",
+      "witness": "IO_1",
+      "scalar_sha256": "5775698598d81418eb46632f057739755f0ad86e8c6f9f077f2af16d5c59ff2f",
+      "diagnostic_BR_linear": 0.0003887816516113987,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_14984",
+      "witness": "NO_0",
+      "scalar_sha256": "50bd66d607118717084c33976cdabb9e79b3cda7adec95f381909cc461ffb29c",
+      "diagnostic_BR_linear": 0.00038302185302808013,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_14984",
+      "witness": "NO_1",
+      "scalar_sha256": "50bd66d607118717084c33976cdabb9e79b3cda7adec95f381909cc461ffb29c",
+      "diagnostic_BR_linear": 0.00038302185302808013,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_14984",
+      "witness": "IO_0",
+      "scalar_sha256": "50bd66d607118717084c33976cdabb9e79b3cda7adec95f381909cc461ffb29c",
+      "diagnostic_BR_linear": 0.00038302185302808013,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_14984",
+      "witness": "IO_1",
+      "scalar_sha256": "50bd66d607118717084c33976cdabb9e79b3cda7adec95f381909cc461ffb29c",
+      "diagnostic_BR_linear": 0.00038302185302808013,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_15591",
+      "witness": "NO_0",
+      "scalar_sha256": "fb64b52a1f172bbf558fa97dcb3a0eb90c05eb8c73e3bb3f0269e23da31d7f3f",
+      "diagnostic_BR_linear": 0.00038826711666410034,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_15591",
+      "witness": "NO_1",
+      "scalar_sha256": "fb64b52a1f172bbf558fa97dcb3a0eb90c05eb8c73e3bb3f0269e23da31d7f3f",
+      "diagnostic_BR_linear": 0.00038826711666410034,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_15591",
+      "witness": "IO_0",
+      "scalar_sha256": "fb64b52a1f172bbf558fa97dcb3a0eb90c05eb8c73e3bb3f0269e23da31d7f3f",
+      "diagnostic_BR_linear": 0.00038826711666410034,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_15591",
+      "witness": "IO_1",
+      "scalar_sha256": "fb64b52a1f172bbf558fa97dcb3a0eb90c05eb8c73e3bb3f0269e23da31d7f3f",
+      "diagnostic_BR_linear": 0.00038826711666410034,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_15673",
+      "witness": "NO_0",
+      "scalar_sha256": "db829787904c929dbde3b9dda8bdb8a0fd460bb9924573bc774dc8742dfadbc5",
+      "diagnostic_BR_linear": 0.0003785803580134487,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_15673",
+      "witness": "NO_1",
+      "scalar_sha256": "db829787904c929dbde3b9dda8bdb8a0fd460bb9924573bc774dc8742dfadbc5",
+      "diagnostic_BR_linear": 0.0003785803580134487,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_15673",
+      "witness": "IO_0",
+      "scalar_sha256": "db829787904c929dbde3b9dda8bdb8a0fd460bb9924573bc774dc8742dfadbc5",
+      "diagnostic_BR_linear": 0.0003785803580134487,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_15673",
+      "witness": "IO_1",
+      "scalar_sha256": "db829787904c929dbde3b9dda8bdb8a0fd460bb9924573bc774dc8742dfadbc5",
+      "diagnostic_BR_linear": 0.0003785803580134487,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_16385",
+      "witness": "NO_0",
+      "scalar_sha256": "1dcbb95da913a6b0fa906a053441ed5a2e31b285899d95accf64f4980f868004",
+      "diagnostic_BR_linear": 0.0003848643104918212,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_16385",
+      "witness": "NO_1",
+      "scalar_sha256": "1dcbb95da913a6b0fa906a053441ed5a2e31b285899d95accf64f4980f868004",
+      "diagnostic_BR_linear": 0.0003848643104918212,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_16385",
+      "witness": "IO_0",
+      "scalar_sha256": "1dcbb95da913a6b0fa906a053441ed5a2e31b285899d95accf64f4980f868004",
+      "diagnostic_BR_linear": 0.0003848643104918212,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D14_16385",
+      "witness": "IO_1",
+      "scalar_sha256": "1dcbb95da913a6b0fa906a053441ed5a2e31b285899d95accf64f4980f868004",
+      "diagnostic_BR_linear": 0.0003848643104918212,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "D7",
+      "witness": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+      "nlo_HEPfit_BR": 0.000417955384241,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    },
+    {
+      "case": "F13",
+      "witness": "F13_heavy_0001330/IO/texture_0.001",
+      "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+      "nlo_HEPfit_BR": 0.000383711422745,
+      "theory_sigma": null,
+      "exclusion": null,
+      "physical_status": "UNKNOWN"
+    }
+  ]
+}
