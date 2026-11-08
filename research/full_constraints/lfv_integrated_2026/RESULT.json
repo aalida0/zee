@@ -1,0 +1,72 @@
+{
+  "status": "LFV_LEADING_SCOPE_INCOMPLETE",
+  "model_scope": "four frozen D7/F13 low-texture NO/IO Zee Type II witnesses only",
+  "accuracy_scope": "validated neutral hZ and pre-existing neutral Zgamma with frozen baseline; mixed input schemes, no full theory uncertainty",
+  "four_cards": [
+    "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+    "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+    "F13_heavy_0001330/NO/texture_0.001",
+    "F13_heavy_0001330/IO/texture_0.001"
+  ],
+  "new_validated_groups": [],
+  "unvalidated_groups": [
+    "charged-current",
+    "kin",
+    "mixed charged scalar HZ",
+    "HW",
+    "F gauge",
+    "full mu3e operator vector",
+    "semileptonic conversion vector"
+  ],
+  "observable_coverage": {
+    "mu3e": {
+      "status": "UNKNOWN",
+      "coefficient": null,
+      "reason": "full signed off-shell penguin and mixed box vector not validated"
+    },
+    "muAl_conversion": {
+      "status": "UNKNOWN",
+      "coefficient": null,
+      "reason": "UV semileptonic vector, running and nuclear interference not validated"
+    },
+    "tau_e_gamma": {
+      "status": "UNKNOWN",
+      "coefficient": null,
+      "reason": "full leading operator groups not validated"
+    },
+    "tau_mu_gamma": {
+      "status": "UNKNOWN",
+      "coefficient": null,
+      "reason": "full leading operator groups not validated"
+    },
+    "universality": {
+      "status": "UNKNOWN",
+      "coefficient": null,
+      "reason": "not assessed in this execution"
+    },
+    "h_mu_e": {
+      "status": "UNKNOWN",
+      "coefficient": null,
+      "reason": "not assessed in this execution"
+    },
+    "tau_three_body": {
+      "status": "UNKNOWN",
+      "coefficient": null,
+      "reason": "full signed operator vector not validated"
+    }
+  },
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null,
+  "source_hashes": {
+    "author": "9b4af7aa4bf7bf533a7b82c8c2603d118346424e3b7b5f9f06ab8cb41bc4e193",
+    "archive": "f31ef3ccb64c3e4ff53131d35d52c21536b951a01e2c3924af766b7b2adf1cd8"
+  },
+  "tests_passed": [
+    "two scalar spectra complex both-chirality hZ source controls",
+    "frozen hash checks"
+  ],
+  "calculations_executed": [
+    "hZ complex four-card coefficients and coherent partial rates",
+    "coupling invariant and conditional sensitivity ledger"
+  ]
+}

@@ -1,0 +1,10 @@
+# Triage
+
+1. **High impact, substantial work:** obtain a source-verified finite gauge-complete F†F and mixed charged-current contribution or a defensible bound relative to the conditional per-card norms. Potential new flavor invariants and phases, cancellations and tanβ/top or tau mass enhancement make loop-factor counting insufficient. Gauge-dressed F†F can be a correction to an existing one-loop tensor, but this has not been proved for every relevant operator.
+2. **High impact, substantial work:** source-match signed low-q² monopole, Z/scalar penguin and mixed D/F box operators for μ→3e and semileptonic conversion. Include Type-II quark couplings, QCD/heavy quark matching and nuclear interference. No complete leading operator vector exists in this execution.
+3. **Doublet two-loop groups:** tHp/cHp/tauHp require the full charged-current flavor and mixed-state map; kin requires the full W/Goldstone/ghost aggregate and charged-mass terms; mixed HZ requires diagonal and off-diagonal charged scalar Z vertices and unequal-mass triangles; HW requires isolation of the documented pure-2HDM source normalization discrepancy. None has been transferred or bounded. One-state substitutions do not prove Zee gauge completion.
+4. **Low numerical size in tested subset:** finish hZ with same-input independent quadrature, one-sided chirality, alignment and phase tests. The tiny preliminary result does not bound any other sector.
+
+Specialist question: For the frozen Zee Type-II conventions, can the renormalized gauge-invariant low-momentum F†F and mixed F–D charged-current contributions to μ→eγ, μ→3e and μ→e conversion be supplied with the necessary W/Goldstone, wavefunction and scalar-mixing counterterm partners, or can their combined complex norm be rigorously bounded on these cards?
+
+A conditional subset can be disclosed, with explicit missing amplitudes and no full LFV acceptance claim. Strict all-two-loop completeness is not itself requested; the problem is that materiality at the intended leading accuracy is not yet established.

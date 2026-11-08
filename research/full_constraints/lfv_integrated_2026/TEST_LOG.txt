@@ -1,0 +1,8 @@
+test_card_ledger_and_complex_interference (__main__.Ledger) ... ok
+test_control_and_missing (__main__.Ledger) ... ok
+test_phase_invariance (__main__.Ledger) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.002s
+
+OK

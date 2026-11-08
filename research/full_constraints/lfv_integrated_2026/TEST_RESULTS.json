@@ -1,0 +1,23 @@
+{
+  "executed": {
+    "hZ_two_spectra_both_complex_chiralities": "PASS with 1e-4 tolerance; maximum residual 3.37e-6",
+    "ledger_complex_interference": "PASS",
+    "common_phase_norm": "PASS",
+    "no_photon_double_count": "PASS ledger construction",
+    "input_hashes": "PASS"
+  },
+  "not_tested": [
+    "field-level independent rephasings",
+    "F=0",
+    "gamma=0",
+    "singlet decoupling",
+    "charged-state swap",
+    "one-sided D",
+    "h-H alignment",
+    "complete gauge group",
+    "mixed operators",
+    "conversion proton neutron interference"
+  ],
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35"
+}

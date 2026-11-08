@@ -1,0 +1,48 @@
+{
+  "mu_to_e_gamma": {
+    "status": "VALIDATED_SUBSET",
+    "coefficients": "DIPOLE_TERMS.json",
+    "omitted": [
+      "charged-current two-loop",
+      "kin",
+      "mixed charged scalar HZ",
+      "HW",
+      "F gauge"
+    ]
+  },
+  "mu3e": {
+    "status": "UNKNOWN",
+    "coefficient": null,
+    "reason": "full signed off-shell penguin and mixed box vector not validated"
+  },
+  "muAl_conversion": {
+    "status": "UNKNOWN",
+    "coefficient": null,
+    "reason": "UV semileptonic vector, running and nuclear interference not validated"
+  },
+  "tau_e_gamma": {
+    "status": "UNKNOWN",
+    "coefficient": null,
+    "reason": "full leading operator groups not validated"
+  },
+  "tau_mu_gamma": {
+    "status": "UNKNOWN",
+    "coefficient": null,
+    "reason": "full leading operator groups not validated"
+  },
+  "universality": {
+    "status": "UNKNOWN",
+    "coefficient": null,
+    "reason": "not assessed in this execution"
+  },
+  "h_mu_e": {
+    "status": "UNKNOWN",
+    "coefficient": null,
+    "reason": "not assessed in this execution"
+  },
+  "tau_three_body": {
+    "status": "UNKNOWN",
+    "coefficient": null,
+    "reason": "full signed operator vector not validated"
+  }
+}
