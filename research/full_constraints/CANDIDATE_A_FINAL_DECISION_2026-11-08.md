@@ -1,0 +1,33 @@
+# Candidate A final scalar-theory decision — 8 November 2026
+
+**NO_GO_CURRENT_DIRECTION.** Retire the proposed global-vacuum/mixing centerpiece for Paper 1 on the evidence and predeclared materiality screen. This is a decision about the present paper direction, not a theorem that a stronger certificate or a substantial effect elsewhere is impossible. For the restricted CP-conserving Zee potential at tree level, the independently reconstructed all-complex-field sufficient certificate adds proof strength over a finite-start search. But the defined 93-card comparison shows an actual deeper vacuum on only one of three independently chosen scalar families, and a 32-start baseline already detects all three certified deeper points. The requirement of a reproducible material impact across at least two families fails at 5%, 10% and 20% heuristic screens. These are not confidence levels. The 28 unresolved P2 cards remain UNKNOWN.
+
+## Evidence and scope
+
+| Gate | Result | Qualification |
+|---|---|---|
+| Independent mathematical certificate | PASS for D7 and F13 exact saved binary64 potentials | Rational root inclusion, exact Sylvester pivots and margins, independent symbolic full-field identity, 72 source-matched complex field comparisons; sufficient, not necessary. |
+| Negative controls | PASS | Rational root/energy enclosures reproduce two P2 fixed-field bounds and a deeper singlet field; no stationary hypothesis needed. |
+| Local scalar acceptance | 93/93 numerical EW Hessian positive; parent quartic BFB and unitarity PASS reused | These are scalar tree-level checks. No inherited EWPO or full model acceptance. |
+| Global-vacuum outcomes | 62/93 certified stable, 3/93 certified deeper, 28/93 UNKNOWN | All three deeper cases lie on P2; all 31 D7 and all 31 F13 are certified stable on the sampled intervals. |
+| Numerical comparison | All 3/3 deeper cases detected at 32, 128 and 512 starts | A non-detection is not a global proof; 28 of the 90 non-detections remain UNKNOWN. |
+| Observable relevance | Screen FAIL | P2 k=28–30 is deeper, on-shell Γ=20.85–24.47 GeV; neighboring k=27 has Γ=19.15 GeV but is UNKNOWN. No independent second-family effect found. |
+| Literature and distinction | Prior overlap significant; exact proof improves rigor | 2005 shows cubic-induced charge breaking, 2020 already studies mixing bounds numerically, 2021 already gives cascade width and finite-start vacuum search. Citation coverage is incomplete; no exhaustive priority claim. |
+
+D7 ε=1650627/250000 and F13 ε=1232051/200000 have minimum exact pivots approximately 0.14866847 and 0.10477011. Fixed-ε sufficient ranges reach |Mu4| approximately 818.88 and 1610.19 GeV respectively; these are not necessary limits. The stronger P2 rational trial-field necessary condition is Mu4≤1316.133373 GeV, while the earlier field gives 1346.140510 GeV and the approximate local charged tachyon threshold is 1531.297 GeV. The 16-start independent trial-field optimization converges to the same stronger threshold within numerical precision. These one-sided witness bounds are neither a true transition nor a universal width bound. A finite exact orbit branch-and-bound fallback processed 2000 boxes for P2 k=27 and left 11 boxes, so k=27 remains UNKNOWN.
+
+The 2005 stationary relation was checked numerically at a 65-digit compatible P2 mixed stationary solution: ΔV=−7.29453237564812×10⁸ GeV⁴. The paper's written geometry appears to exchange two indices: replacing its (v1ρ−v2α)² by (v2ρ−v1α)² makes its Eq. (23) agree with direct stationary evaluation to ~10⁻⁶³ relative; derivation and caveat are recorded in [the detailed check](candidate_a/final_study/REPRODUCED_2005_STATIONARY_RELATION.md). This apparent misprint has not been confirmed by an erratum and does not invalidate the independently verified negative field.
+
+For P2 the three deeper fields have mH1=182.46→135.95 GeV, mH2=739.40→749.35 GeV, sin(2γ)=0.89576→0.90739 and Γ(H2→H1Z)=20.85→24.47 GeV. The nearest UNKNOWN point has masses 201.55/734.42 GeV, sin(2γ)=0.88916, Γ=19.15 GeV. Its UNKNOWN status prevents calling the difference a stable-to-unstable boundary. Widths use the same fixed potential, tree masses and an explicit rest-frame polarization check. They do not imply a BR, LHC reach or bound.
+
+## Source distinction and limitations
+
+[Barroso–Ferreira 2005](https://doi.org/10.1103/PhysRevD.72.075010) Eq. 11 and Eqs. 17–23 study charged-singlet stationary depths and cubic-induced charge breaking. [Babu et al. 2020](https://doi.org/10.1007/JHEP03(2020)006), Sec. 4.3 and Fig. 5, use complex gauge-fixed VEVs and already relate charged mixing to numerical charge-breaking constraints, with a leptophilic second doublet and selected quartics. The published JHEP PDF labels its VEV/potential equations 4.24–4.25; the arXiv HTML rendering labels them 4.38–4.39. [Florentino–Romão–Silva 2021](https://doi.org/10.1140/epjc/s10052-021-09956-2), published Eqs. 48–51, uses numerical gradient descent; its published Eq. 72 already supplies the decay width. Its published Table 2 and arXiv v1 must not be conflated. Finite-start detection and an exact proof of absence have different standards. [The prior-art matrix](candidate_a/final_study/PRIOR_ART_AND_METHOD_KILL_MATRIX.md) records other source checks and limited 2024–26 searches. INSPIRE and the atlas raw URLs were inaccessible; citing-work coverage is incomplete, so novelty is not resolved exhaustively.
+
+Full flavor, B, Higgs and neutrino acceptance, loop/thermal vacuum stability, and a physical collider interpretation are **UNKNOWN**; all rows keep `global_acceptance=null`. The finite-start study and sparse one-dimensional paths do not establish population fractions or rule out other families. Frozen modules and model files remain unchanged. No MG5, Condor or full scan was run. The proof, exact objects, all scalar rows, searches, source matrix, bounds and reproducibility commands are in [final_study](candidate_a/final_study/REPRODUCE.md).
+
+## Tests and release status
+
+Nine independent proof falsifiers and nine original D10 tests pass; symbolic, full-field, fixed-witness and polarization checks pass. The full 474-test suite was attempted and failed with 3 failures, 16 errors and 20 skips; missing local Module5 binaries and jsonschema metadata, historical branch expectations, and an AGENTS.md source-hash mismatch are detailed in [the receipt](candidate_a/final_study/TEST_RECEIPT.md). No claim of a fully passing repository suite is made.
+
+Delivery status is recorded in the Git history and remote branch; the scientific decision does not depend on a successful push.

@@ -1,0 +1,12 @@
+{
+  "card": "P2 k=27",
+  "Mu4_exact": "2800654468754285/2199023255552",
+  "radial_bound_GeV": 20757,
+  "boxes_processed": 2000,
+  "infeasible": 488,
+  "excluded_by_lower_bound": 507,
+  "remaining": 11,
+  "status": "UNKNOWN",
+  "note": "exact rational natural interval bounds and conservative rational sqrt upper; finite run does not prove unprocessed boxes",
+  "global_acceptance": null
+}

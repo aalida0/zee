@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Independent rational Sylvester and fixed-point root check from frozen cards."""
-import json, math, pathlib
+import json, math, pathlib, hashlib
 from fractions import Fraction as Q
 import mpmath as mp
 import sympy as sp
@@ -13,12 +13,12 @@ def mul(a,b):
     t=[x*y for x in a for y in b]; return (min(t),max(t))
 def scale(c,a): return mul(I(c),a)
 def mag(a): return max(abs(a[0]),abs(a[1]))
-def run(rec, phys, ep, radius=Q(1,10**30)):
+def run(rec, phys, ep, radius=Q(1,10**30), root_only=False):
     p={k:Q(float(v)) for k,v in rec['lagrangian_parameters'].items()}
     e=Q(ep); l=p['Lambda3']+p['Lambda4']+p['Lambda5']
     c=sp.Matrix([[p['Lambda1']/2,(p['Lambda3']-e)/2,0,0,p['K1']/2],[(p['Lambda3']-e)/2,p['Lambda2']/2,0,0,p['K2']/2],[0,0,p['Lambda4']+p['Lambda5']+e,0,-p['K12']],[0,0,0,p['Lambda4']-p['Lambda5']+e,0],[p['K1']/2,p['K2']/2,-p['K12'],0,p['LambdaC']]])
     minors=[Q(c[:i,:i].det()) for i in range(1,6)]
-    assert all(x>0 for x in minors)
+    assert root_only or all(x>0 for x in minors)
     with mp.workdps(80):
         cv=lambda v:mp.mpf(v.numerator)/v.denominator
         pp={k:cv(v) for k,v in p.items()}; lm=cv(l)
@@ -36,6 +36,8 @@ def run(rec, phys, ep, radius=Q(1,10**30)):
     contraction=max(sum(mag(x) for x in row) for row in err)
     residual=[abs(sum(inv[i][k]*f[k] for k in range(2))) for i in range(2)]
     assert contraction<1 and all(residual[i]+sum(mag(x)*rad for x in err[i])<rad for i in range(2))
+    if root_only:
+        return {'neutral_center':[str(x) for x in z], 'radius':str(rad), 'contraction_upper':str(contraction)}
     aa,bb=box; norm=add(mul(aa,aa),mul(bb,bb)); ab=mul(aa,bb)
     def divide(x,y):
         assert not y[0]<=0<=y[1]; return mul(x,(1/y[1],1/y[0]))
@@ -44,8 +46,13 @@ def run(rec, phys, ep, radius=Q(1,10**30)):
     margins=[add(md,scale(-e/2,norm)),add(ms,I(-p['Mu4']**2/e))]
     assert all(m[0]>0 for m in margins)
     return {'source_hash':rec['lagrangian_parameters_sha256'],'epsilon':str(e),'neutral_center':[str(x) for x in z],'radius':str(rad),'contraction_upper':str(contraction),'leading_principal_minors':[str(x) for x in minors],'pivots':[str(minors[i]/(minors[i-1] if i else 1)) for i in range(5)],'margin_intervals':[[str(t) for t in m] for m in margins], 'min_pivot_approx':min(float(minors[i]/(minors[i-1] if i else 1)) for i in range(5)), 'global_acceptance':None}
+def check_saved(rec, phys, eps, stored):
+    digest=hashlib.sha256(json.dumps(rec['lagrangian_parameters'],sort_keys=True,separators=(',',':')).encode()).hexdigest()
+    assert digest == rec['lagrangian_parameters_sha256'], 'source coefficient hash mismatch'
+    assert run(rec,phys,eps) == stored, 'certificate differs from exact recomputation'
+
 if __name__=='__main__':
     records=json.loads((ROOT/'validation/module1/d10_vacuum_global.json').read_text())['records']; cards=json.loads((ROOT/'module1/d10_benchmarks.json').read_text())['records']
     for name,eps in [('d7_NO_neutral_near_heavy_07','1650627/250000'),('F13_heavy_0001330','1232051/200000')]:
         r=next(x for x in records if x['benchmark_id']==name); phys=next(x['input']['physical'] for x in cards if x['input']['benchmark_id']==name)
-        out=run(r,phys,eps); target=pathlib.Path(__file__).parent/'CERTIFICATES'/f'{name}.json'; stored=json.loads(target.read_text()); assert out == stored, 'certificate differs from exact recomputation'; print(name,out['min_pivot_approx'],[float(Q(x[0])) for x in out['margin_intervals']])
+        target=pathlib.Path(__file__).parent/'CERTIFICATES'/f'{name}.json'; stored=json.loads(target.read_text()); check_saved(r,phys,eps,stored); print(name,stored['min_pivot_approx'],[float(Q(x[0])) for x in stored['margin_intervals']])

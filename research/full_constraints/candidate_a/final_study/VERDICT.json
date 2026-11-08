@@ -1,0 +1,19 @@
+{
+  "math_independent": "PASS for sufficient all-complex-field tree certificate at D7 and F13 binary64 source cards",
+  "prior_art_checked": "2005/2017/2020/2021/2024 source passages; incomplete INSPIRE and forward citation coverage",
+  "scenarios_evaluated": 93,
+  "positive_certified": 62,
+  "negative_certified": 3,
+  "unknown": 28,
+  "physics_materiality": "FAIL predeclared >=2-family screen at 5, 10 and 20 percent; no population inference",
+  "verdict": "NO_GO_CURRENT_DIRECTION",
+  "confidence_limits": "tree-level restricted potential, finite paths and incomplete citation graph; global_acceptance null; no experimental CL",
+  "source_commit": "05fc2e34f9d45fc12bd5e7e40062254798bfc06a",
+  "source_sha256": {
+    "SARAH_ZeeTypeII.m": "78d6b48232f9a75a21b058301d9233dba3ed067e21f534d27c0d6f415484aa4d",
+    "d10_benchmarks.json": "d354481895850cdaa6846a0728e1114a5ada6a7c1210260f350b79c1aba65015"
+  },
+  "delivery": "See Git history and remote ref for delivery status; source_commit identifies the parent of the result.",
+  "global_acceptance": null,
+  "scientific_verdict": "NO_GO_CURRENT_DIRECTION"
+}

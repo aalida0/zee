@@ -1,5 +1,5 @@
 import copy, json, pathlib, unittest
-from verify_independent import ROOT, run
+from verify_independent import ROOT, run, check_saved
 
 class ProofFalsifiers(unittest.TestCase):
     @classmethod
@@ -22,6 +22,13 @@ class ProofFalsifiers(unittest.TestCase):
     def test_wrong_neutral_location(self):
         p=copy.deepcopy(self.phys); p['v']*=2
         with self.assertRaises((AssertionError,ValueError)): run(self.record,p,'1650627/250000')
+    def test_altered_pivot(self):
+        r=run(self.record,self.phys,'1650627/250000'); r['pivots'][0]='-1'
+        with self.assertRaises(AssertionError): check_saved(self.record,self.phys,'1650627/250000',r)
+    def test_sign_flip_tamper(self):
+        r=copy.deepcopy(self.record); r['lagrangian_parameters']['Mu4']*=-1
+        proof=run(self.record,self.phys,'1650627/250000')
+        with self.assertRaises(AssertionError): check_saved(r,self.phys,'1650627/250000',proof)
     def test_invalid_box(self):
         with self.assertRaises(AssertionError): run(self.record,self.phys,'1650627/250000',0)
     def test_tadpole_sign(self):
