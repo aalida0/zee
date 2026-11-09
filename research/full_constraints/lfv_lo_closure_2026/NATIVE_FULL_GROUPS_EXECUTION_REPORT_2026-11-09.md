@@ -46,3 +46,8 @@ These are separate **source-coefficient magnitude diagnostics**, not coherent am
 The user-uploaded original source files remain private; only this report is pushed. The separate ZIP holds scripts and result data for independent reproduction, not a public GitHub copy of generated Fortran.
 
 **Final: LFV_LEADING_SCOPE_INCOMPLETE, physical_lfv=UNKNOWN, physical_mu3e_BR=null, physical_Al_conversion=null, global_acceptance=null.**
+
+
+## Additional conversion numerical subset
+
+Using only the original four-lepton-source-factorized LFV Z current, the original generated up/down Z spectator vertices, and separately validated Al-27 p/n vector overlaps (Vp=0.0159, Vn=0.0169, capture 4.64079e-19 GeV), the *Z-only* vector quadratic diagnostics are: D7 NO 3.18900e-25, D7 IO 9.78301e-25, F13 NO 6.84994e-21, F13 IO 2.06842e-20. They are **not physical conversion rates, upper bounds, lower bounds or exclusions**. The direct original generated semileptonic 2L2q and box groups, source-matched photon/Z/dipole interference, scale evolution and nuclear uncertainty are absent. The executable Python and per-card complex p/n current results are provided with the private audit ZIP.
