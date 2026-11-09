@@ -5,7 +5,7 @@
   "operator_units": "S_X^q [GeV^-2]; stored S_X^q/m_q [GeV^-3]",
   "source": [
     "Hou/Kumar PRD102 (2020) 115017 Eq(12) neutral-scalar contact structure",
-    "Hou et al EPJC 81 (2021) 1133 Eqs(12-13) conversion scalar normalization",
+    "Hou and Kumar EPJC 81 (2021) 1132 Eqs(12-13) conversion scalar normalization",
     "frozen module3/core.py neutral Yukawa and module4/couplings.py Type-II quarks"
   ],
   "nucleon_fractions": {
