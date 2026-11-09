@@ -1,0 +1,85 @@
+{
+  "status": "NUMERIC_HIERARCHY_DIAGNOSTIC_ONLY",
+  "date": "2026-11-09",
+  "source_paths": [
+    "research/full_constraints/lfv_2hdm_photon_2026/CHARGED_RESULT.json",
+    "research/full_constraints/lfv_lo_closure_2026/WILSON_LEDGER.json"
+  ],
+  "source_blob_sha": [
+    "323ad2f8f19907cc4e718b973a140a2e598bd7aa",
+    "0fc57ff410fb00d92e1503d1b07b291b3d8c55b2"
+  ],
+  "source_convention_caveat": "F-only VLL box is in restricted paper action convention, and common signed normalization with off-shell photon is not yet independently matched. Relative coefficient comparisons are diagnostic, not complete interference rate bounds.",
+  "operator_coverage": "charged massless-neutrino photon A1/A2 and previously source-checked restricted F-only box; other mu3e and conversion operators absent",
+  "alpha_em": 0.0072973525692838015,
+  "e_squared": 0.09170123688926637,
+  "gf_GeV_minus2": 0.000011663787,
+  "photon_log_factor": 21.1018600554986,
+  "photon_partial_eq": "Toma-Vicente JHEP01(2014)160 Eq22, B=Z=0: 3(4pi)^2 alpha^2/(8 GF^2) [|A1|^2 + (16/3 ln(m_mu/m_e)-22/3)|A2|^2 -4 Re(A1 A2*)]. A2=(3/2)A1 per charged chirality.",
+  "checks": [
+    "4/4 photon-only BR match original user execution to <1e-8 relative",
+    "4/4 photon-only alternative A2=(3/2)A1 expression agrees to <1e-11 relative",
+    "state mixing fractions nonnegative and sum coherently",
+    "frozen witness IDs agree in both independent source ledgers"
+  ],
+  "results": [
+    {
+      "card": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "charged_photon_mu3e_partial_br": 3.4399136045137447e-25,
+      "charged_f_chirality_fraction": 0.9920506153282277,
+      "charged_f_A1_abs_GeV_minus2": 1.861664199099266e-17,
+      "charged_d_A1_abs_GeV_minus2": 1.6664841530204618e-18,
+      "H1_amplitude_fraction_within_F": 0.9792186384650307,
+      "H2_amplitude_fraction_within_F": 0.02078136153496936,
+      "H1_H2_rate_coherence_enhancement": 0.042425675364159865,
+      "F_box_VLL_source_abs_GeV_minus2": 2.60718846584069e-25,
+      "ratio_F_box_VLL_to_e2_A1L_F": 1.5271998948236255e-7,
+      "full_mu3e_br": null,
+      "physical_lfv": "UNKNOWN"
+    },
+    {
+      "card": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "charged_photon_mu3e_partial_br": 1.041402729296641e-24,
+      "charged_f_chirality_fraction": 0.9894990190015117,
+      "charged_f_A1_abs_GeV_minus2": 3.2350254667319183e-17,
+      "charged_d_A1_abs_GeV_minus2": 3.3326135531817996e-18,
+      "H1_amplitude_fraction_within_F": 0.9792186384650305,
+      "H2_amplitude_fraction_within_F": 0.020781361534969355,
+      "H1_H2_rate_coherence_enhancement": 0.04242567536415964,
+      "F_box_VLL_source_abs_GeV_minus2": 1.1582382172742106e-24,
+      "ratio_F_box_VLL_to_e2_A1L_F": 3.9043162955598005e-7,
+      "full_mu3e_br": null,
+      "physical_lfv": "UNKNOWN"
+    },
+    {
+      "card": "F13_heavy_0001330/NO/texture_0.001",
+      "charged_photon_mu3e_partial_br": 2.132489682280069e-22,
+      "charged_f_chirality_fraction": 0.9999999999013517,
+      "charged_f_A1_abs_GeV_minus2": 4.653761617397843e-16,
+      "charged_d_A1_abs_GeV_minus2": 4.622199528912152e-21,
+      "H1_amplitude_fraction_within_F": 0.8948963380843983,
+      "H2_amplitude_fraction_within_F": 0.10510366191560183,
+      "H1_H2_rate_coherence_enhancement": 0.23169965947384252,
+      "F_box_VLL_source_abs_GeV_minus2": 6.421543450047965e-22,
+      "ratio_F_box_VLL_to_e2_A1L_F": 0.000015047352625087194,
+      "full_mu3e_br": null,
+      "physical_lfv": "UNKNOWN"
+    },
+    {
+      "card": "F13_heavy_0001330/IO/texture_0.001",
+      "charged_photon_mu3e_partial_br": 6.439314727280507e-22,
+      "charged_f_chirality_fraction": 0.9999999998693517,
+      "charged_f_A1_abs_GeV_minus2": 8.086870529962204e-16,
+      "charged_d_A1_abs_GeV_minus2": 9.243411648125137e-21,
+      "H1_amplitude_fraction_within_F": 0.8948963380843982,
+      "H2_amplitude_fraction_within_F": 0.10510366191560182,
+      "H1_H2_rate_coherence_enhancement": 0.23169965947384275,
+      "F_box_VLL_source_abs_GeV_minus2": 2.8527577254888456e-21,
+      "ratio_F_box_VLL_to_e2_A1L_F": 0.000038468850252211036,
+      "full_mu3e_br": null,
+      "physical_lfv": "UNKNOWN"
+    }
+  ],
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null
+}
