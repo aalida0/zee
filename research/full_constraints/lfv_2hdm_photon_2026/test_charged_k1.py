@@ -48,18 +48,30 @@ class ChargedK1(unittest.TestCase):
             a=copy.deepcopy(w)
             a["yukawas"]["F"]={"real":[[0.]*3 for _ in range(3)],
                                 "imag":[[0.]*3 for _ in range(3)]}
+            # Genuine pure-2HDM limit: charged mixing must ALSO vanish.
+            a["module2_input"]["scalar"]["record"]["physical"]["gamma"]=0.
             c=charged_source(a)
             close(z(c["A1L_F"]),0)
             self.assertNotEqual(z(c["A1R_D"]),0j)
+            D=decode(a["yukawas"]["D"])
+            rho=(D@D.conjugate().T)[0,1]
+            mass=a["module2_input"]["scalar"]["record"]["physical"]["mH1"]
+            close(z(c["A1R_D"]),-rho/(288*math.pi**2*mass*mass))
 
     def test_D_zero_recovers_charged_singlet_scalar(self):
         for w in self.cards:
             a=copy.deepcopy(w)
             a["yukawas"]["D"]={"real":[[0.]*3 for _ in range(3)],
                                 "imag":[[0.]*3 for _ in range(3)]}
+            # Genuine unmixed charged singlet now sits at H1.
+            a["module2_input"]["scalar"]["record"]["physical"]["gamma"]=math.pi/2
             c=charged_source(a)
             close(z(c["A1R_D"]),0)
             self.assertNotEqual(z(c["A1L_F"]),0j)
+            F=decode(a["yukawas"]["F"])
+            lam=(F.conjugate().T@F)[0,1]
+            mass=a["module2_input"]["scalar"]["record"]["physical"]["mH1"]
+            close(z(c["A1L_F"]),-lam/(288*math.pi**2*mass*mass))
 
     def test_physical_charged_state_swap_covariance(self):
         for w in self.cards:
