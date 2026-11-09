@@ -1,0 +1,70 @@
+{
+  "status": "PASS",
+  "source": "Four frozen D12 complex Yukawa matrices via GitHub source, native Higgs-basis and Type-II couplings, existing frozen mu3e scalar LL source ledger",
+  "provenance": "Independent JS numerical matching tests; repository Python unittest test_evaluate.py provided but NOT executed in user's environment here.",
+  "tests_executed": {
+    "frozen_cards": 4,
+    "complex_scalar_quark_chiral_comparisons": 48,
+    "mu3e_existing_LL_tree_controls": 4,
+    "pure_2hdm_alignment_analytic_fixed_point_controls": 3
+  },
+  "rows": [
+    {
+      "card": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "complex_quark_coefficients_checked": 12,
+      "independent_2hdm_formula_max_relative_residual": 1.9857428161908085e-15,
+      "previous_mu3e_LL_source_tree_residual": 6.305664579080175e-16,
+      "CPodd_quark_scalar_zero": true,
+      "charge_singlet_F_neutral_tree_independent_by_field_content": true,
+      "physical_lfv": "UNKNOWN"
+    },
+    {
+      "card": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "complex_quark_coefficients_checked": 12,
+      "independent_2hdm_formula_max_relative_residual": 2.0366592986572392e-15,
+      "previous_mu3e_LL_source_tree_residual": 5.054988433725092e-16,
+      "CPodd_quark_scalar_zero": true,
+      "charge_singlet_F_neutral_tree_independent_by_field_content": true,
+      "physical_lfv": "UNKNOWN"
+    },
+    {
+      "card": "F13_heavy_0001330/NO/texture_0.001",
+      "complex_quark_coefficients_checked": 12,
+      "independent_2hdm_formula_max_relative_residual": 2.700816660361782e-16,
+      "previous_mu3e_LL_source_tree_residual": 3.727457273704933e-16,
+      "CPodd_quark_scalar_zero": true,
+      "charge_singlet_F_neutral_tree_independent_by_field_content": true,
+      "physical_lfv": "UNKNOWN"
+    },
+    {
+      "card": "F13_heavy_0001330/IO/texture_0.001",
+      "complex_quark_coefficients_checked": 12,
+      "independent_2hdm_formula_max_relative_residual": 3.128547603863829e-16,
+      "previous_mu3e_LL_source_tree_residual": 1.1209544559872937e-15,
+      "CPodd_quark_scalar_zero": true,
+      "charge_singlet_F_neutral_tree_independent_by_field_content": true,
+      "physical_lfv": "UNKNOWN"
+    }
+  ],
+  "alignment": [
+    {
+      "beta": 0.3,
+      "up_residual": 0,
+      "down_residual": 0
+    },
+    {
+      "beta": 0.8,
+      "up_residual": 0,
+      "down_residual": 0
+    },
+    {
+      "beta": 1.4,
+      "up_residual": 5.293955920339377e-23,
+      "down_residual": 0
+    }
+  ],
+  "errors": [],
+  "scope_limit": "Neither complete mu3e nor physical conversion computed. No offshell K1, Z, box, dipole + nuclear interference or RG. Frozen input SHA used from pinned archived source.",
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null
+}
