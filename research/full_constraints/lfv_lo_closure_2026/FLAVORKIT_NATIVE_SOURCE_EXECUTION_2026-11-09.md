@@ -61,3 +61,7 @@ The original `CalculateGamma2l` sets several external-wave `OA1` terms to zero. 
 **Physics verdict:** `FULL_LEADING_LFV_INCOMPLETE`, `physical_mu3e_BR=null`, `physical_conversion=null`, `physical_lfv=UNKNOWN`, `global_acceptance=null`. No new parameter scan.
 
 The reproducible Python extraction/compilation scripts, 18 original-kernel measurements, eight complex original-native-vertex checks, source function inventory and machine-readable audit are supplied as a downloadable audit archive in the originating chat. Original archived Fortran bytes are intentionally not redistributed or pushed to GitHub.
+
+## Frozen physical source inputs recovered
+
+The four exact low-joint source cards (D7/F13, NO/IO) have now been extracted from the pre-existing `validation/module12/d12_benchmarks.json` document and saved, with original `F`, `D`, `Ye`, `Ye2`, scalar/electroweak records and Yukawa SHA-256 identifiers, at `research/full_constraints/lfv_lo_closure_2026/FOUR_LOW_JOINT_INPUTS_NATIVE_CHECK_2026-11-09.json`. This is source-data duplication for reproducible validation, not a new scan or an experimentally allowed benchmark set. The compiled amplitude tests above use bilinear-equivalent synthetic Yukawas, so this data recovery does **not** retroactively make them complete physical-card tests. Next execution must use these full original matrices for simultaneous generated Z/photon/boxes, not substitute the bilinear toys.
