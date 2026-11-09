@@ -1,0 +1,94 @@
+{
+  "status": "PASS_RESTRICTED_SOURCE_SUBSET",
+  "description": "Independent full-source numeric arithmetic from D12 matrix D and independently native Ye2 (generic 2HDM Yukawa) with analytically mapped source g2; four complex card comparison both chiralities. No full Ward loop check or common K1 validation.",
+  "n_cards": 4,
+  "checks": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "gLV": [
+        1.6646940122125306e-17,
+        1.453886475875034e-17
+      ],
+      "gRV": [
+        -1.1641191149554632e-17,
+        -1.4902114383273614e-17
+      ],
+      "independent_Ye2_gLV": [
+        1.6646940122125306e-17,
+        1.453886475875034e-17
+      ],
+      "independent_Ye2_gRV": [
+        -1.1641191149554628e-17,
+        -1.4902114383273617e-17
+      ],
+      "max_complex_relative_residual": 2.3045311050035037e-16,
+      "pass": true
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "gLV": [
+        4.591319916835443e-18,
+        4.144005658276567e-17
+      ],
+      "gRV": [
+        -1.7007970871127283e-17,
+        -3.3775521205824624e-17
+      ],
+      "independent_Ye2_gLV": [
+        4.591319916835442e-18,
+        4.144005658276567e-17
+      ],
+      "independent_Ye2_gRV": [
+        -1.7007970871127283e-17,
+        -3.377552120582463e-17
+      ],
+      "max_complex_relative_residual": 1.6297230354708263e-16,
+      "pass": true
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "gLV": [
+        5.124620609010584e-20,
+        4.475667325509522e-20
+      ],
+      "gRV": [
+        -3.584587334313297e-20,
+        -4.5886988395482235e-20
+      ],
+      "independent_Ye2_gLV": [
+        5.1246206090105846e-20,
+        4.475667325509523e-20
+      ],
+      "independent_Ye2_gRV": [
+        -3.584587334313297e-20,
+        -4.5886988395482235e-20
+      ],
+      "max_complex_relative_residual": 1.2509682105915192e-16,
+      "pass": true
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "gLV": [
+        1.4133992490970527e-20,
+        1.2756973140088005e-19
+      ],
+      "gRV": [
+        -5.2371399805180956e-20,
+        -1.0400244612613745e-19
+      ],
+      "independent_Ye2_gLV": [
+        1.4133992490970524e-20,
+        1.2756973140088005e-19
+      ],
+      "independent_Ye2_gRV": [
+        -5.237139980518096e-20,
+        -1.0400244612613744e-19
+      ],
+      "max_complex_relative_residual": 1.1557324783967382e-16,
+      "pass": true
+    }
+  ],
+  "performed_in": "independent JavaScript arithmetic evaluated through authenticated GitHub source; Python unittest file committed but not yet locally executed",
+  "max_relative_residual": 2.3045311050035037e-16,
+  "physical_lfv": "UNKNOWN"
+}
