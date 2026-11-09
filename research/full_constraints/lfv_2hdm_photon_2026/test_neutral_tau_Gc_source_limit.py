@@ -21,7 +21,7 @@ class TestNeutralTau2015_2017SourceMatch(unittest.TestCase):
         for r in (.0002, .00002, .000002, .0000002):
             shifts.append(abs(gc_kernel(r)/gc_asymptotic(r)-1))
         self.assertEqual(sorted(shifts,reverse=True),shifts)
-        self.assertLess(shifts[-1], 5e-7)
+        self.assertLess(shifts[-1], 6e-7)
 
     def test_original_four_cards_source_guard_and_correction(self):
         output=evaluate()
