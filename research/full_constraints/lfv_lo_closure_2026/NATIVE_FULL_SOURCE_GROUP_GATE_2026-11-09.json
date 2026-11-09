@@ -1,0 +1,133 @@
+{
+  "status": "NATIVE_ALL_MAJOR_LEPTONIC_SOURCE_GROUPS_EXECUTED_PHYSICAL_LFV_INCOMPLETE",
+  "date": "2026-11-09",
+  "input_source_sha256": {
+    "generated.f90": "2d30006d8d4759b2b7bfe76e2e4795bd2cf2f19ef5cb5772390ed3155b1bc41d",
+    "couplings.f90": "a0de851498f3e68e7421538098b3979381a3ecf5245021fce9d1c2df46a42e8c",
+    "loops.f90": "8142a813fcc00283d1de2865266be04ff1de25c09422b24b04d57523a6595a24"
+  },
+  "interpretation": "Complex raw source generator coefficients in GeV^-2. Do not add direct and crossed source coefficients naively. q2=0 K1 is not full finite-q2 virtual photon.",
+  "source_group_coverage": {
+    "Gamma2l_OA1_q2zero": "SOURCE_VALIDATED",
+    "PengV4L_direct": "SOURCE_EXECUTED_Q_STABLE",
+    "PengV4L_cross": "SOURCE_EXECUTED_Q_STABLE",
+    "Box4L_direct": "SOURCE_EXECUTED",
+    "Box4L_cross": "SOURCE_EXECUTED",
+    "PengS4L_direct": "SOURCE_EXECUTED_Q_SENSITIVE_NOT_VALIDATED",
+    "PengS4L_cross": "SOURCE_EXECUTED_Q_SENSITIVE_NOT_VALIDATED",
+    "semileptonic_Z_vector": "GAUGE_CURRENT_SUBSET_ONLY",
+    "semileptonic_full_TypeII": "NOT_EXECUTED",
+    "combined_mu3e_rate": "NOT_VALIDATED",
+    "combined_muAl_conversion_rate": "NOT_VALIDATED"
+  },
+  "rows": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "native_gamma_K1L_q2zero": [
+        1.0223670822376624e-16,
+        9.394317493074584e-17
+      ],
+      "native_gamma_K1R_q2zero": [
+        -6.245019996919799e-17,
+        -7.994371119272529e-17
+      ],
+      "native_Z_direct_VLL": [
+        -1.1704025975372542e-18,
+        -1.484597366666145e-18
+      ],
+      "native_box_direct_VLL": [
+        -1.5188533325180099e-25,
+        -1.9781700486962874e-25
+      ],
+      "scalar_penguin_max_Q_relative_shift_warning": 1.9426518204054926,
+      "physical_mu3e_BR": null,
+      "physical_muAl_conversion_rate": null,
+      "global_acceptance": null
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "native_gamma_K1L_q2zero": [
+        3.960351147696206e-17,
+        2.5484512095342762e-16
+      ],
+      "native_gamma_K1R_q2zero": [
+        -9.124076465432486e-17,
+        -1.8119177206774662e-16
+      ],
+      "native_Z_direct_VLL": [
+        -1.4562826073597951e-18,
+        -2.94754711971042e-18
+      ],
+      "native_box_direct_VLL": [
+        -5.076398884405199e-25,
+        -9.082215681450325e-25
+      ],
+      "scalar_penguin_max_Q_relative_shift_warning": 0.842616388015328,
+      "physical_mu3e_BR": null,
+      "physical_muAl_conversion_rate": null,
+      "global_acceptance": null
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "native_gamma_K1L_q2zero": [
+        2.868969174214196e-16,
+        3.6688471350122073e-16
+      ],
+      "native_gamma_K1R_q2zero": [
+        -1.9260676518226463e-19,
+        -2.4655960573779435e-19
+      ],
+      "native_Z_direct_VLL": [
+        -1.7456677790087844e-16,
+        -2.233052269657946e-16
+      ],
+      "native_box_direct_VLL": [
+        -3.9549225771829425e-22,
+        -5.059131117301502e-22
+      ],
+      "scalar_penguin_max_Q_relative_shift_warning": 1.3839785054835303,
+      "physical_mu3e_BR": null,
+      "physical_muAl_conversion_rate": null,
+      "global_acceptance": null
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "native_gamma_K1L_q2zero": [
+        3.642546255019182e-16,
+        7.227409109609934e-16
+      ],
+      "native_gamma_K1R_q2zero": [
+        -2.814015942081689e-19,
+        -5.588251268882959e-19
+      ],
+      "native_Z_direct_VLL": [
+        -2.218045562261518e-16,
+        -4.3976771130112283e-16
+      ],
+      "native_box_direct_VLL": [
+        -1.284687742291864e-21,
+        -2.5471168077772554e-21
+      ],
+      "scalar_penguin_max_Q_relative_shift_warning": 1.3465197394921504,
+      "physical_mu3e_BR": null,
+      "physical_muAl_conversion_rate": null,
+      "global_acceptance": null
+    }
+  ],
+  "missing": [
+    "complete signed Fierz/external-field amplitude map and finite-q2 virtual photon",
+    "scalar-source renormalization scheme and counterterms",
+    "full Type-II 2L2u,d and quark boxes/heavy-quark/gluon conversion",
+    "radiative mixed/gauge two-loop materiality"
+  ],
+  "test_receipt": {
+    "independent_result_regression_tests_passed": 7,
+    "independent_PV_B0B1_tests_passed": 2,
+    "compiler": "gfortran -O0 -fcheck=all",
+    "source_original": "user ZIP, unmodified"
+  },
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null,
+  "physical_mu3e_BR": null,
+  "physical_muAl_conversion_rate": null
+}
