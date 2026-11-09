@@ -1,0 +1,318 @@
+{
+  "complex_encoding": "[real,imag] except imported dipoles {real,imag}",
+  "cards": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "dipole": {
+        "status": "VALIDATED_SUBSET",
+        "CL": {
+          "imag": -1.0002445700719419e-19,
+          "real": -4.736210878714106e-18
+        },
+        "CR": {
+          "imag": 1.170038712381531e-15,
+          "real": -7.604190836413181e-16
+        },
+        "zgamma_CL_CR": [
+          [
+            -1.3050209755127992e-29,
+            -5.220084299718836e-29
+          ],
+          [
+            2.4297119976240766e-27,
+            2.4297119105199782e-27
+          ]
+        ],
+        "units": "GeV^-2"
+      },
+      "mu3e": {
+        "tree_scalar": {
+          "status": "VALIDATED_SUBSET",
+          "coefficients": {
+            "SLL": [
+              -4.510175270317129e-33,
+              -1.7318274784880053e-32
+            ],
+            "SRR": [
+              8.00153031745151e-31,
+              8.159768719056177e-31
+            ],
+            "SLR": [
+              3.6617341834471187e-32,
+              1.0635782133845431e-31
+            ],
+            "SRL": [
+              -4.621000760827707e-30,
+              -5.499593768387424e-30
+            ]
+          }
+        },
+        "F_box": {
+          "status": "VALIDATED_RESTRICTED_SOURCE_CONVENTION",
+          "raw_VLL": [
+            -1.605724326399523e-25,
+            -2.0540401855907121e-25
+          ],
+          "paper_action_VLL": [
+            1.605724326399523e-25,
+            2.0540401855907121e-25
+          ]
+        },
+        "K1L": null,
+        "K1R": null,
+        "K2_common_basis": null,
+        "Z": null,
+        "other_boxes": null,
+        "complete_vector": null,
+        "rate": null,
+        "tree_rate_diagnostic": 1.2048571830257443e-50
+      },
+      "conversion": {
+        "K1": null,
+        "K2_common_basis": null,
+        "Z": null,
+        "scalar_quark": null,
+        "vector_quark": null,
+        "gluon": null,
+        "boxes": null,
+        "complete_vector": null,
+        "rate": null
+      }
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "dipole": {
+        "status": "VALIDATED_SUBSET",
+        "CL": {
+          "imag": -9.535341908472629e-18,
+          "real": -3.234625961780553e-19
+        },
+        "CR": {
+          "imag": 2.1247934990894255e-15,
+          "real": 3.004415881089376e-15
+        },
+        "zgamma_CL_CR": [
+          [
+            4.840441302050835e-28,
+            2.1722668899520028e-27
+          ],
+          [
+            1.8222839580398595e-27,
+            -3.8713956285486823e-35
+          ]
+        ],
+        "units": "GeV^-2"
+      },
+      "mu3e": {
+        "tree_scalar": {
+          "status": "VALIDATED_SUBSET",
+          "coefficients": {
+            "SLL": [
+              7.086958338661963e-32,
+              7.7158049034179775e-31
+            ],
+            "SRR": [
+              6.292704467284292e-31,
+              -8.076824805207662e-32
+            ],
+            "SLR": [
+              4.680188793990902e-30,
+              -4.178347481107689e-30
+            ],
+            "SRL": [
+              -2.5058739720514612e-30,
+              4.484525706262709e-30
+            ]
+          }
+        },
+        "F_box": {
+          "status": "VALIDATED_RESTRICTED_SOURCE_CONVENTION",
+          "raw_VLL": [
+            -5.215915909696444e-25,
+            -1.034146014924535e-24
+          ],
+          "paper_action_VLL": [
+            5.215915909696444e-25,
+            1.034146014924535e-24
+          ]
+        },
+        "K1L": null,
+        "K1R": null,
+        "K2_common_basis": null,
+        "Z": null,
+        "other_boxes": null,
+        "complete_vector": null,
+        "rate": null,
+        "tree_rate_diagnostic": 1.5169788986710899e-50
+      },
+      "conversion": {
+        "K1": null,
+        "K2_common_basis": null,
+        "Z": null,
+        "scalar_quark": null,
+        "vector_quark": null,
+        "gluon": null,
+        "boxes": null,
+        "complete_vector": null,
+        "rate": null
+      }
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "dipole": {
+        "status": "VALIDATED_SUBSET",
+        "CL": {
+          "imag": 2.700571599837409e-18,
+          "real": 1.997125056129804e-18
+        },
+        "CR": {
+          "imag": 5.779320626860719e-16,
+          "real": 4.1082242404682715e-16
+        },
+        "zgamma_CL_CR": [
+          [
+            6.345877468181451e-31,
+            2.245464440047685e-30
+          ],
+          [
+            1.1107997828335174e-29,
+            -1.1107998100602206e-29
+          ]
+        ],
+        "units": "GeV^-2"
+      },
+      "mu3e": {
+        "tree_scalar": {
+          "status": "VALIDATED_SUBSET",
+          "coefficients": {
+            "SLL": [
+              -1.1764696553378775e-34,
+              -4.581708211042859e-34
+            ],
+            "SRR": [
+              -2.1969625535079357e-33,
+              2.3054045289101656e-33
+            ],
+            "SLR": [
+              -5.549332076872212e-34,
+              -1.594109469461706e-33
+            ],
+            "SRL": [
+              -8.499391380275334e-33,
+              7.542661293735168e-33
+            ]
+          }
+        },
+        "F_box": {
+          "status": "VALIDATED_RESTRICTED_SOURCE_CONVENTION",
+          "raw_VLL": [
+            -3.9549225788127574e-22,
+            -5.05913111872493e-22
+          ],
+          "paper_action_VLL": [
+            3.9549225788127574e-22,
+            5.05913111872493e-22
+          ]
+        },
+        "K1L": null,
+        "K1R": null,
+        "K2_common_basis": null,
+        "Z": null,
+        "other_boxes": null,
+        "complete_vector": null,
+        "rate": null,
+        "tree_rate_diagnostic": 3.156923148537933e-56
+      },
+      "conversion": {
+        "K1": null,
+        "K2_common_basis": null,
+        "Z": null,
+        "scalar_quark": null,
+        "vector_quark": null,
+        "gluon": null,
+        "boxes": null,
+        "complete_vector": null,
+        "rate": null
+      }
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "dipole": {
+        "status": "VALIDATED_SUBSET",
+        "CL": {
+          "imag": 5.1035270291106635e-18,
+          "real": 2.6840813211095303e-18
+        },
+        "CR": {
+          "imag": 1.133691410535939e-15,
+          "real": 6.191318152845369e-16
+        },
+        "zgamma_CL_CR": [
+          [
+            5.337046001620602e-30,
+            -6.920803347066104e-30
+          ],
+          [
+            3.3323994241717756e-29,
+            2.221599546197184e-29
+          ]
+        ],
+        "units": "GeV^-2"
+      },
+      "mu3e": {
+        "tree_scalar": {
+          "status": "VALIDATED_SUBSET",
+          "coefficients": {
+            "SLL": [
+              -5.19858760650248e-34,
+              1.6249823860606785e-33
+            ],
+            "SRR": [
+              -4.640969093935394e-33,
+              -6.292029166380754e-33
+            ],
+            "SLR": [
+              -7.011135885842384e-33,
+              7.027372507074979e-34
+            ],
+            "SRL": [
+              -3.1469259660056754e-32,
+              7.235310029954423e-33
+            ]
+          }
+        },
+        "F_box": {
+          "status": "VALIDATED_RESTRICTED_SOURCE_CONVENTION",
+          "raw_VLL": [
+            -1.2846877425530467e-21,
+            -2.547116810134598e-21
+          ],
+          "paper_action_VLL": [
+            1.2846877425530467e-21,
+            2.547116810134598e-21
+          ]
+        },
+        "K1L": null,
+        "K1R": null,
+        "K2_common_basis": null,
+        "Z": null,
+        "other_boxes": null,
+        "complete_vector": null,
+        "rate": null,
+        "tree_rate_diagnostic": 2.6048526930957813e-55
+      },
+      "conversion": {
+        "K1": null,
+        "K2_common_basis": null,
+        "Z": null,
+        "scalar_quark": null,
+        "vector_quark": null,
+        "gluon": null,
+        "boxes": null,
+        "complete_vector": null,
+        "rate": null
+      }
+    }
+  ],
+  "missing_is_null": true
+}

@@ -1,0 +1,28 @@
+{
+  "executed": {
+    "restricted_F_box_generated_source_complex_controls": {
+      "status": "PASS",
+      "count": 8,
+      "maximum_relative_residual": 3.2964435509387146e-16
+    },
+    "Al_source_scalar_vector_controls": {
+      "status": "PASS",
+      "count": 5,
+      "maximum_amplitude_relative_residual": 4.440892098500626e-16
+    },
+    "python_unittest": {
+      "status": "PASS",
+      "count": 7
+    },
+    "git_diff_check": "PASS"
+  },
+  "not_validated": [
+    "full signed mu3e vector and common phases",
+    "complete Type-II semileptonic matching and running",
+    "nuclear model uncertainty",
+    "independent tree amplitude comparison in this execution",
+    "full physical rates",
+    "all requested one-sided flavor and field-level rephasing controls"
+  ],
+  "interpretation": "Algebraic and restricted source checks do not establish full physical observable validation."
+}

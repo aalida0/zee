@@ -1,0 +1,13 @@
+card,observable,physical_rate,partial_diagnostic,diagnostic_group,limit_90CL,status
+d7_NO_neutral_near_heavy_07/NO/texture_0.0001,mu_to_e_gamma,,1.5612657134644163e-19,baseline dipole,1.5e-13,UNKNOWN
+d7_NO_neutral_near_heavy_07/NO/texture_0.0001,mu3e,,1.2048571830257443e-50,tree only,1e-12,UNKNOWN
+d7_NO_neutral_near_heavy_07/NO/texture_0.0001,muAl_conversion,,,,,UNKNOWN
+d7_NO_neutral_near_heavy_07/IO/texture_0.0001,mu_to_e_gamma,,1.0857182280867012e-18,baseline dipole,1.5e-13,UNKNOWN
+d7_NO_neutral_near_heavy_07/IO/texture_0.0001,mu3e,,1.5169788986710899e-50,tree only,1e-12,UNKNOWN
+d7_NO_neutral_near_heavy_07/IO/texture_0.0001,muAl_conversion,,,,,UNKNOWN
+F13_heavy_0001330/NO/texture_0.001,mu_to_e_gamma,,4.0312827607113356e-20,baseline dipole,1.5e-13,UNKNOWN
+F13_heavy_0001330/NO/texture_0.001,mu3e,,3.156923148537933e-56,tree only,1e-12,UNKNOWN
+F13_heavy_0001330/NO/texture_0.001,muAl_conversion,,,,,UNKNOWN
+F13_heavy_0001330/IO/texture_0.001,mu_to_e_gamma,,1.3378605859646518e-19,baseline dipole,1.5e-13,UNKNOWN
+F13_heavy_0001330/IO/texture_0.001,mu3e,,2.6048526930957813e-55,tree only,1e-12,UNKNOWN
+F13_heavy_0001330/IO/texture_0.001,muAl_conversion,,,,,UNKNOWN

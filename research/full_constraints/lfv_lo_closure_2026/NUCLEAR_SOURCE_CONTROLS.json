@@ -1,0 +1,86 @@
+{
+  "controls": [
+    {
+      "target": "Al",
+      "insertion": "scalar_up",
+      "left_current_GeV_5o2": -0.0005374938830954438,
+      "right_current_GeV_5o2": 0.0,
+      "rate_over_capture": 2490090474811.5605,
+      "assignment_relative_residual": 0.0,
+      "new_adapter_left": -0.0005374938830954438,
+      "new_adapter_rate": 2490090474811.5605,
+      "new_adapter_relative_residual": 0.0
+    },
+    {
+      "target": "Al",
+      "insertion": "vector_up",
+      "left_current_GeV_5o2": -0.00017672125375876397,
+      "right_current_GeV_5o2": 0.0,
+      "rate_over_capture": 269181768880.466,
+      "assignment_relative_residual": 2.220446049250313e-16,
+      "new_adapter_left": -0.00017672125375876394,
+      "new_adapter_rate": 269181768880.46588,
+      "new_adapter_relative_residual": 1.1102230246251565e-16
+    },
+    {
+      "target": "Al",
+      "insertion": "scalar_isovector",
+      "left_current_GeV_5o2": 3.628773177798024e-06,
+      "right_current_GeV_5o2": 0.0,
+      "rate_over_capture": 113497872.35282241,
+      "assignment_relative_residual": 2.220446049250313e-16,
+      "new_adapter_left": 3.6287731777980248e-06,
+      "new_adapter_rate": 113497872.35282247,
+      "new_adapter_relative_residual": 2.220446049250313e-16
+    },
+    {
+      "target": "Al",
+      "insertion": "vector_isovector",
+      "left_current_GeV_5o2": 3.628773177798017e-06,
+      "right_current_GeV_5o2": 0.0,
+      "rate_over_capture": 113497872.35282199,
+      "assignment_relative_residual": 3.3306690738754696e-16,
+      "new_adapter_left": 3.6287731777980184e-06,
+      "new_adapter_rate": 113497872.35282207,
+      "new_adapter_relative_residual": 4.440892098500626e-16
+    },
+    {
+      "target": "Al",
+      "insertion": "coherent_isovectors",
+      "left_current_GeV_5o2": 7.257546355596041e-06,
+      "right_current_GeV_5o2": 0.0,
+      "rate_over_capture": 453991489.4112888,
+      "assignment_relative_residual": 2.220446049250313e-16,
+      "new_adapter_left": 7.257546355596043e-06,
+      "new_adapter_rate": 453991489.41128904,
+      "new_adapter_relative_residual": 2.220446049250313e-16
+    }
+  ],
+  "caveat": "Matched nucleon assignments, not identical nuclear approximations or physical Zee conversion.",
+  "flavorkit_isovector": [
+    {
+      "insertion": "scalar",
+      "target": "Au",
+      "source_rate": 0.6364939511111055,
+      "correct_pn_assignment_rate": 0.6364944063672998,
+      "source_over_reference": 0.9999992847443909,
+      "driver_sha256": "15745b47a57ef7c9fb4a4651afed59774c05e69841a1a5be58d8bf714147e996"
+    },
+    {
+      "insertion": "vector",
+      "target": "Au",
+      "source_rate": 0.6364944063672999,
+      "correct_pn_assignment_rate": 0.6364944063672998,
+      "source_over_reference": 1.0000000000000002,
+      "driver_sha256": "33047632a8b2b4d1d280d4cf2679061832b768fdab778e31ab8c0740277f71ea"
+    },
+    {
+      "insertion": "coherent",
+      "target": "Au",
+      "source_rate": 8.140616582331997e-14,
+      "correct_pn_assignment_rate": 2.5459776254691993,
+      "source_over_reference": 3.19744231092045e-14,
+      "driver_sha256": "9601289d54f0c74cd78518310489f06d958c1c901dfdb827733e7ffae166dbfc"
+    }
+  ]
+}

@@ -1,0 +1,385 @@
+{
+  "verdict": "LFV_LEADING_SCOPE_INCOMPLETE",
+  "card_file_sha256": "f31ef3ccb64c3e4ff53131d35d52c21536b951a01e2c3924af766b7b2adf1cd8",
+  "cards": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+      "yukawa_sha256": {
+        "D": "399854794d73c2c1b8eb92ef2f259b0acb8f3b8765003595266902ecf3070844",
+        "F": "cca43f73fe99cac2237847ee58317d2215efa9ecdfe0ba5456a1b99d12975e44",
+        "Ye": "b589de28e3a68adf02d9186286dcc613b65bb222a132dec359d85d2ebd756e25",
+        "Ye2": "36782190a7c411548223ab7bdbe1ab1ffb0fb3aba266de33898f5a612de54967"
+      },
+      "radiative": {
+        "mu_to_e_gamma": {
+          "C_L": {
+            "imag": -1.0002445700719419e-19,
+            "real": -4.736210878714106e-18
+          },
+          "C_R": {
+            "imag": 1.170038712381531e-15,
+            "real": -7.604190836413181e-16
+          },
+          "BR_subset": 1.5612657134644163e-19,
+          "status": "CONDITIONAL_SUBSET",
+          "limit_90CL": 1.5e-13,
+          "neutral_Zgamma_C_LR": [
+            [
+              -1.3050209755127992e-29,
+              -5.220084299718836e-29
+            ],
+            [
+              2.4297119976240766e-27,
+              2.4297119105199782e-27
+            ]
+          ],
+          "baseline_plus_Zgamma_BR_subset": 1.5612657134660124e-19
+        },
+        "tau_to_e_gamma": {
+          "C_L": {
+            "imag": -7.696041596689131e-14,
+            "real": 1.2415872653228354e-14
+          },
+          "C_R": {
+            "imag": 2.403967471324915e-13,
+            "real": -1.6127627452850623e-12
+          },
+          "BR_subset": 3.797771203864618e-14,
+          "status": "CONDITIONAL_SUBSET",
+          "limit_90CL": 5.6e-08
+        },
+        "tau_to_mu_gamma": {
+          "C_L": {
+            "imag": 2.397234840005763e-11,
+            "real": 2.2229137052476457e-11
+          },
+          "C_R": {
+            "imag": 1.3952286388648493e-12,
+            "real": -1.1797173604686848e-12
+          },
+          "BR_subset": 1.5117908572909596e-11,
+          "status": "CONDITIONAL_SUBSET",
+          "limit_90CL": 4.2e-08
+        }
+      },
+      "tree_scalar_contact_GeV_minus2": {
+        "SLL": [
+          -4.510175270317129e-33,
+          -1.7318274784880053e-32
+        ],
+        "SRR": [
+          8.00153031745151e-31,
+          8.159768719056177e-31
+        ],
+        "SLR": [
+          3.6617341834471187e-32,
+          1.0635782133845431e-31
+        ],
+        "SRL": [
+          -4.621000760827707e-30,
+          -5.499593768387424e-30
+        ]
+      },
+      "mu3e_tree_only_BR_saved": 1.2048571830257443e-50,
+      "F_only_box_raw_VLL_GeV_minus2": [
+        -1.605724326399523e-25,
+        -2.0540401855907121e-25
+      ],
+      "F_only_box_paper_L_PLPL_GeV_minus2": [
+        1.605724326399523e-25,
+        2.0540401855907121e-25
+      ],
+      "box_warning": "full ordered-action bridge to photon and Z amplitudes unvalidated",
+      "mu3e_complete_wilson": null,
+      "conversion_complete_wilson": null,
+      "physical_lfv": "UNKNOWN",
+      "global_acceptance": null
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "scalar_sha256": "ff0c551534e5051f223c00435293403e3b553f52e0cbec4344287da8b3dce862",
+      "yukawa_sha256": {
+        "D": "d44a4307482efedcc35baab590d9d8dc56923aa6cf52d422a362522ecfcb0a46",
+        "F": "e331009b42e32bcf9ade00fc2187589b4c04aa596e87b88b800537cfd8cac0e2",
+        "Ye": "38d3064c21fb38744da9a2a573af957d923a8df4a79140e95a5c8855e7bb1d21",
+        "Ye2": "909e011cd8513f17a71466e97db3ae586ccaf3db09f19cd095b41f576c71dbc1"
+      },
+      "radiative": {
+        "mu_to_e_gamma": {
+          "C_L": {
+            "imag": -9.535341908472629e-18,
+            "real": -3.234625961780553e-19
+          },
+          "C_R": {
+            "imag": 2.1247934990894255e-15,
+            "real": 3.004415881089376e-15
+          },
+          "BR_subset": 1.0857182280867012e-18,
+          "status": "CONDITIONAL_SUBSET",
+          "limit_90CL": 1.5e-13,
+          "neutral_Zgamma_C_LR": [
+            [
+              4.840441302050835e-28,
+              2.1722668899520028e-27
+            ],
+            [
+              1.8222839580398595e-27,
+              -3.8713956285486823e-35
+            ]
+          ],
+          "baseline_plus_Zgamma_BR_subset": 1.0857182280875757e-18
+        },
+        "tau_to_e_gamma": {
+          "C_L": {
+            "imag": 4.640701135351612e-15,
+            "real": 1.453487463807422e-13
+          },
+          "C_R": {
+            "imag": 1.7879732474972414e-12,
+            "real": -3.5597468676633667e-12
+          },
+          "BR_subset": 2.264492136372759e-13,
+          "status": "CONDITIONAL_SUBSET",
+          "limit_90CL": 5.6e-08
+        },
+        "tau_to_mu_gamma": {
+          "C_L": {
+            "imag": 3.078275596982611e-11,
+            "real": -1.675316707675402e-11
+          },
+          "C_R": {
+            "imag": 1.324442790951863e-12,
+            "real": 4.842605195437805e-13
+          },
+          "BR_subset": 1.734705719158458e-11,
+          "status": "CONDITIONAL_SUBSET",
+          "limit_90CL": 4.2e-08
+        }
+      },
+      "tree_scalar_contact_GeV_minus2": {
+        "SLL": [
+          7.086958338661963e-32,
+          7.7158049034179775e-31
+        ],
+        "SRR": [
+          6.292704467284292e-31,
+          -8.076824805207662e-32
+        ],
+        "SLR": [
+          4.680188793990902e-30,
+          -4.178347481107689e-30
+        ],
+        "SRL": [
+          -2.5058739720514612e-30,
+          4.484525706262709e-30
+        ]
+      },
+      "mu3e_tree_only_BR_saved": 1.5169788986710899e-50,
+      "F_only_box_raw_VLL_GeV_minus2": [
+        -5.215915909696444e-25,
+        -1.034146014924535e-24
+      ],
+      "F_only_box_paper_L_PLPL_GeV_minus2": [
+        5.215915909696444e-25,
+        1.034146014924535e-24
+      ],
+      "box_warning": "full ordered-action bridge to photon and Z amplitudes unvalidated",
+      "mu3e_complete_wilson": null,
+      "conversion_complete_wilson": null,
+      "physical_lfv": "UNKNOWN",
+      "global_acceptance": null
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+      "yukawa_sha256": {
+        "D": "eaa0e8dadaf35acfa9bc4381f229070217fdeee0a0f6ae4261a0d1813e93dd47",
+        "F": "1d9b8ff9a6896b0966689cb5542bc7d7c1cb3f0e27668a8dc9837e2122223dd4",
+        "Ye": "8db3a9f690ba80b6ecdb866bfdd1dd3e0a03ef9b4ea745576acfa9a507ce41ef",
+        "Ye2": "0679a131d7092a5090313ffec6d892430cf85df385509c9a12da77f0240f745d"
+      },
+      "radiative": {
+        "mu_to_e_gamma": {
+          "C_L": {
+            "imag": 2.700571599837409e-18,
+            "real": 1.997125056129804e-18
+          },
+          "C_R": {
+            "imag": 5.779320626860719e-16,
+            "real": 4.1082242404682715e-16
+          },
+          "BR_subset": 4.0312827607113356e-20,
+          "status": "CONDITIONAL_SUBSET",
+          "limit_90CL": 1.5e-13,
+          "neutral_Zgamma_C_LR": [
+            [
+              6.345877468181451e-31,
+              2.245464440047685e-30
+            ],
+            [
+              1.1107997828335174e-29,
+              -1.1107998100602206e-29
+            ]
+          ],
+          "baseline_plus_Zgamma_BR_subset": 4.031282760711306e-20
+        },
+        "tau_to_e_gamma": {
+          "C_L": {
+            "imag": -8.561976186375736e-16,
+            "real": 1.382212567419731e-16
+          },
+          "C_R": {
+            "imag": 2.532552339628667e-15,
+            "real": -1.758566269726334e-14
+          },
+          "BR_subset": 4.509398164515071e-18,
+          "status": "CONDITIONAL_SUBSET",
+          "limit_90CL": 5.6e-08
+        },
+        "tau_to_mu_gamma": {
+          "C_L": {
+            "imag": 2.6663880758330194e-13,
+            "real": 2.472664046886464e-13
+          },
+          "C_R": {
+            "imag": 1.5298481075316615e-14,
+            "real": -1.3107586716609671e-14
+          },
+          "BR_subset": 1.8703428950986007e-15,
+          "status": "CONDITIONAL_SUBSET",
+          "limit_90CL": 4.2e-08
+        }
+      },
+      "tree_scalar_contact_GeV_minus2": {
+        "SLL": [
+          -1.1764696553378775e-34,
+          -4.581708211042859e-34
+        ],
+        "SRR": [
+          -2.1969625535079357e-33,
+          2.3054045289101656e-33
+        ],
+        "SLR": [
+          -5.549332076872212e-34,
+          -1.594109469461706e-33
+        ],
+        "SRL": [
+          -8.499391380275334e-33,
+          7.542661293735168e-33
+        ]
+      },
+      "mu3e_tree_only_BR_saved": 3.156923148537933e-56,
+      "F_only_box_raw_VLL_GeV_minus2": [
+        -3.9549225788127574e-22,
+        -5.05913111872493e-22
+      ],
+      "F_only_box_paper_L_PLPL_GeV_minus2": [
+        3.9549225788127574e-22,
+        5.05913111872493e-22
+      ],
+      "box_warning": "full ordered-action bridge to photon and Z amplitudes unvalidated",
+      "mu3e_complete_wilson": null,
+      "conversion_complete_wilson": null,
+      "physical_lfv": "UNKNOWN",
+      "global_acceptance": null
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "scalar_sha256": "9117e7af53f9ad5c21f964a7c216de7af5824e903856fed54b9b237c922f4a1d",
+      "yukawa_sha256": {
+        "D": "3974afffa5947bbbd65d7112b49d27c6640e70726398e56a0dd580316601cb6c",
+        "F": "470b61093a28d889c6847ae08d34f8f8f466909a5c5ea46d7e5acadb578c5bce",
+        "Ye": "e62fbcdbe3b006b2042df75c07685d276e4bc4aa3d3c41b128e369b1a48d18c1",
+        "Ye2": "00cb8bd41895618fe6505a0ab8f5d55f9568d04ee009df47ed87f894cb7f5365"
+      },
+      "radiative": {
+        "mu_to_e_gamma": {
+          "C_L": {
+            "imag": 5.1035270291106635e-18,
+            "real": 2.6840813211095303e-18
+          },
+          "C_R": {
+            "imag": 1.133691410535939e-15,
+            "real": 6.191318152845369e-16
+          },
+          "BR_subset": 1.3378605859646518e-19,
+          "status": "CONDITIONAL_SUBSET",
+          "limit_90CL": 1.5e-13,
+          "neutral_Zgamma_C_LR": [
+            [
+              5.337046001620602e-30,
+              -6.920803347066104e-30
+            ],
+            [
+              3.3323994241717756e-29,
+              2.221599546197184e-29
+            ]
+          ],
+          "baseline_plus_Zgamma_BR_subset": 1.3378605859647252e-19
+        },
+        "tau_to_e_gamma": {
+          "C_L": {
+            "imag": 5.1585695948300346e-17,
+            "real": 1.6170610785985248e-15
+          },
+          "C_R": {
+            "imag": 1.9746366769737928e-14,
+            "real": -3.924240352318527e-14
+          },
+          "BR_subset": 2.754055455242145e-17,
+          "status": "CONDITIONAL_SUBSET",
+          "limit_90CL": 5.6e-08
+        },
+        "tau_to_mu_gamma": {
+          "C_L": {
+            "imag": 3.423887796514583e-13,
+            "real": -1.8634302438032613e-13
+          },
+          "C_R": {
+            "imag": 1.4380739672789023e-14,
+            "real": 5.469957370229721e-15
+          },
+          "BR_subset": 2.1459778331579635e-15,
+          "status": "CONDITIONAL_SUBSET",
+          "limit_90CL": 4.2e-08
+        }
+      },
+      "tree_scalar_contact_GeV_minus2": {
+        "SLL": [
+          -5.19858760650248e-34,
+          1.6249823860606785e-33
+        ],
+        "SRR": [
+          -4.640969093935394e-33,
+          -6.292029166380754e-33
+        ],
+        "SLR": [
+          -7.011135885842384e-33,
+          7.027372507074979e-34
+        ],
+        "SRL": [
+          -3.1469259660056754e-32,
+          7.235310029954423e-33
+        ]
+      },
+      "mu3e_tree_only_BR_saved": 2.6048526930957813e-55,
+      "F_only_box_raw_VLL_GeV_minus2": [
+        -1.2846877425530467e-21,
+        -2.547116810134598e-21
+      ],
+      "F_only_box_paper_L_PLPL_GeV_minus2": [
+        1.2846877425530467e-21,
+        2.547116810134598e-21
+      ],
+      "box_warning": "full ordered-action bridge to photon and Z amplitudes unvalidated",
+      "mu3e_complete_wilson": null,
+      "conversion_complete_wilson": null,
+      "physical_lfv": "UNKNOWN",
+      "global_acceptance": null
+    }
+  ],
+  "uncertainty": "Unquantified missing amplitudes, nuclear matching and input schemes; no numerical theory bound assigned.",
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null
+}

@@ -1,0 +1,111 @@
+{
+  "status": "PASS_RESTRICTED_F_ONLY",
+  "source_driver_sha256": "18b8c1e840ff742ef29a9c91b877cb2ba6ec4bbb41c95c38d1397a69ed9281b7",
+  "controls": [
+    {
+      "control": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "source_VLL": [
+        -1.6057243263995227e-25,
+        -2.054040185590712e-25
+      ],
+      "analytic_VLL": [
+        -1.605724326399523e-25,
+        -2.0540401855907121e-25
+      ],
+      "relative_residual": 1.2453549664275533e-16,
+      "other_source_coefficients_max_abs": 0.0
+    },
+    {
+      "control": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001/phase",
+      "source_VLL": [
+        -2.485059805149117e-25,
+        -7.886123643748968e-26
+      ],
+      "analytic_VLL": [
+        -2.485059805149117e-25,
+        -7.886123643748966e-26
+      ],
+      "relative_residual": 8.805989417452679e-17,
+      "other_source_coefficients_max_abs": 0.0
+    },
+    {
+      "control": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "source_VLL": [
+        -5.215915909696445e-25,
+        -1.034146014924535e-24
+      ],
+      "analytic_VLL": [
+        -5.215915909696444e-25,
+        -1.034146014924535e-24
+      ],
+      "relative_residual": 7.928895350570991e-17,
+      "other_source_coefficients_max_abs": 0.0
+    },
+    {
+      "control": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001/phase",
+      "source_VLL": [
+        -1.0144108801832577e-24,
+        -5.59004771106983e-25
+      ],
+      "analytic_VLL": [
+        -1.0144108801832579e-24,
+        -5.5900477110698305e-25
+      ],
+      "relative_residual": 1.7729548990358753e-16,
+      "other_source_coefficients_max_abs": 0.0
+    },
+    {
+      "control": "F13_heavy_0001330/NO/texture_0.001",
+      "source_VLL": [
+        -3.9549225788127583e-22,
+        -5.059131118724931e-22
+      ],
+      "analytic_VLL": [
+        -3.9549225788127574e-22,
+        -5.05913111872493e-22
+      ],
+      "relative_residual": 2.0710286445710112e-16,
+      "other_source_coefficients_max_abs": 0.0
+    },
+    {
+      "control": "F13_heavy_0001330/NO/texture_0.001/phase",
+      "source_VLL": [
+        -6.120738766611233e-22,
+        -1.9423638257948223e-22
+      ],
+      "analytic_VLL": [
+        -6.120738766611232e-22,
+        -1.9423638257948228e-22
+      ],
+      "relative_residual": 1.637291904073927e-16,
+      "other_source_coefficients_max_abs": 0.0
+    },
+    {
+      "control": "F13_heavy_0001330/IO/texture_0.001",
+      "source_VLL": [
+        -1.284687742553047e-21,
+        -2.547116810134598e-21
+      ],
+      "analytic_VLL": [
+        -1.2846877425530467e-21,
+        -2.547116810134598e-21
+      ],
+      "relative_residual": 1.3185774203754856e-16,
+      "other_source_coefficients_max_abs": 0.0
+    },
+    {
+      "control": "F13_heavy_0001330/IO/texture_0.001/phase",
+      "source_VLL": [
+        -2.4985088836674176e-21,
+        -1.3768369542437805e-21
+      ],
+      "analytic_VLL": [
+        -2.498508883667417e-21,
+        -1.37683695424378e-21
+      ],
+      "relative_residual": 3.2964435509387146e-16,
+      "other_source_coefficients_max_abs": 0.0
+    }
+  ],
+  "phase_bridge_to_penguins": "NOT_VALIDATED"
+}

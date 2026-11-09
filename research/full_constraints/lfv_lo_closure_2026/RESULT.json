@@ -1,0 +1,10 @@
+{
+  "status": "LEADING_OPERATOR_INCOMPLETE",
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null,
+  "mu3e_rate": null,
+  "muAl_conversion_rate": null,
+  "source_controls": "SOURCE_BOX_CONTROLS.json",
+  "ledger": "WILSON_LEDGER.json",
+  "reason": "Incomplete common signed leading UV vectors and conversion matching; partial quantities are not bounds."
+}

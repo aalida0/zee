@@ -1,0 +1,36 @@
+{
+  "source": "lfv_precision_scope_2026/SCOPE_DIAGNOSTICS.json",
+  "cards": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "FdagF_e_mu_abs": 4.9363652280438176e-09,
+      "CR_F_only_abs_GeV_minus2": 2.7924962986488985e-17,
+      "critical_enhancement_factor": 48980.756921523265
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "FdagF_e_mu_abs": 8.577952583252187e-09,
+      "CR_F_only_abs_GeV_minus2": 4.8525382000978765e-17,
+      "critical_enhancement_factor": 28187.018168268372
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "FdagF_e_mu_abs": 4.936365228043817e-07,
+      "CR_F_only_abs_GeV_minus2": 6.980642426096765e-16,
+      "critical_enhancement_factor": 1959.3982052000774
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "FdagF_e_mu_abs": 8.577952583252187e-07,
+      "CR_F_only_abs_GeV_minus2": 1.2130305794943307e-15,
+      "critical_enhancement_factor": 1127.5773646645682
+    }
+  ],
+  "interpretation": "Diagnostic only; neither an upper bound on unknown amplitudes nor an exclusion.",
+  "unresolved": {
+    "status": "UNRESOLVED_POTENTIALLY_LEADING",
+    "tensor": "mixed F-D charged-current flavor tensors; chirality structure and exact contractions unestablished",
+    "topology": "mixed charged scalar and W/fermion two-loop structures potentially carrying tau or top chirality enhancement",
+    "missing": "complete W/Goldstone and wavefunction/scalar-mixing counterterm partners; existence and enhancement not established"
+  }
+}
