@@ -1,0 +1,373 @@
+{
+  "status": "CHARGED_MASSLESS_NEUTRINO_PHOTON_SOURCE_TRANSFER",
+  "source": "Hundi EPJC85 (2025) 805 Eq(23); Toma-Vicente JHEP01 (2014) 160",
+  "universal_QED_topology": "neutral massless fermion, charged physical scalar (H1/H2) with two separate external lepton chiralities",
+  "source_form_factor_G1_at_0": 0.3333333333333333,
+  "source_form_factor_G2_at_0": 0.16666666666666666,
+  "source_A1_over_A2": 0.6666666666666666,
+  "parent_native_operator": "module3.core.OPERATOR; frozen charged dipole",
+  "approximate_neutrino": "m_nu=0, external masses kept only in spinor Ward relation and dipole flips",
+  "cards": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "A1L_F": [
+        1.1465682405575036e-17,
+        1.4666883990653168e-17
+      ],
+      "A1R_D": [
+        1.0259016229383885e-18,
+        1.313276548302263e-18
+      ],
+      "A2R_F": [
+        1.7198523608362556e-17,
+        2.2000325985979758e-17
+      ],
+      "A2L_D": [
+        1.5388524344075828e-18,
+        1.9699148224533943e-18
+      ],
+      "rho_DDdag": [
+        -7.277155597433771e-10,
+        -9.315627903076496e-10
+      ],
+      "lam_FdagF": [
+        -3.0402258350382816e-9,
+        -3.889052395713624e-9
+      ],
+      "chiral_A2_daughter_mass_ratio": 0.004836331692417512,
+      "native_on_shell_A2_relative_residual": 1.8506066894925002e-16,
+      "source_massless_ratio_A1_to_A2": 0.6666666666666666,
+      "by_state": {
+        "H1": {
+          "mass_GeV": 298.7266553444879,
+          "doublet_fraction": 0.2515374703323235,
+          "singlet_fraction": 0.9678475608373539,
+          "A1L_F": [
+            1.1227409914259644e-17,
+            1.436208617185195e-17
+          ],
+          "A1R_D": [
+            1.8152099063126505e-19,
+            2.3236853777250704e-19
+          ],
+          "A2R_F": [
+            1.6841114871389467e-17,
+            2.154312925777793e-17
+          ],
+          "A2L_D": [
+            2.7228148594689765e-19,
+            3.485528066587606e-19
+          ]
+        },
+        "H2": {
+          "mass_GeV": 532.9329127809378,
+          "doublet_fraction": -0.9678475608373539,
+          "singlet_fraction": 0.2515374703323235,
+          "A1L_F": [
+            2.3827249131539197e-19,
+            3.0479781880121765e-19
+          ],
+          "A1R_D": [
+            8.443806323071235e-19,
+            1.080908010529756e-18
+          ],
+          "A2R_F": [
+            3.5740873697308803e-19,
+            4.571967282018266e-19
+          ],
+          "A2L_D": [
+            1.266570948460685e-18,
+            1.6213620157946337e-18
+          ]
+        }
+      },
+      "status": "CHARGED_TOPOLOGY_TRANSFER_LIMIT_VALIDATED_WITH_NATIVE_DIPOLE",
+      "common_photon_form_factor": {
+        "K1L_charged_only_candidate": [
+          1.1465682405575036e-17,
+          1.4666883990653168e-17
+        ],
+        "K1R_charged_only_candidate": [
+          1.0259016229383885e-18,
+          1.313276548302263e-18
+        ],
+        "neutral_complete": false,
+        "Z_penguin_or_boxes_included": false,
+        "full_signed_interference": false
+      }
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "A1L_F": [
+        1.456835092172181e-17,
+        2.8884288609241766e-17
+      ],
+      "A1R_D": [
+        1.4988590682362801e-18,
+        2.9765306295109564e-18
+      ],
+      "A2R_F": [
+        2.1852526382582723e-17,
+        4.3326432913862655e-17
+      ],
+      "A2L_D": [
+        2.24828860235442e-18,
+        4.464795944266434e-18
+      ],
+      "rho_DDdag": [
+        -1.0632043476974856e-9,
+        -2.1113794975231822e-9
+      ],
+      "lam_FdagF": [
+        -3.862925491864878e-9,
+        -7.65892141001743e-9
+      ],
+      "chiral_A2_daughter_mass_ratio": 0.004836331692417512,
+      "native_on_shell_A2_relative_residual": 2.3116150896625406e-16,
+      "source_massless_ratio_A1_to_A2": 0.6666666666666666,
+      "by_state": {
+        "H1": {
+          "mass_GeV": 298.7266553444879,
+          "doublet_fraction": 0.2515374703323235,
+          "singlet_fraction": 0.9678475608373539,
+          "A1L_F": [
+            1.4265600754249207e-17,
+            2.828403376497272e-17
+          ],
+          "A1R_D": [
+            2.6520513936183153e-19,
+            5.266614034254044e-19
+          ],
+          "A2R_F": [
+            2.1398401131373816e-17,
+            4.242605064745908e-17
+          ],
+          "A2L_D": [
+            3.978077090427474e-19,
+            7.899921051381068e-19
+          ]
+        },
+        "H2": {
+          "mass_GeV": 532.9329127809378,
+          "doublet_fraction": -0.9678475608373539,
+          "singlet_fraction": 0.2515374703323235,
+          "A1L_F": [
+            3.0275016747260507e-19,
+            6.002548442690504e-19
+          ],
+          "A1R_D": [
+            1.2336539288744486e-18,
+            2.4498692260855518e-18
+          ],
+          "A2R_F": [
+            4.541252512089077e-19,
+            9.003822664035758e-19
+          ],
+          "A2L_D": [
+            1.8504808933116728e-18,
+            3.674803839128327e-18
+          ]
+        }
+      },
+      "status": "CHARGED_TOPOLOGY_TRANSFER_LIMIT_VALIDATED_WITH_NATIVE_DIPOLE",
+      "common_photon_form_factor": {
+        "K1L_charged_only_candidate": [
+          1.456835092172181e-17,
+          2.8884288609241766e-17
+        ],
+        "K1R_charged_only_candidate": [
+          1.4988590682362801e-18,
+          2.9765306295109564e-18
+        ],
+        "neutral_complete": false,
+        "Z_penguin_or_boxes_included": false,
+        "full_signed_interference": false
+      }
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "A1L_F": [
+        2.8661749375722796e-16,
+        3.666406744865868e-16
+      ],
+      "A1R_D": [
+        2.8454651365448357e-21,
+        3.642534370707241e-21
+      ],
+      "A2R_F": [
+        4.2992624063584196e-16,
+        5.499610117298801e-16
+      ],
+      "A2L_D": [
+        4.2681977048172536e-21,
+        5.463801556060862e-21
+      ],
+      "rho_DDdag": [
+        -4.798105541634956e-12,
+        -6.14214671802598e-12
+      ],
+      "lam_FdagF": [
+        -3.0402258350382816e-7,
+        -3.8890523957136236e-7
+      ],
+      "chiral_A2_daughter_mass_ratio": 0.004836331692417512,
+      "native_on_shell_A2_relative_residual": 1.0594398817505725e-16,
+      "source_massless_ratio_A1_to_A2": 0.6666666666666666,
+      "by_state": {
+        "H1": {
+          "mass_GeV": 572.2316243593124,
+          "doublet_fraction": 0.46341598793487754,
+          "singlet_fraction": 0.8861408590773486,
+          "A1L_F": [
+            2.5649294559427117e-16,
+            3.2810539699084034e-16
+          ],
+          "A1R_D": [
+            1.1070720303359162e-21,
+            1.4171840904168757e-21
+          ],
+          "A2R_F": [
+            3.8473941839140673e-16,
+            4.921580954862605e-16
+          ],
+          "A2L_D": [
+            1.6606080455038745e-21,
+            2.125776135625314e-21
+          ]
+        },
+        "H2": {
+          "mass_GeV": 873.2076828282773,
+          "doublet_fraction": -0.8861408590773486,
+          "singlet_fraction": 0.46341598793487754,
+          "A1L_F": [
+            3.0124548162956804e-17,
+            3.853527749574643e-17
+          ],
+          "A1R_D": [
+            1.7383931062089195e-21,
+            2.2253502802903653e-21
+          ],
+          "A2R_F": [
+            4.5186822244435203e-17,
+            5.780291624361965e-17
+          ],
+          "A2L_D": [
+            2.607589659313379e-21,
+            3.3380254204355475e-21
+          ]
+        }
+      },
+      "status": "CHARGED_TOPOLOGY_TRANSFER_LIMIT_VALIDATED_WITH_NATIVE_DIPOLE",
+      "common_photon_form_factor": {
+        "K1L_charged_only_candidate": [
+          2.8661749375722796e-16,
+          3.666406744865868e-16
+        ],
+        "K1R_charged_only_candidate": [
+          2.8454651365448357e-21,
+          3.642534370707241e-21
+        ],
+        "neutral_complete": false,
+        "Z_penguin_or_boxes_included": false,
+        "full_signed_interference": false
+      }
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "A1L_F": [
+        3.6417755888035106e-16,
+        7.220453277264942e-16
+      ],
+      "A1R_D": [
+        4.1572705139914815e-21,
+        8.255771361307945e-21
+      ],
+      "A2R_F": [
+        5.462663383205265e-16,
+        1.0830679915897411e-15
+      ],
+      "A2L_D": [
+        6.235905770987222e-21,
+        1.2383657041961916e-20
+      ],
+      "rho_DDdag": [
+        -7.0101096777025385e-12,
+        -1.392112024512891e-11
+      ],
+      "lam_FdagF": [
+        -3.8629254918648773e-7,
+        -7.65892141001743e-7
+      ],
+      "chiral_A2_daughter_mass_ratio": 0.004836331692417512,
+      "native_on_shell_A2_relative_residual": 2.5137635319618776e-16,
+      "source_massless_ratio_A1_to_A2": 0.6666666666666666,
+      "by_state": {
+        "H1": {
+          "mass_GeV": 572.2316243593124,
+          "doublet_fraction": 0.46341598793487754,
+          "singlet_fraction": 0.8861408590773486,
+          "A1L_F": [
+            3.2590116385454144e-16,
+            6.461557197133888e-16
+          ],
+          "A1R_D": [
+            1.6174501136811477e-21,
+            3.2120349835142964e-21
+          ],
+          "A2R_F": [
+            4.888517457818122e-16,
+            9.692335795700832e-16
+          ],
+          "A2L_D": [
+            2.426175170521722e-21,
+            4.818052475271445e-21
+          ]
+        },
+        "H2": {
+          "mass_GeV": 873.2076828282773,
+          "doublet_fraction": -0.8861408590773486,
+          "singlet_fraction": 0.46341598793487754,
+          "A1L_F": [
+            3.827639502580959e-17,
+            7.588960801310536e-17
+          ],
+          "A1R_D": [
+            2.5398204003103336e-21,
+            5.043736377793648e-21
+          ],
+          "A2R_F": [
+            5.741459253871439e-17,
+            1.1383441201965805e-16
+          ],
+          "A2L_D": [
+            3.8097306004655e-21,
+            7.565604566690471e-21
+          ]
+        }
+      },
+      "status": "CHARGED_TOPOLOGY_TRANSFER_LIMIT_VALIDATED_WITH_NATIVE_DIPOLE",
+      "common_photon_form_factor": {
+        "K1L_charged_only_candidate": [
+          3.6417755888035106e-16,
+          7.220453277264942e-16
+        ],
+        "K1R_charged_only_candidate": [
+          4.1572705139914815e-21,
+          8.255771361307945e-21
+        ],
+        "neutral_complete": false,
+        "Z_penguin_or_boxes_included": false,
+        "full_signed_interference": false
+      }
+    }
+  ],
+  "full_common_K1": null,
+  "missing": [
+    "neutral charged-lepton loops outside tau published approximation",
+    "independent full Zee generated off-shell photon check",
+    "complete mu3e penguin/box relative phases",
+    "conversion vector matching to nuclear kernel and RG"
+  ],
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null
+}
