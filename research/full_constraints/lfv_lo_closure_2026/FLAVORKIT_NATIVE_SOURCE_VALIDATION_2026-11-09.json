@@ -25,9 +25,18 @@
       "CouplingHmcHmVPT"
     ],
     "gamma_source": "Original CalculateGamma2l charged-FSS OA1L/OA1R expressions, divided by e for source-independent A1",
-    "n_photon_F_and_D_complex_tests": 8,
+    "n_photon_F_and_D_complex_tests": 48,
     "max_relative_complex_F_D_A1_residual": 3.310465885856861e-16,
-    "input_restriction": "synthetic complex F and D chosen to reproduce each benchmark's FdagF_e_mu and DDdag_e_mu bilinears, not full physical Yukawa cards"
+    "input_restriction": "synthetic complex F and D chosen to reproduce each benchmark's FdagF_e_mu and DDdag_e_mu bilinears, not full physical Yukawa cards",
+    "n_original_card_invariants": 4,
+    "n_stress_variants": 20,
+    "stress_variants": [
+      "H1_H2_exchange",
+      "equal_mass",
+      "gamma_0",
+      "gamma_pi_over_2",
+      "complex_flavor_rephase"
+    ]
   },
   "rows": [
     {
