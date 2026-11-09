@@ -1,0 +1,245 @@
+{
+  "title": "Coy–Frigerio Zee EFT source-limit controls and broken-phase F-only tree contact",
+  "source": "Coy and Frigerio, Phys. Rev. D 105 (2022) 115041, arXiv:2110.09126v2, Eq.(1),(9),(11),(23),(70),(71), Tables 3 and 5",
+  "date": "2026-11-09",
+  "status": "SOURCE_LIMIT_AND_TREE_CONTACT_VERIFIED__FULL_ZEE_LFV_UNKNOWN",
+  "input": {
+    "path": "research/full_constraints/lfv_2hdm_photon_2026/CHARGED_RESULT.json",
+    "source_blob_sha": "323ad2f8f19907cc4e718b973a140a2e598bd7aa",
+    "immutable": true
+  },
+  "fixed_constants": {
+    "v_GeV": 246.22,
+    "alpha_em_at_MZ": 0.007815552950371238,
+    "sin2_thetaW": 0.23122,
+    "mtau_GeV": 1.77686,
+    "g1_squared": 0.1277519380453618,
+    "g2_squared": 0.4247605524198307,
+    "e_squared": 0.09821313493051326
+  },
+  "source_to_native_map": "Source Y_delta=F/2 because antisymmetric source Y_delta produces two identical component contractions and native L_ki=-F_ki for the charged scalar singlet; source c_ll=(v²/2)C_ll, C_ll=(Y_delta†)_a c (Y_delta)_d b/M². Hence C_ll^(e mu tau tau)=(F†F)_(e mu) w_F/4 and c_ll=v²(F†F)w_F/8. This is the broken-phase F² contact, not a full mixed Zee SMEFT matching.",
+  "analytic_weak_scale_tree_contact": "w_F=sin²gamma/mH1²+cos²gamma/mH2², C_ll^(e mu tau tau)=w_F (Fdag F)_(e mu)/4, c_ll=(v²/2) C_ll",
+  "pure_singlet_EFT_analytic_identity": "With cHlsum=[2(g1²+g2²)/3] c_ll ln(M/v)/(16pi²), Eq70-71 give g4=g6=[e²/(3pi²)] ln(v/m_tau) c_ll. The ln(M/v) terms cancel for this epsilon_delta-only leading-log source limit.",
+  "EFT_applicability": "EFT formulas Eq70-71 require the source quark-phobic, heavy-singlet, unmixed, F-only limit; they are NOT applied to the actual mixed benchmark rates. Original source often used M=10 TeV in illustrative bounds; these cards have mH1=299 or 572 GeV and sizeable mixing.",
+  "key_physics_warning": "The g4,g6 leading-log reference contains QED photon mixing and must not be added to existing A1 photon form factors without explicit non-double-counting and common LEFT operator matching. Unknown Z, neutral photon, boxes, B and Higgs sectors remain UNKNOWN.",
+  "test_receipt": {
+    "method": "Independent numerical evaluation of both source Eqs70/71 and simplified relation, and source A1 massless loop formula, using four saved complex charged source coefficients",
+    "n_cards": 4,
+    "max_A1_relative_residual": 1.9050779925590835e-16,
+    "max_g4g6_relative_residual": 2.1210134001446482e-16,
+    "max_analytic_simplification_relative_residual": 2.1210134001446486e-16,
+    "runtime": "JavaScript numerical evaluation via authenticated GitHub input",
+    "executed": true,
+    "python_checkout_tests_not_run": true
+  },
+  "rows": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "charged_masses_GeV": {
+        "H1": 298.7266553444879,
+        "H2": 532.9329127809378
+      },
+      "singlet_fraction_sq": {
+        "H1": 0.9367289010188155,
+        "H2": 0.06327109898118452
+      },
+      "FdagF_e_mu_GeV0": [
+        -3.0402258350382816e-9,
+        -3.889052395713624e-9
+      ],
+      "exact_broken_phase_F_singlet_weight_GeV_minus2": 0.000010719790447632258,
+      "source_massless_photon_A1L_F_recheck_relative_residual": 1.6552329429284302e-16,
+      "singlet_contact_e_mu_tau_tau_Cll_GeV_minus2": [
+        -8.147645966272045e-15,
+        -1.0422456680478065e-14
+      ],
+      "singlet_contact_e_mu_tau_tau_c_ll_dimensionless": [
+        -2.469726194201865e-10,
+        -3.159270098169044e-10
+      ],
+      "effective_contact_mass_GeV": 305.4265961136721,
+      "effective_mass_over_v": 1.2404621725029326,
+      "exact_tree_c_ll_over_unmixed_H2_only_ratio": 3.044607971172463,
+      "unmixed_reference_H2_only": {
+        "conditions": "gamma=0, D=0, singlet at H2; retain frozen F only. This is a synthetic limiting control, not the physical benchmark.",
+        "c_ll_e_mu_tau_tau_dimensionless": [
+          -8.111803613424773e-11,
+          -1.0376607195679203e-10
+        ],
+        "log_M_over_v": 0.7721701038216912,
+        "c_Hl1_plus_c_Hl3_over_c_ll": 0.0018011260034149184,
+        "g4_ref_complex": [
+          -1.326888001722364e-12,
+          -1.6973531710933064e-12
+        ],
+        "g6_ref_complex": [
+          -1.326888001722364e-12,
+          -1.6973531710933064e-12
+        ],
+        "analytic_g4_eq_g6_leadinglog_factor": 0.01635749661797047,
+        "g4_vs_g6_relative_residual": 0,
+        "explicit_vs_simplified_relative_residual": 2.1210134001446486e-16
+      },
+      "physically_complete_mu3e_BR": null,
+      "muAl_conversion_rate": null,
+      "LFV_status": "UNKNOWN"
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "charged_masses_GeV": {
+        "H1": 298.7266553444879,
+        "H2": 532.9329127809378
+      },
+      "singlet_fraction_sq": {
+        "H1": 0.9367289010188155,
+        "H2": 0.06327109898118452
+      },
+      "FdagF_e_mu_GeV0": [
+        -3.862925491864878e-9,
+        -7.65892141001743e-9
+      ],
+      "exact_broken_phase_F_singlet_weight_GeV_minus2": 0.000010719790447632258,
+      "source_massless_photon_A1L_F_recheck_relative_residual": 1.9050779925590835e-16,
+      "singlet_contact_e_mu_tau_tau_Cll_GeV_minus2": [
+        -1.0352437946902065e-14,
+        -2.0525508142567758e-14
+      ],
+      "singlet_contact_e_mu_tau_tau_c_ll_dimensionless": [
+        -3.1380459186804733e-10,
+        -6.221721625957879e-10
+      ],
+      "effective_contact_mass_GeV": 305.4265961136721,
+      "effective_mass_over_v": 1.2404621725029326,
+      "exact_tree_c_ll_over_unmixed_H2_only_ratio": 3.044607971172463,
+      "unmixed_reference_H2_only": {
+        "conditions": "gamma=0, D=0, singlet at H2; retain frozen F only. This is a synthetic limiting control, not the physical benchmark.",
+        "c_ll_e_mu_tau_tau_dimensionless": [
+          -1.0306896481887708e-10,
+          -2.0435214270170642e-10
+        ],
+        "log_M_over_v": 0.7721701038216912,
+        "c_Hl1_plus_c_Hl3_over_c_ll": 0.0018011260034149184,
+        "g4_ref_complex": [
+          -1.6859502434424995e-12,
+          -3.3426894831181822e-12
+        ],
+        "g6_ref_complex": [
+          -1.6859502434424995e-12,
+          -3.3426894831181822e-12
+        ],
+        "analytic_g4_eq_g6_leadinglog_factor": 0.01635749661797047,
+        "g4_vs_g6_relative_residual": 0,
+        "explicit_vs_simplified_relative_residual": 2.1210134001446486e-16
+      },
+      "physically_complete_mu3e_BR": null,
+      "muAl_conversion_rate": null,
+      "LFV_status": "UNKNOWN"
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "charged_masses_GeV": {
+        "H1": 572.2316243593124,
+        "H2": 873.2076828282773
+      },
+      "singlet_fraction_sq": {
+        "H1": 0.7852456221263414,
+        "H2": 0.21475437787365856
+      },
+      "FdagF_e_mu_GeV0": [
+        -3.0402258350382816e-7,
+        -3.8890523957136236e-7
+      ],
+      "exact_broken_phase_F_singlet_weight_GeV_minus2": 0.0000026797179295748496,
+      "source_massless_photon_A1L_F_recheck_relative_residual": 1.0594398817505725e-16,
+      "singlet_contact_e_mu_tau_tau_Cll_GeV_minus2": [
+        -2.036736920027188e-13,
+        -2.6053908584624553e-13
+      ],
+      "singlet_contact_e_mu_tau_tau_c_ll_dimensionless": [
+        -6.173786321732799e-9,
+        -7.897498339907573e-9
+      ],
+      "effective_contact_mass_GeV": 610.8793702027663,
+      "effective_mass_over_v": 2.481030664457665,
+      "exact_tree_c_ll_over_unmixed_H2_only_ratio": 2.04326256535292,
+      "unmixed_reference_H2_only": {
+        "conditions": "gamma=0, D=0, singlet at H2; retain frozen F only. This is a synthetic limiting control, not the physical benchmark.",
+        "c_ll_e_mu_tau_tau_dimensionless": [
+          -3.0215335152809594e-9,
+          -3.8651412079012405e-9
+        ],
+        "log_M_over_v": 1.2659479778925073,
+        "c_Hl1_plus_c_Hl3_over_c_ll": 0.0029528879850018843,
+        "g4_ref_complex": [
+          -4.942472425729273e-11,
+          -6.322403423622284e-11
+        ],
+        "g6_ref_complex": [
+          -4.9424724257292735e-11,
+          -6.322403423622286e-11
+        ],
+        "analytic_g4_eq_g6_leadinglog_factor": 0.01635749661797047,
+        "g4_vs_g6_relative_residual": 2.1210134001446482e-16,
+        "explicit_vs_simplified_relative_residual": 2.1210134001446486e-16
+      },
+      "physically_complete_mu3e_BR": null,
+      "muAl_conversion_rate": null,
+      "LFV_status": "UNKNOWN"
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "charged_masses_GeV": {
+        "H1": 572.2316243593124,
+        "H2": 873.2076828282773
+      },
+      "singlet_fraction_sq": {
+        "H1": 0.7852456221263414,
+        "H2": 0.21475437787365856
+      },
+      "FdagF_e_mu_GeV0": [
+        -3.8629254918648773e-7,
+        -7.65892141001743e-7
+      ],
+      "exact_broken_phase_F_singlet_weight_GeV_minus2": 0.0000026797179295748496,
+      "source_massless_photon_A1L_F_recheck_relative_residual": 6.09677209417914e-17,
+      "singlet_contact_e_mu_tau_tau_Cll_GeV_minus2": [
+        -2.587887675290514e-13,
+        -5.130937255907099e-13
+      ],
+      "singlet_contact_e_mu_tau_tau_c_ll_dimensionless": [
+        -7.844442438680884e-9,
+        -1.5552970998220828e-8
+      ],
+      "effective_contact_mass_GeV": 610.8793702027663,
+      "effective_mass_over_v": 2.481030664457665,
+      "exact_tree_c_ll_over_unmixed_H2_only_ratio": 2.04326256535292,
+      "unmixed_reference_H2_only": {
+        "conditions": "gamma=0, D=0, singlet at H2; retain frozen F only. This is a synthetic limiting control, not the physical benchmark.",
+        "c_ll_e_mu_tau_tau_dimensionless": [
+          -3.839174940948406e-9,
+          -7.611831813467625e-9
+        ],
+        "log_M_over_v": 1.2659479778925073,
+        "c_Hl1_plus_c_Hl3_over_c_ll": 0.0029528879850018843,
+        "g4_ref_complex": [
+          -6.279929111236053e-11,
+          -1.2451051314535672e-10
+        ],
+        "g6_ref_complex": [
+          -6.279929111236055e-11,
+          -1.2451051314535675e-10
+        ],
+        "analytic_g4_eq_g6_leadinglog_factor": 0.01635749661797047,
+        "g4_vs_g6_relative_residual": 2.1210134001446482e-16,
+        "explicit_vs_simplified_relative_residual": 2.1210134001446486e-16
+      },
+      "physically_complete_mu3e_BR": null,
+      "muAl_conversion_rate": null,
+      "LFV_status": "UNKNOWN"
+    }
+  ],
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null,
+  "full_mu3e_BR": null,
+  "full_Al_conversion": null
+}
