@@ -1,5 +1,12 @@
 # Codex AGENTS — Zee Type-II full physical-constraint research
 
+## ACTIVE USER TASK (9 Nov 2026): leading μ→3e and Type-II μ-e conversion
+
+**Read and execute:** `research/full_constraints/lfv_lo_closure_2026/TASK.md`. This is the current task, superseding the older `lfv_integrated_2026/EXECUTION_TASK.md` and original neutral LFV transfer tasks. Source-hashed four low-texture D7/F13 NO/IO witnesses only. Complete the signed leading UV Wilson vectors for mu3e and Al conversion and validate actual numerical amplitudes. Reuse archived Module3/4/Zgamma and existing integrated outputs **without repeating** source mapping/provenance or two-loop calculations. Source-matched full new operators needed for physical rate; incomplete operators null. In absence of full leading coverage, report `physical_lfv=UNKNOWN`, not PASS. This user prefers one substantial execution producing working code and evidence, not repeated extensive audits.
+
+All new outputs strictly under `research/full_constraints/lfv_lo_closure_2026/` (public scratch only ignored `work/lfv_lo_closure_2026/`); frozen modules/validation/old research outputs read-only. No source checkout modification, scan, detector simulation, sudo, `--yolo`, auto-looping, new unrestricted two-loop gauge matching, commit or push. New TASK.md governs over conflicting 'CURRENT PRIORITY' paragraphs below.
+
+
 **Research branch:** `research/zee-full-constraints`.
 **Frozen working parent:** `feature/zee-d14-conditional-cascade-scan`
 at `133a34061723b6bb45b19e8ebe29852ac8b5a9c2`.
