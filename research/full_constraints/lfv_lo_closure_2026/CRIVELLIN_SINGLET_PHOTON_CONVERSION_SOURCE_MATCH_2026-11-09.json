@@ -1,0 +1,328 @@
+{
+  "status": "CHARGED_F_SINGLET_PHOTON_SEMILEPTONIC_VECTOR_SOURCE_MATCH_ONLY",
+  "date": "2026-11-09",
+  "source": "Crivellin, Kirk, Manzari, Panizzi, Phys Rev D 103 (2021) 073002, DOI 10.1103/PhysRevD.103.073002, Appendix Eqs A1-A3, A7; Eq9 dipole",
+  "source_url": "https://cds.cern.ch/record/2748156/files/scoap3-fulltext.pdf",
+  "input": {
+    "path": "research/full_constraints/lfv_2hdm_photon_2026/CHARGED_RESULT.json",
+    "github_blob_sha": "323ad2f8f19907cc4e718b973a140a2e598bd7aa"
+  },
+  "normalizations": {
+    "source_L_eff": "sum_{q=u,d} C^V_{qq;LL}(e_gamma_mu PL mu)(q_gamma^mu PL q) + C^V_{qq;LR}(e_gamma_mu PL mu)(q_gamma^mu PR q)",
+    "Crivellin_Eq_A2": "C^V_qq;LL=C^V_qq;LR=e^2 Q_q lambda_13*lambda_23/(288 pi^2 M_phi^2); lambda=F by antisymmetric charged-singlet vertex definition",
+    "two_state_extension": "Replace lambda_13*lambda_23/M_phi^2 -> (F^dagger F)_{e mu} (sin^2 gamma/mH1^2 + cos^2 gamma/mH2^2). Photon diagonal in charged-state basis.",
+    "source_dipole_Eq9": "c_R(source)=+e m_mu lambda_13*lambda_23/(384 pi^2 M_phi^2); native e m_mu/2 * A2R_F has opposite displayed sign; this is a relative-sign convention mismatch until an interference check is done",
+    "nucleon_vector": "g_p = 2(CuLL+CuLR) + (CdLL+CdLR) = 2 e^2(F†F)w_F/(288pi^2) = -2e^2 A1L_F; g_n = (CuLL+CuLR)+2(CdLL+CdLR)=0",
+    "Al27_source_vector_only": "R=4m_mu^5/Γ_capture * |g_p*V_p + g_n*V_n|^2 (F left chirality only); no K2 dipole or Z/scalar/box interference",
+    "Al27_inputs": {
+      "m_mu_GeV": 0.1056583755,
+      "alpha_q2_zero": 0.0072973525692838015,
+      "e_squared": 0.09170123688926637,
+      "Vp": 0.0161,
+      "Vn": 0.0173,
+      "source_Vp_alternative": 0.0159,
+      "capture_rate_GeV": 4.6e-19,
+      "overlap_context": "KKO nuclear proton/neutron equal density Table as cited by NPB932 (2018) 471 for Vp=.0161, Vn=.0173; Crivellin Eq A7 for Al capture. Alternate Vp=.0159 from nuclear-distribution variant archived in native al_kernel."
+    }
+  },
+  "subset_limits": [
+    "source Eq A2 pure charged singlet; mixed-state extension uses separate diagonal photon loops, cannot certify full D/F mixed Zee",
+    "Only F left-chiral vector photon subset; excludes D charged photon vector, h/H/A neutral vector, Z, quark boxes, scalar, gluon, dipole, RG and interference",
+    "Crivellin source Eq9 has opposite signed effective dipole coefficient compared with native Lavoura normalization; reconcile before assigning common signed rate",
+    "Al27 is prospective experimental target; no observed Al exclusion applied",
+    "F photon vector-only rate is a NON-BOUND partial quadratic amplitude, not an upper or lower bound on coherent full conversion rate"
+  ],
+  "checks": {
+    "n_cards": 4,
+    "all_pass": true,
+    "max_relative_loop_residual": 1.9050779925590835e-16,
+    "max_relative_proton_match": 1.8583169252082393e-16,
+    "maximum_relative_neutron_noncancellation": 0,
+    "physical_python_unittest_not_run": true,
+    "calculation_ran_in": "independent JavaScript arithmetic with repository source input through GitHub plugin"
+  },
+  "cards": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "FdagF_e_mu": [
+        -3.0402258350382816e-9,
+        -3.889052395713624e-9
+      ],
+      "charged_mass_and_singlet_squared": {
+        "H1": {
+          "mass": 298.7266553444879,
+          "singlet_squared": 0.9367289010188155
+        },
+        "H2": {
+          "mass": 532.9329127809378,
+          "singlet_squared": 0.06327109898118452
+        }
+      },
+      "F_weight_gevm2": 0.000010719790447632258,
+      "Crivellin_source_quark_operator_coefficients_GeV_minus2": {
+        "Cu_LL": [
+          -7.009448389138198e-19,
+          -8.966476021695164e-19
+        ],
+        "Cu_LR": [
+          -7.009448389138198e-19,
+          -8.966476021695164e-19
+        ],
+        "Cd_LL": [
+          3.504724194569099e-19,
+          4.483238010847582e-19
+        ],
+        "Cd_LR": [
+          3.504724194569099e-19,
+          4.483238010847582e-19
+        ],
+        "notes": "LL/LR label denotes quark chirality. The external muon/electron current is left-chiral; source Eq A1 basis."
+      },
+      "vector_proton_amplitude_coefficient_source": [
+        -2.1028345167414594e-18,
+        -2.6899428065085493e-18
+      ],
+      "vector_neutron_amplitude_coefficient_source": [
+        0,
+        0
+      ],
+      "proton_from_Hundi_A1_via_minus_2_e2": [
+        -2.1028345167414594e-18,
+        -2.6899428065085493e-18
+      ],
+      "Al27_F_photon_VECTOR_ONLY_rate_diagnostic": 3.4600839022156295e-25,
+      "Al27_F_photon_VECTOR_ONLY_rate_alternative_overlap": 3.3746530277347832e-25,
+      "ratio_baseline_over_alternative_overlap": 1.0253154542937386,
+      "source_dipole_cR_from_Eq9": [
+        -2.751393437812034e-19,
+        -3.5195784199823764e-19
+      ],
+      "native_e_mmu_over_2_A2R_F": [
+        2.751393437812035e-19,
+        3.5195784199823773e-19
+      ],
+      "source_vs_native_dipole_sign": "OPPOSITE in their published/raw effective-action conventions; magnitude exactly matches; coherent rate interference UNSUPPORTED",
+      "numerical_checks": {
+        "charged_A1_loop_match": 1.6552329429284302e-16,
+        "two_state_Cu_sum": 8.461068447033343e-17,
+        "proton_A1_map": 1.128142459604446e-16,
+        "neutron_cancel_relative_to_proton": 0,
+        "Eq9_dipole_magnitude_signflip_residual": 3.048395777667631e-16
+      },
+      "physical_conversion_rate": null,
+      "global_acceptance": null
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "FdagF_e_mu": [
+        -3.862925491864878e-9,
+        -7.65892141001743e-9
+      ],
+      "charged_mass_and_singlet_squared": {
+        "H1": {
+          "mass": 298.7266553444879,
+          "singlet_squared": 0.9367289010188155
+        },
+        "H2": {
+          "mass": 532.9329127809378,
+          "singlet_squared": 0.06327109898118452
+        }
+      },
+      "F_weight_gevm2": 0.000010719790447632258,
+      "Crivellin_source_quark_operator_coefficients_GeV_minus2": {
+        "Cu_LL": [
+          -8.90623865972516e-19,
+          -1.7658166614226783e-18
+        ],
+        "Cu_LR": [
+          -8.90623865972516e-19,
+          -1.7658166614226783e-18
+        ],
+        "Cd_LL": [
+          4.45311932986258e-19,
+          8.829083307113392e-19
+        ],
+        "Cd_LR": [
+          4.45311932986258e-19,
+          8.829083307113392e-19
+        ],
+        "notes": "LL/LR label denotes quark chirality. The external muon/electron current is left-chiral; source Eq A1 basis."
+      },
+      "vector_proton_amplitude_coefficient_source": [
+        -2.671871597917548e-18,
+        -5.2974499842680346e-18
+      ],
+      "vector_neutron_amplitude_coefficient_source": [
+        0,
+        0
+      ],
+      "proton_from_Hundi_A1_via_minus_2_e2": [
+        -2.671871597917548e-18,
+        -5.2974499842680346e-18
+      ],
+      "Al27_F_photon_VECTOR_ONLY_rate_diagnostic": 1.0448148665660996e-24,
+      "Al27_F_photon_VECTOR_ONLY_rate_alternative_overlap": 1.0190179638770715e-24,
+      "ratio_baseline_over_alternative_overlap": 1.0253154542937382,
+      "source_dipole_cR_from_Eq9": [
+        -3.4959336660396547e-19,
+        -6.931296308773952e-19
+      ],
+      "native_e_mmu_over_2_A2R_F": [
+        3.4959336660396557e-19,
+        6.931296308773954e-19
+      ],
+      "source_vs_native_dipole_sign": "OPPOSITE in their published/raw effective-action conventions; magnitude exactly matches; coherent rate interference UNSUPPORTED",
+      "numerical_checks": {
+        "charged_A1_loop_match": 1.9050779925590835e-16,
+        "two_state_Cu_sum": 2.1775285077457039e-16,
+        "proton_A1_map": 1.2984271376701522e-16,
+        "neutron_cancel_relative_to_proton": 0,
+        "Eq9_dipole_magnitude_signflip_residual": 2.7737352065247165e-16
+      },
+      "physical_conversion_rate": null,
+      "global_acceptance": null
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "FdagF_e_mu": [
+        -3.0402258350382816e-7,
+        -3.8890523957136236e-7
+      ],
+      "charged_mass_and_singlet_squared": {
+        "H1": {
+          "mass": 572.2316243593124,
+          "singlet_squared": 0.7852456221263414
+        },
+        "H2": {
+          "mass": 873.2076828282773,
+          "singlet_squared": 0.21475437787365856
+        }
+      },
+      "F_weight_gevm2": 0.0000026797179295748496,
+      "Crivellin_source_quark_operator_coefficients_GeV_minus2": {
+        "Cu_LL": [
+          -1.752211912775959e-17,
+          -2.2414268896223262e-17
+        ],
+        "Cu_LR": [
+          -1.752211912775959e-17,
+          -2.2414268896223262e-17
+        ],
+        "Cd_LL": [
+          8.761059563879795e-18,
+          1.1207134448111631e-17
+        ],
+        "Cd_LR": [
+          8.761059563879795e-18,
+          1.1207134448111631e-17
+        ],
+        "notes": "LL/LR label denotes quark chirality. The external muon/electron current is left-chiral; source Eq A1 basis."
+      },
+      "vector_proton_amplitude_coefficient_source": [
+        -5.256635738327877e-17,
+        -6.724280668866979e-17
+      ],
+      "vector_neutron_amplitude_coefficient_source": [
+        0,
+        0
+      ],
+      "proton_from_Hundi_A1_via_minus_2_e2": [
+        -5.256635738327877e-17,
+        -6.724280668866979e-17
+      ],
+      "Al27_F_photon_VECTOR_ONLY_rate_diagnostic": 2.1621817758143e-22,
+      "Al27_F_photon_VECTOR_ONLY_rate_alternative_overlap": 2.1087966310852723e-22,
+      "ratio_baseline_over_alternative_overlap": 1.025315454293738,
+      "source_dipole_cR_from_Eq9": [
+        -6.87789408070752e-18,
+        -8.798191944745225e-18
+      ],
+      "native_e_mmu_over_2_A2R_F": [
+        6.8778940807075196e-18,
+        8.798191944745225e-18
+      ],
+      "source_vs_native_dipole_sign": "OPPOSITE in their published/raw effective-action conventions; magnitude exactly matches; coherent rate interference UNSUPPORTED",
+      "numerical_checks": {
+        "charged_A1_loop_match": 1.0594398817505723e-16,
+        "two_state_Cu_sum": 0,
+        "proton_A1_map": 0,
+        "neutron_cancel_relative_to_proton": 0,
+        "Eq9_dipole_magnitude_signflip_residual": 6.898323457792479e-17
+      },
+      "physical_conversion_rate": null,
+      "global_acceptance": null
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "FdagF_e_mu": [
+        -3.8629254918648773e-7,
+        -7.65892141001743e-7
+      ],
+      "charged_mass_and_singlet_squared": {
+        "H1": {
+          "mass": 572.2316243593124,
+          "singlet_squared": 0.7852456221263414
+        },
+        "H2": {
+          "mass": 873.2076828282773,
+          "singlet_squared": 0.21475437787365856
+        }
+      },
+      "F_weight_gevm2": 0.0000026797179295748496,
+      "Crivellin_source_quark_operator_coefficients_GeV_minus2": {
+        "Cu_LL": [
+          -2.2263688397761217e-17,
+          -4.4141633095090144e-17
+        ],
+        "Cu_LR": [
+          -2.2263688397761217e-17,
+          -4.4141633095090144e-17
+        ],
+        "Cd_LL": [
+          1.1131844198880608e-17,
+          2.2070816547545072e-17
+        ],
+        "Cd_LR": [
+          1.1131844198880608e-17,
+          2.2070816547545072e-17
+        ],
+        "notes": "LL/LR label denotes quark chirality. The external muon/electron current is left-chiral; source Eq A1 basis."
+      },
+      "vector_proton_amplitude_coefficient_source": [
+        -6.679106519328364e-17,
+        -1.3242489928527042e-16
+      ],
+      "vector_neutron_amplitude_coefficient_source": [
+        0,
+        0
+      ],
+      "proton_from_Hundi_A1_via_minus_2_e2": [
+        -6.679106519328364e-17,
+        -1.3242489928527042e-16
+      ],
+      "Al27_F_photon_VECTOR_ONLY_rate_diagnostic": 6.528973653333932e-22,
+      "Al27_F_photon_VECTOR_ONLY_rate_alternative_overlap": 6.367770646577491e-22,
+      "ratio_baseline_over_alternative_overlap": 1.0253154542937384,
+      "source_dipole_cR_from_Eq9": [
+        -8.739085126015673e-18,
+        -1.7326755671721237e-17
+      ],
+      "native_e_mmu_over_2_A2R_F": [
+        8.739085126015671e-18,
+        1.7326755671721234e-17
+      ],
+      "source_vs_native_dipole_sign": "OPPOSITE in their published/raw effective-action conventions; magnitude exactly matches; coherent rate interference UNSUPPORTED",
+      "numerical_checks": {
+        "charged_A1_loop_match": 6.09677209417914e-17,
+        "two_state_Cu_sum": 6.232984452756021e-17,
+        "proton_A1_map": 1.8583169252082393e-16,
+        "neutron_cancel_relative_to_proton": 0,
+        "Eq9_dipole_magnitude_signflip_residual": 1.7753426862136868e-16
+      },
+      "physical_conversion_rate": null,
+      "global_acceptance": null
+    }
+  ],
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null
+}
