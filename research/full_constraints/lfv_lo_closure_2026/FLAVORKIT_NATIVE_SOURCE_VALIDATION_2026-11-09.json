@@ -1,0 +1,100 @@
+{
+  "status": "CHARGED_F_D_PHOTON_NATIVE_MATCH_PASS__FULL_LFV_UNKNOWN",
+  "date": "2026-11-09",
+  "input": {
+    "source_bundle": "user uploaded zee_lfv_source_bundle.zip; original generated Fortran not redistributed to GitHub",
+    "source_sha256": {
+      "generated.f90": "2d30006d8d4759b2b7bfe76e2e4795bd2cf2f19ef5cb5772390ed3155b1bc41d",
+      "couplings.f90": "a0de851498f3e68e7421538098b3979381a3ecf5245021fce9d1c2df46a42e8c",
+      "loops.f90": "8142a813fcc00283d1de2865266be04ff1de25c09422b24b04d57523a6595a24"
+    }
+  },
+  "tests": {
+    "compiler": "gfortran -O0 -fcheck=all -ffree-line-length-none",
+    "unmodified_loop_functions": [
+      "SmallDifference",
+      "MonopoleFSS",
+      "MonopoleSFF"
+    ],
+    "n_original_kernel_evaluations": 18,
+    "max_relative_neutral_Gc_kernel_residual": 6.274159916832886e-16,
+    "max_relative_charged_FSS_kernel_residual": 0,
+    "native_charged_vertices": [
+      "CouplingFvFecHmT",
+      "CouplingcFeFvHmT",
+      "CouplingHmcHmVPT"
+    ],
+    "gamma_source": "Original CalculateGamma2l charged-FSS OA1L/OA1R expressions, divided by e for source-independent A1",
+    "n_photon_F_and_D_complex_tests": 8,
+    "max_relative_complex_F_D_A1_residual": 3.310465885856861e-16,
+    "input_restriction": "synthetic complex F and D chosen to reproduce each benchmark's FdagF_e_mu and DDdag_e_mu bilinears, not full physical Yukawa cards"
+  },
+  "rows": [
+    {
+      "id": "D7_NO",
+      "F_residual": 3.310465885856861e-16,
+      "D_residual": 1.1556845235500954e-16
+    },
+    {
+      "id": "D7_IO",
+      "F_residual": 2.129941946900475e-16,
+      "D_residual": 2.3116150896625416e-16
+    },
+    {
+      "id": "F13_NO",
+      "F_residual": 1.0594398817505725e-16,
+      "D_residual": 2.301795990280271e-16
+    },
+    {
+      "id": "F13_IO",
+      "F_residual": 6.09677209417914e-17,
+      "D_residual": 8.138947102705939e-17
+    }
+  ],
+  "coverage": {
+    "charged_A1L_F": "VALIDATED_NATIVE_SOURCE_RESTRICTED",
+    "charged_A1R_D": "VALIDATED_NATIVE_SOURCE_RESTRICTED",
+    "neutral_2015_Gc_kernel": "VALIDATED_FUNCTION_ONLY",
+    "full_gamma2l": "UNKNOWN",
+    "full_physical_K1": "UNKNOWN",
+    "full_Z_penguins": "UNKNOWN",
+    "full_boxes": "UNKNOWN",
+    "full_conversion": "UNKNOWN",
+    "mu3e_physical": "UNKNOWN",
+    "global_acceptance": null
+  },
+  "source_line_inventory": {
+    "Gamma2l": [
+      46280,
+      46984
+    ],
+    "PengV4L": [
+      25146,
+      27793
+    ],
+    "PengV4Lcross": [
+      40721,
+      45911
+    ],
+    "Box4L": [
+      18631,
+      20171
+    ],
+    "Box4Lcross": [
+      28069,
+      30665
+    ],
+    "PengV2L2d": [
+      6378,
+      9036
+    ],
+    "PengV2L2u": [
+      15675,
+      18333
+    ]
+  },
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null,
+  "physical_mu3e_BR": null,
+  "physical_Al_conversion": null
+}
