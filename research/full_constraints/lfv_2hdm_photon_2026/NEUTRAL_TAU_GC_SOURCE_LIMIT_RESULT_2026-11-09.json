@@ -1,0 +1,364 @@
+{
+  "status": "2015_2017_SOURCE_ASYMPTOTIC_LOOP_KERNEL_MATCH__FULL_NEUTRAL_K1_UNRESOLVED",
+  "date": "2026-11-09",
+  "sources": [
+    {
+      "paper": "Chowdhury & Nasri, JHEP 12(2015)040",
+      "doi": "10.1007/JHEP12(2015)040",
+      "arxiv": "1506.00261v2",
+      "eq": [
+        "(3.11)",
+        "(B.4)"
+      ]
+    },
+    {
+      "paper": "Herrero-Garcia et al., JHEP04(2017)130",
+      "doi": "10.1007/JHEP04(2017)130",
+      "arxiv": "1701.05345v2",
+      "eq": [
+        "(3.24)",
+        "(3.25)"
+      ]
+    }
+  ],
+  "input": {
+    "path": "research/full_constraints/lfv_2hdm_photon_2026/RESULT.json",
+    "blob_sha": "5e192e5795a63a5b07c7c84d3ae7fe037506adfb"
+  },
+  "identity": "Gc(x)=[16-45x+36x²-7x³+6(2-3x)ln(x)]/[6(1-x)^4]; Gc(x<<1)=(2/3)*(4+3ln x)+O(x ln x). Thus -e²/(48pi² mphi²)*Gc_asym(x) = -alpha/(18pi mphi²)*(4+3ln x), the 2017 neutral tau-only source prefactor. This is an algebraic kernel match, not a proof of relative operator sign across the published actions.",
+  "candidate": "For each original 2017 tau-only by-scalar gLV/gRV, multiply by Gc(x)/Gc_asym(x). Only a zero-external-momentum same-chirality charged-fermion/neutral-scalar loop-kernel transfer candidate; original 2017 published formula remains the authoritative implemented approximation.",
+  "limits": "All x_tau<0.00021. e/mu loops are NOT included; their internal masses are comparable to, or lighter than, muon external momentum, so x->0 at q²=0 is not a uniform approximation and replacing mtau with me/mu would not give a valid full K1.",
+  "checks": {
+    "n_cards": 4,
+    "all_source_sums_match": true,
+    "max_algebraic_prefactor_relative_residual": 4.1801710971248255e-16,
+    "max_scalar_kernel_relative_correction": 0.0005546364065007747,
+    "max_total_tau_source_relative_shift": 0.000041482718936275266,
+    "run_environment": "Independent JavaScript numerical arithmetic evaluated from authenticated GitHub source JSON",
+    "local_Python_unittest": "NOT_RUN"
+  },
+  "physics_caution": "No complete signed neutral photon; no photon-dipole/Z/box interference; do not use these coefficients to filter a scan; source-level gLV/gRV conventions remain unmatched to native common K1.",
+  "cards": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "neutral_tau_source_gLV": [
+        1.6646940122125306e-17,
+        1.453886475875034e-17
+      ],
+      "neutral_tau_source_gRV": [
+        -1.1641191149554632e-17,
+        -1.4902114383273614e-17
+      ],
+      "neutral_tau_finite_x_candidate_gLV": [
+        1.6647630682463542e-17,
+        1.453946787039078e-17
+      ],
+      "neutral_tau_finite_x_candidate_gRV": [
+        -1.164167405781517e-17,
+        -1.490273256349613e-17
+      ],
+      "relative_finite_x_shift_gLV": 0.000041482718936275266,
+      "relative_finite_x_shift_gRV": 0.000041482718936113564,
+      "by_scalar": {
+        "h": {
+          "m_GeV": 125,
+          "x": 0.00020206281341440002,
+          "Gc_exact": -14.355154714058346,
+          "Gc_asymptotic": -14.347197236139934,
+          "ratio": 1.0005546364065008,
+          "relative_correction": 0.0005546364065007747,
+          "gLV_candidate": [
+            2.1421367355774285e-19,
+            1.870868523874705e-19
+          ],
+          "gRV_candidate": [
+            -1.4979944076446953e-19,
+            -1.9176116706132342e-19
+          ],
+          "source_2017_prefactor_relative_residual": 0
+        },
+        "H": {
+          "m_GeV": 492.4307830996228,
+          "x": 0.000013020151381479459,
+          "Gc_exact": -19.83204902569222,
+          "Gc_asymptotic": -19.831357922152737,
+          "ratio": 1.0000348490275954,
+          "relative_correction": 0.000034849027595429405,
+          "gLV_candidate": [
+            8.218139378013738e-18,
+            7.177440184739977e-18
+          ],
+          "gRV_candidate": [
+            -5.746937917196397e-18,
+            -7.356766596767841e-18
+          ],
+          "source_2017_prefactor_relative_residual": 4.1801710971248255e-16
+        },
+        "A": {
+          "m_GeV": 493.16131740168134,
+          "x": 0.000012981605688980089,
+          "Gc_exact": -19.837976882262815,
+          "Gc_asymptotic": -19.837287632307447,
+          "ratio": 1.0000347451712222,
+          "relative_correction": 0.00003474517122215026,
+          "gLV_candidate": [
+            8.215277630892059e-18,
+            7.174940833263332e-18
+          ],
+          "gRV_candidate": [
+            -5.7449366998543035e-18,
+            -7.354204799666965e-18
+          ],
+          "source_2017_prefactor_relative_residual": 0
+        }
+      },
+      "source_sum_relative_residual": 0,
+      "common_K1": null,
+      "physical_mu3e_BR": null,
+      "physical_conversion": null,
+      "LFV_status": "UNKNOWN"
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "neutral_tau_source_gLV": [
+        4.591319916835443e-18,
+        4.144005658276567e-17
+      ],
+      "neutral_tau_source_gRV": [
+        -1.7007970871127283e-17,
+        -3.3775521205824624e-17
+      ],
+      "neutral_tau_finite_x_candidate_gLV": [
+        4.591510377269098e-18,
+        4.1441775628985586e-17
+      ],
+      "neutral_tau_finite_x_candidate_gRV": [
+        -1.7008676408002605e-17,
+        -3.377692230627773e-17
+      ],
+      "relative_finite_x_shift_gLV": 0.00004148271893609278,
+      "relative_finite_x_shift_gRV": 0.00004148271893620995,
+      "by_scalar": {
+        "h": {
+          "m_GeV": 125,
+          "x": 0.00020206281341440002,
+          "Gc_exact": -14.355154714058346,
+          "Gc_asymptotic": -14.347197236139934,
+          "ratio": 1.0005546364065008,
+          "relative_correction": 0.0005546364065007747,
+          "gLV_candidate": [
+            5.908133859128607e-20,
+            5.332527592405151e-19
+          ],
+          "gRV_candidate": [
+            -2.188594356283487e-19,
+            -4.34625127545868e-19
+          ],
+          "source_2017_prefactor_relative_residual": 0
+        },
+        "H": {
+          "m_GeV": 492.4307830996228,
+          "x": 0.000013020151381479459,
+          "Gc_exact": -19.83204902569222,
+          "Gc_asymptotic": -19.831357922152737,
+          "ratio": 1.0000348490275954,
+          "relative_correction": 0.000034849027595429405,
+          "gLV_candidate": [
+            2.2666091623321628e-18,
+            2.045782337964371e-17
+          ],
+          "gRV_candidate": [
+            -8.396370391838527e-18,
+            -1.6674051735526276e-17
+          ],
+          "source_2017_prefactor_relative_residual": 4.1801710971248255e-16
+        },
+        "A": {
+          "m_GeV": 493.16131740168134,
+          "x": 0.000012981605688980089,
+          "Gc_exact": -19.837976882262815,
+          "Gc_asymptotic": -19.837287632307447,
+          "ratio": 1.0000347451712222,
+          "relative_correction": 0.00003474517122215026,
+          "gLV_candidate": [
+            2.2658198763456496e-18,
+            2.0450699490101365e-17
+          ],
+          "gRV_candidate": [
+            -8.393446580535728e-18,
+            -1.6668245443205587e-17
+          ],
+          "source_2017_prefactor_relative_residual": 0
+        }
+      },
+      "source_sum_relative_residual": 0,
+      "common_K1": null,
+      "physical_mu3e_BR": null,
+      "physical_conversion": null,
+      "LFV_status": "UNKNOWN"
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "neutral_tau_source_gLV": [
+        5.124620609010584e-20,
+        4.475667325509522e-20
+      ],
+      "neutral_tau_source_gRV": [
+        -3.584587334313297e-20,
+        -4.5886988395482235e-20
+      ],
+      "neutral_tau_finite_x_candidate_gLV": [
+        5.1246991245013987e-20,
+        4.4757358982378464e-20
+      ],
+      "neutral_tau_finite_x_candidate_gRV": [
+        -3.584642254600161e-20,
+        -4.588769144058367e-20
+      ],
+      "relative_finite_x_shift_gLV": 0.000015321229961240132,
+      "relative_finite_x_shift_gRV": 0.00001532122996116652,
+      "by_scalar": {
+        "h": {
+          "m_GeV": 125,
+          "x": 0.00020206281341440002,
+          "Gc_exact": -14.355154714058346,
+          "Gc_asymptotic": -14.347197236139934,
+          "ratio": 1.0005546364065008,
+          "relative_correction": 0.0005546364065007747,
+          "gLV_candidate": [
+            3.676004627745702e-24,
+            3.210495967622421e-24
+          ],
+          "gRV_candidate": [
+            -2.5713044213117658e-24,
+            -3.2915759929333274e-24
+          ],
+          "source_2017_prefactor_relative_residual": 0
+        },
+        "H": {
+          "m_GeV": 707.0819378644715,
+          "x": 0.000006314906644271993,
+          "Gc_exact": -21.278886539907585,
+          "Gc_asymptotic": -21.278528504218514,
+          "ratio": 1.000016826148904,
+          "relative_correction": 0.00001682614890397005,
+          "gLV_candidate": [
+            2.8255523574249704e-20,
+            2.4677402148380623e-20
+          ],
+          "gRV_candidate": [
+            -1.976427128099173e-20,
+            -2.530062186613653e-20
+          ],
+          "source_2017_prefactor_relative_residual": 0
+        },
+        "A": {
+          "m_GeV": 792.2593499631515,
+          "x": 0.000005030042737494616,
+          "Gc_exact": -21.733788396675713,
+          "Gc_asymptotic": -21.733497488071166,
+          "ratio": 1.0000133852641393,
+          "relative_correction": 0.000013385264139298414,
+          "gLV_candidate": [
+            2.2987791666136542e-20,
+            2.0076746338030218e-20
+          ],
+          "gRV_candidate": [
+            -1.6079579960588572e-20,
+            -2.058377799845421e-20
+          ],
+          "source_2017_prefactor_relative_residual": 2.468318833902979e-16
+        }
+      },
+      "source_sum_relative_residual": 0,
+      "common_K1": null,
+      "physical_mu3e_BR": null,
+      "physical_conversion": null,
+      "LFV_status": "UNKNOWN"
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "neutral_tau_source_gLV": [
+        1.4133992490970527e-20,
+        1.2756973140088005e-19
+      ],
+      "neutral_tau_source_gRV": [
+        -5.2371399805180956e-20,
+        -1.0400244612613745e-19
+      ],
+      "neutral_tau_finite_x_candidate_gLV": [
+        1.413420904111975e-20,
+        1.2757168592607093e-19
+      ],
+      "neutral_tau_finite_x_candidate_gRV": [
+        -5.237220219944076e-20,
+        -1.0400403957153107e-19
+      ],
+      "relative_finite_x_shift_gLV": 0.00001532122996113934,
+      "relative_finite_x_shift_gRV": 0.000015321229961193935,
+      "by_scalar": {
+        "h": {
+          "m_GeV": 125,
+          "x": 0.00020206281341440002,
+          "Gc_exact": -14.355154714058346,
+          "Gc_asymptotic": -14.347197236139934,
+          "ratio": 1.0005546364065008,
+          "relative_correction": 0.0005546364065007747,
+          "gLV_candidate": [
+            1.0138627962814592e-24,
+            9.150861278693787e-24
+          ],
+          "gRV_candidate": [
+            -3.7567172817996204e-24,
+            -7.46032735739179e-24
+          ],
+          "source_2017_prefactor_relative_residual": 0
+        },
+        "H": {
+          "m_GeV": 707.0819378644715,
+          "x": 0.000006314906644271993,
+          "Gc_exact": -21.278886539907585,
+          "Gc_asymptotic": -21.278528504218514,
+          "ratio": 1.000016826148904,
+          "relative_correction": 0.00001682614890397005,
+          "gLV_candidate": [
+            7.793032665182827e-21,
+            7.033788114227255e-20
+          ],
+          "gRV_candidate": [
+            -2.8875919501433095e-20,
+            -5.734363170474931e-20
+          ],
+          "source_2017_prefactor_relative_residual": 0
+        },
+        "A": {
+          "m_GeV": 792.2593499631515,
+          "x": 0.000005030042737494616,
+          "Gc_exact": -21.733788396675713,
+          "Gc_asymptotic": -21.733497488071166,
+          "ratio": 1.0000133852641393,
+          "relative_correction": 0.000013385264139298414,
+          "gLV_candidate": [
+            6.340162513140642e-21,
+            5.722465392251969e-20
+          ],
+          "gRV_candidate": [
+            -2.3492525980725866e-20,
+            -4.6652947539424366e-20
+          ],
+          "source_2017_prefactor_relative_residual": 2.468318833902979e-16
+        }
+      },
+      "source_sum_relative_residual": 0,
+      "common_K1": null,
+      "physical_mu3e_BR": null,
+      "physical_conversion": null,
+      "LFV_status": "UNKNOWN"
+    }
+  ],
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null,
+  "full_common_K1": null,
+  "mu3e_BR": null,
+  "muAl_conversion": null
+}
