@@ -1,0 +1,88 @@
+{
+  "date": "2026-11-10",
+  "status": "SOURCE_ONELOOP_RADIATIVE_MU3E_CONVERSION_EXECUTED__PHYSICAL_FULL_LFV_UNKNOWN",
+  "source_sha256": {
+    "generated": "2d30006d8d4759b2b7bfe76e2e4795bd2cf2f19ef5cb5772390ed3155b1bc41d",
+    "couplings": "a0de851498f3e68e7421538098b3979381a3ecf5245021fce9d1c2df46a42e8c",
+    "loops": "8142a813fcc00283d1de2865266be04ff1de25c09422b24b04d57523a6595a24",
+    "FlavorKit_Observables_ZeeTypeII": "b179e6fea1fe3afe08e34e6d481380b7d4b669ffb904898ac6ee6f8555aa3784",
+    "LowEnergy_ZeeTypeII": "cf3552d25de21a6df0869d1fc013dded8efe26206195a08f84ab6ec251d63727"
+  },
+  "source_breakthrough": "The missing native OA2 Cxx Passarino-Veltman functions are embedded in FlavorKit_LFV_ZeeTypeII.f90 lines 49501-50348; full native Gamma2l dipole now compiled unmodified.",
+  "K2_mapping": "K2L native=-Module3 C_R and K2R native=-Module3 C_L; sign/chirality source-tested on four cards.",
+  "validation": {
+    "full_mu3e_original_fortran_vs_python": 20,
+    "Al_conversion_original_and_corrected_fortran_vs_python": 32,
+    "original_radiative_observable_vs_independent_width": 12,
+    "mu_tau_radiative_chiral_matches": 12,
+    "final_clean_folder_unittests": 7,
+    "archive_integrity": "128 derived files SHA256 verified"
+  },
+  "rate_scope": "Full generated one-loop coefficients and original rate functions. mu3e K1(q2=0), quark CKM and masses illustrative, conversion historical nuclear Zeff model with scalar proton/neutron bug corrected.",
+  "experimental_limits_90CL_context": {
+    "MEGII_muegamma": 1.5e-13,
+    "SINDRUM_mu3e": 1e-12,
+    "SINDRUMII_gold_conversion": 7e-13
+  },
+  "cards": [
+    {
+      "id": "D7_NO",
+      "one_loop_muegamma_BR": 1.5545288442022425e-19,
+      "one_loop_mu3e_BR_q2zero": 1.0882865885666434e-21,
+      "one_loop_Al_conversion_historical": 4.7320821069391635e-22,
+      "one_loop_Au_conversion_historical": 6.989275651208916e-22,
+      "one_loop_tauegamma_BR": 7.43331473e-18,
+      "one_loop_taumugamma_BR": 3.04075302e-15,
+      "sufficient_missing_radiative_dipole_norm_times_one_loop": 981.3047342424726,
+      "experimental_status_within_source_one_loop": "PASS",
+      "physical_all_orders_LFV": null
+    },
+    {
+      "id": "D7_IO",
+      "one_loop_muegamma_BR": 1.0810333485880103e-18,
+      "one_loop_mu3e_BR_q2zero": 7.52936205385342e-21,
+      "one_loop_Al_conversion_historical": 3.0852929298984262e-21,
+      "one_loop_Au_conversion_historical": 4.549717801607876e-21,
+      "one_loop_tauegamma_BR": 4.43481562e-17,
+      "one_loop_taumugamma_BR": 3.48567294e-15,
+      "sufficient_missing_radiative_dipole_norm_times_one_loop": 371.499834144467,
+      "experimental_status_within_source_one_loop": "PASS",
+      "physical_all_orders_LFV": null
+    },
+    {
+      "id": "F13_NO",
+      "one_loop_muegamma_BR": 4.013887755978653e-20,
+      "one_loop_mu3e_BR_q2zero": 4.54615814204473e-22,
+      "one_loop_Al_conversion_historical": 2.3737148894288387e-21,
+      "one_loop_Au_conversion_historical": 6.346835509612627e-21,
+      "one_loop_tauegamma_BR": 3.25330873e-21,
+      "one_loop_taumugamma_BR": 5.80427003e-20,
+      "sufficient_missing_radiative_dipole_norm_times_one_loop": 1932.1387110653623,
+      "experimental_status_within_source_one_loop": "PASS",
+      "physical_all_orders_LFV": null
+    },
+    {
+      "id": "F13_IO",
+      "one_loop_muegamma_BR": 1.3320877110194188e-19,
+      "one_loop_mu3e_BR_q2zero": 1.4571315734403206e-21,
+      "one_loop_Al_conversion_historical": 7.205254841421206e-21,
+      "one_loop_Au_conversion_historical": 1.922038065792963e-20,
+      "one_loop_tauegamma_BR": 5.52114533e-21,
+      "one_loop_taumugamma_BR": 6.86053956e-20,
+      "sufficient_missing_radiative_dipole_norm_times_one_loop": 1060.1559624303636,
+      "experimental_status_within_source_one_loop": "PASS",
+      "physical_all_orders_LFV": null
+    }
+  ],
+  "missing": [
+    "full Zee mixed F/D and gauge bosonic two-loop dipole amplitudes, thresholds NOT estimates",
+    "mu3e exact finite q2 photon and light lepton source uncertainty",
+    "scalar penguin Q dependence/counterterms",
+    "QED/QCD matching running and modern nuclear response for conversion",
+    "tau three-body channels not completed"
+  ],
+  "experimental_filter_authorized": false,
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null,
+  "delivered_archive": "zee_lfv_native_one_loop_full_replay_2026-11-10.zip (private conversation attachment, original user source ZIPs not redistributed)"
+}
