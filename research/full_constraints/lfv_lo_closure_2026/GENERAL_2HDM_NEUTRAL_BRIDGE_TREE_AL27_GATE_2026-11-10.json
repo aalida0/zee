@@ -1,0 +1,77 @@
+{
+  "status": "NEUTRAL_2HDM_YUKAWA_MAP_VALIDATED__TREE_AL27_SCALAR_NUMERICAL_FLOOR__FULL_LFV_UNKNOWN",
+  "date": "2026-11-10",
+  "primary_source": "Altmannshofer et al JHEP06(2025)156, arXiv:2410.17313 (Eqs 8-13), corrected JHEP07(2026)184",
+  "code_url": "https://gitlab.com/jbrod/general-2hdm-pheno",
+  "gitlab_code_executed": false,
+  "source_2HDM_bridge": "rho_lepton (RH row, LH col)=D/sqrt(2); theta12=beta-alpha, theta13=theta23=0; q_h2=-sin(delta), q_H2=cos(delta), q_A2=i; paper Yukawa LH/RH equals native C^dagger",
+  "input_cards": "research/full_constraints/lfv_lo_closure_2026/FOUR_LOW_JOINT_INPUTS_NATIVE_CHECK_2026-11-09.json",
+  "inverse_source_Ye_Ye2_max_relative_residual": 4.867318677839312e-16,
+  "tested_neutral_vertices_per_card": 3,
+  "benchmark_cards": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "delta_beta_minus_alpha": 0.048133333725,
+      "max_abs_direct_rho_e_mu": 2.1684043449710086e-19,
+      "max_abs_tau_chain_rho_products": 1.2363082273479052e-8,
+      "tree_hH_Al27_only_central_illustrative": 6.81e-44,
+      "tree_hH_Al27_only_max_in_fTuTdTs_0_to_0p1": 2.7e-43,
+      "physical_conversion_rate": null,
+      "LFV_status": "UNKNOWN"
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "delta_beta_minus_alpha": 0.048133333725,
+      "max_abs_direct_rho_e_mu": 1.4044506866986306e-19,
+      "max_abs_tau_chain_rho_products": 3.237789223980485e-8,
+      "tree_hH_Al27_only_central_illustrative": 4.77e-44,
+      "tree_hH_Al27_only_max_in_fTuTdTs_0_to_0p1": 1.89e-43,
+      "physical_conversion_rate": null,
+      "LFV_status": "UNKNOWN"
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "delta_beta_minus_alpha": -0.002454970359,
+      "max_abs_direct_rho_e_mu": 6.776263578034402e-21,
+      "max_abs_tau_chain_rho_products": 8.150377954164795e-11,
+      "tree_hH_Al27_only_central_illustrative": 1.52e-46,
+      "tree_hH_Al27_only_max_in_fTuTdTs_0_to_0p1": 5.43e-46,
+      "physical_conversion_rate": null,
+      "LFV_status": "UNKNOWN"
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "delta_beta_minus_alpha": -0.002454970359,
+      "max_abs_direct_rho_e_mu": 1.727615010682274e-20,
+      "max_abs_tau_chain_rho_products": 2.1345167271525998e-10,
+      "tree_hH_Al27_only_central_illustrative": 1.01e-45,
+      "tree_hH_Al27_only_max_in_fTuTdTs_0_to_0p1": 3.62e-45,
+      "physical_conversion_rate": null,
+      "LFV_status": "UNKNOWN"
+    }
+  ],
+  "nuclear": {
+    "Al27_Sp": 0.0153,
+    "Al27_Sn": 0.0163,
+    "capture_rate_GeV": 4.64079e-19,
+    "heavy_quark_trace_matching": "fTQ=(2/27)*(1-fTu-fTd-fTs); c,t up-type, b down-type",
+    "f_input_box": "Six independent fTu,fTd,fTs of proton/neutron restricted 0..0.1, 64 vertices; fixed overlaps, conditional tree-only mathematical max",
+    "precision_caveat": "Direct e-mu Yukawa entries are ~roundoff of the exact texture; these 1e-44 rates are numerical-floor diagnostics, NOT physical precision measurements or full rate bounds"
+  },
+  "tests": {
+    "source_to_native_neutral_2hdm_tests_passed": 6,
+    "tree_scalar_heavy_quark_and_envelope_tests_passed": 6,
+    "all_tests_passed": 12
+  },
+  "remaining": [
+    "full Zee corrected bosonic/mixed two-loop not included",
+    "native LowEnergy_ZeeTypeII BR1LeptonTo3Leptons source body not supplied",
+    "complete matched mu3e signed amplitude unvalidated",
+    "finite q2 and scalar penguin counterterms unqualified",
+    "full mu-e conversion gluon/RG/box/nuclear interference unvalidated"
+  ],
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null,
+  "physical_mu3e_BR": null,
+  "physical_Al_rate": null
+}
