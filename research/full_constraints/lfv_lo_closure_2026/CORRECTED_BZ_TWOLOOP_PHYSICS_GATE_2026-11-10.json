@@ -1,0 +1,93 @@
+{
+  "date": "2026-11-10",
+  "status": "CORRECTED_NEUTRAL_2HDM_BZ_V4__CHARGED_DOUBLETPROJECTED_NOT_FULL_ZEE__PHYSICAL_LFV_UNKNOWN",
+  "source": "Altmannshofer et al arXiv:2410.17313v4 May 2026 Eqs54-58",
+  "post_v4_erratum": "JHEP07(2026)184 July 21 2026; current GitLab not independently executed",
+  "previous_neutral_BZ_results": "SUPERSEDED due factor-of-two normalization and q_A2^2 vs |q_A2|^2 interchange",
+  "terms_covered": [
+    "corrected fermion-loop neutral h,H,A gamma/Z with complex Type-II rho",
+    "pure 2HDM charged top/charm/tau formula with Zee doublet-only projection (diagnostic only)",
+    "exact tree Zee mixed charged Z gauge and mu4"
+  ],
+  "cards": [
+    {
+      "id": "D7 NO",
+      "neutral_corrected_K2_norm": 1.0179353940703067e-25,
+      "neutral_previous_K2_norm": 2.506807413e-25,
+      "charged_doublet_projection_K2_norm": 1.3171095005311548e-25,
+      "sum_subset_norms_over_native_1loop": 1.6733406251681114e-10,
+      "gZ12": -0.09016,
+      "mu4_GeV": 272.4,
+      "conditional_missing_mu_e_gamma_amplitude_factor": 948,
+      "physical_LFV": "UNKNOWN",
+      "global_acceptance": null
+    },
+    {
+      "id": "D7 IO",
+      "neutral_corrected_K2_norm": 8.520133890178704e-26,
+      "neutral_previous_K2_norm": 2.098212151e-25,
+      "charged_doublet_projection_K2_norm": 1.102428248997526e-25,
+      "sum_subset_norms_over_native_1loop": 5.311187982701469e-11,
+      "gZ12": -0.09016,
+      "mu4_GeV": 272.4,
+      "conditional_missing_mu_e_gamma_amplitude_factor": 359,
+      "physical_LFV": "UNKNOWN",
+      "global_acceptance": null
+    },
+    {
+      "id": "F13 NO",
+      "neutral_corrected_K2_norm": 2.5379023506492947e-28,
+      "neutral_previous_K2_norm": 1.15201874e-27,
+      "charged_doublet_projection_K2_norm": 5.879593140656003e-28,
+      "sum_subset_norms_over_native_1loop": 1.1871040672363808e-12,
+      "gZ12": -0.1521,
+      "mu4_GeV": 1026,
+      "conditional_missing_mu_e_gamma_amplitude_factor": 1867,
+      "physical_LFV": "UNKNOWN",
+      "global_acceptance": null
+    },
+    {
+      "id": "F13 IO",
+      "neutral_corrected_K2_norm": 6.550779147158091e-28,
+      "neutral_previous_K2_norm": 2.973573959e-27,
+      "charged_doublet_projection_K2_norm": 1.5176319827894191e-27,
+      "sum_subset_norms_over_native_1loop": 1.6819916839248627e-12,
+      "gZ12": -0.1521,
+      "mu4_GeV": 1026,
+      "conditional_missing_mu_e_gamma_amplitude_factor": 1024,
+      "physical_LFV": "UNKNOWN",
+      "global_acceptance": null
+    }
+  ],
+  "validation": {
+    "portable_zip": "zee_lfv_two_loop_source_correction_2026-11-10.zip",
+    "original_private_Fortran_redistributed": false,
+    "archive_crc": "PASS",
+    "archive_sha256_manifest": "PASS",
+    "clean_directory_unittests_passed": 14,
+    "proofs": [
+      "source Eq54-55 prefactor and CP-odd signs for all 4 cards",
+      "top/bottom real Yukawa A sign",
+      "source complex rephasing",
+      "direct_e_mu_zero annihilates these two subsets",
+      "charged doublet unmixed endpoints and exchange",
+      "f5 f6 Li2 against mpmath",
+      "gZ off diagonal from T3 doublet/singlet",
+      "mu4 inverse charged mass",
+      "conditional triangle inequality"
+    ]
+  },
+  "nonphysical_interpretation": [
+    "Charged doublet projection may not be a gauge invariant subset of Zee; it excludes singlet F, off-diagonal ZH1H2 and mixed gauge/contact terms.",
+    "Experimental amplitude factors are conditions on unknown missing amplitude, not estimates or bound proofs.",
+    "Very small direct e-mu texture Yukawas may be at floating-point floor; no exact/RGE-stable flavor symmetry proved."
+  ],
+  "missing": [
+    "gauge-complete mixed Zee two-loop charged/gauge dipole or independently proven upper error bound",
+    "review latest GitLab implementation and July erratum",
+    "finite-q2 mu3e and scalar-penguin counterterms",
+    "heavy/gluon conversion running and modern nuclear uncertainties"
+  ],
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null
+}
