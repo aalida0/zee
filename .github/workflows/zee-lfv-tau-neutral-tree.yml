@@ -1,0 +1,35 @@
+name: Zee LFV tau neutral scalar tree
+on:
+  push:
+    branches:
+      - research/zee-full-constraints
+    paths:
+      - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/tau_neutral_tree.py
+      - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/test_tau_neutral_tree.py
+      - .github/workflows/zee-lfv-tau-neutral-tree.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  tree:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install source integrator dependencies
+        run: python -m pip install --disable-pip-version-check numpy mpmath
+      - name: Source-locked tau neutral tree checks (subset only)
+        run: |
+          python -m unittest research.full_constraints.lfv_2hdm_gitlab_reuse_2026.test_tau_neutral_tree -v
+          python research/full_constraints/lfv_2hdm_gitlab_reuse_2026/tau_neutral_tree.py --order 14 --output tau_neutral_tree_result.json
+      - name: Archive reproducible numerical results
+        uses: actions/upload-artifact@v4
+        with:
+          name: zee-tau-neutral-tree-subset
+          path: tau_neutral_tree_result.json
+          if-no-files-found: error
