@@ -127,7 +127,15 @@ def compute(source_dir: Path, source_revision:str,ns=56,nz=20,tree_order=24):
                 raise RuntimeError("Unexpected claim of exact original SARAH K2")
             cl,cr=pairs_to_complex(ledger["partial_signed_plus_CL_CR_GeV_minus2"])
             tree_w=tree.width(vs,2,a,b,ml,order=tree_order,contact=False)
-            dip_w=photon_width(float(ml[2]),float(ml[a]),float(ml[b]),cl,cr,ns,nz)
+            # Spin-summed tiny source amplitudes can be dominated by
+            # floating-point cancellation in direct evaluation. Homogeneity
+            # permits a unit-normalized chirality vector for photon |M|^2,
+            # followed by exact multiplication by |K2|^2.
+            dip_scale=float(np.hypot(abs(cl),abs(cr)))
+            if not math.isfinite(dip_scale) or dip_scale<=0:
+                raise ValueError("invalid source dipole norm")
+            dip_w=photon_width(float(ml[2]),float(ml[a]),float(ml[b]),
+                               cl/dip_scale,cr/dip_scale,ns,nz)*dip_scale**2
             I=interference_width(vs,ml,a,b,cl,cr,ns,nz)
             norm=math.sqrt(tree_w*dip_w)
             # Cauchy is a stringent self-consistency check, not a bound
