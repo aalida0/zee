@@ -1,0 +1,70 @@
+{
+  "status": "MODEL_SPECIFIC_NATIVE_MU3E_RATE_ASSEMBLY_PASS__PHYSICAL_LFV_UNKNOWN",
+  "source_files_sha256": {
+    "FlavorKit_Observables_ZeeTypeII.f90": "b179e6fea1fe3afe08e34e6d481380b7d4b669ffb904898ac6ee6f8555aa3784",
+    "LowEnergy_ZeeTypeII.f90": "cf3552d25de21a6df0869d1fc013dded8efe26206195a08f84ab6ec251d63727"
+  },
+  "verified_native_conventions": {
+    "K1": "OA1/e",
+    "K2": "-OA2/(2 e m_mu,mZ running)",
+    "identical_electron_3e": "source direct O4l only; crossed source arrays reserved for other 3-body observable"
+  },
+  "runtime_validation": {
+    "gfortran_unchanged_Calculate_Lto3Lp_invoked": true,
+    "benchmarks": 4,
+    "restricted_source_variants": 5,
+    "compiled_vs_independent_python_count": 20,
+    "max_relative_residual": 4.143584630429841e-16,
+    "focused_unittests_passed": 13,
+    "random_complex_phases_for_inequality": 400
+  },
+  "dipole_ratio": 0.007028052043583785,
+  "dipole_ratio_assumptions": "R = alpha_MZ^2/(8 pi alpha0)*(16ln(m_mu/m_e)-22)/3; alphaMZ=1/127.95, alpha0=1/137.035999084, common muon width",
+  "hypothetical_radiative_bound": 1e-13,
+  "scope_warning": "K2 set to zero only for diagnostic. Numeric R envelope is conditional on hypothetical radiative bound AND absence/control of missing finite-q2/2loop/scalar scheme and gluonic operators. Not a physical full Zee prediction.",
+  "conversion_scalar_swap": "native generated Al source scalar = N*gp + Z*gn; correct = Z*gp + N*gn; vector correctly ordered",
+  "cards": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "photon_K1_only_K2_zero_BR": 7.86182415e-25,
+      "photon_and_direct_local_source_K2_zero_BR": 7.43906017e-25,
+      "hypothetical_BR_muegamma_LE_1e_minus13_implies_truncated_mu3e_envelope": 7.028509356618831e-16,
+      "physical_mu3e_BR": null,
+      "experimental_pass_fail": "UNKNOWN"
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "photon_K1_only_K2_zero_BR": 2.8627617e-24,
+      "photon_and_direct_local_source_K2_zero_BR": 2.73426277e-24,
+      "hypothetical_BR_muegamma_LE_1e_minus13_implies_truncated_mu3e_envelope": 7.028928804433205e-16,
+      "physical_mu3e_BR": null,
+      "experimental_pass_fail": "UNKNOWN"
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "photon_K1_only_K2_zero_BR": 5.76739243e-24,
+      "photon_and_direct_local_source_K2_zero_BR": 1.72785964e-22,
+      "hypothetical_BR_muegamma_LE_1e_minus13_implies_truncated_mu3e_envelope": 7.035023272843813e-16,
+      "physical_mu3e_BR": null,
+      "experimental_pass_fail": "UNKNOWN"
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "photon_K1_only_K2_zero_BR": 1.74163277e-23,
+      "photon_and_direct_local_source_K2_zero_BR": 5.21749817e-22,
+      "hypothetical_BR_muegamma_LE_1e_minus13_implies_truncated_mu3e_envelope": 7.040168222842417e-16,
+      "physical_mu3e_BR": null,
+      "experimental_pass_fail": "UNKNOWN"
+    }
+  ],
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null,
+  "physical_mu3e_BR": null,
+  "physical_Al_conversion": null,
+  "remaining": [
+    "source native full OA2 dipoles and 2loop radiative materiality",
+    "finite-q2 photon K1 controlled",
+    "scalar penguin renormalization",
+    "full TypeII conversion hadronic match/running/nuclear uncertainty"
+  ]
+}
