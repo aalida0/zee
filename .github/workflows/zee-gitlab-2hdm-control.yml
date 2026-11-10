@@ -74,6 +74,23 @@ jobs:
                   if f.name in ('cR_llpg','cL_llpg'):
                       print('SOURCE',f.name,'\n'.join(code[f.lineno-1:f.end_lineno]))
           PY
+      - name: Inspect corrected source dipole decomposition definitions
+        shell: bash
+        run: |
+          python - <<'PY'
+          import ast,pathlib
+          p=pathlib.Path('/tmp/general-2hdm-pheno/thdm.py')
+          s=p.read_text().splitlines();tree=ast.parse('\n'.join(s))
+          for node in ast.walk(tree):
+              if isinstance(node,ast.ClassDef):
+                  fs=[f for f in node.body if isinstance(f,ast.FunctionDef) and
+                      ('llpg' in f.name.lower() or 'dipole' in f.name.lower())]
+                  if fs:
+                      print('DIPOLE_CLASS',node.name,'methods',[(x.lineno,x.name) for x in fs])
+                      for f in fs:
+                          if f.name in ('cR_llpg','cL_llpg'):
+                              print('DIPOLE_SOURCE',f.name,'\n'.join(s[f.lineno-1:f.end_lineno]))
+          PY
       - name: Evaluate four Zee inputs as pure 2HDM controls (not Zee physics)
         run: |
           python research/full_constraints/lfv_2hdm_gitlab_reuse_2026/official_gitlab_control.py \
