@@ -81,7 +81,7 @@ def amplitudes(point,original,eta,with_d4=False):
         tree=l["mu_to_3e"]
         dec=DecayCalculation(point["input_card"],family).evaluate(family)
         if dec["status"]!="PASS":raise ArithmeticError("Missing full two-body charged decay table")
-        row.update(
+        row.update({
             "partial_mu3e_tree_BR":tree["tree_subset_BR"],
             "mu3e_tree_quadrature_change":tree["quadrature_relative_change"],
             "D4_H2_total_width_GeV":dec["mothers"]["H2"]["total"]["total_width_GeV"],
@@ -90,7 +90,7 @@ def amplitudes(point,original,eta,with_d4=False):
             "D4_BR_H1_tb":dec["mothers"]["H1"]["br_tb"],
             "D4_cascade_product":dec["cascade_product"],
             "scalar_quark_production_original_receipt_revalidated_for_reweighted_family":False,
-            "same_point_13TeV_hard_process_rate_recomputed":False)
+            "same_point_13TeV_hard_process_rate_recomputed":False})
     return row
 
 def minimize_ray(point,original):
