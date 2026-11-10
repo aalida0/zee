@@ -72,6 +72,24 @@ def run(source_dir:pathlib.Path, revision:str)->dict:
         F=decode(w["yukawas"]["F"])
         D=decode(w["yukawas"]["D"])
         inp,_=make_input(w,"bare")
+        # The corrected upstream source internally computes running MSbar
+        # quark masses at mt. A pole-mass rho_t or low-scale rho_b is not
+        # Type-II matching in that source scheme and biases Barr-Zee loops.
+        # Construct a mass-scheme reference first, then rebuild the exact
+        # corrected original thdm class with rho_q = +/-m_q(mt)/v * tan/cot beta.
+        reference=module.thdm(inp)
+        tanbeta=math.tan(p["beta"])
+        running={
+            "u":(reference.mumt,reference.mc,reference.mt),
+            "d":(reference.mdmt,reference.msmt,reference.mb),
+        }
+        for family,masses in running.items():
+            for idx,mq in enumerate(masses,start=1):
+                signed=(mq/inp["vev"]/tanbeta if family=="u"
+                        else -mq*tanbeta/inp["vev"])
+                key=f"{family}{idx}{idx}"
+                inp["absrho"+key]=abs(signed)
+                inp["argrho"+key]=math.pi if signed<0 else 0.
         model=module.thdm(inp)
         channels={}
         for name,src_i,src_j,native_j in FLAVORS:
@@ -120,7 +138,7 @@ def run(source_dir:pathlib.Path, revision:str)->dict:
         "gitlab_thdm_sha256":hashlib.sha256(source.read_bytes()).hexdigest(),
         "frozen_card_sha256":SOURCE_SHA,
         "source_sign_mapping":"Native K2L=+cR/(8pi²v²), K2R=+cL/(8pi²v²); Module3 CL=-K2R, CR=-K2L",
-        "precision_warning":"Module3 analytic one-loop not the exact persisted complex native source. Model3 on-shell external-invariant approximation and authors' scheme differ; compare rate residuals, do not promote to source-matched physical amplitude.",
+        "precision_warning":"Module3 analytic one-loop not the exact persisted complex native source. Type-II quark rho uses upstream internally running MSbar masses at mt; input/electroweak and external-invariant schemes still differ, so compare rate residuals, do not promote to source-matched physical amplitude.",
         "future_complex_source_input_needed":True,
         "full_Zee_gauge_completed_BZ":None,
         "cards":out,"physical_lfv":"UNKNOWN","global_acceptance":None,
