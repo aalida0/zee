@@ -1,0 +1,49 @@
+name: Zee LFV corrected GitLab 2HDM control
+on:
+  push:
+    branches:
+      - research/zee-full-constraints
+    paths:
+      - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/**
+      - .github/workflows/zee-gitlab-2hdm-control.yml
+permissions:
+  contents: read
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout research branch (read-only)
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy mpmath
+      - name: Fetch and verify exact published GitLab revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --branch master https://gitlab.com/jbrod/general-2hdm-pheno.git /tmp/general-2hdm-pheno
+          head=$(git -C /tmp/general-2hdm-pheno rev-parse HEAD)
+          echo "GitLab head=$head"
+          if [[ "$head" != b5035cd5* ]]; then
+            echo 'Upstream code changed: fail closed instead of interpreting unreviewed coefficients.' >&2
+            exit 2
+          fi
+          sha256sum /tmp/general-2hdm-pheno/thdm.py
+      - name: Evaluate four Zee inputs as pure 2HDM controls (not Zee physics)
+        run: |
+          python research/full_constraints/lfv_2hdm_gitlab_reuse_2026/official_gitlab_control.py \
+            --source /tmp/general-2hdm-pheno \
+            --commit b5035cd5 --limit 4 --output official_gitlab_control.json
+      - name: Archive source-lock numerical diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zee-two-loop-gitlab-pure-2hdm-control
+          path: official_gitlab_control.json
+          if-no-files-found: ignore
