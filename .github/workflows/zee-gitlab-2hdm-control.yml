@@ -35,6 +35,12 @@ jobs:
             exit 2
           fi
           sha256sum /tmp/general-2hdm-pheno/thdm.py
+      - name: Audit corrected official constructor-required inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          sed -n '565,660p' /tmp/general-2hdm-pheno/thdm.py
+          grep -n 'self.ip\[' /tmp/general-2hdm-pheno/thdm.py | head -n 90 || true
       - name: Evaluate four Zee inputs as pure 2HDM controls (not Zee physics)
         run: |
           python research/full_constraints/lfv_2hdm_gitlab_reuse_2026/official_gitlab_control.py \
