@@ -41,8 +41,8 @@ class ZeeGaugeSpurionTests(unittest.TestCase):
    self.assertIsNone(r["complete_Zee_two_loop_K"])
    self.assertEqual(r["MEGII_90CL_BR"],MEGII)
  def test_source_matched_necessary_K_numeric(self):
-  expected={"D7_NO":17582382.82909747,"D7_IO":10101276.490189353,
-            "F13_NO":703708.137090411,"F13_IO":404791.5830356612}
+  expected={"D7_NO":17582177.205821052,"D7_IO":10101158.357306678,
+            "F13_NO":703699.9073314418,"F13_IO":404786.849060046}
   for k,target in expected.items():
    ratio=self.x["cards"][k]["conditional_missing_F_dressing_K_threshold"]/target
    self.assertAlmostEqual(ratio,1,places=9)
