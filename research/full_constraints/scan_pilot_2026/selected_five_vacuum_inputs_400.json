@@ -1,0 +1,245 @@
+{
+  "schema": "d14-pilot-selected-vacuum-inputs-v1",
+  "executed_scan_commit": "c194bb9018801b1a6881f22134e0650b1fdccae7",
+  "original_manifest_sha256": "afa92f0e5d8afa56db976ff4158cc9971319419595574ef09be3f6d0d545ed45",
+  "original_dataset_sha256": "52bfe78aecf28bc7c4dc299bc49a74c77e1cf7a0c51c54746d541ac6794b7639",
+  "seed": 20261110,
+  "notice": "Physical scalar cards exactly copied from immutable 400-pilot manifest; only 5 already-neutrino-passing proposals. Never label experimental global acceptance.",
+  "cards": [
+    {
+      "id": 31,
+      "arm": "sub_TeV",
+      "scalar_sha256": "850bacd2232d21741fc5b17d17f4125f663e1a805a7b96c2fb7fb3658541801b",
+      "scalar": {
+        "benchmark_id": "d14_00000031",
+        "electroweak": {
+          "SM_reference_mh": 125,
+          "mW": 80.379,
+          "mZ": 91.1876,
+          "scheme": "on_shell_MW_MZ"
+        },
+        "ew_fit": "Gfitter_2026_U_floating",
+        "model": "ZeeTypeII_Module0_v1_restricted_CP",
+        "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+        "physical": {
+          "alpha": 1.0748213304264251,
+          "beta": 1.1226801634500343,
+          "gamma": 0.9224038382361989,
+          "k1": 0.0828027156650144,
+          "k12": 1.3148764685218746,
+          "k2": 2.469411757544159,
+          "lc": 2.8169168835545086,
+          "m12sq": 196521.86481865696,
+          "mH1": 457.753787855492,
+          "mH2": 967.9815806378011,
+          "ma": 722.5721399981533,
+          "mh1": 125,
+          "mh2": 749.5635031917125,
+          "v": 246.21965
+        },
+        "schema_version": "1.0.0",
+        "search": {
+          "seeds": [
+            123,
+            104852
+          ],
+          "starts": 64
+        },
+        "units": {
+          "angles": "rad",
+          "mass_squared": "GeV^2",
+          "masses": "GeV",
+          "quartics": "1"
+        }
+      }
+    },
+    {
+      "id": 112,
+      "arm": "sub_TeV",
+      "scalar_sha256": "feed4eeb3be40380e3231495d69787fdb9533feee77eaf2af7bc897c832a67c3",
+      "scalar": {
+        "benchmark_id": "d14_00000112",
+        "electroweak": {
+          "SM_reference_mh": 125,
+          "mW": 80.379,
+          "mZ": 91.1876,
+          "scheme": "on_shell_MW_MZ"
+        },
+        "ew_fit": "Gfitter_2026_U_floating",
+        "model": "ZeeTypeII_Module0_v1_restricted_CP",
+        "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+        "physical": {
+          "alpha": 0.8204575275174447,
+          "beta": 0.8076011721444651,
+          "gamma": 0.24734884025029963,
+          "k1": 1.4340794570162956,
+          "k12": -0.11357633614880847,
+          "k2": -0.21609552004775168,
+          "lc": 1.888386958180985,
+          "m12sq": 37189.27493284852,
+          "mH1": 256.0614331079424,
+          "mH2": 622.7464659999351,
+          "ma": 310.3056804735568,
+          "mh1": 125,
+          "mh2": 342.8387791015891,
+          "v": 246.21965
+        },
+        "schema_version": "1.0.0",
+        "search": {
+          "seeds": [
+            123,
+            104852
+          ],
+          "starts": 64
+        },
+        "units": {
+          "angles": "rad",
+          "mass_squared": "GeV^2",
+          "masses": "GeV",
+          "quartics": "1"
+        }
+      }
+    },
+    {
+      "id": 284,
+      "arm": "production_window_1000_1350",
+      "scalar_sha256": "f79ffb6361a97accaadde8d0994bbe803fc46dd2b8e2b9355d501e2d39359d2b",
+      "scalar": {
+        "benchmark_id": "d14_00000284",
+        "electroweak": {
+          "SM_reference_mh": 125,
+          "mW": 80.379,
+          "mZ": 91.1876,
+          "scheme": "on_shell_MW_MZ"
+        },
+        "ew_fit": "Gfitter_2026_U_floating",
+        "model": "ZeeTypeII_Module0_v1_restricted_CP",
+        "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+        "physical": {
+          "alpha": 1.1968839241116043,
+          "beta": 1.2277791643926583,
+          "gamma": 1.0746415844760746,
+          "k1": 1.008026447072596,
+          "k12": 1.4183442309390166,
+          "k2": 0.857802750591496,
+          "lc": 4.072234970912046,
+          "m12sq": 248048.44458789073,
+          "mH1": 566.078667105407,
+          "mH2": 1025.773101108758,
+          "ma": 898.0173211206456,
+          "mh1": 125,
+          "mh2": 909.9448559613213,
+          "v": 246.21965
+        },
+        "schema_version": "1.0.0",
+        "search": {
+          "seeds": [
+            123,
+            104852
+          ],
+          "starts": 64
+        },
+        "units": {
+          "angles": "rad",
+          "mass_squared": "GeV^2",
+          "masses": "GeV",
+          "quartics": "1"
+        }
+      }
+    },
+    {
+      "id": 320,
+      "arm": "sub_TeV",
+      "scalar_sha256": "382911cfb986a524868bbd27f7eb83bb80c6f0f55e83dd76d51552b43152526a",
+      "scalar": {
+        "benchmark_id": "d14_00000320",
+        "electroweak": {
+          "SM_reference_mh": 125,
+          "mW": 80.379,
+          "mZ": 91.1876,
+          "scheme": "on_shell_MW_MZ"
+        },
+        "ew_fit": "Gfitter_2026_U_floating",
+        "model": "ZeeTypeII_Module0_v1_restricted_CP",
+        "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+        "physical": {
+          "alpha": 1.432556152422992,
+          "beta": 1.3972095990485989,
+          "gamma": 0.3147028894297374,
+          "k1": 1.4214912970953009,
+          "k12": 1.4179193433476804,
+          "k2": 2.800104737069839,
+          "lc": 1.0399232303481452,
+          "m12sq": 14528.92974575533,
+          "mH1": 270.8376764267726,
+          "mH2": 589.3424630708917,
+          "ma": 272.36245864852566,
+          "mh1": 125,
+          "mh2": 302.58707416675236,
+          "v": 246.21965
+        },
+        "schema_version": "1.0.0",
+        "search": {
+          "seeds": [
+            123,
+            104852
+          ],
+          "starts": 64
+        },
+        "units": {
+          "angles": "rad",
+          "mass_squared": "GeV^2",
+          "masses": "GeV",
+          "quartics": "1"
+        }
+      }
+    },
+    {
+      "id": 394,
+      "arm": "production_window_1000_1350",
+      "scalar_sha256": "a745b10941d595accda04ce64fb2b293b81f8cb35f919078191a2cb60f80980a",
+      "scalar": {
+        "benchmark_id": "d14_00000394",
+        "electroweak": {
+          "SM_reference_mh": 125,
+          "mW": 80.379,
+          "mZ": 91.1876,
+          "scheme": "on_shell_MW_MZ"
+        },
+        "ew_fit": "Gfitter_2026_U_floating",
+        "model": "ZeeTypeII_Module0_v1_restricted_CP",
+        "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+        "physical": {
+          "alpha": 0.7804128289247095,
+          "beta": 0.7891474523630435,
+          "gamma": 0.28710093411716364,
+          "k1": 1.1003623438179213,
+          "k12": 1.9076419753223135,
+          "k2": 1.1343921025752595,
+          "lc": 2.621040092638088,
+          "m12sq": 165230.3831273837,
+          "mH1": 551.0536149754938,
+          "mH2": 1323.9791787864315,
+          "ma": 614.3639905988967,
+          "mh1": 125,
+          "mh2": 667.3264019642916,
+          "v": 246.21965
+        },
+        "schema_version": "1.0.0",
+        "search": {
+          "seeds": [
+            123,
+            104852
+          ],
+          "starts": 64
+        },
+        "units": {
+          "angles": "rad",
+          "mass_squared": "GeV^2",
+          "masses": "GeV",
+          "quartics": "1"
+        }
+      }
+    }
+  ]
+}
