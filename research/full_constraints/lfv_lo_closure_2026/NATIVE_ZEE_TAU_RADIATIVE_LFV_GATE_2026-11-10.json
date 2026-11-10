@@ -1,0 +1,101 @@
+{
+  "date": "2026-11-10",
+  "status": "NATIVE_ZEE_THREE_RADIATIVE_CHANNELS_ONE_LOOP_EXECUTED__NEUTRAL_FERMION_BZ_TAU_MATERIAL__FULL_ZEE_PHYSICAL_LFV_UNKNOWN",
+  "native_original_Fortran_sha256": {
+    "generated": "2d30006d8d4759b2b7bfe76e2e4795bd2cf2f19ef5cb5772390ed3155b1bc41d",
+    "couplings": "a0de851498f3e68e7421538098b3979381a3ecf5245021fce9d1c2df46a42e8c",
+    "loops": "8142a813fcc00283d1de2865266be04ff1de25c09422b24b04d57523a6595a24"
+  },
+  "authors_uploaded_thdm_sha256": "9b4af7aa4bf7bf533a7b82c8c2603d118346424e3b7b5f9f06ab8cb41bc4e193",
+  "reference_code_run": true,
+  "source_modes": [
+    "full F+D",
+    "F_only",
+    "D_only",
+    "zero"
+  ],
+  "source_channels": [
+    "mu->e gamma",
+    "tau->e gamma",
+    "tau->mu gamma"
+  ],
+  "flavor_args": [
+    [
+      1,
+      2,
+      1
+    ],
+    [
+      1,
+      3,
+      1
+    ],
+    [
+      2,
+      3,
+      2
+    ]
+  ],
+  "source_compile": "gfortran -O0 -fcheck=all",
+  "alphaEM_for_native": 0.007815552950371238,
+  "numeric_channel_entries": 48,
+  "analytic_F_only_independent_checks": 12,
+  "focused_tests_passed": 14,
+  "source_probe": "Both cR and cL author code and Gamma_l_to_lp_gamma(3,1),(3,2) executed",
+  "tau_neutral_fermion_BZ_norm_over_2HDM_one_loop_D7_approx": 75,
+  "tau_neutral_fermion_BZ_norm_over_2HDM_one_loop_F13_approx": 202,
+  "scope_warning": "Pure-2HDM has one synthetic Hpm and excludes Zee singlet F. Partial Zee adds only gauge-invariant neutral-fermion Barr-Zee to native full one-loop; not a full physical rate. Tau->mu source doublet-only sign match has 5-7% finite-mass mismatch.",
+  "artifact": "zee_tau_radiative_zee_vs_corrected_2hdm_2026-11-10.zip",
+  "cards": [
+    {
+      "card": "D7_NO",
+      "native_one_loop_BR_muegamma": 1.6722518e-19,
+      "native_one_loop_BR_tauegamma": 7.9599381e-18,
+      "native_one_loop_BR_taumugamma": 3.2561793e-15,
+      "partial_Zee_one_loop_plus_corrected_neutral_fermion_BZ_BR_tauegamma": 4.5486e-14,
+      "partial_Zee_one_loop_plus_corrected_neutral_fermion_BZ_BR_taumugamma": 1.83e-11,
+      "pure2hdm_full_two_loop_reference_BR_tauegamma_synthetic_Hpm650": 1.0316e-13,
+      "pure2hdm_full_two_loop_reference_BR_taumugamma_synthetic_Hpm650": 4.1495e-11,
+      "full_Zee_two_loop_qualified": false,
+      "physical_tau_LFV_acceptance": "UNKNOWN"
+    },
+    {
+      "card": "D7_IO",
+      "native_one_loop_BR_muegamma": 1.162899e-18,
+      "native_one_loop_BR_tauegamma": 4.7490062e-17,
+      "native_one_loop_BR_taumugamma": 3.7326202e-15,
+      "partial_Zee_one_loop_plus_corrected_neutral_fermion_BZ_BR_tauegamma": 2.7122e-13,
+      "partial_Zee_one_loop_plus_corrected_neutral_fermion_BZ_BR_taumugamma": 2.0998e-11,
+      "pure2hdm_full_two_loop_reference_BR_tauegamma_synthetic_Hpm650": 6.151e-13,
+      "pure2hdm_full_two_loop_reference_BR_taumugamma_synthetic_Hpm650": 4.7613e-11,
+      "full_Zee_two_loop_qualified": false,
+      "physical_tau_LFV_acceptance": "UNKNOWN"
+    },
+    {
+      "card": "F13_NO",
+      "native_one_loop_BR_muegamma": 4.3178556e-20,
+      "native_one_loop_BR_tauegamma": 3.4837938e-21,
+      "native_one_loop_BR_taumugamma": 6.2154815e-20,
+      "partial_Zee_one_loop_plus_corrected_neutral_fermion_BZ_BR_tauegamma": 5.8386e-18,
+      "partial_Zee_one_loop_plus_corrected_neutral_fermion_BZ_BR_taumugamma": 2.4385e-15,
+      "pure2hdm_full_two_loop_reference_BR_tauegamma_synthetic_Hpm650": 1.4584e-17,
+      "pure2hdm_full_two_loop_reference_BR_taumugamma_synthetic_Hpm650": 5.8678e-15,
+      "full_Zee_two_loop_qualified": false,
+      "physical_tau_LFV_acceptance": "UNKNOWN"
+    },
+    {
+      "card": "F13_IO",
+      "native_one_loop_BR_muegamma": 1.4329654e-19,
+      "native_one_loop_BR_tauegamma": 5.9122984e-21,
+      "native_one_loop_BR_taumugamma": 7.3465839e-20,
+      "partial_Zee_one_loop_plus_corrected_neutral_fermion_BZ_BR_tauegamma": 3.5582e-17,
+      "partial_Zee_one_loop_plus_corrected_neutral_fermion_BZ_BR_taumugamma": 2.7979e-15,
+      "pure2hdm_full_two_loop_reference_BR_tauegamma_synthetic_Hpm650": 8.6959e-17,
+      "pure2hdm_full_two_loop_reference_BR_taumugamma_synthetic_Hpm650": 6.7331e-15,
+      "full_Zee_two_loop_qualified": false,
+      "physical_tau_LFV_acceptance": "UNKNOWN"
+    }
+  ],
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null
+}
