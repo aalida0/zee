@@ -142,6 +142,22 @@ def run(source,revision,limit=4):
               'official_two_loop_to_one_loop_norm_ratio':n2/max(n1,1e-300),
               'Zee_physical_BR':None,'physical_lfv':'UNKNOWN'})
             if mode=='bare':
+                projected=dict(couplings)
+                for e in ('12','21'):
+                    projected['absrhol'+e]=0.0
+                    projected['argrhol'+e]=0.0
+                pmod=mod.thdm(projected)
+                pr=source_decomposition(pmod,'cR_llpg',2,1)
+                pl=source_decomposition(pmod,'cL_llpg',2,1)
+                pkeys=('neutral_fermion','charged_fermion',
+                       'neutral_bosonic','charged_bosonic')
+                projected_norm=max(abs(pr[k]) for k in pkeys)
+                projected_norm=max(projected_norm,max(abs(pl[k]) for k in pkeys))
+                if projected_norm>1e-28:
+                    raise ArithmeticError('Upstream two-loop direct-e-mu selection rule changed: '
+                                          +str(projected_norm))
+                print('OFFICIAL_BARE_COMPLEX',json.dumps(records[-1],sort_keys=True),flush=True)
+                print('OFFICIAL_TEXTURE_ZERO_TEST',w['id'],projected_norm,flush=True)
                 print('OFFICIAL_DECOMP_BARE',json.dumps({
                      'id':w['id'],
                      'BR':records[-1]['pure_2HDM_proxy_BR'],
