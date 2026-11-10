@@ -62,6 +62,42 @@ def make_input(w, charged_option='bare'):
           'global_acceptance':None}
     return coup,diag
 
+def source_decomposition(model,name,i,j):
+    """Obtain local named terms from exact pinned public source, in memory only.
+
+    No upstream file modification. Verify coherent source sum against its
+    unchanged public cR_llpg / cL_llpg method before reporting any group.
+    """
+    import inspect, textwrap
+    original=getattr(type(model),name)
+    src=textwrap.dedent(inspect.getsource(original))
+    end_name='cR' if name=='cR_llpg' else 'cL'
+    marker='return '+end_name
+    if src.count(marker)!=1:raise RuntimeError('Source return changed: '+name)
+    groups={
+      'one_loop':[f'{end_name}_llpg_1loop'],
+      'neutral_fermion':[f'{end_name}_llpg_{k}' for k in ('th','ch','bh','tauh')],
+      'charged_fermion':[f'{end_name}_llpg_{k}' for k in ('tHp','cHp','tauHp')],
+      'neutral_bosonic':[f'{end_name}_llpg_{k}' for k in ('hZ','kin')],
+      'charged_bosonic':[f'{end_name}_llpg_{k}' for k in ('HA','HZ','HW')]
+    }
+    expression='{'+','.join(repr(k)+':('+ '+'.join(v)+')' for k,v in groups.items())+
+               ','+repr('total')+':'+end_name+'}'
+    changed=src.replace(marker,'return '+expression)
+    scope={}
+    exec(changed,original.__globals__,scope)
+    result=scope[name](model,i,j)
+    exact=original(model,i,j)
+    partsum=sum(z for k,z in result.items() if k!='total')
+    scale=max(abs(exact),1e-300)
+    if abs(partsum-exact)>1e-12*scale or abs(result['total']-exact)>1e-12*scale:
+        raise ArithmeticError('Official Wilson decomposition does not close '+name)
+    return result
+
+def cplx(z):
+    z=complex(z)
+    return [z.real,z.imag]
+
 def run(source,revision,limit=4):
     actual=hashlib.sha256(DATA.read_bytes()).hexdigest()
     if actual!=SOURCE_SHA:raise ValueError('Frozen benchmark SHA mismatch '+actual)
@@ -85,8 +121,25 @@ def run(source,revision,limit=4):
                 raise TypeError(f'Official Gamma output unexpected: {type(result)} {result}')
             gam=float(result)
             if not math.isfinite(gam) or gam<0:raise ValueError('Invalid Gamma')
+            r=source_decomposition(model,'cR_llpg',2,1)
+            l=source_decomposition(model,'cL_llpg',2,1)
+            group_keys=('one_loop','neutral_fermion','charged_fermion',
+                        'neutral_bosonic','charged_bosonic')
+            split={k:{'cR':cplx(r[k]),'cL':cplx(l[k]),
+                'c_norm':float(np.hypot(abs(r[k]),abs(l[k])))}
+                for k in group_keys}
+            r2=sum(r[k] for k in group_keys if k!='one_loop')
+            l2=sum(l[k] for k in group_keys if k!='one_loop')
+            n1=float(np.hypot(abs(r['one_loop']),abs(l['one_loop'])))
+            n2=float(np.hypot(abs(r2),abs(l2)))
+            pref=-1/(8*np.pi**2*couplings['vev']**2)
+            split['neutral_fermion']['source_K2_norm_GeVminus2']=float(
+                np.hypot(abs(r['neutral_fermion']*pref),abs(l['neutral_fermion']*pref)))
             records.append({**diag,'pure_2HDM_Gamma_muegamma_GeV':gam,
               'pure_2HDM_proxy_BR':gam/(6.582119569e-25/2.1969811e-6),
+              'official_coherent_Wilson':{'cR':cplx(r['total']),'cL':cplx(l['total'])},
+              'official_Wilson_source_groups':split,
+              'official_two_loop_to_one_loop_norm_ratio':n2/max(n1,1e-300),
               'Zee_physical_BR':None,'physical_lfv':'UNKNOWN'})
             print(w['id'],mode,'2HDM-only BR',records[-1]['pure_2HDM_proxy_BR'],flush=True)
     return {'status':'OFFICIAL_GITLAB_2HDM_PROXY_ONLY_NOT_PHYSICAL_ZEE',
