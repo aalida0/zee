@@ -1,0 +1,390 @@
+{
+  "status": "OFFICIAL_GITLAB_CORRECTED_2HDM_COMPLEX_GROUPS_EXECUTED__ZEE_PHYSICAL_LFV_UNKNOWN",
+  "source": {
+    "gitlab_full_commit": "b5035cd58d2a7e4a91e9790d045df062b97adffe",
+    "gitlab_thdm_py_sha256": "9b4af7aa4bf7bf533a7b82c8c2603d118346424e3b7b5f9f06ab8cb41bc4e193",
+    "runner_commit": "6ef90f88742dd015ffe214e2f562c87d341ca28a",
+    "successful_github_workflow_run": "https://github.com/aalida0/zee/actions/runs/42787820408",
+    "paper": "Altmannshofer et al JHEP06(2025)156 + erratum JHEP07(2026)184"
+  },
+  "model_map": "rho_l=D/sqrt2 RH-row LH-column; rho_u=m_u*cot(beta)/v rho_d=-m_d*tan(beta)/v; theta12=beta-alpha, theta13=theta23=0",
+  "comparison_scope": "four original Zee lepton Yukawa cards with pure 2HDM single bare charged doublet mass as a proxy; NOT complete Zee charged singlet",
+  "tests": {
+    "exact_unchanged_public_cR_cL_group_closure": "4/4 PASS",
+    "source_direct_em_zero_projection": "4/4 PASS",
+    "group_K2_factor": "K2=-c/(8*pi^2*v^2); magnitude only for neutral subset",
+    "source_sha_pinned": true
+  },
+  "data": [
+    {
+      "MHp_choice": "bare",
+      "Z3": 6.68077181532761,
+      "Z7": -0.4206846116960995,
+      "Zee_physical_BR": null,
+      "benchmark_id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "complete_Zee": false,
+      "global_acceptance": null,
+      "m_doublet_bare": 521.2423167588017,
+      "missing_charged_singlet": true,
+      "neutral_yukawa_basis": "rho_l=D/sqrt(2) RH-row LH-col; theta12=beta-alpha",
+      "official_Wilson_source_groups": {
+        "charged_bosonic": {
+          "cL": [
+            -7.661481866316115e-23,
+            -3.0645927465264466e-22
+          ],
+          "cR": [
+            1.426428623837764e-20,
+            1.4264286238377644e-20
+          ],
+          "c_norm": 2.017522021932348e-20
+        },
+        "charged_fermion": {
+          "cL": [
+            2.43761331298039e-21,
+            9.750455591684796e-21
+          ],
+          "cR": [
+            -4.538394067588276e-19,
+            -4.538393555092544e-19
+          ],
+          "c_norm": 6.419044952944083e-19
+        },
+        "neutral_bosonic": {
+          "cL": [
+            4.956578839464001e-22,
+            1.9826315357852153e-21
+          ],
+          "cR": [
+            -9.228248602927211e-20,
+            -9.228248602927211e-20
+          ],
+          "c_norm": 1.3052314338855854e-19
+        },
+        "neutral_fermion": {
+          "cL": [
+            4.8593892486617695e-21,
+            1.9437583849736662e-20
+          ],
+          "cR": [
+            -9.047313961364999e-19,
+            -9.047308079095113e-19
+          ],
+          "c_norm": 1.279639858423253e-18,
+          "source_K2_norm_GeVminus2": 2.67333021797623e-25
+        },
+        "one_loop": {
+          "cL": [
+            2.3772226091373645e-11,
+            1.8640109598470335e-12
+          ],
+          "cR": [
+            3.7196925272757492e-9,
+            -5.491744016293592e-9
+          ],
+          "c_norm": 6.632943044474129e-9
+        }
+      },
+      "official_coherent_Wilson": {
+        "cL": [
+          2.3772226099089686e-11,
+          1.8640109907112456e-12
+        ],
+        "cR": [
+          3.71969252583916e-9,
+          -5.4917440177301804e-9
+        ]
+      },
+      "official_two_loop_to_one_loop_norm_ratio": 3.0633344252513026e-10,
+      "physical_lfv": "UNKNOWN",
+      "pure_2HDM_Gamma_muegamma_GeV": 4.940394130332618e-38,
+      "pure_2HDM_proxy_BR": 1.6490056762278941e-19,
+      "official_two_loop_source_accuracy": "COMPLETE_SOURCE_2HDM_ONLY_NOT_ZEE",
+      "physical_Zee_branching_ratio": null
+    },
+    {
+      "MHp_choice": "bare",
+      "Z3": 6.68077181532761,
+      "Z7": -0.4206846116960995,
+      "Zee_physical_BR": null,
+      "benchmark_id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "complete_Zee": false,
+      "global_acceptance": null,
+      "m_doublet_bare": 521.2423167588017,
+      "missing_charged_singlet": true,
+      "neutral_yukawa_basis": "rho_l=D/sqrt(2) RH-row LH-col; theta12=beta-alpha",
+      "official_Wilson_source_groups": {
+        "charged_bosonic": {
+          "cL": [
+            2.8417132740517966e-21,
+            1.2752884815658915e-20
+          ],
+          "cR": [
+            1.0698214678783233e-20,
+            2.0142511840026017e-36
+          ],
+          "c_norm": 1.6886775973131133e-20
+        },
+        "charged_fermion": {
+          "cL": [
+            -9.04132856096728e-20,
+            -4.0575190719821555e-19
+          ],
+          "cR": [
+            -3.403795304003043e-19,
+            2.2778190445054144e-26
+          ],
+          "c_norm": 5.372777653367556e-19
+        },
+        "neutral_bosonic": {
+          "cL": [
+            -1.8384401513646125e-20,
+            -8.250450777324815e-20
+          ],
+          "cR": [
+            -6.921186452196332e-20,
+            -8.47600883498425e-36
+          ],
+          "c_norm": 1.092486256779806e-19
+        },
+        "neutral_fermion": {
+          "cL": [
+            -1.8023907488073933e-19,
+            -8.088684928348165e-19
+          ],
+          "cR": [
+            -6.785482787145257e-19,
+            2.6144113093511533e-25
+          ],
+          "c_norm": 1.071065884696757e-18,
+          "source_K2_norm_GeVminus2": 2.2375926915338525e-25
+        },
+        "one_loop": {
+          "cL": [
+            2.9766119451239525e-12,
+            4.865587865338917e-11
+          ],
+          "cR": [
+            -1.4267237607151232e-8,
+            -9.956927647934891e-9
+          ],
+          "c_norm": 1.7398185347324782e-8
+        }
+      },
+      "official_coherent_Wilson": {
+        "cL": [
+          2.9766116589289037e-12,
+          4.865587736901715e-11
+        ],
+        "cR": [
+          -1.4267237608228673e-8,
+          -9.956927647934891e-9
+        ]
+      },
+      "official_two_loop_to_one_loop_norm_ratio": 9.775188996936673e-11,
+      "physical_lfv": "UNKNOWN",
+      "pure_2HDM_Gamma_muegamma_GeV": 3.399045414102864e-37,
+      "pure_2HDM_proxy_BR": 1.1345340136323594e-18,
+      "official_two_loop_source_accuracy": "COMPLETE_SOURCE_2HDM_ONLY_NOT_ZEE",
+      "physical_Zee_branching_ratio": null
+    },
+    {
+      "MHp_choice": "bare",
+      "Z3": 6.413675743698656,
+      "Z7": -1.2399828670452349,
+      "Zee_physical_BR": null,
+      "benchmark_id": "F13_heavy_0001330/NO/texture_0.001",
+      "complete_Zee": false,
+      "global_acceptance": null,
+      "m_doublet_bare": 817.9635376817536,
+      "missing_charged_singlet": true,
+      "neutral_yukawa_basis": "rho_l=D/sqrt(2) RH-row LH-col; theta12=beta-alpha",
+      "official_Wilson_source_groups": {
+        "charged_bosonic": {
+          "cL": [
+            1.7155579482336754e-23,
+            6.070435816826848e-23
+          ],
+          "cR": [
+            3.002959553831252e-22,
+            -3.0029595538312513e-22
+          ],
+          "c_norm": 4.293421184171476e-22
+        },
+        "charged_fermion": {
+          "cL": [
+            -1.116630373353462e-22,
+            -3.9511538782597886e-22
+          ],
+          "cR": [
+            -1.954580427820836e-21,
+            1.9545804924151054e-21
+          ],
+          "c_norm": 2.794522204913353e-21
+        },
+        "neutral_bosonic": {
+          "cL": [
+            9.498136816816623e-24,
+            3.3608791813401124e-23
+          ],
+          "cR": [
+            1.662579846228757e-22,
+            -1.662579846228757e-22
+          ],
+          "c_norm": 2.3770401845965553e-22
+        },
+        "neutral_fermion": {
+          "cL": [
+            -2.330452346124524e-22,
+            -8.246221499396365e-22
+          ],
+          "cR": [
+            -4.079289334802443e-21,
+            4.079290760294588e-21
+          ],
+          "c_norm": 5.832283116893795e-21,
+          "source_K2_norm_GeVminus2": 1.2184380311032559e-27
+        },
+        "one_loop": {
+          "cL": [
+            3.957927590855227e-13,
+            -1.919445167550218e-13
+          ],
+          "cR": [
+            9.144036146485429e-11,
+            -1.3388369061793393e-10
+          ],
+          "c_norm": 1.621307367925882e-10
+        }
+      },
+      "official_coherent_Wilson": {
+        "cL": [
+          3.9579275876746805e-13,
+          -1.919445178804462e-13
+        ],
+        "cR": [
+          9.144036145928699e-11,
+          -1.338836906123666e-10
+        ]
+      },
+      "official_two_loop_to_one_loop_norm_ratio": 4.909469569063358e-11,
+      "physical_lfv": "UNKNOWN",
+      "pure_2HDM_Gamma_muegamma_GeV": 2.951751369233948e-41,
+      "pure_2HDM_proxy_BR": 9.852361237326081e-23,
+      "official_two_loop_source_accuracy": "COMPLETE_SOURCE_2HDM_ONLY_NOT_ZEE",
+      "physical_Zee_branching_ratio": null
+    },
+    {
+      "MHp_choice": "bare",
+      "Z3": 6.413675743698656,
+      "Z7": -1.2399828670452349,
+      "Zee_physical_BR": null,
+      "benchmark_id": "F13_heavy_0001330/IO/texture_0.001",
+      "complete_Zee": false,
+      "global_acceptance": null,
+      "m_doublet_bare": 817.9635376817536,
+      "missing_charged_singlet": true,
+      "neutral_yukawa_basis": "rho_l=D/sqrt(2) RH-row LH-col; theta12=beta-alpha",
+      "official_Wilson_source_groups": {
+        "charged_bosonic": {
+          "cL": [
+            1.442828223129859e-22,
+            -1.870984565765957e-22
+          ],
+          "cR": [
+            9.008878661493757e-22,
+            6.0059191076625045e-22
+          ],
+          "c_norm": 1.1082116025024173e-21
+        },
+        "charged_fermion": {
+          "cL": [
+            -9.39114849896274e-22,
+            1.21779522351405e-21
+          ],
+          "cR": [
+            -5.8637414294345405e-21,
+            -3.909160787080271e-21
+          ],
+          "c_norm": 7.213179847904972e-21
+        },
+        "neutral_bosonic": {
+          "cL": [
+            7.988176604930466e-23,
+            -1.0358651776314658e-22
+          ],
+          "cR": [
+            4.987739538688197e-22,
+            3.325159692457514e-22
+          ],
+          "c_norm": 6.1355813911220135e-22
+        },
+        "neutral_fermion": {
+          "cL": [
+            -1.9599719292134736e-21,
+            2.5415885271350626e-21
+          ],
+          "cR": [
+            -1.2237871912435886e-20,
+            -8.158577614337416e-21
+          ],
+          "c_norm": 1.5054204058631733e-20,
+          "source_K2_norm_GeVminus2": 3.145014462671516e-27
+        },
+        "one_loop": {
+          "cL": [
+            -1.983016452727185e-13,
+            6.515123171113726e-13
+          ],
+          "cR": [
+            -3.487710340294127e-10,
+            -2.423095342102561e-10
+          ],
+          "c_norm": 4.2468295037472237e-10
+        }
+      },
+      "official_coherent_Wilson": {
+        "cL": [
+          -1.9830164794764067e-13,
+          6.515123205800714e-13
+        ],
+        "cR": [
+          -3.4877103404611474e-10,
+          -2.4230953422139077e-10
+        ]
+      },
+      "official_two_loop_to_one_loop_norm_ratio": 4.837871204104953e-11,
+      "physical_lfv": "UNKNOWN",
+      "pure_2HDM_Gamma_muegamma_GeV": 2.025250334065962e-40,
+      "pure_2HDM_proxy_BR": 6.759884350426034e-22,
+      "official_two_loop_source_accuracy": "COMPLETE_SOURCE_2HDM_ONLY_NOT_ZEE",
+      "physical_Zee_branching_ratio": null
+    }
+  ],
+  "exact_direct_em_zero_test": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "norm": 0
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "norm": 0
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "norm": 0
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "norm": 0
+    }
+  ],
+  "previous_hand_transcribed_barr_zee": "SUPERSEDED: numerical factor/CP/sign mismatch with directly executed corrected upstream; only here source-pinned values are authoritative for pure 2HDM",
+  "remaining": [
+    "complete Zee mixed gauge/charged singlet two-loop dipole (uncalculated)",
+    "source renormalization/finite q2 μ3e uncertainties",
+    "complete nuclear matching/renormalization for conversion"
+  ],
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null
+}
