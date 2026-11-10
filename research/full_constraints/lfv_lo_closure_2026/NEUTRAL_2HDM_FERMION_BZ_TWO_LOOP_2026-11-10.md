@@ -42,3 +42,8 @@ Original independently executed Python integrals and complex coefficient calcula
 ## Flavor selection rule for other leading-new-operator 2HDM terms
 
 The 2026 arXiv source version's separately organized two-loop contributions in Eqs. (53)–(64)—fermionic neutral and charged Higgs, neutral-gauge/kinetic, and charged-potential bosonic terms—contain an explicit direct `rho_l,21*` or `rho_l,12` factor for the external mu-e flavor transition. Setting both tiny direct entries exactly to zero therefore kills **those enumerated leading-new-operator pure-2HDM expressions by flavor selection**, without needing to evaluate every special loop function. This assertion is restricted to the article's declared leading two-loop operator structures; it does **not** suppress mixed Zee singlet-gauge diagrams or two-loop corrections to existing tau-chain one-loop flavor tensors. Do not transfer the single-charged-Higgs bosonic coefficients to the mixed Zee spectrum. Exact-zero texture is a numerical projection test, not an RGE stability proof.
+
+
+## Source-input stress
+
+The neutral-fermion subset was re-evaluated for three illustrative quark mass alternatives, t/c/b = (163/.62/2.80), (155/.60/2.60), (175/1.30/4.30) GeV versus (172.5/1.27/4.18) GeV baseline. The magnitude ratios remain between **0.893 and 1.015** across all four exact Zee cards. This is a numerical mass-input stress (not a source-fitted QCD mass or perturbative theory error). The negligible suppression relative to the original one-loop K2 is unchanged. Original source calibration, complex rephase and mass-input stress checks now total **10 focused passing tests**, with the full standalone archive supplied in the conversation.
