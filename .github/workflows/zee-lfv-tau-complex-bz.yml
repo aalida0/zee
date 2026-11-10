@@ -6,6 +6,8 @@ on:
     paths:
       - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/tau_signed_complex_wilson_bridge.py
       - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/test_tau_signed_complex_wilson_bridge.py
+      - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/tau_native_monopole_source.py
+      - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/ORIGINAL_NATIVE_TAU_K1_REPLAY_2026-11-10.json
       - .github/workflows/zee-lfv-tau-complex-bz.yml
   workflow_dispatch:
 permissions:
@@ -39,8 +41,13 @@ jobs:
         env:
           ZEE_2HDM_PINNED_SOURCE: /tmp/lfv-general-2hdm-pheno
         run: python -m unittest research.full_constraints.lfv_2hdm_gitlab_reuse_2026.test_tau_signed_complex_wilson_bridge -v
+      - name: Calculate original one-loop K1 with corrected restricted neutral-fermion Barr-Zee K2
+        run: |
+          python -m research.full_constraints.lfv_2hdm_gitlab_reuse_2026.tau_native_monopole_source --corrected-neutral-bz tau_signed_complex_wilson_bridge.json --output tau_native_K1_plus_neutral_fermion_BZ_photon_subsets.json
       - uses: actions/upload-artifact@v4
         with:
           name: zee-tau-complex-bz-source-bridge-approx-not-physical
-          path: tau_signed_complex_wilson_bridge.json
+          path: |
+            tau_signed_complex_wilson_bridge.json
+            tau_native_K1_plus_neutral_fermion_BZ_photon_subsets.json
           if-no-files-found: error
