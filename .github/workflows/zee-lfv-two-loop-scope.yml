@@ -1,0 +1,32 @@
+name: Zee charged two-loop spurion and perturbative scope checks
+on:
+  push:
+    branches:
+      - research/zee-full-constraints
+    paths:
+      - research/full_constraints/lfv_two_loop_scope_2026/**
+      - .github/workflows/zee-lfv-two-loop-scope.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  charged-gauge-scope:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --disable-pip-version-check numpy mpmath
+      - name: Test exact currents, spurion selection, source-locked materiality
+        run: python -m unittest research.full_constraints.lfv_two_loop_scope_2026.test_gauge_spurion_screen -v
+      - name: Archive four-card conditional thresholds, explicitly not two-loop values
+        run: python -m research.full_constraints.lfv_two_loop_scope_2026.gauge_spurion_screen --output zee_two_loop_scope_conditional.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zee-gauge-spurion-scope-only-not-full-2loop
+          path: zee_two_loop_scope_conditional.json
+          if-no-files-found: error
