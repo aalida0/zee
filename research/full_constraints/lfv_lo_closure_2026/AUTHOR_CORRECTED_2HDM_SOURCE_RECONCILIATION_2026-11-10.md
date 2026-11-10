@@ -1,3 +1,5 @@
+> **Important scope clarification — tau channels now computed:** This report's statement about negligible two-loop Barr–Zee terms applies to **mu→eγ for the frozen direct e–mu texture zeros only**. The corrected same authors' code predicts **material neutral-fermion two-loop amplitudes for tau→eγ and tau→muγ**, where direct tau Yukawas are nonzero. See [NATIVE_ZEE_TAU_RADIATIVE_AND_CORRECTED_2HDM_BZ_2026-11-10.md](NATIVE_ZEE_TAU_RADIATIVE_AND_CORRECTED_2HDM_BZ_2026-11-10.md). Full physical Zee two-loop still UNKNOWN.
+
 # Exact uploaded general-2HDM corrected-source reconciliation — 10 November 2026
 
 **SOURCE EXECUTED, PRIOR PDF-v4 NEUTRAL BARR-ZEE NUMBERS SUPERSEDED; FULL PHYSICAL ZEE LFV UNKNOWN.**
