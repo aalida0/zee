@@ -81,6 +81,7 @@ class NativeTauPhotonMonopoleTests(unittest.TestCase):
         factor=4*math.pi*ALPHA
         norm=factor**2*M**5/(512*math.pi**3)
         one=0.
+        only=0.
         both=0.
         for t,wt in zip(sn,sw):
             s=lo*math.exp(logr*(t+1)/2)
@@ -109,12 +110,17 @@ class NativeTauPhotonMonopoleTests(unittest.TestCase):
                         else:direct=arr
                     return factor*(direct+cross)
                 v=tensor(1,0)
+                d=tensor(0,1)
                 vd=tensor(1,1)
                 # identical final negative fermions (factor 1/2).
                 one+=wt*wz*jac*phase*tree.spin_sum(v,ps,M,(m,m,m))/2
+                only+=wt*wz*jac*phase*tree.spin_sum(d,ps,M,(m,m,m))/2
                 both+=wt*wz*jac*phase*tree.spin_sum(vd,ps,M,(m,m,m))/2
-        dipole=photon_rate(0,0,0,1,m,m)["dipole_leading_log_BR"]*GAMMA_TAU
-        x=(both-one-dipole)/norm
+        # Subtract the dipole evaluated with the SAME quadrature. The
+        # collinear dipole logarithm converges slowly for a fixed n=24;
+        # subtracting the asymptotic leading-log here would fake a mixing
+        # discrepancy. The cross term converges quickly after cancellation.
+        x=(both-one-only)/norm
         self.assertLess(abs(one/norm-1),2e-5)
         self.assertLess(abs(x+4),1e-3)
 
