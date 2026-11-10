@@ -38,7 +38,7 @@ def amplitudes(point,original,eta,with_d4=False):
     row={"id":point["id"],"scalar":point["input_card"],"scalar_sha256":point["scalar_sha256"]}
     seed,spec,source=neutrino_input(row,SCANNER_SEED,original["ordering"],original["family"])
     if seed!=original["seed_sha256"] or digest(source)!=original["input_sha256"]:
-        raise ValueError("Original seed/input provenance not reproduced")
+        raise ValueError(f"Historical seed/input mismatch for {point['id']} {original['ordering']} {original['family']}: current seed={seed}, expected seed={original['seed_sha256']}, current input={digest(source)}, expected input={original['input_sha256']}")
     input=copy.deepcopy(source)
     for key in ("real","imag"):
         input["homogeneous_coefficients"][key]=[eta*v for v in input["homogeneous_coefficients"][key]]
