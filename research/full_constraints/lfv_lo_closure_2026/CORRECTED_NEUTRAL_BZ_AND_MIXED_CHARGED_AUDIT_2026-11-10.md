@@ -68,3 +68,20 @@ The chat artifact `zee_lfv_two_loop_source_correction_2026-11-10.zip` contains:
 Independent clean-directory ZIP replay **PASS: 12 tests and all hashes verified**. All outputs keep `physical_lfv=UNKNOWN` and `global_acceptance=null`. No large scan authorized.
 
 **Scientific next requirement:** source-based complete two-loop Zee mixed charged/gauge operator calculation *or* a defensible, independently derived bound on those missing dipoles, plus mu3e finite q2 and conversion hadronic/scheme uncertainty. Stop representing the small evaluated 2HDM subsets as a proof of full Zee two-loop completeness.
+
+
+## Further result: exact single-external-neutral-LFV Barr–Zee topology selection rule
+
+From the same native RH-row/LH-column scalar vertices, for any off-diagonal flavor i!=j:
+
+- `Yh_ij = -sin(beta-alpha)*D_ij/sqrt(2)`,
+- `YH_ij = +cos(beta-alpha)*D_ij/sqrt(2)`,
+- `YA_ij = -i*D_ij/sqrt(2)`.
+
+Accordingly, *all* diagrams containing **one external flavor-changing neutral h/H/A Yukawa vertex** factor `D_e_mu` or `D_mu_e`, **regardless of whether the inner bosonic loop contains a W, H1/H2, or the off-diagonal ZH1H2 gauge vertex**. Their single-neutral-LFV amplitude vanishes for the exact direct-Yukawa-zero texture. Numerically the four frozen cards have maximum |D_e_mu| and |D_mu_e| of **3.067e-19, 1.986e-19, 9.583e-21, 2.443e-20** respectively, at numerical-floor level. This is a flavor-factorization statement, NOT an evaluation or amplitude upper bound for all Zee two-loop processes.
+
+**Not covered** by that selection rule: charged-H_i/neutrino/W LFV topologies involving F and D without a direct neutral e-mu Yukawa vertex, multi-insertion e↔tau↔mu diagrams, higher-loop dressing of existing F†F / DD† chains, and radiative generation of tiny direct texture entries. They remain the physics-completeness blocker.
+
+New portable code `neutral_single_lfv_selection_rule.py` verifies the h/H/A off-diagonal vertices and exact-zero projection. The updated archive now has **17 focused unittest cases PASS**, plus 16 SHA-256 manifest checks in a clean-directory replay. Independent conditional missing-amplitude diagnostic finds the tightest snapshot margin in mu->e gamma: **359–1867 times native one-loop norm** (not a bound on the actual missing amplitudes). Source-result details are included in the conversation's `zee_lfv_two_loop_source_correction_2026-11-10.zip` archive.
+
+**Unchanged gate: physical_lfv=UNKNOWN and global_acceptance=null.**
