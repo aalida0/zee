@@ -41,6 +41,23 @@ jobs:
           set -euo pipefail
           sed -n '565,660p' /tmp/general-2hdm-pheno/thdm.py
           grep -n 'self.ip\[' /tmp/general-2hdm-pheno/thdm.py | head -n 90 || true
+      - name: Audit corrected GitLab LFV Wilson interfaces
+        shell: bash
+        run: |
+          python - <<'PY'
+          import ast, pathlib
+          p=pathlib.Path('/tmp/general-2hdm-pheno/thdm.py')
+          tree=ast.parse(p.read_text())
+          for cls in [n for n in tree.body if isinstance(n, ast.ClassDef) and n.name=='thdm']:
+              methods=[f for f in cls.body if isinstance(f,(ast.FunctionDef,ast.AsyncFunctionDef))]
+              names=[f'{f.lineno}:{f.name}' for f in methods
+                     if any(key in f.name.lower() for key in ['gamma','loop','radiat','l_to','c_r','c_l','dipole'])]
+              print('RELEVANT_2HDM_METHODS', ','.join(names))
+              for f in methods:
+                  if f.name=='Gamma_l_to_lp_gamma':
+                      print('GAMMA_METHOD_SOURCE_START_LINE',f.lineno)
+                      print('\n'.join(p.read_text().splitlines()[f.lineno-1:f.end_lineno]))
+          PY
       - name: Evaluate four Zee inputs as pure 2HDM controls (not Zee physics)
         run: |
           python research/full_constraints/lfv_2hdm_gitlab_reuse_2026/official_gitlab_control.py \
