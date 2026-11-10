@@ -39,6 +39,9 @@ from research.full_constraints.lfv_2hdm_gitlab_reuse_2026.tau_neutral_tree impor
 from research.full_constraints.lfv_2hdm_gitlab_reuse_2026.tau_signed_complex_wilson_bridge import (
     run as source_bridge, CORRECTED_AUTHOR_SHA256
 )
+from research.full_constraints.lfv_2hdm_gitlab_reuse_2026.tau_native_sarah_complex_import import (
+    run as import_original_norm_checked
+)
 
 CHANNELS = (
     ("tau_to_3e", "tauegamma", 0, 0),
@@ -126,8 +129,14 @@ def positive_hermitian_photon_width(M,ma,mb,cl,cr,ns,nz):
     return max(0.,float(result))
 
 
-def compute(source_dir: Path, source_revision:str,ns=56,nz=20,tree_order=24):
+def compute(source_dir: Path, source_revision:str,ns=56,nz=20,tree_order=24,
+            native_original_json:Path|None=None):
     source=source_bridge(Path(source_dir),source_revision)
+    # Optional ORIGINAL native JSON must come from an independently audited
+    # Fortran execution: the import validator checks rates and source hashes,
+    # but DOES NOT authenticate the individual complex phases.
+    native=(import_original_norm_checked(Path(native_original_json))
+            if native_original_json is not None else None)
     if (source["physical_lfv"]!="UNKNOWN"
             or source["gitlab_thdm_sha256"]!=CORRECTED_AUTHOR_SHA256):
         raise ValueError("Unreviewed complex Barr-Zee bridge")
@@ -147,7 +156,19 @@ def compute(source_dir: Path, source_revision:str,ns=56,nz=20,tree_order=24):
             ledger=source["cards"][short]["channels"][rad]
             if ledger["source_exact_complex_native_K2_confirmed"]:
                 raise RuntimeError("Unexpected claim of exact original SARAH K2")
-            cl,cr=pairs_to_complex(ledger["partial_signed_plus_CL_CR_GeV_minus2"])
+            if native is None:
+                cl,cr=pairs_to_complex(ledger["partial_signed_plus_CL_CR_GeV_minus2"])
+                coefficient_input="module3_analytic_1L_plus_corrected_neutral_BZ"
+            else:
+                entry=native["cards"][short][rad]
+                native_lr=pairs_to_complex([
+                    entry["module3_CL_from_native"],
+                    entry["module3_CR_from_native"],
+                ])
+                bz_lr=pairs_to_complex(
+                    ledger["author_neutral_BZ_in_module3_CL_CR_GeV_minus2"])
+                cl,cr=native_lr+bz_lr
+                coefficient_input="claimed_original_native_K2_norm_checked_plus_corrected_neutral_BZ"
             tree_w=tree.width(vs,2,a,b,ml,order=tree_order,contact=False)
             dip_w=positive_hermitian_photon_width(
                 float(ml[2]),float(ml[a]),float(ml[b]),cl,cr,ns,nz)
@@ -171,6 +192,9 @@ def compute(source_dir: Path, source_revision:str,ns=56,nz=20,tree_order=24):
                 "phase_freedom_upper_BR":center+radius,
                 "chiral_K2_Module3_CL_CR_GeV_minus2":[[cl.real,cl.imag],[cr.real,cr.imag]],
                 "original_native_complex_source_K2_recovered":False,
+                "complex_coefficient_input":coefficient_input,
+                "imported_native_source_K2_norm_checked":native is not None,
+                "imported_native_K2_phases_independently_verified":False,
                 "physical_total_BR":None,
                 "missing_offshell_and_loop_terms":True,
                 "relative_phase_not_source_matched":True,
@@ -186,7 +210,9 @@ def compute(source_dir: Path, source_revision:str,ns=56,nz=20,tree_order=24):
         "status":"SIGNED_COMPLEX_AUTHOR_BZ_PLUS_MODULE3_APPROX_ZEE_ONELOOP_TREE_DIPOLE_INTERFERENCE_PHASE_UNMATCHED",
         "source":{"corrected_2HDM_thdm_sha256":CORRECTED_AUTHOR_SHA256,
                   "original_native_SARAH_complex_K2_file":None,
-                  "module3_approx_not_exact_generated_source":True,
+                  "module3_approx_not_exact_generated_source":native is None,
+                  "native_source_JSON_imported_norm_checked":native is not None,
+                  "native_source_JSON_phase_independently_replayed":False,
                   "source_running_MSbar_quark_masses":True},
         "interference_phase":"unmatched between published operator and scalar tree; global physical phase NOT asserted; scan over all global phases",
         "formula":"B(phi)=(Gamma_tree+Gamma_dipole+2Re(exp(-i phi)*I))/Gamma_tau, I=int T_tree P_direct* dPhi",
@@ -209,8 +235,10 @@ def main():
     p.add_argument("--nz",type=int,default=20)
     p.add_argument("--tree-order",type=int,default=24)
     p.add_argument("--output",type=Path)
+    p.add_argument("--native-original-json",type=Path,help="Optional original compiled SARAH K2 JSON; SHA+BR checks do not certify complex phases")
     a=p.parse_args()
-    x=compute(a.source,a.commit,a.ns,a.nz,a.tree_order)
+    x=compute(a.source,a.commit,a.ns,a.nz,a.tree_order,
+              native_original_json=a.native_original_json)
     if a.output:
         if a.output.exists():
             raise FileExistsError("Refuse overwrite")
