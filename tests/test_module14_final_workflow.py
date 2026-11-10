@@ -91,7 +91,11 @@ class ConfigTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'executable'):preflight(c,'local',tmp)
             c=mock_config();c['stages']['higgs']=True;c['runtime']['packages']['HiggsTools']='1.1.3'
             c['runtime']['higgs_data']={n:{'path':str(Path(tmp)/n),'sha256':'0'*64} for n in ('HB','HS')}
-            with self.assertRaisesRegex(ValueError,'HiggsTools data'):preflight(c,'local',tmp)
+            # If optional HiggsTools itself is absent, the preflight must
+            # reject the runtime before inspecting absent HB/HS datasets.
+            # A populated production environment reaches the dataset gate.
+            with self.assertRaisesRegex(ValueError,'HiggsTools data|Missing pinned runtime package: HiggsTools'):
+                preflight(c,'local',tmp)
 
 
 class FrozenReplayTests(unittest.TestCase):

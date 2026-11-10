@@ -35,7 +35,11 @@ def check_runtime(config):
     if platform.python_version() != rt['python']:
         raise ValueError('Python version does not match runtime pin')
     for name, version in rt['packages'].items():
-        if importlib.metadata.version(name) != version:
+        try:
+            installed=importlib.metadata.version(name)
+        except importlib.metadata.PackageNotFoundError:
+            raise ValueError('Missing pinned runtime package: '+name) from None
+        if installed != version:
             raise ValueError('Runtime version mismatch: '+name)
     imports = ['module1.scalar_constraints', 'module1.d10_certificate', 'module2.interface',
                'module14.decays', 'module14.conditional_scan.flavor']
