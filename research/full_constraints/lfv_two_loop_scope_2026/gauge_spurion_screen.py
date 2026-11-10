@@ -19,6 +19,7 @@ ALPHA=1/127.95
 SW2=0.23129
 V=246.22
 MMU=0.1056583755
+ME=0.00051099895
 GAMMA_MU=6.582119569e-25/2.1969811e-6
 MEGII=1.5e-13
 
@@ -69,9 +70,10 @@ def evaluate():
         if (abs(abs(fprod)/scope["FdagF_e_mu_abs"]-1)>1e-12
              or abs(cf/scope["CR_F_only_abs_GeV_minus2"]-1)>1e-12):
             raise ArithmeticError("frozen F sector no longer matches published source gate")
+        cF_vector=cf*math.sqrt(1+(ME/MMU)**2)
         lone=math.sqrt(native["one_loop_muegamma_BR"]/norm)
         if lone>=clim:raise ArithmeticError("source one-loop baseline above experimental limit")
-        crit=(clim-lone)/(eps*cf)
+        crit=(clim-lone)/(eps*cF_vector)
         mu4=-math.sqrt(2)/V*(m1*m1-m2*m2)*sin*c
         if abs(mu4+math.sqrt(2)/V*float(u@np.diag([m1*m1,m2*m2])@v))>1e-10:
             raise ArithmeticError("charged mass mixing/µ4 identity failed")
@@ -82,7 +84,8 @@ def evaluate():
             "doublet_singlet_mixed_weight_GeVminus2":mix,
             "Z12_over_g_cW":float(J["Z_over_g_cW"][0,1]),
             "mu4_GeV":mu4,
-            "source_F_one_loop_C_abs_GeVminus2":cf,
+            "source_F_one_loop_dominant_chirality_C_abs_GeVminus2":cf,
+            "source_F_one_loop_full_chirality_norm_GeVminus2":cF_vector,
             "native_source_one_loop_BR":native["one_loop_muegamma_BR"],
             "MEGII_90CL_BR":MEGII,
             "source_matched_coefficient_headroom_GeVminus2":clim-lone,
@@ -100,7 +103,7 @@ def evaluate():
         "Z_charge_operator":"(1/2)P_doublet - sin²thetaW I, physical Z12=-cos(gamma)sin(gamma)/2 (units g/cW)",
         "charged_mixed_loop_identity":"u^T diag(f(m1²),f(m2²)) v = cos(gamma)sin(gamma)[f(m1²)-f(m2²)]",
         "lepton_number_spurion":"L(chi+)=-2 and L(mu4)=-2; L-conserving dipole with one unpaired mu4 spurion forbidden; this does not remove F†F gauge dressing or multi-insertion loops",
-        "K_interpretation":"K threshold only conditional on deltaC=eps*K*C_F, not estimate/bound of missing Zee gauge loop or any new invariant",
+        "K_interpretation":"K threshold only conditional on deltaC_vector=eps*K*C_F_vector including the mass-suppressed mirror chirality; not estimate/bound of missing Zee gauge loop or any new invariant",
         "complete_all_two_loop_Zee":False,
         "physical_lfv":"UNKNOWN","global_acceptance":None,"cards":result,
     }
