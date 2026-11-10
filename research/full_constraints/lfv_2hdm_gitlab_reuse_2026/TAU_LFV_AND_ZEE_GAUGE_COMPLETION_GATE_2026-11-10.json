@@ -1,0 +1,89 @@
+{
+  "date": "2026-11-10",
+  "status": "ONELOOP_NATIVE_COMPLEX_K1_K2_PLUS_CORRECTED_NEUTRAL_BZ_AND_QED_LL_RESTRICTED_TESTED__FULL_ZEE_GAUGE_TWOLOOP_OPEN",
+  "source_sha256": {
+    "generated": "2d30006d8d4759b2b7bfe76e2e4795bd2cf2f19ef5cb5772390ed3155b1bc41d",
+    "couplings": "a0de851498f3e68e7421538098b3979381a3ecf5245021fce9d1c2df46a42e8c",
+    "loops": "8142a813fcc00283d1de2865266be04ff1de25c09422b24b04d57523a6595a24"
+  },
+  "n_benchmarks": 4,
+  "pinned_cards": [
+    "D7_NO",
+    "D7_IO",
+    "F13_NO",
+    "F13_IO"
+  ],
+  "validated_subsets": {
+    "native_complex_K2_one_loop": {
+      "executed": true,
+      "passed": true,
+      "physics_scope": "original isolated generated SARAH gamma2l fragments"
+    },
+    "native_complex_K1_one_loop": {
+      "executed": true,
+      "passed": true,
+      "relative_F_D_residual_max": 2.1316443083143779e-16
+    },
+    "F_only_charged_photon_K1_K2_ratio": {
+      "executed": true,
+      "passed": true,
+      "ratio": "K1L_F = -(2/3) K2L_F"
+    },
+    "native_signed_source_threebody_photon_observable": {
+      "executed": true,
+      "passed": true,
+      "approximation": "original leading-log FlavorKit photon-only rates, alpha(MZ), q2=0 form factors"
+    },
+    "corrected_general_2hdm_neutral_fermion_Barr_Zee": {
+      "executed": true,
+      "passed": true,
+      "scope": "gauge-invariant fermionic neutral scalar subset; not complete Zee 2loop"
+    },
+    "QED_diagonal_dipole_low_energy_leading_log": {
+      "executed": true,
+      "passed": true,
+      "upper_GeV": 80.379,
+      "lower_GeV": 1.77686,
+      "amplitude_factor": 0.9645825297250689,
+      "one_loop_BR_factor": 0.9304194566508134,
+      "operator_mixing_included": false
+    }
+  },
+  "missing": {
+    "mixed_Zee_F_W_H1_H2_dipoles": {
+      "computed": false,
+      "gauge_completed": false
+    },
+    "charged_singlet_Goldstone_seagull_counterterms": {
+      "computed": false,
+      "gauge_completed": false
+    },
+    "neutral_charged_bosonic_two_loop_full_Zee": {
+      "computed": false,
+      "gauge_completed": false
+    },
+    "renormalized_operator_relative_action_phase_full_basis": {
+      "validated": false
+    },
+    "threebody_full_offshell_K1_K2_Z_box_scalar": {
+      "validated": false
+    },
+    "mu_e_conversion_RG_QCD_hadronic": {
+      "validated": false
+    }
+  },
+  "source_reuse_limit": "General 2HDM charged diagrams cannot be projected onto two mixed charged Zee scalars without validating the full gauge-complete new singlet sector.",
+  "no_experimental_exclusion_from_restricted_BR": true,
+  "physical_threebody_BR": null,
+  "physical_radiative_full_2loop_BR": null,
+  "physical_mu3e_BR": null,
+  "physical_Al_rate": null,
+  "global_acceptance": null,
+  "physical_lfv": "UNKNOWN",
+  "scan_acceptance_label": "NOT_AUTHORIZED_AS_FULL_CONSTRAINTS",
+  "github_validation_runs": [
+    "https://github.com/aalida0/zee/actions/runs/42833910221",
+    "https://github.com/aalida0/zee/actions/runs/42834587155"
+  ],
+  "report": "research/full_constraints/lfv_2hdm_gitlab_reuse_2026/ORIGINAL_TAU_PHOTON_AND_QED_LL_SUBSETS_2026-11-10.md"
+}
