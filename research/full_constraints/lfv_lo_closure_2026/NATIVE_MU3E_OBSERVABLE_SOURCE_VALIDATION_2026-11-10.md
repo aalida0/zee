@@ -58,3 +58,31 @@ Conversation attachment: zee_lfv_native_mu3e_observable_replay_2026-11-10.zip. I
 Still needed: the **native OA2 dipole** (not previously evaluated), finite-q² photon form factors, scalar-penguin renormalization or valid error budget, complete Type-II conversion heavy/gluon/nuclear interference, and materiality of missing Zee-specific radiative higher-order amplitudes.
 
 **Final:** physical_mu3e_BR=null, physical_Al_rate=null, physical_lfv=UNKNOWN, global_acceptance=null. No scan filtering or physical exclusion.
+
+
+## Conditional mu3e bound from an independent radiative-LFV upper limit
+
+For the **restricted original FlavorKit source observable**, the common K2 norm contributes to both mu->e gamma and the mu->3e virtual-photon dipole. Comparing exact source coefficients:
+
+    R = BR(mu->3e)_dipole / BR(mu->e gamma)
+      = alpha_MZ^2/[8*pi*alpha_0] * [16 ln(m_mu/m_e)-22]/3
+      = 0.00702805204358
+
+for explicit diagnostic alpha_MZ=1/127.95 and alpha_0=1/137.035999084, with equal muon normalization.
+
+**Without assuming dipole phases**, the amplitude triangle inequality gives within this same *truncated, common one-loop source observable*:
+
+    BR(mu->3e)_trunc <=
+       [ sqrt(BR(mu->3e)_K2=0,local) + sqrt(R*BR(mu->e gamma)_upper) ]^2.
+
+The local K2=0 inputs here are the source-compiled K1(q2=0)+Z+direct box/tree/scalar groups. A purely **hypothetical** BR(mu->e gamma) <= 1e-13 gives four source-truncated upper envelopes:
+
+| D7 NO | D7 IO | F13 NO | F13 IO |
+|---:|---:|---:|---:|
+| 7.02850936e-16 | 7.02892880e-16 | 7.03502327e-16 | 7.04016822e-16 |
+
+This **does not establish an experimental or physical mu3e bound**, because: the radiative premise is hypothetical, complete Zee mixed/gauge two-loop radiative amplitudes are unbounded, K1 finite-q2 not certified, scalar scheme not fixed and other omitted amplitudes may be material. It is a concrete route to avoid phase-by-phase recombination of dipoles *after* a complete source-qualified radiative calculation and controlled source-truncation uncertainty have been demonstrated.
+
+400 random complex-phase tests (100/card) verified the original quadratic source rate respects the amplitude-norm upper inequality. Together with 10 earlier checks, **13 focused unittest cases PASS** and all compiled original Fortran-vs-Python 20 diagnostics PASS. Source result saved in the conversation package as CONDITIONAL_RADIATIVE_TO_3E_SOURCE_ENVELOPE_2026-11-10.json.
+
+**No change to physical_lfv=UNKNOWN or global_acceptance=null.**
