@@ -26,7 +26,7 @@ jobs:
       - name: Source-locked tau neutral tree checks (subset only)
         run: |
           python -m unittest research.full_constraints.lfv_2hdm_gitlab_reuse_2026.test_tau_neutral_tree -v
-          python research/full_constraints/lfv_2hdm_gitlab_reuse_2026/tau_neutral_tree.py --order 14 --output tau_neutral_tree_result.json
+          python -m research.full_constraints.lfv_2hdm_gitlab_reuse_2026.tau_neutral_tree --order 14 --output tau_neutral_tree_result.json
       - name: Archive reproducible numerical results
         uses: actions/upload-artifact@v4
         with:
