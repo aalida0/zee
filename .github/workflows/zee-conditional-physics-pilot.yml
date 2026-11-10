@@ -4,11 +4,10 @@ on:
     branches:
       - research/zee-full-constraints
     paths:
-      - research/full_constraints/scan_pilot_2026/**
+      - research/full_constraints/scan_pilot_2026/run_conditional_pilot.py
       - module14/final_workflow.py
       - module14/conditional_scan/next20k_proposal.json
       - tests/test_module14_*.py
-      - .github/workflows/zee-conditional-physics-pilot.yml
   workflow_dispatch:
 permissions:
   contents: read
