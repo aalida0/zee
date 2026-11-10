@@ -28,7 +28,6 @@ from research.full_constraints.lfv_2hdm_gitlab_reuse_2026.official_gitlab_contro
 from research.full_constraints.lfv_2hdm_gitlab_reuse_2026.tau_radiative_threebody_diagnostic import (
     GATE, EXPECTED_IDS, CORRECTED_AUTHOR_SHA256
 )
-from research.full_constraints.lfv_lo_closure_2026 import __init__  # package existence audit
 
 HBAR_GEV_S=6.582119569e-25
 GAMMA_TAU_GEV=HBAR_GEV_S/(290.3e-15)
@@ -131,7 +130,16 @@ def run(source_dir:pathlib.Path, revision:str)->dict:
                   "signed_plus_over_saved_partial",f"{calc_plus/src_partial:.8g}",
                   "opposite_minus_over_saved_partial",f"{calc_minus/src_partial:.8g}",
                   "signed_BZ_CLCR",list(map(c2,bz_module3)),flush=True)
-        out[card]={"frozen_benchmark_id":w["id"],"channels":channels}
+        out[card]={
+            "frozen_benchmark_id":w["id"],
+            "quark_source_mass_scheme":"authors running MSbar at mt",
+            "msbar_quark_masses_mt_GeV":{
+                "mu":float(reference.mumt),"mc":float(reference.mc),
+                "mt":float(reference.mt),"md":float(reference.mdmt),
+                "ms":float(reference.msmt),"mb":float(reference.mb),
+            },
+            "channels":channels,
+        }
     return {
         "status":"PINNED_CORRECTED_AUTHOR_COMPLEX_NEUTRAL_BZ_REUSED_WITH_MODULE3_APPROX_ONELOOP_ONLY",
         "gitlab_revision":revision,
