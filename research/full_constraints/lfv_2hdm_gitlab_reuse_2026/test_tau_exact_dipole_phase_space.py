@@ -59,10 +59,13 @@ class ExactTauDipoleTests(unittest.TestCase):
         a=photon_width(M,MU,MU,1+0.2j,-0.5+0.3j,ns=30,nz=12)
         b=photon_width(M,MU,MU,1-0.2j,-0.5-0.3j,ns=30,nz=12)
         self.assertLess(abs(a-b)/a,2e-12)
-        self.assertAlmostEqual(
-            photon_width(M,MU,MU,0.7+0.4j,-0.2+0.1j,ns=30,nz=12)/
-            photon_width(M,MU,MU,0.7+0.4j,-0.2+0.1j,ns=30,nz=12),
-            1.,places=12)
+        cl,cr=0.7+0.4j,-0.2+0.1j
+        base=photon_width(M,MU,MU,cl,cr,ns=30,nz=12)
+        global_phase=complex(math.cos(0.35),math.sin(0.35))
+        rotated=photon_width(M,MU,MU,cl*global_phase,cr*global_phase,ns=30,nz=12)
+        scaled=photon_width(M,MU,MU,2*cl,2*cr,ns=30,nz=12)
+        self.assertLess(abs(rotated/base-1),2e-12)
+        self.assertLess(abs(scaled/base-4),2e-12)
 
     def test_triangulation_limits_and_validation(self):
         v=phase_independent_tree_dipole_envelope(2e-12,3e-12,1e-14)
