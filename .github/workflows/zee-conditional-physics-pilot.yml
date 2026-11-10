@@ -23,12 +23,15 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.10.12"
-      - name: Install original D14 numerical dependencies
+      - uses: astral-sh/setup-uv@v6
+      - name: Install exact original Python 3.10.12 and frozen numerical packages
         run: |
-          python -m pip install --disable-pip-version-check numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0 matplotlib==3.10.9 jsonschema
+          uv python install 3.10.12
+          uv venv --python 3.10.12 "$RUNNER_TEMP/zee-pinned-python"
+          uv pip install --python "$RUNNER_TEMP/zee-pinned-python/bin/python" numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0 matplotlib==3.10.9 jsonschema
+          echo "$RUNNER_TEMP/zee-pinned-python/bin" >> "$GITHUB_PATH"
+      - name: Assert exact Python patch-version pin
+        run: python -c 'import platform; assert platform.python_version()=="3.10.12", platform.python_version()'
       - name: Execute existing immutable replay/regression suite before scan
         run: python scripts/zee_d14_workflow_tests.py
       - name: Run independent 400-proposal conditional pilot with four neutrino families
