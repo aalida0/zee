@@ -7,7 +7,7 @@ class HomogeneousLFVTests(unittest.TestCase):
     def setUpClass(cls):cls.points={r["id"]:r for r in strict_inputs()}
     def test_eta1_replays_original_native_module4(self):
         x=t.evaluate_texture(self.points[284],"IO",0,1.0)
-        self.assertEqual(x["status"],"NEUTRINO_PASS_LFV_PARTIAL")
+        self.assertEqual(x["status"],"NEUTRINO_PASS_LFV_PARTIAL",msg=str((x.get("error_type"),x.get("error"))))
         self.assertAlmostEqual(x["partial_lfv"]["mu_to_e_gamma_BR"]/t.FROZEN[284,"IO",0],1,places=11)
         self.assertFalse(x["partial_lfv"]["complete_Zee_LFV"])
         self.assertIsNone(x["global_acceptance"])
