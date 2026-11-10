@@ -70,5 +70,7 @@
     "finite q2 mu3e, scalar-penguin scheme and heavy/gluon mu-e conversion matching unresolved"
   ],
   "physical_lfv": "UNKNOWN",
-  "global_acceptance": null
+  "global_acceptance": null,
+  "radiative_flavor_scope_of_small_two_loop_result": "mu->e gamma ONLY; direct e-mu texture-zero Yukawas",
+  "tau_radiative_warning": "same corrected authors' source has large neutral fermion Barr-Zee relative to one-loop in tau channels; see NATIVE_ZEE_TAU_RADIATIVE_LFV_GATE_2026-11-10.json"
 }
