@@ -80,7 +80,7 @@ def evaluate(k1_path=K1_JSON,k2_path=K2_JSON,corrected_bz_path=None):
     k2=json.loads(Path(k2_path).read_text())
     if k1["source_sha256"]!=SHA or k2["fortran_sha256"]!=SHA:
         raise ValueError("Original generated source SHA contract mismatch")
-    if (k1["benchmark_cards_sha256"]!="1472e0741671bd8e832e256ddafc371562ea446c3d7bba3ec0c"
+    if (k1["benchmark_cards_sha256"]!="1472e0741671bd8e832e256ddafc371562ea446c3d7bba3ec0c7ae5fe21dde0c"
             or set(k1["cards"])!=set(EXPECTED)
             or tuple(c["card"] for c in k2["cards"])!=EXPECTED):
         raise ValueError("Four-card benchmark provenance mismatch")
