@@ -1,0 +1,28 @@
+name: Zee LFV tau dipole diagnostic
+on:
+  push:
+    branches:
+      - research/zee-full-constraints
+    paths:
+      - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/tau_radiative_threebody_diagnostic.py
+      - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/test_tau_radiative_threebody_diagnostic.py
+      - research/full_constraints/lfv_lo_closure_2026/NATIVE_ZEE_TAU_RADIATIVE_LFV_GATE_2026-11-10.json
+      - .github/workflows/zee-lfv-tau-dipole-diagnostic.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate source-linked dipole approximation (never full physical LFV)
+        run: |
+          python -m unittest research.full_constraints.lfv_2hdm_gitlab_reuse_2026.test_tau_radiative_threebody_diagnostic -v
+          python research/full_constraints/lfv_2hdm_gitlab_reuse_2026/tau_radiative_threebody_diagnostic.py --kappa 40
