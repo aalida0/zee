@@ -1,0 +1,76 @@
+{
+  "status": "PILOT_TECHNICAL_COMPLETE_PHYSICS_CONDITIONAL",
+  "date": "2026-11-10",
+  "run_id": 42842354835,
+  "executed_commit": "c194bb9018801b1a6881f22134e0650b1fdccae7",
+  "count_proposals": 400,
+  "seed": 20261110,
+  "shard_size": 40,
+  "shard_count": 10,
+  "arms": {
+    "sub_TeV": 120,
+    "production_window_1000_1350": 200,
+    "broad_control": 80
+  },
+  "tests": {
+    "total": 76,
+    "passed": 66,
+    "skipped_optional": 10,
+    "failed": 0,
+    "errors": 0
+  },
+  "manifest_sha256": "afa92f0e5d8afa56db976ff4158cc9971319419595574ef09be3f6d0d545ed45",
+  "dataset_sha256": "52bfe78aecf28bc7c4dc299bc49a74c77e1cf7a0c51c54746d541ac6794b7639",
+  "artifact_zip_sha256": "6d90c227c873529b3b8458757318b9178864dbcf6a24ebcd01f17f3706e35f0d",
+  "collection": {
+    "status": "COMPLETE",
+    "missing_points": 0,
+    "computational_errors": 0
+  },
+  "scalar_unique_gates": {
+    "reconstruction": {
+      "PASS": 400
+    },
+    "bfb": {
+      "PASS": 61,
+      "FAIL": 317,
+      "UNKNOWN": 22
+    },
+    "unitarity": {
+      "PASS": 101,
+      "FAIL": 299
+    },
+    "ewpo": {
+      "PASS": 214,
+      "FAIL": 186
+    },
+    "vacuum": {
+      "PASS": 1,
+      "UNKNOWN": 4,
+      "NOT_EVALUATED": 395
+    }
+  },
+  "scalar_eligible_n": 5,
+  "neutrino_passing_family_rows": 20,
+  "joined_rows": 415,
+  "approx_B_unique": {
+    "APPROX_COMPATIBLE": 174,
+    "APPROX_DISFAVORED": 222,
+    "APPROX_BOUNDARY": 4
+  },
+  "conditional_candidate_scalar_ids": [
+    31,
+    112,
+    284,
+    320,
+    394
+  ],
+  "certified_vacuum_and_approx_compatible_intersection": 0,
+  "physical_LFV": "UNKNOWN",
+  "physical_B": "UNKNOWN",
+  "physical_Higgs": "UNKNOWN",
+  "globally_allowed": null,
+  "physical_allowed_count": null,
+  "final_full_constraints_scan": false,
+  "production_not_run": true
+}
