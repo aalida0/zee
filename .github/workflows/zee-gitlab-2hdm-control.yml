@@ -23,6 +23,11 @@ jobs:
           python-version: '3.11'
       - name: Dependencies
         run: python -m pip install --disable-pip-version-check numpy scipy mpmath
+      - name: Validate conditional LFV uncertainty sensitivity (not physical acceptance)
+        run: |
+          python -m unittest research.full_constraints.lfv_2hdm_gitlab_reuse_2026.test_conditional_lfv_envelope -v
+          python research/full_constraints/lfv_2hdm_gitlab_reuse_2026/conditional_lfv_envelope.py \
+            --kappa 300 --output CONDITIONAL_FOUR_CARD_ENVELOPE.json
       - name: Fetch and verify exact published GitLab revision
         shell: bash
         run: |
@@ -101,5 +106,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: zee-two-loop-gitlab-pure-2hdm-control
-          path: official_gitlab_control.json
+          path: |
+            official_gitlab_control.json
+            CONDITIONAL_FOUR_CARD_ENVELOPE.json
           if-no-files-found: ignore
