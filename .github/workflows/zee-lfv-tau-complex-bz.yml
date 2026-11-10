@@ -1,0 +1,41 @@
+name: Zee native tau vs corrected 2HDM complex Wilson diagnostic
+on:
+  push:
+    branches:
+      - research/zee-full-constraints
+    paths:
+      - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/tau_signed_complex_wilson_bridge.py
+      - .github/workflows/zee-lfv-tau-complex-bz.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  tau-complex:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install source and loop dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy mpmath
+      - name: Clone pinned corrected upstream GitLab 2HDM
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --branch master --depth 1 https://gitlab.com/jbrod/general-2hdm-pheno.git /tmp/lfv-general-2hdm-pheno
+          head=$(git -C /tmp/lfv-general-2hdm-pheno rev-parse HEAD)
+          echo "PINNED_GITLAB_HEAD $head"
+          [[ "$head" == b5035cd5* ]] || exit 9
+          echo "9b4af7aa4bf7bf533a7b82c8c2603d118346424e3b7b5f9f06ab8cb41bc4e193  /tmp/lfv-general-2hdm-pheno/thdm.py" | sha256sum -c -
+      - name: Record tau complex native-approx and corrected author BZ diagnostic
+        run: |
+          python -m research.full_constraints.lfv_2hdm_gitlab_reuse_2026.tau_signed_complex_wilson_bridge --source /tmp/lfv-general-2hdm-pheno --commit b5035cd5 --output tau_signed_complex_wilson_bridge.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zee-tau-complex-bz-source-bridge-approx-not-physical
+          path: tau_signed_complex_wilson_bridge.json
+          if-no-files-found: error
