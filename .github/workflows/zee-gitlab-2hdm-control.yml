@@ -58,6 +58,22 @@ jobs:
                       print('GAMMA_METHOD_SOURCE_START_LINE',f.lineno)
                       print('\n'.join(p.read_text().splitlines()[f.lineno-1:f.end_lineno]))
           PY
+      - name: Identify corrected Wilson decomposition for separate loop-order checks
+        shell: bash
+        run: |
+          python - <<'PY'
+          import ast, pathlib
+          src=pathlib.Path('/tmp/general-2hdm-pheno/thdm.py').read_text()
+          code=src.splitlines(); tree=ast.parse(src)
+          for cls in [n for n in tree.body if isinstance(n,ast.ClassDef) and n.name=='thdm']:
+              funcs=[f for f in cls.body if isinstance(f,ast.FunctionDef)]
+              print('LFV_SOURCE_METHODS',[(f.lineno,f.name) for f in funcs
+                    if 'llpg' in f.name.lower() or 'cll' in f.name.lower()
+                       or 'crl' in f.name.lower()])
+              for f in funcs:
+                  if f.name in ('cR_llpg','cL_llpg'):
+                      print('SOURCE',f.name,'\n'.join(code[f.lineno-1:f.end_lineno]))
+          PY
       - name: Evaluate four Zee inputs as pure 2HDM controls (not Zee physics)
         run: |
           python research/full_constraints/lfv_2hdm_gitlab_reuse_2026/official_gitlab_control.py \
