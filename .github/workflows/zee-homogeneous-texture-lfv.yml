@@ -1,0 +1,42 @@
+name: Zee inverse-neutrino homogeneous LFV texture deformation pilot
+on:
+  push:
+    branches:
+      - research/zee-full-constraints
+    paths:
+      - research/full_constraints/scan_pilot_2026/homogeneous_texture_lfv.py
+      - research/full_constraints/scan_pilot_2026/test_homogeneous_texture_lfv.py
+      - .github/workflows/zee-homogeneous-texture-lfv.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  texture-sensitivity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Recreate original frozen numerical runtime
+        run: |
+          uv python install 3.10.12
+          uv venv --python 3.10.12 "$RUNNER_TEMP/zee-texture"
+          uv pip install --python "$RUNNER_TEMP/zee-texture/bin/python" numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-texture/bin" >> "$GITHUB_PATH"
+      - name: Run source-locked eta=1 and neutrino closure invariance tests
+        run: python -m unittest research.full_constraints.scan_pilot_2026.test_homogeneous_texture_lfv -v
+      - name: Evaluate seven homogeneous texture strengths on 64 original families
+        run: |
+          python -m research.full_constraints.scan_pilot_2026.homogeneous_texture_lfv --output "$RUNNER_TEMP/zee-texture-homogeneous-eta.json" --n284 24 --n112 8
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zee-fixed-scalar-homogeneous-flavor-texture-eta-only
+          path: ${{ runner.temp }}/zee-texture-homogeneous-eta.json
+          if-no-files-found: error
+          retention-days: 30
