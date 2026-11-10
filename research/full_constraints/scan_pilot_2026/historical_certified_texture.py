@@ -57,7 +57,7 @@ def one_family(point,original,eta,decayer=None):
     row={"id":point["id"],"scalar":point["input_card"],"scalar_sha256":point["scalar_sha256"]}
     seed,spec,input=neutrino_input(row,SCANNER_SEED,original["ordering"],original["family"])
     if seed!=original["seed_sha256"] or digest(input)!=original["input_sha256"]:
-        raise ValueError("Original immutable D14C family seed or input changed")
+        raise ValueError(f"Original historical family mismatch seed={seed} expected={original['seed_sha256']} input={digest(input)} expected_input={original['input_sha256']}")
     inp=copy.deepcopy(input)
     for part in ("real","imag"):
         inp["homogeneous_coefficients"][part]=[eta*c for c in inp["homogeneous_coefficients"][part]]
