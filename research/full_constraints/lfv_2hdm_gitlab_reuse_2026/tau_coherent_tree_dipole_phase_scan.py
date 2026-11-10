@@ -30,7 +30,8 @@ from module3.core import vertices
 from module3 import tree
 from research.full_constraints.lfv_2hdm_transfer_2026.evaluate import read_cards
 from research.full_constraints.lfv_2hdm_gitlab_reuse_2026.tau_exact_dipole_phase_space import (
-    ALPHA_PAIR, ALPHA_SOURCE, photon_tensors, photon_width, spin_inner
+    ALPHA_PAIR, ALPHA_SOURCE, photon_tensors, photon_width,
+    kernel_range, radiative_width_unit, spin_inner
 )
 from research.full_constraints.lfv_2hdm_gitlab_reuse_2026.tau_neutral_tree import (
     CARD_IDS, GAMMA_TAU_GEV
@@ -104,6 +105,27 @@ def interference_width(scalars,ml,a,b,cl,cr,ns=56,nz=20):
     return complex(result)
 
 
+def positive_hermitian_photon_width(M,ma,mb,cl,cr,ns,nz):
+    """Reconstruct complex-K2 photon response from four stable unit probes.
+
+    Numerically stable at tiny Wilsons: the hermitian 2x2 positive quadratic
+    form is independently evaluated on (1,0),(0,1),(1,1),(1,i).
+    This avoids direct spin-sum precision loss near collinear e+e- threshold
+    for certain complex phases at O(10^-12) Wilson magnitudes.
+    """
+    k=kernel_range(M,ma,mb,ns,nz)
+    ref=radiative_width_unit(M,ma)
+    ll=k["pure_CL_conversion"]*ref
+    rr=k["pure_CR_conversion"]*ref
+    both=k["equal_real_CL_CR_conversion"]*2*ref
+    ipair=k["relative_imaginary_CL_CR_conversion"]*2*ref
+    off=complex((both-ll-rr)/2,(ipair-ll-rr)/2)
+    result=ll*abs(cl)**2+rr*abs(cr)**2 +2*(cl*cr.conjugate()*off).real
+    if result < -1e-11*(ll*abs(cl)**2+rr*abs(cr)**2):
+        raise ArithmeticError("dipole response Hermiticity/positivity failure")
+    return max(0.,float(result))
+
+
 def compute(source_dir: Path, source_revision:str,ns=56,nz=20,tree_order=24):
     source=source_bridge(Path(source_dir),source_revision)
     if (source["physical_lfv"]!="UNKNOWN"
@@ -127,15 +149,8 @@ def compute(source_dir: Path, source_revision:str,ns=56,nz=20,tree_order=24):
                 raise RuntimeError("Unexpected claim of exact original SARAH K2")
             cl,cr=pairs_to_complex(ledger["partial_signed_plus_CL_CR_GeV_minus2"])
             tree_w=tree.width(vs,2,a,b,ml,order=tree_order,contact=False)
-            # Spin-summed tiny source amplitudes can be dominated by
-            # floating-point cancellation in direct evaluation. Homogeneity
-            # permits a unit-normalized chirality vector for photon |M|^2,
-            # followed by exact multiplication by |K2|^2.
-            dip_scale=float(np.hypot(abs(cl),abs(cr)))
-            if not math.isfinite(dip_scale) or dip_scale<=0:
-                raise ValueError("invalid source dipole norm")
-            dip_w=photon_width(float(ml[2]),float(ml[a]),float(ml[b]),
-                               cl/dip_scale,cr/dip_scale,ns,nz)*dip_scale**2
+            dip_w=positive_hermitian_photon_width(
+                float(ml[2]),float(ml[a]),float(ml[b]),cl,cr,ns,nz)
             I=interference_width(vs,ml,a,b,cl,cr,ns,nz)
             norm=math.sqrt(tree_w*dip_w)
             # Cauchy is a stringent self-consistency check, not a bound
