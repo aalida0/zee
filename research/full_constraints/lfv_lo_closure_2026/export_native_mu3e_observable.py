@@ -120,20 +120,21 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--lock', type=Path, default=ROOT/LOCK_REL)
     parser.add_argument('--generated', type=Path, default=None)
+    parser.add_argument('--sarah-root', type=Path,
+                        default=Path.home()/'.Mathematica'/'Applications'/'SARAH')
     parser.add_argument('--output', type=Path,
                         default=Path.home()/'zee_lfv_mu3e_observable_source.zip')
     args = parser.parse_args()
     try:
-        receipt = run(args.lock, args.output, args.generated)
-    except (ValueError, FileNotFoundError, FileExistsError, OSError) as exc:
+        receipt = run(args.lock, args.output, args.generated, args.sarah_root)
+    except (ValueError, FileNotFoundError, FileExistsError, OSError, IOError) as exc:
         print('SOURCE_RECOVERY_BLOCKED:', exc, file=sys.stderr)
         return 1
-    print('NATIVE_MU3E_OBSERVABLE_EXPORTED', args.output)
+    print('MU3E_SOURCE_RECOVERED', receipt['status'], args.output)
     for row in receipt['files']:
         print('SOURCE_SHA256', row['sha256'], row['name'])
-    print('NO_PHYSICAL_LFV_CLAIM. Attach this ZIP to the conversation.')
+    print('PHYSICAL_LFV=UNKNOWN: no rate matching asserted.')
     return 0
-
 
 if __name__ == '__main__':
     raise SystemExit(main())
