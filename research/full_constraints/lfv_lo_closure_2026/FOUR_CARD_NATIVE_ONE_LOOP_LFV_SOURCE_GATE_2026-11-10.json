@@ -1,0 +1,86 @@
+{
+  "date": "2026-11-10",
+  "status": "ONE_LOOP_RADIATIVE_MU3E_UDS_CONVERSION_SOURCE_EXECUTED__FULL_PHYSICAL_LFV_UNKNOWN",
+  "cards": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "BR_muegamma_native_one_loop_source": 1.6649192127405279e-19,
+      "BR_mu3e_native_one_loop_source": 1.08828659e-21,
+      "R_muAl_native_light_uds_one_loop_source_scalar_pn_corrected": 4.73208211e-22,
+      "R_muAu_native_light_uds_one_loop_source_scalar_pn_corrected": 6.98927565e-22,
+      "sufficient_missing_K2_norm_for_MEgII_90_GeVminus2": 1.323128851e-12,
+      "physical_BR_muegamma": null,
+      "physical_BR_mu3e": null,
+      "physical_Al_conversion_rate": null,
+      "global_acceptance": null
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "BR_muegamma_native_one_loop_source": 1.1577998043523288e-18,
+      "BR_mu3e_native_one_loop_source": 7.52936205e-21,
+      "R_muAl_native_light_uds_one_loop_source_scalar_pn_corrected": 3.08529293e-21,
+      "R_muAu_native_light_uds_one_loop_source_scalar_pn_corrected": 4.5497178e-21,
+      "sufficient_missing_K2_norm_for_MEgII_90_GeVminus2": 1.320844432e-12,
+      "physical_BR_muegamma": null,
+      "physical_BR_mu3e": null,
+      "physical_Al_conversion_rate": null,
+      "global_acceptance": null
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "BR_muegamma_native_one_loop_source": 4.298922382583583e-20,
+      "BR_mu3e_native_one_loop_source": 4.54615814e-22,
+      "R_muAl_native_light_uds_one_loop_source_scalar_pn_corrected": 2.37371489e-21,
+      "R_muAu_native_light_uds_one_loop_source_scalar_pn_corrected": 6.34683551e-21,
+      "sufficient_missing_K2_norm_for_MEgII_90_GeVminus2": 1.323815212e-12,
+      "physical_BR_muegamma": null,
+      "physical_BR_mu3e": null,
+      "physical_Al_conversion_rate": null,
+      "global_acceptance": null
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "BR_muegamma_native_one_loop_source": 1.4266820660184817e-19,
+      "BR_mu3e_native_one_loop_source": 1.45713157e-21,
+      "R_muAl_native_light_uds_one_loop_source_scalar_pn_corrected": 7.20525484e-21,
+      "R_muAu_native_light_uds_one_loop_source_scalar_pn_corrected": 1.92203807e-20,
+      "sufficient_missing_K2_norm_for_MEgII_90_GeVminus2": 1.323232542e-12,
+      "physical_BR_muegamma": null,
+      "physical_BR_mu3e": null,
+      "physical_Al_conversion_rate": null,
+      "global_acceptance": null
+    }
+  ],
+  "original_source_shas": {
+    "generated.f90": "2d30006d8d4759b2b7bfe76e2e4795bd2cf2f19ef5cb5772390ed3155b1bc41d",
+    "couplings.f90": "a0de851498f3e68e7421538098b3979381a3ecf5245021fce9d1c2df46a42e8c",
+    "loops.f90": "8142a813fcc00283d1de2865266be04ff1de25c09422b24b04d57523a6595a24",
+    "FlavorKit_Observables_ZeeTypeII.f90": "b179e6fea1fe3afe08e34e6d481380b7d4b669ffb904898ac6ee6f8555aa3784",
+    "LowEnergy_ZeeTypeII.f90": "cf3552d25de21a6df0869d1fc013dded8efe26206195a08f84ab6ec251d63727"
+  },
+  "numeric_receipt": {
+    "full_original_gamma2l_OA1_OA2_executed": true,
+    "independent_analytic_F_dipole_tests_passed": 8,
+    "native_mu3e_fortran_vs_python_passed": 16,
+    "original_conversion_fortran_vs_python_passed": 48,
+    "source_regression_cases_passed": 10,
+    "max_F_only_analytic_relative_residual": 3.351684709282503e-16,
+    "max_mu3e_original_fortran_vs_python_residual": 4.143584630429841e-16,
+    "max_conversion_original_fortran_vs_python_residual": 2e-12
+  },
+  "experimental_context": {
+    "MEG_II_2025_limit_B_muegamma_90": 1.5e-13,
+    "SINDRUM_B_mu3e_90": 1e-12,
+    "SINDRUM_II_gold_limit_90": 7e-13
+  },
+  "scope": "original generated one-loop, mnu=0, q2=0 K1, alphaMZ=1/127.95; 4 exact lepton F,D cards but illustrative CKM and quark masses; old FlavorKit nuclear model; corrected source scalar proton/neutron",
+  "missing": [
+    "quantified full mixed Zee higher-order W/charged/gauge dipoles",
+    "finite-q2 light lepton photon",
+    "scalar penguin renormalization scheme",
+    "heavy-quark/gluon thresholds QCD/QED running, modern nuclear uncertainty",
+    "precision-matched electroweak CKM/quark scheme"
+  ],
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null
+}
