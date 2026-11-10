@@ -1,6 +1,6 @@
 {
   "date": "2026-11-10",
-  "status": "CORRECTED_NEUTRAL_2HDM_BZ_V4__CHARGED_DOUBLETPROJECTED_NOT_FULL_ZEE__PHYSICAL_LFV_UNKNOWN",
+  "status": "SUPERSEDED_HISTORICAL_PDF_V4_TWO_LOOP_NUMBERS__DO_NOT_USE_FOR_PHYSICS",
   "source": "Altmannshofer et al arXiv:2410.17313v4 May 2026 Eqs54-58",
   "post_v4_erratum": "JHEP07(2026)184 July 21 2026; current GitLab not independently executed",
   "previous_neutral_BZ_results": "SUPERSEDED due factor-of-two normalization and q_A2^2 vs |q_A2|^2 interchange",
@@ -89,5 +89,7 @@
     "heavy/gluon conversion running and modern nuclear uncertainties"
   ],
   "physical_lfv": "UNKNOWN",
-  "global_acceptance": null
+  "global_acceptance": null,
+  "superseded_by": "research/full_constraints/lfv_lo_closure_2026/AUTHOR_CORRECTED_2HDM_SOURCE_GATE_2026-11-10.json",
+  "superseded_reason": "Uploaded corrected authors' source was executed, changing neutral BZ norms by factors 2.45-4.50; old K2 coherent sign convention reversed; older cards are provenance only."
 }
