@@ -6,6 +6,8 @@ on:
     paths:
       - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/tau_coherent_tree_dipole_phase_scan.py
       - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/test_tau_coherent_tree_dipole_phase_scan.py
+      - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/ORIGINAL_NATIVE_TAU_K2_REPLAY_2026-11-10.json
+      - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/test_tau_original_native_source_k2.py
       - .github/workflows/zee-lfv-tau-coherent-phase-scan.yml
   workflow_dispatch:
 permissions:
@@ -35,11 +37,16 @@ jobs:
         env:
           ZEE_2HDM_PINNED_SOURCE: /tmp/general-2hdm-pheno
         run: python -m unittest research.full_constraints.lfv_2hdm_gitlab_reuse_2026.test_tau_coherent_tree_dipole_phase_scan -v
+      - name: Test original complex native source against independent analytic amplitudes
+        run: python -m unittest research.full_constraints.lfv_2hdm_gitlab_reuse_2026.test_tau_original_native_source_k2 -v
       - name: Calculate four-card restricted phase scans
         run: |
           python -m research.full_constraints.lfv_2hdm_gitlab_reuse_2026.tau_coherent_tree_dipole_phase_scan --source /tmp/general-2hdm-pheno --commit b5035cd5 --ns 56 --nz 20 --tree-order 24 --output tau_two_amplitude_phase_scan.json
+          python -m research.full_constraints.lfv_2hdm_gitlab_reuse_2026.tau_coherent_tree_dipole_phase_scan --source /tmp/general-2hdm-pheno --commit b5035cd5 --ns 56 --nz 20 --tree-order 24 --native-original-json research/full_constraints/lfv_2hdm_gitlab_reuse_2026/ORIGINAL_NATIVE_TAU_K2_REPLAY_2026-11-10.json --output tau_two_amplitude_Native_SARAH_K2_phase_scan.json
       - uses: actions/upload-artifact@v4
         with:
           name: zee-tau-two-amplitude-phase-scan-not-physical
-          path: tau_two_amplitude_phase_scan.json
+          path: |
+            tau_two_amplitude_phase_scan.json
+            tau_two_amplitude_Native_SARAH_K2_phase_scan.json
           if-no-files-found: error
