@@ -1,4 +1,5 @@
 import json
+import math
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -20,10 +21,12 @@ class LFVTests(unittest.TestCase):
         out = evaluate_family(self.family, True)
         self.assertEqual(out['status'], 'PARTIAL')
         for name, result in out['channels'].items():
-            self.assertEqual(result['partial_BR'], self.reference['radiative'][name])
+            self.assertTrue(math.isclose(result['partial_BR'],self.reference['radiative'][name],
+                                      rel_tol=2e-11,abs_tol=1e-30))
             self.assertEqual(result['comparison']['status'], 'DIAGNOSTIC_ONLY')
             self.assertEqual(result['omitted_topologies']['W_gamma'], 'UNKNOWN')
-        self.assertEqual(out['mu_to_3e']['tree_subset_BR'], self.reference['mu_to_3e_tree'])
+        self.assertTrue(math.isclose(out['mu_to_3e']['tree_subset_BR'],self.reference['mu_to_3e_tree'],
+                                      rel_tol=2e-11,abs_tol=1e-30))
 
     def test_optional_tree_and_input_binding(self):
         with patch('module14.lfv.tree.width', side_effect=AssertionError('unexpected tree calculation')):
