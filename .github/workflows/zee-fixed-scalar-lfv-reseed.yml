@@ -1,0 +1,42 @@
+name: Zee fixed-scalar neutrino-family LFV materiality pilot
+on:
+  push:
+    branches:
+      - research/zee-full-constraints
+    paths:
+      - research/full_constraints/scan_pilot_2026/reseed_lfv_pilot.py
+      - research/full_constraints/scan_pilot_2026/test_reseed_lfv_pilot.py
+      - .github/workflows/zee-fixed-scalar-lfv-reseed.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  flavor-family-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Use exact tested runtime
+        run: |
+          uv python install 3.10.12
+          uv venv --python 3.10.12 "$RUNNER_TEMP/zee-pinned-lfv"
+          uv pip install --python "$RUNNER_TEMP/zee-pinned-lfv/bin/python" numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-pinned-lfv/bin" >> "$GITHUB_PATH"
+      - name: Test original family replays before new family IDs
+        run: python -m unittest research.full_constraints.scan_pilot_2026.test_reseed_lfv_pilot -v
+      - name: Scan 48 and 16 fixed-scalar neutrino families with partial LFV materiality
+        run: |
+          python -m research.full_constraints.scan_pilot_2026.reseed_lfv_pilot --output "$RUNNER_TEMP/zee-fixed-scalar-neutrino-lfv.json" --n284 24 --n112 8
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zee-fixed-scalar-reseeded-neutrino-families-partial-LFV-only
+          path: ${{ runner.temp }}/zee-fixed-scalar-neutrino-lfv.json
+          if-no-files-found: error
+          retention-days: 30
