@@ -1,0 +1,74 @@
+{
+  "date": "2026-11-10",
+  "status": "EXACT_UPLOADED_CORRECTED_AUTHOR_2HDM_SOURCE_EXECUTED__OLDER_PDF_V4_DATA_SUPERSEDED__FULL_ZEE_LFV_UNKNOWN",
+  "uploaded_thdm_sha256": "9b4af7aa4bf7bf533a7b82c8c2603d118346424e3b7b5f9f06ab8cb41bc4e193",
+  "upstream_git_commit_exactly_verified": false,
+  "source": "jbrod/general-2hdm-pheno uploaded thdm.py, not modified",
+  "reproducible_archive": "zee_corrected_general2hdm_vs_zee_lfv_2026-11-10.zip",
+  "tests_passed": 18,
+  "source_method_executed": [
+    "cR_llpg(2,1)",
+    "cL_llpg(2,1)",
+    "Gamma_l_to_lp_gamma(2,1)"
+  ],
+  "corrected_typeII_input": "rho_l=D/sqrt(2); theta12=beta-alpha; quark rho_u/rho_d matched to author's own running MSbar quark masses at mt",
+  "synthetic_2HDM_reference": "MHp=650 GeV, Z3=Z7=0 (NOT Zee charged sector); additional 400,1000 GeV tests",
+  "correct_signed_dominant_K2_bridge": "K2L_native approximately +cR_author/(8*pi^2*v^2), not negative",
+  "previous_PDF_v4_neutral_results_valid": false,
+  "previous_report": "research/full_constraints/lfv_lo_closure_2026/CORRECTED_NEUTRAL_BZ_AND_MIXED_CHARGED_AUDIT_2026-11-10.md",
+  "cards": [
+    {
+      "card": "D7_NO",
+      "pure2hdm_reference_BR_muegamma_synthetic_MHp650": 1.6355882610898229e-19,
+      "corrected_author_neutral_fermion_K2_norm_GeVminus2": 2.498861516e-25,
+      "charged_doublet_weighted_diagnostic_K2_norm_GeVminus2": 1.277457915e-25,
+      "two_restricted_subset_sum_over_full_native_Zee_one_loop_K2_norm": 2.706187248296379e-10,
+      "neutral_corrected_over_previous_PDF_v4_norm": 2.454833117078404,
+      "author_one_loop_dipole_v_native_Donly_dominant_relative_residual_correct_sign": 0.0006569,
+      "physical_Zee_BR_muegamma": null,
+      "global_acceptance": null
+    },
+    {
+      "card": "D7_IO",
+      "pure2hdm_reference_BR_muegamma_synthetic_MHp650": 1.125301901207505e-18,
+      "corrected_author_neutral_fermion_K2_norm_GeVminus2": 2.091561381e-25,
+      "charged_doublet_weighted_diagnostic_K2_norm_GeVminus2": 1.069239642e-25,
+      "two_restricted_subset_sum_over_full_native_Zee_one_loop_K2_norm": 8.589465186523264e-11,
+      "neutral_corrected_over_previous_PDF_v4_norm": 2.4548456724017167,
+      "author_one_loop_dipole_v_native_Donly_dominant_relative_residual_correct_sign": 0.0006517,
+      "physical_Zee_BR_muegamma": null,
+      "global_acceptance": null
+    },
+    {
+      "card": "F13_NO",
+      "pure2hdm_reference_BR_muegamma_synthetic_MHp650": 9.772163273727316e-23,
+      "corrected_author_neutral_fermion_K2_norm_GeVminus2": 1.143077485e-27,
+      "charged_doublet_weighted_diagnostic_K2_norm_GeVminus2": 5.672273437e-28,
+      "two_restricted_subset_sum_over_full_native_Zee_one_loop_K2_norm": 2.412011768722955e-12,
+      "neutral_corrected_over_previous_PDF_v4_norm": 4.504024692066453,
+      "author_one_loop_dipole_v_native_Donly_dominant_relative_residual_correct_sign": 0.00003826,
+      "physical_Zee_BR_muegamma": null,
+      "global_acceptance": null
+    },
+    {
+      "card": "F13_IO",
+      "pure2hdm_reference_BR_muegamma_synthetic_MHp650": 6.704858588090422e-22,
+      "corrected_author_neutral_fermion_K2_norm_GeVminus2": 2.950494923e-27,
+      "charged_doublet_weighted_diagnostic_K2_norm_GeVminus2": 1.464118924e-27,
+      "two_restricted_subset_sum_over_full_native_Zee_one_loop_K2_norm": 3.417549570891806e-12,
+      "neutral_corrected_over_previous_PDF_v4_norm": 4.5040366293277465,
+      "author_one_loop_dipole_v_native_Donly_dominant_relative_residual_correct_sign": 0.0000378,
+      "physical_Zee_BR_muegamma": null,
+      "global_acceptance": null
+    }
+  ],
+  "limitations": [
+    "doublet-weighted charged fermion is not a validated full Zee gauge-invariant subset",
+    "missing Zee mixed H1/H2 singlet F W/Z gauge complete two loop and tau-chain terms",
+    "the authors' uploaded rge.py and adm.py concern CP-odd EDM operators not LFV mu-e conversion",
+    "example.py electron mass 0.00511GeV is 10x physical and not used",
+    "finite q2 mu3e, scalar-penguin scheme and heavy/gluon mu-e conversion matching unresolved"
+  ],
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null
+}
