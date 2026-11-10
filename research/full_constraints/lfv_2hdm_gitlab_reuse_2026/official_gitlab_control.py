@@ -141,6 +141,15 @@ def run(source,revision,limit=4):
               'official_Wilson_source_groups':split,
               'official_two_loop_to_one_loop_norm_ratio':n2/max(n1,1e-300),
               'Zee_physical_BR':None,'physical_lfv':'UNKNOWN'})
+            if mode=='bare':
+                print('OFFICIAL_DECOMP_BARE',json.dumps({
+                     'id':w['id'],
+                     'BR':records[-1]['pure_2HDM_proxy_BR'],
+                     'K2_neutral_fermion_GeVminus2':split['neutral_fermion']['source_K2_norm_GeVminus2'],
+                     'Wilson_group_norms':{k:split[k]['c_norm'] for k in group_keys},
+                     '2loop_to_1loop_norm':records[-1]['official_two_loop_to_one_loop_norm_ratio'],
+                     'total_cR':cplx(r['total']),'total_cL':cplx(l['total'])},
+                     sort_keys=True),flush=True)
             print(w['id'],mode,'2HDM-only BR',records[-1]['pure_2HDM_proxy_BR'],flush=True)
     return {'status':'OFFICIAL_GITLAB_2HDM_PROXY_ONLY_NOT_PHYSICAL_ZEE',
             'gitlab_revision':revision,
