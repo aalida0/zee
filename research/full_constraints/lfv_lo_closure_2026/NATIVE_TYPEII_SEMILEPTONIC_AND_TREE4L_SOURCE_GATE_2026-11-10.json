@@ -1,0 +1,103 @@
+{
+  "status": "ORIGINAL_SOURCE_GROUPS_EXECUTED__PHYSICAL_LFV_STILL_UNKNOWN",
+  "date": "2026-11-10",
+  "source_sha256": {
+    "generated": "2d30006d8d4759b2b7bfe76e2e4795bd2cf2f19ef5cb5772390ed3155b1bc41d",
+    "couplings": "a0de851498f3e68e7421538098b3979381a3ecf5245021fce9d1c2df46a42e8c",
+    "loops": "8142a813fcc00283d1de2865266be04ff1de25c09422b24b04d57523a6595a24"
+  },
+  "prior_input_cards": "research/full_constraints/lfv_lo_closure_2026/FOUR_LOW_JOINT_INPUTS_NATIVE_CHECK_2026-11-09.json",
+  "executed_group_names": [
+    "CalculateTreeS2L2u",
+    "CalculateTreeS2L2d",
+    "CalculateTreeV2L2u",
+    "CalculateTreeV2L2d",
+    "CalculatePengV2L2u",
+    "CalculatePengV2L2d",
+    "CalculatePengS2L2u",
+    "CalculatePengS2L2d",
+    "CalculateBox2L2u",
+    "CalculateBox2L2d",
+    "CalculateTreeS4L",
+    "CalculateTreeS4Lcross",
+    "CalculateTreeV4L",
+    "CalculateTreeV4Lcross"
+  ],
+  "source_groups_compiled_and_run": 14,
+  "benchmarks": 4,
+  "tests": {
+    "new_source_package_tests_passed": 9,
+    "prior_source_tests_passed": 9,
+    "semileptonic_Z_factorization_complex_chiral_matches": 32,
+    "max_semileptonic_Z_match_relative_residual": 3e-11,
+    "source_4L_Fierz_check_per_card_pass": true,
+    "clean_archive_replay": "PASS: unzip source bundle and this archive; execute tests, consolidation, original CKM tree scalar 2u/2d, tree4l direct/cross"
+  },
+  "tree_cross_source_Fierz_relations": {
+    "SLL": "cross=1/2 direct",
+    "SRR": "cross=1/2 direct",
+    "SLR": "cross=direct",
+    "SRL": "cross=direct",
+    "VRL": "cross=-1/2 direct SRL",
+    "VLR": "cross=-1/2 direct SLR",
+    "TLL": "cross=1/8 direct SLL",
+    "TRR": "cross=1/8 direct SRR"
+  },
+  "CKM_and_quark_inputs": "Illustrative complex unitary standard CKM (s12=.22483, s23=.0422, s13=.00365, delta=1.20 rad), quark masses (.0022,1.27,172.5) and (.0047,.093,4.18) GeV, not a matched precision scheme.",
+  "nonphysical_stress_caveats": [
+    "G_s=100 used for u,d is an arbitrary illustrative scalar-nucleon parameter not a certified uncertainty bound.",
+    "Local four-fermion norm heuristic excludes nonlocal photon dipole, finite-q2 issues and missing amplitudes; it is not a physical mu3e BR and not an upper bound on the full process.",
+    "Relative renormalization-scale variation of generated scalar penguins remains substantial; absolute values compared to 4L Z coefficients do not prove the scheme cancels.",
+    "No signed common LEFT Fierz/dipole/photon/Z/box action matched at amplitude level; no full conversion heavy-quark/gluon or QED/QCD RG.",
+    "Complete radiative higher-order mixed/gauge amplitude remains unbounded."
+  ],
+  "physical_rate_assembly_permitted": false,
+  "experimental_exclusion_evaluated": false,
+  "source_python_and_results_delivery": "See downloadable attached zee_lfv_typeii_semileptonic_closure_update_2026-11-10.zip; original generated Fortran sources not redistributed on GitHub.",
+  "cards": [
+    {
+      "id": "d7_NO_neutral_near_heavy_07/NO/texture_0.0001",
+      "scalar_u_d_illustrative_Gs100_over_Z_only": 0.005211960442855,
+      "scalar_max_absolute_Q_shift_over_max_4l_Z": 0.000002661963289183828,
+      "contact_only_norm_heuristic_not_BR": 1.0731328550595213e-18,
+      "max_4l_Z_GeV_minus2": 1.890468614241983e-18,
+      "physical_mu3e_BR": null,
+      "physical_Al_rate": null,
+      "global_acceptance": null
+    },
+    {
+      "id": "d7_NO_neutral_near_heavy_07/IO/texture_0.0001",
+      "scalar_u_d_illustrative_Gs100_over_Z_only": 0.007835693065998,
+      "scalar_max_absolute_Q_shift_over_max_4l_Z": 0.000004938708859422595,
+      "contact_only_norm_heuristic_not_BR": 3.887508166648205e-18,
+      "max_4l_Z_GeV_minus2": 3.2876728936151535e-18,
+      "physical_mu3e_BR": null,
+      "physical_Al_rate": null,
+      "global_acceptance": null
+    },
+    {
+      "id": "F13_heavy_0001330/NO/texture_0.001",
+      "scalar_u_d_illustrative_Gs100_over_Z_only": 0.00000530816786,
+      "scalar_max_absolute_Q_shift_over_max_4l_Z": 7.2269222189273946e-9,
+      "contact_only_norm_heuristic_not_BR": 2.4076352057715973e-16,
+      "max_4l_Z_GeV_minus2": 2.8344097152130223e-16,
+      "physical_mu3e_BR": null,
+      "physical_Al_rate": null,
+      "global_acceptance": null
+    },
+    {
+      "id": "F13_heavy_0001330/IO/texture_0.001",
+      "scalar_u_d_illustrative_Gs100_over_Z_only": 0.00000777198946,
+      "scalar_max_absolute_Q_shift_over_max_4l_Z": 8.852745250873808e-9,
+      "contact_only_norm_heuristic_not_BR": 7.270412559502559e-16,
+      "max_4l_Z_GeV_minus2": 4.925372077982615e-16,
+      "physical_mu3e_BR": null,
+      "physical_Al_rate": null,
+      "global_acceptance": null
+    }
+  ],
+  "physical_mu3e_BR": null,
+  "physical_Al_rate": null,
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null
+}
