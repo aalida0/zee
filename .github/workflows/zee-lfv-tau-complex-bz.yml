@@ -6,6 +6,8 @@ on:
     paths:
       - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/tau_signed_complex_wilson_bridge.py
       - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/test_tau_signed_complex_wilson_bridge.py
+      - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/tau_qed_dipole_ll_diagnostic.py
+      - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/test_tau_qed_dipole_ll_diagnostic.py
       - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/tau_native_monopole_source.py
       - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/ORIGINAL_NATIVE_TAU_K1_REPLAY_2026-11-10.json
       - .github/workflows/zee-lfv-tau-complex-bz.yml
@@ -44,10 +46,17 @@ jobs:
       - name: Calculate original one-loop K1 with corrected restricted neutral-fermion Barr-Zee K2
         run: |
           python -m research.full_constraints.lfv_2hdm_gitlab_reuse_2026.tau_native_monopole_source --corrected-neutral-bz tau_signed_complex_wilson_bridge.json --output tau_native_K1_plus_neutral_fermion_BZ_photon_subsets.json
+      - name: Check bounded QED dipole running with exact native Zee one-loop and corrected neutral BZ
+        env:
+          ZEE_BZ_SIGNED_OUTPUT: tau_signed_complex_wilson_bridge.json
+        run: |
+          python -m unittest research.full_constraints.lfv_2hdm_gitlab_reuse_2026.test_tau_qed_dipole_ll_diagnostic -v
+          python -m research.full_constraints.lfv_2hdm_gitlab_reuse_2026.tau_qed_dipole_ll_diagnostic --corrected-neutral-bz tau_signed_complex_wilson_bridge.json --output tau_qed_diagonal_dipole_ll_restricted.json
       - uses: actions/upload-artifact@v4
         with:
           name: zee-tau-complex-bz-source-bridge-approx-not-physical
           path: |
             tau_signed_complex_wilson_bridge.json
             tau_native_K1_plus_neutral_fermion_BZ_photon_subsets.json
+            tau_qed_diagonal_dipole_ll_restricted.json
           if-no-files-found: error
