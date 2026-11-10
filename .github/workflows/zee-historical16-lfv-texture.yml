@@ -1,0 +1,42 @@
+name: Zee historical 16 vacuum-certified scalar LFV texture source audit
+on:
+  push:
+    branches:
+      - research/zee-full-constraints
+    paths:
+      - research/full_constraints/scan_pilot_2026/historical_certified_texture.py
+      - research/full_constraints/scan_pilot_2026/test_historical_certified_texture.py
+      - .github/workflows/zee-historical16-lfv-texture.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  historical-16-flavor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Recreate exact historical Python environment
+        run: |
+          uv python install 3.10.12
+          uv venv --python 3.10.12 "$RUNNER_TEMP/zee-historical"
+          uv pip install --python "$RUNNER_TEMP/zee-historical/bin/python" numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-historical/bin" >> "$GITHUB_PATH"
+      - name: Verify exact original 225-point source and 16 certified benchmark families
+        run: python -m unittest research.full_constraints.scan_pilot_2026.test_historical_certified_texture -v
+      - name: Evaluate historic 16 x 4 families x 5 texture scales with revised D4 widths
+        run: |
+          python -m research.full_constraints.scan_pilot_2026.historical_certified_texture --output "$RUNNER_TEMP/zee-certified16-LFV-texture.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zee-historical16-vacuum-certificate-approx-B-flavor-textures
+          path: ${{ runner.temp }}/zee-certified16-LFV-texture.json
+          if-no-files-found: error
+          retention-days: 30
