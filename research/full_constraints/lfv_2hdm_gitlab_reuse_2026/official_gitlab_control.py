@@ -81,8 +81,8 @@ def source_decomposition(model,name,i,j):
       'neutral_bosonic':[f'{end_name}_llpg_{k}' for k in ('hZ','kin')],
       'charged_bosonic':[f'{end_name}_llpg_{k}' for k in ('HA','HZ','HW')]
     }
-    expression='{'+','.join(repr(k)+':('+ '+'.join(v)+')' for k,v in groups.items())+
-               ','+repr('total')+':'+end_name+'}'
+    expression=('{'+','.join(repr(k)+':('+ '+'.join(v)+')' for k,v in groups.items())+
+                ','+repr('total')+':'+end_name+'}')
     changed=src.replace(marker,'return '+expression)
     scope={}
     exec(changed,original.__globals__,scope)
