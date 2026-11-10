@@ -1,0 +1,42 @@
+name: Zee 2264 source-locked local LFV interval and qualified 13 TeV proxy
+on:
+  push:
+    branches:
+      - research/zee-full-constraints
+    paths:
+      - research/full_constraints/scan_pilot_2026/historical_2264_robustness.py
+      - research/full_constraints/scan_pilot_2026/test_historical_2264_robustness.py
+      - .github/workflows/zee-2264-lfv-interval.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  point-2264-robustness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Original D14 exact Python
+        run: |
+          uv python install 3.10.12
+          uv venv --python 3.10.12 "$RUNNER_TEMP/zee-local2264"
+          uv pip install --python "$RUNNER_TEMP/zee-local2264/bin/python" numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-local2264/bin" >> "$GITHUB_PATH"
+      - name: Test local partial LFV safe interval and original source preservation
+        run: python -m unittest research.full_constraints.scan_pilot_2026.test_historical_2264_robustness -v
+      - name: Independently calculate and archive point 2264 local conditional physics card
+        run: |
+          python -m research.full_constraints.scan_pilot_2026.historical_2264_robustness --output "$RUNNER_TEMP/zee-2264-LFV-interval.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zee-2264-source-locked-LFV-ray-interval-not-fully-allowed
+          path: ${{ runner.temp }}/zee-2264-LFV-interval.json
+          if-no-files-found: error
+          retention-days: 30
