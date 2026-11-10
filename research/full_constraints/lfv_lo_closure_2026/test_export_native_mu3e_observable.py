@@ -68,7 +68,7 @@ class RecoverTests(unittest.TestCase):
             p.mkdir(parents=True)
             (p/'Lto3Lp.f90').write_text('! Process-body only\n')
             output = Path(folder)/'generic.zip'
-            result = run(lock, output, sarah_root)
+            result = run(lock, output, sarah_root=sarah_root)
             self.assertEqual(result['status'], 'GENERIC_TEMPLATE_ONLY')
             self.assertEqual(result['files'][0]['scope'], 'GENERIC_TEMPLATE_ONLY')
 
