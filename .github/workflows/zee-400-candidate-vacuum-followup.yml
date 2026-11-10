@@ -1,0 +1,43 @@
+name: Zee 400-pilot bounded vacuum follow-up (no global acceptance)
+on:
+  push:
+    branches:
+      - research/zee-full-constraints
+    paths:
+      - research/full_constraints/scan_pilot_2026/vacuum_followup.py
+      - research/full_constraints/scan_pilot_2026/test_vacuum_followup.py
+      - research/full_constraints/scan_pilot_2026/selected_five_vacuum_inputs_400.json
+      - .github/workflows/zee-400-candidate-vacuum-followup.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  vacuum-candidate-284:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Recreate original exact Python and numerical environment
+        run: |
+          uv python install 3.10.12
+          uv venv --python 3.10.12 "$RUNNER_TEMP/zee-vacuum-python"
+          uv pip install --python "$RUNNER_TEMP/zee-vacuum-python/bin/python" numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-vacuum-python/bin" >> "$GITHUB_PATH"
+      - name: Test original 400-candidate identity and fail-closed vacuum gates
+        run: python -m unittest research.full_constraints.scan_pilot_2026.test_vacuum_followup -v
+      - name: Independent 192+96 starts for 284 and 48 for each other candidate
+        run: |
+          python -m research.full_constraints.scan_pilot_2026.vacuum_followup --output "$RUNNER_TEMP/zee-pilot400-vacuum.json" --starts-main 192 --starts-other 48 --second-seed-starts 96
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zee-400-pilot-five-candidate-bounded-vacuum-no-globality
+          path: ${{ runner.temp }}/zee-pilot400-vacuum.json
+          if-no-files-found: error
+          retention-days: 30
