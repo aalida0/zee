@@ -5,6 +5,7 @@ on:
       - research/zee-full-constraints
     paths:
       - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/tau_signed_complex_wilson_bridge.py
+      - research/full_constraints/lfv_2hdm_gitlab_reuse_2026/test_tau_signed_complex_wilson_bridge.py
       - .github/workflows/zee-lfv-tau-complex-bz.yml
   workflow_dispatch:
 permissions:
@@ -34,6 +35,10 @@ jobs:
       - name: Record tau complex native-approx and corrected author BZ diagnostic
         run: |
           python -m research.full_constraints.lfv_2hdm_gitlab_reuse_2026.tau_signed_complex_wilson_bridge --source /tmp/lfv-general-2hdm-pheno --commit b5035cd5 --output tau_signed_complex_wilson_bridge.json
+      - name: Enforce signed source, mass-scheme and incomplete physics gates
+        env:
+          ZEE_2HDM_PINNED_SOURCE: /tmp/lfv-general-2hdm-pheno
+        run: python -m unittest research.full_constraints.lfv_2hdm_gitlab_reuse_2026.test_tau_signed_complex_wilson_bridge -v
       - uses: actions/upload-artifact@v4
         with:
           name: zee-tau-complex-bz-source-bridge-approx-not-physical
