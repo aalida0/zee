@@ -1,0 +1,142 @@
+{
+  "source_origin": "ORIGINAL_COMPILED_SARAH_4_15_4_ZEETYPEII_CALCULATEGAMMA2L",
+  "fortran_sha256": {
+    "generated": "2d30006d8d4759b2b7bfe76e2e4795bd2cf2f19ef5cb5772390ed3155b1bc41d",
+    "couplings": "a0de851498f3e68e7421538098b3979381a3ecf5245021fce9d1c2df46a42e8c",
+    "loops": "8142a813fcc00283d1de2865266be04ff1de25c09422b24b04d57523a6595a24"
+  },
+  "compiler_command": "gfortran -O0 -fcheck=all",
+  "lepton_order": [
+    "e",
+    "mu",
+    "tau"
+  ],
+  "native_K2_convention": "K2L=-OA2L/(2*e*m_parent);K2R=-OA2R/(2*e*m_parent)",
+  "source_replay_scope": "Original SARAH GenerateGamma2l + original coupling and PV-function fragments extracted locally from SHA-matched uploaded sources; minimal Control module supplied; not a complete unmodified SPheno build",
+  "source_constants": {
+    "alphaEM": "1/127.95",
+    "m_tau_GeV": 1.77686,
+    "tau_lifetime_s": 2.903e-13,
+    "weak_sin2": 0.23129,
+    "MW_GeV": 80.379,
+    "MZ_GeV": 91.1876,
+    "neutrino_mass_GeV": 0
+  },
+  "source_fragment_compiled_SHA256": "e52dc223421b571e9d94727a01253620d83131f128a40c6d34644ab1d1ccc046",
+  "reproducing_benchmark_cards_file_sha256": "1472e0741671bd8e832e256ddafc371562ea446c3d7bba3ec0c7ae5fe21dde0c",
+  "source_replay_max_relative_BR_deviation_vs_frozen_report": 0.0000028479976097450788,
+  "native_complex_K2_local_source_replay": true,
+  "full_Zee_two_loop_calculated": false,
+  "physical_lfv": "UNKNOWN",
+  "global_acceptance": null,
+  "cards": [
+    {
+      "card": "D7_NO",
+      "channels": {
+        "tauegamma": {
+          "K2L": [
+            2.2561646550166016e-14,
+            -3.3604740748334293e-15
+          ],
+          "K2R": [
+            -1.739793019915622e-16,
+            1.0772856626195844e-15
+          ],
+          "native_source_BR": 7.959960741464662e-18
+        },
+        "taumugamma": {
+          "K2L": [
+            1.2698471832851648e-14,
+            -2.3454441758315e-14
+          ],
+          "K2R": [
+            -3.1339663096427067e-13,
+            -3.3824012716334236e-13
+          ],
+          "native_source_BR": 3.2561885735908633e-15
+        }
+      }
+    },
+    {
+      "card": "D7_IO",
+      "channels": {
+        "tauegamma": {
+          "K2L": [
+            4.981084645582343e-14,
+            -2.502290938117378e-14
+          ],
+          "K2R": [
+            -2.0340349784372827e-15,
+            -6.364049338150244e-17
+          ],
+          "native_source_BR": 4.7490197144775494e-17
+        },
+        "taumugamma": {
+          "K2L": [
+            -7.105615386027195e-16,
+            -2.0521449124396024e-14
+          ],
+          "K2R": [
+            2.359507002704934e-13,
+            -4.341149819505105e-13
+          ],
+          "native_source_BR": 3.7326308156349975e-15
+        }
+      }
+    },
+    {
+      "card": "F13_NO",
+      "channels": {
+        "tauegamma": {
+          "K2L": [
+            -4.515143001547586e-16,
+            1.5607764023553848e-16
+          ],
+          "K2R": [
+            6.529807160173942e-19,
+            -4.635283726196806e-18
+          ],
+          "native_source_BR": 3.4837958688435014e-21
+        },
+        "taumugamma": {
+          "K2L": [
+            -1.295620315303943e-16,
+            2.6114326321615317e-16
+          ],
+          "K2R": [
+            1.3501278528981496e-15,
+            1.471180246339231e-15
+          ],
+          "native_source_BR": 6.215498953427869e-20
+        }
+      }
+    },
+    {
+      "card": "F13_IO",
+      "channels": {
+        "tauegamma": {
+          "K2L": [
+            -5.69794220558714e-16,
+            2.502274785005628e-16
+          ],
+          "K2R": [
+            8.72901484960494e-18,
+            3.3559958037632858e-19
+          ],
+          "native_source_BR": 5.912304962897571e-21
+        },
+        "taumugamma": {
+          "K2L": [
+            1.4795017319144943e-17,
+            4.0926447796870945e-16
+          ],
+          "K2R": [
+            -1.0313410498521161e-15,
+            1.892586157507707e-15
+          ],
+          "native_source_BR": 7.346604088355733e-20
+        }
+      }
+    }
+  ]
+}
