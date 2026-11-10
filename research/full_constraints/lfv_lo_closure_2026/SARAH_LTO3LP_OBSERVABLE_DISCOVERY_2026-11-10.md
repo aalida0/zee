@@ -40,3 +40,29 @@ python3 -m research.full_constraints.lfv_lo_closure_2026.export_native_mu3e_obse
 When model-specific observable is missing but a generic SARAH process exists, expected status is `MU3E_SOURCE_RECOVERED GENERIC_TEMPLATE_ONLY`. That recovers a **formula**, not a validated benchmark rate. If neither is present, use the publicly archived source above as the independent reference without regenerating the model or assigning UNKNOWN coefficients to zero.
 
 **Unchanged physical scope:** `physical_mu3e_BR=null`, `physical_Al_rate=null`, `physical_lfv=UNKNOWN`, `global_acceptance=null` until the operator normalization, phase conventions, finite-q² error, scalar scheme and missing higher-order contributions are certified. No new scan.
+
+
+## Independent numerical restricted-rate check using the public observable body
+
+The public SARAH 4.8.5 source defines the following complex low-energy Lto3Lp combination. With all nonphotonic four-lepton operators **explicitly set to zero in this restricted diagnostic**, define e2=4*pi*alpha, C_VLL=C_VLR=e2*K1L and C_VRR=C_VRL=e2*K1R. The original source's K2L/K2R dipoles contribute, respectively,
+
+- D = (|K2L|²+|K2R|²) * [16*ln(m_mu/m_e)-22]/3;
+- V = (2/3)(|C_VLL|²+|C_VRR|²)+(1/3)(|C_VLR|²+|C_VRL|²);
+- I = -(4/3)Re[K2L*C_VRL* + K2R*C_VLR*] -(8/3)Re[K2L*C_VRR*+K2R*C_VLL*].
+
+Then Gamma(mu->3e)=m_mu^5/(512*pi³)*(e2²*D + V + e2*I). (The source uses alpha(MZ) and GammaMu from its generator; this numerical comparison instead sets alpha(0) and GammaMu_LO=GF²*m_mu^5/(192*pi³), matching the **previous restricted diagnostic's conventions**.)
+
+For the frozen charged-only H1/H2 massless-neutrino source, set K1L=A1L_F, K1R=A1R_D, K2R=A2R_F=3/2*A1L_F and K2L=A2L_D=3/2*A1R_D. The source formula simplifies analytically to
+
+Br_photon_only = [3 e2²/(8 GF²)] ( |A1L_F|² + |A1R_D|² ) * ( (9/4)*[16 ln(m_mu/m_e)-22]/3 - 5 ).
+
+The result matches the independently implemented Toma–Vicente/Hundi restricted charged-photon calculation, on four exact charged-source complex amplitude pairs:
+
+| Card | Br photon-only | Difference from previously printed result |
+| --- | ---: | ---: |
+| D7 NO | 3.4399136045e-25 | 1.312e-9 relative |
+| D7 IO | 1.0414027293e-24 | -6.754e-10 relative |
+| F13 NO | 2.1324896823e-22 | 1.069e-9 relative |
+| F13 IO | 6.4393147273e-22 | -4.223e-10 relative |
+
+All differences are consistent with the old decimal printing precision. **This is an algebraic and numerical source observable-level verification of the restricted charged-photon rate.** It is NOT a validation of K1/K2/sign matching for missing neutral/Z/box amplitudes, or of full finite-q² mu3e. No full branching ratios or LFV pass/fail are produced.
