@@ -1,0 +1,42 @@
+name: Zee source-locked LFV-tuned benchmark D4/three-body validation
+on:
+  push:
+    branches:
+      - research/zee-full-constraints
+    paths:
+      - research/full_constraints/scan_pilot_2026/detailed_texture_benchmarks.py
+      - research/full_constraints/scan_pilot_2026/test_detailed_texture_benchmarks.py
+      - .github/workflows/zee-detailed-texture-benchmarks.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  selected-conditional-benchmarks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Recreate exact D14 original Python
+        run: |
+          uv python install 3.10.12
+          uv venv --python 3.10.12 "$RUNNER_TEMP/zee-detail"
+          uv pip install --python "$RUNNER_TEMP/zee-detail/bin/python" numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-detail/bin" >> "$GITHUB_PATH"
+      - name: Verify LFV-selected neutrino and D4 exact source identities
+        run: python -m unittest research.full_constraints.scan_pilot_2026.test_detailed_texture_benchmarks -v
+      - name: Recompute four selected full tree D4 and neutral-tree mu3e diagnostics
+        run: |
+          python -m research.full_constraints.scan_pilot_2026.detailed_texture_benchmarks --output "$RUNNER_TEMP/zee-detailed-texture-benchmarks.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zee-texture-selected-D4-and-neutral-tree-LFV-partial-only
+          path: ${{ runner.temp }}/zee-detailed-texture-benchmarks.json
+          if-no-files-found: error
+          retention-days: 30
