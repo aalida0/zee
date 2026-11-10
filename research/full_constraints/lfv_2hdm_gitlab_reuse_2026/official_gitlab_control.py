@@ -40,6 +40,7 @@ def make_input(w, charged_option='bare'):
     coup={'alphaQED':1/127.95,'alphasMZ':.118,'sw2':.23129,'sw2MS':.23129,
           'MZ':91.1876,'MW':80.379,'MTpole':QUARKS['t'],
           'mbmb':QUARKS['b'],'mcmc':QUARKS['c'],
+          'ms_at_2GeV':QUARKS['s'],'md_at_2GeV':QUARKS['d'],'mu_at_2GeV':QUARKS['u'],
           'melectron':ME,'mmuon':MMU,'mtau':MTAU,
           'Mh1':p['mh1'],'Mh2':p['mh2'],'Mh3':p['ma'],'MHp':mass,'vev':V,
           'theta12':b-a,'theta13':0.,'theta23':0.,
