@@ -37,3 +37,8 @@ Original independently executed Python integrals and complex coefficient calcula
 **Still missing for full physical LFV:** mixed Zee charged H1/H2–W/gauge two-loop sets and gauge completion, potentially relevant two-loop dressing of tau-chain DD^dagger/F^dagger F tensors, full correction/erratum cross-check, finite-q2 mu3e photon, scalar penguin renormalization, and complete heavy-quark/gluon matching plus RG/nuclear conversion. No numerical upper bound on those missing amplitudes was demonstrated.
 
 **Gate:** NEUTRAL_2HDM_FERMION_BZ_SOURCE_V4_RESTRICTED=EVALUATED; FULL_ZEE_TWOLOOP=UNKNOWN; PHYSICAL_LFV=UNKNOWN; GLOBAL_ACCEPTANCE=null.
+
+
+## Flavor selection rule for other leading-new-operator 2HDM terms
+
+The 2026 arXiv source version's separately organized two-loop contributions in Eqs. (53)–(64)—fermionic neutral and charged Higgs, neutral-gauge/kinetic, and charged-potential bosonic terms—contain an explicit direct `rho_l,21*` or `rho_l,12` factor for the external mu-e flavor transition. Setting both tiny direct entries exactly to zero therefore kills **those enumerated leading-new-operator pure-2HDM expressions by flavor selection**, without needing to evaluate every special loop function. This assertion is restricted to the article's declared leading two-loop operator structures; it does **not** suppress mixed Zee singlet-gauge diagrams or two-loop corrections to existing tau-chain one-loop flavor tensors. Do not transfer the single-charged-Higgs bosonic coefficients to the mixed Zee spectrum. Exact-zero texture is a numerical projection test, not an RGE stability proof.
