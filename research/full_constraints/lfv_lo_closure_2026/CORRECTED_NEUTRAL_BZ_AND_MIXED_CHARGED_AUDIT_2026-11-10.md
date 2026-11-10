@@ -1,3 +1,5 @@
+> **SUPERSEDED — 10 November 2026:** The PDF-v4 Barr–Zee numerical values below were replaced by the *executed, corrected authors' thdm.py* source comparison. The prior neutral numbers are wrong for current-source use. **Use [AUTHOR_CORRECTED_2HDM_SOURCE_RECONCILIATION_2026-11-10.md](AUTHOR_CORRECTED_2HDM_SOURCE_RECONCILIATION_2026-11-10.md)** and its machine gate instead. Signed native K2 matching also requires the corrected PLUS convention. This historical report is retained for audit provenance only. Full Zee LFV remains UNKNOWN.
+
 # Zee LFV two-loop source correction and charged-scalar audit — 10 November 2026
 
 **Physics gate: SOURCE-MATCHED RESTRICTED 2HDM SUBSETS; FULL ZEE TWO-LOOP UNKNOWN; GLOBAL_PASS=null.**
