@@ -85,8 +85,8 @@ The source production rate is independent of the new lepton homogeneous coeffici
 
 ### MAJOR / essential before an unqualified exclusion or globally viable benchmark
 
-**M1 — Heavy neutral Higgs constraints missing for the *actual new flavor card*.**
-At 15673 the heavy H and A have masses ~1272 and 1184 GeV, so direct `ττ`, `tt`, charged-W cascades and competing decays matter. Existing source-tested H/A widths and SusHi examples in this repository cover D7/F13, *not* a complete 15673 total-width and observed-search scan. HiggsTools needs its exact total widths, production and applicable signal decomposition. Missing contributions must not be assigned zero. **An h125 near-alignment check is insufficient.**
+**M1 — Heavy neutral Higgs *observed exclusions* missing for the actual new flavor card; source tree widths now available.**
+At 15673 the heavy H and A have masses ~1272 and 1184 GeV. A native source-matched **all-64 new Yukawa** on-shell tree two-body H/A width ledger was successfully executed (GitHub Actions 43107900340). For the 15673 NO seed-20261111 family the *known disjoint tree width sums* are 67.7062 GeV (H) and 52.1010 GeV (A), with source H1±W∓ fractions 60.22% and 49.81%, and tt fractions 39.31% and 50.03%. The **tree-level positive-denominator upper bounds** on BR(H→ττ), BR(A→ττ) are respectively 1.951×10^-8 and 6.975×10^-9. These are *not complete total widths*, not loop-/QCD-improved physical branching fractions, and without source-qualified pp→H/A production and the correct observed search category they are not an experimental limit. Existing SusHi external-production receipts still cover original D7/F13, not the new 15673 family. **Heavy H/A→H1W and tt observed searches are materially more relevant than ττ.** Missing channels must never be assigned zero, and h125 near-alignment alone is insufficient.
 
 **M2 — Leading non-dipole LFV missing on new textures.**
 The full native SARAH one-loop `mu→3e` and `mu-e` conversion operators have been validated only on **old D7/F13 flavor cards**, while the new 64 matrices are different. In the new set only coherent selected dipoles and neutral tree `mu3e` are computed; photon off-shell monopoles, box operators, Z penguins and coherent conversion nuclear matching could invalidate a subset. Gauge-complete Zee mixed two-loop LFV is not covered. With no numerical upper bound on *leading* omitted operators, the phrase “satisfies all LFV constraints” is unsupported.
@@ -99,6 +99,36 @@ At 14 TeV genuine 5FS LO cross sections exist for three selected scalar spectra 
 
 **M5 — Neutrino mass priors and tuned textures.**
 One-loop neutrino mass closure at NuFIT secondary best-fit is necessary but not a multi-observable oscillation likelihood and does not automatically impose cosmological `sum mnu`, `0nubb` or RG stability. Since the inverse algebraic flavor construction sets two complex Yukawa entries exactly to zero, demonstrate at least local robustness and disclose this as a flavor-texture **ansatz**; do not advertise naturalness or generic distributions. Existing 2023 literature has already derived strong texture suppressions.
+
+### NEW heavy-neutral H/A tree decay pilot (source-checked)
+
+A separate 64-family **full on-shell tree two-body** ledger now includes
+six quark and six lepton channels, H→WW/ZZ/hh, A→hZ,
+H/A→H1W/H2W (both charges) and open charged-scalar pairs with
+source-checked scalar trilinears. Distinct physical channels are counted
+once, finite thresholds and model Yukawas are retained, and any open
+unimplemented on-shell neutral transition is flagged `MISSING_ON_SHELL`.
+No physical total width or observed HiggsTools limit was inferred.
+
+Source and tests:
+`research/full_constraints/pheno_paper_2026/heavy_HA_tree_widths.py`,
+`test_heavy_HA_tree_widths.py`, GitHub Actions:
+https://github.com/aalida0/zee/actions/runs/43107900340
+(3/3 structural tests, regenerated all 64 family cards, complete tree
+width inventory PASS).
+
+| Source scalar 15673 | H | A |
+|---|---:|---:|
+| Mass [GeV] | 1271.991 | 1183.578 |
+| Sum of positive calculated tree partial widths [GeV] | 67.7062 | 52.1010 |
+| tt fraction of tree sum | 39.31% | 50.03% |
+| H1±W∓ fraction of tree sum (both charges) | **60.22%** | **49.81%** |
+| Tree BR(ττ) upper bound by known positive sum | ≤1.951e-8 | ≤6.975e-9 |
+
+**Referee implication:** Searching only H/A→ττ would miss the dominant
+tree channel structure of this benchmark. Full rates for `H/A→H1W`
+and `H/A→tt`, with production, QCD widths and actual limits, are the
+priority for a credible scalar-exclusion statement.
 
 ### MEDIUM / publication quality and theory limitations
 
@@ -139,7 +169,7 @@ This supports *local continuity* of the source-defined scalar/B screen at 15673,
 
 1. **Choose final physics scope**. For a *conditional benchmark paper*, title/abstract and captions must be honest that full B/Higgs/LFV and detector-level exclusions are not claimed. For a paper advertising “allowed parameter space,” add proper heavy-Higgs and leading new-family 3-body LFV/conversion operator constraints before publishing.
 2. **Validate a representative scan in the model's actual restricted domain** with two separate priors: broad control and production-targeted. Run enough accepted points for a stable distribution, accounting for rejected scalar proposals and different arm densities; show sensitivity to choice of prior and algebraic flavor texture ansatz. Do not turn 64 intentionally generated safe textures into a probability.
-3. **Compute heavy H/A branching fractions and source-consistent observed limits** for the shortlisted new spectra using public HiggsTools. A tree + HDECAY/SusHi mixed-order treatment is reasonable if all materially relevant final states are included and large omitted states are bounded; a modern full NNLO H/A calculation is not required.
+3. **Complete heavy H/A physical branching fractions and observed limits** for the shortlisted new spectra using public HiggsTools. The **tree on-shell channel ledger is now done for all 64**. Finish missing positive loop/QCD/off-shell contributions, production `pp→H/A` at the declared LO/NLO order, and observed `tt` and `H1W` limits (ττ is tree-suppressed for 15673). A modern all-orders H/A calculation is not necessary, but incomplete width sums cannot be normalized as BRs.
 4. **Transfer existing one-loop `mu→3e` and `mu-e` conversion operators** to the actual new Yukawa cards with independent normalization checks. Do not restart negligible 2-loop gauge topology calculations unless leading materiality shows a risk.
 5. **Add a leading production systematic study** at 14 TeV for 15673: 7-point `muR,muF` LO scale variations and at least PDF replicas or a 4FS/NLO comparison. These are ordinary pheno requirements, not a precision paper.
 6. **Make the genuinely new plot**: source-defined *viable-scalar mass/mixing/cascade-rate intersection* under the chosen leading-order constraints. Compare with 2021 scalar-only ranges. If the intersection yields no nontrivial restriction or no new observable, change the hypothesis rather than overstate novelty.
