@@ -1,0 +1,23 @@
+name: Zee Bsgamma 2026 publication-scope sealed NNLO source-matching gate
+on:
+  push:
+    branches: [research/zee-full-constraints]
+    paths:
+      - research/full_constraints/bsgamma_2026_source_gate/test_source_locked_nnlo_matching_and_stress.py
+      - research/full_constraints/bsgamma_nnlo_hepfit_2026/16_scalar_three_loop_source_matched_evidence.json
+      - research/full_constraints/bsgamma_nnlo_hepfit_2026/16_scalar_adversarial_three_method_B_stress.json
+      - .github/workflows/zee-B-source-2026-sealed-precision-gate.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-locked-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Reproduce source-pinned 2026 leading-NP and independent BMU HEPfit parity receipts
+        run: |
+          python3 -m unittest research.full_constraints.bsgamma_2026_source_gate.test_source_locked_nnlo_matching_and_stress -v
