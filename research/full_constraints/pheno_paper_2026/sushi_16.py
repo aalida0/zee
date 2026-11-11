@@ -148,7 +148,7 @@ def run(executable:Path,out_dir:Path):
         "heavy_H_A_HiggsBounds_exclusion":None,"global_acceptance":None,
         "cases":results,
     }
-    (out_dir/"zee-SusHi-16-HA-real-production.json").write_text(json.dumps(report,sort_keys=True,indent=2,allow_nan=False)+"\\n")
+    (out_dir/"zee-SusHi-16-HA-real-production.json").write_text(json.dumps(report,sort_keys=True,indent=2,allow_nan=False)+"\n")
     print("ZEE_SUSHI_SOURCE_16x2_COMPLETED",len(results),"NO_HEAVY_HIGGS_EXCLUSION",flush=True)
     return report
 
