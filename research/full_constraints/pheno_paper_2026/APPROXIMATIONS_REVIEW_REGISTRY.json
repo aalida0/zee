@@ -73,7 +73,7 @@
     {
       "id": "P06",
       "subject": "Radiative charged LFV",
-      "approximation": "Retained scalar one-loop and selected photon Barr–Zee terms with complex interference; some mixed Zee EW two-loop groups uncomputed",
+      "approximation": "Full new-family source-replayed scalar one-loop radiative amplitudes plus named photon Barr–Zee contributions, tested for all 64 NO/IO algebraic textures. The remaining genuinely mixed Zee W/Goldstone two-loop dipoles and high-order gauge groups were not calculated.",
       "classification": "PARTIAL_NOT_FULL",
       "justification": "Lavoura 2003 one-loop dipoles and Zee 2023 study discuss hierarchical relevant diagrams; selected source kernels validated, missing groups left null",
       "citations": [
@@ -82,20 +82,20 @@
         "research/full_constraints/lfv_two_loop_scope_2026/GAUGE_SPURION_SCOPE_DECISION_2026-11-10.md"
       ],
       "reviewer_objection": "Cannot call physical µ→eγ PASSED if omitted leading or chirality-enhanced amplitudes remain unbounded",
-      "allowed_claim": "Selected LO scalar / named two-loop contribution satisfies MEG II limit with an explicit diagram-coverage caveat"
+      "allowed_claim": "All 64 selected scalar-one-loop plus named two-loop radiative contributions are below the MEG II 90CL bound; no complete physical LFV pass"
     },
     {
       "id": "P07",
       "subject": "µ→3e and µ–e conversion",
-      "approximation": "Generated one-loop native Wilson calculations validated on four old D7/F13 cards only; no source-bound coherent new-64 observables",
-      "classification": "MISSING_NEW_BENCHMARK",
+      "approximation": "For all 64 new-family full complex F,D Yukawas: actual neutral scalar μ→3e tree contact; actual τ→3μ and τ→3e tree contact; photon-dipole-only μ→3e diagnostic; Al dipole-dominance conversion ratio. Full signed photon monopole/Z/box and quark/nuclear conversion operators have NOT been run on these 64 cards.",
+      "classification": "PARTIAL_TREE_AND_DIPOLE_ONLY",
       "justification": "2017 full Zee scan includes both and their complementarity; original SARAH source validation at different Yukawa textures cannot be transplanted",
       "citations": [
         "arXiv:1701.05345 Sec 3.3",
         "research/full_constraints/lfv_lo_closure_2026/NATIVE_COMPLETE_ONELOOP_LFV_REPORT_2026-11-10.md"
       ],
       "reviewer_objection": "Muon conversion can exclude texture points with tiny radiative dipoles; direct-zero D_e_mu is not sufficient",
-      "allowed_claim": "Not evaluated for new textures; exclude full LFV coverage claim"
+      "allowed_claim": "Source-validated named new-family tree/dipole LFV subsets and explicitly unknown full one-loop μ3e and conversion"
     },
     {
       "id": "P08",
@@ -127,8 +127,8 @@
     {
       "id": "P10",
       "subject": "h125 signal couplings and widths",
-      "approximation": "Near-alignment κ and validated leading γγ/Zγ loops; HDECAY-sourced known-channel sums are not complete Γ_h; no full HiggsSignals likelihood",
-      "classification": "PARTIAL_NOT_FULL",
+      "approximation": "All 64 source-specific complete diagonal complex h125 lepton Yukawa modifiers, independently computed κV,κt,κb, LO ggF and native γγ/Zγ; matched-HDECAY known-channel positive-width sum. HiggsSignals source-pinned h125-only experiment-input pilot is separate and not a full Higgs sector acceptance.",
+      "classification": "PARTIAL_H125_COVERAGE",
       "justification": "2021 paper performs μ_ij with full BRs; public HiggsTools requires complete model predictions and correct measurement options",
       "citations": [
         "arXiv:2106.08332 Sec IV-B Eq(57)",
@@ -136,7 +136,7 @@
         "research/full_constraints/higgs_lfv_2026/FINAL_64_FAMILY_HIGGS_LFV_CONSTRAINTS_2026-11-11.md"
       ],
       "reviewer_objection": "Using known-channel sum as Γtotal or passing a 125-GeV coupling proxy as a global Higgs fit invalidates acceptance",
-      "allowed_claim": "Width-independent ratios and source-defined partial decay widths only"
+      "allowed_claim": "Recomputed h125 partial widths/complex couplings with width-independent observables; no official 95CL until HiggsSignals full-model input validated"
     },
     {
       "id": "P11",
@@ -154,15 +154,15 @@
     {
       "id": "P12",
       "subject": "Heavy neutral H/A and other Higgs searches",
-      "approximation": "Some production/partial widths evaluated but total widths, tau tau, relevant HiggsTools prediction coverage and observed limits not certified",
-      "classification": "MISSING_COVERAGE",
+      "approximation": "All 64 source-specific H/A LO on-shell two-body positive decay sums including fermions, VV, hZ, hh, H_iW, charged pairs; open omitted tree channels flagged. QCD corrections/gg partials/offshell and actual HiggsBounds observed-search inputs are still not complete.",
+      "classification": "TREE_TWO_BODY_COMPLETED_EXPERIMENTAL_SEARCH_UNKNOWN",
       "justification": "HiggsBounds chooses most sensitive observed limits using model production and branching predictions; missing channels cannot be passed as zeros",
       "citations": [
         "https://higgsbounds.gitlab.io/higgstools/HiggsBoundsAPI.html",
         "research/full_constraints/HIGGS_COVERAGE.md"
       ],
       "reviewer_objection": "Strong risk of excluded benchmark; complete rate and observed-limit recast needed to call it physically allowed",
-      "allowed_claim": "No full Higgs-exclusion conclusion"
+      "allowed_claim": "Tree-on-shell heavy H/A positive width floors and tautau BR upper envelopes, not physical total widths or observed-search exclusions"
     },
     {
       "id": "P13",
@@ -259,5 +259,6 @@
       "First demonstration of H2→H1 Z or LFV-safe Yukawa textures",
       "13-to-14 TeV mass-only rescaling for unintegrated spectra"
     ]
-  }
+  },
+  "validation_update": "2026-11-11 full 64-family native leading-Higgs/LFV tree and retained dipole audit, GitHub CI 43112407084"
 }
