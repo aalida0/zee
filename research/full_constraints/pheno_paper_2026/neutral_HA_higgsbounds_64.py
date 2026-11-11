@@ -145,6 +145,13 @@ def scan(sushi:Path,widths:Path,dataset:Path,out:Path):
                 particle.setCxn(HP.Collider.LHC13,HP.Production.ggH,d["sigma13_ggF_LO_pb"])
                 particle.setCxn(HP.Collider.LHC13,HP.Production.bbH,d["sigma13_bbH_LO_pb"])
                 for dmode,k in HEAVY_DECAYS:
+                    if k not in d["channels"]:
+                        if state=="A" and k in ("WW","ZZ"):
+                            # CP-odd A->VV has no tree amplitude. Its loop
+                            # contribution has not been certified: absence
+                            # from this *scoped* model is NOT physical zero.
+                            continue
+                        raise KeyError("Missing source-calculated heavy neutral channel "+state+"/"+k)
                     particle.setBr(getattr(HP.Decay,dmode),positive(d["channels"][k],k)/(excess*d["known_Gamma_sum_GeV"]))
             result=bounds(pred)
             selected={str(k):_applied(v) for k,v in result.selectedLimits.items()}
@@ -175,6 +182,7 @@ def scan(sushi:Path,widths:Path,dataset:Path,out:Path):
       "missing_channels_and_model_comparisons":[
           "H/A->hh,hZ,H_iW and H_iH_j cascade searches (not supplied)",
           "H/A->gamma gamma and Z gamma (Zee specific loops incomplete)",
+          "CP-odd A->WW,ZZ radiative loops not supplied (not asserted zero)",
           "Neutral VBF/VH/ttH and 8 TeV production where physically relevant",
           "Full QCD/EW theory uncertainty including missing total-width channels",
           "On-shell gg->H/A->tt interference and finite-width signal shape",
