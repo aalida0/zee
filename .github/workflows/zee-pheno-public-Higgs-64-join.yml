@@ -1,0 +1,53 @@
+name: Zee 64-family public Higgs source-locked scan diagnostic ledger
+on:
+  workflow_dispatch:
+  push:
+    branches: [research/zee-full-constraints]
+    paths:
+      - research/full_constraints/pheno_paper_2026/join_higgs_public_64.py
+      - research/full_constraints/pheno_paper_2026/test_join_higgs_public_64.py
+      - .github/workflows/zee-pheno-public-Higgs-64-join.yml
+permissions:
+  contents: read
+  actions: read
+jobs:
+  join-real-Higgs-screens:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Unit test fail-closed source Higgs diagnostic ledgers
+        run: python3 -m unittest research.full_constraints.pheno_paper_2026.test_join_higgs_public_64 -v
+      - name: Reuse 64 source h125 HiggsSignals/HiggsBounds and both charged 13TeV observed screens
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 43122649490
+          name: zee-h125-only-HiggsSignals-source-pin-stated-scope-NOT-Higgs-complete
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/charged-h125
+      - name: Reuse source H/A SusHi+HDECAY heavy-neutral observed screen 64
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 43122729249
+          name: zee-source-H-A-HiggsBounds-64-diagnostic-not-physical-exclusion
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/heavy
+      - name: Join all four public-code Higgs diagnostics, never promote to global 95CL
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -u -m research.full_constraints.pheno_paper_2026.join_higgs_public_64 \
+            --hs "$RUNNER_TEMP/charged-h125/zee-h125-only-HiggsSignals-deltaChi2.json" \
+            --hb125 "$RUNNER_TEMP/charged-h125/zee-h125-only-HiggsBounds-observed.json" \
+            --charged "$RUNNER_TEMP/charged-h125/zee-64-both-charged-H1H2-public-matched-13TeV-HB.json" \
+            --heavy "$RUNNER_TEMP/heavy/zee-64-H-A-sushi-HDECAY-HiggsBounds-partial-width-envelope.json" \
+            --output "$RUNNER_TEMP/zee-Higgs-scoped-source-16x4-constraint-ledger.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: zee-source-all64-public-Higgs-partial-constraints-SCAN-SCOPE-ONLY
+          path: ${{ runner.temp }}/zee-Higgs-scoped-source-16x4-constraint-ledger.json
+          if-no-files-found: warn
+          retention-days: 30
