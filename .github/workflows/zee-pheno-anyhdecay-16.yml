@@ -1,0 +1,69 @@
+name: Zee source-pinned AnyHdecay reference transfer on 16 original scalar spectra
+on:
+  workflow_dispatch:
+  push:
+    branches: [research/zee-full-constraints]
+    paths:
+      - research/full_constraints/pheno_paper_2026/hdecay_16_bridge.py
+      - research/full_constraints/pheno_paper_2026/test_hdecay_16_bridge.py
+      - research/full_constraints/higgs/anyhdecay_driver.cpp
+      - .github/workflows/zee-pheno-anyhdecay-16.yml
+permissions:
+  contents: read
+jobs:
+  hdecay-16-source-transfer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      ANYHDECAY_PIN: "137b6991cafcd32770e64b2b5979de80db1e44af"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Python 3.11 and native scalar spectrum dependencies
+        run: |
+          uv python install 3.11.11
+          uv venv --python 3.11.11 "$RUNNER_TEMP/zee-HDECAY"
+          uv pip install --python "$RUNNER_TEMP/zee-HDECAY/bin/python" \
+            'cmake>=3.25,<4' flavio==2.7.1 particle==0.26.2 numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-HDECAY/bin" >> "$GITHUB_PATH"
+      - name: Replay actual F13 HDECAY validation and adversarial transfer tests
+        run: |
+          python -m unittest research.full_constraints.pheno_paper_2026.test_hdecay_16_bridge -v
+      - name: Compile pinned external AnyHdecay 1.1.0 source and original reference driver
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v gfortran || (sudo apt-get update && sudo apt-get install -y gfortran)
+          git clone https://gitlab.com/jonaswittbrodt/anyhdecay.git "$RUNNER_TEMP/anyhdecay"
+          git -C "$RUNNER_TEMP/anyhdecay" checkout --detach "$ANYHDECAY_PIN"
+          test "$(git -C "$RUNNER_TEMP/anyhdecay" rev-parse HEAD)" = "$ANYHDECAY_PIN"
+          cmake -S "$RUNNER_TEMP/anyhdecay" -B "$RUNNER_TEMP/anyhdecay/build" -DCMAKE_BUILD_TYPE=Release
+          cmake --build "$RUNNER_TEMP/anyhdecay/build" --parallel 2
+          g++ -std=c++17 -O2 \
+            -I"$RUNNER_TEMP/anyhdecay/include" \
+            research/full_constraints/higgs/anyhdecay_driver.cpp \
+            -L"$RUNNER_TEMP/anyhdecay/build/lib" -lanyhdecay \
+            -lgfortran -lquadmath -lm \
+            -o "$RUNNER_TEMP/anyhdecay_driver"
+          sha256sum "$RUNNER_TEMP/anyhdecay_driver" "$RUNNER_TEMP/anyhdecay/build/lib/libanyhdecay.a"
+      - name: Source-bound HDECAY reference partial widths for all original 16 scalar cards
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u -m research.full_constraints.pheno_paper_2026.hdecay_16_bridge \
+            --driver "$RUNNER_TEMP/anyhdecay_driver" \
+            --output "$RUNNER_TEMP/zee-HDECAY-16-transfer.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: zee-HDECAY-16-quark-QCD-and-doublet-control-partial-widths-NOT-ZEE-total
+          path: |
+            ${{ runner.temp }}/zee-HDECAY-16-transfer.json
+            ${{ runner.temp }}/hdecay_control_*.txt
+          if-no-files-found: warn
+          retention-days: 30
