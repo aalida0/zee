@@ -74,7 +74,7 @@ def build_prediction(pair,extra_width_fraction):
         for proc,channel in (("ggF",HP.Production.ggH),("bbH",HP.Production.bbH)):
             neutral.setCxn(HP.Collider.LHC13,channel,q["source_ggF_bbH_LO13_pb"][proc])
         for channel,source_br in q["source_partial_BR_upper_components"].items():
-            neutral.setBr(channel,source_br/(1+extra_width_fraction))
+            neutral.setBr(getattr(HP.Decay,channel),source_br/(1+extra_width_fraction))
     return pred
 
 def evaluate(widths:Path,production:Path,dataset:Path,out:Path):
