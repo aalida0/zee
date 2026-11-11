@@ -18,7 +18,6 @@ def run(source:Path, dataset:Path, output:Path):
     if not dataset.is_dir():raise FileNotFoundError("HiggsSignals dataset not installed")
     import Higgs.predictions as HP
     import Higgs.signals as HS
-    import Higgs.tools.Input as Input
     d=json.loads(source.read_text())
     if d.get("n_evaluated")!=64 or d.get("global_acceptance") is not None:
         raise RuntimeError("Incomplete or improperly accepted 64 family input")
@@ -41,32 +40,49 @@ def run(source:Path, dataset:Path, output:Path):
         h=row["h125"]
         if h["full_model_total_width_GeV"] is not None:
             raise RuntimeError("A known-channel sum was promoted to total width")
-        # For CP-even h, one-loop complex off-diagonal lepton Yukawas are
-        # not introduced via an imaginary diagonal scalar 'kappa' here.
-        # Source h lepton e/mu/tau diagonal scalar couplings receive
-        # a separate treatment; if absent, no non-SM tau coupling is guessed.
-        inputs={
-            "m_h":125.0,
-            "CP_h":1,  # HiggsTools Input parser requires int CP code, +1=even
-            "effc_h_WW":float(h["kappaV"]),
-            "effc_h_ZZ":float(h["kappaV"]),
-            "effc_h_tt_s":float(h["kappa_top"]),
-            "effc_h_cc_s":float(h["kappa_top"]),
-            "effc_h_bb_s":float(h["kappa_bottom"]),
-            "effc_h_ss_s":float(h["kappa_bottom"]),
-            "effc_h_gg":math.sqrt(float(h["matched_independent_quark_lo_gg_ratio"])),
-            "effc_h_gamgam":math.sqrt(
-                float(h["known_partial_widths_GeV"]["gammagamma"])/sm_ledger["gammagamma"]),
-        }
-        # Source lepton D is fully general and complex; explicit effective
-        # scalar/pseudoscalar Yukawas, not a false Type-II lepton assumption.
-        for flavor,contract in (
-            ("ee","e"),("mumu","mu"),("tautau","tau")
-        ):
-            kappas=h["Zee_lepton_diagonal_kappas_complex"][contract]
-            inputs[f"effc_h_{flavor}_s"]=kappas["scalar"]
-            inputs[f"effc_h_{flavor}_p"]=kappas["pseudoscalar"]
-        pred=Input.predictionsFromDict(inputs,["h"],[],[],useExplicitBr=False)
+        # Native HiggsPredictions effective-coupling API provides the
+        # *reference-model inferred* h125 width, avoiding the Input parser's
+        # mandatory w_h requirement. This is a declared effective-coupling
+        # approximation, NOT our unknown full physical Zee width.
+        pred=HP.Predictions()
+        hp=pred.addParticle(HP.BsmParticle("h","neutral","even"))
+        hp.setMass(125.0)
+        k=HP.NeutralEffectiveCouplings()
+        ku=float(h["kappa_top"])
+        kd=float(h["kappa_bottom"])
+        kv=float(h["kappaV"])
+        for name in ("uu","cc","tt"):
+            setattr(k,name,complex(ku,0.0))
+        for name in ("dd","ss","bb"):
+            setattr(k,name,complex(kd,0.0))
+        k.WW=kv
+        k.ZZ=kv
+        def width_ratio(channel):
+            model=float(h["known_partial_widths_GeV"][channel])
+            sm=float(sm_ledger[channel])
+            if not (math.isfinite(model) and model>=0 and math.isfinite(sm) and sm>0):
+                raise ValueError("Invalid source partial-width ratio: "+channel)
+            return math.sqrt(model/sm)
+        gg_ratio=float(h["matched_independent_quark_lo_gg_ratio"])
+        if not math.isfinite(gg_ratio) or gg_ratio<0:
+            raise ValueError("Invalid source coherent gg-production ratio")
+        k.gg=math.sqrt(gg_ratio)
+        k.gamgam=width_ratio("gammagamma")
+        k.Zgam=width_ratio("Zgamma")
+        # The general Zee lepton Yukawa sector is not Type-II NFC.
+        # Retain both signed scalar and pseudoscalar components explicitly.
+        for name,flavor in (("ee","e"),("mumu","mu"),("tautau","tau")):
+            d=h["Zee_lepton_diagonal_kappas_complex"][flavor]
+            sc=float(d["scalar"])
+            ps=float(d["pseudoscalar"])
+            if not math.isfinite(sc) or not math.isfinite(ps):
+                raise ValueError("Nonfinite Zee lepton effective coupling")
+            setattr(k,name,complex(sc,ps))
+        # The native Zee photon and gg amplitude ratios include physics
+        # absent from the generic 2HDM formulas. Never recalculate/override
+        # them from quark/W loops, and never insert the partial-width sum.
+        HP.effectiveCouplingInput(
+            hp,k,calcggH=False,calcHgamgam=False)
         x=float(hs(pred))
         if not math.isfinite(x):
             raise ValueError("Nonfinite h125-only HiggsSignals prediction")
@@ -75,6 +91,8 @@ def run(source:Path, dataset:Path, output:Path):
             "chi2_h125_restricted":x,"chi2_SM_same_dataset":float(smres),
             "delta_chi2_h125_restricted":x-float(smres),
             "has_model_diagonal_lepton_effcoupling":True,
+            "h125_width_prescription":"SM_reference_effective_coupling_derived_NOT_complete_Zee",
+            "includes_h125_offdiagonal_LFV_decays":False,
             "includes_all_H_A_other_states":False,
             "has_declared_NDF_or_chi2_threshold":False,
             "full_Higgs_acceptance":None,"global_acceptance":None,
@@ -87,6 +105,7 @@ def run(source:Path, dataset:Path, output:Path):
         "n_h125_cases":len(cases),"chi2_SM":float(smres),
         "diagonal_zee_lepton_yukawa_inputs_incomplete":False,
         "heavy_H_A_and_charged_excluded_from_input":True,
+        "h125_width_prescription":"SM_reference_effective_coupling_derived_NOT_complete_Zee",
         "physical_Higgs":"UNKNOWN","global_acceptance":None,"cases":cases}
     output.write_text(json.dumps(result,sort_keys=True,indent=2)+"\n")
     return result
