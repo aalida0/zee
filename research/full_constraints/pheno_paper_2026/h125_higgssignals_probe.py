@@ -23,6 +23,9 @@ def run(source:Path, dataset:Path, output:Path):
     if d.get("n_evaluated")!=64 or d.get("global_acceptance") is not None:
         raise RuntimeError("Incomplete or improperly accepted 64 family input")
     allrows=d["families"]
+    sm_ledger=json.loads((Path(__file__).resolve().parents[3]/
+        "research/full_constraints/higgs/H125_SIGNAL_STRENGTH_EVIDENCE.json").read_text()
+        )["matched_SM_ledger_GeV"]
     # Demand two datasets of identically configured genuine HiggsSignals
     # measurements. Never infer 95% CL from a raw delta chi2 without NDF.
     hs=HS.Signals(str(dataset))
@@ -52,10 +55,18 @@ def run(source:Path, dataset:Path, output:Path):
             "effc_h_bb_s":float(h["kappa_bottom"]),
             "effc_h_ss_s":float(h["kappa_bottom"]),
             "effc_h_gg":math.sqrt(float(h["matched_independent_quark_lo_gg_ratio"])),
+            "effc_h_gamgam":math.sqrt(
+                float(h["known_partial_widths_GeV"]["gammagamma"])/sm_ledger["gammagamma"]),
         }
-        # Omitted h->lepton diagonal input is NOT SM by theorem for
-        # general Zee D. Refuse any absolute experimental exclusion from this.
-        pred=Input.predictionsFromDict(inputs,["h"],[],[])
+        # Source lepton D is fully general and complex; explicit effective
+        # scalar/pseudoscalar Yukawas, not a false Type-II lepton assumption.
+        for flavor,contract in (
+            ("ee","e"),("mumu","mu"),("tautau","tau")
+        ):
+            kappas=h["Zee_lepton_diagonal_kappas_complex"][contract]
+            inputs[f"effc_h_{flavor}_s"]=kappas["scalar"]
+            inputs[f"effc_h_{flavor}_p"]=kappas["pseudoscalar"]
+        pred=Input.predictionsFromDict(inputs,["h"],[],[],useExplicitBr=False)
         x=float(hs(pred))
         if not math.isfinite(x):
             raise ValueError("Nonfinite h125-only HiggsSignals prediction")
@@ -63,7 +74,7 @@ def run(source:Path, dataset:Path, output:Path):
             "scalar_id":row["scalar_id"],"ordering":row["ordering"],"seed":row["seed"],
             "chi2_h125_restricted":x,"chi2_SM_same_dataset":float(smres),
             "delta_chi2_h125_restricted":x-float(smres),
-            "has_model_diagonal_lepton_effcoupling":False,
+            "has_model_diagonal_lepton_effcoupling":True,
             "includes_all_H_A_other_states":False,
             "has_declared_NDF_or_chi2_threshold":False,
             "full_Higgs_acceptance":None,"global_acceptance":None,
@@ -74,7 +85,7 @@ def run(source:Path, dataset:Path, output:Path):
         "HiggsTools_dataset":str(dataset),"HiggsTools_package":"source-pinned-v1.1.3",
         "source_64_sha256":hashlib.sha256(source.read_bytes()).hexdigest(),
         "n_h125_cases":len(cases),"chi2_SM":float(smres),
-        "diagonal_zee_lepton_yukawa_inputs_incomplete":True,
+        "diagonal_zee_lepton_yukawa_inputs_incomplete":False,
         "heavy_H_A_and_charged_excluded_from_input":True,
         "physical_Higgs":"UNKNOWN","global_acceptance":None,"cases":cases}
     output.write_text(json.dumps(result,sort_keys=True,indent=2)+"\n")
