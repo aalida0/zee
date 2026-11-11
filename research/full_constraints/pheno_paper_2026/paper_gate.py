@@ -182,17 +182,22 @@ def build(fresh=None):
         sigma14=1000.0*rates[(ident,14)]["sigma_pb"] if (ident,14) in rates else None
         original_h2=[f["BR_H2_H1Z"] for f in old]
         original_tb=[f["BR_H2_H1Z"]*f["H1_decay_BR_separate"]["t anti-b"] for f in old]
+        old_cascade_mean=sum(original_tb)/len(original_tb)
         if latest is not None:
             new=[f for (i,_,_),f in latest.items() if i==ident]
             if len(new)!=4:raise ValueError("Missing new neutrino family")
             h2=[f["D4_BR_H2_H1Z"] for f in new]
             cascade=[f["D4_cascade_product"] for f in new]
+            flavor_shift_max=max(abs(x-old_cascade_mean)/old_cascade_mean for x in cascade)
+            new_cascade_range_fraction=(max(cascade)-min(cascade))/min(cascade)
             selection="new_64_constructed_neutrino_families"
             max_retained=max(f["partial_mu_to_e_gamma_BR"] for f in new)
             if not max_retained<1.5e-13:raise ValueError("A newly reconstructed partial LFV screen failed")
         else:
             h2=original_h2
             cascade=original_tb
+            flavor_shift_max=None
+            new_cascade_range_fraction=None
             selection="original_D14D_four_neutrino_families__new_64_not_merged"
             max_retained=None
         for v in h2+cascade:
@@ -212,6 +217,10 @@ def build(fresh=None):
             "original_scalar_reconstruction_bfb_unitarity_ewpo_vacuum":"PASS_original_theory_scope",
             "nu_family_basis":selection,
             "nu_64_families_partial_mu_e_gamma_max_BR":max_retained,
+            "historical_original_family_cascade_product_range":band(original_tb),
+            "new_constructed_vs_original_family_mean_max_fractional_shift":flavor_shift_max,
+            "new_constructed_internal_cascade_fractional_range":new_cascade_range_fraction,
+            "flavor_impact_is_conditional_on_fixed_scalar_card":True,
             "BR_H2_to_H1_Z_range":band(h2),
             "BR_H2_H1Z_H1_tb_product_range":band(cascade),
             "B_2026_Misiak_Eq4_BR":b["LO2026_B_rate"],
@@ -255,6 +264,10 @@ def build(fresh=None):
         "n_B_one_sided_adversarial_stress_screen":sum(r["B_one_sided_nonprobabilistic_stress_survival"] for r in rows),
         "all_64_new_neutrino_families_screened_retained_LFV_in_separate_evidence":hl["one_loop_radiative_MEGII_below_90CL_count"],
         "fresh_64_source_cards_consumed_in_this_replay":latest is not None,
+        "max_fixed_scalar_flavor_family_cascade_shift_vs_historical":
+            max(x["new_constructed_vs_original_family_mean_max_fractional_shift"] for x in rows)
+            if latest is not None else None,
+        "fixed_scalar_flavor_dependence_is_measured_not_assumed":latest is not None,
         "BR_input_family_scope":rows[0]["nu_family_basis"],
         "HL_luminosity_fb_minus1_assumed":LUMI_PAPER_FB,
         "Z_to_ee_or_mumu_branching_sum_PDG":Z_EE_OR_MUMU_BRANCHING,
@@ -352,6 +365,7 @@ def main():
                   "TBZ14",row["sigma14_H2_H1Z_tb_product_range_fb"],
                   "ONE_SIDED",row["B_one_sided_Gaussian_LO_NP_screen"],
                   "STRESS",row["B_one_sided_nonprobabilistic_stress_survival"],
+                  "FLAVOR_FIXED_SCALAR_CASCADE_DELTA",row["new_constructed_vs_original_family_mean_max_fractional_shift"],
                   flush=True)
 
 
