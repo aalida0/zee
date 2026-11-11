@@ -6,6 +6,7 @@ on:
     paths:
       - research/full_constraints/pheno_paper_2026/h125_higgssignals_probe.py
       - research/full_constraints/pheno_paper_2026/test_h125_higgssignals_probe.py
+      - research/full_constraints/pheno_paper_2026/h125_higgsbounds_probe.py
       - .github/workflows/zee-h125-only-HiggsSignals-pilot.yml
 permissions:
   contents: read
@@ -20,6 +21,7 @@ jobs:
       MKL_NUM_THREADS: "1"
       HIGGSTOOLS_VERSION_GIT: "65029037"
       HSDATASET_PIN: "3c6c2538d9ba0549ea0559cf9b38c18eb80c3af1"
+      HBDATASET_PIN: "3539f9adf3724f8752701208bf059d1658824cd2"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -74,12 +76,31 @@ jobs:
             --source "$RUNNER_TEMP/source-64-HL.json" \
             --dataset "$RUNNER_TEMP/hsdataset" \
             --output "$RUNNER_TEMP/zee-h125-only-HiggsSignals-deltaChi2.json"
+      - name: Fetch formerly source-validated HiggsBounds observed-limit dataset
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir "$RUNNER_TEMP/hbdataset"
+          git -C "$RUNNER_TEMP/hbdataset" init
+          git -C "$RUNNER_TEMP/hbdataset" remote add origin https://gitlab.com/higgsbounds/hbdataset.git
+          git -C "$RUNNER_TEMP/hbdataset" fetch --depth 1 origin "$HBDATASET_PIN"
+          git -C "$RUNNER_TEMP/hbdataset" checkout --detach "$HBDATASET_PIN"
+          echo "HBDATASET_PINNED $(git -C "$RUNNER_TEMP/hbdataset" rev-parse HEAD)"
+      - name: Apply h125-only HiggsBounds observed limits to all 64 new Zee families
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u -m research.full_constraints.pheno_paper_2026.h125_higgsbounds_probe \
+            --source "$RUNNER_TEMP/source-64-HL.json" \
+            --dataset "$RUNNER_TEMP/hbdataset" \
+            --output "$RUNNER_TEMP/zee-h125-only-HiggsBounds-observed.json"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: zee-h125-only-HiggsSignals-source-pin-stated-scope-NOT-Higgs-complete
           path: |
             ${{ runner.temp }}/zee-h125-only-HiggsSignals-deltaChi2.json
+            ${{ runner.temp }}/zee-h125-only-HiggsBounds-observed.json
             ${{ runner.temp }}/higgs-install.log
           if-no-files-found: warn
           retention-days: 30
