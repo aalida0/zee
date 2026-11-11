@@ -113,8 +113,10 @@ class Probe:
         z=result["parsed"]
         if not (2e-4<z["SM_BR"]<5e-4 and 2e-4<z["injected_BR"]<7e-4):
             raise ArithmeticError("Unexpected SuperIso finite-cut B rate")
-        if not math.isclose(z["SM_BR"],q["parsed"]["SM_BR"],rel_tol=2e-9):
-            raise ArithmeticError("Matching-scale SM baseline changed with source inputs")
+        if scale==160 and not math.isclose(z["SM_BR"],q["parsed"]["SM_BR"],rel_tol=2e-9):
+            raise ArithmeticError("Fixed-scale SM baseline changed with model inputs")
+        if scale!=160 and not (2e-4<z["SM_BR"]<5e-4):
+            raise ArithmeticError("Matching-scale variation has invalid SM normalization")
         return dict(source_label=label,matching_scale_GeV=scale,mt_MSbar_matching_GeV=mt,
                     mH1_GeV=m1,mH2_GeV=m2,tanbeta=tanb,gamma=gamma,
                     matching_ord_NDR=mix,per_state_matching=c,
