@@ -1,0 +1,93 @@
+name: Zee actual SusHi 1.7.0 neutral H/A production for 16 source-certified scalars
+on:
+  workflow_dispatch:
+  push:
+    branches: [research/zee-full-constraints]
+    paths:
+      - research/full_constraints/pheno_paper_2026/sushi_16.py
+      - research/full_constraints/pheno_paper_2026/test_sushi_16.py
+      - .github/workflows/zee-pheno-sushi-16.yml
+permissions:
+  contents: read
+jobs:
+  sushi-16-neutral-higgs-production:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      LHAPDF_VERSION: "6.5.3"
+      SUSHI_VERSION: "1.7.0"
+      PDF_NAME: "MMHT2014lo68cl"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Reproduce original two-card SusHi generator mapping before extending to 16
+        run: |
+          uv python install 3.11.11
+          uv venv --python 3.11.11 "$RUNNER_TEMP/zee-SusHi-py"
+          uv pip install --python "$RUNNER_TEMP/zee-SusHi-py/bin/python" \
+            flavio==2.7.1 particle==0.26.2 numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-SusHi-py/bin" >> "$GITHUB_PATH"
+          "$RUNNER_TEMP/zee-SusHi-py/bin/python" -m unittest research.full_constraints.pheno_paper_2026.test_sushi_16 -v
+      - name: Install source build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gfortran build-essential libgsl-dev autoconf automake libtool pkg-config
+      - name: Download and source-verify official LHAPDF, SusHi and MMHT2014LO
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 5 --retry-delay 2 \
+            https://lhapdf.hepforge.org/downloads/LHAPDF-6.5.3.tar.gz \
+            --output "$RUNNER_TEMP/LHAPDF-6.5.3.tar.gz"
+          curl --fail --location --retry 5 --retry-delay 2 \
+            https://sushi.hepforge.org/downloads/SusHi-1.7.0.tar.gz \
+            --output "$RUNNER_TEMP/SusHi-1.7.0.tar.gz"
+          curl --fail --location --retry 5 --retry-delay 2 \
+            https://lhapdfsets.web.cern.ch/lhapdfsets/current/MMHT2014lo68cl.tar.gz \
+            --output "$RUNNER_TEMP/MMHT2014lo68cl.tar.gz"
+          echo '57435cd695e297065d53e69bd29090765c934936b6a975ff8c559766f2230359  '${RUNNER_TEMP}'/LHAPDF-6.5.3.tar.gz' | sha256sum --check
+          echo '509b59fe56a1dbc4274871a5f84150e0ad91b61ef44908b6aa772f2d7c6a183a  '${RUNNER_TEMP}'/SusHi-1.7.0.tar.gz' | sha256sum --check
+          echo '9586f40e3f620039f5bf082ef52281485a50c915abf44f365db87d44c896990f  '${RUNNER_TEMP}'/MMHT2014lo68cl.tar.gz' | sha256sum --check
+      - name: Compile source-pinned LHAPDF and SusHi with correct LO PDF data
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/lhapdf/share/LHAPDF"
+          tar xzf "$RUNNER_TEMP/LHAPDF-6.5.3.tar.gz" -C "$RUNNER_TEMP"
+          tar xzf "$RUNNER_TEMP/SusHi-1.7.0.tar.gz" -C "$RUNNER_TEMP"
+          tar xzf "$RUNNER_TEMP/MMHT2014lo68cl.tar.gz" -C "$RUNNER_TEMP/lhapdf/share/LHAPDF"
+          cd "$RUNNER_TEMP/LHAPDF-6.5.3"
+          ./configure --prefix="$RUNNER_TEMP/lhapdf" --disable-python
+          make -j2
+          make install
+          export PATH="$RUNNER_TEMP/lhapdf/bin:$PATH"
+          export LD_LIBRARY_PATH="$RUNNER_TEMP/lhapdf/lib:${LD_LIBRARY_PATH:-}"
+          export LHAPDF_DATA_PATH="$RUNNER_TEMP/lhapdf/share/LHAPDF"
+          echo "$RUNNER_TEMP/lhapdf/bin" >> "$GITHUB_PATH"
+          echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >> "$GITHUB_ENV"
+          echo "LHAPDF_DATA_PATH=$LHAPDF_DATA_PATH" >> "$GITHUB_ENV"
+          lhapdf-config --version
+          cd "$RUNNER_TEMP/SusHi-1.7.0"
+          ./configure
+          make -j2 LHAPATH="$RUNNER_TEMP/lhapdf/lib" F77FLAGS=-fallow-argument-mismatch
+          test -x bin/sushi
+      - name: Execute actual source-locked H/A LO ggF and bbH at 13 TeV for 16 Zee scalar cards
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u -m research.full_constraints.pheno_paper_2026.sushi_16 \
+            --sushi "$RUNNER_TEMP/SusHi-1.7.0/bin/sushi" \
+            --output-dir "$RUNNER_TEMP/zee-H-A-16-SusHi"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: zee-16-source-SusHi-neutral-H-A-13TeV-LO-no-global-Higgs-exclusion
+          path: |
+            ${{ runner.temp }}/zee-H-A-16-SusHi
+          if-no-files-found: warn
+          retention-days: 30
