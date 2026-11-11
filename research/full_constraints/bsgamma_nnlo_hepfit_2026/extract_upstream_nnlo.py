@@ -20,7 +20,7 @@ UPSTREAM_BLOB_SHA="8029be52c3e2f83490dfe3199f80e5db484dd23b"
 UPSTREAM="https://raw.githubusercontent.com/silvest/HEPfit/"+UPSTREAM_COMMIT+"/THDM/src/THDMMatching.cpp"
 
 def git_blob(b):
-    return hashlib.sha1(b"blob "+str(len(b)).encode()+b"\\0"+b).hexdigest()
+    return hashlib.sha1(b"blob "+str(len(b)).encode()+bytes([0])+b).hexdigest()
 
 def extract_text(path:Path):
     if git_blob(path.read_bytes()) != UPSTREAM_BLOB_SHA:
@@ -86,7 +86,7 @@ int main(int argc,char **argv) {
      for(int i=0;i<8;++i) {
         auto value=hepf_upstream_wc(i,tanb,mt,mH,mu,static_cast<orders>(ord));
         if(!std::isfinite(value))return 4;
-        std::cout<<ord<<" "<<i<<" "<<value<<"\\n";
+        std::cout<<ord<<" "<<i<<" "<<value<<std::endl;
      }
   }
   return 0;
