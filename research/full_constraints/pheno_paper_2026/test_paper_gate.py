@@ -88,6 +88,9 @@ class PaperGates(unittest.TestCase):
         # This is a *synthetic test fixture*, never a generated physics result.
         reconstructed=g.build(fake_new)
         self.assertTrue(reconstructed["fresh_64_source_cards_consumed_in_this_replay"])
+        self.assertTrue(reconstructed["fixed_scalar_flavor_dependence_is_measured_not_assumed"])
+        self.assertIsNotNone(reconstructed["max_fixed_scalar_flavor_family_cascade_shift_vs_historical"])
+        self.assertGreaterEqual(reconstructed["max_fixed_scalar_flavor_family_cascade_shift_vs_historical"],0)
         self.assertEqual(reconstructed["BR_input_family_scope"],"new_64_constructed_neutrino_families")
         self.assertIsNone(reconstructed["model_fully_allowed_count"])
         wrong=copy.deepcopy(fake_new)
