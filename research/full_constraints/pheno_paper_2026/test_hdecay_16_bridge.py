@@ -59,7 +59,7 @@ class PublicHdecayZeeTransferTests(unittest.TestCase):
         raw["SM_b_H_gg"]=-0.0004116456134061433
         with tempfile.TemporaryDirectory() as d:
             out=Path(d)/"receipt.txt"
-            out.write_text("".join(f"{k} {v:.17g}\\n" for k,v in raw.items()))
+            out.write_text("".join(f"{k} {v:.17g}\n" for k,v in raw.items()))
             parsed,flags=read_scoped_hdecay_reference(out)
             self.assertEqual(flags,{"SM_b_H_gg":raw["SM_b_H_gg"]})
             self.assertEqual(parsed["b_Hh_gg"],self.raw["b_Hh_gg"])
@@ -67,7 +67,7 @@ class PublicHdecayZeeTransferTests(unittest.TestCase):
             for key,value in (("b_Hh_gg",-1.e-4),("SM_b_H_WW",-1.e-4),
                               ("SM_b_H_gg",-.05)):
                 tampered=raw.copy();tampered[key]=value
-                out.write_text("".join(f"{k} {v:.17g}\\n" for k,v in tampered.items()))
+                out.write_text("".join(f"{k} {v:.17g}\n" for k,v in tampered.items()))
                 with self.assertRaises(ValueError):
                     read_scoped_hdecay_reference(out)
 
