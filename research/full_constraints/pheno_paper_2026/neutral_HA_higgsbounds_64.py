@@ -80,13 +80,31 @@ def source_rates(prod,row,state):
         raise ValueError("H/A native Zee/HDECAY disjoint width accounting failed")
     if w["full_physical_total_width_GeV"] is not None or w["normalized_physical_branching_fractions"] is not None:
         raise ValueError("Source unexpectedly promoted partial sum to physical width")
-    if w["source_uncomputed_on_shell"]:
-        raise ValueError("Missing open on-shell Zee decay channel: not even optimistic channel-complete")
+    remaining=list(w["source_uncomputed_on_shell"])
+    near_threshold=[]
+    for flag in tuple(remaining):
+        # The original native on-shell TREE ledger did not contain A->HZ.
+        # HDECAY supplies this mode via its published neutral R2HDM routine,
+        # but an independent on-shell computation differs by ~17%
+        # within only ~3 GeV of threshold. Do not certify the mode; allow
+        # its explicit numerical materiality <0.5% to be tracked for
+        # this phenomenological screening upper-rate envelope.
+        key="H Z (HDECAY reference only)"
+        if state=="A" and "A -> H Z on-shell" in flag and key in channels:
+            frac=positive(channels[key],key)/known
+            if frac<0.005:
+                near_threshold.append({"unvalidated_mode":flag,
+                    "HDECAY_source_partial_GeV":channels[key],
+                    "HDECAY_fraction_of_known_sum":frac,
+                    "assumed_uncertainty_as_big_as_entire_channel":True})
+                remaining.remove(flag)
+    if remaining:
+        raise ValueError("Material uncomputed open on-shell Zee channels: "+repr(remaining))
     missing=tuple(w.get("additional_missing_groups",()))+tuple(w.get("source_uncomputed_channel_groups",()))
     return {"mass_GeV":p["mass_GeV"],"sigma13_ggF_LO_pb":gg,
             "sigma13_bbH_LO_pb":bb,"known_Gamma_sum_GeV":known,
             "known_Gamma_over_M":known/p["mass_GeV"],
-            "channels":channels,"missing":missing}
+            "channels":channels,"missing":missing,"near_threshold_unvalidated":near_threshold}
 
 def _applied(entry):
     lim=entry.limit()
