@@ -35,6 +35,8 @@ SOURCE_APPROX=Path(__file__).with_name("APPROXIMATIONS_REVIEW_REGISTRY.json")
 SCALAR_COUNT=16
 ORIGINAL_FAMILY_PER_SCALAR=4
 LUMI_PAPER_FB=3000.0
+# 2025 PDG live Z fractions ee=0.033632, mumu=0.033662
+Z_EE_OR_MUMU_BRANCHING=0.033632+0.033662
 TARGET_SELECTED=(10.0,100.0)
 
 
@@ -227,6 +229,8 @@ def build(fresh=None):
             "sigma14_H2_H1Z_tb_product_range_fb":band([sigma14*z for z in cascade]) if sigma14 is not None else None,
             "events13_3000fb_minus1_before_Z_top_decays_and_selection":band([safe_yield(sigma13*z) for z in cascade]),
             "events14_3000fb_minus1_before_Z_top_decays_and_selection":band([safe_yield(sigma14*z) for z in cascade]) if sigma14 is not None else None,
+            "events14_3000fb_minus1_Z_to_ee_or_mumu_before_top_and_detector":band([safe_yield(sigma14*z)*Z_EE_OR_MUMU_BRANCHING for z in cascade]) if sigma14 is not None else None,
+            "epsilon_for_10_selected_after_Z_to_ee_or_mumu_at_14TeV":required_efficiency_for_n(sigma14*min(cascade)*Z_EE_OR_MUMU_BRANCHING,10.) if sigma14 is not None else None,
             "epsilon_for_10_selected_at_14TeV_using_min_rate":required_efficiency_for_n(sigma14*min(cascade),10.) if sigma14 is not None else None,
             "epsilon_for_100_selected_at_14TeV_using_min_rate":required_efficiency_for_n(sigma14*min(cascade),100.) if sigma14 is not None else None,
             "production_scale_uncertainty":None,
@@ -253,6 +257,8 @@ def build(fresh=None):
         "fresh_64_source_cards_consumed_in_this_replay":latest is not None,
         "BR_input_family_scope":rows[0]["nu_family_basis"],
         "HL_luminosity_fb_minus1_assumed":LUMI_PAPER_FB,
+        "Z_to_ee_or_mumu_branching_sum_PDG":Z_EE_OR_MUMU_BRANCHING,
+        "Z_dilepton_reference":"PDG Z listing: BR ee=3.3632%, BR mumu=3.3662%, Z daughter branching only", 
         "HL_yields_are_14TeV_LO_only_without_Z_top_decay_efficiency_or_background":True,
         "is_unbiased_parameter_space_scan":False,
         "model_fully_allowed_count":None,
@@ -279,6 +285,8 @@ def outputs(report,out:Path):
         "BR_H2_to_H1_Z_range","BR_H2_H1Z_H1_tb_product_range",
         "sigma13_H2_H1Z_tb_product_range_fb","sigma14_H2_H1Z_tb_product_range_fb",
         "events14_3000fb_minus1_before_Z_top_decays_and_selection",
+        "epsilon_for_10_selected_after_Z_to_ee_or_mumu_at_14TeV",
+        "events14_3000fb_minus1_Z_to_ee_or_mumu_before_top_and_detector",
         "epsilon_for_10_selected_at_14TeV_using_min_rate",
         "epsilon_for_100_selected_at_14TeV_using_min_rate",
         "nu_family_basis","global_acceptance"
