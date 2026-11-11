@@ -1,0 +1,43 @@
+name: Zee algebraic direct LFV neutral Yukawa null-texture pilot
+on:
+  push:
+    branches:
+      - research/zee-full-constraints
+    paths:
+      - research/full_constraints/scan_pilot_2026/analytic_direct_lfv_textures.py
+      - research/full_constraints/scan_pilot_2026/test_analytic_direct_lfv_textures.py
+      - .github/workflows/zee-analytic-8d-lfv-texture.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-exact-inverse-eight-cases:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Original pinned Zee physics numerical environment
+        run: |
+          uv python install 3.10.12
+          uv venv --python 3.10.12 "$RUNNER_TEMP/zee-algebra"
+          uv pip install --python "$RUNNER_TEMP/zee-algebra/bin/python" numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-algebra/bin" >> "$GITHUB_PATH"
+      - name: Validate exact two-complex-Yukawa pseudoinverse neutrino closure
+        run: |
+          python -m unittest research.full_constraints.scan_pilot_2026.test_analytic_direct_lfv_textures -v
+      - name: Evaluate eight independent algebraic textures, full retained radiative LFV, D4, photons
+        run: |
+          python -u -m research.full_constraints.scan_pilot_2026.analytic_direct_lfv_textures --output "$RUNNER_TEMP/zee-eight-algebraic-zero-e-mu-neutral-Yukawas.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zee-eight-complex-algebraic-textures-lfv-partial-not-global
+          path: ${{ runner.temp }}/zee-eight-algebraic-zero-e-mu-neutral-Yukawas.json
+          if-no-files-found: error
+          retention-days: 30
