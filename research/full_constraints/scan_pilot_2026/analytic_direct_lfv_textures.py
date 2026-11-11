@@ -116,8 +116,12 @@ def build(row,ordering,seed,allowed_ids=IDS):
                         hgg["g_h_charged_GeV"],hgg["Z_current"],v=p["v"])
     smzg=zgamma.amplitude(p["mh1"],1,{f:1 for f in hgg["kappas"]},v=p["v"])
     production=row["families"][0]["production"]
-    if production["energy_TeV"]!=13 or production.get("sigma_pb") is None:
-        raise ArithmeticError("Original quark hard rate missing")
+    if production and production.get("sigma_pb") is not None:
+        if production["energy_TeV"] != 13:
+            raise ArithmeticError("Unexpected original quark hard-process energy")
+        sigma13 = float(production["sigma_pb"])
+    else:
+        sigma13 = None  # Missing historical production, NEVER a physical zero.
     br=float(lf["channels"]["mu_to_e_gamma"]["partial_BR"])
     result.update({
         "partial_mu_to_e_gamma_BR":br,
@@ -130,8 +134,8 @@ def build(row,ordering,seed,allowed_ids=IDS):
         "D4_cascade_product":widths["cascade_product"],
         "D4_BR_H2_H1Z":widths["mothers"]["H2"]["br_H1_Z"],
         "D4_BR_H1_tb":widths["mothers"]["H1"]["br_tb"],
-        "original_13TeV_LO_quark_sigma_pb":production["sigma_pb"],
-        "13TeV_LO_quark_invariant_cascade_proxy_fb":1000*production["sigma_pb"]*widths["cascade_product"],
+        "original_13TeV_LO_quark_sigma_pb":sigma13,
+        "13TeV_LO_quark_invariant_cascade_proxy_fb":None if sigma13 is None else 1000*sigma13*widths["cascade_product"],
         "original_production_full_family_input_revalidated":False,
         "h125_gamma_ratios":{
             "gammagamma_to_SM":hgg["ratio_to_SM"],
