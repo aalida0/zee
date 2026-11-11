@@ -12,7 +12,8 @@ This is a scan-accounting tool, not a complete Higgs/LFV/B global fit.
 from __future__ import annotations
 
 import argparse
-from collections import Counter,defaultdict
+from collections import Counter
+import hashlib
 import json
 import math
 from pathlib import Path
@@ -45,12 +46,21 @@ def audit(config_path:Path,manifest_path:Path,worker_paths:list[Path],require_co
     if total_weight<=0:raise ValueError("Invalid proposal arm weights")
     arms={a["name"]:a for a in config["arms"]}
     if len(arms)!=len(config["arms"]):raise ValueError("Duplicate proposal arm")
+    config_sha=hashlib.sha256(
+        json.dumps(config,sort_keys=True,separators=(",",":"),allow_nan=False).encode()
+    ).hexdigest()
     expected={}
     for line in read_jsonl(manifest_path):
         i=line["id"]
         if i in expected:raise ValueError("Duplicate proposed ID")
         if line["arm"] not in arms:raise ValueError("Unexpected proposed arm")
-        if line["scalar_sha256"] is None:raise ValueError("Scalar proposal without SHA")
+        if line.get("config_sha256")!=config_sha:
+            raise ValueError("Proposal config source hash mismatch")
+        source_sha=hashlib.sha256(
+            json.dumps(line["scalar"],sort_keys=True,separators=(",",":"),allow_nan=False).encode()
+        ).hexdigest()
+        if line.get("scalar_sha256")!=source_sha:
+            raise ValueError("Scalar proposal SHA does not match source bytes")
         expected[i]=line
     if len(expected)!=config["count"]:
         raise ValueError("Manifest does not have exact configured proposal count")
@@ -71,6 +81,8 @@ def audit(config_path:Path,manifest_path:Path,worker_paths:list[Path],require_co
         for line in read_jsonl(file):
             i=line["id"]
             if i not in expected or i in seen:raise ValueError("Unexpected/duplicate worker ID")
+            if line.get("config_sha256")!=config_sha:
+                raise ValueError("Worker config source mismatch")
             if line["scalar_sha256"]!=expected[i]["scalar_sha256"]:
                 raise ValueError("Worker scalar source SHA not equal to proposal")
             if line["gates"].keys() != {"reconstruction","bfb","unitarity","ewpo","vacuum"}:
@@ -103,6 +115,7 @@ def audit(config_path:Path,manifest_path:Path,worker_paths:list[Path],require_co
         "schema":"zee-stratified-conditional-scalar-proposal-accounting-v1",
         "source_sampling_mode":config["sampling_mode"],
         "proposal_seed":config["seed"],
+        "original_config_sha256":config_sha,
         "total_expected":len(expected),
         "total_processed":len(seen),
         "complete_worker_coverage":len(seen)==len(expected),
