@@ -1,0 +1,42 @@
+name: Zee fresh eight-dimensional LFV texture pilot (no global acceptance)
+on:
+  push:
+    branches:
+      - research/zee-full-constraints
+    paths:
+      - research/full_constraints/scan_pilot_2026/fresh_8d_lfv_pilot.py
+      - research/full_constraints/scan_pilot_2026/test_fresh_8d_lfv_pilot.py
+      - .github/workflows/zee-fresh-8d-lfv-pilot.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  eight-dimensional-flavor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Setup 2026-11-10 pinned source runtime
+        run: |
+          uv python install 3.10.12
+          uv venv --python 3.10.12 "$RUNNER_TEMP/zee-8d"
+          uv pip install --python "$RUNNER_TEMP/zee-8d/bin/python" numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-8d/bin" >> "$GITHUB_PATH"
+      - name: Check exact scalar and fresh neutrino closure and eight directions
+        run: python -m unittest research.full_constraints.scan_pilot_2026.test_fresh_8d_lfv_pilot -v
+      - name: Run two-start eight-real-dimensional retained-dipole optimization and direction stability
+        run: |
+          python -m research.full_constraints.scan_pilot_2026.fresh_8d_lfv_pilot --max-nfev 32 --output "$RUNNER_TEMP/zee-2264-8d-new-family-conditional.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zee-2264-fresh-8d-target-and-lfv-not-global-allowed
+          path: ${{ runner.temp }}/zee-2264-8d-new-family-conditional.json
+          if-no-files-found: error
+          retention-days: 30
