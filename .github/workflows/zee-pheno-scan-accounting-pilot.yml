@@ -1,0 +1,79 @@
+name: Zee phenomenology stratified scalar scan accounting smoke pilot
+on:
+  push:
+    branches: [research/zee-full-constraints]
+    paths:
+      - research/full_constraints/pheno_paper_2026/scan_accounting.py
+      - research/full_constraints/pheno_paper_2026/test_scan_accounting.py
+      - .github/workflows/zee-pheno-scan-accounting-pilot.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-locked-small-stratified-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Pinned original Zee scalar and neutrino numerical runtime
+        run: |
+          uv python install 3.11.11
+          uv venv --python 3.11.11 "$RUNNER_TEMP/zee-sampling"
+          uv pip install --python "$RUNNER_TEMP/zee-sampling/bin/python" numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-sampling/bin" >> "$GITHUB_PATH"
+      - name: Five deterministic fail-closed stratified-scan counting tests
+        run: |
+          python -m unittest research.full_constraints.pheno_paper_2026.test_scan_accounting -v
+      - name: Generate twelve independent real scalar proposals, respecting original three correlated arms
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - "$RUNNER_TEMP/pilot.json" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+          cfg=json.loads(Path("module14/conditional_scan/next20k_proposal.json").read_text())
+          if cfg["count"]!=20000 or cfg["sampling_mode"]!="correlated_heavy_v1":
+              raise ValueError("Published D14 original correlated sampling recipe changed")
+          cfg["count"]=12
+          cfg["seed"]=20261112
+          cfg["shard_size"]=12
+          Path(sys.argv[1]).write_text(json.dumps(cfg,sort_keys=True,indent=2)+"\n")
+          PY
+          python -m module14.scan generate \
+            --config "$RUNNER_TEMP/pilot.json" --output "$RUNNER_TEMP/zee-sampling-proposals"
+      - name: Evaluate actual tree potential and neutrino source on each pilot proposal
+        shell: bash
+        run: |
+          python -m module14.scan worker \
+            --config "$RUNNER_TEMP/pilot.json" \
+            --shard "$RUNNER_TEMP/zee-sampling-proposals/shard_000000.jsonl" \
+            --output "$RUNNER_TEMP/zee-sampling-worker.jsonl" \
+            --receipt "$RUNNER_TEMP/zee-sampling-worker-receipt.json" \
+            --families 1
+      - name: Stratified per-arm PASS/FAIL/UNKNOWN without global physical acceptance
+        shell: bash
+        run: |
+          python -u -m research.full_constraints.pheno_paper_2026.scan_accounting \
+            --config "$RUNNER_TEMP/pilot.json" \
+            --manifest "$RUNNER_TEMP/zee-sampling-proposals/manifest.jsonl" \
+            --worker "$RUNNER_TEMP/zee-sampling-worker.jsonl" \
+            --output "$RUNNER_TEMP/zee-sampling-accounting.json" --require-complete
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zee-stratified-twelve-source-scalar-smoke-test-not-paper-fit
+          path: |
+            ${{ runner.temp }}/pilot.json
+            ${{ runner.temp }}/zee-sampling-proposals/manifest.jsonl
+            ${{ runner.temp }}/zee-sampling-worker.jsonl
+            ${{ runner.temp }}/zee-sampling-worker-receipt.json
+            ${{ runner.temp }}/zee-sampling-accounting.json
+          if-no-files-found: error
+          retention-days: 30
