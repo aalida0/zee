@@ -114,10 +114,8 @@ def load_sources():
        or bn["two_sided_95_LO_NP_n"]!=16):
         raise ValueError("Published B screens changed; update the scientific review")
     for ident,row in ids.items():
-        if row["scalar_sha256"] not in (
-            bmap[ident]["original_scalar_sha256"],
-            nnmap[ident]["scalar_sha256"],
-        ):
+        if (row["scalar_sha256"]!=bmap[ident]["original_scalar_sha256"]
+            or row["scalar_sha256"]!=nnmap[ident]["scalar_sha256"]):
             raise ValueError("Source scalar SHA mismatch")
         if any(v["assessment"]!="PASS" for v in row["gates"].values()):
             raise ValueError("Original 16 scalar theory/EWPO/vacuum certificate invalid")
