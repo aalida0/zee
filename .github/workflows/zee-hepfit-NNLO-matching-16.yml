@@ -63,7 +63,7 @@ jobs:
             --binary "$RUNNER_TEMP/hepfit-bsgamma-three-loop-oracle" \
             --output "$RUNNER_TEMP/zee-16-scalar-HEPfit-three-loop-matching.json"
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: false # temporary: original upload action stalled after physics success, preserve stdout
         with:
           name: zee-16-source-matched-HEPfit-three-loop-NNLO-Wilson-only-not-full-rate
           path: ${{ runner.temp }}/zee-16-scalar-HEPfit-three-loop-matching.json
