@@ -99,8 +99,7 @@ def heavy_tree_channels(p,D,state):
     lagrangian=reconstruct(p)[0]
     g=trilinears(p,lagrangian)[state]
     for i in (1,2):
-        for j in (i,2):
-            if j<i:continue
+        for j in range(i,3):
             factor=2 if j!=i else 1
             channels[f"H{i}+ H{j}-"+(" and c.c." if i!=j else "")]=positive_channel(
                 factor*scalar_scalar(M,p[f"mH{i}"],p[f"mH{j}"],g[i,j]),
