@@ -10,7 +10,7 @@ class ZeeLinearTextureTests(unittest.TestCase):
         cls.p={x["id"]:x for x in source_points()}
 
     def test_minimum_norm_complex_constraints_close(self):
-        row=a.build(cls.p[15591],"NO",20261111)
+        row=a.build(self.p[15591],"NO",20261111)
         self.assertEqual(row["linear_constraint_rank_complex"],2)
         self.assertEqual(row["remaining_direct_Yukawa_nullity_complex"],2)
         self.assertLess(max(row["direct_D_e_mu"],row["direct_D_mu_e"]),1e-10)
