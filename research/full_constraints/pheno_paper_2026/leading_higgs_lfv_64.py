@@ -141,6 +141,14 @@ def _model_known_h125(p,D,ml,ratios,sm):
     # lo_amplitude returns (complex amplitude, metadata), do NOT treat
     # the complete tuple as a scalar amplitude.
     gg_ratio=abs(gg[0]/ggsm[0])**2
+    # General Zee lepton Yukawas are not Type-II NFC; retain complex
+    # physical diagonal couplings, including CP-odd components.
+    lepton_kappas={}
+    for i,name in enumerate(("e","mu","tau")):
+        cdiag=complex(ch[i,i])
+        normalized=cdiag*p["v"]/float(ml[i])
+        lepton_kappas[name]={"scalar":float(normalized.real),
+                             "pseudoscalar":float(-normalized.imag)}
     out={}
     for flav in ("bb","ss","dd"):
         out[flav]=sm[flav]*kd**2
@@ -162,6 +170,7 @@ def _model_known_h125(p,D,ml,ratios,sm):
     return {"matched_known_channel_sum_GeV":floor,
             "matched_independent_quark_lo_gg_ratio":gg_ratio,
             "kappaV":kv,"kappa_top":ku,"kappa_bottom":kd,
+            "Zee_lepton_diagonal_kappas_complex":lepton_kappas,
             "known_partial_widths_GeV":out,
             "BR_mue_over_Gamma_bb_upper_bound":out["ll_e_mu"]/gb,
             "BR_mutau_over_Gamma_bb_upper_bound":out["ll_mu_tau"]/gb,
