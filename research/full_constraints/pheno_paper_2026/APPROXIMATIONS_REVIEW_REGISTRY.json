@@ -215,6 +215,32 @@
       ],
       "reviewer_objection": "A paper claiming new allowed parameter regions or novelty from algebraic zeros alone is not sufficiently original, and selected-only scatter cannot support parameter-space conclusions",
       "allowed_claim": "A finite controlled benchmark and rate/constraint correlation pilot; a production scan and novelty benchmark required before paper acceptance"
+    },
+    {
+      "id": "P17",
+      "subject": "Five-flavor heavy H2 production scheme and missing 4FS/NLO",
+      "approximation": "LO gg/gb-associated production in the five-flavor scheme, fixed muF=muR=mH2, one PDF; 4FS hard-bottom kinematics and 4FS/5FS NLO matching not calculated",
+      "classification": "MISSING_THEORY_SYSTEMATICS",
+      "justification": "Degrande, Ubiali, Wiesemann, Zaro JHEP10(2015)145 explicitly find NLO improvement to 4FS/5FS agreement for inclusive b but emphasize more robust hard-bottom kinematics in 4FS. Charged Higgs review EPJC77(2017)470 Sec6 describes Santander matching as cross-scheme recommendation, not free K-factor.",
+      "citations": [
+        "https://doi.org/10.1007/JHEP10(2015)145",
+        "https://doi.org/10.1140/epjc/s10052-017-4829-2"
+      ],
+      "reviewer_objection": "A LO 5FS cross section with 0.2% integration error must not be marketed as a 0.2% prediction. Need at least muF/muR and PDF variation and ideally 4FS/NLO check before exclusion or detector acceptance.",
+      "allowed_claim": "LO 5FS baseline with explicit missing theory uncertainty, suitable for conditional pre-detector rate comparisons"
+    },
+    {
+      "id": "P18",
+      "subject": "Heavy neutral H/A exact source consistency and HiggsTools coverage",
+      "approximation": "H/A partial width catalogs previously validated only on D7/F13 original cards; no source-qualified complete H/A width or observed-search result for new 15673 Yukawa benchmark",
+      "classification": "PAPER_CRITICAL_MISSING",
+      "justification": "Native HDECAY hadronic channel approximations and H/A→H1±W/ZZ loops require complete non-overlapping positive total widths, production rates, SM reference; public HiggsTools analysis grids require mass and width model input.",
+      "citations": [
+        "https://higgsbounds.gitlab.io/higgstools/Datafile.html",
+        "research/full_constraints/HIGGS_NEUTRAL_WIDTH_SEARCH_REPORT.md"
+      ],
+      "reviewer_objection": "Model point may already be excluded by pp→H/A→tau tau, tt, H1 W, and Higgs precision; H125 near alignment alone does not cure heavy Higgs searches.",
+      "allowed_claim": "No HiggsTools global pass; heavy neutral direct searches unqualified"
     }
   ],
   "paper_claims": {
