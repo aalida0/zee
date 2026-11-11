@@ -232,15 +232,16 @@
     {
       "id": "P18",
       "subject": "Heavy neutral H/A exact source consistency and HiggsTools coverage",
-      "approximation": "H/A partial width catalogs previously validated only on D7/F13 original cards; no source-qualified complete H/A width or observed-search result for new 15673 Yukawa benchmark",
-      "classification": "PAPER_CRITICAL_MISSING",
-      "justification": "Native HDECAY hadronic channel approximations and H/A→H1±W/ZZ loops require complete non-overlapping positive total widths, production rates, SM reference; public HiggsTools analysis grids require mass and width model input.",
+      "approximation": "New native heavy H/A on-shell tree two-body lower-width ledgers for all 64 flavor inputs are now computed, including tt, bb, charged H1W and open charged pairs; loop gg/gammagamma/Zgamma, full QCD width, all off-shell modes, observed HiggsTools direct searches and H/A production remain unqualified.",
+      "classification": "PARTIAL_TREE_H_A_VALIDATED__OBSERVED_LIMITS_MISSING",
+      "justification": "Existing HDECAY old-card benchmarks plus independent 2026-11-11 new-family native full disjoint on-shell tree channel ledgers; HiggsTools requires physical complete width and production. The conservative tau-tau width upper bound alone does not supply an experimental likelihood.",
       "citations": [
         "https://higgsbounds.gitlab.io/higgstools/Datafile.html",
-        "research/full_constraints/HIGGS_NEUTRAL_WIDTH_SEARCH_REPORT.md"
+        "research/full_constraints/HIGGS_NEUTRAL_WIDTH_SEARCH_REPORT.md",
+        "research/full_constraints/pheno_paper_2026/heavy_HA_tree_widths.py"
       ],
-      "reviewer_objection": "Model point may already be excluded by pp→H/A→tau tau, tt, H1 W, and Higgs precision; H125 near alignment alone does not cure heavy Higgs searches.",
-      "allowed_claim": "No HiggsTools global pass; heavy neutral direct searches unqualified"
+      "reviewer_objection": "H/A→H1W is large in the new 15673 tree ledger; all relevant hadron-collider heavy-neutral search final states and production/total-width inputs still need qualification before an observed Higgs exclusion.",
+      "allowed_claim": "Source-matched tree-level heavy H/A partial-width inventory and positive lower bound to total; no observed HiggsTools pass"
     }
   ],
   "paper_claims": {
