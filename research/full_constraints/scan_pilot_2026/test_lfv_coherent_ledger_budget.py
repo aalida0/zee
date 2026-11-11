@@ -30,7 +30,8 @@ class SourceLockedCoherentLFVBudgetTest(unittest.TestCase):
     def test_saved_benchmark_mu_egamma_small_without_importing_bars(self):
         mu=self.v["channels"]["mu_to_e_gamma"]
         self.assertTrue(math.isclose(
-            mu["source_included_BR"],4.7468329803506013e-23,rel_tol=1e-9),\n            f'observed={mu["source_included_BR"]:.17e} expected=4.7468329803506013e-23')
+            mu["source_included_BR"],4.7468329803506013e-23,rel_tol=1e-9),
+            f'observed={mu["source_included_BR"]:.17e} expected=4.7468329803506013e-23')
         self.assertGreater(mu["headroom_for_missing_total_vector_GeV_minus2"],0)
         self.assertTrue(mu["hypothetical_K_is_not_a_bound"])
 
