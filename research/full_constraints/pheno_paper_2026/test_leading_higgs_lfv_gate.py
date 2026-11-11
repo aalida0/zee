@@ -31,11 +31,17 @@ class ScopedHiggsLFVGates(unittest.TestCase):
                 gate.evaluate(f,Path(td)/"out.json")
 
     def test_partial_amplitude_cannot_be_treated_as_complete_physical_lfv(self):
-        self.assertIn("full_mu3e_one_loop_executed", gate.evaluate.__code__.co_consts
-                      if False else ("full_mu3e_one_loop_executed",))
-        self.assertIn("not-a-real-CLs", "this-is-not-a-real-CLs")
-        self.assertIn("Al_conversion_full_one_loop",Path(
-            __file__).with_name("leading_higgs_lfv_gate.py").read_text())
+        text=Path(__file__).with_name("leading_higgs_lfv_gate.py").read_text()
+        for physically_required in (
+            '"full_mu3e_one_loop_executed":False',
+            '"full_mu_e_conversion_executed":False',
+            '"full_Zee_mixed_two_loop_LFV_executed":False',
+            '"physical_Higgs":"UNKNOWN"',
+            '"physical_LFV":"UNKNOWN"',
+            '"global_acceptance":None',
+            '"Al_conversion_full_one_loop":None',
+        ):
+            self.assertIn(physically_required,text)
 
 if __name__=="__main__":
     unittest.main()
