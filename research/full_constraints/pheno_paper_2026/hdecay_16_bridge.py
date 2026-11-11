@@ -12,8 +12,39 @@ from pathlib import Path
 from module7.d4_inputs import SM
 from module7.d4_tree_kernels import scalar_vector,scalar_scalar
 from research.full_constraints.higgs.decays_bridge import neutral_hhh
-from research.full_constraints.higgs.decays_bridge import read_output
 from research.full_constraints.scan_pilot_2026.historical_certified_texture import source_points
+
+def read_scoped_hdecay_reference(path):
+    """Parse the public-code entire receipt and explicitly audit unusable SM controls.
+
+    HDECAY 6.60 sometimes returns a NEGATIVE *reference-only* SM_b_H_gg
+    control for extremely heavy auxiliary SM masses, e.g. original scalar
+    11016 -> -4.116456134061433e-4. No such value enters any Zee
+    partial width: the actual model H/A gg channels use b_Hh_gg/b_A_gg.
+    An invalid transferred rate, reference total, gauge control, or any
+    unrecognized negative channel is rejected rather than clipped.
+    """
+    values={}
+    negative_controls={}
+    for line in Path(path).read_text().splitlines():
+        fields=line.split()
+        if len(fields)!=2:
+            raise ValueError("Malformed public HDECAY reference output")
+        key,s=fields
+        if key in values:
+            raise ValueError("Duplicate HDECAY key "+key)
+        val=float(s)
+        if not math.isfinite(val):
+            raise ValueError("Nonfinite HDECAY output "+key)
+        if val<0:
+            if key!="SM_b_H_gg" or val < -1.0e-3:
+                raise ValueError(f"Unexpected unphysical HDECAY output {key}={val}")
+            negative_controls[key]=val
+        values[key]=val
+    if not values or not all(k in values for k in ("w_Hh","w_A","SM_w_H")):
+        raise ValueError("Incomplete public HDECAY control")
+    return values,negative_controls
+
 
 def finite(v,label):
     val=float(v)
@@ -89,7 +120,7 @@ def run(driver:Path,out:Path):
         outfile=root/("hdecay_control_"+str(rid)+".txt")
         if outfile.exists():raise FileExistsError(outfile)
         outfile.write_text(res.stdout)
-        values=read_output(outfile)
+        values,anomalies=read_scoped_hdecay_reference(outfile)
         source=extract(values,p)
         rows.append({
             "scalar_id":rid,
@@ -97,6 +128,7 @@ def run(driver:Path,out:Path):
             "HDECAY_R2HDM_argv":args,
             "raw_hdecay_stdout_sha256":hashlib.sha256(res.stdout.encode()).hexdigest(),
             "heavy_states":source,
+            "unused_SM_reference_output_anomalies_NOT_TRANSFERRED":anomalies,
             "H_A_Zee_physical_widths_complete":False,
             "HiggsBounds_observed_limits_applied":False,
         })
