@@ -47,7 +47,7 @@ def run(source:Path, dataset:Path, output:Path):
         # a separate treatment; if absent, no non-SM tau coupling is guessed.
         inputs={
             "m_h":125.0,
-            "CP_h":"even",
+            "CP_h":1,  # HiggsTools Input parser requires int CP code, +1=even
             "effc_h_WW":float(h["kappaV"]),
             "effc_h_ZZ":float(h["kappaV"]),
             "effc_h_tt_s":float(h["kappa_top"]),
