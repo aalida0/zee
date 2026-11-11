@@ -1,0 +1,71 @@
+name: Zee official HEPfit NNLO charged Higgs three-loop matching source crosscheck
+on:
+  push:
+    branches: [research/zee-full-constraints]
+    paths:
+      - research/full_constraints/bsgamma_nnlo_hepfit_2026/extract_upstream_nnlo.py
+      - research/full_constraints/bsgamma_nnlo_hepfit_2026/probe_16_three_loop.py
+      - .github/workflows/zee-hepfit-NNLO-matching-16.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  upstream-hepfit-three-loop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Fail fast on Python wrapper syntax
+        run: python3 -m py_compile research/full_constraints/bsgamma_nnlo_hepfit_2026/*.py
+      - name: Install GNU scientific library for original HEPfit matching
+        run: |
+          sudo apt-get -qq update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get -qq install --no-install-recommends -y libgsl-dev
+      - name: Fetch byte-identical HEPfit 3-loop matching from upstream GPL source
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL --retry 3 --connect-timeout 10 --max-time 45 \
+            https://raw.githubusercontent.com/silvest/HEPfit/add26f5ac16cec688021d95226ece6397de29e5e/THDM/src/THDMMatching.cpp \
+            -o "$RUNNER_TEMP/THDMMatching.cpp"
+          echo "EXPECTED_SOURCE_GIT_BLOB_SHA 8029be52c3e2f83490dfe3199f80e5db484dd23b"
+          git hash-object "$RUNNER_TEMP/THDMMatching.cpp"
+          test "$(git hash-object "$RUNNER_TEMP/THDMMatching.cpp")" = "8029be52c3e2f83490dfe3199f80e5db484dd23b"
+          python3 -m research.full_constraints.bsgamma_nnlo_hepfit_2026.extract_upstream_nnlo \
+            --source "$RUNNER_TEMP/THDMMatching.cpp" --output "$RUNNER_TEMP/hepfit-three-loop-ephemeral.cpp"
+      - name: Build original published NNLO charged scalar Wilson code in isolation
+        shell: bash
+        run: |
+          set -euo pipefail
+          g++ -std=c++17 -O2 -Wall -Wextra \
+              "$RUNNER_TEMP/hepfit-three-loop-ephemeral.cpp" -lgsl -lgslcblas -lm \
+              -o "$RUNNER_TEMP/hepfit-bsgamma-three-loop-oracle"
+          "$RUNNER_TEMP/hepfit-bsgamma-three-loop-oracle" 5.5 163.969 800 160 | head -5
+      - uses: astral-sh/setup-uv@v6
+      - name: Pin independent BMU numerical matching requirements
+        shell: bash
+        run: |
+          uv python install 3.11.11
+          uv venv --python 3.11.11 "$RUNNER_TEMP/zee-B-NNLO"
+          uv pip install --python "$RUNNER_TEMP/zee-B-NNLO/bin/python" numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-B-NNLO/bin" >> "$GITHUB_PATH"
+      - name: Execute 16 original two-state Zee NNLO matching and BMU crosschecks
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u -m research.full_constraints.bsgamma_nnlo_hepfit_2026.probe_16_three_loop \
+            --binary "$RUNNER_TEMP/hepfit-bsgamma-three-loop-oracle" \
+            --output "$RUNNER_TEMP/zee-16-scalar-HEPfit-three-loop-matching.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: zee-16-source-matched-HEPfit-three-loop-NNLO-Wilson-only-not-full-rate
+          path: ${{ runner.temp }}/zee-16-scalar-HEPfit-three-loop-matching.json
+          if-no-files-found: warn
+          retention-days: 30
