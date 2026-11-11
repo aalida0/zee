@@ -48,6 +48,27 @@ def run(binary:Path,output:Path):
             from_hepfit=oracle(binary,tanb,mt,mass,mu)
             native=bmu(mass,tanb,mt,mu)
             lo=from_hepfit["0"];nlo=from_hepfit["1"];nnlo=from_hepfit["2"]
+            # Reverse the *source* effective-dipole transformation before
+            # comparing to independently computed ordinary BMU NDR kernels.
+            ordinary_nlo_7=nlo["C7"]+4./9.*nlo["C4"]
+            ordinary_nlo_8=nlo["C8"]+1./6.*nlo["C4"]
+            ordinary_nnlo_7=(nnlo["C7"]+nnlo["C3"]/3.
+                +4./9.*nnlo["C4"]+20./3.*nnlo["C5"]+80./9.*nnlo["C6"])
+            ordinary_nnlo_8=(nnlo["C8"]-nnlo["C3"]
+                +nnlo["C4"]/6.-20.*nnlo["C5"]+10./3.*nnlo["C6"])
+            independent_pairs={
+                "LO_C7":(lo["C7"],native["C7_LO"]),
+                "LO_C8":(lo["C8"],native["C8_LO"]),
+                "NLO_C4":(nlo["C4"],native["C4_NLO_raw"]),
+                "NLO_C7_ordinary":(ordinary_nlo_7,native["C7_NLO_raw"]),
+                "NLO_C8_ordinary":(ordinary_nlo_8,native["C8_NLO_raw"]),
+            }
+            for key,(upstream,independent) in independent_pairs.items():
+                if not math.isclose(upstream,independent,rel_tol=3e-9,abs_tol=3e-11):
+                    raise ArithmeticError(
+                        f"Source-basis mismatch for {p['id']} {mass} {key}: "
+                        f"HEPfit={upstream}, BMU={independent}"
+                    )
             compare={
                 "LO_C7_upstream":lo["C7"],"LO_C8_upstream":lo["C8"],
                 "LO_C7_BMU":native["C7_LO"],"LO_C8_BMU":native["C8_LO"],
@@ -59,6 +80,10 @@ def run(binary:Path,output:Path):
                 "NLO_C7_BMU":native["C7_NLO_raw"],
                 "NLO_C8_BMU":native["C8_NLO_raw"],
                 "NNLO_matching_C3_to_C8_source":{k:v for k,v in nnlo.items() if k in ("C3","C4","C5","C6","C7","C8")},
+                "NNLO_C7_ordinary_reconstructed":ordinary_nnlo_7,
+                "NNLO_C8_ordinary_reconstructed":ordinary_nnlo_8,
+                "independent_LO_NLO_operator_basis_checks":"ALL_FIVE_PASS",
+                "operator_basis_conversion":"C7_eff=C7_ord-C3/3-4*C4/9-20*C5/3-80*C6/9; C8_eff=C8_ord+C3-C4/6+20*C5-10*C6/3",
             }
             sources.append({"charged_mass_GeV":mass,"matched_Hepfit":from_hepfit,"matched_BMU":native,"comparisons":compare})
         mixed={}
