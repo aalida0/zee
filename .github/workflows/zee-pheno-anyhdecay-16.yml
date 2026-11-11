@@ -43,7 +43,9 @@ jobs:
           git -C "$RUNNER_TEMP/anyhdecay" checkout --detach "$ANYHDECAY_PIN"
           test "$(git -C "$RUNNER_TEMP/anyhdecay" rev-parse HEAD)" = "$ANYHDECAY_PIN"
           cmake -S "$RUNNER_TEMP/anyhdecay" -B "$RUNNER_TEMP/anyhdecay/build" -DCMAKE_BUILD_TYPE=Release
-          # Build only the validated physics library: old bundled Catch tests\n          # fail on current glibc altStackMem (historical F13 receipt records this).\n          cmake --build "$RUNNER_TEMP/anyhdecay/build" --target anyhdecay --parallel 2
+          # Build only the validated physics library: old bundled Catch tests
+          # fail on current glibc altStackMem (historical F13 receipt records this).
+          cmake --build "$RUNNER_TEMP/anyhdecay/build" --target anyhdecay --parallel 2
           g++ -std=c++17 -O2 \
             -I"$RUNNER_TEMP/anyhdecay/include" \
             research/full_constraints/higgs/anyhdecay_driver.cpp \
