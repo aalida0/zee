@@ -1,0 +1,52 @@
+name: Zee 2264 frozen inverse replay portability diagnostic
+on:
+  push:
+    branches:
+      - research/zee-full-constraints
+    paths:
+      - research/full_constraints/scan_pilot_2026/diagnose_2264_source_replay.py
+      - .github/workflows/zee-2264-source-diagnostic.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-source-input:
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10.12", "3.11.11"]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Pinned Python and exact source numerical packages
+        run: |
+          uv python install ${{ matrix.python }}
+          uv venv --python ${{ matrix.python }} "$RUNNER_TEMP/zee-check"
+          uv pip install --python "$RUNNER_TEMP/zee-check/bin/python" numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-check/bin" >> "$GITHUB_PATH"
+      - name: Independently reconstruct the original inverse and Yukawa hashes
+        run: |
+          python -m research.full_constraints.scan_pilot_2026.diagnose_2264_source_replay --output "$RUNNER_TEMP/zee-source-diagnostic.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zee-2264-source-diagnostic-py${{ matrix.python }}-not-acceptance
+          path: ${{ runner.temp }}/zee-source-diagnostic.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Strict provenance gate (must not be bypassed)
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          obj = json.loads((Path(os.environ["RUNNER_TEMP"]) / "zee-source-diagnostic.json").read_text())
+          assert obj["all_frozen_source_hashes_matched"], "Frozen historical source identity is not reproduced: no physical card may be promoted"
+          PY
