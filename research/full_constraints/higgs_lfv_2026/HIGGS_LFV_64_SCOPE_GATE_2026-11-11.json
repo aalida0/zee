@@ -1,0 +1,87 @@
+{
+  "schema": "zee-Higgs-LFV-64-constructed-source-scoped-publication-gate-v1",
+  "date": "2026-11-11",
+  "source_64_uncompressed_json_sha256": "e8c805dff20e7d34c5d58d07b2b47b37e033f10c97bbb744b399cedfb126359b",
+  "source_h125_sm_ledger_blob_sha256": "d33f5f2feea355a13a09c98747dc69e9914abd0c",
+  "number_original_scalar_spectra": 16,
+  "number_new_constructed_neutrino_families": 64,
+  "max_neutrino_mass_relative_closure": 4.64180750638e-15,
+  "max_abs_direct_D_e_mu": 3.47621661098e-18,
+  "max_replay_one_loop_muegamma_relative_difference": 1.229117917e-8,
+  "one_loop_radiative_MEGII_below_90CL_count": 64,
+  "h125_direct_mu_tau_nominal_partial_width_screen_below_ATLAS_95CL_count": 64,
+  "h125_direct_e_tau_nominal_partial_width_screen_below_ATLAS_95CL_count": 64,
+  "experimental_observed_limits": {
+    "mu_to_e_gamma_90CL": 1.5e-13,
+    "h125_to_mu_tau_95CL": 0.0018,
+    "h125_to_e_tau_95CL": 0.002
+  },
+  "all_64_max_h125_mu_tau_width_over_bb": 0.00017338396264080557,
+  "all_64_max_h125_e_tau_width_over_bb": 3.465924101577493e-7,
+  "all_64_min_restricted_F_gauge_dressing_K_critical": 17107.4718361883,
+  "examples": [
+    {
+      "scalar_id": 15673,
+      "selected_max_mu_e_gamma_BR": 1.9715272366439989e-19,
+      "kappaV": 0.9999470903393635,
+      "kappa_top": 0.9922037065464272,
+      "kappa_bottom": 1.0136125013108972,
+      "coherent_LO_ggF_ratio": 0.9822562745696739,
+      "h125_known_sum_MeV_range": [
+        4.1294390419479665,
+        4.129467351644246
+      ],
+      "max_h125_mu_tau_over_bb": 3.737340259135507e-7,
+      "min_restricted_F_parallel_gauge_Kcritical": 1368002.7005436055
+    },
+    {
+      "scalar_id": 15591,
+      "selected_max_mu_e_gamma_BR": 1.5695621739855539e-15,
+      "kappaV": 0.9998869283658836,
+      "kappa_top": 1.0124362684416401,
+      "kappa_bottom": 0.9818676156631088,
+      "coherent_LO_ggF_ratio": 1.028271463725925,
+      "h125_known_sum_MeV_range": [
+        3.9957023760813635,
+        3.996388690748081
+      ],
+      "max_h125_mu_tau_over_bb": 0.00001657795565007768,
+      "min_restricted_F_parallel_gauge_Kcritical": 17107.4718361883
+    },
+    {
+      "scalar_id": 2264,
+      "selected_max_mu_e_gamma_BR": 5.048201931743179e-18,
+      "kappaV": 0.9998628559279881,
+      "kappa_top": 0.9841439854947452,
+      "kappa_bottom": 1.0173112684390682,
+      "coherent_LO_ggF_ratio": 0.9651457581096579,
+      "h125_known_sum_MeV_range": [
+        4.139756561927833,
+        4.139961405265836
+      ],
+      "max_h125_mu_tau_over_bb": 0.000001019390884374674,
+      "min_restricted_F_parallel_gauge_Kcritical": 61449.83754502841
+    }
+  ],
+  "accepted_scope": {
+    "higgs_h125_LFV_tree_width_ratios": "64/64 SOURCE_PARTIAL_WIDTH_SCREEN_ONLY",
+    "higgs_h125_photon_and_diagonal_partial_widths": "SOURCE_REWEIGHTED_MIXED_ORDER_KNOWN_CHANNELS",
+    "LFV_mu_to_e_gamma": "VALIDATED_SCALAR_ONE_LOOP_AND_ARCHIVED_SELECTED_TWO_LOOP_PARTIAL",
+    "B2026_preferred_15673": "PUBLISHED_MISIAK_LEADING_NP_ONE_SIDED_SCREEN_PASS"
+  },
+  "uncertified_full_constraints": {
+    "physical_Higgs": "UNKNOWN",
+    "h125_total_width": "UNKNOWN",
+    "H_A_total_widths_and_observed_searches": "UNKNOWN",
+    "complete_Zee_two_loop_mixed_gauge_LFV": "UNKNOWN",
+    "mu3e_complete_new_family": "UNKNOWN",
+    "mu_e_conversion_complete_new_family": "UNKNOWN",
+    "globally_allowed_model_points": null
+  },
+  "disclaimers": [
+    "Original 64 families deliberately constructed using direct e-mu Yukawa zeros; not representative scan.",
+    "64 h125 known channel sums are not total widths; conditional absolute mu values are not physical predictions.",
+    "Direct Higgs LFV partial ratios below experimental BR upper limits require a source-matched positive bb partial width and do not replace ATLAS model acceptance.",
+    "Kcritical is for a restricted hypothesized two-loop contribution parallel to the existing F dagger F dipole, not a gauge-complete universal upper bound."
+  ]
+}
