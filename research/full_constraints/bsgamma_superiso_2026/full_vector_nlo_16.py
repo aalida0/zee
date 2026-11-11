@@ -121,7 +121,7 @@ class Probe:
                     mH1_GeV=m1,mH2_GeV=m2,tanbeta=tanb,gamma=gamma,
                     matching_ord_NDR=mix,per_state_matching=c,
                     SM_rate=z["SM_BR"],NLO_full_vector_rate=z["injected_BR"],
-                    NP_shift_in_same_SuperIso_prescription":z["injected_BR"]-z["SM_BR"],
+                    "NP_shift_in_same_SuperIso_prescription":z["injected_BR"]-z["SM_BR"],
                     C4_NLO_interference_rate_effect=z["injected_BR"]-z["omit_C4_BR"],
                     incorrect_C4_effective_remap_rate_effect=z["double_effective_map_BR"]-z["injected_BR"],
                     source_stdout_sha256=result["stdout_sha256"],
