@@ -38,6 +38,7 @@ from module7.d4_inputs import SM, yukawa_masses
 from module7.d4_tree_kernels import scalar_vector, scalar_fermions, scalar_scalar
 from research.full_constraints.higgs.decays_bridge import neutral_hhh
 from research.full_constraints.higgs.sushi_bridge import lo_amplitude
+from research.full_constraints.pheno_paper_2026.heavy_HA_tree_widths import heavy_tree_channels
 
 ROOT=Path(__file__).resolve().parents[3]
 SM_H125=ROOT/"research/full_constraints/higgs/H125_SIGNAL_STRENGTH_EVIDENCE.json"
@@ -129,8 +130,12 @@ def _higgs_kinematics(p,D,ml,state):
 
 def _model_known_h125(p,D,ml,ratios,sm):
     ch=vertices(D,p,ml)["h"][0]
-    ku=quarks(1.0,"top",p)["h"]
-    kd=quarks(1.0,"bottom",p)["h"]
+    # Native quarks(mass=1) returns the physical Yukawa vertex in 1/GeV.
+    # Convert back to the dimensionless SM-normalized modifier kappa.
+    ku=p["v"]*quarks(1.0,"top",p)["h"]
+    kd=p["v"]*quarks(1.0,"bottom",p)["h"]
+    if not (0.2<abs(ku)<4 and 0.2<abs(kd)<4):
+        raise ArithmeticError("Unphysical source coupling-to-kappa normalization")
     kv=math.cos(p["beta"]-p["alpha"])
     gg,ggsm=lo_amplitude(125.,"even",ku,kd),lo_amplitude(125.,"even",1.,1.)
     # lo_amplitude returns (complex amplitude, metadata), do NOT treat
@@ -244,7 +249,9 @@ def execute(source_path:Path,out:Path,limit:int|None=None):
             or n["inverse"]["family_relative_residual"]>=2e-9):
             raise ArithmeticError("Original inverse neutrino closure lost")
         h=_model_known_h125(p,D,ml,f["h125_gamma_ratios"],smledger)
-        heavy={x:_higgs_kinematics(p,D,ml,x) for x in ("H","A")}
+        heavy={x:heavy_tree_channels(p,D,x) for x in ("H","A")}
+        if not 0.003<h["matched_known_channel_sum_GeV"]<0.006:
+            raise ArithmeticError("h125 SM-matched channel ledger out of physical MeV range")
         lfv=_lfv_dipole_and_tree(f,p,D,F,ml)
         row={"scalar_id":rid,"scalar_sha256":f["scalar_sha256"],
              "ordering":f["ordering"],"seed":f["seed"],
@@ -254,8 +261,8 @@ def execute(source_path:Path,out:Path,limit:int|None=None):
         families.append(row)
         print("PAPER_LO_HIGGS_LFV",rid,f["ordering"],f["seed"],
               "hwidth_floor",h["matched_known_channel_sum_GeV"],
-              "Hwidth_floor",heavy["H"]["known_channel_positive_sum_GeV"],
-              "Awidth_floor",heavy["A"]["known_channel_positive_sum_GeV"],
+              "Hwidth_floor",heavy["H"]["known_tree_disjoint_sum_GeV"],
+              "Awidth_floor",heavy["A"]["known_tree_disjoint_sum_GeV"],
               "mu3e_subset_max",lfv["mu3e_tree_plus_dipole_kinematic_Cauchy_upper"],
               "Al_dipole_only",lfv["mu_e_conversion_Al_dipole_dominance_only"],
               "full_H_LFV_unknown",flush=True)
