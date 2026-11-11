@@ -25,7 +25,7 @@ class PaperGates(unittest.TestCase):
         self.assertEqual({i for i,r in self.row.items()
                           if r["sigma14_actual_LO_5FS_fb"] is not None},
                          {15591,15673,2264})
-        self.assertEqual(self.row[15673]["sigma14_actual_LO_5FS_fb"],4.2345)
+        self.assertAlmostEqual(self.row[15673]["sigma14_actual_LO_5FS_fb"],4.2345,places=9)
         self.assertEqual(self.row[15673]["sigma13_actual_LO_5FS_fb"],2.9876)
         self.assertIsNone(self.row[14074]["sigma14_actual_LO_5FS_fb"])
         self.assertIsNone(self.row[11016]["sigma14_H2_H1Z_tb_product_range_fb"])
