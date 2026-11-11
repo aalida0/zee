@@ -1,0 +1,44 @@
+name: Zee frozen eight-dimensional LFV card replay on two runtimes
+on:
+  push:
+    branches:
+      - research/zee-full-constraints
+    paths:
+      - research/full_constraints/scan_pilot_2026/2264_fresh_8d_reference.json
+      - research/full_constraints/scan_pilot_2026/replay_fresh_8d_reference.py
+      - .github/workflows/zee-fresh-8d-replay.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cross-runtime-source-frozen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10.12", "3.11.11"]
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Setup pinned physics numerical runtime
+        run: |
+          uv python install ${{ matrix.python }}
+          uv venv --python ${{ matrix.python }} "$RUNNER_TEMP/zee-replay"
+          uv pip install --python "$RUNNER_TEMP/zee-replay/bin/python" numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-replay/bin" >> "$GITHUB_PATH"
+      - name: Original frozen input source identity and complete Module2/4/D4 replay
+        run: |
+          python -m research.full_constraints.scan_pilot_2026.replay_fresh_8d_reference --output "$RUNNER_TEMP/zee-8d-phys-replay.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zee-2264-fresh-8d-frozen-card-replay-python-${{ matrix.python }}-not-global
+          path: ${{ runner.temp }}/zee-8d-phys-replay.json
+          if-no-files-found: error
+          retention-days: 30
