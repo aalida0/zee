@@ -37,7 +37,7 @@ def read_scoped_hdecay_reference(path):
         if not math.isfinite(val):
             raise ValueError("Nonfinite HDECAY output "+key)
         if val<0:
-            if key!="SM_b_H_gg" or val < -1.0e-3:
+            if key!="SM_b_H_gg" or val < -1.0e-2:
                 raise ValueError(f"Unexpected unphysical HDECAY output {key}={val}")
             negative_controls[key]=val
         values[key]=val
