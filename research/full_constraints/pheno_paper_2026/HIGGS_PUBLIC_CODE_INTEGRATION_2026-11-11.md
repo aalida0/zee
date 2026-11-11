@@ -60,7 +60,21 @@ For 15673 NO seed 20261111: `H→H1W both charges =40.77269 GeV`, `A→H1W both 
 HDECAY's **unused auxiliary SM reference** `SM_b_H_gg` was **negative** in four of the 16 control runs:
 `11016=-4.11646e-4`, `14074=-1.16914e-3`, `14984=-3.17220e-5`, `15673=-5.93609e-4`. This auxiliary output is not a Zee channel and is not transferred. All physically transferred partial widths must remain nonnegative and pass independent Hhh/AhZ/HVV identity checks. The parser exposes these anomalies, rejects any negative transferred rates, and does not clip/correct them. This limits the role of the auxiliary SM reference; it is not an excuse to treat HDECAY model totals as physical Zee totals.
 
-## 4. Current Higgs phenomenology scope
+## 4. H2 charged Higgs observed limit at 13 TeV (native D4 widths, actual MG5)
+
+The source `pheno_paper_2026/H2_charged_higgsbounds_probe.py` re-evaluates complete native D4 charged two-body widths on **all 64 new Zee Yukawa configurations**, using the actual original 13-TeV LO 5FS `pp→tbH2` rates for all 16 scalars. The exotic `H2→H1Z` width and all other open native channels are in the total-width denominator, even though only ordinary HiggsBounds SM final-state BRs are explicitly populated. Two-body normalization, scalar hashes, neutrino closure, missing/duplicate channels and the external dataset are guarded. CI (with three new regression tests): https://github.com/aalida0/zee/actions/runs/43120255441 **SUCCESS**, 64/64 evaluated.
+
+The selected observed 139 fb⁻¹ ATLAS `pp→tbH±, H±→tb` limit, arXiv:2102.10076, gave the following source-specific NO seed 20261111 ratios:
+
+| Scalar ID | Actual 13 TeV LO σ(tbH2) pb | Selected observed/limit ratio | H2 width/mass |
+|---:|---:|---:|---:|
+| **15673** | **0.0029876** | **0.0313753** | 3.714% |
+| 15591 | 0.0118680 | 0.163619 | 3.834% |
+| 2264 | 0.0050014 | 0.0225048 | 8.273% |
+
+All 64 selected `H2→tb` central-LO observed ratios are <1, **0/64 scoped source exclusions**. The 13-TeV LO signal scheme is not the NLO 4FS experimental scheme; mass/width resonance shape, 4FS/5FS, scale/PDF, 8 TeV and `H1` associated production remain **not qualified**. This cannot be treated as a globally complete charged-Higgs exclusion or 95% CL full Zee acceptance. The original `H2→H1Z` cascade final-state search is not directly evaluated by this analysis.
+
+## 5. Current Higgs phenomenology scope
 
 **Validated and actually executed:** h125-only HiggsSignals and HiggsBounds effective-coupling screening at 64/64; charged mixed-state leading h125 photon loops; H/A all-64 transferable HDECAY quark/neutral and native Zee tree decay channels; original real 13/14 TeV `tbH2` hard production at 16/3 source scalar cards; original D7/F13 13 TeV SusHi H/A production.
 
