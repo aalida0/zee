@@ -26,7 +26,12 @@ class PaperGates(unittest.TestCase):
                           if r["sigma14_actual_LO_5FS_fb"] is not None},
                          {15591,15673,2264})
         self.assertAlmostEqual(self.row[15673]["sigma14_actual_LO_5FS_fb"],4.2345,places=9)
-        self.assertEqual(self.row[15673]["sigma13_actual_LO_5FS_fb"],2.9876)
+        self.assertAlmostEqual(self.row[15673]["sigma13_actual_LO_5FS_fb"],2.9876,places=9)
+        self.assertAlmostEqual(self.report["Z_to_ee_or_mumu_branching_sum_PDG"],0.067294,places=12)
+        raw=self.row[15673]["events14_3000fb_minus1_before_Z_top_decays_and_selection"]
+        dilep=self.row[15673]["events14_3000fb_minus1_Z_to_ee_or_mumu_before_top_and_detector"]
+        self.assertAlmostEqual(dilep[0],raw[0]*0.067294,places=8)
+        self.assertLess(dilep[1],raw[1])
         self.assertIsNone(self.row[14074]["sigma14_actual_LO_5FS_fb"])
         self.assertIsNone(self.row[11016]["sigma14_H2_H1Z_tb_product_range_fb"])
 
