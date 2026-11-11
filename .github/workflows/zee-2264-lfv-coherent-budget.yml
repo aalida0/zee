@@ -1,0 +1,43 @@
+name: Zee 2264 signed LFV loop-hierarchy and omission budgets
+on:
+  push:
+    branches:
+      - research/zee-full-constraints
+    paths:
+      - research/full_constraints/scan_pilot_2026/lfv_coherent_ledger_budget.py
+      - research/full_constraints/scan_pilot_2026/test_lfv_coherent_ledger_budget.py
+      - .github/workflows/zee-2264-lfv-coherent-budget.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-matched-ledger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Exact pinned Zee physics numerical runtime
+        run: |
+          uv python install 3.10.12
+          uv venv --python 3.10.12 "$RUNNER_TEMP/zee-lfsum"
+          uv pip install --python "$RUNNER_TEMP/zee-lfsum/bin/python" numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-lfsum/bin" >> "$GITHUB_PATH"
+      - name: Validate exact complex source ledger, omission-scope regression gates
+        run: |
+          python -m unittest research.full_constraints.scan_pilot_2026.test_lfv_coherent_ledger_budget -v
+      - name: Save complete signed hierarchy, per-channel omission headroom and F-gauge sensitivity
+        run: |
+          python -m research.full_constraints.scan_pilot_2026.lfv_coherent_ledger_budget --output "$RUNNER_TEMP/zee-2264-signed-LFV-budget.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zee-2264-signed-partial-LFV-headroom-not-full-physical
+          path: ${{ runner.temp }}/zee-2264-signed-LFV-budget.json
+          if-no-files-found: error
+          retention-days: 30
