@@ -11,7 +11,7 @@ permissions:
   contents: read
 jobs:
   sushi-16-neutral-higgs-production:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 60
     env:
       OMP_NUM_THREADS: "1"
@@ -36,7 +36,7 @@ jobs:
       - name: Install source build prerequisites
         run: |
           sudo apt-get update
-          sudo apt-get install -y gfortran build-essential libgsl-dev autoconf automake libtool pkg-config
+          sudo apt-get install -y gcc-11 g++-11 gfortran-11 build-essential libgsl-dev autoconf automake libtool pkg-config
       - name: Download and source-verify official LHAPDF, SusHi and MMHT2014LO
         shell: bash
         run: |
@@ -65,7 +65,8 @@ jobs:
           # LHAPDF 6.5.3 vendored yaml-cpp omits <cstdint> under new GCC.
           # Inject the standard header via compiler flags; do not edit the
           # source archive whose SHA256 is independently pinned above.
-          ./configure --prefix="$RUNNER_TEMP/lhapdf" --disable-python CXXFLAGS="-O2 -include cstdint"
+          ./configure --prefix="$RUNNER_TEMP/lhapdf" --disable-python \
+            CC=gcc-11 CXX=g++-11 CXXFLAGS="-O2 -include cstdint"
           make -j2
           make install
           export PATH="$RUNNER_TEMP/lhapdf/bin:$PATH"
@@ -76,8 +77,8 @@ jobs:
           echo "LHAPDF_DATA_PATH=$LHAPDF_DATA_PATH" >> "$GITHUB_ENV"
           lhapdf-config --version
           cd "$RUNNER_TEMP/SusHi-1.7.0"
-          ./configure
-          make -j2 LHAPATH="$RUNNER_TEMP/lhapdf/lib" F77FLAGS=-fallow-argument-mismatch
+          ./configure CC=gcc-11 CXX=g++-11 FC=gfortran-11 F77=gfortran-11
+          make -j2 FC=gfortran-11 F77=gfortran-11 LHAPATH="$RUNNER_TEMP/lhapdf/lib" F77FLAGS=-fallow-argument-mismatch
           test -x bin/sushi
       - name: Execute actual source-locked H/A LO ggF and bbH at 13 TeV for 16 Zee scalar cards
         shell: bash
