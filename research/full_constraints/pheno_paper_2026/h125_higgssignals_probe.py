@@ -13,6 +13,37 @@ fed to the experimental precision likelihood.
 import argparse, hashlib, json, math
 from pathlib import Path
 
+def add_native_zee_h125_lfv(h_particle, h_source):
+    """Add the source-computed on-shell h->different-flavor leptons once.
+
+    HiggsPredictions' effective-coupling reference only knows flavor-diagonal
+    lepton modes. setDecayWidth adds each LFV mode to the reference-derived
+    denominator and correspondingly renormalizes all existing BRs. The result
+    remains an effective-coupling approximation, NOT a certified full Zee width.
+    """
+    widths=h_source["known_partial_widths_GeV"]
+    baseline=float(h_particle.totalWidth())
+    if not math.isfinite(baseline) or baseline<=0:
+        raise ValueError("HiggsTools h125 reference total width invalid")
+    added={}
+    for mode,source_key in (("emu","ll_e_mu"),("etau","ll_e_tau"),("mutau","ll_mu_tau")):
+        val=float(widths[source_key])
+        if not math.isfinite(val) or val<0:
+            raise ValueError("Unphysical native Zee h125 LFV partial width")
+        # Each native off-diagonal source width already sums charge conjugates.
+        # Do not multiply by two a second time.
+        h_particle.setDecayWidth(mode,val)
+        added[mode]=val
+    actual=float(h_particle.totalWidth())
+    expected=math.fsum((baseline,*added.values()))
+    if not math.isclose(actual,expected,rel_tol=5e-10,abs_tol=1e-13):
+        raise ArithmeticError("LFV width double counting or reference normalization drift")
+    return {"reference_before_LFV_width_GeV":baseline,
+            "native_LFV_partial_widths_GeV":added,
+            "effective_after_LFV_width_GeV":actual,
+            "width_is_full_physical_Zee":False}
+
+
 def run(source:Path, dataset:Path, output:Path):
     if output.exists():raise FileExistsError("No overwriting evidence")
     if not dataset.is_dir():raise FileNotFoundError("HiggsSignals dataset not installed")
@@ -83,6 +114,7 @@ def run(source:Path, dataset:Path, output:Path):
         # them from quark/W loops, and never insert the partial-width sum.
         HP.effectiveCouplingInput(
             hp,k,calcggH=False,calcHgamgam=False)
+        width_record=add_native_zee_h125_lfv(hp,h)
         x=float(hs(pred))
         if not math.isfinite(x):
             raise ValueError("Nonfinite h125-only HiggsSignals prediction")
@@ -91,8 +123,9 @@ def run(source:Path, dataset:Path, output:Path):
             "chi2_h125_restricted":x,"chi2_SM_same_dataset":float(smres),
             "delta_chi2_h125_restricted":x-float(smres),
             "has_model_diagonal_lepton_effcoupling":True,
-            "h125_width_prescription":"SM_reference_effective_coupling_derived_NOT_complete_Zee",
-            "includes_h125_offdiagonal_LFV_decays":False,
+            "h125_width_prescription":"SM_reference_effective_coupling_plus_exact_native_LFV_NOT_complete_Zee",
+            "h125_effective_width_record":width_record,
+            "includes_h125_offdiagonal_LFV_decays":True,
             "includes_all_H_A_other_states":False,
             "has_declared_NDF_or_chi2_threshold":False,
             "full_Higgs_acceptance":None,"global_acceptance":None,
@@ -105,7 +138,7 @@ def run(source:Path, dataset:Path, output:Path):
         "n_h125_cases":len(cases),"chi2_SM":float(smres),
         "diagonal_zee_lepton_yukawa_inputs_incomplete":False,
         "heavy_H_A_and_charged_excluded_from_input":True,
-        "h125_width_prescription":"SM_reference_effective_coupling_derived_NOT_complete_Zee",
+        "h125_width_prescription":"SM_reference_effective_coupling_plus_exact_native_LFV_NOT_complete_Zee",
         "physical_Higgs":"UNKNOWN","global_acceptance":None,"cases":cases}
     output.write_text(json.dumps(result,sort_keys=True,indent=2)+"\n")
     return result
