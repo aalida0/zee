@@ -4,7 +4,12 @@ on:
     branches:
       - research/zee-full-constraints
     paths:
-      - research/full_constraints/pheno_paper_2026/**
+      - research/full_constraints/pheno_paper_2026/paper_gate.py
+      - research/full_constraints/pheno_paper_2026/test_paper_gate.py
+      - research/full_constraints/pheno_paper_2026/paper_figures.py
+      - research/full_constraints/pheno_paper_2026/APPROXIMATIONS_REVIEW_REGISTRY.json
+      - research/full_constraints/scan_pilot_2026/bounded_16_scalar_64_family.py
+      - module14/conditional_scan/production_map_13_14.json
       - .github/workflows/zee-pheno-paper-actual-production.yml
   workflow_dispatch:
 permissions:
