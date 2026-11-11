@@ -1,0 +1,41 @@
+name: Zee 16 source-certified scalar Misiak 2026 Eq4 and flavio cross-code
+on:
+  push:
+    branches: [research/zee-full-constraints]
+    paths:
+      - research/full_constraints/bsgamma_flavio_2026/published_eq4_triangulation.py
+      - research/full_constraints/bsgamma_flavio_2026/test_published_eq4_triangulation.py
+      - .github/workflows/zee-misiak-2026-sixteen-scalars.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  paper-matched-2026-leading-np:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Pinned flavio/particle and source numerical stack
+        run: |
+          uv python install 3.11.11
+          uv venv --python 3.11.11 "$RUNNER_TEMP/zee-eq4"
+          uv pip install --python "$RUNNER_TEMP/zee-eq4/bin/python" flavio==2.7.1 particle==0.26.2 numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-eq4/bin" >> "$GITHUB_PATH"
+      - name: Prove published 2026 Eq4 reproduces original native BMU leading NP formula and reference pull
+        run: python -m unittest research.full_constraints.bsgamma_flavio_2026.test_published_eq4_triangulation -v
+      - name: Save 16-scalar published Eq4, LO-NP flavio differences and method robustness
+        run: |
+          python -u -m research.full_constraints.bsgamma_flavio_2026.published_eq4_triangulation --output "$RUNNER_TEMP/zee-misiak2026-16-scalar-Eq4-flavio.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zee-misiak2026-16-source-spectra-leading-NP-B-diagnostics-not-global
+          path: ${{ runner.temp }}/zee-misiak2026-16-scalar-Eq4-flavio.json
+          if-no-files-found: error
+          retention-days: 30
