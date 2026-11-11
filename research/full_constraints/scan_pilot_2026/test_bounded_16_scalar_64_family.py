@@ -19,7 +19,7 @@ class SixteenScalarEnsembleSourceContractTests(unittest.TestCase):
 
     def test_missing_actual_production_is_none_not_zero(self):
         target=self.cards[14074]
-        self.assertIsNone(target["families"][0]["production"]["sigma_pb"])
+        self.assertIsNone(target["families"][0]["production"])
         r=build(target,"NO",SEEDS[0],allowed_ids=tuple(self.cards))
         self.assertIsNone(r["original_13TeV_LO_quark_sigma_pb"])
         self.assertIsNone(r["13TeV_LO_quark_invariant_cascade_proxy_fb"])
