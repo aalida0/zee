@@ -1,4 +1,4 @@
-name: Zee h125-only source-pinned HiggsSignals data pilot (not full Higgs model acceptance)
+name: Zee h125 and charged and heavy-neutral source-pinned experimental screening (not full model)
 on:
   workflow_dispatch:
   push:
@@ -11,9 +11,12 @@ on:
       - research/full_constraints/pheno_paper_2026/test_H2_charged_higgsbounds_probe.py
       - research/full_constraints/pheno_paper_2026/charged_h1h2_public_64.py
       - research/full_constraints/pheno_paper_2026/test_charged_h1h2_public_64.py
+      - research/full_constraints/pheno_paper_2026/neutral_HA_higgsbounds_64.py
+      - research/full_constraints/pheno_paper_2026/test_neutral_HA_higgsbounds_64.py
       - .github/workflows/zee-h125-only-HiggsSignals-pilot.yml
 permissions:
   contents: read
+  actions: read
 jobs:
   h125-single-resonance-signal-probe:
     runs-on: ubuntu-latest
@@ -42,6 +45,7 @@ jobs:
           python -m unittest research.full_constraints.pheno_paper_2026.test_h125_higgssignals_probe -v
           python -m unittest research.full_constraints.pheno_paper_2026.test_H2_charged_higgsbounds_probe -v
           python -m unittest research.full_constraints.pheno_paper_2026.test_charged_h1h2_public_64 -v
+          python -m unittest research.full_constraints.pheno_paper_2026.test_neutral_HA_higgsbounds_64 -v
       - name: Obtain original 64 source Yukawa+Higgs widths
         run: |
           python -m research.full_constraints.scan_pilot_2026.bounded_16_scalar_64_family --output "$RUNNER_TEMP/source-64.json"
@@ -117,6 +121,29 @@ jobs:
             --source "$RUNNER_TEMP/source-64.json" \
             --dataset "$RUNNER_TEMP/hbdataset" \
             --output "$RUNNER_TEMP/zee-64-both-charged-H1H2-public-matched-13TeV-HB.json"
+      - name: Download source-pinned exact prior 16-spectrum SusHi and 64-family HDECAY receipts
+        uses: actions/download-artifact@v4
+        with:
+          name: zee-16-source-SusHi-neutral-H-A-13TeV-LO-no-global-Higgs-exclusion
+          run-id: 43122137634
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/zee-neutral-sushi-16
+      - name: Download 16-spectrum 64-family native Zee HDECAY composite receipts
+        uses: actions/download-artifact@v4
+        with:
+          name: zee-HDECAY-16-quark-QCD-and-doublet-control-partial-widths-NOT-ZEE-total
+          run-id: 43119479264
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/zee-neutral-hdecay-64
+      - name: Compare real 13 TeV H/A ggF and bbH with actual HiggsBounds direct heavy searches
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u -m research.full_constraints.pheno_paper_2026.neutral_HA_higgsbounds_64 \
+            --sushi "$RUNNER_TEMP/zee-neutral-sushi-16/zee-SusHi-16-HA-real-production.json" \
+            --widths "$RUNNER_TEMP/zee-neutral-hdecay-64/zee-HDECAY-native-H-A-64-mixed-order-incomplete.json" \
+            --dataset "$RUNNER_TEMP/hbdataset" \
+            --output "$RUNNER_TEMP/zee-H-A-heavy-HiggsBounds-64-optimistic-width-LO-envelope.json"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -126,6 +153,7 @@ jobs:
             ${{ runner.temp }}/zee-h125-only-HiggsBounds-observed.json
             ${{ runner.temp }}/zee-64-H2-charged-HiggsBounds-13TeV-LO-subset.json
             ${{ runner.temp }}/zee-64-both-charged-H1H2-public-matched-13TeV-HB.json
+            ${{ runner.temp }}/zee-H-A-heavy-HiggsBounds-64-optimistic-width-LO-envelope.json
             ${{ runner.temp }}/higgs-install.log
           if-no-files-found: warn
           retention-days: 30
