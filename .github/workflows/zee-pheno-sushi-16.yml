@@ -62,7 +62,10 @@ jobs:
           tar xzf "$RUNNER_TEMP/SusHi-1.7.0.tar.gz" -C "$RUNNER_TEMP"
           tar xzf "$RUNNER_TEMP/MMHT2014lo68cl.tar.gz" -C "$RUNNER_TEMP/lhapdf/share/LHAPDF"
           cd "$RUNNER_TEMP/LHAPDF-6.5.3"
-          ./configure --prefix="$RUNNER_TEMP/lhapdf" --disable-python
+          # LHAPDF 6.5.3 vendored yaml-cpp omits <cstdint> under new GCC.
+          # Inject the standard header via compiler flags; do not edit the
+          # source archive whose SHA256 is independently pinned above.
+          ./configure --prefix="$RUNNER_TEMP/lhapdf" --disable-python CXXFLAGS="-O2 -include cstdint"
           make -j2
           make install
           export PATH="$RUNNER_TEMP/lhapdf/bin:$PATH"
