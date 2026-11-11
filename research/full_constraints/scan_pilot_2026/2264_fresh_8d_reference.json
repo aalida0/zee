@@ -1,0 +1,142 @@
+{
+  "schema": "zee-2264-fresh-independent-neutrino-family-reference-v1",
+  "origin": "GitHub Actions 43071227052, commit 8fc6e85d415ec7dfa84cc9b3b5d75c944965c066",
+  "semantic_scope": "FRESH family seed 20261111 and certified original scalar; not original historical D14 IO family",
+  "optimized_input_sha256": "fc8ffa5998645aac9ea24571235eb1e869e064167b744abc3a600c476d286fec",
+  "new_original_neutrino_input_sha256": "6cddfe458959646ce3802e4210f275cf9dcb4862cfd2107cd4a3699c400cbf6e",
+  "optimized_input": {
+    "benchmark_id": "D11B_d14_00002264_IO",
+    "homogeneous_coefficients": {
+      "imag": [
+        -0.000004686893969257731,
+        -0.0000020853971694189194,
+        0.0000028335240285475373,
+        0.000004455897016729488
+      ],
+      "real": [
+        0.000005226180446692446,
+        0.000002557388329843334,
+        -0.000002809740512879525,
+        -0.000024635526408275365
+      ]
+    },
+    "lepton_masses_GeV": [
+      0.00051099895,
+      0.1056583755,
+      1.77686
+    ],
+    "mode": "inverse",
+    "null_cone": {
+      "chart": [
+        0,
+        1,
+        2
+      ],
+      "phase_rad": 4.1605048333170735,
+      "root": 1,
+      "scale": 0.00043477736966250017,
+      "t": {
+        "imag": -0.38691156396714765,
+        "real": -0.5917691557006846
+      }
+    },
+    "ordering": "IO",
+    "scalar": {
+      "kind": "module1_input",
+      "record": {
+        "benchmark_id": "d14_00002264",
+        "electroweak": {
+          "SM_reference_mh": 125,
+          "mW": 80.379,
+          "mZ": 91.1876,
+          "scheme": "on_shell_MW_MZ"
+        },
+        "ew_fit": "Gfitter_2026_U_floating",
+        "model": "ZeeTypeII_Module0_v1_restricted_CP",
+        "parameter_convention": "SARAH_ZeeTypeII_Florentino_v1",
+        "physical": {
+          "alpha": 0.7949211723356764,
+          "beta": 0.8114830083979024,
+          "gamma": 0.8544992727727995,
+          "k1": -1.5239889721250195,
+          "k12": 0.7103399344175916,
+          "k2": 2.7726117176111913,
+          "lc": 4.677385741138594,
+          "m12sq": 351743.6879578036,
+          "mH1": 674.2744271130853,
+          "mH2": 1165.9748152800885,
+          "ma": 895.6435008139117,
+          "mh1": 125,
+          "mh2": 928.7063895615643,
+          "v": 246.21965
+        },
+        "schema_version": "1.0.0",
+        "search": {
+          "seeds": [
+            123,
+            104852
+          ],
+          "starts": 64
+        },
+        "units": {
+          "angles": "rad",
+          "mass_squared": "GeV^2",
+          "masses": "GeV",
+          "quartics": "1"
+        }
+      },
+      "sha256": "49d468ccfd1262ea2900ac41479071e821475f854c3b13441130c6a289417c8e"
+    },
+    "schema_version": "1.0.0",
+    "target_eV": {
+      "imag": [
+        [
+          0.0034139442407854917,
+          0.0014527140211629487,
+          -0.005453896222955956
+        ],
+        [
+          0.0014527140211629483,
+          0.007839881907964794,
+          -0.006503754288218254
+        ],
+        [
+          -0.005453896222955956,
+          -0.006503754288218254,
+          -0.004347186078732813
+        ]
+      ],
+      "real": [
+        [
+          0.018686537931800862,
+          -0.03037805567567097,
+          0.03294724698107219
+        ],
+        [
+          -0.03037805567567097,
+          -0.00849230289282064,
+          0.007760511576073404
+        ],
+        [
+          0.03294724698107219,
+          0.0077605115760734054,
+          -0.01286529378795899
+        ]
+      ]
+    }
+  },
+  "retained_reference": {
+    "mu_to_e_gamma_BR": 4.7468329803506013e-23,
+    "tau_to_e_gamma_BR": 6.180307876401303e-16,
+    "tau_to_mu_gamma_BR": 7.492307317572987e-13,
+    "mu_to_3e_tree_BR": 2.6313786835286834e-36,
+    "D4_cascade_BR_product": 0.3676332299203846,
+    "neutrino_relative_residual": 7.359637810721782e-16,
+    "max_abs_yukawa": 0.007400759666111568
+  },
+  "missing": "physical gauge/mixed two-loop LFV, full mu3e and conversion, physical B uncertainty, Higgs direct search and complete width, 13/14 TeV same-card production, detector acceptance",
+  "physical_LFV": "UNKNOWN",
+  "physical_B": "UNKNOWN",
+  "physical_Higgs": "UNKNOWN",
+  "global_acceptance": null
+}
