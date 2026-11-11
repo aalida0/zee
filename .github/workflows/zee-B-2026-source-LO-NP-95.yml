@@ -1,0 +1,41 @@
+name: Zee 2026 published-leading-NP B gamma 95 percent one and two sided source gate
+on:
+  push:
+    branches: [research/zee-full-constraints]
+    paths:
+      - research/full_constraints/bsgamma_2026_source_gate/published_order_95.py
+      - research/full_constraints/bsgamma_2026_source_gate/test_published_order_95.py
+      - .github/workflows/zee-B-2026-source-LO-NP-95.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  published-order-LO-NP-confidence-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Exact reference numerical runtime
+        run: |
+          uv python install 3.11.11
+          uv venv --python 3.11.11 "$RUNNER_TEMP/zee-2026-bgate"
+          uv pip install --python "$RUNNER_TEMP/zee-2026-bgate/bin/python" numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-2026-bgate/bin" >> "$GITHUB_PATH"
+      - name: Verify one-side and two-side normal confidence bounds with no global acceptance
+        run: |
+          python -m unittest research.full_constraints.bsgamma_2026_source_gate.test_published_order_95 -v
+      - name: Execute explicit 2026 Type-II Zee published-order 16-source-scalar screen
+        run: |
+          python -u -m research.full_constraints.bsgamma_2026_source_gate.published_order_95 --output "$RUNNER_TEMP/zee-2026-16-source-LO-NP-confidence.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zee-16-source-Misiak2026-LO-NP-confidence-convention-not-full-NNLO
+          path: ${{ runner.temp }}/zee-2026-16-source-LO-NP-confidence.json
+          if-no-files-found: warn
+          retention-days: 30
