@@ -21,6 +21,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
+      - name: Fail fast on Python orchestration syntax
+        run: python3 -m py_compile research/full_constraints/bsgamma_superiso_2026/full_vector_nlo_16.py
       - name: Fetch and byte-pin original official SuperIso 5.0 source
         shell: bash
         run: |
