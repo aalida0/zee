@@ -109,6 +109,14 @@ def run(executable:Path,out_dir:Path):
     if len(points)!=16 or len({p["id"] for p in points})!=16:
         raise ValueError("Original certified scalar sample not 16 unique source cards")
     out_dir.mkdir()
+    # SusHi 1.7.0's Fortran command-line parser truncates input names at
+    # 60 characters. The GitHub runner's original receipt path was 63 chars;
+    # subprocess exited 0 but logged "FILE ... DOES NOT EXIST".
+    # Keep the real provenance directory, supply a short immutable symlink.
+    short_path=Path("/tmp/zee_sushi16")
+    if short_path.exists() or short_path.is_symlink():
+        raise FileExistsError("Refuse reuse of nonfresh Fortran short path")
+    short_path.symlink_to(out_dir.resolve(),target_is_directory=True)
     results=[]
     for point in points:
         id=point["id"]; physical=point["input_card"]["physical"]
@@ -118,9 +126,16 @@ def run(executable:Path,out_dir:Path):
             basename=f"zee_{id}_{state}_LO_13TeV"
             inp=out_dir/(basename+".in");out=out_dir/(basename+".out");log=out_dir/(basename+".log")
             inp.write_text(card_16(id,physical,point["scalar_sha256"],state))
+            short_input=short_path/inp.name
+            short_output=short_path/out.name
+            if max(len(str(short_input)),len(str(short_output)))>=60:
+                raise ValueError("Fortran SusHi filename parser limit exceeded")
             with log.open("w") as stream:
-                subprocess.run([str(executable),str(inp),str(out)],stdout=stream,stderr=subprocess.STDOUT,
-                               check=True,timeout=240)
+                subprocess.run([str(executable),str(short_input),str(short_output)],stdout=stream,
+                               stderr=subprocess.STDOUT,check=True,timeout=240)
+            if not out.exists() or not out.stat().st_size:
+                raise RuntimeError("SusHi produced no output even though its exit code was zero: "+
+                                   log.read_text()[-2000:])
             data=blocks(out)
             expected=couplings(physical,state)
             for code,key in ((101,"top"),(201,"bottom")):
@@ -144,6 +159,7 @@ def run(executable:Path,out_dir:Path):
             print("ZEE_SUSHI_NATIVE_16",id,state,"M",row["mass_GeV"],"ggF",rates["ggF"]["sigma_pb"],
                   "bbH",rates["bbH"]["sigma_pb"],"LO_ONLY",flush=True)
     if len(results)!=32:raise ValueError("Not all 16x2 neutral production cards executed")
+    short_path.unlink()
     report={
         "schema":"zee-16-source-scalar-H_A-13TeV-SusHi-1.7.0-LO-v1",
         "scalars":16,"executed_neutral_states":32,"energy_TeV":13,
