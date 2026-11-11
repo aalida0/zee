@@ -1,0 +1,43 @@
+name: Zee two analytic LFV flavor texture local eight-real sensitivity
+on:
+  push:
+    branches:
+      - research/zee-full-constraints
+    paths:
+      - research/full_constraints/scan_pilot_2026/analytic_texture_local_stability.py
+      - research/full_constraints/scan_pilot_2026/test_analytic_texture_local_stability.py
+      - .github/workflows/zee-analytic-flavor-stability.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  local-source-8d:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Exact pinned Zee source numerical runtime
+        run: |
+          uv python install 3.10.12
+          uv venv --python 3.10.12 "$RUNNER_TEMP/zee-analytic-local"
+          uv pip install --python "$RUNNER_TEMP/zee-analytic-local/bin/python" numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-analytic-local/bin" >> "$GITHUB_PATH"
+      - name: Test and execute two original scalar eight-real perturbation designs
+        run: |
+          python -m unittest research.full_constraints.scan_pilot_2026.test_analytic_texture_local_stability -v
+      - name: Persist source-matched signed perturbation results
+        run: |
+          python -u -m research.full_constraints.scan_pilot_2026.analytic_texture_local_stability --output "$RUNNER_TEMP/zee-analytic-LFV-local-stability.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zee-15591-15673-algebraic-LFV-8D-directional-robustness-not-physical
+          path: ${{ runner.temp }}/zee-analytic-LFV-local-stability.json
+          if-no-files-found: error
+          retention-days: 30
