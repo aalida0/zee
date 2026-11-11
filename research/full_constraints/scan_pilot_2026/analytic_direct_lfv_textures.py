@@ -34,8 +34,8 @@ RANK_TOLERANCE=1e-9
 CLOSURE_MAX=2e-9
 
 
-def build(row,ordering,seed):
-    if row["id"] not in IDS or row["gates"]["vacuum"]["assessment"]!="PASS":
+def build(row,ordering,seed,allowed_ids=IDS):
+    if row["id"] not in allowed_ids or row["gates"]["vacuum"]["assessment"]!="PASS":
         raise ValueError("Not one of the source-certified two scalar cards")
     source={"id":row["id"],"scalar":row["input_card"],
             "scalar_sha256":row["scalar_sha256"]}
