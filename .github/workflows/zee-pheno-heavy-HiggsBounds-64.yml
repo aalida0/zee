@@ -1,0 +1,102 @@
+name: Zee heavy H/A source-pinned SusHi-HDECAY HiggsBounds partial-width envelope
+on:
+  workflow_dispatch:
+  push:
+    branches: [research/zee-full-constraints]
+    paths:
+      - research/full_constraints/pheno_paper_2026/heavy_HA_higgsbounds_envelope.py
+      - research/full_constraints/pheno_paper_2026/test_heavy_HA_higgsbounds_envelope.py
+      - .github/workflows/zee-pheno-heavy-HiggsBounds-64.yml
+permissions:
+  contents: read
+  actions: read
+jobs:
+  heavy-H-A-HiggsBounds-scoped:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 35
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      CMAKE_BUILD_PARALLEL_LEVEL: "2"
+      HIGGSTOOLS_VERSION_GIT: "65029037"
+      HBDATASET_PIN: "3539f9adf3724f8752701208bf059d1658824cd2"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Python 3.11 and bounded source-model data tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          uv python install 3.11.11
+          uv venv --python 3.11.11 "$RUNNER_TEMP/zee-heavyHB"
+          uv pip install --python "$RUNNER_TEMP/zee-heavyHB/bin/python" numpy==2.2.6 scipy==1.15.3
+          echo "$RUNNER_TEMP/zee-heavyHB/bin" >> "$GITHUB_PATH"
+          "$RUNNER_TEMP/zee-heavyHB/bin/python" -m unittest research.full_constraints.pheno_paper_2026.test_heavy_HA_higgsbounds_envelope -v
+      - name: Recover source-executed all-64 Zee HDECAY/native partial-width evidence
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 43119479264
+          name: zee-HDECAY-16-quark-QCD-and-doublet-control-partial-widths-NOT-ZEE-total
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/zee-heavy-widths
+      - name: Recover source-executed all-16 two-neutral-state actual SusHi 13 TeV LO production
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 43122137634
+          name: zee-16-source-SusHi-neutral-H-A-13TeV-LO-no-global-Higgs-exclusion
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/zee-heavy-sushi
+      - name: Verify original source evidence model completeness before experimental lookup
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,os,pathlib
+          base=pathlib.Path(os.environ["RUNNER_TEMP"])
+          w=json.loads((base/"zee-heavy-widths"/"zee-HDECAY-native-H-A-64-mixed-order-incomplete.json").read_text())
+          p=json.loads((base/"zee-heavy-sushi"/"zee-SusHi-16-HA-real-production.json").read_text())
+          assert w["count"]==64 and w["partial_widths_only"] and w["global_acceptance"] is None
+          assert p["scalars"]==16 and p["executed_neutral_states"]==32 and p["global_acceptance"] is None
+          assert len(w["cases"])==64 and len(p["cases"])==32
+          print("SOURCE_PINNED_HEAVY_HIGGS_NUMERIC_INPUT_64x2_PARTIALS_16x2_ACTUAL_SUSHI_PASS")
+          PY
+      - name: Build pinned official HiggsTools 1.1.3 without source modification
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --branch v1.1.3 https://gitlab.com/higgsbounds/higgstools.git "$RUNNER_TEMP/higgstools"
+          test "$(git -C "$RUNNER_TEMP/higgstools" rev-parse HEAD | cut -c1-8)" = "$HIGGSTOOLS_VERSION_GIT"
+          uv pip install --python "$RUNNER_TEMP/zee-heavyHB/bin/python" \
+            'cmake>=3.25,<4' scikit-build==0.18.1 pybind11==2.13.6 setuptools==80.9.0 wheel==0.45.1
+          uv pip install --no-build-isolation --python "$RUNNER_TEMP/zee-heavyHB/bin/python" \
+            "$RUNNER_TEMP/higgstools"
+          python -c 'import Higgs.predictions as HP; import Higgs.bounds as HB; print("HIGGSTOOLS_LOADED")'
+      - name: Fetch pinned observed HiggsBounds experimental limit dataset
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir "$RUNNER_TEMP/hbdataset"
+          git -C "$RUNNER_TEMP/hbdataset" init
+          git -C "$RUNNER_TEMP/hbdataset" remote add origin https://gitlab.com/higgsbounds/hbdataset.git
+          git -C "$RUNNER_TEMP/hbdataset" fetch --depth 1 origin "$HBDATASET_PIN"
+          git -C "$RUNNER_TEMP/hbdataset" checkout --detach "$HBDATASET_PIN"
+          test "$(git -C "$RUNNER_TEMP/hbdataset" rev-parse HEAD)" = "$HBDATASET_PIN"
+      - name: Evaluate explicit 0 10 and 25 percent omitted-width heavy-neutral HiggsBounds rate scenarios
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u -m research.full_constraints.pheno_paper_2026.heavy_HA_higgsbounds_envelope \
+            --widths "$RUNNER_TEMP/zee-heavy-widths/zee-HDECAY-native-H-A-64-mixed-order-incomplete.json" \
+            --production "$RUNNER_TEMP/zee-heavy-sushi/zee-SusHi-16-HA-real-production.json" \
+            --dataset "$RUNNER_TEMP/hbdataset" \
+            --output "$RUNNER_TEMP/zee-64-H-A-sushi-HDECAY-HiggsBounds-partial-width-envelope.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: zee-source-H-A-HiggsBounds-64-diagnostic-not-physical-exclusion
+          path: ${{ runner.temp }}/zee-64-H-A-sushi-HDECAY-HiggsBounds-partial-width-envelope.json
+          if-no-files-found: warn
+          retention-days: 30
