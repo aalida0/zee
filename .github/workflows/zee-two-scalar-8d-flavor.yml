@@ -1,0 +1,43 @@
+name: Zee 15591 and 15673 bounded two-ordering 8D fresh flavor pilot
+on:
+  push:
+    branches:
+      - research/zee-full-constraints
+    paths:
+      - research/full_constraints/scan_pilot_2026/two_scalar_flavor_benchmark.py
+      - research/full_constraints/scan_pilot_2026/test_two_scalar_flavor_benchmark.py
+      - .github/workflows/zee-two-scalar-8d-flavor.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  eight-fresh-scenarios:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Pinned native numerical runtime
+        run: |
+          uv python install 3.10.12
+          uv venv --python 3.10.12 "$RUNNER_TEMP/zee-2scalar"
+          uv pip install --python "$RUNNER_TEMP/zee-2scalar/bin/python" numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-2scalar/bin" >> "$GITHUB_PATH"
+      - name: Test original scalar and fresh neutrino input/source scope
+        run: |
+          python -m unittest research.full_constraints.scan_pilot_2026.test_two_scalar_flavor_benchmark -v
+      - name: Run new NO/IO two-seed eight-real-dimensional LFV + Higgs photon + cascade benchmark study
+        run: |
+          python -u -m research.full_constraints.scan_pilot_2026.two_scalar_flavor_benchmark --output "$RUNNER_TEMP/zee-two-scalar-eight-new-neutrino-families.json" --max-nfev 32
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zee-15591-15673-eight-fresh-neutrino-families-not-global
+          path: ${{ runner.temp }}/zee-two-scalar-eight-new-neutrino-families.json
+          if-no-files-found: error
+          retention-days: 30
