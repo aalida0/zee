@@ -1,0 +1,42 @@
+name: Zee certified scalar local-neighborhood BFB vacuum and B LO-NP screen, no interpolated production
+on:
+  push:
+    branches: [research/zee-full-constraints]
+    paths:
+      - research/full_constraints/pheno_paper_2026/local_scalar_neighborhood.py
+      - research/full_constraints/pheno_paper_2026/test_local_scalar_neighborhood.py
+      - .github/workflows/zee-pheno-local-scalar-continuity.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  bounded-relevant-scalar-neighborhood:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Pin original Zee tree-potential / flavor numerical runtime
+        run: |
+          uv python install 3.11.11
+          uv venv --python 3.11.11 "$RUNNER_TEMP/zee-scalar-local"
+          uv pip install --python "$RUNNER_TEMP/zee-scalar-local/bin/python" numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-scalar-local/bin" >> "$GITHUB_PATH"
+      - name: Test scalar-source identity and finite local prior
+        run: python -m unittest research.full_constraints.pheno_paper_2026.test_local_scalar_neighborhood -v
+      - name: Reconstruct actual source tree potential and 2026 leading-NP B gate across 51 nearby cards
+        run: |
+          python -u -m research.full_constraints.pheno_paper_2026.local_scalar_neighborhood \
+            --output "$RUNNER_TEMP/zee-51-source-neighborhood-B-vacuum.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zee-51-source-centered-scalar-neighborhood-not-global-viability
+          path: ${{ runner.temp }}/zee-51-source-neighborhood-B-vacuum.json
+          if-no-files-found: error
+          retention-days: 30
