@@ -1,0 +1,42 @@
+name: Zee three-scalar independent flavio v2.7.1 B-to-Xsgamma rate cross-check
+on:
+  push:
+    branches: [research/zee-full-constraints]
+    paths:
+      - research/full_constraints/bsgamma_flavio_2026/bridge_3cards.py
+      - research/full_constraints/bsgamma_flavio_2026/test_bridge_3cards.py
+      - .github/workflows/zee-flavio-bsgamma-3cards.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  three_scalar_flavio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Pinned Python and independent inclusive B gamma backend
+        run: |
+          uv python install 3.11.11
+          uv venv --python 3.11.11 "$RUNNER_TEMP/zee-flavio"
+          uv pip install --python "$RUNNER_TEMP/zee-flavio/bin/python" flavio==2.7.1 numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-flavio/bin" >> "$GITHUB_PATH"
+      - name: Independent three-scalar WC matching, endpoints and scope tests
+        run: |
+          python -m unittest research.full_constraints.bsgamma_flavio_2026.test_bridge_3cards -v
+      - name: Save 15591, 15673, 2264 same-source independent flavio rates
+        run: |
+          python -u -m research.full_constraints.bsgamma_flavio_2026.bridge_3cards --output "$RUNNER_TEMP/zee-3-scalar-flavio-2.7.1-bsgamma-diagnostic.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zee-3-scalar-independent-flavio-2p7p1-diagnostic-not-allowed
+          path: ${{ runner.temp }}/zee-3-scalar-flavio-2.7.1-bsgamma-diagnostic.json
+          if-no-files-found: error
+          retention-days: 30
