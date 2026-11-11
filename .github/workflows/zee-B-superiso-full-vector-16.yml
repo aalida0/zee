@@ -1,0 +1,78 @@
+name: Zee source-pinned official SuperIso v5 full 8-operator NLO 16-scalar rate
+on:
+  push:
+    branches: [research/zee-full-constraints]
+    paths:
+      - research/full_constraints/bsgamma_superiso_2026/full_vector_nlo_16.py
+      - .github/workflows/zee-B-superiso-full-vector-16.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source_restored_full_NLO:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      SUPERISO_ARCHIVE_SHA: 7f8400e98ae80deac50af64486b980891e1630d729a0a4660ca309a4d7706b5f
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Fetch and byte-pin original official SuperIso 5.0 source
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 --connect-timeout 15 --max-time 120 --silent --show-error \
+            https://superiso.in2p3.fr/download/superiso_v5.0.tgz \
+            --output "$RUNNER_TEMP/superiso_v5.0.tgz"
+          echo "$SUPERISO_ARCHIVE_SHA  $RUNNER_TEMP/superiso_v5.0.tgz" | sha256sum --check
+          tar -tzf "$RUNNER_TEMP/superiso_v5.0.tgz" | head -10 || true
+          tar -xzf "$RUNNER_TEMP/superiso_v5.0.tgz" -C "$RUNNER_TEMP"
+          test -f "$RUNNER_TEMP/SuperIso_v5.0/src/wilson.c"
+          test -f "$RUNNER_TEMP/SuperIso_v5.0/src/bsgamma.c"
+      - name: Apply the previously audited D9B matching and rate repair
+        shell: bash
+        run: |
+          set -euo pipefail
+          patch --batch --forward -d "$RUNNER_TEMP/SuperIso_v5.0" -p1 -i "$GITHUB_WORKSPACE/module5/patches/d9b_superiso_v5.0.patch"
+      - name: Compile actual patched SuperIso native static library serially
+        shell: bash
+        run: |
+          set -euo pipefail
+          make -B -j1 -C "$RUNNER_TEMP/SuperIso_v5.0" > "$RUNNER_TEMP/superiso-build.log" 2>&1 || {
+              tail -100 "$RUNNER_TEMP/superiso-build.log"; exit 1;
+          }
+          test -s "$RUNNER_TEMP/SuperIso_v5.0/src/libsuperiso.a"
+          gcc -O2 -I "$RUNNER_TEMP/SuperIso_v5.0/src" \
+             scripts/zee_d9b_rate_probe.c "$RUNNER_TEMP/SuperIso_v5.0/src/libsuperiso.a" \
+             -lm -o "$RUNNER_TEMP/zee-superiso-rate-probe"
+          tail -20 "$RUNNER_TEMP/superiso-build.log"
+      - uses: astral-sh/setup-uv@v6
+      - name: Pinned numerical matching runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          uv python install 3.11.11
+          uv venv --python 3.11.11 "$RUNNER_TEMP/zee-b-SIso"
+          uv pip install --python "$RUNNER_TEMP/zee-b-SIso/bin/python" numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0 sympy==1.14.0
+          echo "$RUNNER_TEMP/zee-b-SIso/bin" >> "$GITHUB_PATH"
+      - name: Execute 16 Zee charged scalar full-vector NLO rates and original D7/F13 source controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u -m research.full_constraints.bsgamma_superiso_2026.full_vector_nlo_16 \
+            --binary "$RUNNER_TEMP/zee-superiso-rate-probe" \
+            --source-archive-sha256 "$SUPERISO_ARCHIVE_SHA" \
+            --output-dir "$RUNNER_TEMP/zee-superiso-16-NLO-receipts"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: zee-original-superiso-v5-16-scalar-8operator-NLO-source-evidence
+          path: |
+            ${{ runner.temp }}/zee-superiso-16-NLO-receipts/
+            ${{ runner.temp }}/superiso-build.log
+          if-no-files-found: warn
+          retention-days: 30
