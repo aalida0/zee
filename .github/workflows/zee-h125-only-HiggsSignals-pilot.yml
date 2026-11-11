@@ -9,6 +9,8 @@ on:
       - research/full_constraints/pheno_paper_2026/h125_higgsbounds_probe.py
       - research/full_constraints/pheno_paper_2026/H2_charged_higgsbounds_probe.py
       - research/full_constraints/pheno_paper_2026/test_H2_charged_higgsbounds_probe.py
+      - research/full_constraints/pheno_paper_2026/charged_h1h2_public_64.py
+      - research/full_constraints/pheno_paper_2026/test_charged_h1h2_public_64.py
       - .github/workflows/zee-h125-only-HiggsSignals-pilot.yml
 permissions:
   contents: read
@@ -39,6 +41,7 @@ jobs:
         run: |
           python -m unittest research.full_constraints.pheno_paper_2026.test_h125_higgssignals_probe -v
           python -m unittest research.full_constraints.pheno_paper_2026.test_H2_charged_higgsbounds_probe -v
+          python -m unittest research.full_constraints.pheno_paper_2026.test_charged_h1h2_public_64 -v
       - name: Obtain original 64 source Yukawa+Higgs widths
         run: |
           python -m research.full_constraints.scan_pilot_2026.bounded_16_scalar_64_family --output "$RUNNER_TEMP/source-64.json"
@@ -106,6 +109,14 @@ jobs:
             --source "$RUNNER_TEMP/source-64.json" \
             --dataset "$RUNNER_TEMP/hbdataset" \
             --output "$RUNNER_TEMP/zee-64-H2-charged-HiggsBounds-13TeV-LO-subset.json"
+      - name: Both Zee charged states H1 and H2 matched 4FS-5FS tbH in actual HiggsBounds
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u -m research.full_constraints.pheno_paper_2026.charged_h1h2_public_64 \
+            --source "$RUNNER_TEMP/source-64.json" \
+            --dataset "$RUNNER_TEMP/hbdataset" \
+            --output "$RUNNER_TEMP/zee-64-both-charged-H1H2-public-matched-13TeV-HB.json"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -114,6 +125,7 @@ jobs:
             ${{ runner.temp }}/zee-h125-only-HiggsSignals-deltaChi2.json
             ${{ runner.temp }}/zee-h125-only-HiggsBounds-observed.json
             ${{ runner.temp }}/zee-64-H2-charged-HiggsBounds-13TeV-LO-subset.json
+            ${{ runner.temp }}/zee-64-both-charged-H1H2-public-matched-13TeV-HB.json
             ${{ runner.temp }}/higgs-install.log
           if-no-files-found: warn
           retention-days: 30
