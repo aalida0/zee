@@ -3,8 +3,8 @@
 
 This is explicitly a *restricted h125 single-resonance* HiggsSignals check,
 NOT a physical all-Higgs-sector scan verdict, because additional H/A charged
-states are excluded from this HiggsSignals prediction and HiggsBounds searches
-are not evaluated. The supplied h125 loop gg/gammagamma couplings are explicit.
+states are excluded from this HiggsSignals prediction and a global HiggsBounds model comparison
+is not evaluated. The supplied h125 loop gg/gammagamma couplings are explicit.
 
 The matched h125 64-family input is SHA-provenanced from the validated
 native source-output pipeline; no incomplete h125 known-channel width is ever
@@ -44,6 +44,55 @@ def add_native_zee_h125_lfv(h_particle, h_source):
             "width_is_full_physical_Zee":False}
 
 
+def build_zee_h125_prediction(h, sm_ledger):
+    """Model-specific h125 effective-coupling prediction, shared by HS/HB probes."""
+    import Higgs.predictions as HP
+    # Native HiggsPredictions effective-coupling API provides the
+    # *reference-model inferred* h125 width, avoiding the Input parser's
+    # mandatory w_h requirement. This is a declared effective-coupling
+    # approximation, NOT our unknown full physical Zee width.
+    pred=HP.Predictions()
+    hp=pred.addParticle(HP.BsmParticle("h","neutral","even"))
+    hp.setMass(125.0)
+    k=HP.NeutralEffectiveCouplings()
+    ku=float(h["kappa_top"])
+    kd=float(h["kappa_bottom"])
+    kv=float(h["kappaV"])
+    for name in ("uu","cc","tt"):
+        setattr(k,name,complex(ku,0.0))
+    for name in ("dd","ss","bb"):
+        setattr(k,name,complex(kd,0.0))
+    k.WW=kv
+    k.ZZ=kv
+    def width_ratio(channel):
+        model=float(h["known_partial_widths_GeV"][channel])
+        sm=float(sm_ledger[channel])
+        if not (math.isfinite(model) and model>=0 and math.isfinite(sm) and sm>0):
+            raise ValueError("Invalid source partial-width ratio: "+channel)
+        return math.sqrt(model/sm)
+    gg_ratio=float(h["matched_independent_quark_lo_gg_ratio"])
+    if not math.isfinite(gg_ratio) or gg_ratio<0:
+        raise ValueError("Invalid source coherent gg-production ratio")
+    k.gg=math.sqrt(gg_ratio)
+    k.gamgam=width_ratio("gammagamma")
+    k.Zgam=width_ratio("Zgamma")
+    # The general Zee lepton Yukawa sector is not Type-II NFC.
+    # Retain both signed scalar and pseudoscalar components explicitly.
+    for name,flavor in (("ee","e"),("mumu","mu"),("tautau","tau")):
+        d=h["Zee_lepton_diagonal_kappas_complex"][flavor]
+        sc=float(d["scalar"])
+        ps=float(d["pseudoscalar"])
+        if not math.isfinite(sc) or not math.isfinite(ps):
+            raise ValueError("Nonfinite Zee lepton effective coupling")
+        setattr(k,name,complex(sc,ps))
+    # The native Zee photon and gg amplitude ratios include physics
+    # absent from the generic 2HDM formulas. Never recalculate/override
+    # them from quark/W loops, and never insert the partial-width sum.
+    HP.effectiveCouplingInput(
+        hp,k,calcggH=False,calcHgamgam=False)
+    width_record=add_native_zee_h125_lfv(hp,h)
+    return pred,width_record
+
 def run(source:Path, dataset:Path, output:Path):
     if output.exists():raise FileExistsError("No overwriting evidence")
     if not dataset.is_dir():raise FileNotFoundError("HiggsSignals dataset not installed")
@@ -71,50 +120,7 @@ def run(source:Path, dataset:Path, output:Path):
         h=row["h125"]
         if h["full_model_total_width_GeV"] is not None:
             raise RuntimeError("A known-channel sum was promoted to total width")
-        # Native HiggsPredictions effective-coupling API provides the
-        # *reference-model inferred* h125 width, avoiding the Input parser's
-        # mandatory w_h requirement. This is a declared effective-coupling
-        # approximation, NOT our unknown full physical Zee width.
-        pred=HP.Predictions()
-        hp=pred.addParticle(HP.BsmParticle("h","neutral","even"))
-        hp.setMass(125.0)
-        k=HP.NeutralEffectiveCouplings()
-        ku=float(h["kappa_top"])
-        kd=float(h["kappa_bottom"])
-        kv=float(h["kappaV"])
-        for name in ("uu","cc","tt"):
-            setattr(k,name,complex(ku,0.0))
-        for name in ("dd","ss","bb"):
-            setattr(k,name,complex(kd,0.0))
-        k.WW=kv
-        k.ZZ=kv
-        def width_ratio(channel):
-            model=float(h["known_partial_widths_GeV"][channel])
-            sm=float(sm_ledger[channel])
-            if not (math.isfinite(model) and model>=0 and math.isfinite(sm) and sm>0):
-                raise ValueError("Invalid source partial-width ratio: "+channel)
-            return math.sqrt(model/sm)
-        gg_ratio=float(h["matched_independent_quark_lo_gg_ratio"])
-        if not math.isfinite(gg_ratio) or gg_ratio<0:
-            raise ValueError("Invalid source coherent gg-production ratio")
-        k.gg=math.sqrt(gg_ratio)
-        k.gamgam=width_ratio("gammagamma")
-        k.Zgam=width_ratio("Zgamma")
-        # The general Zee lepton Yukawa sector is not Type-II NFC.
-        # Retain both signed scalar and pseudoscalar components explicitly.
-        for name,flavor in (("ee","e"),("mumu","mu"),("tautau","tau")):
-            d=h["Zee_lepton_diagonal_kappas_complex"][flavor]
-            sc=float(d["scalar"])
-            ps=float(d["pseudoscalar"])
-            if not math.isfinite(sc) or not math.isfinite(ps):
-                raise ValueError("Nonfinite Zee lepton effective coupling")
-            setattr(k,name,complex(sc,ps))
-        # The native Zee photon and gg amplitude ratios include physics
-        # absent from the generic 2HDM formulas. Never recalculate/override
-        # them from quark/W loops, and never insert the partial-width sum.
-        HP.effectiveCouplingInput(
-            hp,k,calcggH=False,calcHgamgam=False)
-        width_record=add_native_zee_h125_lfv(hp,h)
+        pred,width_record=build_zee_h125_prediction(h,sm_ledger)
         x=float(hs(pred))
         if not math.isfinite(x):
             raise ValueError("Nonfinite h125-only HiggsSignals prediction")
