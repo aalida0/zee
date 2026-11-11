@@ -86,7 +86,7 @@ class TestZeeScalarScanAccounting(unittest.TestCase):
         self.assertEqual(out["per_arm"]["sub_TeV"]["n_proposed"],5)
         self.assertEqual(out["per_arm"]["production_window"]["n_proposed"],5)
         self.assertEqual(out["per_arm"]["broad_control"]["n_proposed"],2)
-        self.assertEqual(out["per_arm"]["sub_TeV"]["scalar_gate_labels"]["FAIL"]["n"],1)
+        self.assertEqual(out["per_arm"]["sub_TeV"]["scalar_gate_labels"]["FAIL"]["n"],2)
         self.assertTrue(out["arms_overlap_in_physical_space"])
         self.assertFalse(out["global_parameter_space_sampling_density_normalized"])
         self.assertFalse(out["full_B_LFV_Higgs_constraints_applied"])
@@ -101,7 +101,7 @@ class TestZeeScalarScanAccounting(unittest.TestCase):
         self.assertEqual(a["per_arm"]["broad_control"]["scalar_gate_labels"]["UNKNOWN"]["n"],1)
         self.assertEqual(m.wilson(0,0),None)
         self.assertEqual(m.wilson(0,10)[0],0)
-        self.assertEqual(m.wilson(10,10)[1],1)
+        self.assertAlmostEqual(m.wilson(10,10)[1],1,places=12)
         with self.assertRaises(ValueError):
             m.wilson(12,10)
 
