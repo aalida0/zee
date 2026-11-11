@@ -12,7 +12,7 @@ from pathlib import Path
 
 from scripts.zee_module5_bmu_nlo import matching as bmu
 from research.full_constraints.scan_pilot_2026.historical_certified_texture import source_points
-from research.full_constraints.bsgamma_flavio_2026.published_eq4_triangulation import MATCHING_CARD
+MATCHING_CARD=Path(__file__).resolve().parents[3]/"module14/conditional_scan/matching_card.json"
 
 def oracle(exe:Path,tanb:float,mt:float,mass:float,mu:float):
     p=subprocess.run([str(exe.resolve()),f"{tanb:.17g}",f"{mt:.17g}",
