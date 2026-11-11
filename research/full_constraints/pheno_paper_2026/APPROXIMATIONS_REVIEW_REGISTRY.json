@@ -1,0 +1,236 @@
+{
+  "schema": "zee-typeII-pheno-approximation-audit-v1",
+  "date": "2026-11-11",
+  "rule": "A numerical PASS at an explicitly restricted order never becomes a model-wide experimental PASS. An uncomputed required observable is null, not zero.",
+  "model_definition": "Zee scalar sector with Type-II quark Yukawas and general non-NFC lepton Yukawas needed for neutrino masses; not a fully natural-flavor-conserving Type-II lepton model.",
+  "entries": [
+    {
+      "id": "P01",
+      "subject": "Model and lepton Yukawa definition",
+      "approximation": "CP-conserving real scalar potential and Type-II quark sector; lepton Yukawas remain general",
+      "classification": "DECLARED_MODEL_RESTRICTION",
+      "justification": "Florentino-Romão-Silva EPJC 81 (2021) 1148 Sec III explicitly restricts quark/scalar Z2 but does not analyze neutrino/LFV; Herrero-García et al JHEP04(2017)130 Sec2 notes general Zee needs two lepton-coupled doublets",
+      "citations": [
+        "arXiv:2106.08332 Sec III",
+        "arXiv:1701.05345 Sec 2"
+      ],
+      "reviewer_objection": "Calling the entire lepton sector Type-II natural flavor conservation is inconsistent with generating the required realistic neutrino masses",
+      "allowed_claim": "Type-II quark realization of the general Zee lepton sector"
+    },
+    {
+      "id": "P02",
+      "subject": "Scalar boundedness/unitarity/EWPO",
+      "approximation": "Tree-level BFB and perturbative unitarity, source EWPO approximation",
+      "classification": "SCOPED_IMPLEMENTED",
+      "justification": "Standard scalar phenomenology at tree potential and one-loop oblique order; 2021 reference applies similar scope",
+      "citations": [
+        "arXiv:2106.08332 Sec IV",
+        "module1/scalar_constraints.py"
+      ],
+      "reviewer_objection": "Unreported stability scale and two-loop scalar corrections; EWPO central/covariance should be documented",
+      "allowed_claim": "Passes original source-defined tree-level/theoretical and EWPO screens at 16 fixed spectra"
+    },
+    {
+      "id": "P03",
+      "subject": "Vacuum stability",
+      "approximation": "D10 sufficient tree-level stationary point certificate for only 16 positive witnesses; other points may be UNKNOWN",
+      "classification": "SCOPED_IMPLEMENTED",
+      "justification": "D10 certified original tree-level potential global witness; 2021 study checks possible charge-breaking vacua",
+      "citations": [
+        "module1/d10_certificate.py",
+        "arXiv:2106.08332 Sec IV"
+      ],
+      "reviewer_objection": "A failure to find a sufficient witness is not exclusion; loop vacuum/metastability unknown",
+      "allowed_claim": "Original 16 source spectra have a sufficient tree-potential vacuum certificate"
+    },
+    {
+      "id": "P04",
+      "subject": "Neutrino masses and mixing",
+      "approximation": "One-loop Zee neutrino mass inverse, NuFIT central/secondary fixed oscillation target, exact algebraic closure but not global neutrino/cosmology likelihood",
+      "classification": "SCOPED_IMPLEMENTED",
+      "justification": "Leading Zee neutrino mass occurs at one-loop; 2017 full scan uses oscillation input and cosmology; native Module2 inverse source verified",
+      "citations": [
+        "arXiv:1701.05345 Sec 2-4",
+        "module2/interface.py",
+        "module14/scan.py"
+      ],
+      "reviewer_objection": "Neither one fitted central neutrino target nor a point in a nullspace demonstrates a statistically representative allowed region or cosmological mass-sum pass",
+      "allowed_claim": "Numerically reproduces chosen one-loop neutrino mass targets for 64 constructed families"
+    },
+    {
+      "id": "P05",
+      "subject": "Algebraic LFV suppressed textures",
+      "approximation": "Deliberately solve D_e_mu = D_mu_e =0 with four complex homogeneous parameters; remaining two complex free",
+      "classification": "BENCHMARK_CONSTRUCTION_ONLY",
+      "justification": "Known Zee flavor-texture manipulation exists (2023 Heeck–Thapa, Eqs 14/18/19), so construction is not novelty",
+      "citations": [
+        "arXiv:2303.13383 Appendix B-C",
+        "research/full_constraints/scan_pilot_2026/analytic_direct_lfv_textures.py"
+      ],
+      "reviewer_objection": "Tuned or measure-zero textures not generic scan; require independent variations and discussion of naturalness/RGE",
+      "allowed_claim": "Exhibits deliberately constructed neutrino-consistent flavor witness families, not naturalness or acceptance fraction"
+    },
+    {
+      "id": "P06",
+      "subject": "Radiative charged LFV",
+      "approximation": "Retained scalar one-loop and selected photon Barr–Zee terms with complex interference; some mixed Zee EW two-loop groups uncomputed",
+      "classification": "PARTIAL_NOT_FULL",
+      "justification": "Lavoura 2003 one-loop dipoles and Zee 2023 study discuss hierarchical relevant diagrams; selected source kernels validated, missing groups left null",
+      "citations": [
+        "arXiv:2303.13383",
+        "hep-ph/0302221",
+        "research/full_constraints/lfv_two_loop_scope_2026/GAUGE_SPURION_SCOPE_DECISION_2026-11-10.md"
+      ],
+      "reviewer_objection": "Cannot call physical µ→eγ PASSED if omitted leading or chirality-enhanced amplitudes remain unbounded",
+      "allowed_claim": "Selected LO scalar / named two-loop contribution satisfies MEG II limit with an explicit diagram-coverage caveat"
+    },
+    {
+      "id": "P07",
+      "subject": "µ→3e and µ–e conversion",
+      "approximation": "Generated one-loop native Wilson calculations validated on four old D7/F13 cards only; no source-bound coherent new-64 observables",
+      "classification": "MISSING_NEW_BENCHMARK",
+      "justification": "2017 full Zee scan includes both and their complementarity; original SARAH source validation at different Yukawa textures cannot be transplanted",
+      "citations": [
+        "arXiv:1701.05345 Sec 3.3",
+        "research/full_constraints/lfv_lo_closure_2026/NATIVE_COMPLETE_ONELOOP_LFV_REPORT_2026-11-10.md"
+      ],
+      "reviewer_objection": "Muon conversion can exclude texture points with tiny radiative dipoles; direct-zero D_e_mu is not sufficient",
+      "allowed_claim": "Not evaluated for new textures; exclude full LFV coverage claim"
+    },
+    {
+      "id": "P08",
+      "subject": "B→Xsγ high-scale matching",
+      "approximation": "Type-II quark top-only real two-state C_i weights cos²gamma and sin²gamma, with source-validated LO/NLO and independent HEPfit three-loop matching",
+      "classification": "SCOPED_IMPLEMENTED",
+      "justification": "2021 model Appendix C, BMU matching, 2026 Misiak leading NP formula; two-state coherent matching verified",
+      "citations": [
+        "arXiv:2106.08332 App C",
+        "arXiv:2608.29863 Sec IV Eq(4)",
+        "research/full_constraints/bsgamma_nnlo_hepfit_2026/16_scalar_three_loop_source_matched_evidence.json"
+      ],
+      "reviewer_objection": "Independent matching success is not a complete 2026 NNLO inclusive rate/uncertainty",
+      "allowed_claim": "Validated real top-only two-mass charged sector Wilson matching at specified orders"
+    },
+    {
+      "id": "P09",
+      "subject": "B→Xsγ exclusion statistic",
+      "approximation": "2026 Eq4 linear leading-NP with independent exp ±0.19 and SM ±0.14 ×1e-4 combined Gaussian; explicit one- and two-sided alternatives; NP covariance unavailable",
+      "classification": "PUBLISHED_ORDER_SCREEN",
+      "justification": "Misiak et al 2026 explicitly supplies leading BSM rate approximation; old 2017 paper discusses varied CL procedures",
+      "citations": [
+        "arXiv:2608.29863 Eq(4)",
+        "arXiv:1702.04571 Sec5"
+      ],
+      "reviewer_objection": "Do not impose 670-GeV single-state bound on both masses or claim FC/calibrated 95% Zee exclusion",
+      "allowed_claim": "One- and two-sided Gaussian screening at published leading-NP order, with uncertainty limitations"
+    },
+    {
+      "id": "P10",
+      "subject": "h125 signal couplings and widths",
+      "approximation": "Near-alignment κ and validated leading γγ/Zγ loops; HDECAY-sourced known-channel sums are not complete Γ_h; no full HiggsSignals likelihood",
+      "classification": "PARTIAL_NOT_FULL",
+      "justification": "2021 paper performs μ_ij with full BRs; public HiggsTools requires complete model predictions and correct measurement options",
+      "citations": [
+        "arXiv:2106.08332 Sec IV-B Eq(57)",
+        "https://higgsbounds.gitlab.io/higgstools/",
+        "research/full_constraints/higgs_lfv_2026/FINAL_64_FAMILY_HIGGS_LFV_CONSTRAINTS_2026-11-11.md"
+      ],
+      "reviewer_objection": "Using known-channel sum as Γtotal or passing a 125-GeV coupling proxy as a global Higgs fit invalidates acceptance",
+      "allowed_claim": "Width-independent ratios and source-defined partial decay widths only"
+    },
+    {
+      "id": "P11",
+      "subject": "Direct Higgs LFV",
+      "approximation": "Γ(h→ℓτ)/Γ(h→bb) conservative positive-partial upper envelope, compared with nominal ATLAS branching limits; production, total width and efficiency not recast",
+      "classification": "SCREEN_ONLY",
+      "justification": "Positive partial widths imply Γ_total≥Γ_bb; published ATLAS branching limits derived under specified production assumptions",
+      "citations": [
+        "arXiv:2302.05225",
+        "research/full_constraints/higgs_lfv_2026/HIGGS_LFV_64_SCOPE_GATE_2026-11-11.json"
+      ],
+      "reviewer_objection": "ATLAS BR upper limits assume signal production and category acceptance; not an unconditional theorem for arbitrary couplings",
+      "allowed_claim": "Partial-width materiality check; no complete direct Higgs-LFV exclusion"
+    },
+    {
+      "id": "P12",
+      "subject": "Heavy neutral H/A and other Higgs searches",
+      "approximation": "Some production/partial widths evaluated but total widths, tau tau, relevant HiggsTools prediction coverage and observed limits not certified",
+      "classification": "MISSING_COVERAGE",
+      "justification": "HiggsBounds chooses most sensitive observed limits using model production and branching predictions; missing channels cannot be passed as zeros",
+      "citations": [
+        "https://higgsbounds.gitlab.io/higgstools/HiggsBoundsAPI.html",
+        "research/full_constraints/HIGGS_COVERAGE.md"
+      ],
+      "reviewer_objection": "Strong risk of excluded benchmark; complete rate and observed-limit recast needed to call it physically allowed",
+      "allowed_claim": "No full Higgs-exclusion conclusion"
+    },
+    {
+      "id": "P13",
+      "subject": "Charged cascade decay",
+      "approximation": "Complete native *on-shell two-body tree-level* D4 partial width ledger, excluding virtual three-body and NLO/QCD corrections",
+      "classification": "SCOPED_IMPLEMENTED",
+      "justification": "2021 cascade formulas; D4 channel-source-tested widths on source scalar cards and new lepton textures",
+      "citations": [
+        "arXiv:2106.08332 Sec VI Eq(79)",
+        "module14/decays.py"
+      ],
+      "reviewer_objection": "Close thresholds or missed virtual/off-shell modes can alter branching fractions; do not claim NLO precision",
+      "allowed_claim": "Leading on-shell two-body cascade and H1→tb predictions"
+    },
+    {
+      "id": "P14",
+      "subject": "Associated charged-Higgs production",
+      "approximation": "Actual MG5 LO 5FS gb→tH2 with both charges, fixed µR=µF=mH2 and one LO PDF; numerical errors only",
+      "classification": "SCOPED_IMPLEMENTED",
+      "justification": "Validated pinned MG5 UFO D14D actual 13 TeV for all 16 scalar spectra and *actual* 14 TeV for 15591,2264,15673",
+      "citations": [
+        "module14/conditional_scan/PRODUCTION_MAP_REPORT.md",
+        "module14/conditional_scan/production_map_13_14.json"
+      ],
+      "reviewer_objection": "No 4FS/5FS matching, NLO K-factor, scale/PDF band or b-tag acceptance; 14 TeV rates cannot be interpolated to other 13 scalar points",
+      "allowed_claim": "LO parton-level rates with only numerical MC integration errors"
+    },
+    {
+      "id": "P15",
+      "subject": "Event yields and LHC/HL-LHC prospects",
+      "approximation": "Luminosity × LO inclusive sigma × on-shell tree branching product, pre-detector; no Z or top daughter decays unless explicitly multiplied",
+      "classification": "PRE_DETECTOR_ONLY",
+      "justification": "Identity for hypothetical inclusive event count; experimental sensitivity requires efficiencies and backgrounds",
+      "citations": [
+        "module14/conditional_scan/PRODUCTION_MAP_REPORT.md"
+      ],
+      "reviewer_objection": "N_raw is not a 95% CL exclusion or discovery significance; statistical CLs without B and ε is fabrication",
+      "allowed_claim": "Raw expected signal counts and required selection efficiency for a specified target count, no statistical reach"
+    },
+    {
+      "id": "P16",
+      "subject": "Scan representativeness and novelty",
+      "approximation": "Original 16 source-selected scalar spectra and 64 engineered neutrino textures are *not* a random or weighted global accepted volume sample",
+      "classification": "EXPLICIT_SELECTION_BIAS",
+      "justification": "2017 full general Zee scan and 2021 same-cascade paper are direct precedents; 2023 already constructs LFV-safe textures",
+      "citations": [
+        "arXiv:1701.05345",
+        "arXiv:2106.08332",
+        "arXiv:2303.13383"
+      ],
+      "reviewer_objection": "A paper claiming new allowed parameter regions or novelty from algebraic zeros alone is not sufficiently original, and selected-only scatter cannot support parameter-space conclusions",
+      "allowed_claim": "A finite controlled benchmark and rate/constraint correlation pilot; a production scan and novelty benchmark required before paper acceptance"
+    }
+  ],
+  "paper_claims": {
+    "allowed_now": [
+      "Source-validated LO associated H2 production at 13 TeV all 16, 14 TeV three benchmarks",
+      "Neutrino mass-consistent, hand-constructed Yukawa textures under declared one-loop conditions",
+      "Leading-NP B screening and one-sided/two-sided sensitivity",
+      "Leading source-defined charged two-body branching fractions and transparent pre-detector yields"
+    ],
+    "forbidden_without_new_evidence": [
+      "Globally allowed Zee parameter scan",
+      "Model-wide full LFV pass",
+      "Full HiggsSignals/HiggsBounds acceptance without total widths/production",
+      "95% CL LHC/HL-LHC exclusions or discovery sensitivity without backgrounds/efficiencies",
+      "First demonstration of H2→H1 Z or LFV-safe Yukawa textures",
+      "13-to-14 TeV mass-only rescaling for unintegrated spectra"
+    ]
+  }
+}
