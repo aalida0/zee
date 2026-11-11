@@ -1,0 +1,47 @@
+name: Zee Bsgamma official SuperIso 5.0 source restoration probe
+on:
+  push:
+    branches: [research/zee-full-constraints]
+    paths:
+      - .github/workflows/zee-B-superiso-source-probe.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  official-upstream-provenance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Inspect official public download forms without installing unknown source
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --retry 2 --max-time 20 --fail --location --silent --show-error https://superiso.in2p3.fr/download/ -o "$RUNNER_TEMP/superiso-download.html"
+          python3 - "$RUNNER_TEMP/superiso-download.html" <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import sys
+          class P(HTMLParser):
+              def handle_starttag(self,tag,attrs):
+                  a=dict(attrs)
+                  if tag in ('form','input','button','a'):
+                      s=' '.join(str(a.get(x,'')) for x in ('action','href','name','value','onclick','type'))
+                      if tag=='form' or any(k in s.lower() for k in ('superiso','download','5.0','v5','php')):
+                          print('PUBLIC_DOWNLOAD_MARKUP',tag,{k:v for k,v in a.items() if k in ('action','href','method','type','name','value','onclick')})
+          P().feed(Path(sys.argv[1]).read_text())
+          print('PAGE_BYTES',Path(sys.argv[1]).stat().st_size)
+          PY
+      - name: Probe likely static release URLs (no unpinned code executed)
+        shell: bash
+        run: |
+          for u in \
+            https://superiso.in2p3.fr/download/superiso_v5.0.tgz \
+            https://superiso.in2p3.fr/superiso_v5.0.tgz \
+            https://superiso.in2p3.fr/download/superiso_v5.0.tar.gz; do
+             echo "OFFICIAL_URL_PROBE $u"
+             curl --location --head --max-time 8 --silent --show-error \
+                --output /dev/null --write-out 'HTTP_STATUS %{http_code} CONTENT_TYPE %{content_type} SIZE %{size_download}\n' "$u" || true
+          done
