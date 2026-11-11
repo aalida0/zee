@@ -17,6 +17,11 @@ def hash_file(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 def card_16(name, p, scalar_sha256, state, scale=(1.,1.), member=0, factors=(1.,1.,1.)):
+    for k in ("alpha","beta","gamma","v","mh1","mh2","ma","mH1","mH2"):
+        if not math.isfinite(float(p[k])):
+            raise ValueError("Nonfinite source Zee scalar input: "+k)
+    if min(p[k] for k in ("v","mh1","mh2","ma","mH1","mH2"))<=0 or abs(math.sin(p["beta"])*math.cos(p["beta"]))<1e-10:
+        raise ValueError("Invalid or singular source physical scalar spectrum")
     couplings(p,state)
     if len(scale)!=2 or any(not math.isfinite(x) or x<=0 for x in scale):
         raise ValueError('Positive finite scale multipliers required')
