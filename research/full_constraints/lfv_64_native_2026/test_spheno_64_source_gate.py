@@ -60,6 +60,48 @@ class NativeInputContracts(unittest.TestCase):
         self.assertAlmostEqual(block_values(blocks["SMINPUTS"])[(6,)],172.76)
         self.assertEqual(block_values(blocks["SPHENOINPUT"])[(55,)],0)
 
+    def test_original_SARAH_IN_blocks_repeated_and_complex_physics_preserved(self):
+        p=source_points()[0]["input_card"]
+        f=np.zeros((3,3),dtype=complex)
+        f[0,1]=3e-4+4e-4j
+        f[1,0]=-f[0,1]
+        y=np.eye(3,dtype=complex)*.011
+        y[2,0]=.007-.003j
+        native=TEMPLATE.replace("Block FZEE","Block FZEEIN").replace(
+            "Block YEE2","Block YEE2IN")
+        native+="\nBlock FZEEIN\n 1 2 4.1\nBlock YEE2IN\n 1 1 9.8\n"
+        # Repeated historical IN blocks must be normalized, never accepted
+        # as two conflicting physical Yukawa sources.
+        with self.assertRaises(ValueError):
+            split_slha(native)
+        generated=set_model_blocks(native,p,{"F":encode(f),"Ye2":encode(y)})
+        headers=[s.upper().strip() for s in generated.splitlines()
+                 if s.lstrip().upper().startswith("BLOCK ")]
+        self.assertEqual(headers.count("BLOCK FZEEIN"),1)
+        self.assertEqual(headers.count("BLOCK YEE2IN"),1)
+        self.assertIn("BLOCK IMFZEEIN",headers)
+        self.assertIn("BLOCK IMYEE2IN",headers)
+        self.assertNotIn("BLOCK FZEE",headers)
+        self.assertNotIn("BLOCK YEE2",headers)
+        sec=split_slha(generated)
+        self.assertAlmostEqual(block_values(sec["FZEEIN"])[(1,2)],3e-4)
+        self.assertAlmostEqual(block_values(sec["IMFZEEIN"])[(1,2)],4e-4)
+        self.assertAlmostEqual(block_values(sec["FZEEIN"])[(2,1)],-3e-4)
+        self.assertAlmostEqual(block_values(sec["YEE2IN"])[(3,1)],.007)
+        self.assertAlmostEqual(block_values(sec["IMYEE2IN"])[(3,1)],-.003)
+        self.assertEqual(block_values(sec["SMINPUTS"]),block_values(split_slha(TEMPLATE)["SMINPUTS"]))
+        self.assertEqual(block_values(sec["SPHENOINPUT"]),block_values(split_slha(TEMPLATE)["SPHENOINPUT"]))
+
+    def test_ambiguity_rejects_both_input_and_output_model_stems(self):
+        p=source_points()[0]["input_card"]
+        z=np.zeros((3,3),dtype=complex)
+        both=TEMPLATE+"\nBlock FZEEIN\n 1 2 .3\n"
+        with self.assertRaises(ValueError):
+            set_model_blocks(both,p,{"F":encode(z),"Ye2":encode(z)})
+        repeated_other=TEMPLATE+"\nBlock MINPAR\n 1 .1\n"
+        with self.assertRaises(ValueError):
+            set_model_blocks(repeated_other,p,{"F":encode(z),"Ye2":encode(z)})
+
     def test_missing_original_model_block_refused(self):
         p=source_points()[0]["input_card"]
         f=np.zeros((3,3),complex)
