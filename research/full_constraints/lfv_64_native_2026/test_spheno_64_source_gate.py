@@ -102,6 +102,46 @@ class NativeInputContracts(unittest.TestCase):
         with self.assertRaises(ValueError):
             set_model_blocks(repeated_other,p,{"F":encode(z),"Ye2":encode(z)})
 
+    def test_native_tree_template_repeated_SPhenoInput_controls_merge_losslessly(self):
+        p=source_points()[0]["input_card"]
+        f=np.zeros((3,3),complex)
+        f[0,1]=3e-5+4e-5j
+        f[1,0]=-f[0,1]
+        y=np.eye(3,dtype=complex)*.021
+        # Authentic native input may repeat both FZEEIN and SPhenoInput
+        # sections. Additional switches must survive, not be dropped.
+        native=(TEMPLATE.replace("Block FZEE","Block FZEEIN")
+                        .replace("Block YEE2","Block YEE2IN"))
+        native += "\nBlock SPHENOINPUT\n  57 1  # identical duplicate\n  76 0.\n"
+        native += "Block SPHENOINPUT\n  12 1.\n  76 0.\n"
+        native += "Block FZEEIN\n  1 2 999.\n"
+        with self.assertRaisesRegex(ValueError,"Duplicate SLHA input block SPHENOINPUT"):
+            split_slha(native)
+        canonical=set_model_blocks(native,p,{"F":encode(f),"Ye2":encode(y)})
+        parsed=split_slha(canonical)
+        head=[line.upper() for line in canonical.splitlines() if line.upper().startswith("BLOCK ")]
+        self.assertEqual(head.count("BLOCK SPHENOINPUT"),1)
+        self.assertEqual(head.count("BLOCK FZEEIN"),1)
+        self.assertEqual(head.count("BLOCK YEE2IN"),1)
+        ctrl=block_values(parsed["SPHENOINPUT"])
+        self.assertEqual(ctrl,{(55,):0.0,(57,):1.0,(76,):0.0,(12,):1.0})
+        self.assertAlmostEqual(block_values(parsed["IMFZEEIN"])[(1,2)],4e-5)
+        self.assertAlmostEqual(block_values(parsed["FZEEIN"])[(1,2)],3e-5)
+        self.assertAlmostEqual(block_values(parsed["YEE2IN"])[(1,1)],.021)
+        self.assertEqual(block_values(parsed["SMINPUTS"]),
+                         block_values(split_slha(TEMPLATE)["SMINPUTS"]))
+
+    def test_repeated_SPhenoInput_conflicting_flags_denied(self):
+        p=source_points()[0]["input_card"]
+        z=np.zeros((3,3),complex)
+        for conflicting in (
+            "Block SPHENOINPUT\n 57 0.\n",
+            "Block SPHENOINPUT\n 55 1.\n",
+        ):
+            with self.assertRaisesRegex(ValueError,"Conflicting repeated SLHA control SPHENOINPUT"):
+                set_model_blocks(TEMPLATE+"\n"+conflicting,p,{"F":encode(z),"Ye2":encode(z)})
+        self.assertEqual(block_values(split_slha(TEMPLATE)["SPHENOINPUT"])[(57,)],1.)
+
     def test_missing_original_model_block_refused(self):
         p=source_points()[0]["input_card"]
         f=np.zeros((3,3),complex)
