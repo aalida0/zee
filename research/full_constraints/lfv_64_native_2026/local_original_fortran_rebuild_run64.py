@@ -83,13 +83,18 @@ def prepare_isolated_tree(original_spheno,generated_model,source,work):
     return target,paths
 
 def native_build_command(jobs):
-    """Force exact model-source recompilation using GNU-compatible flags."""
+    """Build serially: SPheno 4.0.5 make recipes share one nonlocked .a.
+
+    Caller-requested parallelism must NEVER propagate into recursive make,
+    because concurrent `ar -ruc ../lib/libSPheno.a` commands truncate the
+    shared archive. The public model code is not safe for parallel make.
+    """
     if not isinstance(jobs,int) or not 1<=jobs<=32:
         raise ValueError("Native SPheno build jobs must be between 1 and 32")
-    return ["make","-B",f"-j{jobs}","Model=ZeeTypeII","F90=gfortran"]
+    return ["make","-B","-j1","Model=ZeeTypeII","F90=gfortran"]
 
 def rebuild_and_evaluate(source_json,template,source_zip,original_spheno,
-                         generated_model,work,jobs=2):
+                         generated_model,work,jobs=1):
     source=read_orig_zip(source_zip)
     # Reject the CI synthetic reference template. The original tree-scheme
     # SPheno input must use the original scheme and CKM/SMINPUTS convention.
@@ -106,6 +111,12 @@ def rebuild_and_evaluate(source_json,template,source_zip,original_spheno,
     # the compiler choice and its matching -J (not Intel -module) flags.
     if shutil.which("gfortran") is None:
         raise FileNotFoundError("GNU Fortran gfortran required for isolated ZeeTypeII build")
+    # Only the COPIED work tree is modified. A pre-existing shared archive
+    # may contain stale objects from the previous compiler or interrupted
+    # parallel runs; do not reuse it in the forced serial rebuild.
+    archive=target/"lib"/"libSPheno.a"
+    if archive.exists():
+        archive.unlink()
     cmd=native_build_command(jobs)
     with build.open("w") as f:
         run=subprocess.run(cmd,cwd=target,stdout=f,stderr=subprocess.STDOUT,check=False)
@@ -164,7 +175,8 @@ def main():
                     help="Full original SARAH EWSB/SPheno generated model tree")
     pa.add_argument("--work",type=Path,required=True,
                     help="New/private scratch directory; must not exist")
-    pa.add_argument("--jobs",type=int,default=2)
+    pa.add_argument("--jobs",type=int,default=1,
+                    help="Caller preference; SPheno 4.0.5 compilation is always forced serial (-j1) for archive safety")
     a=pa.parse_args()
     if not 1<=a.jobs<=32:pa.error("jobs must be 1..32")
     rebuild_and_evaluate(a.source_json,a.template,a.original_zip,
