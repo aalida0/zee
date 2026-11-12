@@ -73,7 +73,7 @@ def export(output:Path,paths:dict[str,Path]):
             archive.writestr(item,raw)
         info=zipfile.ZipInfo("SOURCE_SHA256_AND_STATUS.json",date_time=(1980,1,1,0,0,0))
         info.compress_type=zipfile.ZIP_DEFLATED
-        archive.writestr(info,json.dumps(source,sort_keys=True,indent=2)+"\\n")
+        archive.writestr(info,json.dumps(source,sort_keys=True,indent=2)+"\n")
     with zipfile.ZipFile(output) as archive:
         for name,expected in EXPECTED_SOURCES.items():
             if digest(archive.read(name))!=expected:
