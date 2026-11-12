@@ -124,7 +124,8 @@ def rebuild_and_evaluate(source_json,template,source_zip,original_spheno,
     cards=work/"new64-source-cards"
     compile_cards(source_json,template,cards)
     results=work/"new64-native-results"
-    raw=evaluate_cards(source_json,template,cards,executable,paths,results)
+    raw=evaluate_cards(source_json,template,cards,executable,paths,results,
+                       corrected_nuclear_attestation=receipt)
     summary=classify(raw,receipt)
     out=work/"source-1loop-64-mu3e-conversion-90CL-SCOPED.json"
     out.write_text(json.dumps(summary,allow_nan=False,indent=2,sort_keys=True)+"\n")
