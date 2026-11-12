@@ -14,6 +14,13 @@ End Subroutine Calculate_MuEconversion
 def sha(buf):return hashlib.sha256(buf).hexdigest()
 
 class OriginalSourceRebuildUnit(unittest.TestCase):
+    def test_original_spheno_build_forces_gnu_and_recompiles_all_sources(self):
+        cmd=runner.native_build_command(2)
+        self.assertEqual(cmd,["make","-B","-j2","Model=ZeeTypeII","F90=gfortran"])
+        self.assertNotIn("ifort"," ".join(cmd))
+        for count in (0,33,-1,1.5,"2"):
+            with self.assertRaises(ValueError):
+                runner.native_build_command(count)
     def fake_sources(self):
         obj={k:("! test "+k+"\\n").encode() for k in runner.EXPECTED_SOURCES}
         obj["FlavorKit_Observables_ZeeTypeII.f90"]=EXCERPT.encode()
