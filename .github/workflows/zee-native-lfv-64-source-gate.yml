@@ -33,6 +33,7 @@ jobs:
         run: |
           python -m unittest research.full_constraints.lfv_64_native_2026.test_spheno_64_source_gate -v
           python -m unittest research.full_constraints.lfv_64_native_2026.test_patch_original_nuclear_source -v
+          python -m unittest research.full_constraints.lfv_64_native_2026.test_export_all_original_sources -v
       - name: Recreate original 16x4 physical scalar and engineered neutrino source
         run: |
           python -u -m research.full_constraints.scan_pilot_2026.bounded_16_scalar_64_family \
