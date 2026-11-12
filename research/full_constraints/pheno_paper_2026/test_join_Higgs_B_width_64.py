@@ -15,7 +15,8 @@ class ScopedZeeGates(unittest.TestCase):
            "metrics":{"all_open_H1W_and_H2H1Z_far_five_widths":True,
               "source_width_floor_over_mass":{"H1":.003,"H2":.04,"H":.055,"A":.06},
               "inferred_narrow_width_allowed":None}}
-        scalar={"scalar_sha256":"source","published_Eq4_nominal_gaussian_inside":True}
+        scalar={"scalar_sha256":"source","published_Eq4_nominal_gaussian_inside":True,
+                "published_2026_Eq4_B_pull":1.2}
         return family,h,t,scalar
 
     def test_conservative_source_prioritization_no_global_pass(self):
@@ -37,6 +38,15 @@ class ScopedZeeGates(unittest.TestCase):
         out=join_case(a,b,c,d)
         self.assertTrue(out["source_B_plus_direct_and_threshold_well_separated"])
         self.assertFalse(out["source_B_direct_threshold_and_h125_small_penalty_for_followup"])
+
+    def test_two_sided_B_interior_does_not_imply_one_sided_upper_95(self):
+        a,b,c,d=self.fixture()
+        d["published_2026_Eq4_B_pull"]=1.82
+        d["published_Eq4_nominal_gaussian_inside"]=True
+        scoped=join_case(a,b,c,d)
+        self.assertTrue(scoped["source_B_published_2026_LO_NP_two_sided_Gaussian"])
+        self.assertFalse(scoped["source_B_published_2026_LO_NP_one_sided_Gaussian"])
+        self.assertFalse(scoped["source_B_direct_threshold_and_h125_small_penalty_for_followup"])
 
     def test_source_errors_and_fictitious_pass_rejected(self):
         for fault in ("mismatch","scalar","global","higgs_pass","width_pass"):
