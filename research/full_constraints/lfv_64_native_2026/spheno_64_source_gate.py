@@ -117,7 +117,7 @@ def raw_slha_sections(text, name):
     source-integrity check without assuming the native parser resolves
     duplicate SPhenoInput keys as first-wins or last-wins.
     """
-    pattern=re.compile(r"(?im)^[ \\t]*(?:BLOCK[ \\t]+[A-Za-z0-9_]+\\b|DECAY(?:1L)?[ \\t]+)")
+    pattern=re.compile(r"(?im)^[ \t]*(?:BLOCK[ \t]+[A-Za-z0-9_]+\b|DECAY(?:1L)?[ \t]+)")
     matches=list(pattern.finditer(text))
     selected=[]
     for i,m in enumerate(matches):
@@ -179,8 +179,8 @@ def set_model_blocks(template, scalar, lepton):
     if "MINPAR" not in sec:
         raise ValueError("Validated ZeeTypeII input template lacks MINPAR")
     control_sections=raw_slha_sections(template,"SPHENOINPUT")
-    flag57=[block_values(section)[(57,)] for section in control_sections
-            if (57,) in block_values(section)]
+    flag57=[block_values(section.splitlines())[(57,)] for section in control_sections
+            if (57,) in block_values(section.splitlines())]
     if not flag57 or any(value!=1. for value in flag57):
         raise ValueError("All explicitly specified SPhenoInput[57] switches must be 1 for LFV")
     def choose_input_block(stem):
@@ -213,7 +213,7 @@ def set_model_blocks(template, scalar, lepton):
     # replacing all copies with one canonical block is unambiguous.
     # All non-target blocks (including scale, SMINPUTS and SPhenoInput)
     # stay byte-for-byte unchanged except for inter-block whitespace.
-    pattern=re.compile(r"(?im)^\s*BLOCK\s+([A-Za-z0-9_]+)\b")
+    pattern=re.compile(r"(?im)^[ \t]*BLOCK[ \t]+([A-Za-z0-9_]+)\b")
     matches=list(pattern.finditer(template))
     if not matches:raise ValueError("No SLHA template blocks")
     text=""
