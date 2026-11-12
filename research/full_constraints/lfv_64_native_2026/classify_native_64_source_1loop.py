@@ -24,6 +24,12 @@ def sha(path):
 def evaluate(native:dict,build:dict,thresholds=LIMITS_90CL):
     if native.get("number_original_cases")!=64 or len(native.get("cards",[]))!=64:
         raise ValueError("Incomplete original 64 Zee flavor source")
+    if native.get("SPheno_historical_scalar_pn_conversion_swap_unrepaired") is not False or native.get("source_nuclear_patch_compiler_attestation_matched") is not True:
+        raise ValueError("Native 64 source does not itself attest a rebuilt corrected nuclear observable")
+    if any(card.get("historical_conversion_scalar_proton_neutron_swap_UNCORRECTED") is not False
+           for card in native.get("cards",[])):
+        raise ValueError("At least one native case was evaluated with the uncorrected conversion source")
+
     if native.get("global_acceptance") is not None or native.get("full_LFV")!="UNKNOWN":
         raise ValueError("Source full model acceptance not preserved")
     if native.get("native_binary_sha256")!=build.get("binary_sha256"):
