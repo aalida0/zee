@@ -69,11 +69,13 @@ def check_source_bundle(source_paths:dict[str,Path]):
         result[name]=h
     return result
 
-def split_slha(text):
-    """Conservative SLHA text parser preserving all unrelated source sections.
+def split_slha(text, *, allowed_repeated=()):
+    """Parse SLHA BLOCK sections, rejecting ambiguous duplicates by default.
 
-    It must never edit the template's SMINPUTS, SPhenoInput numerical flags,
-    VCKM or default scheme on behalf of the user.
+    The historical native tree.in repeats certain Yukawa *input* blocks
+    (e.g. FZEEIN). We allow repetition ONLY when explicitly requested by
+    the input writer, which replaces all copies with exactly one native
+    matrix.  Physical output SLHA parsing remains strictly unique.
     """
     lines=text.splitlines()
     blocks={}
@@ -82,9 +84,13 @@ def split_slha(text):
         match=re.match(r"^\s*BLOCK\s+([A-Za-z0-9_]+)\b",line,re.I)
         if match:
             positions.append((ix,match.group(1).upper()))
+    repeated={name.upper() for name in allowed_repeated}
     for i,(start,name) in enumerate(positions):
         stop=positions[i+1][0] if i+1<len(positions) else len(lines)
-        if name in blocks:raise ValueError("Duplicate SLHA input block "+name)
+        if name in blocks:
+            if name not in repeated:
+                raise ValueError("Duplicate SLHA input block "+name)
+            continue
         blocks[name]=[lines[start],*lines[start+1:stop]]
     return blocks
 
@@ -123,53 +129,74 @@ def render_block(name,entries):
 def set_model_blocks(template, scalar, lepton):
     # Existing template must already be for the same validated model and
     # tree-scheme SPheno settings; no invented generic SPheno defaults.
-    sec=split_slha(template)
+    # The original tree-scheme SPheno input may repeat the matrix *input*
+    # blocks FZEEIN/YEE2IN. Do NOT treat such blocks as observable
+    # FZEE/YEE2 output or blindly append the latter as ignored input.
+    # The input replacement below canonicalizes every repeated input block
+    # to one source-exact matrix, preserving all SMINPUTS and control flags.
+    aliases=("FZEEIN","FZEE","YEE2IN","YEE2")
+    permitted=tuple([*aliases,*("IM"+name for name in aliases)])
+    sec=split_slha(template,allowed_repeated=permitted)
     if "MINPAR" not in sec:
         raise ValueError("Validated ZeeTypeII input template lacks MINPAR")
-    # SARAH/SPheno officially requires SPhenoInput[57]=1 for low-energy
-    # flavour observables; a silently absent FlavorKitLFV block must never
-    # be mistaken for a zero rate or a completed matching calculation.
     if "SPHENOINPUT" not in sec or block_values(sec["SPHENOINPUT"]).get((57,))!=1.0:
         raise ValueError("SPheno low-energy source observable switch [57]=1 required")
+    def choose_input_block(stem):
+        options=[name for name in (stem+"IN",stem) if name in sec]
+        if len(options)!=1:
+            raise ValueError("Ambiguous or missing original SARAH model flavor input block "+
+                             stem+": "+repr(options))
+        return options[0]
+    fblock=choose_input_block("FZEE")
+    yblock=choose_input_block("YEE2")
     parameters,_inherited,_audit=reconstruct(scalar["physical"])
     vals={ (i,): float(math.tan(scalar["physical"]["beta"]) if i==10 else
                       parameters[name])
           for i,name in MINPAR.items() }
-    matrices={"FZEE":decode(lepton["F"]),"YEE2":decode(lepton["Ye2"])}
-    for name,arr in matrices.items():
-        if arr.shape!=(3,3) or not np.all(np.isfinite(arr)):
-            raise ValueError("Missing full complex Zee model Yukawas")
-    # Require the original model block names are already used by the
-    # calibration template. SPheno may silently ignore unknown new blocks.
-    if not all(k in sec for k in ("FZEE","YEE2")):
-        raise ValueError("Template not a verified ZeeTypeII flavor input")
+    matrices={fblock:decode(lepton["F"]),yblock:decode(lepton["Ye2"])}
     def mat_block(arr,imag):
         return {(i+1,j+1):float(arr[i,j].imag if imag else arr[i,j].real)
                 for i in range(3) for j in range(3)}
     new={"MINPAR":vals}
     for name,arr in matrices.items():
+        if arr.shape!=(3,3) or not np.all(np.isfinite(arr)):
+            raise ValueError("Missing full complex Zee model Yukawas")
         new[name]=mat_block(arr,False)
-        # Imaginary blocks are mandatory whenever the matrix is complex,
-        # even when the original template happened to be real-valued.
+        # The imaginary companion must use the SAME native input stem:
+        # IMFZEEIN for FZEEIN, NOT IMFZEE output.
         new["IM"+name]=mat_block(arr,True)
-    # SLHA usually allows multiple BLOCKs of different names: simply
-    # append new input blocks after all existing sections, but remove any
-    # replaced block through lexical offsets. This also keeps all comments
-    # and model-specific SPheno input flags untouched.
+    # The original template may have repeated native input blocks, but
+    # replacing all copies with one canonical block is unambiguous.
+    # All non-target blocks (including scale, SMINPUTS and SPhenoInput)
+    # stay byte-for-byte unchanged except for inter-block whitespace.
     pattern=re.compile(r"(?im)^\s*BLOCK\s+([A-Za-z0-9_]+)\b")
     matches=list(pattern.finditer(template))
     if not matches:raise ValueError("No SLHA template blocks")
     text=""
+    replaced=set()
     prev=0
     for i,m in enumerate(matches):
         text+=template[prev:m.start()]
         stop=matches[i+1].start() if i+1<len(matches) else len(template)
         name=m.group(1).upper()
-        text+=render_block(name,new.pop(name)) if name in new else template[m.start():stop]
+        if name in new:
+            if name not in replaced:
+                text+=render_block(name,new[name])
+                replaced.add(name)
+            # Subsequent historical copies are removed, never left with
+            # stale old Yukawas which may override a previously set matrix.
+        else:
+            text+=template[m.start():stop]
         prev=stop
     text+=template[prev:]
     for name,entries in new.items():
-        text+="\n"+render_block(name,entries)
+        if name not in replaced:
+            text+="\n"+render_block(name,entries)
+    # Final output must be a single unambiguous input value per block.
+    out=split_slha(text)
+    for name,entries in new.items():
+        if name not in out or block_values(out[name])!=entries:
+            raise ArithmeticError("Native generated SARAH SLHA input was not fully replaced: "+name)
     return text
 
 def parse_observables(slha):
