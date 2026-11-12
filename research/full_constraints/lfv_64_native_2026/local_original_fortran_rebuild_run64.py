@@ -82,6 +82,12 @@ def prepare_isolated_tree(original_spheno,generated_model,source,work):
         paths[name]=path
     return target,paths
 
+def native_build_command(jobs):
+    """Force exact model-source recompilation using GNU-compatible flags."""
+    if not isinstance(jobs,int) or not 1<=jobs<=32:
+        raise ValueError("Native SPheno build jobs must be between 1 and 32")
+    return ["make","-B",f"-j{jobs}","Model=ZeeTypeII","F90=gfortran"]
+
 def rebuild_and_evaluate(source_json,template,source_zip,original_spheno,
                          generated_model,work,jobs=2):
     source=read_orig_zip(source_zip)
@@ -94,11 +100,18 @@ def rebuild_and_evaluate(source_json,template,source_zip,original_spheno,
         raise ValueError("Synthetic CI-only template cannot be used for physics; supply the validated ZeeTypeII native input")
     target,paths=prepare_isolated_tree(original_spheno,generated_model,source,work)
     build=work/"force-rebuild.log"
-    cmd=["make", "-B",f"-j{jobs}","Model=ZeeTypeII"]
+    # The original SPheno 4.0.5 top-level Makefile defaults to Intel
+    # ifort; on Ubuntu the available compiler is GNU Fortran.  Pass
+    # F90=gfortran on the *make command line* so recursive make inherits
+    # the compiler choice and its matching -J (not Intel -module) flags.
+    if shutil.which("gfortran") is None:
+        raise FileNotFoundError("GNU Fortran gfortran required for isolated ZeeTypeII build")
+    cmd=native_build_command(jobs)
     with build.open("w") as f:
         run=subprocess.run(cmd,cwd=target,stdout=f,stderr=subprocess.STDOUT,check=False)
     if run.returncode:
-        raise RuntimeError("Full isolated source rebuild failed: "+str(build))
+        tail="\\n".join(build.read_text(errors="replace").splitlines()[-45:])
+        raise RuntimeError(f"Full isolated GNU Fortran rebuild failed (exit {run.returncode}): {build}\\n{tail}")
     executable=target/"bin"/"SPhenoZeeTypeII"
     if not executable.is_file():raise FileNotFoundError("Forced build did not create SPhenoZeeTypeII")
     exe_sha=sha(executable.read_bytes())
