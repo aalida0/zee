@@ -2,6 +2,35 @@
 
 **Date:** 12 November 2026; research branch `research/zee-full-constraints`.
 
+## UPDATE: exact original user archive received and verified
+
+The user supplied `zee_TypeII_original_five_LFV_sources.zip` on **12 November 2026**. The uploaded ZIP contained **all five original model-specific Fortran files with matching SHA-256 digests**, verified by independent extraction. **No original source was committed publicly to GitHub.**
+
+The full original `Calculate_Lto3Lp` and `Calculate_MuEconversion` routines were inspected. The known scalar nuclear isovector sign error was reproduced exactly in **two** source lines. The corrected `FlavorKit_Observables_ZeeTypeII.f90` SHA-256 is
+
+```text
+fd6e4ba58206e0f5d1be8f3993a469a018d0cd3a77160001000b73858f427293
+```
+
+No other source bytes are changed. Full numerical execution still requires the original **complete** SARAH-generated `ZeeTypeII/EWSB/SPheno` tree plus SPheno 4.0.5 model build; the five files are not enough to compile a standalone executable. The per-case one-loop µ3e and nuclear conversion rates on the 64 **remain uncomputed**, not zero.
+
+- Confirmed native original-source provenance (sans original bytes): `ORIGINAL_FIVE_SOURCE_INTEGRITY_RECEIPT_2026-11-12.json`.
+- Rebuild and 64-case full model evaluator: `local_original_fortran_rebuild_run64.py`. It copies the complete SPheno installation into an isolated local scratch directory, substitutes the exact 2-sign-corrected observable source, forces rebuild, validates complex F/Ye2/D and masses, and applies source-level experimental limits.
+- One-loop-only 90% CL scope, conditional on actual source execution: `classify_native_64_source_1loop.py`.
+- Observed limits: BR(µ→3e)<1.0e-12; CR(µAu→eAu)<7.0e-13; BR(µ→eγ)<1.5e-13 (90% CL), with no implicit application of Au bounds to Al.
+- **Next executable dependency:** run the isolated compiler/replay on the original user's SPheno machine with a previously validated native tree-scheme input template. The ChatGPT execution container has no complete SPheno-4.0.5 installation or other generated Zee model files; GitHub Actions cannot access the user-owned Fortran archive.
+
+### Original-machine command after unpacking the source-verified 64-case execution kit
+
+```bash
+cd ~/zee
+git pull --ff-only origin research/zee-full-constraints
+export ZEE_VALIDATED_NATIVE_TEMPLATE=/path/to/previously/validated/ZeeTypeII/tree-scheme.in
+bash /path/to/unpacked/kit/run_original_spheno_64_local.sh
+```
+
+This execution can supply actual rates once the original complete model is built. It does **not** certify modern nuclear EFT uncertainty or remaining Zee two-loop gauge LFV materiality; model-wide acceptance remains `UNKNOWN`.
+
 ## Status — evidence, not aspiration
 
 | Component | Executed on exact 64 new neutrino-compatible cards? | Physical status |
@@ -16,7 +45,7 @@
 
 The source-independent source-index and input-builder code is under `research/full_constraints/lfv_64_native_2026/`; the old model's input map is `module14/physics_adapters/SPheno.m` and the generated-original SHA manifest is `research/full_constraints/lfv/SOURCE_TO_CODE_SOURCES.json`.
 
-The exact all-64 source-generation workflow is `.github/workflows/zee-native-lfv-64-source-gate.yml`. Its output artifact is intentionally named `zee-exact-64-inputs-NOT-native-LFV-rates`. It constructs all 64 original cards and runs input/spectrum/source/fail-closed tests, **not the original generated Fortran**, which is absent from public GitHub and this conversation.
+The exact all-64 source-generation workflow is `.github/workflows/zee-native-lfv-64-source-gate.yml`. Its output artifact is intentionally named `zee-exact-64-inputs-NOT-native-LFV-rates`. It constructs all 64 original cards and runs input/spectrum/source/fail-closed tests, **not the original generated Fortran**, which is absent from public GitHub (although the exact original five-file archive was supplied privately in this conversation).
 
 ## Original non-public model files genuinely needed
 
