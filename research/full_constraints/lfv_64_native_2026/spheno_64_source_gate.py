@@ -82,7 +82,7 @@ def split_slha(text, *, allowed_repeated=(), merge_repeated=()):
     blocks={}
     positions=[]
     for ix,line in enumerate(lines):
-        match=re.match(r"^[ \\t]*BLOCK[ \\t]+([A-Za-z0-9_]+)\\b",line,re.I)
+        match=re.match(r"^[ \t]*BLOCK[ \t]+([A-Za-z0-9_]+)\b",line,re.I)
         if match:
             positions.append((ix,match.group(1).upper()))
     repeated={name.upper() for name in allowed_repeated}
@@ -182,7 +182,7 @@ def set_model_blocks(template, scalar, lepton):
     # When the original tree.in contains several SPHENOINPUT sections,
     # canonicalize their union to ONE block without changing any value.
     # Other well-known control blocks are handled by the same policy.
-    headers=re.findall(r"(?im)^[ \\t]*BLOCK[ \\t]+([A-Za-z0-9_]+)\\b",template)
+    headers=re.findall(r"(?im)^[ \t]*BLOCK[ \t]+([A-Za-z0-9_]+)\b",template)
     counts={name:sum(x.upper()==name for x in headers) for name in controls}
     for name in controls:
         if counts[name]>1:
