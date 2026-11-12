@@ -29,6 +29,7 @@ Block SMINPUTS
   6 1.72760000e+2
 Block SPHENOINPUT
   55 0
+  57 1 # calculate FlavorKit low energy observables
 """
 MASS="""Block MASS
  25 1.250000e2
@@ -65,6 +66,19 @@ class NativeInputContracts(unittest.TestCase):
         with self.assertRaises(ValueError):
             set_model_blocks(TEMPLATE.replace("Block YEE2","Block NOT_OUR_MODEL"),
                             p,{"F":encode(f),"Ye2":encode(f)})
+
+    def test_spheno_low_energy_flag_57_mandatory(self):
+        p=source_points()[0]["input_card"]
+        z=np.zeros((3,3),dtype=complex)
+        for modified in (TEMPLATE.replace("  57 1 # calculate FlavorKit low energy observables","  57 0"),
+                         TEMPLATE.replace("  57 1 # calculate FlavorKit low energy observables","")):
+            with self.assertRaises(ValueError):
+                set_model_blocks(modified,p,{"F":encode(z),"Ye2":encode(z)})
+
+    def test_slha_decay_termination_does_not_pollute_mass_block(self):
+        sample="Block MASS\\n 25 125.\\nDECAY 25 4.0e-3\\n 1.0 2 5 -5\\n"
+        data=block_values(split_slha(sample)["MASS"])
+        self.assertEqual(data,{(25,):125.})
 
     def test_parse_actual_flavorkit_sarah_output_indices(self):
         y=parse_observables(MASS)
