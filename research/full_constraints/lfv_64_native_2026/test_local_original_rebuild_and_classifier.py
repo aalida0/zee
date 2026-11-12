@@ -76,13 +76,16 @@ class SourceLoopClassificationUnit(unittest.TestCase):
               "seed":20261111+(i%4)//2,
               "source_scalar_sha256":"test-scalar-"+str(i//4),
               "global_acceptance":None,"physical_mu3e":None,
+              "historical_conversion_scalar_proton_neutron_swap_UNCORRECTED":False,
               "native_source_yukawa_matching":{"source_Yukawa_basis_validated":True},
               "spectrum_mass_matching":{str(k):{} for k in range(5)},
               "native_executable_sha256":"new-bin",
               "source_verified_5_original_hashes":dict(classifier.EXPECTED_SOURCES),
               "native_one_loop_FlavorKitLFV":values})
         native={"number_original_cases":64,"cards":cards,"global_acceptance":None,
-                "full_LFV":"UNKNOWN","native_binary_sha256":"new-bin"}
+                "full_LFV":"UNKNOWN","native_binary_sha256":"new-bin",
+                "SPheno_historical_scalar_pn_conversion_swap_unrepaired":False,
+                "source_nuclear_patch_compiler_attestation_matched":True}
         receipt={
             "binary_sha256":"new-bin",
             "patched_observable_sha256":classifier.PATCHED_OBSERVABLE_SHA,
