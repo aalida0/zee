@@ -14,10 +14,14 @@ End Subroutine Calculate_MuEconversion
 def sha(buf):return hashlib.sha256(buf).hexdigest()
 
 class OriginalSourceRebuildUnit(unittest.TestCase):
-    def test_original_spheno_build_forces_gnu_and_recompiles_all_sources(self):
-        cmd=runner.native_build_command(2)
-        self.assertEqual(cmd,["make","-B","-j2","Model=ZeeTypeII","F90=gfortran"])
-        self.assertNotIn("ifort"," ".join(cmd))
+    def test_original_spheno_build_forces_gnu_and_SERIAL_archive_updates(self):
+        # Even if the old kit requests two cores, all recursive SPheno
+        # make invocations MUST serialize writes to libSPheno.a.
+        for cores in (1,2,8,16,32):
+            cmd=runner.native_build_command(cores)
+            self.assertEqual(cmd,["make","-B","-j1","Model=ZeeTypeII","F90=gfortran"])
+            self.assertNotIn("ifort"," ".join(cmd))
+            self.assertNotIn("-j2",cmd)
         for count in (0,33,-1,1.5,"2"):
             with self.assertRaises(ValueError):
                 runner.native_build_command(count)
