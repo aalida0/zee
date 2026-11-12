@@ -8,6 +8,8 @@ on:
       - research/full_constraints/pheno_paper_2026/test_heavy_HA_diphoton_64.py
       - research/full_constraints/pheno_paper_2026/width_threshold_audit_64.py
       - research/full_constraints/pheno_paper_2026/test_width_threshold_audit_64.py
+      - research/full_constraints/pheno_paper_2026/join_Higgs_B_width_64.py
+      - research/full_constraints/pheno_paper_2026/test_join_Higgs_B_width_64.py
       - .github/workflows/zee-pheno-width-materiality-64.yml
 permissions:
   contents: read
@@ -37,6 +39,7 @@ jobs:
         run: |
           python -m unittest research.full_constraints.pheno_paper_2026.test_heavy_HA_diphoton_64 -v
           python -m unittest research.full_constraints.pheno_paper_2026.test_width_threshold_audit_64 -v
+          python -m unittest research.full_constraints.pheno_paper_2026.test_join_Higgs_B_width_64 -v
       - name: Recover original 16x4 source algebraic Zee neutrino cards
         run: |
           python -u -m research.full_constraints.scan_pilot_2026.bounded_16_scalar_64_family \
@@ -60,6 +63,20 @@ jobs:
             --source "$RUNNER_TEMP/zee-original-64-source.json" \
             --widths "$RUNNER_TEMP/zee-hdecay-original-64/zee-HDECAY-native-H-A-64-mixed-order-incomplete.json" \
             --output "$RUNNER_TEMP/zee-64-width-threshold-gates.json"
+      - name: Download source-keyed prior 64-family public Higgs combined observed-limit ledger
+        uses: actions/download-artifact@v4
+        with:
+          name: zee-source-all64-public-Higgs-partial-constraints-SCAN-SCOPE-ONLY
+          run-id: 43123642816
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/zee-public-Higgs64
+      - name: Join source-leading B Higgs selected limits and finite-width caveats to 64 followup priorities
+        run: |
+          python -u -m research.full_constraints.pheno_paper_2026.join_Higgs_B_width_64 \
+            --fresh "$RUNNER_TEMP/zee-original-64-source.json" \
+            --higgs "$RUNNER_TEMP/zee-public-Higgs64/zee-Higgs-scoped-source-16x4-constraint-ledger.json" \
+            --thresholds "$RUNNER_TEMP/zee-64-width-threshold-gates.json" \
+            --output "$RUNNER_TEMP/zee-64-leading-B-Higgs-width-followup-TENTATIVE.json"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -67,5 +84,6 @@ jobs:
           path: |
             ${{ runner.temp }}/zee-64-heavy-gamma-gamma-materiality.json
             ${{ runner.temp }}/zee-64-width-threshold-gates.json
+            ${{ runner.temp }}/zee-64-leading-B-Higgs-width-followup-TENTATIVE.json
           if-no-files-found: warn
           retention-days: 30
