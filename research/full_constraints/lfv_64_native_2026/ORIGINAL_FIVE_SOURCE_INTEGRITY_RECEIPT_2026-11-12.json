@@ -1,0 +1,62 @@
+{
+  "schema": "zee-2026-user-original-five-generated-Fortran-verified-and-nuclear-sign-corrected",
+  "date": "2026-11-12",
+  "input": "uploaded-user-local-zip-not-committed",
+  "model": "ZeeTypeII",
+  "original_source_verified": true,
+  "sources": {
+    "Couplings_ZeeTypeII.f90": {
+      "size_bytes": 539264,
+      "sha256": "a0de851498f3e68e7421538098b3979381a3ecf5245021fce9d1c2df46a42e8c"
+    },
+    "FlavorKit_LFV_ZeeTypeII.f90": {
+      "size_bytes": 1635382,
+      "sha256": "2d30006d8d4759b2b7bfe76e2e4795bd2cf2f19ef5cb5772390ed3155b1bc41d"
+    },
+    "FlavorKit_Observables_ZeeTypeII.f90": {
+      "size_bytes": 84244,
+      "sha256": "b179e6fea1fe3afe08e34e6d481380b7d4b669ffb904898ac6ee6f8555aa3784"
+    },
+    "LoopFunctions.f90": {
+      "size_bytes": 404143,
+      "sha256": "8142a813fcc00283d1de2865266be04ff1de25c09422b24b04d57523a6595a24"
+    },
+    "LowEnergy_ZeeTypeII.f90": {
+      "size_bytes": 283037,
+      "sha256": "cf3552d25de21a6df0869d1fc013dded8efe26206195a08f84ab6ec251d63727"
+    }
+  },
+  "original_fortran_mu3e_included": [
+    "K1",
+    "K2",
+    "O4l scalar",
+    "O4l vector",
+    "O4l tensor",
+    "signed interference"
+  ],
+  "original_fortran_conversion_included": [
+    "u,d,s scalar",
+    "u,d,s vector",
+    "photon K1/K2",
+    "coherent nuclei Al27 Ti48 Sr80 Sb121 Au197 Pb207"
+  ],
+  "source_correction": {
+    "file": "FlavorKit_Observables_ZeeTypeII.f90",
+    "original_sha256": "b179e6fea1fe3afe08e34e6d481380b7d4b669ffb904898ac6ee6f8555aa3784",
+    "corrected_sha256": "fd6e4ba58206e0f5d1be8f3993a469a018d0cd3a77160001000b73858f427293",
+    "replacements": {
+      "Lcont": "(g1LV-g1LS) -> (g1LV+g1LS)",
+      "Rcont": "(g1RV-g1RS) -> (g1RV+g1RS)"
+    },
+    "number_source_lines_changed": 2,
+    "non_matching_differences": 0,
+    "original_source_mutated": false
+  },
+  "model_compiled_with_corrected_source": false,
+  "new_64_native_loop_amplitudes_evaluated": false,
+  "new_64_mu3e_physical": null,
+  "new_64_conversion_physical": null,
+  "full_LFV": "UNKNOWN",
+  "global_acceptance": null,
+  "note": "The five generated Fortran source files were submitted in a conversation attachment. GitHub repository only stores hashes and self-contained non-source test/runner code."
+}
