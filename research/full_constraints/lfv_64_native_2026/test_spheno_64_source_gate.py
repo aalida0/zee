@@ -76,7 +76,7 @@ class NativeInputContracts(unittest.TestCase):
                 set_model_blocks(modified,p,{"F":encode(z),"Ye2":encode(z)})
 
     def test_slha_decay_termination_does_not_pollute_mass_block(self):
-        sample="Block MASS\\n 25 125.\\nDECAY 25 4.0e-3\\n 1.0 2 5 -5\\n"
+        sample="Block MASS\n 25 125.\nDECAY 25 4.0e-3\n 1.0 2 5 -5\n"
         data=block_values(split_slha(sample)["MASS"])
         self.assertEqual(data,{(25,):125.})
 
