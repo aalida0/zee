@@ -108,12 +108,12 @@ class NativeInputContracts(unittest.TestCase):
         ye2=np.diag([.022-.01j,.023+.004j,.012-.002j]).astype(complex)
         ye=(math.cos(beta)*ye2-d)/math.sin(beta)
         def asblock(name,arr,imag=False):
-            return ("Block "+name+"\\n"+
-                "".join(f" {i+1} {j+1} {z:.17e}\\n"
+            return ("Block "+name+"\n"+
+                "".join(f" {i+1} {j+1} {z:.17e}\n"
                     for i,row in enumerate(arr) for j,z in enumerate(
                     row.imag if imag else row.real)))
         def build(YE=ye):
-            return (f"Block MINPAR\\n 10 {math.tan(beta):.17e}\\n"+
+            return (f"Block MINPAR\n 10 {math.tan(beta):.17e}\n"+
                 asblock("YE",YE)+asblock("IMYE",YE,True)+
                 asblock("YEE2",ye2)+asblock("IMYEE2",ye2,True)+
                 asblock("FZEE",f)+asblock("IMFZEE",f,True))
