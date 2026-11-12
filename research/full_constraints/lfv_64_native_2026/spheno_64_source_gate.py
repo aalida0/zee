@@ -368,7 +368,8 @@ def evaluate_cards(source,template,cards_dir,exe,source_paths,out_dir,corrected_
              source_verified_5_original_hashes=verified,
              native_executable_sha256=sha(exe),
              native_executable_is_old_tree_reference=(sha(exe)==PRIOR_COMPILED_EXE_SHA),
-             historical_conversion_scalar_proton_neutron_swap_UNCORRECTED=not corrected_nuclear_source,\n             original_source_nuclear_rebuild_attestation_sha256=None if corrected_nuclear_attestation is None else hashlib.sha256(json.dumps(corrected_nuclear_attestation,sort_keys=True).encode()).hexdigest(),
+             historical_conversion_scalar_proton_neutron_swap_UNCORRECTED=not corrected_nuclear_source,
+             original_source_nuclear_rebuild_attestation_sha256=None if corrected_nuclear_attestation is None else hashlib.sha256(json.dumps(corrected_nuclear_attestation,sort_keys=True).encode()).hexdigest(),
              original_FlavorKit_finite_q2_and_nuclear_precision_unknown=True)
         rows.append(rec)
         print("NATIVE_ZEE_64_LFV",*key,"MU3E",rates["mu_to_3e"],
@@ -381,7 +382,8 @@ def evaluate_cards(source,template,cards_dir,exe,source_paths,out_dir,corrected_
       "native_binary_sha256":sha(exe),"verified_5_original_source_sha256":verified,
       "native_observables_computed":len(rows)==64,
       "source_couplings_and_scalar_masses_recomputed":True,
-      "SPheno_historical_scalar_pn_conversion_swap_unrepaired":not corrected_nuclear_source,\n      "source_nuclear_patch_compiler_attestation_matched":corrected_nuclear_source,
+      "SPheno_historical_scalar_pn_conversion_swap_unrepaired":not corrected_nuclear_source,
+      "source_nuclear_patch_compiler_attestation_matched":corrected_nuclear_source,
       "physical_mu3e":None,"physical_mu_e_conversion":None,
       "full_LFV":"UNKNOWN","global_acceptance":None,
       "cards":rows}
