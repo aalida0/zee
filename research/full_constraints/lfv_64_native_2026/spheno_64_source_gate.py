@@ -69,29 +69,45 @@ def check_source_bundle(source_paths:dict[str,Path]):
         result[name]=h
     return result
 
-def split_slha(text, *, allowed_repeated=()):
-    """Parse SLHA BLOCK sections, rejecting ambiguous duplicates by default.
+def split_slha(text, *, allowed_repeated=(), merge_repeated=()):
+    """Parse input/output SLHA conservatively, handling repeated controls.
 
-    The historical native tree.in repeats certain Yukawa *input* blocks
-    (e.g. FZEEIN). We allow repetition ONLY when explicitly requested by
-    the input writer, which replaces all copies with exactly one native
-    matrix.  Physical output SLHA parsing remains strictly unique.
+    Repeated native flavor matrix blocks can be skipped ONLY when the
+    caller subsequently replaces every historical copy with one complete
+    matrix. Repeated control blocks are combined only when their entries
+    are mutually consistent (disjoint keys or identical values); conflicts
+    are fatal. SLHA *output* is strict unless explicitly configured.
     """
     lines=text.splitlines()
     blocks={}
     positions=[]
     for ix,line in enumerate(lines):
-        match=re.match(r"^\s*BLOCK\s+([A-Za-z0-9_]+)\b",line,re.I)
+        match=re.match(r"^[ \\t]*BLOCK[ \\t]+([A-Za-z0-9_]+)\\b",line,re.I)
         if match:
             positions.append((ix,match.group(1).upper()))
     repeated={name.upper() for name in allowed_repeated}
+    mergeable={name.upper() for name in merge_repeated}
+    if repeated & mergeable:
+        raise ValueError("Cannot both skip and merge repeated SLHA control blocks")
     for i,(start,name) in enumerate(positions):
         stop=positions[i+1][0] if i+1<len(positions) else len(lines)
+        incoming=[lines[start],*lines[start+1:stop]]
         if name in blocks:
-            if name not in repeated:
-                raise ValueError("Duplicate SLHA input block "+name)
-            continue
-        blocks[name]=[lines[start],*lines[start+1:stop]]
+            if name in repeated:
+                continue
+            if name in mergeable:
+                existing=block_values(blocks[name])
+                addition=block_values(incoming)
+                for key,value in addition.items():
+                    if key in existing and existing[key]!=value:
+                        raise ValueError(
+                            f"Conflicting repeated SLHA control {name}[{key}]: "
+                            f"{existing[key]:.17g} vs {value:.17g}")
+                existing.update(addition)
+                blocks[name]=render_block(name,existing).splitlines()
+                continue
+            raise ValueError("Duplicate SLHA input block "+name)
+        blocks[name]=incoming
     return blocks
 
 def block_values(block):
@@ -135,8 +151,13 @@ def set_model_blocks(template, scalar, lepton):
     # The input replacement below canonicalizes every repeated input block
     # to one source-exact matrix, preserving all SMINPUTS and control flags.
     aliases=("FZEEIN","FZEE","YEE2IN","YEE2")
-    permitted=tuple([*aliases,*("IM"+name for name in aliases)])
-    sec=split_slha(template,allowed_repeated=permitted)
+    # All repeated non-Yukawa settings must be merged with identical
+    # duplicate keys or disjoint settings; never silently choose 'first'
+    # or 'last' for a conflicting original input convention.
+    controls=("SPHENOINPUT","SMINPUTS","MODSEL","VCKMIN","UPMNSIN")
+    permitted=tuple([*aliases,*("IM"+name for name in aliases),"MINPAR"])
+    sec=split_slha(template,allowed_repeated=permitted,
+                   merge_repeated=controls)
     if "MINPAR" not in sec:
         raise ValueError("Validated ZeeTypeII input template lacks MINPAR")
     if "SPHENOINPUT" not in sec or block_values(sec["SPHENOINPUT"]).get((57,))!=1.0:
@@ -158,6 +179,14 @@ def set_model_blocks(template, scalar, lepton):
         return {(i+1,j+1):float(arr[i,j].imag if imag else arr[i,j].real)
                 for i in range(3) for j in range(3)}
     new={"MINPAR":vals}
+    # When the original tree.in contains several SPHENOINPUT sections,
+    # canonicalize their union to ONE block without changing any value.
+    # Other well-known control blocks are handled by the same policy.
+    headers=re.findall(r"(?im)^[ \\t]*BLOCK[ \\t]+([A-Za-z0-9_]+)\\b",template)
+    counts={name:sum(x.upper()==name for x in headers) for name in controls}
+    for name in controls:
+        if counts[name]>1:
+            new[name]=block_values(sec[name])
     for name,arr in matrices.items():
         if arr.shape!=(3,3) or not np.all(np.isfinite(arr)):
             raise ValueError("Missing full complex Zee model Yukawas")
@@ -197,6 +226,10 @@ def set_model_blocks(template, scalar, lepton):
     for name,entries in new.items():
         if name not in out or block_values(out[name])!=entries:
             raise ArithmeticError("Native generated SARAH SLHA input was not fully replaced: "+name)
+    # Verify even singleton input control blocks are not modified.
+    for name in controls:
+        if name in sec and block_values(out[name])!=block_values(sec[name]):
+            raise ArithmeticError("SARAH native numerical control settings changed: "+name)
     return text
 
 def parse_observables(slha):
