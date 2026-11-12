@@ -110,6 +110,23 @@ def split_slha(text, *, allowed_repeated=(), merge_repeated=()):
         blocks[name]=incoming
     return blocks
 
+def raw_slha_sections(text, name):
+    """Return complete verbatim SLHA sections of one name, including repeats.
+
+    The slice ends at the next BLOCK or DECAY header. This allows a strict
+    source-integrity check without assuming the native parser resolves
+    duplicate SPhenoInput keys as first-wins or last-wins.
+    """
+    pattern=re.compile(r"(?im)^[ \\t]*(?:BLOCK[ \\t]+[A-Za-z0-9_]+\\b|DECAY(?:1L)?[ \\t]+)")
+    matches=list(pattern.finditer(text))
+    selected=[]
+    for i,m in enumerate(matches):
+        token=m.group(0).split()
+        if len(token)>1 and token[0].upper()=="BLOCK" and token[1].upper()==name.upper():
+            stop=matches[i+1].start() if i+1<len(matches) else len(text)
+            selected.append(text[m.start():stop])
+    return selected
+
 def block_values(block):
     """Read numeric entries only from one isolated SLHA section."""
     res={}
@@ -151,17 +168,21 @@ def set_model_blocks(template, scalar, lepton):
     # The input replacement below canonicalizes every repeated input block
     # to one source-exact matrix, preserving all SMINPUTS and control flags.
     aliases=("FZEEIN","FZEE","YEE2IN","YEE2")
-    # All repeated non-Yukawa settings must be merged with identical
-    # duplicate keys or disjoint settings; never silently choose 'first'
-    # or 'last' for a conflicting original input convention.
-    controls=("SPHENOINPUT","SMINPUTS","MODSEL","VCKMIN","UPMNSIN")
-    permitted=tuple([*aliases,*("IM"+name for name in aliases)])
-    sec=split_slha(template,allowed_repeated=permitted,
-                   merge_repeated=controls)
+    # The pinned original tree.in intentionally contains repeated
+    # SPHENOINPUT blocks, including conflicting switches (11: 0 then 1).
+    # Do NOT merge, delete, sort or reinterpret these sections. The native
+    # SPheno input reader, not our Python writer, defines their precedence.
+    # We preserve each control line *verbatim* and only replace model Yukawas.
+    controls=("SPHENOINPUT",)
+    permitted=tuple([*aliases,*("IM"+name for name in aliases),*controls])
+    sec=split_slha(template,allowed_repeated=permitted)
     if "MINPAR" not in sec:
         raise ValueError("Validated ZeeTypeII input template lacks MINPAR")
-    if "SPHENOINPUT" not in sec or block_values(sec["SPHENOINPUT"]).get((57,))!=1.0:
-        raise ValueError("SPheno low-energy source observable switch [57]=1 required")
+    control_sections=raw_slha_sections(template,"SPHENOINPUT")
+    flag57=[block_values(section)[(57,)] for section in control_sections
+            if (57,) in block_values(section)]
+    if not flag57 or any(value!=1. for value in flag57):
+        raise ValueError("All explicitly specified SPhenoInput[57] switches must be 1 for LFV")
     def choose_input_block(stem):
         options=[name for name in (stem+"IN",stem) if name in sec]
         if len(options)!=1:
@@ -179,14 +200,8 @@ def set_model_blocks(template, scalar, lepton):
         return {(i+1,j+1):float(arr[i,j].imag if imag else arr[i,j].real)
                 for i in range(3) for j in range(3)}
     new={"MINPAR":vals}
-    # When the original tree.in contains several SPHENOINPUT sections,
-    # canonicalize their union to ONE block without changing any value.
-    # Other well-known control blocks are handled by the same policy.
-    headers=re.findall(r"(?im)^[ \t]*BLOCK[ \t]+([A-Za-z0-9_]+)\b",template)
-    counts={name:sum(x.upper()==name for x in headers) for name in controls}
-    for name in controls:
-        if counts[name]>1:
-            new[name]=block_values(sec[name])
+    # Deliberately leave every SPHENOINPUT section unchanged, including
+    # conflicting values of input setting 11 in the validated native card.
     for name,arr in matrices.items():
         if arr.shape!=(3,3) or not np.all(np.isfinite(arr)):
             raise ValueError("Missing full complex Zee model Yukawas")
@@ -221,15 +236,15 @@ def set_model_blocks(template, scalar, lepton):
     for name,entries in new.items():
         if name not in replaced:
             text+="\n"+render_block(name,entries)
-    # Final output must be a single unambiguous input value per block.
-    out=split_slha(text)
+    # Replaced model inputs must occur exactly once. The original repeated
+    # SPHENOINPUT controls are permitted only because their sections are
+    # preserved byte-for-byte and in the same order.
+    out=split_slha(text,allowed_repeated=controls)
     for name,entries in new.items():
         if name not in out or block_values(out[name])!=entries:
             raise ArithmeticError("Native generated SARAH SLHA input was not fully replaced: "+name)
-    # Verify even singleton input control blocks are not modified.
-    for name in controls:
-        if name in sec and block_values(out[name])!=block_values(sec[name]):
-            raise ArithmeticError("SARAH native numerical control settings changed: "+name)
+    if raw_slha_sections(text,"SPHENOINPUT")!=control_sections:
+        raise ArithmeticError("Validated native SPhenoInput block text/order modified")
     return text
 
 def parse_observables(slha):
