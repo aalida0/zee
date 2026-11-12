@@ -110,8 +110,8 @@ def rebuild_and_evaluate(source_json,template,source_zip,original_spheno,
     with build.open("w") as f:
         run=subprocess.run(cmd,cwd=target,stdout=f,stderr=subprocess.STDOUT,check=False)
     if run.returncode:
-        tail="\\n".join(build.read_text(errors="replace").splitlines()[-45:])
-        raise RuntimeError(f"Full isolated GNU Fortran rebuild failed (exit {run.returncode}): {build}\\n{tail}")
+        tail="\n".join(build.read_text(errors="replace").splitlines()[-45:])
+        raise RuntimeError(f"Full isolated GNU Fortran rebuild failed (exit {run.returncode}): {build}\n{tail}")
     executable=target/"bin"/"SPhenoZeeTypeII"
     if not executable.is_file():raise FileNotFoundError("Forced build did not create SPhenoZeeTypeII")
     exe_sha=sha(executable.read_bytes())
