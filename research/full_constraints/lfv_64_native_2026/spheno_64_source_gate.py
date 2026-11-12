@@ -97,7 +97,7 @@ def block_values(block):
         # A BLOCK may be immediately followed by DECAY without another
         # BLOCK. SLHA sections end at either sentinel, never interpret a
         # DECAY parent width or channel as a matrix entry.
-        if re.match(r"(?i)^DECAY(?:1L)?\\s+",base):
+        if re.match(r"(?i)^DECAY(?:1L)?\s+",base):
             break
         t=base.split()
         # No lines from DECAY blocks should be read here.
