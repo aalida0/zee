@@ -17,6 +17,7 @@ from pathlib import Path
 from zipfile import ZipFile
 from .spheno_64_source_gate import (
     EXPECTED_SOURCES,PRIOR_COMPILED_EXE_SHA,compile_cards,evaluate_cards,
+    check_source_bundle,attest_compiled_nuclear_correction,
 )
 from .patch_original_nuclear_source import patch_text
 from .classify_native_64_source_1loop import PATCHED_OBSERVABLE_SHA,evaluate as classify
@@ -161,6 +162,72 @@ def rebuild_and_evaluate(source_json,template,source_zip,original_spheno,
     print("PRIVATE_RESULT",out)
     return out
 
+def resume_verified_build(source_json,template,source_zip,work):
+    """Resume the already successfully compiled corrected model without make.
+
+    Strictly verify original 5 sources, compiled binary, corrected source,
+    forced-build receipt, and original build log before touching any cards.
+    Never reuse an incomplete or unrelated SPheno executable.
+    """
+    if not work.is_dir():
+        raise FileNotFoundError("No prebuilt isolated SPheno work directory: "+str(work))
+    source=read_orig_zip(source_zip)
+    target=work/"SPheno-4.0.5"
+    executable=target/"bin"/"SPhenoZeeTypeII"
+    receipt_path=work/"model-rebuild-attestation.json"
+    if not receipt_path.is_file() or not executable.is_file():
+        raise ValueError("No completed source-corrected SPheno build receipt and executable")
+    receipt=json.loads(receipt_path.read_text())
+    if receipt.get("source_zip_sha256")!=sha(source_zip.read_bytes()):
+        raise ValueError("Original source archive differs from successful native build")
+    buildlog=work/"force-rebuild.log"
+    if not buildlog.is_file() or receipt.get("build_log_sha256")!=sha(buildlog.read_bytes()):
+        raise ValueError("Original successful SPheno build log changed")
+    if not attest_compiled_nuclear_correction(receipt,executable):
+        raise ValueError("Native binary not compiled with verified source nuclear correction")
+    corrected=target/"ZeeTypeII"/"Observables"/"FlavorKit_Observables_ZeeTypeII.f90"
+    if not corrected.is_file() or sha(corrected.read_bytes())!=PATCHED_OBSERVABLE_SHA:
+        raise ValueError("Native executable source tree missing exact corrected observable")
+    if sha((target/"src"/"LoopFunctions.f90").read_bytes())!=EXPECTED_SOURCES["LoopFunctions.f90"]:
+        raise ValueError("Native compiled SPheno Fortran loop functions not source-matched")
+    unchanged={
+        "FlavorKit_LFV_ZeeTypeII.f90":target/"ZeeTypeII"/"Observables"/"FlavorKit_LFV_ZeeTypeII.f90",
+        "LowEnergy_ZeeTypeII.f90":target/"ZeeTypeII"/"Observables"/"LowEnergy_ZeeTypeII.f90",
+        "Couplings_ZeeTypeII.f90":target/"ZeeTypeII"/"Couplings_ZeeTypeII.f90",
+    }
+    for name,path in unchanged.items():
+        if not path.is_file() or sha(path.read_bytes())!=EXPECTED_SOURCES[name]:
+            raise ValueError("Compiled model source no longer matches original: "+name)
+    originals={name:work/"original-five"/name for name in EXPECTED_SOURCES}
+    check_source_bundle(originals)
+    for name,path in originals.items():
+        if path.read_bytes()!=source[name]:
+            raise ValueError("Private source copy differs from original user archive: "+name)
+    # No deletion or overwrite of the prior partial/incomplete input directory.
+    # If a retry fails for a separate reason, the following index is free.
+    for idx in range(1,100):
+        cards=work/f"new64-source-cards-retry-{idx:02d}"
+        results=work/f"new64-native-results-retry-{idx:02d}"
+        if not cards.exists() and not results.exists():
+            break
+    else:
+        raise FileExistsError("Too many previous source-64 attempts; inspect work directory")
+    print("ZEE_LFV64_VERIFIED_BUILD_RESUME",str(work),"INPUTS",str(cards),flush=True)
+    compile_cards(source_json,template,cards)
+    raw=evaluate_cards(source_json,template,cards,executable,originals,results,
+                       corrected_nuclear_attestation=receipt)
+    final=classify(raw,receipt)
+    out=work/"source-1loop-64-mu3e-conversion-90CL-SCOPED.json"
+    if out.exists():
+        raise FileExistsError("Refuse overwrite of earlier validated 64 physical-screen result")
+    out.write_text(json.dumps(final,allow_nan=False,indent=2,sort_keys=True)+"\n")
+    print("ORIGINAL_ZEETYPEII_SOURCE64_RESUME_EXECUTION_COMPLETED",
+          "MU3E",final["n_mu3e_one_loop_below_bound"],"/64",
+          "AU",final["n_Au_one_loop_historical_nuclear_below_bound"],"/64",
+          "FULL_LFV_UNKNOWN",flush=True)
+    print("PRIVATE_RESULT",out)
+    return out
+
 def main():
     pa=argparse.ArgumentParser(description=__doc__)
     pa.add_argument("--source-json",type=Path,required=True,
@@ -169,16 +236,23 @@ def main():
                     help="A separately validated ORIGINAL ZeeTypeII tree-scheme input")
     pa.add_argument("--original-zip",type=Path,required=True,
                     help="The original five SHA-matched Fortran source archive")
-    pa.add_argument("--original-spheno",type=Path,required=True,
+    pa.add_argument("--original-spheno",type=Path,default=None,
                     help="Full original local SPheno-4.0.5 installation")
-    pa.add_argument("--generated-model",type=Path,required=True,
+    pa.add_argument("--generated-model",type=Path,default=None,
                     help="Full original SARAH EWSB/SPheno generated model tree")
     pa.add_argument("--work",type=Path,required=True,
                     help="New/private scratch directory; must not exist")
     pa.add_argument("--jobs",type=int,default=1,
                     help="Caller preference; SPheno 4.0.5 compilation is always forced serial (-j1) for archive safety")
+    pa.add_argument("--resume-verified-build",action="store_true",
+                    help="Use the completed original corrected SPheno build (SHA-verified), skip recompilation")
     a=pa.parse_args()
     if not 1<=a.jobs<=32:pa.error("jobs must be 1..32")
-    rebuild_and_evaluate(a.source_json,a.template,a.original_zip,
-                         a.original_spheno,a.generated_model,a.work,a.jobs)
+    if a.resume_verified_build:
+        resume_verified_build(a.source_json,a.template,a.original_zip,a.work)
+    else:
+        if a.original_spheno is None or a.generated_model is None:
+            pa.error("--original-spheno and --generated-model required for a new build")
+        rebuild_and_evaluate(a.source_json,a.template,a.original_zip,
+                             a.original_spheno,a.generated_model,a.work,a.jobs)
 if __name__=="__main__": main()
