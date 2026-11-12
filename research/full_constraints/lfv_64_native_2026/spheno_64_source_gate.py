@@ -94,6 +94,11 @@ def block_values(block):
     for line in block[1:]:
         base=line.partition("#")[0].strip()
         if not base:continue
+        # A BLOCK may be immediately followed by DECAY without another
+        # BLOCK. SLHA sections end at either sentinel, never interpret a
+        # DECAY parent width or channel as a matrix entry.
+        if re.match(r"(?i)^DECAY(?:1L)?\\s+",base):
+            break
         t=base.split()
         # No lines from DECAY blocks should be read here.
         if len(t)<2:continue
@@ -121,6 +126,11 @@ def set_model_blocks(template, scalar, lepton):
     sec=split_slha(template)
     if "MINPAR" not in sec:
         raise ValueError("Validated ZeeTypeII input template lacks MINPAR")
+    # SARAH/SPheno officially requires SPhenoInput[57]=1 for low-energy
+    # flavour observables; a silently absent FlavorKitLFV block must never
+    # be mistaken for a zero rate or a completed matching calculation.
+    if "SPHENOINPUT" not in sec or block_values(sec["SPHENOINPUT"]).get((57,))!=1.0:
+        raise ValueError("SPheno low-energy source observable switch [57]=1 required")
     parameters,_inherited,_audit=reconstruct(scalar["physical"])
     vals={ (i,): float(math.tan(scalar["physical"]["beta"]) if i==10 else
                       parameters[name])
