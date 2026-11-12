@@ -204,6 +204,57 @@ def tree_scheme_mass_gate(slha,p,rtol=2e-4):
         used.add(i);residuals[str(target)]={"native_mass_GeV":v,"relative_drift":err}
     return residuals
 
+def matrix_from_native(blocks,name):
+    if name not in blocks:
+        raise ValueError("Model-specific native SLHA does not expose matrix "+name)
+    reals=block_values(blocks[name])
+    im=block_values(blocks["IM"+name]) if "IM"+name in blocks else {}
+    if set(reals)!={(i,j) for i in range(1,4) for j in range(1,4)}:
+        raise ValueError("Model-specific native lepton matrix is not complete: "+name)
+    if set(im)-set(reals):
+        raise ValueError("Native imaginary matrix has mismatched indices")
+    z=np.array([[reals[(i,j)]+1j*im.get((i,j),0.)
+                 for j in range(1,4)] for i in range(1,4)],dtype=complex)
+    if not np.all(np.isfinite(z)):
+        raise ValueError("Native model returned a nonfinite complex Yukawa")
+    return z
+
+def native_yukawa_gate(slha,p,lepton,relative_tolerance=5e-4,
+                       absolute_offdiagonal_tolerance=5e-9):
+    """Verify the generator really used the physical F,D source, not just masses.
+
+    In SPheno model conventions D=-sin(beta)*Ye+cos(beta)*Ye2.
+    Source tree model should preserve scalar mixings and complex flavor
+    matrices; per-entry e-mu texture zeros are checked independently.
+    """
+    sec=split_slha(slha)
+    for name in ("YE","YEE2","FZEE","MINPAR"):
+        if name not in sec:raise ValueError("Native model Yukawa output absent: "+name)
+    native_beta=math.atan(block_values(sec["MINPAR"])[(10,)])
+    if not math.isclose(native_beta,p["beta"],rel_tol=1e-8,abs_tol=1e-8):
+        raise ValueError("SPheno tanbeta basis not the native scalar source")
+    ye=matrix_from_native(sec,"YE")
+    ye2=matrix_from_native(sec,"YEE2")
+    f=matrix_from_native(sec,"FZEE")
+    d=-math.sin(native_beta)*ye+math.cos(native_beta)*ye2
+    expected={"FZEE":decode(lepton["F"]),"YEE2":decode(lepton["Ye2"]),
+              "physical_D":decode(lepton["D"])}
+    actual={"FZEE":f,"YEE2":ye2,"physical_D":d}
+    mismatch={}
+    for name,target in expected.items():
+        scale=max(float(np.max(abs(target))),1e-12)
+        err=float(np.max(abs(actual[name]-target)))
+        mismatch[name]=err/max(scale,1e-12)
+        if err>relative_tolerance*scale:
+            raise ValueError("Model-specific output Yukawa source mismatch "+name)
+    if max(abs(d[0,1]),abs(d[1,0]))>absolute_offdiagonal_tolerance:
+        raise ValueError("Generated native model lost algebraic e-mu LFV suppression")
+    return {"native_tanbeta_beta_residual":native_beta-p["beta"],
+            "relative_f_Ye2_physicalD_max_difference":mismatch,
+            "native_e_mu_offdiag_max_abs":float(max(abs(d[0,1]),abs(d[1,0]))),
+            "source_Yukawa_basis_validated":True}
+
+
 def source_families(dataset):
     s=json.loads(Path(dataset).read_text())
     if s.get("new_neutrino_family_count")!=64 or len(s.get("families",[]))!=64:
@@ -291,7 +342,9 @@ def evaluate_cards(source,template,cards_dir,exe,source_paths,out_dir):
         txt=spc.read_text()
         rates=parse_observables(txt)
         spectrum=tree_scheme_mass_gate(txt,bykey[key]["scalar"]["physical"])
+        yukawa=native_yukawa_gate(txt,bykey[key]["scalar"]["physical"],bykey[key]["lepton"])
         rec=dict(r,native_output_sha256=sha(spc),log_sha256=sha(log),
+             native_source_yukawa_matching=yukawa,
              native_one_loop_FlavorKitLFV=rates,physical_mu3e=None,
              physical_conversion=None,global_acceptance=None,
              spectrum_mass_matching=spectrum,
