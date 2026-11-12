@@ -12,7 +12,7 @@ from module2.interface import encode
 from research.full_constraints.scan_pilot_2026.historical_certified_texture import source_points
 from research.full_constraints.lfv_64_native_2026.spheno_64_source_gate import (
     split_slha,block_values,set_model_blocks,parse_observables,
-    tree_scheme_mass_gate,check_source_bundle,MINPAR,
+    tree_scheme_mass_gate,check_source_bundle,native_yukawa_gate,MINPAR,
 )
 
 TEMPLATE="""Block MODSEL
@@ -97,6 +97,35 @@ class NativeInputContracts(unittest.TestCase):
         self.assertEqual(len(tree_scheme_mass_gate(MASS,p)),5)
         with self.assertRaises(ValueError):
             tree_scheme_mass_gate(MASS.replace("35 1.100000e3","35 1.210000e3"),p)
+
+    def test_genuine_native_complex_Yukawa_output_reconstructs_exact_physical_D(self):
+        from module2.interface import encode
+        p=source_points()[0]["input_card"]["physical"]
+        beta=float(p["beta"])
+        f=np.zeros((3,3),complex)
+        f[0,1]=1.e-4+2.e-4j;f[1,0]=-f[0,1]
+        d=np.diag([.01+.02j,.004+.005j,.001+.002j]).astype(complex)
+        ye2=np.diag([.022-.01j,.023+.004j,.012-.002j]).astype(complex)
+        ye=(math.cos(beta)*ye2-d)/math.sin(beta)
+        def asblock(name,arr,imag=False):
+            return ("Block "+name+"\\n"+
+                "".join(f" {i+1} {j+1} {z:.17e}\\n"
+                    for i,row in enumerate(arr) for j,z in enumerate(
+                    row.imag if imag else row.real)))
+        def build(YE=ye):
+            return (f"Block MINPAR\\n 10 {math.tan(beta):.17e}\\n"+
+                asblock("YE",YE)+asblock("IMYE",YE,True)+
+                asblock("YEE2",ye2)+asblock("IMYEE2",ye2,True)+
+                asblock("FZEE",f)+asblock("IMFZEE",f,True))
+        source={"F":encode(f),"D":encode(d),"Ye2":encode(ye2)}
+        valid=native_yukawa_gate(build(),p,source)
+        self.assertTrue(valid["source_Yukawa_basis_validated"])
+        self.assertLess(valid["native_e_mu_offdiag_max_abs"],1.e-12)
+        bad=ye.copy();bad[0,1]=.005
+        with self.assertRaises(ValueError):
+            native_yukawa_gate(build(bad),p,source)
+        with self.assertRaises(ValueError):
+            native_yukawa_gate(build().replace("Block IMFZEE","Block NOTIMFZEE"),p,source)
 
     def test_pinned_generated_model_source_required(self):
         with self.assertRaises(ValueError):
