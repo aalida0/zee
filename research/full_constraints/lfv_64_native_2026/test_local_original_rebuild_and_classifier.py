@@ -73,6 +73,64 @@ class OriginalSourceRebuildUnit(unittest.TestCase):
                 with self.assertRaises(FileExistsError):
                     runner.prepare_isolated_tree(original_spheno,model,source,root_work)
 
+class VerifiedRebuildResumeContracts(unittest.TestCase):
+    def test_resume_only_after_matching_binary_original_sources_and_nuclear_receipt(self):
+        with tempfile.TemporaryDirectory() as folder:
+            work=Path(folder)/"precompiled"; work.mkdir()
+            top=work/"SPheno-4.0.5"
+            out=top/"bin"/"SPhenoZeeTypeII"
+            out.parent.mkdir(parents=True)
+            out.write_bytes(b"originally compiled exact native corrected model")
+            corrected=top/"ZeeTypeII"/"Observables"/"FlavorKit_Observables_ZeeTypeII.f90"
+            corrected.parent.mkdir(parents=True)
+            corrected.write_bytes(b"fortran original two nuclear signs repaired")
+            (top/"src").mkdir()
+            original={}
+            for name in runner.EXPECTED_SOURCES:
+                original[name]=("original native "+name).encode()
+            (top/"src"/"LoopFunctions.f90").write_bytes(original["LoopFunctions.f90"])
+            (top/"ZeeTypeII"/"Observables"/"FlavorKit_LFV_ZeeTypeII.f90").write_bytes(
+                original["FlavorKit_LFV_ZeeTypeII.f90"])
+            (top/"ZeeTypeII"/"Observables"/"LowEnergy_ZeeTypeII.f90").write_bytes(
+                original["LowEnergy_ZeeTypeII.f90"])
+            (top/"ZeeTypeII"/"Couplings_ZeeTypeII.f90").write_bytes(
+                original["Couplings_ZeeTypeII.f90"])
+            copies=work/"original-five";copies.mkdir()
+            for name,data in original.items():(copies/name).write_bytes(data)
+            archive=Path(folder)/"original-five.zip"
+            with ZipFile(archive,"w") as z:
+                for name,data in original.items():z.writestr(name,data)
+            buildlog=work/"force-rebuild.log";buildlog.write_text("full native build succeeded")
+            rec={"source_zip_sha256":sha(archive.read_bytes()),
+                 "build_log_sha256":sha(buildlog.read_bytes())}
+            (work/"model-rebuild-attestation.json").write_text(json.dumps(rec))
+            expected={name:sha(buf) for name,buf in original.items()}
+            source_json=Path(folder)/"source-64.json";source_json.write_text("{}")
+            template=Path(folder)/"source-template.in";template.write_text("native")
+            with patch.dict(runner.EXPECTED_SOURCES,expected,clear=True), \
+                 patch.object(runner,"PATCHED_OBSERVABLE_SHA",sha(corrected.read_bytes())), \
+                 patch.object(runner,"attest_compiled_nuclear_correction",return_value=True), \
+                 patch.object(runner,"check_source_bundle",return_value=expected), \
+                 patch.object(runner,"compile_cards") as compile_mock, \
+                 patch.object(runner,"evaluate_cards",return_value={"cards":[]}) as evaluate_mock, \
+                 patch.object(runner,"classify",return_value={
+                      "n_mu3e_one_loop_below_bound":0,
+                      "n_Au_one_loop_historical_nuclear_below_bound":0}) as classify_mock:
+                receipt=runner.resume_verified_build(source_json,template,archive,work)
+                self.assertTrue(receipt.is_file())
+                self.assertIn("new64-source-cards-retry-01",str(compile_mock.call_args))
+                self.assertIn("corrected_nuclear_attestation",str(evaluate_mock.call_args))
+                with self.assertRaises(FileExistsError):
+                    runner.resume_verified_build(source_json,template,archive,work)
+                self.assertTrue(classify_mock.called)
+
+    def test_missing_precompiled_directory_fails_before_any_actions(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)
+            with self.assertRaises(FileNotFoundError):
+                runner.resume_verified_build(root/"source",root/"template",
+                                             root/"original",root/"never-built")
+
 class SourceLoopClassificationUnit(unittest.TestCase):
     def fixtures(self,large=False):
         cards=[]
