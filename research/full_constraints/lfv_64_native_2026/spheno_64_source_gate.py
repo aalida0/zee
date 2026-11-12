@@ -155,7 +155,7 @@ def set_model_blocks(template, scalar, lepton):
     # duplicate keys or disjoint settings; never silently choose 'first'
     # or 'last' for a conflicting original input convention.
     controls=("SPHENOINPUT","SMINPUTS","MODSEL","VCKMIN","UPMNSIN")
-    permitted=tuple([*aliases,*("IM"+name for name in aliases),"MINPAR"])
+    permitted=tuple([*aliases,*("IM"+name for name in aliases)])
     sec=split_slha(template,allowed_repeated=permitted,
                    merge_repeated=controls)
     if "MINPAR" not in sec:
