@@ -87,8 +87,11 @@ def rebuild_and_evaluate(source_json,template,source_zip,original_spheno,
     source=read_orig_zip(source_zip)
     # Reject the CI synthetic reference template. The original tree-scheme
     # SPheno input must use the original scheme and CKM/SMINPUTS convention.
-    if template.read_text().lstrip().startswith("Block MODSEL\n  1 0\nBlock SMINPUTS\n"):
-        raise ValueError("Looks like the synthetic CI template; use a validated original native tree-scheme input")
+    # The CI's synthetic template is NOT an experimentally or model-calibrated
+    # input. Reject by its *exact original digest*, not a generic SLHA header,
+    # since a valid native reference may legitimately start with MODSEL.
+    if sha(template.read_bytes())=="936c146f2c1d11246a93b0f9271dbf76818ef7e68358bc744047fd89f1b2eca1":
+        raise ValueError("Synthetic CI-only template cannot be used for physics; supply the validated ZeeTypeII native input")
     target,paths=prepare_isolated_tree(original_spheno,generated_model,source,work)
     build=work/"force-rebuild.log"
     cmd=["make", "-B",f"-j{jobs}","Model=ZeeTypeII"]
