@@ -111,11 +111,12 @@ def split_slha(text, *, allowed_repeated=(), merge_repeated=()):
     return blocks
 
 def raw_slha_sections(text, name):
-    """Return complete verbatim SLHA sections of one name, including repeats.
+    """Return the nonblank control bytes of each SLHA section, in order.
 
-    The slice ends at the next BLOCK or DECAY header. This allows a strict
-    source-integrity check without assuming the native parser resolves
-    duplicate SPhenoInput keys as first-wins or last-wins.
+    A BLOCK slice ends at the next BLOCK/DECAY header, with only trailing
+    empty separator whitespace discarded. No numerical value, comment or
+    meaningful line is altered. Avoid inferring SPheno's first/last key
+    precedence for historically conflicting repeated SPhenoInput[11].
     """
     pattern=re.compile(r"(?im)^[ \t]*(?:BLOCK[ \t]+[A-Za-z0-9_]+\b|DECAY(?:1L)?[ \t]+)")
     matches=list(pattern.finditer(text))
@@ -124,7 +125,7 @@ def raw_slha_sections(text, name):
         token=m.group(0).split()
         if len(token)>1 and token[0].upper()=="BLOCK" and token[1].upper()==name.upper():
             stop=matches[i+1].start() if i+1<len(matches) else len(text)
-            selected.append(text[m.start():stop])
+            selected.append(text[m.start():stop].rstrip("\r\n \t"))
     return selected
 
 def block_values(block):
