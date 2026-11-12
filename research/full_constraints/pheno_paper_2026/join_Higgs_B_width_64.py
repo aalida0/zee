@@ -10,6 +10,7 @@ import argparse,hashlib,json,math
 from pathlib import Path
 
 H125_MATERIALITY_DELTA_CHI2_DIAGNOSTIC=9.0
+B_ONE_SIDED_95_UPPER_PULL=1.6448536269514722
 
 def join_case(f,h,t,scalar):
     key=(f["id"],f["ordering"],f["seed"])
@@ -24,8 +25,14 @@ def join_case(f,h,t,scalar):
     if t.get("actual_resonance_shape_validation") is not None or t.get("metrics",{}).get("inferred_narrow_width_allowed") is not None:
         raise ValueError("Unknown width/shape validity wrongly certified")
     m=t["metrics"]
-    bsource=scalar["published_Eq4_nominal_gaussian_inside"]
-    if not isinstance(bsource,bool):raise ValueError("Missing declared leading source B screen")
+    # The saved "published_Eq4_nominal_gaussian_inside" flag is a TWO-sided
+    # |pull|<1.95996 test; it must NOT be mistaken for the physical-motivated
+    # one-sided upper 95%-CL diagnostic, which retains 10/16 source scalars.
+    twosided=scalar["published_Eq4_nominal_gaussian_inside"]
+    if not isinstance(twosided,bool):raise ValueError("Missing two-sided B source screen")
+    B_pull=float(scalar["published_2026_Eq4_B_pull"])
+    if not math.isfinite(B_pull):raise ValueError("Nonfinite source Eq4 B pull")
+    bsource=B_pull<B_ONE_SIDED_95_UPPER_PULL
     direct=h["all_evaluated_direct_search_subsets_below_selected_limits"]
     if not isinstance(direct,bool):raise ValueError("Missing scoped HiggsBounds comparison")
     far=m["all_open_H1W_and_H2H1Z_far_five_widths"]
@@ -47,6 +54,8 @@ def join_case(f,h,t,scalar):
         "scalar_id":key[0],"ordering":key[1],"seed":key[2],
         "source_scalar_sha256":f["scalar_sha256"],
         "source_B_published_2026_LO_NP_one_sided_Gaussian":bsource,
+        "source_B_published_2026_LO_NP_two_sided_Gaussian":twosided,
+        "source_B_published_2026_EQ4_pull":B_pull,
         "B_full_theory_uncertainty_and_NNLO_physical_rate":None,
         "named_higgs_direct_13TeV_HB_subsets_below_selected_limits":direct,
         "h125_restricted_effective_HS_delta_chi2":chi,
@@ -94,6 +103,7 @@ def run(fresh:Path,higgs:Path,thresholds:Path,out:Path):
         "source_sha256":{k:hashlib.sha256(p.read_bytes()).hexdigest() for k,p in
                   (("fresh",fresh),("higgs",higgs),("thresholds",thresholds))},
         "n_cases":len(cases),"h125_diagnostic_relative_delta_chi2_cut":H125_MATERIALITY_DELTA_CHI2_DIAGNOSTIC,
+        "B_one_sided_95_source_pull_upper_cut":B_ONE_SIDED_95_UPPER_PULL,
         "model_scope":"16 preselected scalar cards x 4 algebraically LFV-suppressed Yukawa cases, not an unbiased scan",
         "do_not_interpret_counts_as_allowed_volume":True,
         "limitations":[
