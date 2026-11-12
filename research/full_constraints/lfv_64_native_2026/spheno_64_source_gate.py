@@ -311,10 +311,27 @@ def compile_cards(source,template,directory):
     (directory/"source-manifest.json").write_text(json.dumps(report,allow_nan=False,indent=2,sort_keys=True)+"\n")
     return report
 
-def evaluate_cards(source,template,cards_dir,exe,source_paths,out_dir):
+def attest_compiled_nuclear_correction(attestation,exe):
+    """Require a forced original-source rebuild, never a merely patched file."""
+    if attestation is None:
+        return False
+    if attestation.get("original_five_sha256")!=EXPECTED_SOURCES:
+        raise ValueError("Attested original five source hashes have changed")
+    if attestation.get("original_observable_sha256")!=EXPECTED_SOURCES["FlavorKit_Observables_ZeeTypeII.f90"]:
+        raise ValueError("Attested pre-correction nuclear source unknown")
+    if attestation.get("patched_observable_sha256")!="fd6e4ba58206e0f5d1be8f3993a469a018d0cd3a77160001000b73858f427293":
+        raise ValueError("Nuclear observable scalar sign correction has different source SHA")
+    if attestation.get("force_complete_rebuild") is not True or attestation.get("build_exit_code")!=0:
+        raise ValueError("No completed forced rebuild of corrected native source")
+    if attestation.get("binary_sha256")!=sha(exe) or sha(exe)==PRIOR_COMPILED_EXE_SHA:
+        raise ValueError("Source-corrected executable not matched and freshly built")
+    return True
+
+def evaluate_cards(source,template,cards_dir,exe,source_paths,out_dir,corrected_nuclear_attestation=None):
     if out_dir.exists():raise FileExistsError("Native execution output exists")
     verified=check_source_bundle(source_paths)
     if not exe.is_file():raise FileNotFoundError(exe)
+    corrected_nuclear_source=attest_compiled_nuclear_correction(corrected_nuclear_attestation,exe)
     # Executable content provenance must be provided by the user and
     # is recorded separately from source verification; cannot infer a link
     # from source files to executable from a checksum alone.
@@ -351,20 +368,20 @@ def evaluate_cards(source,template,cards_dir,exe,source_paths,out_dir):
              source_verified_5_original_hashes=verified,
              native_executable_sha256=sha(exe),
              native_executable_is_old_tree_reference=(sha(exe)==PRIOR_COMPILED_EXE_SHA),
-             historical_conversion_scalar_proton_neutron_swap_UNCORRECTED=True,
+             historical_conversion_scalar_proton_neutron_swap_UNCORRECTED=not corrected_nuclear_source,\n             original_source_nuclear_rebuild_attestation_sha256=None if corrected_nuclear_attestation is None else hashlib.sha256(json.dumps(corrected_nuclear_attestation,sort_keys=True).encode()).hexdigest(),
              original_FlavorKit_finite_q2_and_nuclear_precision_unknown=True)
         rows.append(rec)
         print("NATIVE_ZEE_64_LFV",*key,"MU3E",rates["mu_to_3e"],
           "AL_HISTORICAL",rates["mu_to_e_conversion_Al27"],
           "AU_HISTORICAL",rates["mu_to_e_conversion_Au197"],
           "PHYSICAL_CONVERSION_UNKNOWN",flush=True)
-    report={"schema":"zee-2026-native-source-64-tree-scheme-Flavorkit-observables-unrepaired-conversion-v1",
+    report={"schema":"zee-2026-native-source-64-tree-scheme-Flavorkit-observables-attested-nuclear-repair-v2",
       "number_original_cases":len(rows),"source_64_sha256":sha(source),
       "source_SPheno_template_sha256":sha(template),
       "native_binary_sha256":sha(exe),"verified_5_original_source_sha256":verified,
       "native_observables_computed":len(rows)==64,
       "source_couplings_and_scalar_masses_recomputed":True,
-      "SPheno_historical_scalar_pn_conversion_swap_unrepaired":True,
+      "SPheno_historical_scalar_pn_conversion_swap_unrepaired":not corrected_nuclear_source,\n      "source_nuclear_patch_compiler_attestation_matched":corrected_nuclear_source,
       "physical_mu3e":None,"physical_mu_e_conversion":None,
       "full_LFV":"UNKNOWN","global_acceptance":None,
       "cards":rows}
