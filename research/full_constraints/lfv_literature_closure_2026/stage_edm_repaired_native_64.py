@@ -24,7 +24,9 @@ ORDERS=('NO','IO')
 MASS=np.array([0.00051099895,0.1056583755,1.77686])
 
 def build(source:Path,template:Path,output_dir:Path,template_provenance:str):
-    if template_provenance not in ('VALIDATED_USER_NATIVE','SYNTHETIC_CI_NOT_FOR_PHYSICS'):\n        raise ValueError('Explicit actual template provenance required')\n    if output_dir.exists():
+    if template_provenance not in ('VALIDATED_USER_NATIVE','SYNTHETIC_CI_NOT_FOR_PHYSICS'):
+        raise ValueError('Explicit actual template provenance required')
+    if output_dir.exists():
         raise FileExistsError('Do not overwrite native model evidence')
     data=json.loads(source.read_text())
     if (data['n_original_16x4']!=64 or
