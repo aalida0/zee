@@ -89,9 +89,23 @@ def original_edm_groups(model):
 
 def evaluate(artifact,scalar_path,upstream):
     data=json.loads(Path(scalar_path).read_text())
-    if data['dataset_sha256']!=DATASET_SHA:raise ValueError('Unexpected scalar dataset')
-    spectra={str(x['id']):x for x in data['tables']['CERTIFIED_VACUUM_APPROX_BSG_16']}
-    if len(spectra)!=16:raise ValueError('Unexpected scalar count')
+    # Source artifact contains reconstructed 16x4 records, not the historical
+    # candidate_followup table. Reconcile every ID+SHA against that original.
+    original=json.loads((Path(__file__).resolve().parents[3]/
+        'module14/conditional_scan/candidate_followup.json').read_text())
+    if original['dataset_sha256']!=DATASET_SHA:raise ValueError('Original scalar source drift')
+    reference={str(x['id']):x for x in original['tables']['CERTIFIED_VACUUM_APPROX_BSG_16']}
+    if len(reference)!=16 or len(data['scalars'])!=16:raise ValueError('Wrong scalar count')
+    spectra={}
+    for row in data['scalars']:
+        sid=str(row['scalar_id'])
+        if sid not in reference or row['scalar_sha256']!=reference[sid]['scalar_sha256']:
+            raise ValueError('Scalar hash mismatch against original historical source')
+        physical=row['scalar_input']['physical']
+        if physical!=reference[sid]['physical']:
+            raise ValueError('Rebuilt scalar physical data mismatch')
+        spectra[sid]={'physical':physical,'scalar_sha256':row['scalar_sha256']}
+    if len(spectra)!=16:raise ValueError('Incomplete scalar identity set')
     upstream_model=official_class(upstream)
     rows=[]
     with ZipFile(artifact) as z:
