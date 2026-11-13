@@ -80,7 +80,7 @@ def main():
                              ('dm3l_eV2','dm3ell_eV2')):
             if abs(obs[key] - expected[old_key]['bestfit']) > 2e-10:
                 raise ValueError(f'{witness["id"]}: frozen target mismatch on {key}')
-        key = (group['benchmark_id'], ordering)
+        key = (group['scalar'], ordering)
         if key in used:
             raise ValueError('Duplicate benchmark/ordering')
         used.add(key)
@@ -101,7 +101,7 @@ def main():
                 projections[section] = result['delta_chi2']
             comparisons[selection] = projections
 
-        rows.append({'benchmark_id':group['benchmark_id'], 'witness_id':witness['id'],
+        rows.append({'benchmark_id':group['scalar'], 'witness_id':witness['id'],
                      'ordering':ordering, 'observables':{
                          k:obs[k] for k in ('sin2_theta12','sin2_theta13',
                               'sin2_theta23','dm21_eV2','dm3l_eV2','delta_rad')},
