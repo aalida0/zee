@@ -79,7 +79,9 @@ def build(source:Path,template:Path,output_dir:Path,template_provenance:str):
               'native_physics_executed':False,'global_acceptance':None})
     if len(seen)!=64 or len(set(k[0] for k in seen))!=16:
         raise ValueError('Original 16x4 matrix identity damaged')
-    receipt={'template_provenance':template_provenance,\n       'physically_executable_verified':False,\n       'source_file_SHA256':hashlib.sha256(source.read_bytes()).hexdigest(),
+    receipt={'template_provenance':template_provenance,
+       'physically_executable_verified':False,
+       'source_file_SHA256':hashlib.sha256(source.read_bytes()).hexdigest(),
        'template_sha256':hashlib.sha256(templ.encode()).hexdigest(),
        'n_cards':len(rows),'model':'Original ZeeTypeII mass tree scheme; native execution not performed',
        'native_source_status':'STAGED_FOR_USER_VALIDATED_NUCLEAR_PATCHED_SPHENO_NOT_EXECUTED',
