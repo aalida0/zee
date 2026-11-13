@@ -1,0 +1,51 @@
+name: Zee EDM-safe complex Yukawa textures — exact 64 neutrino inverse and corrected 2HDM EDM
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/zee-lfv64-closure-20261113
+    paths:
+      - research/full_constraints/lfv_literature_closure_2026/edm_suppressed_textures.py
+      - .github/workflows/zee-lfv64-edm-suppressed-textures.yml
+permissions:
+  contents: read
+jobs:
+  new_64_edm_safe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Pin original Zee neutrino and official EDM software inputs
+        run: |
+          uv python install 3.11.11
+          uv venv --python 3.11.11 "$RUNNER_TEMP/zee-edm"
+          uv pip install --python "$RUNNER_TEMP/zee-edm/bin/python" \
+            flavio==2.7.1 particle==0.26.2 numpy==2.2.6 scipy==1.15.3 \
+            mpmath==1.3.0 sympy==1.14.0 matplotlib==3.10.7
+          echo "$RUNNER_TEMP/zee-edm/bin" >> "$GITHUB_PATH"
+      - name: Fetch verified original corrected general-2HDM implementation
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --branch master https://gitlab.com/jbrod/general-2hdm-pheno.git "$RUNNER_TEMP/general-2hdm-pheno"
+          [[ "$(git -C "$RUNNER_TEMP/general-2hdm-pheno" rev-parse HEAD)" == b5035cd58d2a7e4a91e9790d045df062b97adffe ]]
+          echo "9b4af7aa4bf7bf533a7b82c8c2603d118346424e3b7b5f9f06ab8cb41bc4e193  $RUNNER_TEMP/general-2hdm-pheno/thdm.py" | sha256sum --check
+      - name: Test and evaluate 3-complex-zero Zee neutrino-compatible 64 texture candidates
+        run: |
+          python -m research.full_constraints.lfv_literature_closure_2026.edm_suppressed_textures \
+            --upstream "$RUNNER_TEMP/general-2hdm-pheno" \
+            --output "$RUNNER_TEMP/EDM_SUPPRESSED_64_NEUTRINO_AND_2HDM.json"
+      - name: Export source-checked non-exclusion decisions (full Zee gate remains unknown)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zee-edm-suppressed-64-new-textures-conditional-only
+          path: ${{ runner.temp }}/EDM_SUPPRESSED_64_NEUTRINO_AND_2HDM.json
+          if-no-files-found: warn
+          retention-days: 30
