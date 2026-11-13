@@ -6,6 +6,7 @@ on:
       - research/zee-lfv64-closure-20261113
     paths:
       - research/full_constraints/lfv_literature_closure_2026/stage_edm_repaired_native_64.py
+      - research/full_constraints/lfv_literature_closure_2026/run_repaired64_native_source.py
       - .github/workflows/zee-lfv64-edm-staged-native-inputs.yml
 permissions:
   contents: read
@@ -44,6 +45,10 @@ jobs:
           run-id: 43492562878
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: ${{ runner.temp }}/new_inputs
+      - name: Compile source-attested new64 native runner (no private model execution)
+        run: |
+          python -m py_compile research/full_constraints/lfv_literature_closure_2026/stage_edm_repaired_native_64.py
+          python -m py_compile research/full_constraints/lfv_literature_closure_2026/run_repaired64_native_source.py
       - name: Generate staged new complex Zee 64 cards only, with explicit synthetic provenance
         shell: bash
         run: |
