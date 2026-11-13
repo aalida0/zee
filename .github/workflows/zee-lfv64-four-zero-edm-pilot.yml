@@ -36,9 +36,9 @@ jobs:
           git clone --depth 1 --branch master https://gitlab.com/jbrod/general-2hdm-pheno.git "$RUNNER_TEMP/general-2hdm-pheno"
           [[ "$(git -C "$RUNNER_TEMP/general-2hdm-pheno" rev-parse HEAD)" == b5035cd58d2a7e4a91e9790d045df062b97adffe ]]
           echo "9b4af7aa4bf7bf533a7b82c8c2603d118346424e3b7b5f9f06ab8cb41bc4e193  $RUNNER_TEMP/general-2hdm-pheno/thdm.py" | sha256sum --check
-      - name: Test and evaluate 3-complex-zero Zee neutrino-compatible 64 texture candidates
+      - name: Test and evaluate 4-complex-zero Zee neutrino-compatible 64 texture candidates
         run: |
-          python -m research.full_constraints.lfv_literature_closure_2026.edm_suppressed_textures \
+          python -m research.full_constraints.lfv_literature_closure_2026.four_zero_edm_textures \
             --upstream "$RUNNER_TEMP/general-2hdm-pheno" \
             --output "$RUNNER_TEMP/FOUR_ZERO_EDM_64_NEUTRINO_AND_2HDM.json"
       - name: Export source-checked non-exclusion decisions (full Zee gate remains unknown)
