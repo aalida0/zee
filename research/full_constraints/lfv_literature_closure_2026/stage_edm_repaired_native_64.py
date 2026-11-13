@@ -23,8 +23,8 @@ SEEDS=(20261111,20261112)
 ORDERS=('NO','IO')
 MASS=np.array([0.00051099895,0.1056583755,1.77686])
 
-def build(source:Path,template:Path,output_dir:Path):
-    if output_dir.exists():
+def build(source:Path,template:Path,output_dir:Path,template_provenance:str):
+    if template_provenance not in ('VALIDATED_USER_NATIVE','SYNTHETIC_CI_NOT_FOR_PHYSICS'):\n        raise ValueError('Explicit actual template provenance required')\n    if output_dir.exists():
         raise FileExistsError('Do not overwrite native model evidence')
     data=json.loads(source.read_text())
     if (data['n_original_16x4']!=64 or
@@ -77,7 +77,7 @@ def build(source:Path,template:Path,output_dir:Path):
               'native_physics_executed':False,'global_acceptance':None})
     if len(seen)!=64 or len(set(k[0] for k in seen))!=16:
         raise ValueError('Original 16x4 matrix identity damaged')
-    receipt={'source_file_SHA256':hashlib.sha256(source.read_bytes()).hexdigest(),
+    receipt={'template_provenance':template_provenance,\n       'physically_executable_verified':False,\n       'source_file_SHA256':hashlib.sha256(source.read_bytes()).hexdigest(),
        'template_sha256':hashlib.sha256(templ.encode()).hexdigest(),
        'n_cards':len(rows),'model':'Original ZeeTypeII mass tree scheme; native execution not performed',
        'native_source_status':'STAGED_FOR_USER_VALIDATED_NUCLEAR_PATCHED_SPHENO_NOT_EXECUTED',
@@ -89,10 +89,10 @@ def build(source:Path,template:Path,output_dir:Path):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--source',required=True,type=Path,help='EDM_SUPPRESSED_64_NEUTRINO_AND_2HDM.json from successful exact CI')
-    p.add_argument('--validated-native-template',required=True,type=Path,help='Original authenticated ZeeTypeII/SPheno 4.0.5 tree-scheme model card')
+    p.add_argument('--template',required=True,type=Path,help='Native ZeeTypeII tree-scheme input or explicitly synthetic CI source template')\n    p.add_argument('--template-provenance',required=True,choices=('VALIDATED_USER_NATIVE','SYNTHETIC_CI_NOT_FOR_PHYSICS'))
     p.add_argument('--output-dir',required=True,type=Path)
     a=p.parse_args()
-    receipt=build(a.source,a.validated_native_template,a.output_dir)
+    receipt=build(a.source,a.template,a.output_dir,a.template_provenance)
     print('STAGED_NEW_64_EDM_TEX_INPUTS',receipt['n_cards'],
           'ORIGINAL_NATIVE_EXECUTION_REQUIRED',flush=True)
 if __name__=='__main__':main()
