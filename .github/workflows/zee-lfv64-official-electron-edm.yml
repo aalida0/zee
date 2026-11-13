@@ -1,0 +1,68 @@
+name: Zee 64 original complex cards — corrected official 2HDM electron EDM control
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/zee-lfv64-closure-20261113
+    paths:
+      - research/full_constraints/lfv_literature_closure_2026/official_64_edm.py
+      - .github/workflows/zee-lfv64-official-electron-edm.yml
+permissions:
+  contents: read
+  actions: read
+jobs:
+  edm_64_pure_2hdm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-matched official Python dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy mpmath
+      - name: Retrieve original source-hashed 64-card SLHA (not physical native Wilsons)
+        uses: actions/download-artifact@v4
+        with:
+          name: zee-exact-64-inputs-NOT-native-LFV-rates
+          run-id: 43130710614
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ${{ runner.temp }}/original_64_inputs
+      - name: Inspect and pack exact original model inputs without changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          find "$RUNNER_TEMP/original_64_inputs" -maxdepth 4 -type f | head -20
+          test "$(find "$RUNNER_TEMP/original_64_inputs" -name source-manifest.json | wc -l)" -eq 1
+          test "$(find "$RUNNER_TEMP/original_64_inputs" -name zee-16x4-sourced-models.json | wc -l)" -eq 1
+          cd "$RUNNER_TEMP/original_64_inputs"
+          zip -q -r "$RUNNER_TEMP/source64-repacked-unmodified.zip" .
+      - name: Clone exact public corrected general-2HDM source and fail closed on drift
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --branch master https://gitlab.com/jbrod/general-2hdm-pheno.git "$RUNNER_TEMP/general-2hdm-pheno"
+          commit=$(git -C "$RUNNER_TEMP/general-2hdm-pheno" rev-parse HEAD)
+          [[ "$commit" == b5035cd58d2a7e4a91e9790d045df062b97adffe ]]
+          echo "Official pinned SHA: $commit"
+          echo "9b4af7aa4bf7bf533a7b82c8c2603d118346424e3b7b5f9f06ab8cb41bc4e193  $RUNNER_TEMP/general-2hdm-pheno/thdm.py" | sha256sum --check
+      - name: Evaluate original 64 new Zee cards in corrected pure-2HDM EDM proxy
+        run: |
+          python -m research.full_constraints.lfv_literature_closure_2026.official_64_edm \
+            --artifact "$RUNNER_TEMP/source64-repacked-unmodified.zip" \
+            --scalar-source "$(find "$RUNNER_TEMP/original_64_inputs" -name zee-16x4-sourced-models.json -print -quit)" \
+            --upstream "$RUNNER_TEMP/general-2hdm-pheno" \
+            --output "$RUNNER_TEMP/official_2hdm_edm_64_proxy.json"
+      - name: Archive exact source group decomposition (explicitly NOT full Zee)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zee-64-official-corrected-2hdm-edm-proxy-NOT-Zee
+          path: ${{ runner.temp }}/official_2hdm_edm_64_proxy.json
+          if-no-files-found: warn
+          retention-days: 30
