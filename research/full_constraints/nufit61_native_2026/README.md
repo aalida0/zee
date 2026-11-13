@@ -60,3 +60,36 @@ After `--backend` passes, rerun only the saved NO/IO neutrino comparison or
 reconstruction inputs with an explicitly selected native NuFIT 6.1 dataset.
 Use one chosen projection for each diagnostic and retain the old NuFIT 6.0
 outputs for reproducibility. Do not trigger the large final scan.
+
+
+## Frozen D7/F13 target replay (new)
+
+The historic D11B targets already use secondary NuFIT 6.1 IC24 best-fit summary
+coordinates. Independent interpolation directly into the uploaded IC24 grids
+at those summary coordinates gives the following **single-projection** values:
+
+| Projection | NO | IO |
+|---|---:|---:|
+| `T23/DMA/DCP` | 0.004925923 | 5.916879106 |
+| `T13/T12` | 0.0008789375 | 5.908214 |
+
+The IC24 NO/IO offsets are 0 and 5.908214. The values are **not summed**;
+neither is a joint six-parameter likelihood. IO is retained despite the
+ordering preference. This is a direct *summary-target-coordinate* comparison;
+the full frozen witness replay command below is provided separately.
+
+```bash
+cd ~/zee
+git fetch origin
+git switch research/nufit61-native-20261113
+python3 -m research.full_constraints.nufit61_native_2026.saved_targets \
+  --archive-dir NuFIT --output /tmp/nufit61_D7_F13_targets.json
+```
+
+For an optional IC23 robustness cross-check, add `--include-ic23`.
+The script pins the original D12 benchmark file digest, asserts the
+neutrino target coordinates match the historical summary within numerical
+tolerance, and reports the two separate profiled surfaces for four saved
+low-texture D7/F13 NO/IO witness targets. The script **has not yet been executed**
+inside the user's local Zee checkout; wait for its receipt before labeling the
+four-witness replay PASS. Neither scalar nor LFV calculations are rerun.
