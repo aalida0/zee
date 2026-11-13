@@ -93,7 +93,8 @@ def build(source:Path,template:Path,output_dir:Path,template_provenance:str):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--source',required=True,type=Path,help='EDM_SUPPRESSED_64_NEUTRINO_AND_2HDM.json from successful exact CI')
-    p.add_argument('--template',required=True,type=Path,help='Native ZeeTypeII tree-scheme input or explicitly synthetic CI source template')\n    p.add_argument('--template-provenance',required=True,choices=('VALIDATED_USER_NATIVE','SYNTHETIC_CI_NOT_FOR_PHYSICS'))
+    p.add_argument('--template',required=True,type=Path,help='Native ZeeTypeII tree-scheme input or explicitly synthetic CI source template')
+    p.add_argument('--template-provenance',required=True,choices=('VALIDATED_USER_NATIVE','SYNTHETIC_CI_NOT_FOR_PHYSICS'))
     p.add_argument('--output-dir',required=True,type=Path)
     a=p.parse_args()
     receipt=build(a.source,a.template,a.output_dir,a.template_provenance)
