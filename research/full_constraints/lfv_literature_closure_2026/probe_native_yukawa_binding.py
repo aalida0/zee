@@ -163,6 +163,18 @@ def probe(case:Path,work:Path,output_root:Path,model_dir=None):
         print("PROBE",r["changed_input"],"native_delta_F",r["delta_native_F_relative_to_baseline"],
             "native_delta_YEE2",r["delta_native_Ye2_relative_to_baseline"],
             "propagation",r["model_parameter_input_propagation_proven"])
+    # These experiments identify sensitivity, not the mathematical origin
+    # of any mismatch or a valid model-specific Yukawa boundary prescription.
+    insensitive=[r["changed_input"] for r in rows
+                 if not r["model_parameter_input_propagation_proven"]]
+    print("INSENSITIVE_INPUT_BLOCKS",insensitive)
+    for path,info in result["source_generated_fortran_inspection"].items():
+        if not info.get("exists"):
+            print("GENERATED_FORTRAN_MISSING",path)
+        else:
+            print("GENERATED_FORTRAN_HITS",path,info["hits_total"])
+            for hit in info["matches"][:7]:
+                print("    ",hit["line"],hit["source"])
     print("AUDIT",report)
     print("NATIVE_LFV_UNVALIDATED")
     return result
