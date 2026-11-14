@@ -16,7 +16,7 @@ class SPhenoNativeRunTests(unittest.TestCase):
                 self.assertEqual(cmd[2],"output.spc")
                 self.assertEqual((Path(cwd)/"input.in").read_bytes(),inp.read_bytes())
                 self.assertEqual(Path(cwd),results/'input')
-                Path(cmd[2]).write_text('BLOCK MASS\n 25 125\n')
+                (Path(cwd)/cmd[2]).write_text('BLOCK MASS\n 25 125\n')
                 return subprocess.CompletedProcess(cmd,0,'ok\n','')
             with patch('research.full_constraints.lfv_literature_closure_2026.run_repaired64_native_source.subprocess.run',side_effect=fake_run):
                 output,log,info=run_native_isolated(exe,inp,results)
