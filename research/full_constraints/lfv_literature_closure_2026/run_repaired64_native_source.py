@@ -117,7 +117,27 @@ def execute(source,template,staged,exe,receipt,original_sources,output_dir):
         YeSM=np.sqrt(2)*np.diag(MASS/p['v'])
         Ye2=np.cos(beta)*D+np.sin(beta)*YeSM
         native_lep={'F':encode(F),'D':encode(D),'Ye2':encode(Ye2)}
-        yuk=native_yukawa_gate(final.read_text(),p,native_lep)
+        try:
+            yuk=native_yukawa_gate(final.read_text(),p,native_lep)
+        except ValueError as exc:
+            # Preserve original model-output mismatch; never loosen tolerance.
+            from .diagnose_native_yukawas import inspect_case
+            case=Path(native_exec["case_directory"])
+            detail=inspect_case(case)
+            report=case/"NATIVE_YUKAWA_MISMATCH_DIAGNOSTIC.json"
+            if report.exists():
+                raise FileExistsError("Refuse overwrite prior mismatch diagnostic") from exc
+            report.write_text(json.dumps(detail,indent=2,allow_nan=False)+"\\n")
+            fcmp=detail["FZEE"]
+            ycmp=detail["YEE2"]
+            raise ValueError(
+                "Native Zee Yukawa validation failed for %s: %s; "
+                "FZEE input/output max-relative=%g, YEE2 max-relative=%g; "
+                "best-fit complex F normalization=%s; diagnostics=%s"
+                % (k,exc,fcmp["max_relative_to_source_max"],
+                   ycmp["max_relative_to_source_max"],
+                   fcmp["best_complex_multiplicative_factor"],report)
+            ) from exc
         # Also retain the NEW EDM-repaired diagonal electron zero.
         if abs(D[0,0])>1e-10 or max(abs(D[0,1]),abs(D[1,0]))>1e-10:
             raise ValueError('D electron original target broken')
