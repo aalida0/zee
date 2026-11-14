@@ -12,14 +12,16 @@ class SPhenoNativeRunTests(unittest.TestCase):
             d=Path(t);exe=d/'exe';exe.write_text('stub');inp=d/'input.in';inp.write_text('stub')
             results=d/'results';results.mkdir()
             def fake_run(cmd,*,cwd,capture_output,text,timeout,check):
-                self.assertEqual(Path(cmd[1]),inp)
-                self.assertTrue(Path(cmd[2]).is_absolute())
+                self.assertEqual(cmd[1],"input.in")
+                self.assertEqual(cmd[2],"output.spc")
+                self.assertEqual((Path(cwd)/"input.in").read_bytes(),inp.read_bytes())
                 self.assertEqual(Path(cwd),results/'input')
                 Path(cmd[2]).write_text('BLOCK MASS\n 25 125\n')
                 return subprocess.CompletedProcess(cmd,0,'ok\n','')
             with patch('research.full_constraints.lfv_literature_closure_2026.run_repaired64_native_source.subprocess.run',side_effect=fake_run):
                 output,log,info=run_native_isolated(exe,inp,results)
             self.assertEqual(info['output_mode'],'explicit')
+            self.assertEqual(info['original_input_sha256'],info['short_input_copy_sha256'])
             self.assertIn('EXIT_STATUS 0',log.read_text())
             self.assertEqual(output.read_text(),'BLOCK MASS\n 25 125\n')
 
@@ -53,7 +55,7 @@ class SPhenoNativeRunTests(unittest.TestCase):
             d=Path(t);exe=d/'exe';exe.write_text('stub');inp=d/'input.in';inp.write_text('stub')
             results=d/'results';results.mkdir()
             def fake_run(cmd,*,cwd,**kw):
-                Path(cmd[2]).write_text('one')
+                (Path(cwd)/cmd[2]).write_text('one')
                 (Path(cwd)/'SPheno.spc.ZeeTypeII').write_text('two')
                 return subprocess.CompletedProcess(cmd,0,'','')
             with patch('research.full_constraints.lfv_literature_closure_2026.run_repaired64_native_source.subprocess.run',side_effect=fake_run):
