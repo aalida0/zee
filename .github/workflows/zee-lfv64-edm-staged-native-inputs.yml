@@ -17,6 +17,8 @@ on:
       - research/full_constraints/lfv_literature_closure_2026/test_probe_native_yukawa_binding.py
       - research/full_constraints/lfv_literature_closure_2026/candidate_spheno_boundary.py
       - research/full_constraints/lfv_literature_closure_2026/test_candidate_spheno_boundary.py
+      - research/full_constraints/lfv_literature_closure_2026/trace_native_yukawa_fortran.py
+      - research/full_constraints/lfv_literature_closure_2026/test_trace_native_yukawa_fortran.py
       - .github/workflows/zee-lfv64-edm-staged-native-inputs.yml
 permissions:
   contents: read
@@ -65,6 +67,7 @@ jobs:
           python -m unittest research.full_constraints.lfv_literature_closure_2026.test_diagnose_native_yukawas -v
           python -m unittest research.full_constraints.lfv_literature_closure_2026.test_probe_native_yukawa_binding -v
           python -m unittest research.full_constraints.lfv_literature_closure_2026.test_candidate_spheno_boundary -v
+          python -m unittest research.full_constraints.lfv_literature_closure_2026.test_trace_native_yukawa_fortran -v
       - name: Generate staged new complex Zee 64 cards only, with explicit synthetic provenance
         shell: bash
         run: |
