@@ -24,6 +24,53 @@ LIMITS={'mu_to_e_gamma':1.5e-13,'mu_to_3e':1.0e-12,
 def digest(path:Path)->str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
+def run_native_isolated(exe: Path, inp: Path, result_dir: Path, *, timeout=180):
+    """Run one genuine model card in a clean directory and preserve SPheno messages.
+
+    SARAH/SPheno may write the default SPheno.spc.ZeeTypeII instead of the
+    optional explicit output. Accept default ONLY if isolated and nonempty.
+    """
+    case = result_dir / inp.stem
+    if case.exists():
+        raise FileExistsError("SPheno case directory already exists: " + str(case))
+    case.mkdir(parents=True)
+    explicit = case / (inp.stem + ".spc")
+    default = case / "SPheno.spc.ZeeTypeII"
+    runlog = case / "spheno.stdout.stderr.log"
+    cmd = [str(exe.resolve()), str(inp.resolve()), str(explicit.resolve())]
+    try:
+        proc = subprocess.run(cmd, cwd=case, capture_output=True, text=True,
+                              timeout=timeout, check=False)
+    except subprocess.TimeoutExpired as exc:
+        runlog.write_text("SPheno timed out; command=" + repr(cmd) + "\n")
+        raise RuntimeError("SPheno timeout; log " + str(runlog)) from exc
+    runlog.write_text("COMMAND " + repr(cmd) + "\nEXIT_STATUS " +
+                      str(proc.returncode) + "\nSTDOUT\n" + proc.stdout +
+                      "\nSTDERR\n" + proc.stderr)
+    messages = [x for x in sorted(case.iterdir()) if x.is_file()
+                and ("message" in x.name.lower() or "error" in x.name.lower())]
+    files = [x.name for x in sorted(case.iterdir()) if x.is_file()]
+    diagnostics = "\n".join(x.name + ":\n" +
+                    x.read_text(errors="replace")[-3500:] for x in messages)
+    if proc.returncode != 0:
+        raise RuntimeError("SPheno exit %d; log %s; messages %s" %
+                           (proc.returncode,runlog,diagnostics[-4000:]))
+    outputs = [x for x in (explicit,default) if x.is_file() and x.stat().st_size > 0]
+    if len(outputs) > 1:
+        raise RuntimeError("Ambiguous two nonempty SPheno outputs in " + str(case))
+    if not outputs:
+        raise RuntimeError(
+            "SPheno exit 0 but NO NONEMPTY SPECTRUM; case %s; files %s; "
+            "log %s; stdout tail %r; stderr tail %r; messages %s" %
+            (case,files,runlog,proc.stdout[-2400:],proc.stderr[-2400:],diagnostics[-4000:]))
+    return outputs[0],runlog,{
+        "case_directory":str(case),
+        "output_mode":"explicit" if outputs[0]==explicit else "default",
+        "stdout_log":str(runlog),
+        "auxiliary_diagnostics":[str(x) for x in messages],
+        "returncode":proc.returncode}
+
+
 def execute(source,template,staged,exe,receipt,original_sources,output_dir):
     if output_dir.exists():raise FileExistsError('Existing output cannot be overwritten')
     src=json.loads(source.read_text());cards=src['records']
@@ -55,12 +102,7 @@ def execute(source,template,staged,exe,receipt,original_sources,output_dir):
         inp=staged/row['SLHA']
         if digest(inp)!=row['sha256_SLHA']:
             raise ValueError('Changed native SLHA source card')
-        final=output_dir/(inp.stem+'.spc')
-        log=output_dir/(inp.stem+'.log')
-        cmd=[str(exe.resolve()),str(inp.resolve()),str(final.resolve())]
-        completed=subprocess.run(cmd,capture_output=True,text=True,check=True,timeout=180)
-        log.write_text(completed.stdout+'\nSTDERR\n'+completed.stderr)
-        if not final.is_file():raise ValueError('Native SPheno exited without spectrum')
+        final,log,native_exec=run_native_isolated(exe,inp,output_dir)
         spectrum=tree_scheme_mass_gate(final.read_text(),p)
         F,D=decode(card['Yukawas']['F']),decode(card['Yukawas']['D'])
         beta=p['beta']
@@ -77,6 +119,7 @@ def execute(source,template,staged,exe,receipt,original_sources,output_dir):
         out.append({'id':list(k),'native_mass_matching':spectrum,'native_yukawa_matching':yuk,
                     'rate_1loop_source':rates,'experiment_comparison':cmp,
                     'native_spectrum_SHA256':digest(final),'native_log_SHA256':digest(log),
+                    'native_spheno_execution':native_exec,
                     'original_source_sha256':verified,
                     'full_physical_LFV':None,'global_acceptance':None})
         print('NEW_EDM3ZERO_NATIVE',*k,
