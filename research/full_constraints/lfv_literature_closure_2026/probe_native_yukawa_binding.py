@@ -10,9 +10,9 @@ the native generated model is not propagating those inputs, or a boundary
 condition overrides them. This does not identify the exact Fortran statement
 until InputOutput_ZeeTypeII and SugraRuns_ZeeTypeII are inspected.
 
-python -m research.full_constraints.lfv_literature_closure_2026.probe_native_yukawa_binding \\
-  --case /path/to/EDM3ZERO_SOURCE64_.../native-source-64-results/Zee_... \\
-  --work ~/zee-lfv64-serial-20261112-094549 \\
+python -m research.full_constraints.lfv_literature_closure_2026.probe_native_yukawa_binding \
+  --case /path/to/EDM3ZERO_SOURCE64_.../native-source-64-results/Zee_... \
+  --work ~/zee-lfv64-serial-20261112-094549 \
   --output-root /tmp/zee-binding-probe-001
 """
 from __future__ import annotations
@@ -35,7 +35,7 @@ def scaled_matrix_entries(raw:str,stem:str,factor:float,keys:tuple[tuple[int,int
     """
     if not math.isfinite(factor) or factor<=0 or factor==1:
         raise ValueError("Need a meaningful finite positive scale factor")
-    sections=re.compile(r"(?im)^\\s*BLOCK\\s+([A-Za-z0-9_]+)\\b")
+    sections=re.compile(r"(?im)^\s*BLOCK\s+([A-Za-z0-9_]+)\b")
     matches=list(sections.finditer(raw))
     if not matches:raise ValueError("No SLHA blocks")
     wanted={stem.upper(),"IM"+stem.upper()}
@@ -53,9 +53,9 @@ def scaled_matrix_entries(raw:str,stem:str,factor:float,keys:tuple[tuple[int,int
             lines=piece.splitlines(keepends=True)
             for j in range(1,len(lines)):
                 text=lines[j]
-                body=text.rstrip("\\r\\n")
+                body=text.rstrip("\r\n")
                 newline=text[len(body):]
-                match=re.match(r"^(\\s*)([1-3])\\s+([1-3])\\s+([+-]?(?:\\d*\\.)?\\d+(?:[EeDd][+-]?\\d+)?)(.*)$",body)
+                match=re.match(r"^(\s*)([1-3])\s+([1-3])\s+([+-]?(?:\d*\.)?\d+(?:[EeDd][+-]?\d+)?)(.*)$",body)
                 if match and (int(match.group(2)),int(match.group(3))) in keys:
                     old=float(match.group(4).replace("D","E").replace("d","e"))
                     new=old*factor
@@ -157,7 +157,7 @@ def probe(case:Path,work:Path,output_root:Path,model_dir=None):
         "original_mismatch":original,
         "probes":rows,"global_acceptance":None,"full_physical_LFV":None}
     report=output_root/"ZEE_NATIVE_YUKAWA_INPUT_BINDING_PROBE.json"
-    report.write_text(json.dumps(result,indent=2,allow_nan=False)+"\\n")
+    report.write_text(json.dumps(result,indent=2,allow_nan=False)+"\n")
     print("SOURCE_CASE",case)
     for r in rows:
         print("PROBE",r["changed_input"],"native_delta_F",r["delta_native_F_relative_to_baseline"],
