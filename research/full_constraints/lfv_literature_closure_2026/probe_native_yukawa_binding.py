@@ -53,13 +53,15 @@ def scaled_matrix_entries(raw:str,stem:str,factor:float,keys:tuple[tuple[int,int
             lines=piece.splitlines(keepends=True)
             for j in range(1,len(lines)):
                 text=lines[j]
-                match=re.match(r"^(\\s*)([1-3])\\s+([1-3])\\s+([+-]?(?:\\d*\\.)?\\d+(?:[EeDd][+-]?\\d+)?)(.*)$",text)
+                body=text.rstrip("\\r\\n")
+                newline=text[len(body):]
+                match=re.match(r"^(\\s*)([1-3])\\s+([1-3])\\s+([+-]?(?:\\d*\\.)?\\d+(?:[EeDd][+-]?\\d+)?)(.*)$",body)
                 if match and (int(match.group(2)),int(match.group(3))) in keys:
                     old=float(match.group(4).replace("D","E").replace("d","e"))
                     new=old*factor
                     if not math.isfinite(new):raise ValueError("Scaled matrix nonfinite")
                     lines[j]=(match.group(1)+match.group(2)+" "+match.group(3)+
-                              f" {new:.17e}"+match.group(5))
+                              f" {new:.17e}"+match.group(5)+newline)
                     counts[name]+=1
             piece="".join(lines)
         rebuilt.append(piece);cursor=end
