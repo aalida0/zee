@@ -34,10 +34,16 @@ def run_native_isolated(exe: Path, inp: Path, result_dir: Path, *, timeout=180):
     if case.exists():
         raise FileExistsError("SPheno case directory already exists: " + str(case))
     case.mkdir(parents=True)
-    explicit = case / (inp.stem + ".spc")
+    # Very long absolute card/output names can exceed fixed-length Fortran
+    # filename buffers. Copy exact validated input into a short, isolated path.
+    local_input = case / "input.in"
+    local_input.write_bytes(inp.read_bytes())
+    if digest(local_input) != digest(inp):
+        raise ArithmeticError("Native short input copy changed the SLHA source bytes")
+    explicit = case / "output.spc"
     default = case / "SPheno.spc.ZeeTypeII"
     runlog = case / "spheno.stdout.stderr.log"
-    cmd = [str(exe.resolve()), str(inp.resolve()), str(explicit.resolve())]
+    cmd = [str(exe.resolve()), "input.in", "output.spc"]
     try:
         proc = subprocess.run(cmd, cwd=case, capture_output=True, text=True,
                               timeout=timeout, check=False)
@@ -66,6 +72,8 @@ def run_native_isolated(exe: Path, inp: Path, result_dir: Path, *, timeout=180):
     return outputs[0],runlog,{
         "case_directory":str(case),
         "output_mode":"explicit" if outputs[0]==explicit else "default",
+        "original_input_sha256":digest(inp),
+        "short_input_copy_sha256":digest(local_input),
         "stdout_log":str(runlog),
         "auxiliary_diagnostics":[str(x) for x in messages],
         "returncode":proc.returncode}
