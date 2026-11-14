@@ -175,7 +175,9 @@ def main():
                    help="Private SARAH generated SPheno model directory, optional")
     a.add_argument("--output-root",required=True,type=Path)
     args=a.parse_args()
-    probe(args.case.expanduser(),args.work.expanduser(),args.output_root.expanduser(),
-          args.model_dir.expanduser() if args.model_dir else None)
+    work=args.work.expanduser()
+    generated=args.model_dir.expanduser() if args.model_dir else work/"SPheno-4.0.5/ZeeTypeII"
+    probe(args.case.expanduser(),work,args.output_root.expanduser(),
+          generated if generated.is_dir() else None)
 
 if __name__=="__main__":main()
