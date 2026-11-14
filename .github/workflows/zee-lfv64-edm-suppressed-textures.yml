@@ -41,11 +41,18 @@ jobs:
           python -m research.full_constraints.lfv_literature_closure_2026.edm_suppressed_textures \
             --upstream "$RUNNER_TEMP/general-2hdm-pheno" \
             --output "$RUNNER_TEMP/EDM_SUPPRESSED_64_NEUTRINO_AND_2HDM.json"
+      - name: Test independent fourth electron row zero as potentially stronger CP-safe texture
+        run: |
+          python -m research.full_constraints.lfv_literature_closure_2026.four_zero_electron_row \
+            --upstream "$RUNNER_TEMP/general-2hdm-pheno" \
+            --output "$RUNNER_TEMP/FOUR_ZERO_ELECTRON_ROW_64.json"
       - name: Export source-checked non-exclusion decisions (full Zee gate remains unknown)
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: zee-edm-suppressed-64-new-textures-conditional-only
-          path: ${{ runner.temp }}/EDM_SUPPRESSED_64_NEUTRINO_AND_2HDM.json
+          path: |
+            ${{ runner.temp }}/EDM_SUPPRESSED_64_NEUTRINO_AND_2HDM.json
+            ${{ runner.temp }}/FOUR_ZERO_ELECTRON_ROW_64.json
           if-no-files-found: warn
           retention-days: 30
