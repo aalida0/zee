@@ -157,7 +157,13 @@ def render_block(name,entries):
         if not isinstance(idx,tuple):idx=(idx,)
         z=float(val)
         if not math.isfinite(z):raise ValueError("Nonfinite new matrix/scalar input")
-        rows.append("  "+" ".join(str(x) for x in idx)+f"  {z:.17e}")
+        # The generated SPheno ReadMatrixC reader performs
+        #   Read(io,*) i1, i2, wert, read_line
+        # and therefore requires a fourth token on the SAME physical
+        # record. Without this trailing comment, list-directed Fortran
+        # reads spill into the next record (even consuming BLOCK headers).
+        # Also keep an inline comment for single-index MINPAR entries.
+        rows.append("  "+" ".join(str(x) for x in idx)+f"  {z:.17e} # generated entry")
     return "\n".join([head,*rows])+"\n"
 
 def set_model_blocks(template, scalar, lepton):
