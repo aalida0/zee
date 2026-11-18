@@ -92,6 +92,40 @@ class NativeInputContracts(unittest.TestCase):
         self.assertEqual(block_values(sec["SMINPUTS"]),block_values(split_slha(TEMPLATE)["SMINPUTS"]))
         self.assertEqual(block_values(sec["SPHENOINPUT"]),block_values(split_slha(TEMPLATE)["SPHENOINPUT"]))
 
+    def test_generated_matrix_records_have_fortran_reader_fourth_field(self):
+        """ReadMatrixC consumes four whitespace fields per record.
+
+        A three-field row causes Fortran list-directed input to consume the
+        next row or a BLOCK header, corrupting the original Zee matrices.
+        """
+        p=source_points()[0]["input_card"]
+        f=np.zeros((3,3),complex)
+        f[0,1]=2e-4+7e-5j
+        f[1,0]=-f[0,1]
+        y=np.eye(3,dtype=complex)*3e-3
+        native=TEMPLATE.replace("Block FZEE","Block FZEEIN").replace(
+            "Block YEE2","Block YEE2IN")
+        generated=set_model_blocks(native,p,{"F":encode(f),"Ye2":encode(y)})
+        matrix_names=("FZEEIN","IMFZEEIN","YEE2IN","IMYEE2IN")
+        for name in matrix_names:
+            section=split_slha(generated)[name]
+            data=[line for line in section[1:] if line.strip() and
+                  not line.lstrip().startswith("#")]
+            self.assertEqual(len(data),9,name)
+            for line in data:
+                fields=line.split()
+                self.assertGreaterEqual(len(fields),5,(name,line))
+                self.assertEqual(fields[3],"#",(name,line))
+                int(fields[0]); int(fields[1]); float(fields[2])
+                self.assertTrue(fields[4],(name,line))
+        # A numeric-value-only SLHA parser cannot detect this reader bug:
+        # verify both the values and their physical-record formatting.
+        parsed=split_slha(generated)
+        self.assertAlmostEqual(block_values(parsed["FZEEIN"])[(1,2)],2e-4)
+        self.assertAlmostEqual(block_values(parsed["IMFZEEIN"])[(1,2)],7e-5)
+        self.assertAlmostEqual(block_values(parsed["YEE2IN"])[(1,1)],3e-3)
+        self.assertEqual(len(block_values(parsed["MINPAR"])),13)
+
     def test_ambiguity_rejects_both_input_and_output_model_stems(self):
         p=source_points()[0]["input_card"]
         z=np.zeros((3,3),dtype=complex)
